@@ -1,0 +1,767 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project: A Pixel Art Editor :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
+  <script src="js/acorn_codemirror.js"></script>
+  <link rel=stylesheet href="css/ejs.css">
+  <script src="js/sandbox.js"></script>
+  <script src="js/ejs.js"></script><script>var chapNum = 19;var sandboxLoadFiles = ["code/chapter/19_paint.js"];</script></head>
+
+<article>
+<nav><a href="18_http.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="20_node.html" title="next chapter">▶</a></nav>
+
+<h1><span class=chap_num>Chapter 19</span>Project: A Pixel Art Editor</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p_S+jzRBETBQ" href="#p_S+jzRBETBQ" tabindex="-1" role="presentation"></a>I look at the many colors before me. I look at my blank canvas. Then, I try to apply colors like words that shape poems, like notes that shape music.</p>
+
+<footer>Joan Miro</footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_19.jpg" alt="Picture of a tiled mosaic"></figure>
+
+<p><a class="p_ident" id="p_m3rLDhVHTL" href="#p_m3rLDhVHTL" tabindex="-1" role="presentation"></a>The material from the previous chapters gives you all the elements you need to build a basic web application. In this chapter, we will do just that.</p>
+
+<p><a class="p_ident" id="p_1emWaHj7VO" href="#p_1emWaHj7VO" tabindex="-1" role="presentation"></a>Our application will be a pixel drawing program, where you can modify a picture pixel by pixel by manipulating a zoomed-in view of it, shown as a grid of colored squares. You can use the program to open image files, scribble on them with your mouse or other pointer device, and save them. This is what it will look like:</p><figure><img src="img/pixel_editor.png" alt="The pixel editor interface, with colored pixels at the top and a number of controls below that"></figure>
+
+<p><a class="p_ident" id="p_oDwL9FxPW8" href="#p_oDwL9FxPW8" tabindex="-1" role="presentation"></a>Painting on a computer is great. You don’t need to worry about materials, skill, or talent. You just start smearing.</p>
+
+<h2><a class="h_ident" id="h_kolHPu7a7g" href="#h_kolHPu7a7g" tabindex="-1" role="presentation"></a>Components</h2>
+
+<p><a class="p_ident" id="p_FdzFEXmy5/" href="#p_FdzFEXmy5/" tabindex="-1" role="presentation"></a>The interface for the application shows a big <code>&lt;canvas&gt;</code> element on top, with a number of form fields below it. The user draws on the picture by selecting a tool from a <code>&lt;select&gt;</code> field and then clicking, touching, or dragging across the canvas. There are tools for drawing single pixels or rectangles, for filling an area, and for picking a color from the picture.</p>
+
+<p><a class="p_ident" id="p_NhRI/7J4/9" href="#p_NhRI/7J4/9" tabindex="-1" role="presentation"></a>We will structure the editor interface as a number of <em>components</em>, objects that are responsible for a piece of the DOM and that may contain other components inside them.</p>
+
+<p><a class="p_ident" id="p_fkKmP4oVNw" href="#p_fkKmP4oVNw" tabindex="-1" role="presentation"></a>The state of the application consists of the current picture, the selected tool, and the selected color. We’ll set things up so that the state lives in a single value, and the interface components always base the way they look on the current state.</p>
+
+<p><a class="p_ident" id="p_vdd3n7kKQ+" href="#p_vdd3n7kKQ+" tabindex="-1" role="presentation"></a>To see why this is important, let’s consider the alternative—distributing pieces of state throughout the interface. Up to a certain point, this is easier to program. We can just put in a color field and read its value when we need to know the current color.</p>
+
+<p><a class="p_ident" id="p_DT4dS+wk+p" href="#p_DT4dS+wk+p" tabindex="-1" role="presentation"></a>But then we add the color picker—a tool that lets you click the picture to select the color of a given pixel. To keep the color field showing the correct color, that tool would have to know that it exists and update it whenever it picks a new color. If you ever add another place that makes the color visible (maybe the mouse cursor could show it), you have to update your color-changing code to keep that synchronized.</p>
+
+<p><a class="p_ident" id="p_V/rEZY0rXG" href="#p_V/rEZY0rXG" tabindex="-1" role="presentation"></a>In effect, this creates a problem where each part of the interface needs to know about all other parts, which is not very modular. For small applications like the one in this chapter, that may not be a problem. For bigger projects, it can turn into a real nightmare.</p>
+
+<p><a class="p_ident" id="p_g1VVb9/ySC" href="#p_g1VVb9/ySC" tabindex="-1" role="presentation"></a>To avoid this nightmare on principle, we’re going to be strict about <em>data flow</em>. There is a state, and the interface is drawn based on that state. An interface component may respond to user actions by updating the state, at which point the components get a chance to synchronize themselves with this new state.</p>
+
+<p><a class="p_ident" id="p_snbNYCWNLn" href="#p_snbNYCWNLn" tabindex="-1" role="presentation"></a>In practice, each component is set up so that when it is given a new state, it also notifies its child components, insofar as those need to be updated. Setting this up is a bit of a hassle. Making this more convenient is the main selling point of many browser programming libraries. But for a small application like this, we can do it without such infrastructure.</p>
+
+<p><a class="p_ident" id="p_lPz3O+BIo4" href="#p_lPz3O+BIo4" tabindex="-1" role="presentation"></a>Updates to the state are represented as objects, which we’ll call <em>actions</em>. Components may create such actions and <em>dispatch</em> them—give them to a central state management function. That function computes the next state, after which the interface components update themselves to this new state.</p>
+
+<p><a class="p_ident" id="p_5gofo0W3xD" href="#p_5gofo0W3xD" tabindex="-1" role="presentation"></a>We’re taking the messy task of running a user interface and applying some structure to it. Though the DOM-related pieces are still full of side effects, they are held up by a conceptually simple backbone: the state update cycle. The state determines what the DOM looks like, and the only way DOM events can change the state is by dispatching actions to the state.</p>
+
+<p><a class="p_ident" id="p_/EcvUcHPZo" href="#p_/EcvUcHPZo" tabindex="-1" role="presentation"></a>There are <em>many</em> variants of this approach, each with its own benefits and problems, but their central idea is the same: state changes should go through a single well-defined channel, not happen all over the place.</p>
+
+<p><a class="p_ident" id="p_x8WZeXxSe3" href="#p_x8WZeXxSe3" tabindex="-1" role="presentation"></a>Our components will be classes conforming to an interface. Their constructor is given a state—which may be the whole application state or some smaller value if it doesn’t need access to everything—and uses that to build up a <code>dom</code> property. This is the DOM element that represents the component. Most constructors will also take some other values that won’t change over time, such as the function they can use to dispatch an action.</p>
+
+<p><a class="p_ident" id="p_//+fikMSC2" href="#p_//+fikMSC2" tabindex="-1" role="presentation"></a>Each component has a <code>syncState</code> method that is used to synchronize it to a new state value. The method takes one argument, the state, which is of the same type as the first argument to its constructor.</p>
+
+<h2><a class="h_ident" id="h_ftf/mS/U0E" href="#h_ftf/mS/U0E" tabindex="-1" role="presentation"></a>The state</h2>
+
+<p><a class="p_ident" id="p_bfnMVWQbM8" href="#p_bfnMVWQbM8" tabindex="-1" role="presentation"></a>The application state will be an object with <code>picture</code>, <code>tool</code>, and <code>color</code> properties. The picture is itself an object that stores the width, height, and pixel content of the picture. The pixels are stored in an array, in the same way as the matrix class from <a href="06_object.html">Chapter 6</a>—row by row, from top to bottom.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FaXS4E1Q9/" href="#c_FaXS4E1Q9/" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Picture</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">width</span>, <span class="cm-def">height</span>, <span class="cm-def">pixels</span>) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-variable-2">width</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-variable-2">height</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">pixels</span> <span class="cm-operator">=</span> <span class="cm-variable-2">pixels</span>;
+  }
+  <span class="cm-keyword">static</span> <span class="cm-property">empty</span>(<span class="cm-def">width</span>, <span class="cm-def">height</span>, <span class="cm-def">color</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">pixels</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Array</span>(<span class="cm-variable-2">width</span> <span class="cm-operator">*</span> <span class="cm-variable-2">height</span>).<span class="cm-property">fill</span>(<span class="cm-variable-2">color</span>);
+    <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Picture</span>(<span class="cm-variable-2">width</span>, <span class="cm-variable-2">height</span>, <span class="cm-variable-2">pixels</span>);
+  }
+  <span class="cm-property">pixel</span>(<span class="cm-def">x</span>, <span class="cm-def">y</span>) {
+    <span class="cm-keyword">return</span> <span class="cm-keyword">this</span>.<span class="cm-property">pixels</span>[<span class="cm-variable-2">x</span> <span class="cm-operator">+</span> <span class="cm-variable-2">y</span> <span class="cm-operator">*</span> <span class="cm-keyword">this</span>.<span class="cm-property">width</span>];
+  }
+  <span class="cm-property">draw</span>(<span class="cm-def">pixels</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">copy</span> <span class="cm-operator">=</span> <span class="cm-keyword">this</span>.<span class="cm-property">pixels</span>.<span class="cm-property">slice</span>();
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> {<span class="cm-def">x</span>, <span class="cm-def">y</span>, <span class="cm-def">color</span>} <span class="cm-keyword">of</span> <span class="cm-variable-2">pixels</span>) {
+      <span class="cm-variable-2">copy</span>[<span class="cm-variable-2">x</span> <span class="cm-operator">+</span> <span class="cm-variable-2">y</span> <span class="cm-operator">*</span> <span class="cm-keyword">this</span>.<span class="cm-property">width</span>] <span class="cm-operator">=</span> <span class="cm-variable-2">color</span>;
+    }
+    <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Picture</span>(<span class="cm-keyword">this</span>.<span class="cm-property">width</span>, <span class="cm-keyword">this</span>.<span class="cm-property">height</span>, <span class="cm-variable-2">copy</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_gEQNun84hI" href="#p_gEQNun84hI" tabindex="-1" role="presentation"></a>We want to be able to treat a picture as an immutable value, for reasons that we’ll get back to later in the chapter. But we also sometimes need to update a whole bunch of pixels at a time. To be able to do that, the class has a <code>draw</code> method that expects an array of updated pixels—objects with <code>x</code>, <code>y</code>, and <code>color</code> properties—and creates a new picture with those pixels overwritten. This method uses <code>slice</code> without arguments to copy the entire pixel array—the start of the slice defaults to 0, and the end defaults to the array’s length.</p>
+
+<p><a class="p_ident" id="p_WuI3QLNiPA" href="#p_WuI3QLNiPA" tabindex="-1" role="presentation"></a>The <code>empty</code> method uses two pieces of array functionality that we haven’t seen before. The <code>Array</code> constructor can be called with a number to create an empty array of the given length. The <code>fill</code> method can then be used to fill this array with a given value. These are used to create an array in which all pixels have the same color.</p>
+
+<p><a class="p_ident" id="p_06+YtnEEH5" href="#p_06+YtnEEH5" tabindex="-1" role="presentation"></a>Colors are stored as strings containing traditional CSS color
+codes made up of a hash sign (<code>#</code>) followed by six hexadecimal (base-16) digits—two for the red component, two for the green component, and two for the blue component. This is a somewhat cryptic and inconvenient way to write colors, but it is the format the HTML color input field uses, and it can be used in the <code>fillColor</code> property of a canvas drawing context, so for the ways we’ll use colors in this program, it is practical enough.</p>
+
+<p><a class="p_ident" id="p_EsZKxAfcSW" href="#p_EsZKxAfcSW" tabindex="-1" role="presentation"></a>Black, where all components are zero, is written <code>&quot;#000000&quot;</code>, and bright pink looks like <code>&quot;#ff00ff&quot;</code>, where the red and blue components have the maximum value of 255, written <code>ff</code> in hexadecimal digits (which use <em>a</em> to <em>f</em> to represent digits 10 to 15).</p>
+
+<p><a class="p_ident" id="p_gcI/Yem+Yv" href="#p_gcI/Yem+Yv" tabindex="-1" role="presentation"></a>We’ll allow the interface to dispatch actions as objects whose properties overwrite the properties of the previous state. The color field, when the user changes it, could dispatch an object like <code>{color: field.<wbr>value}</code>, from which this update function can compute a new state.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_0xovfSx+PU" href="#c_0xovfSx+PU" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">updateState</span>(<span class="cm-def">state</span>, <span class="cm-def">action</span>) {
+  <span class="cm-keyword">return</span> <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>({}, <span class="cm-variable-2">state</span>, <span class="cm-variable-2">action</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_nJ9Pa/72hN" href="#p_nJ9Pa/72hN" tabindex="-1" role="presentation"></a>This rather cumbersome pattern, in which <code>Object.assign</code> is used to first add the properties of <code>state</code> to an empty object and then overwrite some of those with the properties from <code>action</code>, is common in JavaScript code that uses immutable objects. A more convenient notation for this, in which the triple-dot operator is used to include all properties from another object in an object expression, is in the final stages of being standardized. With that addition, you could write <code>{.<wbr>.<wbr>.<wbr>state, .<wbr>.<wbr>.<wbr>action}</code> instead. At the time of writing, this doesn’t yet work in all browsers.</p>
+
+<h2><a class="h_ident" id="h_sNxHTHiM3l" href="#h_sNxHTHiM3l" tabindex="-1" role="presentation"></a>DOM building</h2>
+
+<p><a class="p_ident" id="p_pW7WuvagbQ" href="#p_pW7WuvagbQ" tabindex="-1" role="presentation"></a>One of the main things that interface components do is creating DOM structure. We again don’t want to directly use the verbose DOM methods for that, so here’s a slightly expanded version of the <code>elt</code> function:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bpc/osm9kD" href="#c_bpc/osm9kD" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">elt</span>(<span class="cm-def">type</span>, <span class="cm-def">props</span>, <span class="cm-meta">...</span><span class="cm-def">children</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-variable-2">type</span>);
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">props</span>) <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>(<span class="cm-variable-2">dom</span>, <span class="cm-variable-2">props</span>);
+  <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">child</span> <span class="cm-keyword">of</span> <span class="cm-variable-2">children</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-keyword">typeof</span> <span class="cm-variable-2">child</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;string&quot;</span>) <span class="cm-variable-2">dom</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable-2">child</span>);
+    <span class="cm-keyword">else</span> <span class="cm-variable-2">dom</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">document</span>.<span class="cm-property">createTextNode</span>(<span class="cm-variable-2">child</span>));
+  }
+  <span class="cm-keyword">return</span> <span class="cm-variable-2">dom</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_BpQHRZu5+n" href="#p_BpQHRZu5+n" tabindex="-1" role="presentation"></a>The main difference between this version and the one we used in <a href="16_game.html#domdisplay">Chapter 16</a> is that it assigns <em>properties</em> to DOM nodes, not <em>attributes</em>. This means we can’t use it to set arbitrary attributes, but we <em>can</em> use it to set properties whose value isn’t a string, such as <code>onclick</code>, which can be set to a function to register a click event handler.</p>
+
+<p><a class="p_ident" id="p_ZshAZr+fAT" href="#p_ZshAZr+fAT" tabindex="-1" role="presentation"></a>This allows the following style of registering event handlers:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_UrXW9qBNM+" href="#c_UrXW9qBNM+" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">elt</span>(<span class="cm-string">&quot;button&quot;</span>, {
+      <span class="cm-property">onclick</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;click&quot;</span>)
+    }, <span class="cm-string">&quot;The button&quot;</span>));
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<h2><a class="h_ident" id="h_amGIg81orI" href="#h_amGIg81orI" tabindex="-1" role="presentation"></a>The canvas</h2>
+
+<p><a class="p_ident" id="p_BmCCXvkmPk" href="#p_BmCCXvkmPk" tabindex="-1" role="presentation"></a>The first component we’ll define is the part of the interface that displays the picture as a grid of colored boxes. This component is responsible for two things: showing a picture and communicating pointer events on that picture to the rest of the application.</p>
+
+<p><a class="p_ident" id="p_A/ZPezFryZ" href="#p_A/ZPezFryZ" tabindex="-1" role="presentation"></a>As such, we can define it as a component that knows about only the current picture, not the whole application state. Because it doesn’t know how the application as a whole works, it cannot directly dispatch actions. Rather, when responding to pointer events, it calls a callback function provided by the code that created it, which will handle the application-specific parts.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uknkIx/3Hs" href="#c_uknkIx/3Hs" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">scale</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
+
+<span class="cm-keyword">class</span> <span class="cm-def">PictureCanvas</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">picture</span>, <span class="cm-def">pointerDown</span>) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;canvas&quot;</span>, {
+      <span class="cm-property">onmousedown</span>: <span class="cm-def">event</span> <span class="cm-operator">=&gt;</span> <span class="cm-keyword">this</span>.<span class="cm-property">mouse</span>(<span class="cm-variable-2">event</span>, <span class="cm-variable-2">pointerDown</span>),
+      <span class="cm-property">ontouchstart</span>: <span class="cm-def">event</span> <span class="cm-operator">=&gt;</span> <span class="cm-keyword">this</span>.<span class="cm-property">touch</span>(<span class="cm-variable-2">event</span>, <span class="cm-variable-2">pointerDown</span>)
+    });
+    <span class="cm-keyword">this</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">picture</span>);
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">picture</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">==</span> <span class="cm-variable-2">picture</span>) <span class="cm-keyword">return</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>;
+    <span class="cm-variable">drawPicture</span>(<span class="cm-keyword">this</span>.<span class="cm-property">picture</span>, <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>, <span class="cm-variable">scale</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_GUKkdM8Vr3" href="#p_GUKkdM8Vr3" tabindex="-1" role="presentation"></a>We draw each pixel as a 10-by-10 square, as determined by the <code>scale</code> constant. To avoid unnecessary work, the component keeps track of its current picture and does a redraw only when <code>syncState</code> is given a new picture.</p>
+
+<p><a class="p_ident" id="p_+vW5Ci/vvJ" href="#p_+vW5Ci/vvJ" tabindex="-1" role="presentation"></a>The actual drawing function sets the size of the canvas based on the scale and picture size and fills it with a series of squares, one for each pixel.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kMF9hx2xSw" href="#c_kMF9hx2xSw" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">drawPicture</span>(<span class="cm-def">picture</span>, <span class="cm-def">canvas</span>, <span class="cm-def">scale</span>) {
+  <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">width</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>;
+  <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">height</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">cx</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">&quot;2d&quot;</span>);
+
+  <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">y</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">y</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">height</span>; <span class="cm-variable-2">y</span><span class="cm-operator">++</span>) {
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">x</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">width</span>; <span class="cm-variable-2">x</span><span class="cm-operator">++</span>) {
+      <span class="cm-variable-2">cx</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">pixel</span>(<span class="cm-variable-2">x</span>, <span class="cm-variable-2">y</span>);
+      <span class="cm-variable-2">cx</span>.<span class="cm-property">fillRect</span>(<span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">y</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">scale</span>);
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_wPTPY1JmU4" href="#p_wPTPY1JmU4" tabindex="-1" role="presentation"></a>When the left mouse button is pressed while the mouse is over the picture canvas, the component calls the <code>pointerDown</code> callback, giving it the position of the pixel that was clicked—in picture coordinates. This will be used to implement mouse interaction with the picture. The callback may return another callback function to be notified when the pointer is moved to a different pixel while the button is held down.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_G1LWj2jAqP" href="#c_G1LWj2jAqP" tabindex="-1" role="presentation"></a><span class="cm-variable">PictureCanvas</span>.<span class="cm-property">prototype</span>.<span class="cm-property">mouse</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">downEvent</span>, <span class="cm-def">onDown</span>) {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">downEvent</span>.<span class="cm-property">button</span> <span class="cm-operator">!=</span> <span class="cm-number">0</span>) <span class="cm-keyword">return</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">pos</span> <span class="cm-operator">=</span> <span class="cm-variable">pointerPosition</span>(<span class="cm-variable-2">downEvent</span>, <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">onMove</span> <span class="cm-operator">=</span> <span class="cm-variable-2">onDown</span>(<span class="cm-variable-2">pos</span>);
+  <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">onMove</span>) <span class="cm-keyword">return</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">move</span> <span class="cm-operator">=</span> <span class="cm-def">moveEvent</span> <span class="cm-operator">=&gt;</span> {
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">moveEvent</span>.<span class="cm-property">buttons</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
+      <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">removeEventListener</span>(<span class="cm-string">&quot;mousemove&quot;</span>, <span class="cm-variable-2">move</span>);
+    } <span class="cm-keyword">else</span> {
+      <span class="cm-keyword">let</span> <span class="cm-def">newPos</span> <span class="cm-operator">=</span> <span class="cm-variable">pointerPosition</span>(<span class="cm-variable-2">moveEvent</span>, <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>);
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">newPos</span>.<span class="cm-property">x</span> <span class="cm-operator">==</span> <span class="cm-variable-2">pos</span>.<span class="cm-property">x</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable-2">newPos</span>.<span class="cm-property">y</span> <span class="cm-operator">==</span> <span class="cm-variable-2">pos</span>.<span class="cm-property">y</span>) <span class="cm-keyword">return</span>;
+      <span class="cm-variable-2">pos</span> <span class="cm-operator">=</span> <span class="cm-variable-2">newPos</span>;
+      <span class="cm-variable-2">onMove</span>(<span class="cm-variable-2">newPos</span>);
+    }
+  };
+  <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;mousemove&quot;</span>, <span class="cm-variable-2">move</span>);
+};
+
+<span class="cm-keyword">function</span> <span class="cm-def">pointerPosition</span>(<span class="cm-def">pos</span>, <span class="cm-def">domNode</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">rect</span> <span class="cm-operator">=</span> <span class="cm-variable-2">domNode</span>.<span class="cm-property">getBoundingClientRect</span>();
+  <span class="cm-keyword">return</span> {<span class="cm-property">x</span>: <span class="cm-variable">Math</span>.<span class="cm-property">floor</span>((<span class="cm-variable-2">pos</span>.<span class="cm-property">clientX</span> <span class="cm-operator">-</span> <span class="cm-variable-2">rect</span>.<span class="cm-property">left</span>) <span class="cm-operator">/</span> <span class="cm-variable">scale</span>),
+          <span class="cm-property">y</span>: <span class="cm-variable">Math</span>.<span class="cm-property">floor</span>((<span class="cm-variable-2">pos</span>.<span class="cm-property">clientY</span> <span class="cm-operator">-</span> <span class="cm-variable-2">rect</span>.<span class="cm-property">top</span>) <span class="cm-operator">/</span> <span class="cm-variable">scale</span>)};
+}</pre>
+
+<p><a class="p_ident" id="p_B/cdI1TfFV" href="#p_B/cdI1TfFV" tabindex="-1" role="presentation"></a>Since we know the size of the pixels and we can use <code>getBoundingClientRect</code> to find the position of the canvas on the screen, it is possible to go from mouse event coordinates (<code>clientX</code> and <code>clientY</code>) to picture coordinates. These are always rounded down so that they refer to a specific pixel.</p>
+
+<p><a class="p_ident" id="p_iTkf+HH3B/" href="#p_iTkf+HH3B/" tabindex="-1" role="presentation"></a>With touch events, we have to do something similar, but using different events and making sure we call <code>preventDefault</code> on the <code>&quot;touchstart&quot;</code> event to prevent panning.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HUiWca6Gb7" href="#c_HUiWca6Gb7" tabindex="-1" role="presentation"></a><span class="cm-variable">PictureCanvas</span>.<span class="cm-property">prototype</span>.<span class="cm-property">touch</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">startEvent</span>,
+                                         <span class="cm-def">onDown</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">pos</span> <span class="cm-operator">=</span> <span class="cm-variable">pointerPosition</span>(<span class="cm-variable-2">startEvent</span>.<span class="cm-property">touches</span>[<span class="cm-number">0</span>], <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">onMove</span> <span class="cm-operator">=</span> <span class="cm-variable-2">onDown</span>(<span class="cm-variable-2">pos</span>);
+  <span class="cm-variable-2">startEvent</span>.<span class="cm-property">preventDefault</span>();
+  <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">onMove</span>) <span class="cm-keyword">return</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">move</span> <span class="cm-operator">=</span> <span class="cm-def">moveEvent</span> <span class="cm-operator">=&gt;</span> {
+    <span class="cm-keyword">let</span> <span class="cm-def">newPos</span> <span class="cm-operator">=</span> <span class="cm-variable">pointerPosition</span>(<span class="cm-variable-2">moveEvent</span>.<span class="cm-property">touches</span>[<span class="cm-number">0</span>],
+                                 <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>);
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">newPos</span>.<span class="cm-property">x</span> <span class="cm-operator">==</span> <span class="cm-variable-2">pos</span>.<span class="cm-property">x</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable-2">newPos</span>.<span class="cm-property">y</span> <span class="cm-operator">==</span> <span class="cm-variable-2">pos</span>.<span class="cm-property">y</span>) <span class="cm-keyword">return</span>;
+    <span class="cm-variable-2">pos</span> <span class="cm-operator">=</span> <span class="cm-variable-2">newPos</span>;
+    <span class="cm-variable-2">onMove</span>(<span class="cm-variable-2">newPos</span>);
+  };
+  <span class="cm-keyword">let</span> <span class="cm-def">end</span> <span class="cm-operator">=</span> () <span class="cm-operator">=&gt;</span> {
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">removeEventListener</span>(<span class="cm-string">&quot;touchmove&quot;</span>, <span class="cm-variable-2">move</span>);
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">removeEventListener</span>(<span class="cm-string">&quot;touchend&quot;</span>, <span class="cm-variable-2">end</span>);
+  };
+  <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;touchmove&quot;</span>, <span class="cm-variable-2">move</span>);
+  <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;touchend&quot;</span>, <span class="cm-variable-2">end</span>);
+};</pre>
+
+<p><a class="p_ident" id="p_oah1AjpovX" href="#p_oah1AjpovX" tabindex="-1" role="presentation"></a>For touch events, <code>clientX</code> and <code>clientY</code> aren’t available directly on the event object, but we can use the coordinates of the first touch object in the <code>touches</code> property.</p>
+
+<h2><a class="h_ident" id="h_bxOeMBlEZu" href="#h_bxOeMBlEZu" tabindex="-1" role="presentation"></a>The application</h2>
+
+<p><a class="p_ident" id="p_oKqyuCaaPg" href="#p_oKqyuCaaPg" tabindex="-1" role="presentation"></a>To make it possible to build the application piece by piece, we’ll implement the main component as a shell around a picture canvas and a dynamic set of tools and controls that we pass to its constructor.</p>
+
+<p><a class="p_ident" id="p_2fnd7WZs8N" href="#p_2fnd7WZs8N" tabindex="-1" role="presentation"></a>The <em>controls</em> are the interface elements that appear below the picture. They’ll be provided as an array of component constructors.</p>
+
+<p><a class="p_ident" id="p_67YdeRoZl7" href="#p_67YdeRoZl7" tabindex="-1" role="presentation"></a>The <em>tools</em> do things like drawing pixels or filling in an area. The application shows the set of available tools as a <code>&lt;select&gt;</code> field. The currently selected tool determines what happens when the user interacts with the picture with a pointer device. The set of available tools is provided as an object that maps the names that appear in the drop-down field to functions that implement the tools. Such functions get a picture position, a current application state, and a <code>dispatch</code> function as arguments. They may return a move handler function that gets called with a new position and a current state when the pointer moves to a different pixel.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bksTXX2fO6" href="#c_bksTXX2fO6" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">PixelEditor</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">state</span>, <span class="cm-def">config</span>) {
+    <span class="cm-keyword">let</span> {<span class="cm-def">tools</span>, <span class="cm-def">controls</span>, <span class="cm-def">dispatch</span>} <span class="cm-operator">=</span> <span class="cm-variable-2">config</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">state</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>;
+
+    <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">PictureCanvas</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>, <span class="cm-def">pos</span> <span class="cm-operator">=&gt;</span> {
+      <span class="cm-keyword">let</span> <span class="cm-def">tool</span> <span class="cm-operator">=</span> <span class="cm-variable-2">tools</span>[<span class="cm-keyword">this</span>.<span class="cm-property">state</span>.<span class="cm-property">tool</span>];
+      <span class="cm-keyword">let</span> <span class="cm-def">onMove</span> <span class="cm-operator">=</span> <span class="cm-variable-2">tool</span>(<span class="cm-variable-2">pos</span>, <span class="cm-keyword">this</span>.<span class="cm-property">state</span>, <span class="cm-variable-2">dispatch</span>);
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">onMove</span>) <span class="cm-keyword">return</span> <span class="cm-def">pos</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">onMove</span>(<span class="cm-variable-2">pos</span>, <span class="cm-keyword">this</span>.<span class="cm-property">state</span>);
+    });
+    <span class="cm-keyword">this</span>.<span class="cm-property">controls</span> <span class="cm-operator">=</span> <span class="cm-variable-2">controls</span>.<span class="cm-property">map</span>(
+      <span class="cm-def">Control</span> <span class="cm-operator">=&gt;</span> <span class="cm-keyword">new</span> <span class="cm-variable-2">Control</span>(<span class="cm-variable-2">state</span>, <span class="cm-variable-2">config</span>));
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;div&quot;</span>, {}, <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">dom</span>, <span class="cm-variable">elt</span>(<span class="cm-string">&quot;br&quot;</span>),
+                   <span class="cm-meta">...</span><span class="cm-keyword">this</span>.<span class="cm-property">controls</span>.<span class="cm-property">reduce</span>(
+                     (<span class="cm-def">a</span>, <span class="cm-def">c</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span>.<span class="cm-property">concat</span>(<span class="cm-string">&quot; &quot;</span>, <span class="cm-variable-2">c</span>.<span class="cm-property">dom</span>), []));
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">state</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>);
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">ctrl</span> <span class="cm-keyword">of</span> <span class="cm-keyword">this</span>.<span class="cm-property">controls</span>) <span class="cm-variable-2">ctrl</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">state</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_5ni0DeofjL" href="#p_5ni0DeofjL" tabindex="-1" role="presentation"></a>The pointer handler given to <code>PictureCanvas</code> calls the currently selected tool with the appropriate arguments and, if that returns a move handler, adapts it to also receive the state.</p>
+
+<p><a class="p_ident" id="p_gOumsrO7+U" href="#p_gOumsrO7+U" tabindex="-1" role="presentation"></a>All controls are constructed and stored in <code>this.controls</code> so that they can be updated when the application state changes. The call to <code>reduce</code> introduces spaces between the controls’ DOM elements. That way they don’t look so pressed together.</p>
+
+<p><a class="p_ident" id="p_KM7knGXuoO" href="#p_KM7knGXuoO" tabindex="-1" role="presentation"></a>The first control is the tool selection menu. It creates a <code>&lt;select&gt;</code> element with an option for each tool and sets up a <code>&quot;change&quot;</code> event handler that updates the application state when the user selects a different tool.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ErM/S5/GMa" href="#c_ErM/S5/GMa" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">ToolSelect</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">state</span>, {<span class="cm-def">tools</span>, <span class="cm-def">dispatch</span>}) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">select</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;select&quot;</span>, {
+      <span class="cm-property">onchange</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">dispatch</span>({<span class="cm-property">tool</span>: <span class="cm-keyword">this</span>.<span class="cm-property">select</span>.<span class="cm-property">value</span>})
+    }, <span class="cm-meta">...</span><span class="cm-variable">Object</span>.<span class="cm-property">keys</span>(<span class="cm-variable-2">tools</span>).<span class="cm-property">map</span>(<span class="cm-def">name</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;option&quot;</span>, {
+      <span class="cm-property">selected</span>: <span class="cm-variable-2">name</span> <span class="cm-operator">==</span> <span class="cm-variable-2">state</span>.<span class="cm-property">tool</span>
+    }, <span class="cm-variable-2">name</span>)));
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;label&quot;</span>, <span class="cm-atom">null</span>, <span class="cm-string">&quot;🖌 Tool: &quot;</span>, <span class="cm-keyword">this</span>.<span class="cm-property">select</span>);
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) { <span class="cm-keyword">this</span>.<span class="cm-property">select</span>.<span class="cm-property">value</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">tool</span>; }
+}</pre>
+
+<p><a class="p_ident" id="p_7EVkxldvIa" href="#p_7EVkxldvIa" tabindex="-1" role="presentation"></a>By wrapping the label text and the field in a <code>&lt;label&gt;</code> element, we tell the browser that the label belongs to that field so that you can, for example, click the label to focus the field.</p>
+
+<p><a class="p_ident" id="p_avuZ1LKe/u" href="#p_avuZ1LKe/u" tabindex="-1" role="presentation"></a>We also need to be able to change the color, so let’s add a control for that. An HTML <code>&lt;input&gt;</code> element with a <code>type</code> attribute of <code>color</code> gives us a form field that is specialized for selecting colors. Such a field’s value is always a CSS color code in <code>&quot;#RRGGBB&quot;</code> format (red, green, and blue components, two digits per color). The browser will show a color picker interface when the user interacts with it.</p>
+
+<p><a class="p_ident" id="p_mUiMIeOUud" href="#p_mUiMIeOUud" tabindex="-1" role="presentation"></a>This control creates such a field and wires it up to stay synchronized with the application state’s <code>color</code> property.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CNKBIFujc0" href="#c_CNKBIFujc0" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">ColorSelect</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">state</span>, {<span class="cm-def">dispatch</span>}) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">input</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;input&quot;</span>, {
+      <span class="cm-property">type</span>: <span class="cm-string">&quot;color&quot;</span>,
+      <span class="cm-property">value</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>,
+      <span class="cm-property">onchange</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">dispatch</span>({<span class="cm-property">color</span>: <span class="cm-keyword">this</span>.<span class="cm-property">input</span>.<span class="cm-property">value</span>})
+    });
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;label&quot;</span>, <span class="cm-atom">null</span>, <span class="cm-string">&quot;🎨 Color: &quot;</span>, <span class="cm-keyword">this</span>.<span class="cm-property">input</span>);
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) { <span class="cm-keyword">this</span>.<span class="cm-property">input</span>.<span class="cm-property">value</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>; }
+}</pre>
+
+<h2><a class="h_ident" id="h_dRTuNLyniP" href="#h_dRTuNLyniP" tabindex="-1" role="presentation"></a>Drawing tools</h2>
+
+<p><a class="p_ident" id="p_zMXAaVz6Dy" href="#p_zMXAaVz6Dy" tabindex="-1" role="presentation"></a>Before we can draw anything, we need to implement the tools that will control the functionality of mouse or touch events on the canvas.</p>
+
+<p><a class="p_ident" id="p_km565kqis+" href="#p_km565kqis+" tabindex="-1" role="presentation"></a>The most basic tool is the draw tool, which changes any pixel you click or tap to the currently selected color. It dispatches an action that updates the picture to a version in which the pointed-at pixel is given the currently selected color.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CZoPfAkoSo" href="#c_CZoPfAkoSo" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">draw</span>(<span class="cm-def">pos</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+  <span class="cm-keyword">function</span> <span class="cm-def">drawPixel</span>({<span class="cm-def">x</span>, <span class="cm-def">y</span>}, <span class="cm-def">state</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">drawn</span> <span class="cm-operator">=</span> {<span class="cm-property">x</span>, <span class="cm-property">y</span>, <span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>};
+    <span class="cm-variable-2">dispatch</span>({<span class="cm-property">picture</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">draw</span>([<span class="cm-variable-2">drawn</span>])});
+  }
+  <span class="cm-variable-2">drawPixel</span>(<span class="cm-variable-2">pos</span>, <span class="cm-variable-2">state</span>);
+  <span class="cm-keyword">return</span> <span class="cm-variable-2">drawPixel</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_NV0WFpOefQ" href="#p_NV0WFpOefQ" tabindex="-1" role="presentation"></a>The function immediately calls the <code>drawPixel</code> function but then also returns it so that it is called again for newly touched pixels when the user drags or swipes over the picture.</p>
+
+<p><a class="p_ident" id="p_zzmdcb6+s1" href="#p_zzmdcb6+s1" tabindex="-1" role="presentation"></a>To draw larger shapes, it can be useful to quickly create rectangles. The <code>rectangle</code> tool draws a rectangle between the point where you start dragging and the point that you drag to.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cHtZqBzkqi" href="#c_cHtZqBzkqi" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">rectangle</span>(<span class="cm-def">start</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+  <span class="cm-keyword">function</span> <span class="cm-def">drawRectangle</span>(<span class="cm-def">pos</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">xStart</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">min</span>(<span class="cm-variable-2">start</span>.<span class="cm-property">x</span>, <span class="cm-variable-2">pos</span>.<span class="cm-property">x</span>);
+    <span class="cm-keyword">let</span> <span class="cm-def">yStart</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">min</span>(<span class="cm-variable-2">start</span>.<span class="cm-property">y</span>, <span class="cm-variable-2">pos</span>.<span class="cm-property">y</span>);
+    <span class="cm-keyword">let</span> <span class="cm-def">xEnd</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">max</span>(<span class="cm-variable-2">start</span>.<span class="cm-property">x</span>, <span class="cm-variable-2">pos</span>.<span class="cm-property">x</span>);
+    <span class="cm-keyword">let</span> <span class="cm-def">yEnd</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">max</span>(<span class="cm-variable-2">start</span>.<span class="cm-property">y</span>, <span class="cm-variable-2">pos</span>.<span class="cm-property">y</span>);
+    <span class="cm-keyword">let</span> <span class="cm-def">drawn</span> <span class="cm-operator">=</span> [];
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">yStart</span>; <span class="cm-variable-2">y</span> <span class="cm-operator">&lt;=</span> <span class="cm-variable-2">yEnd</span>; <span class="cm-variable-2">y</span><span class="cm-operator">++</span>) {
+      <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">xStart</span>; <span class="cm-variable-2">x</span> <span class="cm-operator">&lt;=</span> <span class="cm-variable-2">xEnd</span>; <span class="cm-variable-2">x</span><span class="cm-operator">++</span>) {
+        <span class="cm-variable-2">drawn</span>.<span class="cm-property">push</span>({<span class="cm-property">x</span>, <span class="cm-property">y</span>, <span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>});
+      }
+    }
+    <span class="cm-variable-2">dispatch</span>({<span class="cm-property">picture</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">draw</span>(<span class="cm-variable-2">drawn</span>)});
+  }
+  <span class="cm-variable-2">drawRectangle</span>(<span class="cm-variable-2">start</span>);
+  <span class="cm-keyword">return</span> <span class="cm-variable-2">drawRectangle</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_Fdi8lpCnu5" href="#p_Fdi8lpCnu5" tabindex="-1" role="presentation"></a>An important detail in this implementation is that when dragging, the rectangle is redrawn on the picture from the <em>original</em> state. That way, you can make the rectangle larger and smaller again while creating it, without the intermediate rectangles sticking around in the final picture. This is one of the reasons why immutable picture objects are useful—we’ll see another reason later.</p>
+
+<p><a class="p_ident" id="p_IN3YD5TiR4" href="#p_IN3YD5TiR4" tabindex="-1" role="presentation"></a>Implementing flood fill is somewhat more involved. This is a tool that fills the pixel under the pointer and all adjacent pixels that have the same color. “Adjacent” means directly horizontally or vertically adjacent, not diagonally. This picture illustrates the set of pixels colored when the flood fill tool is used at the marked pixel:</p><figure><img src="img/flood-grid.svg" alt="A pixel grid showing the area filled by a flood fill operation"></figure>
+
+<p><a class="p_ident" id="p_g4IQdiCX9d" href="#p_g4IQdiCX9d" tabindex="-1" role="presentation"></a>Interestingly, the way we’ll do this looks a bit like the pathfinding code from <a href="07_robot.html">Chapter 7</a>. Whereas that code searched through a graph to find a route, this code searches through a grid to find all “connected” pixels. The problem of keeping track of a branching set of possible routes is similar.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_mkCcD637J8" href="#c_mkCcD637J8" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">around</span> <span class="cm-operator">=</span> [{<span class="cm-property">dx</span>: <span class="cm-operator">-</span><span class="cm-number">1</span>, <span class="cm-property">dy</span>: <span class="cm-number">0</span>}, {<span class="cm-property">dx</span>: <span class="cm-number">1</span>, <span class="cm-property">dy</span>: <span class="cm-number">0</span>},
+                {<span class="cm-property">dx</span>: <span class="cm-number">0</span>, <span class="cm-property">dy</span>: <span class="cm-operator">-</span><span class="cm-number">1</span>}, {<span class="cm-property">dx</span>: <span class="cm-number">0</span>, <span class="cm-property">dy</span>: <span class="cm-number">1</span>}];
+
+<span class="cm-keyword">function</span> <span class="cm-def">fill</span>({<span class="cm-def">x</span>, <span class="cm-def">y</span>}, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">targetColor</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">pixel</span>(<span class="cm-variable-2">x</span>, <span class="cm-variable-2">y</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">drawn</span> <span class="cm-operator">=</span> [{<span class="cm-property">x</span>, <span class="cm-property">y</span>, <span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>}];
+  <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">done</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">done</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">drawn</span>.<span class="cm-property">length</span>; <span class="cm-variable-2">done</span><span class="cm-operator">++</span>) {
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> {<span class="cm-def">dx</span>, <span class="cm-def">dy</span>} <span class="cm-keyword">of</span> <span class="cm-variable">around</span>) {
+      <span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">drawn</span>[<span class="cm-variable-2">done</span>].<span class="cm-property">x</span> <span class="cm-operator">+</span> <span class="cm-variable-2">dx</span>, <span class="cm-def">y</span> <span class="cm-operator">=</span> <span class="cm-variable-2">drawn</span>[<span class="cm-variable-2">done</span>].<span class="cm-property">y</span> <span class="cm-operator">+</span> <span class="cm-variable-2">dy</span>;
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">x</span> <span class="cm-operator">&gt;=</span> <span class="cm-number">0</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable-2">x</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">width</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
+          <span class="cm-variable-2">y</span> <span class="cm-operator">&gt;=</span> <span class="cm-number">0</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable-2">y</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">height</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
+          <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">pixel</span>(<span class="cm-variable-2">x</span>, <span class="cm-variable-2">y</span>) <span class="cm-operator">==</span> <span class="cm-variable-2">targetColor</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
+          <span class="cm-operator">!</span><span class="cm-variable-2">drawn</span>.<span class="cm-property">some</span>(<span class="cm-def">p</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">p</span>.<span class="cm-property">x</span> <span class="cm-operator">==</span> <span class="cm-variable-2">x</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable-2">p</span>.<span class="cm-property">y</span> <span class="cm-operator">==</span> <span class="cm-variable-2">y</span>)) {
+        <span class="cm-variable-2">drawn</span>.<span class="cm-property">push</span>({<span class="cm-property">x</span>, <span class="cm-property">y</span>, <span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>});
+      }
+    }
+  }
+  <span class="cm-variable-2">dispatch</span>({<span class="cm-property">picture</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">draw</span>(<span class="cm-variable-2">drawn</span>)});
+}</pre>
+
+<p><a class="p_ident" id="p_h2+e0trcAB" href="#p_h2+e0trcAB" tabindex="-1" role="presentation"></a>The array of drawn pixels doubles as the function’s work list. For each pixel reached, we have to see whether any adjacent pixels have the same color and haven’t already been painted over. The loop counter lags behind the length of the <code>drawn</code> array as new pixels are added. Any pixels ahead of it still need to be explored. When it catches up with the length, no unexplored pixels remain, and the function is done.</p>
+
+<p><a class="p_ident" id="p_ExOoxU8nGm" href="#p_ExOoxU8nGm" tabindex="-1" role="presentation"></a>The final tool is a color picker, which allows you to point at a color in the picture to use it as the current drawing color.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JK2K2M0XJH" href="#c_JK2K2M0XJH" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">pick</span>(<span class="cm-def">pos</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+  <span class="cm-variable-2">dispatch</span>({<span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">pixel</span>(<span class="cm-variable-2">pos</span>.<span class="cm-property">x</span>, <span class="cm-variable-2">pos</span>.<span class="cm-property">y</span>)});
+}</pre>
+
+<p><a class="p_ident" id="p_JOsrRsRZs3" href="#p_JOsrRsRZs3" tabindex="-1" role="presentation"></a>We can now test our application!</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_OAsV4NrCrn" href="#c_OAsV4NrCrn" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">state</span> <span class="cm-operator">=</span> {
+    <span class="cm-property">tool</span>: <span class="cm-string">&quot;draw&quot;</span>,
+    <span class="cm-property">color</span>: <span class="cm-string">&quot;#000000&quot;</span>,
+    <span class="cm-property">picture</span>: <span class="cm-variable">Picture</span>.<span class="cm-property">empty</span>(<span class="cm-number">60</span>, <span class="cm-number">30</span>, <span class="cm-string">&quot;#f0f0f0&quot;</span>)
+  };
+  <span class="cm-keyword">let</span> <span class="cm-def">app</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">PixelEditor</span>(<span class="cm-variable">state</span>, {
+    <span class="cm-property">tools</span>: {<span class="cm-property">draw</span>, <span class="cm-property">fill</span>, <span class="cm-property">rectangle</span>, <span class="cm-property">pick</span>},
+    <span class="cm-property">controls</span>: [<span class="cm-variable">ToolSelect</span>, <span class="cm-variable">ColorSelect</span>],
+    <span class="cm-property">dispatch</span>(<span class="cm-def">action</span>) {
+      <span class="cm-variable">state</span> <span class="cm-operator">=</span> <span class="cm-variable">updateState</span>(<span class="cm-variable">state</span>, <span class="cm-variable-2">action</span>);
+      <span class="cm-variable">app</span>.<span class="cm-property">syncState</span>(<span class="cm-variable">state</span>);
+    }
+  });
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>).<span class="cm-property">appendChild</span>(<span class="cm-variable">app</span>.<span class="cm-property">dom</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<h2><a class="h_ident" id="h_7eec4RKHJi" href="#h_7eec4RKHJi" tabindex="-1" role="presentation"></a>Saving and loading</h2>
+
+<p><a class="p_ident" id="p_apCzJ1aUDN" href="#p_apCzJ1aUDN" tabindex="-1" role="presentation"></a>When we’ve drawn our masterpiece, we’ll want to save it for later. We should add a button for downloading the current picture as an image file. This control provides that button:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_4+FAPgY7mH" href="#c_4+FAPgY7mH" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">SaveButton</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">state</span>) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;button&quot;</span>, {
+      <span class="cm-property">onclick</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-keyword">this</span>.<span class="cm-property">save</span>()
+    }, <span class="cm-string">&quot;💾 Save&quot;</span>);
+  }
+  <span class="cm-property">save</span>() {
+    <span class="cm-keyword">let</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;canvas&quot;</span>);
+    <span class="cm-variable">drawPicture</span>(<span class="cm-keyword">this</span>.<span class="cm-property">picture</span>, <span class="cm-variable-2">canvas</span>, <span class="cm-number">1</span>);
+    <span class="cm-keyword">let</span> <span class="cm-def">link</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;a&quot;</span>, {
+      <span class="cm-property">href</span>: <span class="cm-variable-2">canvas</span>.<span class="cm-property">toDataURL</span>(),
+      <span class="cm-property">download</span>: <span class="cm-string">&quot;pixelart.png&quot;</span>
+    });
+    <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable-2">link</span>);
+    <span class="cm-variable-2">link</span>.<span class="cm-property">click</span>();
+    <span class="cm-variable-2">link</span>.<span class="cm-property">remove</span>();
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) { <span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>; }
+}</pre>
+
+<p><a class="p_ident" id="p_pdnEnbG3o4" href="#p_pdnEnbG3o4" tabindex="-1" role="presentation"></a>The component keeps track of the current picture so that it can access it when saving. To create the image file, it uses a <code>&lt;canvas&gt;</code> element that it draws the picture on (at a scale of one pixel per pixel).</p>
+
+<p><a class="p_ident" id="p_diweiWpe1X" href="#p_diweiWpe1X" tabindex="-1" role="presentation"></a>The <code>toDataURL</code> method on a canvas element creates a URL that starts with <code>data:</code>. Unlike <code>http:</code> and <code>https:</code> URLs, data URLs contain the whole resource in the URL. They are usually very long, but they allow us to create working links to arbitrary pictures, right here in the browser.</p>
+
+<p><a class="p_ident" id="p_k7Z8mWz3Zb" href="#p_k7Z8mWz3Zb" tabindex="-1" role="presentation"></a>To actually get the browser to download the picture, we then create a link element that points at this URL and has a <code>download</code> attribute. Such links, when clicked, make the browser show a file save dialog. We add that link to the document, simulate a click on it, and remove it again.</p>
+
+<p><a class="p_ident" id="p_hjRrUluZwC" href="#p_hjRrUluZwC" tabindex="-1" role="presentation"></a>You can do a lot with browser technology, but sometimes the way to do it is rather odd.</p>
+
+<p><a class="p_ident" id="p_U1MnOnU4AK" href="#p_U1MnOnU4AK" tabindex="-1" role="presentation"></a>And it gets worse. We’ll also want to be able to load existing image files into our application. To do that, we again define a button component.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6tKjwwpwls" href="#c_6tKjwwpwls" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">LoadButton</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">_</span>, {<span class="cm-def">dispatch</span>}) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;button&quot;</span>, {
+      <span class="cm-property">onclick</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable">startLoad</span>(<span class="cm-variable-2">dispatch</span>)
+    }, <span class="cm-string">&quot;📁 Load&quot;</span>);
+  }
+  <span class="cm-property">syncState</span>() {}
+}
+
+<span class="cm-keyword">function</span> <span class="cm-def">startLoad</span>(<span class="cm-def">dispatch</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">input</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;input&quot;</span>, {
+    <span class="cm-property">type</span>: <span class="cm-string">&quot;file&quot;</span>,
+    <span class="cm-property">onchange</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable">finishLoad</span>(<span class="cm-variable-2">input</span>.<span class="cm-property">files</span>[<span class="cm-number">0</span>], <span class="cm-variable-2">dispatch</span>)
+  });
+  <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable-2">input</span>);
+  <span class="cm-variable-2">input</span>.<span class="cm-property">click</span>();
+  <span class="cm-variable-2">input</span>.<span class="cm-property">remove</span>();
+}</pre>
+
+<p><a class="p_ident" id="p_iIAN+CV0z5" href="#p_iIAN+CV0z5" tabindex="-1" role="presentation"></a>To get access to a file on the user’s computer, we need the user to select the file through a file input field. But I don’t want the load button to look like a file input field, so we create the file input when the button is clicked and then pretend that this file input itself was clicked.</p>
+
+<p><a class="p_ident" id="p_YHZXdzuhWI" href="#p_YHZXdzuhWI" tabindex="-1" role="presentation"></a>When the user has selected a file, we can use <code>FileReader</code> to get access to its contents, again as a data URL. That URL can be used to create an <code>&lt;img&gt;</code> element, but because we can’t get direct access to the pixels in such an image, we can’t create a <code>Picture</code> object from that.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bRy4XNFu3R" href="#c_bRy4XNFu3R" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">finishLoad</span>(<span class="cm-def">file</span>, <span class="cm-def">dispatch</span>) {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">file</span> <span class="cm-operator">==</span> <span class="cm-atom">null</span>) <span class="cm-keyword">return</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">reader</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">FileReader</span>();
+  <span class="cm-variable-2">reader</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;load&quot;</span>, () <span class="cm-operator">=&gt;</span> {
+    <span class="cm-keyword">let</span> <span class="cm-def">image</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;img&quot;</span>, {
+      <span class="cm-property">onload</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">dispatch</span>({
+        <span class="cm-property">picture</span>: <span class="cm-variable">pictureFromImage</span>(<span class="cm-variable-2">image</span>)
+      }),
+      <span class="cm-property">src</span>: <span class="cm-variable-2">reader</span>.<span class="cm-property">result</span>
+    });
+  });
+  <span class="cm-variable-2">reader</span>.<span class="cm-property">readAsDataURL</span>(<span class="cm-variable-2">file</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_GCbWh2o/H9" href="#p_GCbWh2o/H9" tabindex="-1" role="presentation"></a>To get access to the pixels, we must first draw the picture to a <code>&lt;canvas&gt;</code> element. The canvas context has a <code>getImageData</code> method that allows a script to read its pixels. So, once the picture is on the canvas, we can access it and construct a <code>Picture</code> object.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bHE23Qbgos" href="#c_bHE23Qbgos" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">pictureFromImage</span>(<span class="cm-def">image</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">width</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">min</span>(<span class="cm-number">100</span>, <span class="cm-variable-2">image</span>.<span class="cm-property">width</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">height</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">min</span>(<span class="cm-number">100</span>, <span class="cm-variable-2">image</span>.<span class="cm-property">height</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">canvas</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;canvas&quot;</span>, {<span class="cm-property">width</span>, <span class="cm-property">height</span>});
+  <span class="cm-keyword">let</span> <span class="cm-def">cx</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">&quot;2d&quot;</span>);
+  <span class="cm-variable-2">cx</span>.<span class="cm-property">drawImage</span>(<span class="cm-variable-2">image</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">pixels</span> <span class="cm-operator">=</span> [];
+  <span class="cm-keyword">let</span> {<span class="cm-def">data</span>} <span class="cm-operator">=</span> <span class="cm-variable-2">cx</span>.<span class="cm-property">getImageData</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-variable-2">width</span>, <span class="cm-variable-2">height</span>);
+
+  <span class="cm-keyword">function</span> <span class="cm-def">hex</span>(<span class="cm-def">n</span>) {
+    <span class="cm-keyword">return</span> <span class="cm-variable-2">n</span>.<span class="cm-property">toString</span>(<span class="cm-number">16</span>).<span class="cm-property">padStart</span>(<span class="cm-number">2</span>, <span class="cm-string">&quot;0&quot;</span>);
+  }
+  <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">data</span>.<span class="cm-property">length</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">+=</span> <span class="cm-number">4</span>) {
+    <span class="cm-keyword">let</span> [<span class="cm-def">r</span>, <span class="cm-def">g</span>, <span class="cm-def">b</span>] <span class="cm-operator">=</span> <span class="cm-variable-2">data</span>.<span class="cm-property">slice</span>(<span class="cm-variable-2">i</span>, <span class="cm-variable-2">i</span> <span class="cm-operator">+</span> <span class="cm-number">3</span>);
+    <span class="cm-variable-2">pixels</span>.<span class="cm-property">push</span>(<span class="cm-string">&quot;#&quot;</span> <span class="cm-operator">+</span> <span class="cm-variable-2">hex</span>(<span class="cm-variable-2">r</span>) <span class="cm-operator">+</span> <span class="cm-variable-2">hex</span>(<span class="cm-variable-2">g</span>) <span class="cm-operator">+</span> <span class="cm-variable-2">hex</span>(<span class="cm-variable-2">b</span>));
+  }
+  <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Picture</span>(<span class="cm-variable-2">width</span>, <span class="cm-variable-2">height</span>, <span class="cm-variable-2">pixels</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_AYkCLiGt6h" href="#p_AYkCLiGt6h" tabindex="-1" role="presentation"></a>We’ll limit the size of images to 100 by 100 pixels since anything bigger will look <em>huge</em> on our display and might slow down the interface.</p>
+
+<p><a class="p_ident" id="p_9BhQWl518s" href="#p_9BhQWl518s" tabindex="-1" role="presentation"></a>The <code>data</code> property of the object returned by <code>getImageData</code> is an array of color components. For each pixel in the rectangle specified by the arguments, it contains four values, which represent the red, green, blue, and <em>alpha</em> components of the pixel’s color, as numbers between 0 and 255. The alpha part represents opacity—when it is zero, the pixel is fully transparent, and when it is 255, it is fully opaque. For our purpose, we can ignore it.</p>
+
+<p><a class="p_ident" id="p_ISSui65mS1" href="#p_ISSui65mS1" tabindex="-1" role="presentation"></a>The two hexadecimal digits per component, as used in our color notation, correspond precisely to the 0 to 255 range—two base-16 digits can express 16<sup>2</sup> = 256 different numbers. The <code>toString</code> method of numbers can be given a base as argument, so <code>n.toString(16)</code> will produce a string representation in base 16. We have to make sure that each number takes up two digits, so the <code>hex</code> helper function calls <code>padStart</code> to add a leading zero when necessary.</p>
+
+<p><a class="p_ident" id="p_ZYiaCxYgwc" href="#p_ZYiaCxYgwc" tabindex="-1" role="presentation"></a>We can load and save now! That leaves one more feature before we’re done.</p>
+
+<h2><a class="h_ident" id="h_6z5Bscg+0R" href="#h_6z5Bscg+0R" tabindex="-1" role="presentation"></a>Undo history</h2>
+
+<p><a class="p_ident" id="p_9BV8ZF7PJo" href="#p_9BV8ZF7PJo" tabindex="-1" role="presentation"></a>Half of the process of editing is making little mistakes and correcting them. So an important feature in a drawing program is an undo history.</p>
+
+<p><a class="p_ident" id="p_Gnol1X09SZ" href="#p_Gnol1X09SZ" tabindex="-1" role="presentation"></a>To be able to undo changes, we need to store previous versions of the picture. Since it’s an immutable value, that is easy. But it does require an additional field in the application state.</p>
+
+<p><a class="p_ident" id="p_ylDRpE2dGz" href="#p_ylDRpE2dGz" tabindex="-1" role="presentation"></a>We’ll add a <code>done</code> array to keep previous versions of the picture. Maintaining this property requires a more complicated state update function that adds pictures to the array.</p>
+
+<p><a class="p_ident" id="p_Rjg7sBJ+/e" href="#p_Rjg7sBJ+/e" tabindex="-1" role="presentation"></a>But we don’t want to store <em>every</em> change, only changes a certain amount of time apart. To be able to do that, we’ll need a second property, <code>doneAt</code>, tracking the time at which we last stored a picture in the history.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xx2001jEVe" href="#c_xx2001jEVe" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">historyUpdateState</span>(<span class="cm-def">state</span>, <span class="cm-def">action</span>) {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">action</span>.<span class="cm-property">undo</span> <span class="cm-operator">==</span> <span class="cm-atom">true</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">state</span>.<span class="cm-property">done</span>.<span class="cm-property">length</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) <span class="cm-keyword">return</span> <span class="cm-variable-2">state</span>;
+    <span class="cm-keyword">return</span> <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>({}, <span class="cm-variable-2">state</span>, {
+      <span class="cm-property">picture</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">done</span>[<span class="cm-number">0</span>],
+      <span class="cm-property">done</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">done</span>.<span class="cm-property">slice</span>(<span class="cm-number">1</span>),
+      <span class="cm-property">doneAt</span>: <span class="cm-number">0</span>
+    });
+  } <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable-2">action</span>.<span class="cm-property">picture</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
+             <span class="cm-variable-2">state</span>.<span class="cm-property">doneAt</span> <span class="cm-operator">&lt;</span> <span class="cm-variable">Date</span>.<span class="cm-property">now</span>() <span class="cm-operator">-</span> <span class="cm-number">1000</span>) {
+    <span class="cm-keyword">return</span> <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>({}, <span class="cm-variable-2">state</span>, <span class="cm-variable-2">action</span>, {
+      <span class="cm-property">done</span>: [<span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>, <span class="cm-meta">...</span><span class="cm-variable-2">state</span>.<span class="cm-property">done</span>],
+      <span class="cm-property">doneAt</span>: <span class="cm-variable">Date</span>.<span class="cm-property">now</span>()
+    });
+  } <span class="cm-keyword">else</span> {
+    <span class="cm-keyword">return</span> <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>({}, <span class="cm-variable-2">state</span>, <span class="cm-variable-2">action</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_CU+yNT8jA+" href="#p_CU+yNT8jA+" tabindex="-1" role="presentation"></a>When the action is an undo action, the function takes the most recent picture from the history and makes that the current picture. It sets <code>doneAt</code> to zero so that the next change is guaranteed to store the picture back in the history, allowing you to revert to it another time if you want.</p>
+
+<p><a class="p_ident" id="p_R91Icq4lrz" href="#p_R91Icq4lrz" tabindex="-1" role="presentation"></a>Otherwise, if the action contains a new picture and the last time we stored something is more than a second (1000 milliseconds) ago, the <code>done</code> and <code>doneAt</code> properties are updated to store the previous picture.</p>
+
+<p><a class="p_ident" id="p_hl3atayXAC" href="#p_hl3atayXAC" tabindex="-1" role="presentation"></a>The undo button component doesn’t do much. It dispatches undo actions when clicked and disables itself when there is nothing to undo.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_V5SwZIdQv8" href="#c_V5SwZIdQv8" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">UndoButton</span> {
+  <span class="cm-property">constructor</span>(<span class="cm-def">state</span>, {<span class="cm-def">dispatch</span>}) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;button&quot;</span>, {
+      <span class="cm-property">onclick</span>: () <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">dispatch</span>({<span class="cm-property">undo</span>: <span class="cm-atom">true</span>}),
+      <span class="cm-property">disabled</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">done</span>.<span class="cm-property">length</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>
+    }, <span class="cm-string">&quot;⮪ Undo&quot;</span>);
+  }
+  <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) {
+    <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">disabled</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>.<span class="cm-property">done</span>.<span class="cm-property">length</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>;
+  }
+}</pre>
+
+<h2><a class="h_ident" id="h_rUniBhw5Qd" href="#h_rUniBhw5Qd" tabindex="-1" role="presentation"></a>Let’s draw</h2>
+
+<p><a class="p_ident" id="p_jIw4zXAanZ" href="#p_jIw4zXAanZ" tabindex="-1" role="presentation"></a>To set up the application, we need to create a state, a set of tools, a set of controls, and a dispatch function. We can pass them to the <code>PixelEditor</code> constructor to create the main component. Since we’ll need to create several editors in the exercises, we first define some bindings.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_PyNgZwUySd" href="#c_PyNgZwUySd" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">startState</span> <span class="cm-operator">=</span> {
+  <span class="cm-property">tool</span>: <span class="cm-string">&quot;draw&quot;</span>,
+  <span class="cm-property">color</span>: <span class="cm-string">&quot;#000000&quot;</span>,
+  <span class="cm-property">picture</span>: <span class="cm-variable">Picture</span>.<span class="cm-property">empty</span>(<span class="cm-number">60</span>, <span class="cm-number">30</span>, <span class="cm-string">&quot;#f0f0f0&quot;</span>),
+  <span class="cm-property">done</span>: [],
+  <span class="cm-property">doneAt</span>: <span class="cm-number">0</span>
+};
+
+<span class="cm-keyword">const</span> <span class="cm-def">baseTools</span> <span class="cm-operator">=</span> {<span class="cm-property">draw</span>, <span class="cm-property">fill</span>, <span class="cm-property">rectangle</span>, <span class="cm-property">pick</span>};
+
+<span class="cm-keyword">const</span> <span class="cm-def">baseControls</span> <span class="cm-operator">=</span> [
+  <span class="cm-variable">ToolSelect</span>, <span class="cm-variable">ColorSelect</span>, <span class="cm-variable">SaveButton</span>, <span class="cm-variable">LoadButton</span>, <span class="cm-variable">UndoButton</span>
+];
+
+<span class="cm-keyword">function</span> <span class="cm-def">startPixelEditor</span>({<span class="cm-def">state</span> <span class="cm-operator">=</span> <span class="cm-variable">startState</span>,
+                           <span class="cm-def">tools</span> <span class="cm-operator">=</span> <span class="cm-variable">baseTools</span>,
+                           <span class="cm-def">controls</span> <span class="cm-operator">=</span> <span class="cm-variable">baseControls</span>}) {
+  <span class="cm-keyword">let</span> <span class="cm-def">app</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">PixelEditor</span>(<span class="cm-variable-2">state</span>, {
+    <span class="cm-property">tools</span>,
+    <span class="cm-property">controls</span>,
+    <span class="cm-property">dispatch</span>(<span class="cm-def">action</span>) {
+      <span class="cm-variable-2">state</span> <span class="cm-operator">=</span> <span class="cm-variable">historyUpdateState</span>(<span class="cm-variable-2">state</span>, <span class="cm-variable-2">action</span>);
+      <span class="cm-variable-2">app</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">state</span>);
+    }
+  });
+  <span class="cm-keyword">return</span> <span class="cm-variable-2">app</span>.<span class="cm-property">dom</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_mvhc46WKC4" href="#p_mvhc46WKC4" tabindex="-1" role="presentation"></a>When destructuring an object or array, you can use <code>=</code> after a binding name to give the binding a default value, which is used when the property is missing or holds <code>undefined</code>. The <code>startPixelEditor</code> function makes use of this to accept an object with a number of optional properties as an argument. If you don’t provide a <code>tools</code> property, for example, <code>tools</code> will be bound to <code>baseTools</code>.</p>
+
+<p><a class="p_ident" id="p_rZawaYRcqb" href="#p_rZawaYRcqb" tabindex="-1" role="presentation"></a>This is how we get an actual editor on the screen:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_eYhWs5adxG" href="#c_eYhWs5adxG" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>)
+    .<span class="cm-property">appendChild</span>(<span class="cm-variable">startPixelEditor</span>({}));
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_rdhO7mE6jW" href="#p_rdhO7mE6jW" tabindex="-1" role="presentation"></a>Go ahead and draw something. I’ll wait.</p>
+
+<h2><a class="h_ident" id="h_0bgBxHHAl2" href="#h_0bgBxHHAl2" tabindex="-1" role="presentation"></a>Why is this so hard?</h2>
+
+<p><a class="p_ident" id="p_PmpoI92nJu" href="#p_PmpoI92nJu" tabindex="-1" role="presentation"></a>Browser technology is amazing. It provides a powerful set of interface building blocks, ways to style and manipulate them, and tools to inspect and debug your applications. The software you write for the browser can be run on almost every computer and phone on the planet.</p>
+
+<p><a class="p_ident" id="p_uqWgH1U6Ki" href="#p_uqWgH1U6Ki" tabindex="-1" role="presentation"></a>At the same time, browser technology is ridiculous. You have to learn a large number of silly tricks and obscure facts to master it, and the default programming model it provides is so problematic that most programmers prefer to cover it in several layers of abstraction rather than deal with it directly.</p>
+
+<p><a class="p_ident" id="p_AyiKfJ46L7" href="#p_AyiKfJ46L7" tabindex="-1" role="presentation"></a>And though the situation is definitely improving, it mostly does so in the form of more elements being added to address shortcomings—creating even more complexity. A feature used by a million websites can’t really be replaced. Even if it could, it would be hard to decide what it should be replaced with.</p>
+
+<p><a class="p_ident" id="p_2Av6bIk2in" href="#p_2Av6bIk2in" tabindex="-1" role="presentation"></a>Technology never exists in a vacuum—we’re constrained by our tools and the social, economic, and historical factors that produced them. This can be annoying, but it is generally more productive to try to build a good understanding of how the <em>existing</em> technical reality works—and why it is the way it is—than to rage against it or hold out for another reality.</p>
+
+<p><a class="p_ident" id="p_iDBDoz+SYO" href="#p_iDBDoz+SYO" tabindex="-1" role="presentation"></a>New abstractions <em>can</em> be helpful. The component model and data
+flow convention I used in this chapter is a crude form of that. As mentioned, there are libraries that try to make user interface programming more pleasant. At the time of writing, <a href="https://reactjs.org/">React</a> and <a href="https://angular.io/">Angular</a> are popular choices, but there’s a whole cottage industry of such frameworks. If you’re interested in programming web applications, I recommend investigating a few of them to understand how they work and what benefits they provide.</p>
+
+<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+
+<p><a class="p_ident" id="p_We+KsAI00v" href="#p_We+KsAI00v" tabindex="-1" role="presentation"></a>There is still room for improvement in our program. Let’s add a few more features as exercises.</p>
+
+<h3><a class="i_ident" id="i_BUum8+bZXE" href="#i_BUum8+bZXE" tabindex="-1" role="presentation"></a>Keyboard bindings</h3>
+
+<p><a class="p_ident" id="p_FuGqJ+Eqr8" href="#p_FuGqJ+Eqr8" tabindex="-1" role="presentation"></a>Add keyboard shortcuts to the application. The first letter of a tool’s name selects the tool, and <span class="keyname">control</span>-Z or <span class="keyname">command</span>-Z activates undo.</p>
+
+<p><a class="p_ident" id="p_Gnz9yDs2sE" href="#p_Gnz9yDs2sE" tabindex="-1" role="presentation"></a>Do this by modifying the <code>PixelEditor</code> component. Add a <code>tabIndex</code> property of 0 to the wrapping <code>&lt;div&gt;</code> element so that it can receive keyboard focus. Note that the <em>property</em> corresponding to the <code>tabindex</code> <em>attribute</em> is called <code>tabIndex</code>, with a capital I, and our <code>elt</code> function expects property names. Register the key event handlers directly on that element. This means you have to click, touch, or tab to the application before you can interact with it with the keyboard.</p>
+
+<p><a class="p_ident" id="p_Yzx5/UnTtd" href="#p_Yzx5/UnTtd" tabindex="-1" role="presentation"></a>Remember that keyboard events have <code>ctrlKey</code> and <code>metaKey</code> (for the <span class="keyname">command</span> key on Mac) properties that you can use to see whether those keys are held down.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_9RBHLjfr9C" href="#c_9RBHLjfr9C" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-comment">// The original PixelEditor class. Extend the constructor.</span>
+  <span class="cm-keyword">class</span> <span class="cm-def">PixelEditor</span> {
+    <span class="cm-property">constructor</span>(<span class="cm-def">state</span>, <span class="cm-def">config</span>) {
+      <span class="cm-keyword">let</span> {<span class="cm-def">tools</span>, <span class="cm-def">controls</span>, <span class="cm-def">dispatch</span>} <span class="cm-operator">=</span> <span class="cm-variable-2">config</span>;
+      <span class="cm-keyword">this</span>.<span class="cm-property">state</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>;
+
+      <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">PictureCanvas</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>, <span class="cm-def">pos</span> <span class="cm-operator">=&gt;</span> {
+        <span class="cm-keyword">let</span> <span class="cm-def">tool</span> <span class="cm-operator">=</span> <span class="cm-variable-2">tools</span>[<span class="cm-keyword">this</span>.<span class="cm-property">state</span>.<span class="cm-property">tool</span>];
+        <span class="cm-keyword">let</span> <span class="cm-def">onMove</span> <span class="cm-operator">=</span> <span class="cm-variable-2">tool</span>(<span class="cm-variable-2">pos</span>, <span class="cm-keyword">this</span>.<span class="cm-property">state</span>, <span class="cm-variable-2">dispatch</span>);
+        <span class="cm-keyword">if</span> (<span class="cm-variable-2">onMove</span>) {
+          <span class="cm-keyword">return</span> <span class="cm-def">pos</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">onMove</span>(<span class="cm-variable-2">pos</span>, <span class="cm-keyword">this</span>.<span class="cm-property">state</span>, <span class="cm-variable-2">dispatch</span>);
+        }
+      });
+      <span class="cm-keyword">this</span>.<span class="cm-property">controls</span> <span class="cm-operator">=</span> <span class="cm-variable-2">controls</span>.<span class="cm-property">map</span>(
+        <span class="cm-def">Control</span> <span class="cm-operator">=&gt;</span> <span class="cm-keyword">new</span> <span class="cm-variable-2">Control</span>(<span class="cm-variable-2">state</span>, <span class="cm-variable-2">config</span>));
+      <span class="cm-keyword">this</span>.<span class="cm-property">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;div&quot;</span>, {}, <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">dom</span>, <span class="cm-variable">elt</span>(<span class="cm-string">&quot;br&quot;</span>),
+                     <span class="cm-meta">...</span><span class="cm-keyword">this</span>.<span class="cm-property">controls</span>.<span class="cm-property">reduce</span>(
+                       (<span class="cm-def">a</span>, <span class="cm-def">c</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span>.<span class="cm-property">concat</span>(<span class="cm-string">&quot; &quot;</span>, <span class="cm-variable-2">c</span>.<span class="cm-property">dom</span>), []));
+    }
+    <span class="cm-property">syncState</span>(<span class="cm-def">state</span>) {
+      <span class="cm-keyword">this</span>.<span class="cm-property">state</span> <span class="cm-operator">=</span> <span class="cm-variable-2">state</span>;
+      <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>);
+      <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">ctrl</span> <span class="cm-keyword">of</span> <span class="cm-keyword">this</span>.<span class="cm-property">controls</span>) <span class="cm-variable-2">ctrl</span>.<span class="cm-property">syncState</span>(<span class="cm-variable-2">state</span>);
+    }
+  }
+
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>)
+    .<span class="cm-property">appendChild</span>(<span class="cm-variable">startPixelEditor</span>({}));
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_xwvacRuw4q" href="#p_xwvacRuw4q" tabindex="-1" role="presentation"></a>The <code>key</code> property of events for letter keys will be the lowercase letter itself, if <span class="keyname">shift</span> isn’t being held. We’re not interested in key events with <span class="keyname">shift</span> here.</p>
+
+<p><a class="p_ident" id="p_ODUWMiqiFq" href="#p_ODUWMiqiFq" tabindex="-1" role="presentation"></a>A <code>&quot;keydown&quot;</code> handler can inspect its event object to see whether it matches any of the shortcuts. You can automatically get the list of first letters from the <code>tools</code> object so that you don’t have to write them out.</p>
+
+<p><a class="p_ident" id="p_+R29awWdUv" href="#p_+R29awWdUv" tabindex="-1" role="presentation"></a>When the key event matches a shortcut, call <code>preventDefault</code> on it and dispatch the appropriate action.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_N6J15nL9us" href="#i_N6J15nL9us" tabindex="-1" role="presentation"></a>Efficient drawing</h3>
+
+<p><a class="p_ident" id="p_IwtJehHo1s" href="#p_IwtJehHo1s" tabindex="-1" role="presentation"></a>During drawing, the majority of work that our application does happens in <code>drawPicture</code>. Creating a new state and updating the rest of the DOM isn’t very expensive, but repainting all the pixels on the canvas is quite a bit of work.</p>
+
+<p><a class="p_ident" id="p_ttnFBSQKkT" href="#p_ttnFBSQKkT" tabindex="-1" role="presentation"></a>Find a way to make the <code>syncState</code> method of <code>PictureCanvas</code> faster by redrawing only the pixels that actually changed.</p>
+
+<p><a class="p_ident" id="p_usWBD49GQe" href="#p_usWBD49GQe" tabindex="-1" role="presentation"></a>Remember that <code>drawPicture</code> is also used by the save button, so if you change it, either make sure the changes don’t break the old use or create a new version with a different name.</p>
+
+<p><a class="p_ident" id="p_K1ZR/jxVLm" href="#p_K1ZR/jxVLm" tabindex="-1" role="presentation"></a>Also note that changing the size of a <code>&lt;canvas&gt;</code> element, by setting its <code>width</code> or <code>height</code> properties, clears it, making it entirely transparent again.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_WYxUTPFclW" href="#c_WYxUTPFclW" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-comment">// Change this method</span>
+  <span class="cm-variable">PictureCanvas</span>.<span class="cm-property">prototype</span>.<span class="cm-property">syncState</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">picture</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">==</span> <span class="cm-variable-2">picture</span>) <span class="cm-keyword">return</span>;
+    <span class="cm-keyword">this</span>.<span class="cm-property">picture</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>;
+    <span class="cm-variable">drawPicture</span>(<span class="cm-keyword">this</span>.<span class="cm-property">picture</span>, <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>, <span class="cm-variable">scale</span>);
+  };
+
+  <span class="cm-comment">// You may want to use or change this as well</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">drawPicture</span>(<span class="cm-def">picture</span>, <span class="cm-def">canvas</span>, <span class="cm-def">scale</span>) {
+    <span class="cm-variable-2">canvas</span>.<span class="cm-property">width</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">width</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>;
+    <span class="cm-variable-2">canvas</span>.<span class="cm-property">height</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">height</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>;
+    <span class="cm-keyword">let</span> <span class="cm-def">cx</span> <span class="cm-operator">=</span> <span class="cm-variable-2">canvas</span>.<span class="cm-property">getContext</span>(<span class="cm-string">&quot;2d&quot;</span>);
+
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">y</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">y</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">height</span>; <span class="cm-variable-2">y</span><span class="cm-operator">++</span>) {
+      <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">x</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">width</span>; <span class="cm-variable-2">x</span><span class="cm-operator">++</span>) {
+        <span class="cm-variable-2">cx</span>.<span class="cm-property">fillStyle</span> <span class="cm-operator">=</span> <span class="cm-variable-2">picture</span>.<span class="cm-property">pixel</span>(<span class="cm-variable-2">x</span>, <span class="cm-variable-2">y</span>);
+        <span class="cm-variable-2">cx</span>.<span class="cm-property">fillRect</span>(<span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">y</span> <span class="cm-operator">*</span> <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">scale</span>, <span class="cm-variable-2">scale</span>);
+      }
+    }
+  }
+
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>)
+    .<span class="cm-property">appendChild</span>(<span class="cm-variable">startPixelEditor</span>({}));
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_hWnsI+3L35" href="#p_hWnsI+3L35" tabindex="-1" role="presentation"></a>This exercise is a good example of how immutable data structures can make code <em>faster</em>. Because we have both the old and the new picture, we can compare them and redraw only the pixels that changed color, saving more than 99 percent of the drawing work in most cases.</p>
+
+<p><a class="p_ident" id="p_tH/EgkLe4/" href="#p_tH/EgkLe4/" tabindex="-1" role="presentation"></a>You can either write a new function <code>updatePicture</code> or have <code>drawPicture</code> take an extra argument, which may be undefined or the previous picture. For each pixel, the function checks whether a previous picture was passed with the same color at this position and skips the pixel when that is the case.</p>
+
+<p><a class="p_ident" id="p_iypPTMWN+N" href="#p_iypPTMWN+N" tabindex="-1" role="presentation"></a>Because the canvas gets cleared when we change its size, you should also avoid touching its <code>width</code> and <code>height</code> properties when the old picture and the new picture have the same size. If they are different, which will happen when a new picture has been loaded, you can set the binding holding the old picture to null after changing the canvas size because you shouldn’t skip any pixels after you’ve changed the canvas size.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_lH0RbmdIJo" href="#i_lH0RbmdIJo" tabindex="-1" role="presentation"></a>Circles</h3>
+
+<p><a class="p_ident" id="p_CKH37/aTkf" href="#p_CKH37/aTkf" tabindex="-1" role="presentation"></a>Define a tool called <code>circle</code> that draws a filled circle when you drag. The center of the circle lies at the point where the drag or touch gesture starts, and its radius is determined by the distance dragged.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_MYYVHp5bsE" href="#c_MYYVHp5bsE" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">circle</span>(<span class="cm-def">pos</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+    <span class="cm-comment">// Your code here</span>
+  }
+
+  <span class="cm-keyword">let</span> <span class="cm-def">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">startPixelEditor</span>({
+    <span class="cm-property">tools</span>: <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>({}, <span class="cm-variable">baseTools</span>, {<span class="cm-property">circle</span>})
+  });
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>).<span class="cm-property">appendChild</span>(<span class="cm-variable">dom</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_n8gcP1wK10" href="#p_n8gcP1wK10" tabindex="-1" role="presentation"></a>You can take some inspiration from the <code>rectangle</code> tool. Like that tool, you’ll want to keep drawing on the <em>starting</em> picture, rather than the current picture, when the pointer moves.</p>
+
+<p><a class="p_ident" id="p_g4iL6doRwh" href="#p_g4iL6doRwh" tabindex="-1" role="presentation"></a>To figure out which pixels to color, you can use the Pythagorean
+theorem. First figure out the distance between the current pointer position and the start position by taking the square root (<code>Math.sqrt</code>) of the sum of the square (<code>Math.pow(x, 2)</code>) of the difference in x-coordinates and the square of the difference in y-coordinates. Then loop over a square of pixels around the start position, whose sides are at least twice the radius, and color those that are within the circle’s radius, again using the Pythagorean formula to figure out their distance from the center.</p>
+
+<p><a class="p_ident" id="p_6rR6tnEiD7" href="#p_6rR6tnEiD7" tabindex="-1" role="presentation"></a>Make sure you don’t try to color pixels that are outside of the picture’s boundaries.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_gbSk/YiRrs" href="#i_gbSk/YiRrs" tabindex="-1" role="presentation"></a>Proper lines</h3>
+
+<p><a class="p_ident" id="p_9+5Lhu8/5P" href="#p_9+5Lhu8/5P" tabindex="-1" role="presentation"></a>This is a more advanced exercise than the preceding two, and it will require you to design a solution to a nontrivial problem. Make sure you have plenty of time and patience before starting to work on this exercise, and do not get discouraged by initial failures.</p>
+
+<p><a class="p_ident" id="p_VU//OuPykO" href="#p_VU//OuPykO" tabindex="-1" role="presentation"></a>On most browsers, when you select the <code>draw</code> tool and quickly drag across the picture, you don’t get a closed line. Rather, you get dots with gaps between them because the <code>&quot;mousemove&quot;</code> or <code>&quot;touchmove&quot;</code> events did not fire quickly enough to hit every pixel.</p>
+
+<p><a class="p_ident" id="p_MVVAQugFEf" href="#p_MVVAQugFEf" tabindex="-1" role="presentation"></a>Improve the <code>draw</code> tool to make it draw a full line. This means you have to make the motion handler function remember the previous position and connect that to the current one.</p>
+
+<p><a class="p_ident" id="p_7SM2TRnD47" href="#p_7SM2TRnD47" tabindex="-1" role="presentation"></a>To do this, since the pixels can be an arbitrary distance apart, you’ll have to write a general line drawing function.</p>
+
+<p><a class="p_ident" id="p_e6Gkv3bxv2" href="#p_e6Gkv3bxv2" tabindex="-1" role="presentation"></a>A line between two pixels is a connected chain of pixels, as straight as possible, going from the start to the end. Diagonally adjacent pixels count as a connected. So a slanted line should look like the picture on the left, not the picture on the right.</p><figure><img src="img/line-grid.svg" alt="Two pixelated lines, one light, skipping across pixels diagonally, and one heavy, with all pixels connected horizontally or vertically"></figure>
+
+<p><a class="p_ident" id="p_+B4IUrham3" href="#p_+B4IUrham3" tabindex="-1" role="presentation"></a>Finally, if we have code that draws a line between two arbitrary points, we might as well use it to also define a <code>line</code> tool, which draws a straight line between the start and end of a drag.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_lYipUdu4TJ" href="#c_lYipUdu4TJ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-comment">// The old draw tool. Rewrite this.</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">draw</span>(<span class="cm-def">pos</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+    <span class="cm-keyword">function</span> <span class="cm-def">drawPixel</span>({<span class="cm-def">x</span>, <span class="cm-def">y</span>}, <span class="cm-def">state</span>) {
+      <span class="cm-keyword">let</span> <span class="cm-def">drawn</span> <span class="cm-operator">=</span> {<span class="cm-property">x</span>, <span class="cm-property">y</span>, <span class="cm-property">color</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">color</span>};
+      <span class="cm-variable-2">dispatch</span>({<span class="cm-property">picture</span>: <span class="cm-variable-2">state</span>.<span class="cm-property">picture</span>.<span class="cm-property">draw</span>([<span class="cm-variable-2">drawn</span>])});
+    }
+    <span class="cm-variable-2">drawPixel</span>(<span class="cm-variable-2">pos</span>, <span class="cm-variable-2">state</span>);
+    <span class="cm-keyword">return</span> <span class="cm-variable-2">drawPixel</span>;
+  }
+
+  <span class="cm-keyword">function</span> <span class="cm-def">line</span>(<span class="cm-def">pos</span>, <span class="cm-def">state</span>, <span class="cm-def">dispatch</span>) {
+    <span class="cm-comment">// Your code here</span>
+  }
+
+  <span class="cm-keyword">let</span> <span class="cm-def">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">startPixelEditor</span>({
+    <span class="cm-property">tools</span>: {<span class="cm-property">draw</span>, <span class="cm-property">line</span>, <span class="cm-property">fill</span>, <span class="cm-property">rectangle</span>, <span class="cm-property">pick</span>}
+  });
+  <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;div&quot;</span>).<span class="cm-property">appendChild</span>(<span class="cm-variable">dom</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_0Sbp4dO/v8" href="#p_0Sbp4dO/v8" tabindex="-1" role="presentation"></a>The thing about the problem of drawing a pixelated line is that it is really four similar but slightly different problems. Drawing a horizontal line from the left to the right is easy—you loop over the x-coordinates and color a pixel at every step. If the line has a slight slope (less than 45 degrees or ¼π radians), you can interpolate the y-coordinate along the slope. You still need one pixel per <em>x</em> position, with the <em>y</em> position of those pixels determined by the slope.</p>
+
+<p><a class="p_ident" id="p_mrTlGXQJo5" href="#p_mrTlGXQJo5" tabindex="-1" role="presentation"></a>But as soon as your slope goes across 45 degrees, you need to switch the way you treat the coordinates. You now need one pixel per <em>y</em> position since the line goes up more than it goes left. And then, when you cross 135 degrees, you have to go back to looping over the x-coordinates, but from right to left.</p>
+
+<p><a class="p_ident" id="p_IfupYbaeUB" href="#p_IfupYbaeUB" tabindex="-1" role="presentation"></a>You don’t actually have to write four loops. Since drawing a line from <em>A</em> to <em>B</em> is the same as drawing a line from <em>B</em> to <em>A</em>, you can swap the start and end positions for lines going from right to left and treat them as going left to right.</p>
+
+<p><a class="p_ident" id="p_Hn7VorKX+l" href="#p_Hn7VorKX+l" tabindex="-1" role="presentation"></a>So you need two different loops. The first thing your line drawing function should do is check whether the difference between the x-coordinates is larger than the difference between the y-coordinates. If it is, this is a horizontal-ish line, and if not, a vertical-ish one.</p>
+
+<p><a class="p_ident" id="p_J1kJbTfzUr" href="#p_J1kJbTfzUr" tabindex="-1" role="presentation"></a>Make sure you compare the <em>absolute</em> values of the <em>x</em> and <em>y</em> difference, which you can get with <code>Math.abs</code>.</p>
+
+<p><a class="p_ident" id="p_XJKDpy8qQW" href="#p_XJKDpy8qQW" tabindex="-1" role="presentation"></a>Once you know along which axis you will be looping, you can check whether the start point has a higher coordinate along that axis than the endpoint and swap them if necessary. A succinct way to swap the values of two bindings in JavaScript uses destructuring assignment like this:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/XtfsVpMBL" href="#c_/XtfsVpMBL" tabindex="-1" role="presentation"></a>[<span class="cm-variable">start</span>, <span class="cm-variable">end</span>] <span class="cm-operator">=</span> [<span class="cm-variable">end</span>, <span class="cm-variable">start</span>];</pre>
+
+<p><a class="p_ident" id="p_kQN0DL7QjH" href="#p_kQN0DL7QjH" tabindex="-1" role="presentation"></a>Then you can compute the slope of the line, which determines the amount the coordinate on the other axis changes for each step you take along your main axis. With that, you can run a loop along the main axis while also tracking the corresponding position on the other axis, and you can draw pixels on every iteration. Make sure you round the non-main axis coordinates since they are likely to be fractional and the <code>draw</code> method doesn’t respond well to fractional coordinates.</p>
+
+</div></div><nav><a href="18_http.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="20_node.html" title="next chapter">▶</a></nav>
+</article>

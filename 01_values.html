@@ -1,0 +1,293 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مقدارها, انواع داده, و عملگرها :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
+  <script src="js/acorn_codemirror.js"></script>
+  <link rel=stylesheet href="css/ejs.css">
+  <script src="js/sandbox.js"></script>
+  <script src="js/ejs.js"></script><script>var chapNum = 1;</script></head>
+
+<article>
+<nav><a href="00_intro.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="02_program_structure.html" title="next chapter">▶</a></nav>
+
+<h1><span class=chap_num>Chapter 1</span>مقدارها, انواع داده, و عملگرها</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p_93S4YBaGUf" href="#p_93S4YBaGUf" tabindex="-1" role="presentation"></a>Below the surface of the machine, the program moves. Without effort, it expands and contracts. In great harmony, electrons scatter and regroup. The forms on the monitor are but ripples on the water. The essence stays invisibly below.</p>
+
+<footer>Master Yuan-Ma, <cite>The Book of Programming</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_1.jpg" alt="Picture of a sea of bits"></figure>
+
+<p><a class="p_ident" id="p_oXyaqmHoCh" href="#p_oXyaqmHoCh" tabindex="-1" role="presentation"></a>درون دنیای کامپیوتر، فقط داده‌ (data) وجود دارد. شما می توانید داده‌ها را بخوانید، تغییر دهید، داده‌های جدیدی ایجاد کنید – اما چیزی به جز داده وجود خارجی ندارد. همه‌ی این داده‌ها به شکل دنباله‌ای بلند از بیت ها ذخیره می‌شوند که اساسا به یکدیگر شبیه هستند.</p>
+
+<p><a class="p_ident" id="p_BzBsjjyFN4" href="#p_BzBsjjyFN4" tabindex="-1" role="presentation"></a><em>بیت‌ها</em> معمولا با صفر و یک توصیف می شوند اما در واقع هر نوعی از چیزهای دو مقداری را می توان بیت در نظر گرفت. درون کامپیوتر، بیت ها به شکل بار الکتریکی بالا و پایین، سیگنال ضعیف و قوی یا نقاط تاریک و روشن روی سطح یک CD در می آیند. هر مقدار گسسته‌ای از اطلاعات را می توان به دنباله‌ای از صفرها و یک‌ها و درنتیجه به صورت بیت‌ها نشان داد.</p>
+
+<p><a class="p_ident" id="p_o2pUOV+c1V" href="#p_o2pUOV+c1V" tabindex="-1" role="presentation"></a>به عنوان مثال، می توانیم عدد 13 را به شکل بیت‌ها نشان دهیم. مکانیزم نمایش، شبیه نمایش اعداد دهدهی است؛ اما با این تفاوت که به جای 10 رقم مختلف، شما فقط دو رقم در اختیار دارید که وزن هر کدام با ضریب 2 از راست به چپ افزایش میابد. در اینجا بیت‌هایی که عدد 13 را نشان می دهند به همراه وزن هر رقم در زیر آن آورده شده است.</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_+fMMNc3yUt" href="#c_+fMMNc3yUt" tabindex="-1" role="presentation"></a>   0   0   0   0   1   1   0   1
+ 128  64  32  16   8   4   2   1</pre>
+
+<p><a class="p_ident" id="p_WSDLrF25OY" href="#p_WSDLrF25OY" tabindex="-1" role="presentation"></a>بنابراین عدد دودویی مورد نظر 00001101 می‌باشد که معادل رقم‌های غیر صفر آن 8, 4, و 1 می‌باشد که برابر است با 13.</p>
+
+<h2><a class="h_ident" id="h_OQp0xwEAx9" href="#h_OQp0xwEAx9" tabindex="-1" role="presentation"></a>مقدارها</h2>
+
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>دریایی از بیت‌ها را تصور کنید. اقیانوسی از آن‌ها را. یک کامپیوتر مدرن معمولی دارای بیش از ۳۰ میلیارد بیت در حافظه‌ی فرارش (حافظه‌ی اصلی) است. حافظه‌های غیر فرار(مثل دیسک سخت یا هارد دیسک و شبیه آن) چندین برابر بیشتر و بزرگ تر هستند.</p>
+
+<p><a class="p_ident" id="p_whjjnvouGq" href="#p_whjjnvouGq" tabindex="-1" role="presentation"></a>برای اینکه بتوان با این تعداد از بیت‌ها کار کرد و در بین آن‌ها گم نشد، بایستی آن‌ها را به تکه‌هایی که هر کدام بخشی از اطلاعات را نمایش می دهند تقسیم کنیم. در یک محیط جاوااسکریپتی، این تکه‌ها را به نام <em>مقدار‌ها</em> می خوانند. اگرچه همه مقدارها از بیت‌ها تشکیل شده اند، اما نقش‌های مختلفی را ایفا می کنند. هر مقدار دارای یک نوع داده است که نقش آن را مشخص می کند. بعضی مقدارها عدد هستند، بعضی حروف متن هستند، بعضی مقدارها تابع (function) هستند و مانند آن.</p>
+
+<p>برای ایجاد یک مقدار، فقط کافیست نام آن را فراخوانی کنید. بسیار سرراست. نیازی نیست مواد اولیه برای مقادیر مورد نظرتان جمع‌آوری کنید یا هزینه‌ای پرداخت کنید. فقط فراخوانی کنید و تمام. شما آن را ایجاد کردید. البته آن ها از عدم به وجود نمی آیند. مقدار‌ها باید جایی ذخیره بشوند و اگر قصد استفاده از مقادیر بسیار زیادی از آن‌ها را در یک زمان دارید، ممکن است که با کمبود حافظه روبرو شوید. خوشبختانه، این مشکل فقط زمانی رخ می دهد که در یک آن واحد (همزمان) نیاز به همه‌ی آن ها داشته باشید. به محض اینکه از مقداری استفاده نکنید، از چرخه خارج خواهد شد و بیت‌های متناظرش برای ایجاد مقدارهای جدید مورد استفاده قرار خواهد گرفت.</p>
+
+<p>این فصل به معرفی عناصر اساسی برنامه‌های جاوااسکریپت می پردازد که شامل نوع مقدارهای ساده و عملگرهایی که روی این مقادیر می توان اعمال کرد می شود.</p>
+
+<h2><a class="h_ident" id="h_YN/CArqxHa" href="#h_YN/CArqxHa" tabindex="-1" role="presentation"></a>اعداد</h2>
+
+<p><a class="p_ident" id="p_U7ChsvrfTg" href="#p_U7ChsvrfTg" tabindex="-1" role="presentation"></a>مقدارهای مربوط به نوع عدد (number) طبیعتا مقادیر عددی هستند. در یک برنامه جاوااسکریپت، این مقادیر به شکل زیر نوشته می شوند:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/u5ErTZbax" href="#c_/u5ErTZbax" tabindex="-1" role="presentation"></a><span class="cm-number">13</span></pre>
+
+<p><a class="p_ident" id="p_vTB6PsMp4Q" href="#p_vTB6PsMp4Q" tabindex="-1" role="presentation"></a>استفاده از این مقدار در برنامه باعث می شود تا الگوی بیتی متناظر عدد 13، در داخل حافظه‌ی کامپیوتر به وجود آید.</p>
+
+<p><a class="p_ident" id="p_csS08DHvqE" href="#p_csS08DHvqE" tabindex="-1" role="presentation"></a>جاوااسکریپت از تعداد بیت ثابتی (64 بیت) برای ذخیره یک عدد استفاده می کند. با این 64 بیت می توان ترکیب‌های بسیار زیادی ساخت و البته که تعداد اعداد متفاوتی که می توان نمایش داد دارای محدودیت است. برای <em>N</em> رقم دهدهی، می توان 10<sup>N</sup> ( ده به توان N) عدد را نمایش داد. به طور مشابه، برای 64 رقم دودویی، می توان 2<sup>64</sup> عدد متفاوت را نشان داد که چیزی حدود 18 کوینتیلیون ( عدد 18 و 18 تا صفر جلوی آن) می شود که رقم بسیار بزرگی است.</p>
+
+<p><a class="p_ident" id="p_lC+N5yxSiH" href="#p_lC+N5yxSiH" tabindex="-1" role="presentation"></a>حافظه‌ی کامپیوتر سابقا بسیار کوچک‌تر بود و برای نمایش اعدا مجبور بودیم از 8 یا 16 بیت استفاده کنیم. در این شرایط به راحتی امکان رخ دادن اتفاقی سرریز (<em>overflow</em>)  فراهم بود – عددی تولید شود که با تعداد بیتی که وجود داشت امکان نمایشش نبود. امروزه، حتی کامپیوتر‌هایی که در جیب شما هم جا می شوند دارای حافظه‌های بزرگ هستند بنابراین به راحتی می توانید از قطعه‌های 64 بیتی استفاده کنید و نیازی نیست نگران رخ دادن سرریز باشیم مگر در شرایطی که با اعدادی نجومی و بسیار بزرگ سر و کار داریم.</p>
+
+<p><a class="p_ident" id="p_9HQl3yKN0G" href="#p_9HQl3yKN0G" tabindex="-1" role="presentation"></a>البته تمامی اعداد صحیح کمتر از 18 کوینتیلیون را نمی توان در جاوااسکریپت نمایش داد. آن تعداد بیت‌هایی که گفته شد، باید اعداد منفی را هم جا بدهند بنابراین یک بیت برای نگه‌داری علامت عدد استفاده می شود. دردسر بزرگ‌تر این است که اعداد غیرصحیح (اعشاری) را نیز باید نشان داد. برای این کار بعضی از بیت‌ها را برای ذخیره‌ی محل قرارگیری نقطه‌ی اعشاری یا علامت ممیز در نظر می گیرند. در واقع بزرگترین عددی صحیحی را که می‌توان ذخیره کرد بیشتر در بازه‌ی 9 کوادریلیون (عدد 9 و 15 صفر) قرار می گیرد که البته هنوز رقم بسیار بزرگی است.</p>
+
+<p>اعداد کسری یا اعشاری را با استفاده از نقطه می نویسند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tM8nqv41Gp" href="#c_tM8nqv41Gp" tabindex="-1" role="presentation"></a><span class="cm-number">9.81</span></pre>
+
+<p><a class="p_ident" id="p_1/P863WmpW" href="#p_1/P863WmpW" tabindex="-1" role="presentation"></a>برای اعداد خیلی بزرگ یا خیلی کوچک، همچنین می توایند از روش نمادگذاری علمی استفاده کنید. به این صورت که کاراکتر <em>e</em> (ابتدای واژه‌ی <em>exponent</em> به معنای توان) را به همراه توان عدد در انتهای عدد مورد نظر می نویسیم.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6ew5w+VhSM" href="#c_6ew5w+VhSM" tabindex="-1" role="presentation"></a><span class="cm-number">2.998e8</span></pre>
+
+<p><a class="p_ident" id="p_USXmCkd+qC" href="#p_USXmCkd+qC" tabindex="-1" role="presentation"></a>عدد بالا معادل <bdo>2.998 × 10<sup>8</sup> = 299,800,000</bdo> می باشد.</p>
+
+<p><a class="p_ident" id="p_fgr17hsnv3" href="#p_fgr17hsnv3" tabindex="-1" role="presentation"></a>محاسبات روی اعداد صحیح (integer) کمتر از بیشینه‌ی ذکر شده (9 کوادریلیون)، همیشه دقیق محاسبه می شوند. متاسفانه، محاسبات روی اعداد اعشاری معمولا این چنین دقیق نیستند. درست مثل عدد پی (Pi) که نمی توان آن را با دنباله‌ای متناهی از ارقام نشان داد، وقتی فقط 64 بیت برای ذخیره‌ی اعداد در اختیار داریم، خیلی از اعداد، بخشی از دقت را در محاسبات از دست می دهند. این قابل قبول به نظر نمی رسد، اما در عمل، مشکل جدی فقط در شرایط خاص رخ می دهد. نکته‌ی مهمی که باید در نظر داشت این است که حواسمان باید به این نبود دقت باشد و با ارقام اعشاری به صورت تقریبی کار کنیم نه به عنوان مقادیر صد در صد دقیق.</p>
+
+<h3><a class="i_ident" id="i_/a3QA8kjrF" href="#i_/a3QA8kjrF" tabindex="-1" role="presentation"></a>حساب</h3>
+
+<p>کار اصلی ما با اعداد انجام محاسبات است. عملیات جبری یا حسابی مثل جمع یا ضرب، دو مقدار عددی را می‌گیرند و عددی جدیدی را از آن ‌ها تولید می کنند. در جاوااسکریپت این گونه محاسبات به شکل زیر خواهند بود:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bSU4Vtv/mt" href="#c_bSU4Vtv/mt" tabindex="-1" role="presentation"></a><span class="cm-number">100</span> <span class="cm-operator">+</span> <span class="cm-number">4</span> <span class="cm-operator">*</span> <span class="cm-number">11</span></pre>
+
+<p>نماد‌های <code>+</code> و <code>*</code> را <em>عملگر</em> می نامند. اولین نماد نماد جمع و دومی برای ضرب استفاده می شود. اگر عملگری بین دو مقدار قرار بگیرد، روی آن‌ها عمل کرده و مقدار جدیدی را تولید می کند.</p>
+
+<p><a class="p_ident" id="p_ULVJGzIfB5" href="#p_ULVJGzIfB5" tabindex="-1" role="presentation"></a>عبارات بالا آیا به این معناست که عدد 4 را با 100 جمع کن و حاصل را در 11 ضرب نما؟ یا عمل ضرب قبل از جمع انجام می شود؟ همانطور که ممکن است حدس زده باشید، عمل ضرب زودتر انجام می شود. اما درست مثل ریاضیات، می توانید  عمل جمع را داخل پرانتز قرار دهید تا ترتیب عوض شود.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ij6V90ZZBQ" href="#c_ij6V90ZZBQ" tabindex="-1" role="presentation"></a>(<span class="cm-number">100</span> <span class="cm-operator">+</span> <span class="cm-number">4</span>) <span class="cm-operator">*</span> <span class="cm-number">11</span></pre>
+
+<p>برای عمل تفریق، عملگر <code>-</code> و برای تقسیم، عملگر <code>/</code> وجود دارد.</p>
+
+<p>زمانی که بدون استفاده از پرانتز از عملگرها استفاده می شود، ترتیبی که برای محاسبه و تقدم آن‌ها استفاده می شود براساس <em>تقدم</em> عملگرهاست. در مثال قبل، مشاهده کردید که عمل ضرب قبل از عمل جمع انجام می شود. عملگر <code>/</code> هم تقدم مشابهی با <code>*</code> دارد. <code>+</code> و <code>-</code> هم تقدم یکسانی دارند. زمانی که چندین عملگر با تقدم مشابه در یک عبارت قرار می گیرند، مثل <bdo><code>1 - 2 + 1</code></bdo>، نحوه بکارگیری از چپ به راست خواهد بود: <bdo><code>(1 - 2) + 1</code></bdo>٫</p>
+
+<p>نگران این قوانین تقدم نباشید. هر زمان که شک داشتید کدام اولویت دارد، از پرانتز استفاده کنید.</p>
+
+<p><a class="p_ident" id="p_tlifxqsNyC" href="#p_tlifxqsNyC" tabindex="-1" role="presentation"></a>یک عملگر حسابی دیگر هنوز مانده، عملگری که احتمالا نتوانید به سرعت کارکرد آن را حدس بزنید. نماد <code>%</code> برای عمل محاسبه باقی مانده استفاده می شود.<code>X % Y</code> به معنای محاسبه‌ی باقی مانده‌ی تقسیم <code>X</code> بر <code>Y</code> است. مثلا <bdo><code>314 % 100</code></bdo>حاصلش می شود <code>14</code> و <bdo><code>144 % 12</code>،</bdo> عدد 0 را تولید می کند. تقدم عملگر باقی‌مانده نیز مانند جمع و تقسیم است. شما اغلب برای این عملگر، اصطلاح پیمانه را مشاهده می کنید، اگرچه از نظر فنی همان باقی مانده دقیق تر است.</p>
+
+<h3><a class="i_ident" id="i_o7YRjgRQyl" href="#i_o7YRjgRQyl" tabindex="-1" role="presentation"></a>اعداد خاص</h3>
+
+<p>در جاوااسکریپت سه مقدار خاص وجود دارند که به عنوان عدد محسوب می شوند اما خاصیت و رفتار اعداد معمولی را ندارند.</p>
+
+<p><a class="p_ident" id="p_Ahn9VL1YQQ" href="#p_Ahn9VL1YQQ" tabindex="-1" role="presentation"></a>دو تای اول <code>Infinity</code> و <bdo><code>-Infinity</code></bdo> هستند که نماد مثبت و منفی بی‌نهایت می باشند. <bdo><code>Infinity - 1</code></bdo> ، همچنان <code>Infinity</code> خواهد بود. زیاد به محاسباتی که بر اساس مقدار Infinity هستند اعتماد نکنید. از نقطه‌نظر ریاضیات، زیاد استوار نیستند و ممکن است باعث تولید نتیجه‌ای بشوند که همان عدد خاص سوم ماست: <code>NaN</code>.</p>
+
+<p><a class="p_ident" id="p_ZNeJPNnEft" href="#p_ZNeJPNnEft" tabindex="-1" role="presentation"></a><code>NaN</code> مخفف Not a Number به معنای “غیر عدد” است. اگرچه مقداری برای نوع داده‌ی عدد محسوب می شود. اگر به عنوان مثال، سعی کنید که <code>0 / 0</code> (صفر را بر صفر تقسیم کنید) را محاسبه کنید با NaN روبرو خواهید شد یا <code>Infinity - Infinity</code> یا هر عمل حسابی دیگر روی اعداد که نتیجه‌ی آن مشخص و با معنا نباشد.</p>
+
+<h2><a class="h_ident" id="h_QtpN2IsHo5" href="#h_QtpN2IsHo5" tabindex="-1" role="presentation"></a>رشته‌ها</h2>
+
+<p>نوع داده‌ی بنیادی بعدی <em>رشته</em> است. رشته‌ها برای نمایش متن استفاده می شوند و به این صورت نوشته می شوند که محتوای آن ها داخل علامت نقل قول تک یا جفت قرار می گیرد.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JcfC82q1V/" href="#c_JcfC82q1V/" tabindex="-1" role="presentation"></a><span class="cm-string-2">`Down on the sea`</span>
+<span class="cm-string">&quot;Lie on the ocean&quot;</span>
+<span class="cm-string">'Float on the ocean'</span></pre>
+
+<p><a class="p_ident" id="p_HbEh0wa6fV" href="#p_HbEh0wa6fV" tabindex="-1" role="presentation"></a>می توانید از کاراکتر نقل قول تک، نقل قول جفت یا (`` - backtick) برای مشخص کردن رشته‌ها استفاده کنید البته تا زمانی که برای شروع و پایان رشته از یک علامت یکسان استفاده می کنید.</p>
+
+<p><a class="p_ident" id="p_3Ct9138E3J" href="#p_3Ct9138E3J" tabindex="-1" role="presentation"></a>جاوااسکریپت تقریبا هر مقداری که در داخل علامت‌های نقل قول محصور بشود را رشته در نظر می گیرد یا سعی می کند به رشته تبدیل کند. البته چند کاراکتر ویژه، شرایط متفاوتی دارند. می توانید تصور کنید چقدر سخت خواهد بود که بخواهیم خود علامت نقل قول را بین علامت‌های نقل قول در یک رشته قرار دهیم. کارکترهای خط جدید (کاراکترهایی که پس از فشردن کلید <span class="keyname">enter</span> به وجود می‌آیند) را نیز بدون “گریز دادن” فقط می توان زمانی در رشته قرار داد که رشته توسط کاراکتر backticks(`) محصور شده باشد.</p>
+
+<p><a class="p_ident" id="p_e/dmjSxm2A" href="#p_e/dmjSxm2A" tabindex="-1" role="presentation"></a>برای اینکه اینگونه کاراکترها را در یک رشته قرار دهیم، از این روش استفاده می شود: هرگاه درون یک رشته‌‌ی متنی که بین نقل قول محصور شده است، کاراکتر (<code>\</code>) بک اسلش پیدا شود، به این معناست که کاراکتر بعد از آن معنای خاصی دارد و باید طور دیگری تفسیر شود. به این کار گریزدادن (<em>escaping</em>) گفته می شود. کاراکتر نقل قولی که قبل از آن، کاراکتر <code>\</code> قرار گرفته، دیگر به معنای کاراکتر پایان رشته تفسیر نمی شود بلکه خود بخشی از رشته خواهد بود. اگر بعد از <code>\</code> کاراکتر <code>n</code> قرار گیرد، به عنوان یک خط جدید تفسیر می شود. به طور مشابه، کاراکتر <code>t</code> بعد از <code>\</code> ، به معنای tab character خواهد بود. به رشته‌ی زیر توجه کنید.:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_L1XyfWLjvh" href="#c_L1XyfWLjvh" tabindex="-1" role="presentation"></a><span class="cm-string">&quot;This is the first line\nAnd this is the second&quot;</span></pre>
+
+<p>خروجی واقعی متن بالا به شکل زیر خواهد بود:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_dbS7S3Fqly" href="#c_dbS7S3Fqly" tabindex="-1" role="presentation"></a>This is the first line
+And this is the second</pre>
+
+<p><a class="p_ident" id="p_J9UOAnv0iL" href="#p_J9UOAnv0iL" tabindex="-1" role="presentation"></a>مواقعی هم پیش خواهد آمد که بخواهید خود بک اسلش را درون یک رشته نمایش دهید نه به صورت یک کد خاص. در این صورت از دو بک اسلش پشت سر هم استفاده می شود. این کار باعث می شود که یکی از آن‌ها در رشته‌ی نهایی نشان داده شود. مثلا برای اینکه رشته‌ای متناظر با رشته‌ی زیر را نمایش دهید: “<em>A newline character is written like <code>&quot;</code>\n<code>&quot;</code>.</em>” در جاوااسکریپت باید به شکل زیر نوشته شود:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AuMrnbfo/X" href="#c_AuMrnbfo/X" tabindex="-1" role="presentation"></a><span class="cm-string">&quot;A newline character is written like \&quot;\\n\&quot;.&quot;</span></pre>
+
+<p id="unicode"><a class="p_ident" id="p_mrC9mmEm7k" href="#p_mrC9mmEm7k" tabindex="-1" role="presentation"></a>رشته‌ها نیز بایستی به شکل دنباله‌ای از بیت ها تبدیل شوند تا درون کامپیوتر ذخیره شوند. روشی که جاوااسکریپت برای این کار استفاده می کند بر اساس استاندارد <em>Unicode</em> است. این استاندارد به همه‌ی کاراکترهایی که ممکن است نیاز داشته باشید (شامل کاراکترهای از زبان های یونانی، عربی، ژاپنی، ارمنی و غیره)، عددی را اختصاص می دهد. اگر برای هر کاراکتری عددی داشته باشیم، رشته ها را می توان به وسیله دنباله‌ای از این اعداد توصیف کرد.</p>
+
+<p><a class="p_ident" id="p_dtZ4KqMxuP" href="#p_dtZ4KqMxuP" tabindex="-1" role="presentation"></a>و این کاریست که جاوااسکریپت انجام می دهد. اما اینجا یک مشکل وجود دارد: سیستم نمایش جاوااسکریپت از 16 بیت برای هر عنصر رشته استفاده می کند که باعث می شود بتوان تا 2<sup>16</sup> کاراکتر متفاوت را پوشش داد. اما یونیکد کاراکترهای بیشتری را تعریف می کند که در حال حاضر تقریبا دوبرابر این تعداد است. بنابراین بعضی کاراکترها مثل خیلی از کاراکترهای ایموجی در یک رشته، دو “فضای کاراکتر” را اشغال می کنند. به این نکته در <a href="05_higher_order.html#code_units">فصل 5</a> باز خواهیم گشت.</p>
+
+<p>نمی توان عملیات حسابی تقسیم، ضرب یا تفریق را روی رشته‌ها انجام داد، اما عملگر <code>+</code> را می توان استفاده کرد. این عملگر روی رشته‌ها جمع حسابی را انجام نمی دهد، بلکه عمل چسباندن دو رشته را انجام می دهد. کد زیر رشته‌ی  <code>&quot;concatenate&quot;</code> را تولید می کند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_eCO7oekmP9" href="#c_eCO7oekmP9" tabindex="-1" role="presentation"></a><span class="cm-string">&quot;con&quot;</span> <span class="cm-operator">+</span> <span class="cm-string">&quot;cat&quot;</span> <span class="cm-operator">+</span> <span class="cm-string">&quot;e&quot;</span> <span class="cm-operator">+</span> <span class="cm-string">&quot;nate&quot;</span></pre>
+
+<p>می توان روی مقادیر رشته ای عملیاتی را به وسیله توابع مرتبط (<em>متدها</em>) انجام داد که در <a href="04_data.html#methods">فصل 4</a> به آن ها می پردازیم.</p>
+
+<p><a class="p_ident" id="p_cI4K80J2Cj" href="#p_cI4K80J2Cj" tabindex="-1" role="presentation"></a>رشته‌هایی که به وسیله نقل قول تک یا جفتی نوشته می شوند خیلی شبیه هم عمل می کنند – تنها تفاوت بر می گردد به علامت نقل قولی که بایستی در صورت استفاده با توجه به آن گریز داده شود. رشته‌هایی که با علامت backtick محصور می شوند، که معمولا <em>template
+literals</em> نامیده می شوند، قابلیت بیشتری دارند. جدا از اینکه می می توان در آن‌ها خطوط رشته را شکست یا خطوط متعدد داشت، می توانند مقادیر دیگر را نیز در خود جاسازی کنند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_1ObyeNEDOw" href="#c_1ObyeNEDOw" tabindex="-1" role="presentation"></a><span class="cm-string-2">`half of 100 is ${</span><span class="cm-number">100</span> <span class="cm-operator">/</span> <span class="cm-number">2</span><span class="cm-string-2">}</span><span class="cm-string-2">`</span></pre>
+
+<p><a class="p_ident" id="p_Xroy7uOJdY" href="#p_Xroy7uOJdY" tabindex="-1" role="presentation"></a>زمانی که چیزی را داخل<bdo><code>${}</code></bdo> می نویسید و آن را با backtick محصور می کنید، نتیجه عبارت مورد نظر محاسبه شده، به رشته تبدیل می شود و در جای مورد نظر قرار می گیرد. مثال بالا رشته‌ی “<em>half of 100 is 50</em>” را تولید می کند.</p>
+
+<h2><a class="h_ident" id="h_LJvE/dksoQ" href="#h_LJvE/dksoQ" tabindex="-1" role="presentation"></a>عملگرهای یگانی</h2>
+
+<p>همه‌ی عملگرها را با نمادها نشان نمی دهند. بعضی از آن‌ها با حروف معمولی لاتین نوشته‌ می شوند. به عنوان مثال می توان عملگر <code>typeof</code> را ذکر نمود که نوع داده‌ی ورودی خود را به شکل یک رشته برمی گرداند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_iWT//VyY7j" href="#c_iWT//VyY7j" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">typeof</span> <span class="cm-number">4.5</span>)
+<span class="cm-comment">// → number</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">typeof</span> <span class="cm-string">&quot;x&quot;</span>)
+<span class="cm-comment">// → string</span></pre>
+
+<p id="console.log">در مثال‌های کتاب برای اینکه نشان دهیم قصد داریم نتیجه ارزیابی چیزی را ببینیم،‌از دستور <code>console.log</code> استفاده می کنیم. برای اطلاعات بیشتر در باره آن به <a href="02_program_structure.html">فصل بعد</a> مراجعه کنید.</p>
+
+<p><a class="p_ident" id="p_flfP6EMUUT" href="#p_flfP6EMUUT" tabindex="-1" role="presentation"></a>دیگر عملگر‌هایی که تا به حال دیده‌ایم بر روی دو مقدار عمل می کردند اما <code>typeof</code> فقط به یک مقدار نیاز دارد. عملگرهایی که به دو مقدار نیاز دارند، عملگرهای دودویی (<em>binary</em>) نامیده می شوند،‌ در حالیکه آن هایی که روی یک مقدار عمل می کنند را عملگرهای <em>یکانی</em> می نامند. عملگر تفریق (-) را می‌توان هم به عنوان یکانی و هم دودویی استفاده کرد.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VpL89RFAPj" href="#c_VpL89RFAPj" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-operator">-</span> (<span class="cm-number">10</span> <span class="cm-operator">-</span> <span class="cm-number">2</span>))
+<span class="cm-comment">// → -8</span></pre>
+
+<h3><a class="i_ident" id="i_I5o+orItFo" href="#i_I5o+orItFo" tabindex="-1" role="presentation"></a>مقدارهای بولی</h3>
+
+<p><a class="p_ident" id="p_Avt9Rz/xuM" href="#p_Avt9Rz/xuM" tabindex="-1" role="presentation"></a>گاهی اوقات لازم است تا به وسیله‌ی یک مقدار فقط دو حالت را شناسایی و تمییز دهیم، مثل “yes” و “no” یا “on” و “off”. برای این منظور جاوااسکریپت نوع داده بولی (<em>Boolean</em>) را در نظر گرفته است که فقط دارای دو مقدار است: true و false (که به همین شکل نوشته می شوند).</p>
+
+<h3><a class="i_ident" id="i_V4JfoXqRU+" href="#i_V4JfoXqRU+" tabindex="-1" role="presentation"></a>مقایسه‌ها</h3>
+
+<p>یکی از راه‌های تولید مقدار‌های بولی را در مثال زیر می بینیم:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_GaxnXrIPwC" href="#c_GaxnXrIPwC" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">3</span> <span class="cm-operator">&gt;</span> <span class="cm-number">2</span>)
+<span class="cm-comment">// → true</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">3</span> <span class="cm-operator">&lt;</span> <span class="cm-number">2</span>)
+<span class="cm-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p_X/5TO4MPCK" href="#p_X/5TO4MPCK" tabindex="-1" role="presentation"></a>علامت‌های <bdo><code>&gt;</code></bdo> و <bdo><code>&lt;</code></bdo> به ترتیب همان نمادهای سنتی برای “بزرگتر است از” و “کوچکتر است از” هستند. آن‌ها عملگرهایی دودویی هستند. در صورت استفاده از آن‌ها منجر به تولید یک مقدار بولی می شود که نشان می دهد آیا true است یا خیر.</p>
+
+<p>رشته‌ها را هم می توان به روشی مشابه مقایسه کرد.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Qud5plnVuV" href="#c_Qud5plnVuV" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Aardvark&quot;</span> <span class="cm-operator">&lt;</span> <span class="cm-string">&quot;Zoroaster&quot;</span>)
+<span class="cm-comment">// → true</span></pre>
+
+<p>رشته‌ها تقریبا براساس حروف الفبا مرتب می شوند اما نه کاملا به شکلی که در واژه‌نامه می بینید: حروف بزرگ در عمل ،مقایسه از حروف کوچک “کوچک‌تر” محسوب می گردند،‌ بنابراین عبارت <bdo><code>&quot;Z&quot; &lt; &quot;a&quot;</code></bdo> مقدار true را برمی‌گرداند، وکاراکترهای غیرالفبایی (!,-, و مانند آن‌ها) نیز ترتیب دارند و مقایسه می شوند. در زمان مقایسه‌ی رشته ها، جاوااسکریپت کاراکترهای هر رشته را یک به یک از چپ به راست براساس کدهای یونیکدشان، باهم مقایسه می‌کند.</p>
+
+<p>دیگر عملگرهای مقایسه‌ای به صورت هستند: عملگر=&lt; (بزرگتر مساوی)،=&gt; (کوچکتر مساوی)، == (برابری) و=! (نابرابری).</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9h4L8Mnvdg" href="#c_9h4L8Mnvdg" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Itchy&quot;</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;Scratchy&quot;</span>)
+<span class="cm-comment">// → true</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Apple&quot;</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;Orange&quot;</span>)
+<span class="cm-comment">// → false</span></pre>
+
+<p>تنهای یک مقدار در جاوااسکریپت وجود دارد که با خودش برابر نیست، و آن <code>NaN</code> است که به معنای “مقدار عددی نیست” می باشد.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Vhz09Rgw3h" href="#c_Vhz09Rgw3h" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">NaN</span> <span class="cm-operator">==</span> <span class="cm-atom">NaN</span>)
+<span class="cm-comment">// → false</span></pre>
+
+<p><code>NaN</code> به این منظور ایجاد شده که نشان دهد نتیجه‌ی محاسبه بی معنا بوده است، و به همین دلیل، با نتیجه‌ی هیچ محاسبه‌ی بی‌معنای دیگری برابر نخواهد بود.</p>
+
+<h3><a class="i_ident" id="i_6yKqo4A0MF" href="#i_6yKqo4A0MF" tabindex="-1" role="presentation"></a>عملگرهای منطقی</h3>
+
+<p><a class="p_ident" id="p_cjL6fEIQxx" href="#p_cjL6fEIQxx" tabindex="-1" role="presentation"></a>عملیاتی نیز وجود دارند که می توانند روی مقدارهای بولی اجرا شوند. جاوااسکریپت از سه عملگر منطقی پشتیبانی می کند: <em>and</em> ، <em>or</em> و <em>not</em>. این عملگرها را می توان برای انجام عملیات منطقی روی عبارات بولی استفاده کرد.</p>
+
+<p><a class="p_ident" id="p_fZlIZ6uoAH" href="#p_fZlIZ6uoAH" tabindex="-1" role="presentation"></a>عملگر <code>&amp;&amp;</code> نماد <em>and</em> منطقی است. این عملگر دودویی و نتیجه‌ی آن زمانی صحیح (true) است که هر دو عملوند یا مقداری که به آن داده می شود، صحیح (true) باشند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SHi38sNkwM" href="#c_SHi38sNkwM" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">true</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-atom">false</span>)
+<span class="cm-comment">// → false</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">true</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-atom">true</span>)
+<span class="cm-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p_yABH7pj2/K" href="#p_yABH7pj2/K" tabindex="-1" role="presentation"></a>عملگر <code>||</code> نماد <em>or</em> منطقی است. نتیجه‌ی این عملگر زمانی صحیح (true) که یکی از دو مقدار داده شده، صحیح باشد.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_diXyv7iPd1" href="#c_diXyv7iPd1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">false</span> <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-atom">true</span>)
+<span class="cm-comment">// → true</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">false</span> <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-atom">false</span>)
+<span class="cm-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p_yh3Tk3klSr" href="#p_yh3Tk3klSr" tabindex="-1" role="presentation"></a><em>Not</em> یا نقیض با علامت تعجب (<code>!</code>) نمایش داده می شود که عملگری یکانی است که مقداری را که به آن داده می شود را نقیض می کند ( برعکس می کند) – <bdo><code>!true</code></bdo> مقدار <code>false</code> را بر می گرداند و <bdo><code>!false</code></bdo> مقدار <code>true</code>.</p>
+
+<p>زمانی که این عملگرها را با عملگرهای حسابی و دیگر عملگرها ترکیب می کنیم، همیشه واضح نیست که کی لازم است از پرانتزها استفاده کرد. در عمل معمولا می توان با دانستن اینکه در بین عملگرهایی که بررسی کردیم، <code>||</code> دارای کمترین حق تقدم، بعد <code>&amp;&amp;</code> و پس از آن عملگرهای مقایسه (<code>&gt;</code>, <code>==</code>, …) و بعد بقیه عملگرها قرار می گیرند، پیش رفت. با توجه به ترتیب تقدم‌ها به این شکل در عبارتی مثل عبارت پایین به حداقل پرانتز می توان اکتفا کرد.:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6eZ07bDo11" href="#c_6eZ07bDo11" tabindex="-1" role="presentation"></a><span class="cm-number">1</span> <span class="cm-operator">+</span> <span class="cm-number">1</span> <span class="cm-operator">==</span> <span class="cm-number">2</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-number">10</span> <span class="cm-operator">*</span> <span class="cm-number">10</span> <span class="cm-operator">&gt;</span> <span class="cm-number">50</span></pre>
+
+<p><a class="p_ident" id="p_+XT7ePaLNE" href="#p_+XT7ePaLNE" tabindex="-1" role="presentation"></a>آخرین عملگر منطقی که قصد دارم در باره آن صحبت کنم، نه یکانی است و دودویی، بلکه سه‌تایی (<em>ternary</em>) می باشد و روی سه مقدار عمل می کند. برای نوشتن آن از علامت سوال و دونقطه به شکل زیر استفاده می شود:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_G7eVm8ilWm" href="#c_G7eVm8ilWm" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">true</span> <span class="cm-operator">?</span> <span class="cm-number">1</span> : <span class="cm-number">2</span>);
+<span class="cm-comment">// → 1</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">false</span> <span class="cm-operator">?</span> <span class="cm-number">1</span> : <span class="cm-number">2</span>);
+<span class="cm-comment">// → 2</span></pre>
+
+<p><a class="p_ident" id="p_k/l4Io+JM0" href="#p_k/l4Io+JM0" tabindex="-1" role="presentation"></a>این عملگر را عملگر شرطی می نامند (گاهی اوقات هم همان عملگر سه‌تایی به این دلیل که تنها عملگری است که این ویژگی را در جاوااسکریپت دارد). مقداری که در سمت چپ علامت سوال قرار می گیرد، مشخص می کند که کدام یک از دو مقدار بعدی به عنوان نتیجه برگردانده می شود. زمانی که صحیح (true) ارزیابی شود، مقدار وسطی انتخاب می شود، و هنگامی که false است، آخرین مقدار که در سمت راست قرار دارد، برگردانده می شود.</p>
+
+<h2><a class="h_ident" id="h_xVEtCOWyIb" href="#h_xVEtCOWyIb" tabindex="-1" role="presentation"></a>مقدارهای پوچ</h2>
+
+<p>دو مقدار خاص وجود دارد که به شکل <code>null</code> و <code>undefined</code> نوشته می شوند که برای مشخص کردن مقدار‌هایی که درجاوااسکریپت معنایی ندارند استفاده می شوند.  آن‌ها خودشان مقدار هستند اما اطلاعات خاصی را حمل نمی کنند.</p>
+
+<p>عملیات زیادی در جاوااسکریپت وجود دارند که مقدار معناداری را تولید نمی کنند ( در ادامه مواردی را خواهید دید) و به این خاطر که بالاخره باید مقداری را برگردانند، <code>undefined</code> را تولید می کنند.</p>
+
+<p>تفاوت معنای دو مقدار <code>undefined</code> و <code>null</code> به خاطر نحوه‌ی طراحی خود جاوااسکریپت است و در بیشتر اوقات باهم تفاوت معنایی خاصی ندارند. اگر شرایطی وجود دارد که باید نگران تفاوت این دو باشید، پیشنهاد می کنم که هر دو را معادل هم در نظر بگیرید و هرکدام را خواستید به جای دیگری استفاده کنید ( در آینده بیشتر به آن می پردازیم).</p>
+
+<h2><a class="h_ident" id="h_nVJjhC75KL" href="#h_nVJjhC75KL" tabindex="-1" role="presentation"></a>تبدیل خودکار نوع داده</h2>
+
+<p>در مقدمه کتاب، توضیح دادم که جاوااسکریپت برای اینکه هر برنامه‌ای که شما به آن می دهید را تفسیر کند، تلاش بسیاری می کند، حتی برنامه‌هایی که به نظر صحیح نمی آیند. در عبارات زیر این مساله به خوبی نشان داده شده است:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QqYG9KqZ2/" href="#c_QqYG9KqZ2/" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">8</span> <span class="cm-operator">*</span> <span class="cm-atom">null</span>)
+<span class="cm-comment">// → 0</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;5&quot;</span> <span class="cm-operator">-</span> <span class="cm-number">1</span>)
+<span class="cm-comment">// → 4</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;5&quot;</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>)
+<span class="cm-comment">// → 51</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;five&quot;</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>)
+<span class="cm-comment">// → NaN</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">false</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>)
+<span class="cm-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p_QUlq6xoQLJ" href="#p_QUlq6xoQLJ" tabindex="-1" role="presentation"></a>زمانی که یک عملگر، به نوع مقدار غلطی اعمال می شود، جاوااسکریپت با استفاده از  مجموعه‌ای از قواعد که اغلب قابل پیش بینی و انتظار نیستند، بی سر و صدا مقدار مورد نظر را به نوعی که می خواهد تبدیل می کند. به این کار، تبدیل خودکار نوع یا <em>type coercion</em> می گویند. بنابراین <code>null</code> در عبارت اول به <code>0</code> تبدیل می شود، و <code>&quot;5&quot;</code> در عبارت دوم به <code>5</code> ( از رشته به عدد) تبدیل می شود. همچنین در عبارت سوم، <code>+</code> ابتدا سعی می کند که رشته‌ها را بهم الحاق کند قبل از اینکه عمل جمع حسابی را انجام بدهد بنابراین عدد <code>1</code> را به <code>&quot;1&quot;</code> ( عدد به رشته) تبدیل می کند.</p>
+
+<p>اگر مقداری را نتوان به شکل واضحی به یک عدد تبدیل کرد‌ (مثلا <code>&quot;five&quot;</code> یا <code>undefined</code>)، مقدار <code>NaN</code> تولید خواهد شد. همچنین عملیات حسابی روی مقدار <code>NaN</code> باعث تولید دوباره‌ی <code>NaN</code> می شود، بنابراین اگر در حین برنامه نویسی متوجه شدید که این مقدار را در جایی که انتظارش را نداشتید،‌ مشاهده کردید، به دنبال تبدیل تصادفی نوع داده بگردید.</p>
+
+<p><a class="p_ident" id="p_viUD0tQjF6" href="#p_viUD0tQjF6" tabindex="-1" role="presentation"></a>زمانی که مقدارهایی از یک نوع داده را با  <code>==</code> مقایسه می کنیم، خروجی به راحتی قابل پیش بینی است: اگر دو مقدار مشابه‌ هم باشند، نتیجه صحیح (true) خواهد بود به استثنای مقدار <code>NaN</code>. اما هنگامی‌که نوع داده‌ها متفاوت اند، جاوااسکریپت از یک سری دستورات پییچیده و گیج‌کننده برای انجام مقایسه استفاده می کند. در اکثر موارد، راه‌حل انتخابی تبدیل یکی از مقادیر به نوع مقدار دیگر است. هرچند زمانی که <code>null</code> یا <code>undefined</code> در یک سمت از عملگر قرار می گیرد، زمانی مقدار true تولید می شود که هر دو طرف یا <code>null</code> یا <code>undefined</code> باشند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qmGDPdETlf" href="#c_qmGDPdETlf" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">null</span> <span class="cm-operator">==</span> <span class="cm-atom">undefined</span>);
+<span class="cm-comment">// → true</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">null</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>);
+<span class="cm-comment">// → false</span></pre>
+
+<p>این رفتار جاوااسکریپت درباره‌ی <code>null</code> و <code>undefined</code> اغلب کاربردی است. می توانید به سادگی با مقایسه‌ی یک مقدار با <code>null</code> با استفاده از عملگر <code>==</code>  یا <bdo><code>!=</code></bdo>، به واقعی و معنادار بودن یک مقدار پی ببرید.</p>
+
+<p><a class="p_ident" id="p_6axnHmiF40" href="#p_6axnHmiF40" tabindex="-1" role="presentation"></a>اما برای آزمایش اینکه مقداری دقیقا برابر با <code>false</code> است یا نه، چه باید کرد؟ طبق قوانین مربوط به تبدیل رشته‌ها و اعداد به مقادیر بولی، <code>0</code>, <code>NaN</code> و رشته‌ی خالی (“”)، به صورت false تفسیر می شوند، درحالی‌که دیگر مقادیر به عنوان true در نظر گرفته می شوند. به همین علت عبارتی مثل  <bdo><code>0 == false</code></bdo>  و <bdo><code>&quot;&quot; == false</code></bdo> به عنوان true ارزیابی می شوند. برای این گونه موارد، زمانی که این تبدیل خودکار نوع داده را نمی خواهید، می توان از دو عملگر دیگر استفاده کرد: <code>===</code> و <bdo><code>!==</code></bdo>. عملگر اول بررسی می کند که مقدار دقیقا متناظر با مقدار دیگر باشد، و دومی بررسی می کند که دقیقا متناظر نباشند. بنابراین <bdo><code>&quot;&quot; === false</code></bdo> ، مقدار ناصحیح(false) را برمی گرداند، همانطور مورد انتظار بود.</p>
+
+<p>من پیشنهاد می‌کنم که از عملگر مقایسه‌ای سه‌کاراکتری به صورت پیشگیرانه استفاده شود تا از تبدیل داده‌های ناخواسته که باعث دردسر می شوند جلوگیری شود. اما زمانی که از شباهت نوع داده دو طرف مطمئن هستید، استفاده از عملگر‌های کوتاه‌تر نادرست نخواهد بود.</p>
+
+<h3><a class="i_ident" id="i_F0Iw/We5RU" href="#i_F0Iw/We5RU" tabindex="-1" role="presentation"></a>اتصال کوتاه در عملگرهای منطقی</h3>
+
+<p>عملگرهای منطقی <code>&amp;&amp;</code> و <code>||</code>  از روش به خصوصی برای ارزیابی مقدارهای انواع داده‌ی مختلف استفاده می کنند. ابتدا مقدار سمت چپ عملگر را به نوع بولی تبدیل می کنند تا تصمیم بگیرند که چه کنند و بسته به نوع عملگر و نتیجه تبدیل نوع داده، یا مقدار اولیه سمت چپ را برمی‌گردانند یا مقدار سمت راست را.</p>
+
+<p>عملگر <code>||</code> ، به عنوان مثال، زمانی مقدار سمت چپ عبارت را برمیگرداند که بتوان آن را به true تبدیل کرد و در غیر این صورت مقدار سمت راست را برمیگرداند. این تبدیل همانطور که انتظارش را داشتید برای مقادیر بولی عمل می کند و برای مقادر دیگر انواع داده نیز به شکل مشابهی عمل می کند.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ENjxHGMklb" href="#c_ENjxHGMklb" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-atom">null</span> <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-string">&quot;user&quot;</span>)
+<span class="cm-comment">// → user</span>
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Agnes&quot;</span> <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-string">&quot;user&quot;</span>)
+<span class="cm-comment">// → Agnes</span></pre>
+
+<p><a class="p_ident" id="p_fLbvuYully" href="#p_fLbvuYully" tabindex="-1" role="presentation"></a>با این ویژگی می توان از عملگر <code>||</code> به عنوان روشی برای در نظر گرفتن مقدار پیش‌فرض در عبارت‌ها استفاده کرد. اگر مقداری را داشته باشید که ممکن است تهی باشد، می توانید بعد از آن <code>||</code> به همراه مقداری جایگزین قرار دهید. اگر مقدار اولیه را بتوان به false تبدیل کرد، نتیجه‌ای که دریافت خواهید کرد برابر با مقدار جایگزین خواهد بود. طبق قوانین تبدیل رشته‌ها و اعداد به مقادیر بولی، <code>0</code>, <code>NaN</code> و رشته‌ی تهی (<code>&quot;&quot;</code>) به عنوان <code>false</code> در نظر گرفته می شود، درحالیکه دیگر مقادیر به عنوان <code>true</code>  شمرده می شود. بنابراین <bdo><code>0 || -1</code></bdo> مقدار <bdo><code>-1</code></bdo> و عبارت <bdo><code>&quot;&quot; || &quot;!?&quot;</code></bdo> مقدار <bdo><code>&quot;!?&quot;</code></bdo> را تولید می کند.</p>
+
+<p>عملگر <code>&amp;&amp;</code> به شکل مشابهی عمل می کند، اما در جهت عکس.  زمانی‌که مقداری که در سمت چپ عبارت قرار دارد، عبارتی است که به false تبدیل می شود، همان مقدار سمت چپ برگردانده خواهد شد، در غیر اینصورت، مقدار سمت راست ارزیابی و برگردانده می شود.</p>
+
+<p>یکی دیگر از ویژگی‌های مهم این دو عملگر این است که عبارت سمت راست آن‌ها، فقط در صورت نیاز ارزیابی می شود. در مورد مثل <bdo><code>true || X</code></bdo>، مهم نیست که <code>X</code> چیست، حتی اگر عبارتی است که در صورت اجرا، کار وحشتناکی انجام می دهد – نتیجه عبارت ، true خواهد بود و <code>X</code> اصلا ارزیابی یا اجرا نمی شود. همین قضیه برای <bdo><code>false &amp;&amp; X</code></bdo> نیز صادق است که نتیجه‌ی آن false است و <code>X</code> ارزیابی نمی شود. این‌ کار ارزیابی مدار کوتاه نامیده می شود.</p>
+
+<p>عملگر منطقی (سه‌تایی) نیز به شکل مشابهی کار میکند. عبارت اول، همیشه ارزیابی می شود، اما دومین یا سومین مقدار – مقداری که انتخاب نمی شود – ارزیابی هم نخواهد شد.</p>
+
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
+
+<p>در این فصل به چهار نوع از مقدارهای جاوااسکریپت نگاهی انداختیم:‌اعداد، رشته‌ها، مقادیر بولی، و مقادیر تعریف نشده.</p>
+
+<p>این مقدار‌ها را می توان با تایپ نامشان (<code>true</code>, <code>null</code>) یا مقدارشان (<code>13</code>, <code>&quot;abc&quot;</code>) به وجود آورد. شما می توانید با استفاده از عملگرها، این مقدارها را ترکیب کنید و تغییر دهید. ما عملگرهای دودویی را برای عملیات حسابی (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, و <code>%</code>)، عملگر الحاق رشته (<code>+</code>)، عملگرهای مقایسه (<bdo><code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></bdo>)، منطقی (<code>&amp;&amp;</code>, <code>||</code>)، همچنین چندین عملگر یکانی (<code>-</code> برای منفی کردن یک عدد، <code>!</code> برای نقیض منطقی، و <code>typeof</code> برای فهمیدن نوع داده‌ی یک مقدار) و عملگر سه‌تایی (<bdo><code>?:</code></bdo>) برای انتخاب یکی از دو مقدار بر اساس مقدار سوم را در این فصل مشاهده نمودیم.</p>
+
+<p>این مقدار اطلاعات برای استفاده از جاوااسکریپت به عنوان یک ماشین‌ حساب جیبی و نه بیشتر کافی است. در <a href="02_program_structure.html">فصل بعد</a> شروع به ترکیب این عبارت‌ها خواهیم کرد تا برنام‌هایی ابتدایی بسازیم.</p><nav><a href="00_intro.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="02_program_structure.html" title="next chapter">▶</a></nav>
+</article>

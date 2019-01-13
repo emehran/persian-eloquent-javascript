@@ -1,0 +1,572 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Document Object Model :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
+  <script src="js/acorn_codemirror.js"></script>
+  <link rel=stylesheet href="css/ejs.css">
+  <script src="js/sandbox.js"></script>
+  <script src="js/ejs.js"></script><script>var chapNum = 14;</script></head>
+
+<article>
+<nav><a href="13_browser.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="15_event.html" title="next chapter">▶</a></nav>
+
+<h1><span class=chap_num>Chapter 14</span>The Document Object Model</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p_yqipqPLrLS" href="#p_yqipqPLrLS" tabindex="-1" role="presentation"></a>Too bad! Same old story! Once you’ve finished building your house you notice you’ve accidentally learned something that you really should have known—before you started.</p>
+
+<footer>Friedrich Nietzsche, <cite>Beyond Good and Evil</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_14.jpg" alt="Picture of a tree with letters and scripts hanging from its branches"></figure>
+
+<p><a class="p_ident" id="p_O255K9+8+X" href="#p_O255K9+8+X" tabindex="-1" role="presentation"></a>When you open a web page in your browser, the browser retrieves the page’s HTML text and parses it, much like the way our parser from <a href="12_language.html#parsing">Chapter 12</a> parsed programs. The browser builds up a model of the document’s structure and uses this model to draw the page on the screen.</p>
+
+<p><a class="p_ident" id="p_zrkOdq43yM" href="#p_zrkOdq43yM" tabindex="-1" role="presentation"></a>This representation of the document is one of the toys that a JavaScript program has available in its sandbox. It is a data
+structure that you can read or modify. It acts as a <em>live</em> data structure: when it’s modified, the page on the screen is updated to reflect the changes.</p>
+
+<h2><a class="h_ident" id="h_XJzHjmX32m" href="#h_XJzHjmX32m" tabindex="-1" role="presentation"></a>Document structure</h2>
+
+<p><a class="p_ident" id="p_j22zv7gLgp" href="#p_j22zv7gLgp" tabindex="-1" role="presentation"></a>You can imagine an HTML document as a nested set of boxes. Tags such as <code>&lt;body&gt;</code> and <code>&lt;/body&gt;</code> enclose other tags, which in turn contain other tags or text. Here’s the example document from the <a href="13_browser.html">previous chapter</a>:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html"  data-sandbox="homepage"><a class="c_ident" id="c_4wSSl86LKl" href="#c_4wSSl86LKl" tabindex="-1" role="presentation"></a><span class="cm-meta">&lt;!doctype html&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">html</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">head</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">title</span><span class="cm-tag cm-bracket">&gt;</span>My home page<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">title</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">head</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>My home page<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Hello, I am Marijn and this is my home page.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>I also wrote a book! Read it
+      <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;http://eloquentjavascript.net&quot;</span><span class="cm-tag cm-bracket">&gt;</span>here<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span>.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">html</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_rRaTGW2wtE" href="#p_rRaTGW2wtE" tabindex="-1" role="presentation"></a>This page has the following structure:</p><figure><img src="img/html-boxes.svg" alt="HTML document as nested boxes"></figure>
+
+<p><a class="p_ident" id="p_1mgE45KfoF" href="#p_1mgE45KfoF" tabindex="-1" role="presentation"></a>The data structure the browser uses to represent the document follows this shape. For each box, there is an object, which we can interact with to find out things such as what HTML tag it represents and which boxes and text it contains. This representation is called the <em>Document Object Model</em>, or DOM for short.</p>
+
+<p><a class="p_ident" id="p_ltiXfOMPcl" href="#p_ltiXfOMPcl" tabindex="-1" role="presentation"></a>The global binding <code>document</code> gives us access to these objects. Its <code>documentElement</code> property refers to the object representing the <code>&lt;html&gt;</code> tag. Since every HTML document has a head and a body, it also has <code>head</code> and <code>body</code> properties, pointing at those elements.</p>
+
+<h2><a class="h_ident" id="h_HnCB1zb0Ot" href="#h_HnCB1zb0Ot" tabindex="-1" role="presentation"></a>Trees</h2>
+
+<p><a class="p_ident" id="p_63ES4U9bHr" href="#p_63ES4U9bHr" tabindex="-1" role="presentation"></a>Think back to the syntax trees from <a href="12_language.html#parsing">Chapter 12</a> for a moment. Their structures are strikingly similar to the structure of a browser’s document. Each <em>node</em> may refer to other nodes, <em>children</em>, which in turn may have their own children. This shape is typical of nested structures where elements can contain subelements that are similar to themselves.</p>
+
+<p><a class="p_ident" id="p_QVBp4KpREl" href="#p_QVBp4KpREl" tabindex="-1" role="presentation"></a>We call a data structure a <em>tree</em> when it has a branching structure, has no cycles (a node may not contain itself, directly or indirectly), and has a single, well-defined <em>root</em>. In the case of the DOM, <code>document.<wbr>documentElement</code> serves as the root.</p>
+
+<p><a class="p_ident" id="p_BEUMAPGYwc" href="#p_BEUMAPGYwc" tabindex="-1" role="presentation"></a>Trees come up a lot in computer science. In addition to representing recursive structures such as HTML documents or programs, they are often used to maintain sorted sets of data because elements can usually be found or inserted more efficiently in a tree than in a flat array.</p>
+
+<p><a class="p_ident" id="p_bH4un2TNOK" href="#p_bH4un2TNOK" tabindex="-1" role="presentation"></a>A typical tree has different kinds of nodes. The syntax tree for <a href="12_language.html">the Egg language</a> had identifiers, values, and application nodes. Application nodes may have children, whereas identifiers and values are <em>leaves</em>, or nodes without children.</p>
+
+<p><a class="p_ident" id="p_boZnTfEJs0" href="#p_boZnTfEJs0" tabindex="-1" role="presentation"></a>The same goes for the DOM. Nodes for <em>elements</em>, which represent HTML tags, determine the structure of the document. These can have child nodes. An example of such a node is <code>document.body</code>. Some of these children can be leaf nodes, such as pieces of text or comment nodes.</p>
+
+<p><a class="p_ident" id="p_f2BdWNSlpJ" href="#p_f2BdWNSlpJ" tabindex="-1" role="presentation"></a>Each DOM node object has a <code>nodeType</code> property, which contains a code (number) that identifies the type of node. Elements have code 1, which is also defined as the constant property <code>Node.<wbr>ELEMENT_NODE</code>. Text nodes, representing a section of text in the document, get code 3 (<code>Node.TEXT_NODE</code>). Comments have code 8 (<code>Node.<wbr>COMMENT_NODE</code>).</p>
+
+<p><a class="p_ident" id="p_RcdzGUMYUH" href="#p_RcdzGUMYUH" tabindex="-1" role="presentation"></a>Another way to visualize our document tree is as follows:</p><figure><img src="img/html-tree.svg" alt="HTML document as a tree"></figure>
+
+<p><a class="p_ident" id="p_KheiUePsYH" href="#p_KheiUePsYH" tabindex="-1" role="presentation"></a>The leaves are text nodes, and the arrows indicate parent-child relationships between nodes.</p>
+
+<h2 id="standard"><a class="h_ident" id="h_XgjABY6Ugx" href="#h_XgjABY6Ugx" tabindex="-1" role="presentation"></a>The standard</h2>
+
+<p><a class="p_ident" id="p_mGhmcMpW9e" href="#p_mGhmcMpW9e" tabindex="-1" role="presentation"></a>Using cryptic numeric codes to represent node types is not a very JavaScript-like thing to do. Later in this chapter, we’ll see that other parts of the DOM interface also feel cumbersome and alien. The reason for this is that the DOM wasn’t designed for just JavaScript. Rather, it tries to be a language-neutral interface that can be used in other systems as well—not just for HTML but also for XML, which is a generic data format with an HTML-like syntax.</p>
+
+<p><a class="p_ident" id="p_IT2jWsK6qu" href="#p_IT2jWsK6qu" tabindex="-1" role="presentation"></a>This is unfortunate. Standards are often useful. But in this case, the advantage (cross-language consistency) isn’t all that compelling. Having an interface that is properly integrated with the language you are using will save you more time than having a familiar interface across languages.</p>
+
+<p><a class="p_ident" id="p_feaMhbBocX" href="#p_feaMhbBocX" tabindex="-1" role="presentation"></a>As an example of this poor integration, consider the <code>childNodes</code> property that element nodes in the DOM have. This property holds an array-like object, with a <code>length</code> property and properties labeled by numbers to access the child nodes. But it is an instance of the <code>NodeList</code> type, not a real array, so it does not have methods such as <code>slice</code> and <code>map</code>.</p>
+
+<p><a class="p_ident" id="p_XrOZAaBu2c" href="#p_XrOZAaBu2c" tabindex="-1" role="presentation"></a>Then there are issues that are simply poor design. For example, there is no way to create a new node and immediately add children or attributes to it. Instead, you have to first create it and then add the children and attributes one by one, using side effects. Code that interacts heavily with the DOM tends to get long, repetitive, and ugly.</p>
+
+<p><a class="p_ident" id="p_1dwhmrGwQQ" href="#p_1dwhmrGwQQ" tabindex="-1" role="presentation"></a>But these flaws aren’t fatal. Since JavaScript allows us to create our own abstractions, it is possible to design improved ways to express the operations you are performing. Many libraries intended for browser programming come with such tools.</p>
+
+<h2><a class="h_ident" id="h_ShZPVipWw/" href="#h_ShZPVipWw/" tabindex="-1" role="presentation"></a>Moving through the tree</h2>
+
+<p><a class="p_ident" id="p_KU+aLLXhA0" href="#p_KU+aLLXhA0" tabindex="-1" role="presentation"></a>DOM nodes contain a wealth of links to other nearby nodes. The following diagram illustrates these:</p><figure><img src="img/html-links.svg" alt="Links between DOM nodes"></figure>
+
+<p><a class="p_ident" id="p_oWR8F5E2Yw" href="#p_oWR8F5E2Yw" tabindex="-1" role="presentation"></a>Although the diagram shows only one link of each type, every node has a <code>parentNode</code> property that points to the node it is part of, if any. Likewise, every element node (node type 1) has a <code>childNodes</code> property that points to an array-like object holding its children.</p>
+
+<p><a class="p_ident" id="p_zpX7kgIV1h" href="#p_zpX7kgIV1h" tabindex="-1" role="presentation"></a>In theory, you could move anywhere in the tree using just these parent and child links. But JavaScript also gives you access to a number of additional convenience links. The <code>firstChild</code> and <code>lastChild</code> properties point to the first and last child elements or have the value <code>null</code> for nodes without children. Similarly, <code>previousSibling</code> and <code>nextSibling</code> point to adjacent nodes, which are nodes with the same parent that appear immediately before or after the node itself. For a first child, <code>previousSibling</code> will be null, and for a last child, <code>nextSibling</code> will be null.</p>
+
+<p><a class="p_ident" id="p_EXYoCGtRP4" href="#p_EXYoCGtRP4" tabindex="-1" role="presentation"></a>There’s also the <code>children</code> property, which is like <code>childNodes</code> but contains only element (type 1) children, not other types of child nodes. This can be useful when you aren’t interested in text nodes.</p>
+
+<p><a class="p_ident" id="p_wSmPJ/d3c4" href="#p_wSmPJ/d3c4" tabindex="-1" role="presentation"></a>When dealing with a nested data structure like this one, recursive functions are often useful. The following function scans a document for text nodes containing a given string and returns <code>true</code> when it has found one:</p>
+
+<pre id="talksAbout" class="snippet cm-s-default" data-language="javascript"  data-sandbox="homepage"><a class="c_ident" id="c_mDHDYNTxd7" href="#c_mDHDYNTxd7" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">talksAbout</span>(<span class="cm-def">node</span>, <span class="cm-def">string</span>) {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">node</span>.<span class="cm-property">nodeType</span> <span class="cm-operator">==</span> <span class="cm-variable">Node</span>.<span class="cm-property">ELEMENT_NODE</span>) {
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">node</span>.<span class="cm-property">childNodes</span>.<span class="cm-property">length</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-variable">talksAbout</span>(<span class="cm-variable-2">node</span>.<span class="cm-property">childNodes</span>[<span class="cm-variable-2">i</span>], <span class="cm-variable-2">string</span>)) {
+        <span class="cm-keyword">return</span> <span class="cm-atom">true</span>;
+      }
+    }
+    <span class="cm-keyword">return</span> <span class="cm-atom">false</span>;
+  } <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable-2">node</span>.<span class="cm-property">nodeType</span> <span class="cm-operator">==</span> <span class="cm-variable">Node</span>.<span class="cm-property">TEXT_NODE</span>) {
+    <span class="cm-keyword">return</span> <span class="cm-variable-2">node</span>.<span class="cm-property">nodeValue</span>.<span class="cm-property">indexOf</span>(<span class="cm-variable-2">string</span>) <span class="cm-operator">&gt;</span> <span class="cm-operator">-</span><span class="cm-number">1</span>;
+  }
+}
+
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">talksAbout</span>(<span class="cm-variable">document</span>.<span class="cm-property">body</span>, <span class="cm-string">&quot;book&quot;</span>));
+<span class="cm-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p_H+Wc+lYGt9" href="#p_H+Wc+lYGt9" tabindex="-1" role="presentation"></a>Because <code>childNodes</code> is not a real array, we cannot loop over it with <code>for</code>/<code>of</code> and have to run over the index range using a regular <code>for</code> loop or use <code>Array.from</code>.</p>
+
+<p><a class="p_ident" id="p_z6XhjipK31" href="#p_z6XhjipK31" tabindex="-1" role="presentation"></a>The <code>nodeValue</code> property of a text node holds the string of text that it represents.</p>
+
+<h2><a class="h_ident" id="h_jS5BEpmLY0" href="#h_jS5BEpmLY0" tabindex="-1" role="presentation"></a>Finding elements</h2>
+
+<p><a class="p_ident" id="p_saBiuECTgW" href="#p_saBiuECTgW" tabindex="-1" role="presentation"></a>Navigating these links among parents, children, and siblings is often useful. But if we want to find a specific node in the document, reaching it by starting at <code>document.body</code> and following a fixed path of properties is a bad idea. Doing so bakes assumptions into our program about the precise structure of the document—a structure you might want to change later. Another complicating factor is that text nodes are created even for the whitespace between nodes. The example document’s <code>&lt;body&gt;</code> tag does not have just three children (<code>&lt;h1&gt;</code> and two <code>&lt;p&gt;</code> elements) but actually has seven: those three, plus the spaces before, after, and between them.</p>
+
+<p><a class="p_ident" id="p_St5y6wbhGX" href="#p_St5y6wbhGX" tabindex="-1" role="presentation"></a>So if we want to get the <code>href</code> attribute of the link in that document, we don’t want to say something like “Get the second child of the sixth child of the document body”. It’d be better if we could say “Get the first link in the document”. And we can.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="homepage"><a class="c_ident" id="c_X6zFdF/80F" href="#c_X6zFdF/80F" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">link</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">getElementsByTagName</span>(<span class="cm-string">&quot;a&quot;</span>)[<span class="cm-number">0</span>];
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">link</span>.<span class="cm-property">href</span>);</pre>
+
+<p><a class="p_ident" id="p_VGWClqmGZz" href="#p_VGWClqmGZz" tabindex="-1" role="presentation"></a>All element nodes have a <code>getElementsByTagName</code> method, which collects all elements with the given tag name that are descendants (direct or indirect children) of that node and returns them as an array-like
+object.</p>
+
+<p><a class="p_ident" id="p_xDCAIt1lT6" href="#p_xDCAIt1lT6" tabindex="-1" role="presentation"></a>To find a specific <em>single</em> node, you can give it an <code>id</code> attribute and use <code>document.<wbr>getElementById</code> instead.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_CpFVpKYjsr" href="#c_CpFVpKYjsr" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>My ostrich Gertrude:<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;gertrude&quot;</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/ostrich.png&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">ostrich</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">&quot;gertrude&quot;</span>);
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">ostrich</span>.<span class="cm-property">src</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_Ur1I1Lx8SY" href="#p_Ur1I1Lx8SY" tabindex="-1" role="presentation"></a>A third, similar method is <code>getElementsByClassName</code>, which, like <code>getElementsByTagName</code>, searches through the contents of an element node and retrieves all elements that have the given string in their <code>class</code> attribute.</p>
+
+<h2><a class="h_ident" id="h_npiFAJENvT" href="#h_npiFAJENvT" tabindex="-1" role="presentation"></a>Changing the document</h2>
+
+<p><a class="p_ident" id="p_PqYkGnE2Ps" href="#p_PqYkGnE2Ps" tabindex="-1" role="presentation"></a>Almost everything about the DOM data structure can be changed. The shape of the document tree can be modified by changing parent-child relationships. Nodes have a <code>remove</code> method to remove them from their current parent node. To add a child node to an element node, we can use <code>appendChild</code>, which puts it at the end of the list of children, or <code>insertBefore</code>, which inserts the node given as the first argument before the node given as the second argument.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_xdAyPFCEJ5" href="#c_xdAyPFCEJ5" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>One<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Two<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Three<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">paragraphs</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">getElementsByTagName</span>(<span class="cm-string">&quot;p&quot;</span>);
+  <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">insertBefore</span>(<span class="cm-variable">paragraphs</span>[<span class="cm-number">2</span>], <span class="cm-variable">paragraphs</span>[<span class="cm-number">0</span>]);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_izAyoVA99z" href="#p_izAyoVA99z" tabindex="-1" role="presentation"></a>A node can exist in the document in only one place. Thus, inserting paragraph <em>Three</em> in front of paragraph <em>One</em> will first remove it from the end of the document and then insert it at the front, resulting in <em>Three</em>/<em>One</em>/<em>Two</em>. All operations that insert a node somewhere will, as a side effect, cause it to be removed from its current position (if it has one).</p>
+
+<p><a class="p_ident" id="p_PHkpqBpgHX" href="#p_PHkpqBpgHX" tabindex="-1" role="presentation"></a>The <code>replaceChild</code> method is used to replace a child node with another one. It takes as arguments two nodes: a new node and the node to be replaced. The replaced node must be a child of the element the method is called on. Note that both <code>replaceChild</code> and <code>insertBefore</code> expect the <em>new</em> node as their first argument.</p>
+
+<h2><a class="h_ident" id="h_AlX6HES+2D" href="#h_AlX6HES+2D" tabindex="-1" role="presentation"></a>Creating nodes</h2>
+
+<p><a class="p_ident" id="p_Z0UBaFpahv" href="#p_Z0UBaFpahv" tabindex="-1" role="presentation"></a>Say we want to write a script that replaces all images (<code>&lt;img&gt;</code> tags) in the document with the text held in their <code>alt</code> attributes, which specifies an alternative textual representation of the image.</p>
+
+<p><a class="p_ident" id="p_zMqlQBb7H1" href="#p_zMqlQBb7H1" tabindex="-1" role="presentation"></a>This involves not only removing the images but adding a new text node to replace them. Text nodes are created with the <code>document.<wbr>createTextNode</code> method.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_x13nsyh4X4" href="#c_x13nsyh4X4" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>The <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/cat.png&quot;</span> <span class="cm-attribute">alt</span>=<span class="cm-string">&quot;Cat&quot;</span><span class="cm-tag cm-bracket">&gt;</span> in the
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/hat.png&quot;</span> <span class="cm-attribute">alt</span>=<span class="cm-string">&quot;Hat&quot;</span><span class="cm-tag cm-bracket">&gt;</span>.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">onclick</span>=<span class="cm-string">&quot;replaceImages()&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Replace<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">replaceImages</span>() {
+    <span class="cm-keyword">let</span> <span class="cm-def">images</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">getElementsByTagName</span>(<span class="cm-string">&quot;img&quot;</span>);
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-variable-2">images</span>.<span class="cm-property">length</span> <span class="cm-operator">-</span> <span class="cm-number">1</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&gt;=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span><span class="cm-operator">--</span>) {
+      <span class="cm-keyword">let</span> <span class="cm-def">image</span> <span class="cm-operator">=</span> <span class="cm-variable-2">images</span>[<span class="cm-variable-2">i</span>];
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">image</span>.<span class="cm-property">alt</span>) {
+        <span class="cm-keyword">let</span> <span class="cm-def">text</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createTextNode</span>(<span class="cm-variable-2">image</span>.<span class="cm-property">alt</span>);
+        <span class="cm-variable-2">image</span>.<span class="cm-property">parentNode</span>.<span class="cm-property">replaceChild</span>(<span class="cm-variable-2">text</span>, <span class="cm-variable-2">image</span>);
+      }
+    }
+  }
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_SZGvV3YwdR" href="#p_SZGvV3YwdR" tabindex="-1" role="presentation"></a>Given a string, <code>createTextNode</code> gives us a text node that we can insert into the document to make it show up on the screen.</p>
+
+<p><a class="p_ident" id="p_6KP6Yw4ww7" href="#p_6KP6Yw4ww7" tabindex="-1" role="presentation"></a>The loop that goes over the images starts at the end of the list. This is necessary because the node list returned by a method like <code>getElementsByTagName</code> (or a property like <code>childNodes</code>) is <em>live</em>. That is, it is updated as the document changes. If we started from the front, removing the first image would cause the list to lose its first element so that the second time the loop repeats, where <code>i</code> is 1, it would stop because the length of the collection is now also 1.</p>
+
+<p><a class="p_ident" id="p_H+4G9MqWPh" href="#p_H+4G9MqWPh" tabindex="-1" role="presentation"></a>If you want a <em>solid</em> collection of nodes, as opposed to a live one, you can convert the collection to a real array by calling <code>Array.from</code>.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_YYMkVyoN/K" href="#c_YYMkVyoN/K" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">arrayish</span> <span class="cm-operator">=</span> {<span class="cm-number cm-property">0</span>: <span class="cm-string">&quot;one&quot;</span>, <span class="cm-number cm-property">1</span>: <span class="cm-string">&quot;two&quot;</span>, <span class="cm-property">length</span>: <span class="cm-number">2</span>};
+<span class="cm-keyword">let</span> <span class="cm-def">array</span> <span class="cm-operator">=</span> <span class="cm-variable">Array</span>.<span class="cm-property">from</span>(<span class="cm-variable">arrayish</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">array</span>.<span class="cm-property">map</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">toUpperCase</span>()));
+<span class="cm-comment">// → [&quot;ONE&quot;, &quot;TWO&quot;]</span></pre>
+
+<p><a class="p_ident" id="p_2LO1OJVEk3" href="#p_2LO1OJVEk3" tabindex="-1" role="presentation"></a>To create element nodes, you can use the <code>document.<wbr>createElement</code> method. This method takes a tag name and returns a new empty node of the given type.</p>
+
+<p id="elt"><a class="p_ident" id="p_bvldRsjLfM" href="#p_bvldRsjLfM" tabindex="-1" role="presentation"></a>The following example defines a utility <code>elt</code>, which creates an element node and treats the rest of its arguments as children to that node. This function is then used to add an attribution to a quote.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_3rSOndXJQI" href="#c_3rSOndXJQI" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">blockquote</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;quote&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+  No book can ever be finished. While working on it we learn
+  just enough to find it immature the moment we turn away
+  from it.
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">blockquote</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">elt</span>(<span class="cm-def">type</span>, <span class="cm-meta">...</span><span class="cm-def">children</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">node</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-variable-2">type</span>);
+    <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">child</span> <span class="cm-keyword">of</span> <span class="cm-variable-2">children</span>) {
+      <span class="cm-keyword">if</span> (<span class="cm-keyword">typeof</span> <span class="cm-variable-2">child</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;string&quot;</span>) <span class="cm-variable-2">node</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable-2">child</span>);
+      <span class="cm-keyword">else</span> <span class="cm-variable-2">node</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">document</span>.<span class="cm-property">createTextNode</span>(<span class="cm-variable-2">child</span>));
+    }
+    <span class="cm-keyword">return</span> <span class="cm-variable-2">node</span>;
+  }
+
+  <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">&quot;quote&quot;</span>).<span class="cm-property">appendChild</span>(
+    <span class="cm-variable">elt</span>(<span class="cm-string">&quot;footer&quot;</span>, <span class="cm-string">&quot;—&quot;</span>,
+        <span class="cm-variable">elt</span>(<span class="cm-string">&quot;strong&quot;</span>, <span class="cm-string">&quot;Karl Popper&quot;</span>),
+        <span class="cm-string">&quot;, preface to the second editon of &quot;</span>,
+        <span class="cm-variable">elt</span>(<span class="cm-string">&quot;em&quot;</span>, <span class="cm-string">&quot;The Open Society and Its Enemies&quot;</span>),
+        <span class="cm-string">&quot;, 1950&quot;</span>));
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<h2><a class="h_ident" id="h_pmUmF/LHme" href="#h_pmUmF/LHme" tabindex="-1" role="presentation"></a>Attributes</h2>
+
+<p><a class="p_ident" id="p_HSPdyuAruy" href="#p_HSPdyuAruy" tabindex="-1" role="presentation"></a>Some element attributes, such as <code>href</code> for links, can be accessed through a property of the same name on the element’s DOM object. This is the case for most commonly used standard attributes.</p>
+
+<p><a class="p_ident" id="p_vK0AfBjXCM" href="#p_vK0AfBjXCM" tabindex="-1" role="presentation"></a>But HTML allows you to set any attribute you want on nodes. This can be useful because it allows you to store extra information in a document. If you make up your own attribute names, though, such attributes will not be present as properties on the element’s node. Instead, you have to use the <code>getAttribute</code> and <code>setAttribute</code> methods to work with them.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_S977zg3XyT" href="#c_S977zg3XyT" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">data-classified</span>=<span class="cm-string">&quot;secret&quot;</span><span class="cm-tag cm-bracket">&gt;</span>The launch code is 00000000.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">data-classified</span>=<span class="cm-string">&quot;unclassified&quot;</span><span class="cm-tag cm-bracket">&gt;</span>I have two feet.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">paras</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">getElementsByTagName</span>(<span class="cm-string">&quot;p&quot;</span>);
+  <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">para</span> <span class="cm-keyword">of</span> <span class="cm-variable">Array</span>.<span class="cm-property">from</span>(<span class="cm-variable">paras</span>)) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable">para</span>.<span class="cm-property">getAttribute</span>(<span class="cm-string">&quot;data-classified&quot;</span>) <span class="cm-operator">==</span> <span class="cm-string">&quot;secret&quot;</span>) {
+      <span class="cm-variable">para</span>.<span class="cm-property">remove</span>();
+    }
+  }
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_BrjnN/bGC0" href="#p_BrjnN/bGC0" tabindex="-1" role="presentation"></a>It is recommended to prefix the names of such made-up attributes with <code>data-</code> to ensure they do not conflict with any other attributes.</p>
+
+<p><a class="p_ident" id="p_Hi6IWNjXxP" href="#p_Hi6IWNjXxP" tabindex="-1" role="presentation"></a>There is a commonly used attribute, <code>class</code>, which is a keyword in the JavaScript language. For historical reasons—some old JavaScript implementations could not handle property names that matched keywords—the property used to access this attribute is called <code>className</code>. You can also access it under its real name, <code>&quot;class&quot;</code>, by using the <code>getAttribute</code> and <code>setAttribute</code> methods.</p>
+
+<h2><a class="h_ident" id="h_lyrY2KUDl7" href="#h_lyrY2KUDl7" tabindex="-1" role="presentation"></a>Layout</h2>
+
+<p><a class="p_ident" id="p_Qvk9MMKpjV" href="#p_Qvk9MMKpjV" tabindex="-1" role="presentation"></a>You may have noticed that different types of elements are laid out differently. Some, such as paragraphs (<code>&lt;p&gt;</code>) or headings (<code>&lt;h1&gt;</code>), take up the whole width of the document and are rendered on separate lines. These are called <em>block</em> elements. Others, such as links (<code>&lt;a&gt;</code>) or the <code>&lt;strong&gt;</code> element, are rendered on the same line with their surrounding text. Such elements are called <em>inline</em> elements.</p>
+
+<p><a class="p_ident" id="p_uyQ6hsLw6d" href="#p_uyQ6hsLw6d" tabindex="-1" role="presentation"></a>For any given document, browsers are able to compute a layout, which gives each element a size and position based on its type and content. This layout is then used to actually draw the document.</p>
+
+<p><a class="p_ident" id="p_2zXIgr70Do" href="#p_2zXIgr70Do" tabindex="-1" role="presentation"></a>The size and position of an element can be accessed from JavaScript. The <code>offsetWidth</code> and <code>offsetHeight</code> properties give you the space the element takes up in <em>pixels</em>. A pixel is the basic unit of measurement in the browser. It traditionally corresponds to the smallest dot that the screen can draw, but on modern displays, which can draw <em>very</em> small dots, that may no longer be the case, and a browser pixel may span multiple display dots.</p>
+
+<p><a class="p_ident" id="p_CL3JagaUiP" href="#p_CL3JagaUiP" tabindex="-1" role="presentation"></a>Similarly, <code>clientWidth</code> and <code>clientHeight</code> give you the size of the space <em>inside</em> the element, ignoring border width.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_E5M9cwi2qC" href="#c_E5M9cwi2qC" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;border: 3px solid red&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+  I'm boxed in
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">para</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">getElementsByTagName</span>(<span class="cm-string">&quot;p&quot;</span>)[<span class="cm-number">0</span>];
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;clientHeight:&quot;</span>, <span class="cm-variable">para</span>.<span class="cm-property">clientHeight</span>);
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;offsetHeight:&quot;</span>, <span class="cm-variable">para</span>.<span class="cm-property">offsetHeight</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p id="boundingRect"><a class="p_ident" id="p_LG8xrkr071" href="#p_LG8xrkr071" tabindex="-1" role="presentation"></a>The most effective way to find the precise position of an element on the screen is the <code>getBoundingClientRect</code> method. It returns an object with <code>top</code>, <code>bottom</code>, <code>left</code>, and <code>right</code> properties, indicating the pixel positions of the sides of the element relative to the top left of the screen. If you want them relative to the whole document, you must add the current scroll position, which you can find in the <code>pageXOffset</code> and <code>pageYOffset</code> bindings.</p>
+
+<p><a class="p_ident" id="p_LcMNzqCMUS" href="#p_LcMNzqCMUS" tabindex="-1" role="presentation"></a>Laying out a document can be quite a lot of work. In the interest of speed, browser engines do not immediately re-layout a document every time you change it but wait as long as they can. When a JavaScript program that changed the document finishes running, the browser will have to compute a new layout to draw the changed document to the screen. When a program <em>asks</em> for the position or size of something by reading properties such as <code>offsetHeight</code> or calling <code>getBoundingClientRect</code>, providing correct information also requires computing a layout.</p>
+
+<p><a class="p_ident" id="p_TzaMQEZthV" href="#p_TzaMQEZthV" tabindex="-1" role="presentation"></a>A program that repeatedly alternates between reading DOM layout information and changing the DOM forces a lot of layout computations to happen and will consequently run very slowly. The following code is an example of this. It contains two different programs that build up a line of <em>X</em> characters 2,000 pixels wide and measures the time each one takes.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Mmn5ZrRT52" href="#c_Mmn5ZrRT52" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;one&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;two&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">time</span>(<span class="cm-def">name</span>, <span class="cm-def">action</span>) {
+    <span class="cm-keyword">let</span> <span class="cm-def">start</span> <span class="cm-operator">=</span> <span class="cm-variable">Date</span>.<span class="cm-property">now</span>(); <span class="cm-comment">// Current time in milliseconds</span>
+    <span class="cm-variable-2">action</span>();
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">name</span>, <span class="cm-string">&quot;took&quot;</span>, <span class="cm-variable">Date</span>.<span class="cm-property">now</span>() <span class="cm-operator">-</span> <span class="cm-variable-2">start</span>, <span class="cm-string">&quot;ms&quot;</span>);
+  }
+
+  <span class="cm-variable">time</span>(<span class="cm-string">&quot;naive&quot;</span>, () <span class="cm-operator">=&gt;</span> {
+    <span class="cm-keyword">let</span> <span class="cm-def">target</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">&quot;one&quot;</span>);
+    <span class="cm-keyword">while</span> (<span class="cm-variable-2">target</span>.<span class="cm-property">offsetWidth</span> <span class="cm-operator">&lt;</span> <span class="cm-number">2000</span>) {
+      <span class="cm-variable-2">target</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">document</span>.<span class="cm-property">createTextNode</span>(<span class="cm-string">&quot;X&quot;</span>));
+    }
+  });
+  <span class="cm-comment">// → naive took 32 ms</span>
+
+  <span class="cm-variable">time</span>(<span class="cm-string">&quot;clever&quot;</span>, <span class="cm-keyword">function</span>() {
+    <span class="cm-keyword">let</span> <span class="cm-def">target</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">&quot;two&quot;</span>);
+    <span class="cm-variable-2">target</span>.<span class="cm-property">appendChild</span>(<span class="cm-variable">document</span>.<span class="cm-property">createTextNode</span>(<span class="cm-string">&quot;XXXXX&quot;</span>));
+    <span class="cm-keyword">let</span> <span class="cm-def">total</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">ceil</span>(<span class="cm-number">2000</span> <span class="cm-operator">/</span> (<span class="cm-variable-2">target</span>.<span class="cm-property">offsetWidth</span> <span class="cm-operator">/</span> <span class="cm-number">5</span>));
+    <span class="cm-variable-2">target</span>.<span class="cm-property">firstChild</span>.<span class="cm-property">nodeValue</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;X&quot;</span>.<span class="cm-property">repeat</span>(<span class="cm-variable-2">total</span>);
+  });
+  <span class="cm-comment">// → clever took 1 ms</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<h2><a class="h_ident" id="h_VfKBbtOqcL" href="#h_VfKBbtOqcL" tabindex="-1" role="presentation"></a>Styling</h2>
+
+<p><a class="p_ident" id="p_G9Se5o/P9V" href="#p_G9Se5o/P9V" tabindex="-1" role="presentation"></a>We have seen that different HTML elements are drawn differently. Some are displayed as blocks, others inline. Some add styling—<code>&lt;strong&gt;</code> makes its content bold, and <code>&lt;a&gt;</code> makes it blue and underlines it.</p>
+
+<p><a class="p_ident" id="p_0uDaEVu+We" href="#p_0uDaEVu+We" tabindex="-1" role="presentation"></a>The way an <code>&lt;img&gt;</code> tag shows an image or an <code>&lt;a&gt;</code> tag causes a link to be followed when it is clicked is strongly tied to the element type. But we can change the styling associated with an element, such as the text color or underline. Here is an example that uses the <code>style</code> property:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Qie8s1kOFZ" href="#c_Qie8s1kOFZ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;.&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Normal link<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;.&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;color: green&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Green link<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_UDiIHFxHaH" href="#p_UDiIHFxHaH" tabindex="-1" role="presentation"></a>A style attribute may contain one or more <em>declarations</em>, which are a property (such as <code>color</code>) followed by a colon and a value (such as <code>green</code>). When there is more than one declaration, they must be separated by semicolons, as in <code>&quot;color: red; border: none&quot;</code>.</p>
+
+<p><a class="p_ident" id="p_IFsPqr8z6J" href="#p_IFsPqr8z6J" tabindex="-1" role="presentation"></a>A lot of aspects of the document can be influenced by styling. For example, the <code>display</code> property controls whether an element is displayed as a block or an inline element.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_NN8SrlwTXB" href="#c_NN8SrlwTXB" tabindex="-1" role="presentation"></a>This text is displayed <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span>inline<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span>,
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">strong</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;display: block&quot;</span><span class="cm-tag cm-bracket">&gt;</span>as a block<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span>, and
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">strong</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;display: none&quot;</span><span class="cm-tag cm-bracket">&gt;</span>not at all<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span>.</pre>
+
+<p><a class="p_ident" id="p_1al7UxHqSY" href="#p_1al7UxHqSY" tabindex="-1" role="presentation"></a>The <code>block</code> tag will end up on its own line since block elements are not displayed inline with the text around them. The last tag is not displayed at all—<code>display: none</code> prevents an element from showing up on the screen. This is a way to hide elements. It is often preferable to removing them from the document entirely because it makes it easy to reveal them again later.</p>
+
+<p><a class="p_ident" id="p_HcAoKCgOCF" href="#p_HcAoKCgOCF" tabindex="-1" role="presentation"></a>JavaScript code can directly manipulate the style of an element through the element’s <code>style</code> property. This property holds an object that has properties for all possible style properties. The values of these properties are strings, which we can write to in order to change a particular aspect of the element’s style.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_WtWpdICuOL" href="#c_WtWpdICuOL" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;para&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;color: purple&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+  Nice text
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">para</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">getElementById</span>(<span class="cm-string">&quot;para&quot;</span>);
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">para</span>.<span class="cm-property">style</span>.<span class="cm-property">color</span>);
+  <span class="cm-variable">para</span>.<span class="cm-property">style</span>.<span class="cm-property">color</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;magenta&quot;</span>;
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_yEGT1UyTDI" href="#p_yEGT1UyTDI" tabindex="-1" role="presentation"></a>Some style property names contain hyphens, such as <code>font-family</code>. Because such property names are awkward to work with in JavaScript (you’d have to say <code>style[&quot;font-family&quot;]</code>), the property names in the <code>style</code> object for such properties have their hyphens removed and the letters after them capitalized (<code>style.fontFamily</code>).</p>
+
+<h2><a class="h_ident" id="h_7kGsaGnBbD" href="#h_7kGsaGnBbD" tabindex="-1" role="presentation"></a>Cascading styles</h2>
+
+<p><a class="p_ident" id="p_i2Y6OhznV/" href="#p_i2Y6OhznV/" tabindex="-1" role="presentation"></a>The styling system for HTML is called CSS, for <em>Cascading Style Sheets</em>. A <em>style sheet</em> is a set of rules for how to style elements in a document. It can be given inside a <code>&lt;style&gt;</code> tag.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_WnNZqmUMzQ" href="#c_WnNZqmUMzQ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag">strong</span> {
+    <span class="cm-property">font-style</span>: <span class="cm-atom">italic</span>;
+    <span class="cm-property">color</span>: <span class="cm-keyword">gray</span>;
+  }
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Now <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span>strong text<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">strong</span><span class="cm-tag cm-bracket">&gt;</span> is italic and gray.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_QiKgncw4nF" href="#p_QiKgncw4nF" tabindex="-1" role="presentation"></a>The <em>cascading</em> in the name refers to the fact that multiple such rules are combined to produce the final style for an element. In the example, the default styling for <code>&lt;strong&gt;</code> tags, which gives them <code>font-weight: bold</code>, is overlaid by the rule in the <code>&lt;style&gt;</code> tag, which adds <code>font-style</code> and <code>color</code>.</p>
+
+<p><a class="p_ident" id="p_TpdOmgyGAl" href="#p_TpdOmgyGAl" tabindex="-1" role="presentation"></a>When multiple rules define a value for the same property, the most recently read rule gets a higher precedence and wins. So if the rule in the <code>&lt;style&gt;</code> tag included <code>font-weight: normal</code>, contradicting the default <code>font-weight</code> rule, the text would be normal, <em>not</em> bold. Styles in a <code>style</code> attribute applied directly to the node have the highest precedence and always win.</p>
+
+<p><a class="p_ident" id="p_BgSVZ5fpx+" href="#p_BgSVZ5fpx+" tabindex="-1" role="presentation"></a>It is possible to target things other than tag names in CSS rules. A rule for <code>.abc</code> applies to all elements with <code>&quot;abc&quot;</code> in their <code>class</code> attribute. A rule for <code>#xyz</code> applies to the element with an <code>id</code> attribute of <code>&quot;xyz&quot;</code> (which should be unique within the document).</p>
+
+<pre class="snippet cm-s-default" data-language="text/css" ><a class="c_ident" id="c_0kqCdknBKh" href="#c_0kqCdknBKh" tabindex="-1" role="presentation"></a><span class="cm-qualifier">.subtle</span> {
+  <span class="cm-property">color</span>: <span class="cm-keyword">gray</span>;
+  <span class="cm-property">font-size</span>: <span class="cm-number">80%</span>;
+}
+<span class="cm-builtin">#header</span> {
+  <span class="cm-property">background</span>: <span class="cm-keyword">blue</span>;
+  <span class="cm-property">color</span>: <span class="cm-keyword">white</span>;
+}
+<span class="cm-comment">/* p elements with id main and with classes a and b */</span>
+<span class="cm-tag">p</span><span class="cm-builtin">#main</span><span class="cm-qualifier">.a</span><span class="cm-qualifier">.b</span> {
+  <span class="cm-property">margin-bottom</span>: <span class="cm-number">20px</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_7kmWmOHAMA" href="#p_7kmWmOHAMA" tabindex="-1" role="presentation"></a>The precedence rule favoring the most recently defined rule applies only when the rules have the same <em>specificity</em>. A rule’s specificity is a measure of how precisely it describes matching elements, determined by the number and kind (tag, class, or ID) of element aspects it requires. For example, a rule that targets <code>p.a</code> is more specific than rules that target <code>p</code> or just <code>.a</code> and would thus take precedence over them.</p>
+
+<p><a class="p_ident" id="p_sM9qHFmGsZ" href="#p_sM9qHFmGsZ" tabindex="-1" role="presentation"></a>The notation <code>p &gt; a {…}</code> applies the given styles to all <code>&lt;a&gt;</code> tags that are direct children of <code>&lt;p&gt;</code> tags. Similarly, <code>p a {…}</code> applies to all <code>&lt;a&gt;</code> tags inside <code>&lt;p&gt;</code> tags, whether they are direct or indirect children.</p>
+
+<h2><a class="h_ident" id="h_5ooQzToxht" href="#h_5ooQzToxht" tabindex="-1" role="presentation"></a>Query selectors</h2>
+
+<p><a class="p_ident" id="p_1wj652tYzq" href="#p_1wj652tYzq" tabindex="-1" role="presentation"></a>We won’t be using style sheets all that much in this book. Understanding them is helpful when programming in the browser, but they are complicated enough to warrant a separate book.</p>
+
+<p><a class="p_ident" id="p_8GQ7mCW+rh" href="#p_8GQ7mCW+rh" tabindex="-1" role="presentation"></a>The main reason I introduced <em>selector</em> syntax—the notation used in style sheets to determine which elements a set of styles apply to—is that we can use this same mini-language as an effective way to find DOM elements.</p>
+
+<p><a class="p_ident" id="p_HBvo4vBdkM" href="#p_HBvo4vBdkM" tabindex="-1" role="presentation"></a>The <code>querySelectorAll</code> method, which is defined both on the <code>document</code> object and on element nodes, takes a selector string and returns a <code>NodeList</code> containing all the elements that it matches.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_yJ0zujW+YH" href="#c_yJ0zujW+YH" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>And if you go chasing
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">class</span>=<span class="cm-string">&quot;animal&quot;</span><span class="cm-tag cm-bracket">&gt;</span>rabbits<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>And you know you're going to fall<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Tell 'em a <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">class</span>=<span class="cm-string">&quot;character&quot;</span><span class="cm-tag cm-bracket">&gt;</span>hookah smoking
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">class</span>=<span class="cm-string">&quot;animal&quot;</span><span class="cm-tag cm-bracket">&gt;</span>caterpillar<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Has given you the call<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">count</span>(<span class="cm-def">selector</span>) {
+    <span class="cm-keyword">return</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelectorAll</span>(<span class="cm-variable-2">selector</span>).<span class="cm-property">length</span>;
+  }
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">count</span>(<span class="cm-string">&quot;p&quot;</span>));           <span class="cm-comment">// All &lt;p&gt; elements</span>
+  <span class="cm-comment">// → 4</span>
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">count</span>(<span class="cm-string">&quot;.animal&quot;</span>));     <span class="cm-comment">// Class animal</span>
+  <span class="cm-comment">// → 2</span>
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">count</span>(<span class="cm-string">&quot;p .animal&quot;</span>));   <span class="cm-comment">// Animal inside of &lt;p&gt;</span>
+  <span class="cm-comment">// → 2</span>
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">count</span>(<span class="cm-string">&quot;p &gt; .animal&quot;</span>)); <span class="cm-comment">// Direct child of &lt;p&gt;</span>
+  <span class="cm-comment">// → 1</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_VqdoUrLVMq" href="#p_VqdoUrLVMq" tabindex="-1" role="presentation"></a>Unlike methods such as <code>getElementsByTagName</code>, the object returned by <code>querySelectorAll</code> is <em>not</em> live. It won’t change when you change the document. It is still not a real array, though, so you still need to call <code>Array.from</code> if you want to treat it like one.</p>
+
+<p><a class="p_ident" id="p_SlkO7PnZLM" href="#p_SlkO7PnZLM" tabindex="-1" role="presentation"></a>The <code>querySelector</code> method (without the <code>All</code> part) works in a similar way. This one is useful if you want a specific, single element. It will return only the first matching element or null when no element matches.</p>
+
+<h2 id="animation"><a class="h_ident" id="h_MAsyozbjjZ" href="#h_MAsyozbjjZ" tabindex="-1" role="presentation"></a>Positioning and animating</h2>
+
+<p><a class="p_ident" id="p_6Fd+Oq3MzE" href="#p_6Fd+Oq3MzE" tabindex="-1" role="presentation"></a>The <code>position</code> style property influences layout in a powerful way. By default it has a value of <code>static</code>, meaning the element sits in its normal place in the document. When it is set to <code>relative</code>, the element still takes up space in the document, but now the <code>top</code> and <code>left</code> style properties can be used to move it relative to that normal place. When <code>position</code> is set to <code>absolute</code>, the element is removed from the normal document flow—that is, it no longer takes up space and may overlap with other elements. Also, its <code>top</code> and <code>left</code> properties can be used to absolutely position it relative to the top-left corner of the nearest enclosing element whose <code>position</code> property isn’t <code>static</code>, or relative to the document if no such enclosing element exists.</p>
+
+<p><a class="p_ident" id="p_TEJWNXCk6K" href="#p_TEJWNXCk6K" tabindex="-1" role="presentation"></a>We can use this to create an animation. The following document displays a picture of a cat that moves around in an ellipse:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_SCZYa8azNm" href="#c_SCZYa8azNm" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;text-align: center&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/cat.png&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;position: relative&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">cat</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;img&quot;</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">angle</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
+  <span class="cm-keyword">function</span> <span class="cm-def">animate</span>(<span class="cm-def">time</span>, <span class="cm-def">lastTime</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">lastTime</span> <span class="cm-operator">!=</span> <span class="cm-atom">null</span>) {
+      <span class="cm-variable">angle</span> <span class="cm-operator">+=</span> (<span class="cm-variable-2">time</span> <span class="cm-operator">-</span> <span class="cm-variable-2">lastTime</span>) <span class="cm-operator">*</span> <span class="cm-number">0.001</span>;
+    }
+    <span class="cm-variable">cat</span>.<span class="cm-property">style</span>.<span class="cm-property">top</span> <span class="cm-operator">=</span> (<span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable">angle</span>) <span class="cm-operator">*</span> <span class="cm-number">20</span>) <span class="cm-operator">+</span> <span class="cm-string">&quot;px&quot;</span>;
+    <span class="cm-variable">cat</span>.<span class="cm-property">style</span>.<span class="cm-property">left</span> <span class="cm-operator">=</span> (<span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable">angle</span>) <span class="cm-operator">*</span> <span class="cm-number">200</span>) <span class="cm-operator">+</span> <span class="cm-string">&quot;px&quot;</span>;
+    <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-def">newTime</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">animate</span>(<span class="cm-variable-2">newTime</span>, <span class="cm-variable-2">time</span>));
+  }
+  <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-variable">animate</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_1j1D9J1YQt" href="#p_1j1D9J1YQt" tabindex="-1" role="presentation"></a>Our picture is centered on the page and given a <code>position</code> of <code>relative</code>. We’ll repeatedly update that picture’s <code>top</code> and <code>left</code> styles to move it.</p>
+
+<p id="animationFrame"><a class="p_ident" id="p_YWJ84IIJ5r" href="#p_YWJ84IIJ5r" tabindex="-1" role="presentation"></a>The script uses <code>requestAnimationFrame</code> to schedule the <code>animate</code> function to run whenever the browser is ready to repaint the screen. The <code>animate</code> function itself again calls <code>requestAnimationFrame</code> to schedule the next update. When the browser window (or tab) is active, this will cause updates to happen at a rate of about 60 per second, which tends to produce a good-looking animation.</p>
+
+<p><a class="p_ident" id="p_V1ZyP92HDo" href="#p_V1ZyP92HDo" tabindex="-1" role="presentation"></a>If we just updated the DOM in a loop, the page would freeze, and nothing would show up on the screen. Browsers do not update their display while a JavaScript program is running, nor do they allow any interaction with the page. This is why we need <code>requestAnimationFrame</code>—it lets the browser know that we are done for now, and it can go ahead and do the things that browsers do, such as updating the screen and responding to user actions.</p>
+
+<p><a class="p_ident" id="p_T1Drg7jSr7" href="#p_T1Drg7jSr7" tabindex="-1" role="presentation"></a>The animation function is passed the current time as an argument. To ensure that the motion of the cat per millisecond is stable, it bases the speed at which the angle changes on the difference between the current time and the last time the function ran. If it just moved the angle by a fixed amount per step, the motion would stutter if, for example, another heavy task running on the same computer were to prevent the function from running for a fraction of a second.</p>
+
+<p id="sin_cos"><a class="p_ident" id="p_C8QAvF7kWm" href="#p_C8QAvF7kWm" tabindex="-1" role="presentation"></a>Moving in circles is done using the trigonometry functions <code>Math.cos</code> and <code>Math.sin</code>. For those who aren’t familiar with these, I’ll briefly introduce them since we will occasionally use them in this book.</p>
+
+<p><a class="p_ident" id="p_fz9+cW0plg" href="#p_fz9+cW0plg" tabindex="-1" role="presentation"></a><code>Math.cos</code> and <code>Math.sin</code> are useful for finding points that lie on a circle around point (0,0) with a radius of one. Both functions interpret their argument as the position on this circle, with zero denoting the point on the far right of the circle, going clockwise until 2π (about 6.28) has taken us around the whole circle. <code>Math.cos</code> tells you the x-coordinate of the point that corresponds to the given position, and <code>Math.sin</code> yields the y-coordinate. Positions (or angles) greater than 2π or less than 0 are valid—the rotation repeats so that <em>a</em>+2π refers to the same angle as <em>a</em>.</p>
+
+<p><a class="p_ident" id="p_0LZN4Lli69" href="#p_0LZN4Lli69" tabindex="-1" role="presentation"></a>This unit for measuring angles is called radians—a full circle is 2π radians, similar to how it is 360 degrees when measuring in degrees. The constant π is available as <code>Math.PI</code> in JavaScript.</p><figure><img src="img/cos_sin.svg" alt="Using cosine and sine to compute coordinates"></figure>
+
+<p><a class="p_ident" id="p_9ovGFCxRhX" href="#p_9ovGFCxRhX" tabindex="-1" role="presentation"></a>The cat animation code keeps a counter, <code>angle</code>, for the current angle of the animation and increments it every time the <code>animate</code> function is called. It can then use this angle to compute the current position of the image element. The <code>top</code> style is computed with <code>Math.sin</code> and multiplied by 20, which is the vertical radius of our ellipse. The <code>left</code> style is based on <code>Math.cos</code> and multiplied by 200 so that the ellipse is much wider than it is high.</p>
+
+<p><a class="p_ident" id="p_/Yly9Ir9QF" href="#p_/Yly9Ir9QF" tabindex="-1" role="presentation"></a>Note that styles usually need <em>units</em>. In this case, we have to append <code>&quot;px&quot;</code> to the number to tell the browser that we are counting in pixels (as opposed to centimeters, “ems”, or other units). This is easy to forget. Using numbers without units will result in your style being ignored—unless the number is 0, which always means the same thing, regardless of its unit.</p>
+
+<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+
+<p><a class="p_ident" id="p_kLcHWntN1r" href="#p_kLcHWntN1r" tabindex="-1" role="presentation"></a>JavaScript programs may inspect and interfere with the document that the browser is displaying through a data structure called the DOM. This data structure represents the browser’s model of the document, and a JavaScript program can modify it to change the visible document.</p>
+
+<p><a class="p_ident" id="p_7Ce58FA9bp" href="#p_7Ce58FA9bp" tabindex="-1" role="presentation"></a>The DOM is organized like a tree, in which elements are arranged hierarchically according to the structure of the document. The objects representing elements have properties such as <code>parentNode</code> and <code>childNodes</code>, which can be used to navigate through this tree.</p>
+
+<p><a class="p_ident" id="p_KUJGKqAvJC" href="#p_KUJGKqAvJC" tabindex="-1" role="presentation"></a>The way a document is displayed can be influenced by <em>styling</em>, both by attaching styles to nodes directly and by defining rules that match certain nodes. There are many different style properties, such as <code>color</code> or <code>display</code>. JavaScript code can manipulate an element’s style directly through its <code>style</code> property.</p>
+
+<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+
+<h3 id="exercise_table"><a class="i_ident" id="i_g/5UC3zznV" href="#i_g/5UC3zznV" tabindex="-1" role="presentation"></a>Build a table</h3>
+
+<p><a class="p_ident" id="p_LuZsMlc8YJ" href="#p_LuZsMlc8YJ" tabindex="-1" role="presentation"></a>An HTML table is built with the following tag structure:</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_MudCG4cYiG" href="#c_MudCG4cYiG" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">table</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>name<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>height<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>place<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">th</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>Kilimanjaro<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>5895<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>
+    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>Tanzania<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">td</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">table</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<p><a class="p_ident" id="p_xvnLvuqcz5" href="#p_xvnLvuqcz5" tabindex="-1" role="presentation"></a>For each <em>row</em>, the <code>&lt;table&gt;</code> tag contains a <code>&lt;tr&gt;</code> tag. Inside of these <code>&lt;tr&gt;</code> tags, we can put cell elements: either heading cells (<code>&lt;th&gt;</code>) or regular cells (<code>&lt;td&gt;</code>).</p>
+
+<p><a class="p_ident" id="p_Kz26QB0sIU" href="#p_Kz26QB0sIU" tabindex="-1" role="presentation"></a>Given a data set of mountains, an array of objects with <code>name</code>, <code>height</code>, and <code>place</code> properties, generate the DOM structure for a table that enumerates the objects. It should have one column per key and one row per object, plus a header row with <code>&lt;th&gt;</code> elements at the top, listing the column names.</p>
+
+<p><a class="p_ident" id="p_mmjekKHDOX" href="#p_mmjekKHDOX" tabindex="-1" role="presentation"></a>Write this so that the columns are automatically derived from the objects, by taking the property names of the first object in the data.</p>
+
+<p><a class="p_ident" id="p_EvtDcsiT4c" href="#p_EvtDcsiT4c" tabindex="-1" role="presentation"></a>Add the resulting table to the element with an <code>id</code> attribute of <code>&quot;mountains&quot;</code> so that it becomes visible in the document.</p>
+
+<p><a class="p_ident" id="p_Ve9FRgVfit" href="#p_Ve9FRgVfit" tabindex="-1" role="presentation"></a>Once you have this working, right-align cells that contain number values by setting their <code>style.textAlign</code> property to <code>&quot;right&quot;</code>.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_SaASguUQJh" href="#c_SaASguUQJh" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>Mountains<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;mountains&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">const</span> <span class="cm-def">MOUNTAINS</span> <span class="cm-operator">=</span> [
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Kilimanjaro&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">5895</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Tanzania&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Everest&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">8848</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Nepal&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Mount Fuji&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">3776</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Japan&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Vaalserberg&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">323</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Netherlands&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Denali&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">6168</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;United States&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Popocatepetl&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">5465</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Mexico&quot;</span>},
+    {<span class="cm-property">name</span>: <span class="cm-string">&quot;Mont Blanc&quot;</span>, <span class="cm-property">height</span>: <span class="cm-number">4808</span>, <span class="cm-property">place</span>: <span class="cm-string">&quot;Italy/France&quot;</span>}
+  ];
+
+  <span class="cm-comment">// Your code here</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_2Q6e2rAy5t" href="#p_2Q6e2rAy5t" tabindex="-1" role="presentation"></a>You can use <code>document.<wbr>createElement</code> to create new element nodes, <code>document.<wbr>createTextNode</code> to create text nodes, and the <code>appendChild</code> method to put nodes into other nodes.</p>
+
+<p><a class="p_ident" id="p_BD8axR6MPn" href="#p_BD8axR6MPn" tabindex="-1" role="presentation"></a>You’ll want to loop over the key names once to fill in the top row and then again for each object in the array to construct the data rows. To get an array of key names from the first object, <code>Object.keys</code> will be useful.</p>
+
+<p><a class="p_ident" id="p_f4AX6Lsiww" href="#p_f4AX6Lsiww" tabindex="-1" role="presentation"></a>To add the table to the correct parent node, you can use <code>document.<wbr>getElementById</code> or <code>document.<wbr>querySelector</code> to find the node with the proper <code>id</code> attribute.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_VSftnyRTsV" href="#i_VSftnyRTsV" tabindex="-1" role="presentation"></a>Elements by tag name</h3>
+
+<p><a class="p_ident" id="p_QviMLCSPLN" href="#p_QviMLCSPLN" tabindex="-1" role="presentation"></a>The <code>document.<wbr>getElementsByTagName</code> method returns all child elements with a given tag name. Implement your own version of this as a function that takes a node and a string (the tag name) as arguments and returns an array containing all descendant element nodes with the given tag name.</p>
+
+<p><a class="p_ident" id="p_F3uW/zaQpy" href="#p_F3uW/zaQpy" tabindex="-1" role="presentation"></a>To find the tag name of an element, use its <code>nodeName</code> property. But note that this will return the tag name in all uppercase. Use the <code>toLowerCase</code> or <code>toUpperCase</code> string methods to compensate for this.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_SHm9FthIXO" href="#c_SHm9FthIXO" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>Heading with a <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>span<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span> element.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>A paragraph with <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>one<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>, <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>two<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>
+  spans.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">function</span> <span class="cm-def">byTagName</span>(<span class="cm-def">node</span>, <span class="cm-def">tagName</span>) {
+    <span class="cm-comment">// Your code here.</span>
+  }
+
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">byTagName</span>(<span class="cm-variable">document</span>.<span class="cm-property">body</span>, <span class="cm-string">&quot;h1&quot;</span>).<span class="cm-property">length</span>);
+  <span class="cm-comment">// → 1</span>
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">byTagName</span>(<span class="cm-variable">document</span>.<span class="cm-property">body</span>, <span class="cm-string">&quot;span&quot;</span>).<span class="cm-property">length</span>);
+  <span class="cm-comment">// → 3</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">para</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;p&quot;</span>);
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">byTagName</span>(<span class="cm-variable">para</span>, <span class="cm-string">&quot;span&quot;</span>).<span class="cm-property">length</span>);
+  <span class="cm-comment">// → 2</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_M6sxoq7K9N" href="#p_M6sxoq7K9N" tabindex="-1" role="presentation"></a>The solution is most easily expressed with a recursive function, similar to the <a href="14_dom.html#talksAbout"><code>talksAbout</code> function</a> defined earlier in this chapter.</p>
+
+<p><a class="p_ident" id="p_g/fG/I+qTc" href="#p_g/fG/I+qTc" tabindex="-1" role="presentation"></a>You could call <code>byTagname</code> itself recursively, concatenating the resulting arrays to produce the output. Or you could create an inner function that calls itself recursively and that has access to an array binding defined in the outer function, to which it can add the matching elements it finds. Don’t forget to call the inner
+function once from the outer function to start the process.</p>
+
+<p><a class="p_ident" id="p_Zi3ayOqWyD" href="#p_Zi3ayOqWyD" tabindex="-1" role="presentation"></a>The recursive function must check the node type. Here we are interested only in node type 1 (<code>Node.<wbr>ELEMENT_NODE</code>). For such nodes, we must loop over their children and, for each child, see whether the child matches the query while also doing a recursive call on it to inspect its own children.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_b/LAqZUqyo" href="#i_b/LAqZUqyo" tabindex="-1" role="presentation"></a>The cat’s hat</h3>
+
+<p><a class="p_ident" id="p_6r1baDVOSE" href="#p_6r1baDVOSE" tabindex="-1" role="presentation"></a>Extend the cat animation defined <a href="14_dom.html#animation">earlier</a> so that both the cat and his hat (<code>&lt;img src=&quot;img/<wbr>hat.<wbr>png&quot;&gt;</code>) orbit at opposite sides of the ellipse.</p>
+
+<p><a class="p_ident" id="p_VqdQKV2uH0" href="#p_VqdQKV2uH0" tabindex="-1" role="presentation"></a>Or make the hat circle around the cat. Or alter the animation in some other interesting way.</p>
+
+<p><a class="p_ident" id="p_3jJ377egS/" href="#p_3jJ377egS/" tabindex="-1" role="presentation"></a>To make positioning multiple objects easier, it is probably a good idea to switch to absolute positioning. This means that <code>top</code> and <code>left</code> are counted relative to the top left of the document. To avoid using negative coordinates, which would cause the image to move outside of the visible page, you can add a fixed number of pixels to the position values.</p>
+
+<pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_h3Gqsempqw" href="#c_h3Gqsempqw" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag">body</span> { <span class="cm-property">min-height</span>: <span class="cm-number">200px</span> }<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/cat.png&quot;</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;cat&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;position: absolute&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/hat.png&quot;</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;hat&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;position: absolute&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
+
+<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-keyword">let</span> <span class="cm-def">cat</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;#cat&quot;</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">hat</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;#hat&quot;</span>);
+
+  <span class="cm-keyword">let</span> <span class="cm-def">angle</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+  <span class="cm-keyword">let</span> <span class="cm-def">lastTime</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>;
+  <span class="cm-keyword">function</span> <span class="cm-def">animate</span>(<span class="cm-def">time</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable">lastTime</span> <span class="cm-operator">!=</span> <span class="cm-atom">null</span>) <span class="cm-variable">angle</span> <span class="cm-operator">+=</span> (<span class="cm-variable-2">time</span> <span class="cm-operator">-</span> <span class="cm-variable">lastTime</span>) <span class="cm-operator">*</span> <span class="cm-number">0.001</span>;
+    <span class="cm-variable">lastTime</span> <span class="cm-operator">=</span> <span class="cm-variable-2">time</span>;
+    <span class="cm-variable">cat</span>.<span class="cm-property">style</span>.<span class="cm-property">top</span> <span class="cm-operator">=</span> (<span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable">angle</span>) <span class="cm-operator">*</span> <span class="cm-number">40</span> <span class="cm-operator">+</span> <span class="cm-number">40</span>) <span class="cm-operator">+</span> <span class="cm-string">&quot;px&quot;</span>;
+    <span class="cm-variable">cat</span>.<span class="cm-property">style</span>.<span class="cm-property">left</span> <span class="cm-operator">=</span> (<span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable">angle</span>) <span class="cm-operator">*</span> <span class="cm-number">200</span> <span class="cm-operator">+</span> <span class="cm-number">230</span>) <span class="cm-operator">+</span> <span class="cm-string">&quot;px&quot;</span>;
+
+    <span class="cm-comment">// Your extensions here.</span>
+
+    <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-variable">animate</span>);
+  }
+  <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-variable">animate</span>);
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_g8VVOKD2zX" href="#p_g8VVOKD2zX" tabindex="-1" role="presentation"></a><code>Math.cos</code> and <code>Math.sin</code> measure angles in radians, where a full circle is 2π. For a given angle, you can get the opposite angle by adding half of this, which is <code>Math.PI</code>. This can be useful for putting the hat on the opposite side of the orbit.</p>
+
+</div></div><nav><a href="13_browser.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="15_event.html" title="next chapter">▶</a></nav>
+</article>

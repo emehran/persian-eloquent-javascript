@@ -1,0 +1,548 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Node.js :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
+  <script src="js/acorn_codemirror.js"></script>
+  <link rel=stylesheet href="css/ejs.css">
+  <script src="js/sandbox.js"></script>
+  <script src="js/ejs.js"></script><script>var chapNum = 20;</script></head>
+
+<article>
+<nav><a href="19_paint.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="21_skillsharing.html" title="next chapter">▶</a></nav>
+
+<h1><span class=chap_num>Chapter 20</span>Node.js</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p_dL3PxXkk30" href="#p_dL3PxXkk30" tabindex="-1" role="presentation"></a>A student asked, ‘The programmers of old used only simple machines and no programming languages, yet they made beautiful programs. Why do we use complicated machines and programming languages?’. Fu-Tzu replied, ‘The builders of old used only sticks and clay, yet they made beautiful huts.’</p>
+
+<footer>Master Yuan-Ma, <cite>The Book of Programming</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_20.jpg" alt="Picture of a telephone pole"></figure>
+
+<p><a class="p_ident" id="p_4oqrrNIihE" href="#p_4oqrrNIihE" tabindex="-1" role="presentation"></a>So far, we have used the JavaScript language in a single environment: the browser. This chapter and the <a href="21_skillsharing.html">next one</a> will briefly introduce Node.js, a program that allows you to apply your JavaScript skills outside of the browser. With it, you can build anything from small command line tools to HTTP servers that power dynamic websites.</p>
+
+<p><a class="p_ident" id="p_dkSo8b0Hlh" href="#p_dkSo8b0Hlh" tabindex="-1" role="presentation"></a>These chapters aim to teach you the main concepts that Node.js uses and to give you enough information to write useful programs for it. They do not try to be a complete, or even a thorough, treatment of the platform.</p>
+
+<p><a class="p_ident" id="p_NM5XbgzOCu" href="#p_NM5XbgzOCu" tabindex="-1" role="presentation"></a>Whereas you could run the code in previous chapters directly on these pages, because it was either raw JavaScript or written for the browser, the code samples in this chapter are written for Node and often won’t run in the browser.</p>
+
+<p><a class="p_ident" id="p_yDXmkj8agX" href="#p_yDXmkj8agX" tabindex="-1" role="presentation"></a>If you want to follow along and run the code in this chapter, you’ll need to install Node.js version 10.1 or higher. To do so, go to <a href="https://nodejs.org"><em>https://nodejs.org</em></a> and follow the installation instructions for your operating system. You can also find further documentation for Node.js there.</p>
+
+<h2><a class="h_ident" id="h_ZN1g/hoEn+" href="#h_ZN1g/hoEn+" tabindex="-1" role="presentation"></a>Background</h2>
+
+<p><a class="p_ident" id="p_I4yhs5+yBu" href="#p_I4yhs5+yBu" tabindex="-1" role="presentation"></a>One of the more difficult problems with writing systems that communicate over the network is managing input and output—that is, the reading and writing of data to and from the network and hard
+drive. Moving data around takes time, and scheduling it cleverly can make a big difference in how quickly a system responds to the user or to network requests.</p>
+
+<p><a class="p_ident" id="p_MBm9R7gzIJ" href="#p_MBm9R7gzIJ" tabindex="-1" role="presentation"></a>In such programs, asynchronous programming is often helpful. It allows the program to send and receive data from and to multiple devices at the same time without complicated thread management and synchronization.</p>
+
+<p><a class="p_ident" id="p_RCasOwXmol" href="#p_RCasOwXmol" tabindex="-1" role="presentation"></a>Node was initially conceived for the purpose of making asynchronous programming easy and convenient. JavaScript lends itself well to a system like Node. It is one of the few programming languages that does not have a built-in way to do in- and output. Thus, JavaScript could be fit onto Node’s rather eccentric approach to in- and output without ending up with two inconsistent interfaces. In 2009, when Node was being designed, people were already doing callback-based programming in the browser, so the community around the language was used to an asynchronous programming style.</p>
+
+<h2><a class="h_ident" id="h_TUzbi7lU/0" href="#h_TUzbi7lU/0" tabindex="-1" role="presentation"></a>The node command</h2>
+
+<p><a class="p_ident" id="p_rE0vPeaAdk" href="#p_rE0vPeaAdk" tabindex="-1" role="presentation"></a>When Node.js is installed on a system, it provides a program called <code>node</code>, which is used to run JavaScript files. Say you have a file <code>hello.js</code>, containing this code:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Ys/5/PYPJK" href="#c_Ys/5/PYPJK" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">message</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Hello world&quot;</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">message</span>);</pre>
+
+<p><a class="p_ident" id="p_4LYXmSusTq" href="#p_4LYXmSusTq" tabindex="-1" role="presentation"></a>You can then run <code>node</code> from the command line like this to execute the program:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_+NijqTTZNf" href="#c_+NijqTTZNf" tabindex="-1" role="presentation"></a>$ node hello.js
+Hello world</pre>
+
+<p><a class="p_ident" id="p_eFRb1edk0V" href="#p_eFRb1edk0V" tabindex="-1" role="presentation"></a>The <code>console.log</code> method in Node does something similar to what it does in the browser. It prints out a piece of text. But in Node, the text will go to the process’s standard output stream, rather than to a browser’s JavaScript console. When running <code>node</code> from the command line, that means you see the logged values in your terminal.</p>
+
+<p><a class="p_ident" id="p_TwZ26izezw" href="#p_TwZ26izezw" tabindex="-1" role="presentation"></a>If you run <code>node</code> without giving it a file, it provides you with a prompt at which you can type JavaScript code and immediately see the result.</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_d/9k6S5oD+" href="#c_d/9k6S5oD+" tabindex="-1" role="presentation"></a>$ node
+&gt; 1 + 1
+2
+&gt; [-1, -2, -3].map(Math.abs)
+[1, 2, 3]
+&gt; process.exit(0)
+$</pre>
+
+<p><a class="p_ident" id="p_gu0HNk/tPj" href="#p_gu0HNk/tPj" tabindex="-1" role="presentation"></a>The <code>process</code> binding, just like the <code>console</code> binding, is available globally in Node. It provides various ways to inspect and manipulate the current program. The <code>exit</code> method ends the process and can be given an exit status code, which tells the program that started <code>node</code> (in this case, the command line shell) whether the program completed successfully (code zero) or encountered an error (any other code).</p>
+
+<p><a class="p_ident" id="p_r76dNN6hR1" href="#p_r76dNN6hR1" tabindex="-1" role="presentation"></a>To find the command line arguments given to your script, you can read <code>process.argv</code>, which is an array of strings. Note that it also includes the name of the <code>node</code> command and your script name, so the actual arguments start at index 2. If <code>showargv.js</code> contains the statement <code>console.<wbr>log(process.<wbr>argv)</code>, you could run it like this:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_WCisDZr57g" href="#c_WCisDZr57g" tabindex="-1" role="presentation"></a>$ node showargv.js one --and two
+[&quot;node&quot;, &quot;/tmp/showargv.js&quot;, &quot;one&quot;, &quot;--and&quot;, &quot;two&quot;]</pre>
+
+<p><a class="p_ident" id="p_ols5jgMHp4" href="#p_ols5jgMHp4" tabindex="-1" role="presentation"></a>All the standard JavaScript global bindings, such as <code>Array</code>, <code>Math</code>, and <code>JSON</code>, are also present in Node’s environment. Browser-related functionality, such as <code>document</code> or <code>prompt</code>, is not.</p>
+
+<h2><a class="h_ident" id="h_BOlGLA/wK7" href="#h_BOlGLA/wK7" tabindex="-1" role="presentation"></a>Modules</h2>
+
+<p><a class="p_ident" id="p_7uiDKmOxBC" href="#p_7uiDKmOxBC" tabindex="-1" role="presentation"></a>Beyond the bindings I mentioned, such as <code>console</code> and <code>process</code>, Node puts few additional bindings in the global scope. If you want to access built-in functionality, you have to ask the module system for it.</p>
+
+<p><a class="p_ident" id="p_KyUqoANKU6" href="#p_KyUqoANKU6" tabindex="-1" role="presentation"></a>The CommonJS module system, based on the <code>require</code> function, was described in <a href="10_modules.html#commonjs">Chapter 10</a>. This system is built into Node and is used to load anything from built-in modules to downloaded packages to files that are part of your own program.</p>
+
+<p><a class="p_ident" id="p_/PFjIKtmrf" href="#p_/PFjIKtmrf" tabindex="-1" role="presentation"></a>When <code>require</code> is called, Node has to resolve the given string to an actual file that it can load. Pathnames that start with <code>/</code>, <code>./</code>, or <code>../</code> are resolved relative to the current module’s path, where <code>.</code> stands for the current directory, <code>../</code> for one directory up, and <code>/</code> for the root of the file system. So if you ask for <code>&quot;./<wbr>graph&quot;</code> from the file <code>/<wbr>tmp/<wbr>robot/<wbr>robot.<wbr>js</code>, Node will try to load the file <code>/<wbr>tmp/<wbr>robot/<wbr>graph.<wbr>js</code>.</p>
+
+<p><a class="p_ident" id="p_5Uhl44wvon" href="#p_5Uhl44wvon" tabindex="-1" role="presentation"></a>The <code>.js</code> extension may be omitted, and Node will add it if such a file exists. If the required path refers to a directory, Node will try to load the file named <code>index.js</code> in that directory.</p>
+
+<p><a class="p_ident" id="p_Jbv0K2DaVF" href="#p_Jbv0K2DaVF" tabindex="-1" role="presentation"></a>When a string that does not look like a relative or absolute path is given to <code>require</code>, it is assumed to refer to either a built-in module or a module installed in a <code>node_modules</code> directory. For example, <code>require(&quot;fs&quot;)</code> will give you Node’s built-in file system module. And <code>require(&quot;robot&quot;)</code> might try to load the library found in <code>node_modules/<wbr>robot/<wbr></code>. A common way to install such libraries is by using NPM, which we’ll come back to in a moment.</p>
+
+<p><a class="p_ident" id="p_nVdHCtPw94" href="#p_nVdHCtPw94" tabindex="-1" role="presentation"></a>Let’s set up a small project consisting of two files. The first one, called <code>main.js</code>, defines a script that can be called from the command line to reverse a string.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P0yKauuaN8" href="#c_P0yKauuaN8" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">reverse</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;./reverse&quot;</span>);
+
+<span class="cm-comment">// Index 2 holds the first actual command line argument</span>
+<span class="cm-keyword">let</span> <span class="cm-def">argument</span> <span class="cm-operator">=</span> <span class="cm-variable">process</span>.<span class="cm-property">argv</span>[<span class="cm-number">2</span>];
+
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">reverse</span>(<span class="cm-variable">argument</span>));</pre>
+
+<p><a class="p_ident" id="p_4ZPnC8Ok8r" href="#p_4ZPnC8Ok8r" tabindex="-1" role="presentation"></a>The file <code>reverse.js</code> defines a library for reversing strings, which can be used both by this command line tool and by other scripts that need direct access to a string-reversing function.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xPNlH3e9Ye" href="#c_xPNlH3e9Ye" tabindex="-1" role="presentation"></a><span class="cm-variable">exports</span>.<span class="cm-property">reverse</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">string</span>) {
+  <span class="cm-keyword">return</span> <span class="cm-variable">Array</span>.<span class="cm-property">from</span>(<span class="cm-variable-2">string</span>).<span class="cm-property">reverse</span>().<span class="cm-property">join</span>(<span class="cm-string">&quot;&quot;</span>);
+};</pre>
+
+<p><a class="p_ident" id="p_cz8b+bxuQd" href="#p_cz8b+bxuQd" tabindex="-1" role="presentation"></a>Remember that adding properties to <code>exports</code> adds them to the interface of the module. Since Node.js treats files as CommonJS modules, <code>main.js</code> can take the exported <code>reverse</code> function from <code>reverse.js</code>.</p>
+
+<p><a class="p_ident" id="p_S/nc4v84fJ" href="#p_S/nc4v84fJ" tabindex="-1" role="presentation"></a>We can now call our tool like this:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_k81NC+cAsi" href="#c_k81NC+cAsi" tabindex="-1" role="presentation"></a>$ node main.js JavaScript
+tpircSavaJ</pre>
+
+<h2><a class="h_ident" id="h_J6hW/SmL/a" href="#h_J6hW/SmL/a" tabindex="-1" role="presentation"></a>Installing with NPM</h2>
+
+<p><a class="p_ident" id="p_vdquK0d/vZ" href="#p_vdquK0d/vZ" tabindex="-1" role="presentation"></a>NPM, which was introduced in <a href="10_modules.html#modules_npm">Chapter 10</a>, is an online repository of JavaScript modules, many of which are specifically written for Node. When you install Node on your computer, you also get the <code>npm</code> command, which you can use to interact with this repository.</p>
+
+<p><a class="p_ident" id="p_S050oa0uFn" href="#p_S050oa0uFn" tabindex="-1" role="presentation"></a>NPM’s main use is downloading packages. We saw the <code>ini</code> package in <a href="10_modules.html#modules_ini">Chapter 10</a>. We can use NPM to fetch and install that package on our computer.</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_BggMWensXe" href="#c_BggMWensXe" tabindex="-1" role="presentation"></a>$ npm install ini
+npm WARN enoent ENOENT: no such file or directory,
+         open '/tmp/package.json'
++ ini@1.3.5
+added 1 package in 0.552s
+
+$ node
+&gt; const {parse} = require(&quot;ini&quot;);
+&gt; parse(&quot;x = 1\ny = 2&quot;);
+{ x: '1', y: '2' }</pre>
+
+<p><a class="p_ident" id="p_NBQHpDdZuw" href="#p_NBQHpDdZuw" tabindex="-1" role="presentation"></a>After running <code>npm install</code>, NPM will have created a directory called <code>node_modules</code>. Inside that directory will be an <code>ini</code> directory that contains the library. You can open it and look at the code. When we call <code>require(&quot;ini&quot;)</code>, this library is loaded, and we can call its <code>parse</code> property to parse a configuration file.</p>
+
+<p><a class="p_ident" id="p_sKeXO3qL6G" href="#p_sKeXO3qL6G" tabindex="-1" role="presentation"></a>By default NPM installs packages under the current directory, rather than in a central place. If you are used to other package managers, this may seem unusual, but it has advantages—it puts each application in full control of the packages it installs and makes it easier to manage versions and clean up when removing an application.</p>
+
+<h3><a class="i_ident" id="i_IMZP7FN0pF" href="#i_IMZP7FN0pF" tabindex="-1" role="presentation"></a>Package files</h3>
+
+<p><a class="p_ident" id="p_efbbWPPNXQ" href="#p_efbbWPPNXQ" tabindex="-1" role="presentation"></a>In the <code>npm install</code> example, you could see a warning about the fact that the <code>package.json</code> file did not exist. It is recommended to create such a file for each project, either manually or by running <code>npm init</code>. It contains some information about the project, such as its name and version, and lists its dependencies.</p>
+
+<p><a class="p_ident" id="p_NT9giTr6Q2" href="#p_NT9giTr6Q2" tabindex="-1" role="presentation"></a>The robot simulation from <a href="07_robot.html">Chapter 7</a>, as modularized in the exercise in <a href="10_modules.html#modular_robot">Chapter 10</a>, might have a <code>package.json</code> file like this:</p>
+
+<pre class="snippet cm-s-default" data-language="application/json" ><a class="c_ident" id="c_K51zuXso4A" href="#c_K51zuXso4A" tabindex="-1" role="presentation"></a>{
+  <span class="cm-string cm-property">&quot;author&quot;</span>: <span class="cm-string">&quot;Marijn Haverbeke&quot;</span>,
+  <span class="cm-string cm-property">&quot;name&quot;</span>: <span class="cm-string">&quot;eloquent-javascript-robot&quot;</span>,
+  <span class="cm-string cm-property">&quot;description&quot;</span>: <span class="cm-string">&quot;Simulation of a package-delivery robot&quot;</span>,
+  <span class="cm-string cm-property">&quot;version&quot;</span>: <span class="cm-string">&quot;1.0.0&quot;</span>,
+  <span class="cm-string cm-property">&quot;main&quot;</span>: <span class="cm-string">&quot;run.js&quot;</span>,
+  <span class="cm-string cm-property">&quot;dependencies&quot;</span>: {
+    <span class="cm-string cm-property">&quot;dijkstrajs&quot;</span>: <span class="cm-string">&quot;^1.0.1&quot;</span>,
+    <span class="cm-string cm-property">&quot;random-item&quot;</span>: <span class="cm-string">&quot;^1.0.0&quot;</span>
+  },
+  <span class="cm-string cm-property">&quot;license&quot;</span>: <span class="cm-string">&quot;ISC&quot;</span>
+}</pre>
+
+<p><a class="p_ident" id="p_LA2QNdOUqm" href="#p_LA2QNdOUqm" tabindex="-1" role="presentation"></a>When you run <code>npm install</code> without naming a package to install, NPM will install the dependencies listed in <code>package.json</code>. When you install a specific package that is not already listed as a dependency, NPM will add it to <code>package.json</code>.</p>
+
+<h3><a class="i_ident" id="i_ojkQfvKPbv" href="#i_ojkQfvKPbv" tabindex="-1" role="presentation"></a>Versions</h3>
+
+<p><a class="p_ident" id="p_UrPIybyUA4" href="#p_UrPIybyUA4" tabindex="-1" role="presentation"></a>A <code>package.json</code> file lists both the program’s own version and versions for its dependencies. Versions are a way to deal with the fact that packages evolve separately, and code written to work with a package as it existed at one point may not work with a later, modified version of the package.</p>
+
+<p><a class="p_ident" id="p_CvfHe7sDbQ" href="#p_CvfHe7sDbQ" tabindex="-1" role="presentation"></a>NPM demands that its packages follow a schema called <em>semantic
+versioning</em>, which encodes some information about which versions are <em>compatible</em> (don’t break the old interface) in the version number. A semantic version consists of three numbers, separated by periods, such as <code>2.3.0</code>. Every time new functionality is added, the middle number has to be incremented. Every time compatibility is broken, so that existing code that uses the package might not work with the new version, the first number has to be incremented.</p>
+
+<p><a class="p_ident" id="p_gTL1n2TLHm" href="#p_gTL1n2TLHm" tabindex="-1" role="presentation"></a>A caret character (<code>^</code>) in front of the version number for a dependency in <code>package.json</code> indicates that any version compatible with the given number may be installed. So, for example, <code>&quot;^2.<wbr>3.<wbr>0&quot;</code> would mean that any version greater than or equal to 2.3.0 and less than 3.0.0 is allowed.</p>
+
+<p><a class="p_ident" id="p_HcGcWqTR8/" href="#p_HcGcWqTR8/" tabindex="-1" role="presentation"></a>The <code>npm</code> command is also used to publish new packages or new versions of packages. If you run <code>npm publish</code> in a directory that has a <code>package.json</code> file, it will publish a package with the name and version listed in the JSON file to the registry. Anyone can publish packages to NPM—though only under a package name that isn’t in use yet since it would be somewhat scary if random people could update existing packages.</p>
+
+<p><a class="p_ident" id="p_3Z1I+gjqS6" href="#p_3Z1I+gjqS6" tabindex="-1" role="presentation"></a>Since the <code>npm</code> program is a piece of software that talks to an open system—the package registry—there is nothing unique about what it does. Another program, <code>yarn</code>, which can be installed from the NPM registry, fills the same role as <code>npm</code> using a somewhat different interface and installation strategy.</p>
+
+<p><a class="p_ident" id="p_u9CNibuDC7" href="#p_u9CNibuDC7" tabindex="-1" role="presentation"></a>This book won’t delve further into the details of NPM usage. Refer to <a href="https://npmjs.org"><em>https://npmjs.org</em></a> for further documentation and a way to search for packages.</p>
+
+<h2><a class="h_ident" id="h_o2abiQU0TD" href="#h_o2abiQU0TD" tabindex="-1" role="presentation"></a>The file system module</h2>
+
+<p><a class="p_ident" id="p_HumHNRQKJx" href="#p_HumHNRQKJx" tabindex="-1" role="presentation"></a>One of the most commonly used built-in modules in Node is the <code>fs</code> module, which stands for <em>file system</em>. It exports functions for working with files and directories.</p>
+
+<p><a class="p_ident" id="p_75RFSIQwdU" href="#p_75RFSIQwdU" tabindex="-1" role="presentation"></a>For example, the function called <code>readFile</code> reads a file and then calls a callback with the file’s contents.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JolDdwagNc" href="#c_JolDdwagNc" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> {<span class="cm-def">readFile</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+<span class="cm-variable">readFile</span>(<span class="cm-string">&quot;file.txt&quot;</span>, <span class="cm-string">&quot;utf8&quot;</span>, (<span class="cm-def">error</span>, <span class="cm-def">text</span>) <span class="cm-operator">=&gt;</span> {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">error</span>) <span class="cm-keyword">throw</span> <span class="cm-variable-2">error</span>;
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;The file contains:&quot;</span>, <span class="cm-variable-2">text</span>);
+});</pre>
+
+<p><a class="p_ident" id="p_kiSsXyNElK" href="#p_kiSsXyNElK" tabindex="-1" role="presentation"></a>The second argument to <code>readFile</code> indicates the <em>character
+encoding</em> used to decode the file into a string. There are several ways in which text can be encoded to binary data, but most modern systems use UTF-8. So unless you have reasons to believe another encoding is used, pass <code>&quot;utf8&quot;</code> when reading a text file. If you do not pass an encoding, Node will assume you are interested in the binary data and will give you a <code>Buffer</code> object instead of a string. This is an array-like object that contains numbers representing the bytes (8-bit chunks of data) in the files.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_D3dLtJ/8n6" href="#c_D3dLtJ/8n6" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">readFile</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+<span class="cm-variable">readFile</span>(<span class="cm-string">&quot;file.txt&quot;</span>, (<span class="cm-def">error</span>, <span class="cm-def">buffer</span>) <span class="cm-operator">=&gt;</span> {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">error</span>) <span class="cm-keyword">throw</span> <span class="cm-variable-2">error</span>;
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;The file contained&quot;</span>, <span class="cm-variable-2">buffer</span>.<span class="cm-property">length</span>, <span class="cm-string">&quot;bytes.&quot;</span>,
+              <span class="cm-string">&quot;The first byte is:&quot;</span>, <span class="cm-variable-2">buffer</span>[<span class="cm-number">0</span>]);
+});</pre>
+
+<p><a class="p_ident" id="p_2eNWgxdLGx" href="#p_2eNWgxdLGx" tabindex="-1" role="presentation"></a>A similar function, <code>writeFile</code>, is used to write a file to disk.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_lbylD3zyw8" href="#c_lbylD3zyw8" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">writeFile</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+<span class="cm-variable">writeFile</span>(<span class="cm-string">&quot;graffiti.txt&quot;</span>, <span class="cm-string">&quot;Node was here&quot;</span>, <span class="cm-def">err</span> <span class="cm-operator">=&gt;</span> {
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">err</span>) <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`Failed to write file: ${</span><span class="cm-variable-2">err</span><span class="cm-string-2">}</span><span class="cm-string-2">`</span>);
+  <span class="cm-keyword">else</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;File written.&quot;</span>);
+});</pre>
+
+<p><a class="p_ident" id="p_rDd4gjDwV6" href="#p_rDd4gjDwV6" tabindex="-1" role="presentation"></a>Here it was not necessary to specify the encoding—<code>writeFile</code> will assume that when it is given a string to write, rather than a <code>Buffer</code> object, it should write it out as text using its default character encoding, which is UTF-8.</p>
+
+<p><a class="p_ident" id="p_SJ/BKOfrhB" href="#p_SJ/BKOfrhB" tabindex="-1" role="presentation"></a>The <code>fs</code> module contains many other useful functions: <code>readdir</code> will return the files in a directory as an array of strings, <code>stat</code> will retrieve information about a file, <code>rename</code> will rename a file, <code>unlink</code> will remove one, and so on. See the documentation at <a href="https://nodejs.org"><em>https://nodejs.org</em></a> for specifics.</p>
+
+<p><a class="p_ident" id="p_e3QJHgZtmU" href="#p_e3QJHgZtmU" tabindex="-1" role="presentation"></a>Most of these take a callback function as the last parameter, which they call either with an error (the first argument) or with a successful result (the second). As we saw in <a href="11_async.html">Chapter 11</a>, there are downsides to this style of programming—the biggest one being that error handling becomes verbose and error-prone.</p>
+
+<p><a class="p_ident" id="p_mXF/pVhyVJ" href="#p_mXF/pVhyVJ" tabindex="-1" role="presentation"></a>Though promises have been part of JavaScript for a while, at the time of writing their integration into Node.js is still a work in progress. There is an object <code>promises</code> exported from the <code>fs</code> package since version 10.1 that contains most of the same functions as <code>fs</code> but uses promises rather than callback functions.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wosbb7EfU3" href="#c_wosbb7EfU3" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">readFile</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>).<span class="cm-property">promises</span>;
+<span class="cm-variable">readFile</span>(<span class="cm-string">&quot;file.txt&quot;</span>, <span class="cm-string">&quot;utf8&quot;</span>)
+  .<span class="cm-property">then</span>(<span class="cm-def">text</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;The file contains:&quot;</span>, <span class="cm-variable-2">text</span>));</pre>
+
+<p><a class="p_ident" id="p_RKcdbQa/Ot" href="#p_RKcdbQa/Ot" tabindex="-1" role="presentation"></a>Sometimes you don’t need asynchronicity, and it just gets in the way. Many of the functions in <code>fs</code> also have a synchronous variant, which has the same name with <code>Sync</code> added to the end. For example, the synchronous version of <code>readFile</code> is called <code>readFileSync</code>.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_odA0N1psD0" href="#c_odA0N1psD0" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">readFileSync</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;The file contains:&quot;</span>,
+            <span class="cm-variable">readFileSync</span>(<span class="cm-string">&quot;file.txt&quot;</span>, <span class="cm-string">&quot;utf8&quot;</span>));</pre>
+
+<p><a class="p_ident" id="p_C0yp9W48Cn" href="#p_C0yp9W48Cn" tabindex="-1" role="presentation"></a>Do note that while such a synchronous operation is being performed, your program is stopped entirely. If it should be responding to the user or to other machines on the network, being stuck on a synchronous action might produce annoying delays.</p>
+
+<h2><a class="h_ident" id="h_3O5dGIJE9F" href="#h_3O5dGIJE9F" tabindex="-1" role="presentation"></a>The HTTP module</h2>
+
+<p><a class="p_ident" id="p_jzBrRTKIgP" href="#p_jzBrRTKIgP" tabindex="-1" role="presentation"></a>Another central module is called <code>http</code>. It provides functionality for running HTTP servers and making HTTP requests.</p>
+
+<p><a class="p_ident" id="p_5AqaLQsq5V" href="#p_5AqaLQsq5V" tabindex="-1" role="presentation"></a>This is all it takes to start an HTTP server:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_87+jSJqVtw" href="#c_87+jSJqVtw" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">createServer</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;http&quot;</span>);
+<span class="cm-keyword">let</span> <span class="cm-def">server</span> <span class="cm-operator">=</span> <span class="cm-variable">createServer</span>((<span class="cm-def">request</span>, <span class="cm-def">response</span>) <span class="cm-operator">=&gt;</span> {
+  <span class="cm-variable-2">response</span>.<span class="cm-property">writeHead</span>(<span class="cm-number">200</span>, {<span class="cm-string cm-property">&quot;Content-Type&quot;</span>: <span class="cm-string">&quot;text/html&quot;</span>});
+  <span class="cm-variable-2">response</span>.<span class="cm-property">write</span>(<span class="cm-string-2">`</span>
+    <span class="cm-string-2">&lt;h1&gt;Hello!&lt;/h1&gt;</span>
+    <span class="cm-string-2">&lt;p&gt;You asked for &lt;code&gt;${</span><span class="cm-variable-2">request</span>.<span class="cm-property">url</span><span class="cm-string-2">}</span><span class="cm-string-2">&lt;/code&gt;&lt;/p&gt;`</span>);
+  <span class="cm-variable-2">response</span>.<span class="cm-property">end</span>();
+});
+<span class="cm-variable">server</span>.<span class="cm-property">listen</span>(<span class="cm-number">8000</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Listening! (port 8000)&quot;</span>);</pre>
+
+<p><a class="p_ident" id="p_aWcDaGah2b" href="#p_aWcDaGah2b" tabindex="-1" role="presentation"></a>If you run this script on your own machine, you can point your web browser at <a href="http://localhost:8000/hello"><em>http://localhost:8000/hello</em></a> to make a request to your server. It will respond with a small HTML page.</p>
+
+<p><a class="p_ident" id="p_ZiHH2p8YG0" href="#p_ZiHH2p8YG0" tabindex="-1" role="presentation"></a>The function passed as argument to <code>createServer</code> is called every time a client connects to the server. The <code>request</code> and <code>response</code> bindings are objects representing the incoming and outgoing data. The first contains information about the request, such as its <code>url</code> property, which tells us to what URL the request was made.</p>
+
+<p><a class="p_ident" id="p_ufJ1Rx8+U9" href="#p_ufJ1Rx8+U9" tabindex="-1" role="presentation"></a>So, when you open that page in your browser, it sends a request to your own computer. This causes the server function to run and send back a response, which you can then see in the browser.</p>
+
+<p><a class="p_ident" id="p_eHNvwd3lFU" href="#p_eHNvwd3lFU" tabindex="-1" role="presentation"></a>To send something back, you call methods on the <code>response</code> object. The first, <code>writeHead</code>, will write out the response headers (see <a href="18_http.html#headers">Chapter 18</a>). You give it the status code (200 for “OK” in this case) and an object that contains header values. The example sets the <code>Content-Type</code> header to inform the client that we’ll be sending back an HTML document.</p>
+
+<p><a class="p_ident" id="p_AVzTSVzXSM" href="#p_AVzTSVzXSM" tabindex="-1" role="presentation"></a>Next, the actual response body (the document itself) is sent with <code>response.write</code>. You are allowed to call this method multiple times if you want to send the response piece by piece, for example to stream data to the client as it becomes available. Finally, <code>response.end</code> signals the end of the response.</p>
+
+<p><a class="p_ident" id="p_evKrjFovQf" href="#p_evKrjFovQf" tabindex="-1" role="presentation"></a>The call to <code>server.listen</code> causes the server to start waiting for connections on port 8000. This is why you have to connect to <em>localhost:8000</em> to speak to this server, rather than just <em>localhost</em>, which would use the default port 80.</p>
+
+<p><a class="p_ident" id="p_fc62/ayv5k" href="#p_fc62/ayv5k" tabindex="-1" role="presentation"></a>When you run this script, the process just sits there and waits. When a script is listening for events—in this case, network connections—<code>node</code> will not automatically exit when it reaches the end of the script. To close it, press <span class="keyname">control</span>-C.</p>
+
+<p><a class="p_ident" id="p_7qMlOUUlqm" href="#p_7qMlOUUlqm" tabindex="-1" role="presentation"></a>A real web server usually does more than the one in the example—it looks at the request’s method (the <code>method</code> property) to see what action the client is trying to perform and looks at the request’s URL to find out which resource this action is being performed on. We’ll see a more advanced server <a href="20_node.html#file_server">later in this chapter</a>.</p>
+
+<p><a class="p_ident" id="p_sg2xBFD57S" href="#p_sg2xBFD57S" tabindex="-1" role="presentation"></a>To act as an HTTP <em>client</em>, we can use the <code>request</code> function in the <code>http</code> module.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qPo2Gq+u4e" href="#c_qPo2Gq+u4e" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">request</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;http&quot;</span>);
+<span class="cm-keyword">let</span> <span class="cm-def">requestStream</span> <span class="cm-operator">=</span> <span class="cm-variable">request</span>({
+  <span class="cm-property">hostname</span>: <span class="cm-string">&quot;eloquentjavascript.net&quot;</span>,
+  <span class="cm-property">path</span>: <span class="cm-string">&quot;/20_node.html&quot;</span>,
+  <span class="cm-property">method</span>: <span class="cm-string">&quot;GET&quot;</span>,
+  <span class="cm-property">headers</span>: {<span class="cm-property">Accept</span>: <span class="cm-string">&quot;text/html&quot;</span>}
+}, <span class="cm-def">response</span> <span class="cm-operator">=&gt;</span> {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Server responded with status code&quot;</span>,
+              <span class="cm-variable-2">response</span>.<span class="cm-property">statusCode</span>);
+});
+<span class="cm-variable">requestStream</span>.<span class="cm-property">end</span>();</pre>
+
+<p><a class="p_ident" id="p_Br0rH14iSh" href="#p_Br0rH14iSh" tabindex="-1" role="presentation"></a>The first argument to <code>request</code> configures the request, telling Node what server to talk to, what path to request from that server, which method to use, and so on. The second argument is the function that should be called when a response comes in. It is given an object that allows us to inspect the response, for example to find out its status code.</p>
+
+<p><a class="p_ident" id="p_9OfV0SuhAH" href="#p_9OfV0SuhAH" tabindex="-1" role="presentation"></a>Just like the <code>response</code> object we saw in the server, the object returned by <code>request</code> allows us to stream data into the request with the <code>write</code> method and finish the request with the <code>end</code> method. The example does not use <code>write</code> because <code>GET</code> requests should not contain data in their request body.</p>
+
+<p><a class="p_ident" id="p_0v59qVWIFa" href="#p_0v59qVWIFa" tabindex="-1" role="presentation"></a>There’s a similar <code>request</code> function in the <code>https</code> module that can be used to make requests to <code>https:</code> URLs.</p>
+
+<p><a class="p_ident" id="p_HRVzkvyPNc" href="#p_HRVzkvyPNc" tabindex="-1" role="presentation"></a>Making requests with Node’s raw functionality is rather verbose. There are much more convenient wrapper packages available on NPM. For example, <code>node-fetch</code> provides the promise-based <code>fetch</code> interface that we know from the browser.</p>
+
+<h2><a class="h_ident" id="h_dJhdomfGgD" href="#h_dJhdomfGgD" tabindex="-1" role="presentation"></a>Streams</h2>
+
+<p><a class="p_ident" id="p_2nMXkmd3DS" href="#p_2nMXkmd3DS" tabindex="-1" role="presentation"></a>We have seen two instances of writable streams in the HTTP examples—namely, the response object that the server could write to and the request object that was returned from <code>request</code>.</p>
+
+<p><a class="p_ident" id="p_hqra1oS3e2" href="#p_hqra1oS3e2" tabindex="-1" role="presentation"></a><em>Writable streams</em> are a widely used concept in Node. Such objects have a <code>write</code> method that can be passed a string or a <code>Buffer</code> object to write something to the stream. Their <code>end</code> method closes the stream and optionally takes a value to write to the stream before closing. Both of these methods can also be given a callback as an additional argument, which they will call when the writing or closing has finished.</p>
+
+<p><a class="p_ident" id="p_L3YcfbxZV7" href="#p_L3YcfbxZV7" tabindex="-1" role="presentation"></a>It is possible to create a writable stream that points at a file with the <code>createWriteStream</code> function from the <code>fs</code> module. Then you can use the <code>write</code> method on the resulting object to write the file one piece at a time, rather than in one shot as with <code>writeFile</code>.</p>
+
+<p><a class="p_ident" id="p_93VQIHGgFt" href="#p_93VQIHGgFt" tabindex="-1" role="presentation"></a>Readable streams are a little more involved. Both the <code>request</code> binding that was passed to the HTTP server’s callback and the <code>response</code> binding passed to the HTTP client’s callback are readable streams—a server reads requests and then writes responses, whereas a client first writes a request and then reads a response. Reading from a stream is done using event handlers, rather than methods.</p>
+
+<p><a class="p_ident" id="p_CaPkx6i5f+" href="#p_CaPkx6i5f+" tabindex="-1" role="presentation"></a>Objects that emit events in Node have a method called <code>on</code> that is similar to the <code>addEventListener</code> method in the browser. You give it an event name and then a function, and it will register that function to be called whenever the given event occurs.</p>
+
+<p><a class="p_ident" id="p_3yAsJAs/Gl" href="#p_3yAsJAs/Gl" tabindex="-1" role="presentation"></a>Readable streams have <code>&quot;data&quot;</code> and <code>&quot;end&quot;</code> events. The first is fired every time data comes in, and the second is called whenever the stream is at its end. This model is most suited for <em>streaming</em> data that can be immediately processed, even when the whole document isn’t available yet. A file can be read as a readable stream by using the <code>createReadStream</code> function from <code>fs</code>.</p>
+
+<p><a class="p_ident" id="p_DQmM9KjDIA" href="#p_DQmM9KjDIA" tabindex="-1" role="presentation"></a>This code creates a server that reads request bodies and streams them back to the client as all-uppercase text:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vUewhc4MbF" href="#c_vUewhc4MbF" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">createServer</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;http&quot;</span>);
+<span class="cm-variable">createServer</span>((<span class="cm-def">request</span>, <span class="cm-def">response</span>) <span class="cm-operator">=&gt;</span> {
+  <span class="cm-variable-2">response</span>.<span class="cm-property">writeHead</span>(<span class="cm-number">200</span>, {<span class="cm-string cm-property">&quot;Content-Type&quot;</span>: <span class="cm-string">&quot;text/plain&quot;</span>});
+  <span class="cm-variable-2">request</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;data&quot;</span>, <span class="cm-def">chunk</span> <span class="cm-operator">=&gt;</span>
+    <span class="cm-variable-2">response</span>.<span class="cm-property">write</span>(<span class="cm-variable-2">chunk</span>.<span class="cm-property">toString</span>().<span class="cm-property">toUpperCase</span>()));
+  <span class="cm-variable-2">request</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;end&quot;</span>, () <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">response</span>.<span class="cm-property">end</span>());
+}).<span class="cm-property">listen</span>(<span class="cm-number">8000</span>);</pre>
+
+<p><a class="p_ident" id="p_cE/QJiL9Ih" href="#p_cE/QJiL9Ih" tabindex="-1" role="presentation"></a>The <code>chunk</code> value passed to the data handler will be a binary <code>Buffer</code>. We can convert this to a string by decoding it as UTF-8 encoded characters with its <code>toString</code> method.</p>
+
+<p><a class="p_ident" id="p_w5A5V67s63" href="#p_w5A5V67s63" tabindex="-1" role="presentation"></a>The following piece of code, when run with the uppercasing server active, will send a request to that server and write out the response it gets:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tqlbzAFLXQ" href="#c_tqlbzAFLXQ" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">request</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;http&quot;</span>);
+<span class="cm-variable">request</span>({
+  <span class="cm-property">hostname</span>: <span class="cm-string">&quot;localhost&quot;</span>,
+  <span class="cm-property">port</span>: <span class="cm-number">8000</span>,
+  <span class="cm-property">method</span>: <span class="cm-string">&quot;POST&quot;</span>
+}, <span class="cm-def">response</span> <span class="cm-operator">=&gt;</span> {
+  <span class="cm-variable-2">response</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;data&quot;</span>, <span class="cm-def">chunk</span> <span class="cm-operator">=&gt;</span>
+    <span class="cm-variable">process</span>.<span class="cm-property">stdout</span>.<span class="cm-property">write</span>(<span class="cm-variable-2">chunk</span>.<span class="cm-property">toString</span>()));
+}).<span class="cm-property">end</span>(<span class="cm-string">&quot;Hello server&quot;</span>);
+<span class="cm-comment">// → HELLO SERVER</span></pre>
+
+<p><a class="p_ident" id="p_BjmSS8sm41" href="#p_BjmSS8sm41" tabindex="-1" role="presentation"></a>The example writes to <code>process.stdout</code> (the process’s standard output, which is a writable stream) instead of using <code>console.log</code>. We can’t use <code>console.log</code> because it adds an extra newline character after each piece of text that it writes, which isn’t appropriate here since the response may come in as multiple chunks.</p>
+
+<h2 id="file_server"><a class="h_ident" id="h_yAdw1Y7bgN" href="#h_yAdw1Y7bgN" tabindex="-1" role="presentation"></a>A file server</h2>
+
+<p><a class="p_ident" id="p_XFsmNNR4P8" href="#p_XFsmNNR4P8" tabindex="-1" role="presentation"></a>Let’s combine our newfound knowledge about HTTP servers and working with the file system to create a bridge between the two: an HTTP server that allows remote access to a file system. Such a server has all kinds of uses—it allows web applications to store and share data, or it can give a group of people shared access to a bunch of files.</p>
+
+<p><a class="p_ident" id="p_Pu9mO8Vutb" href="#p_Pu9mO8Vutb" tabindex="-1" role="presentation"></a>When we treat files as HTTP resources, the HTTP methods <code>GET</code>, <code>PUT</code>, and <code>DELETE</code> can be used to read, write, and delete the files, respectively. We will interpret the path in the request as the path of the file that the request refers to.</p>
+
+<p><a class="p_ident" id="p_ISZx6yrjrK" href="#p_ISZx6yrjrK" tabindex="-1" role="presentation"></a>We probably don’t want to share our whole file system, so we’ll interpret these paths as starting in the server’s working directory, which is the directory in which it was started. If I ran the server from <code>/tmp/public/</code> (or <code>C:\tmp\public\</code> on Windows), then a request for <code>/file.txt</code> should refer to <code>/<wbr>tmp/<wbr>public/<wbr>file.<wbr>txt</code> (or <code>C:\tmp\public\file.<wbr>txt</code>).</p>
+
+<p><a class="p_ident" id="p_2ZKgpWkGup" href="#p_2ZKgpWkGup" tabindex="-1" role="presentation"></a>We’ll build the program piece by piece, using an object called <code>methods</code> to store the functions that handle the various HTTP methods. Method handlers are <code>async</code> functions that get the request object as argument and return a promise that resolves to an object that describes the response.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_W/1zaB21gr" href="#c_W/1zaB21gr" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">createServer</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;http&quot;</span>);
+
+<span class="cm-keyword">const</span> <span class="cm-def">methods</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
+
+<span class="cm-variable">createServer</span>((<span class="cm-def">request</span>, <span class="cm-def">response</span>) <span class="cm-operator">=&gt;</span> {
+  <span class="cm-keyword">let</span> <span class="cm-def">handler</span> <span class="cm-operator">=</span> <span class="cm-variable">methods</span>[<span class="cm-variable-2">request</span>.<span class="cm-property">method</span>] <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-variable">notAllowed</span>;
+  <span class="cm-variable-2">handler</span>(<span class="cm-variable-2">request</span>)
+    .<span class="cm-property">catch</span>(<span class="cm-def">error</span> <span class="cm-operator">=&gt;</span> {
+      <span class="cm-keyword">if</span> (<span class="cm-variable-2">error</span>.<span class="cm-property">status</span> <span class="cm-operator">!=</span> <span class="cm-atom">null</span>) <span class="cm-keyword">return</span> <span class="cm-variable-2">error</span>;
+      <span class="cm-keyword">return</span> {<span class="cm-property">body</span>: <span class="cm-variable">String</span>(<span class="cm-variable-2">error</span>), <span class="cm-property">status</span>: <span class="cm-number">500</span>};
+    })
+    .<span class="cm-property">then</span>(({<span class="cm-property">body</span>, <span class="cm-property">status</span> <span class="cm-operator">=</span> <span class="cm-number">200</span>, <span class="cm-variable">type</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;text/plain&quot;</span>}) <span class="cm-operator">=&gt;</span> {
+       <span class="cm-variable-2">response</span>.<span class="cm-property">writeHead</span>(<span class="cm-variable">status</span>, {<span class="cm-string cm-property">&quot;Content-Type&quot;</span>: <span class="cm-variable">type</span>});
+       <span class="cm-keyword">if</span> (<span class="cm-variable">body</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span> <span class="cm-variable">body</span>.<span class="cm-property">pipe</span>) <span class="cm-variable">body</span>.<span class="cm-property">pipe</span>(<span class="cm-variable-2">response</span>);
+       <span class="cm-keyword">else</span> <span class="cm-variable-2">response</span>.<span class="cm-property">end</span>(<span class="cm-variable">body</span>);
+    });
+}).<span class="cm-property">listen</span>(<span class="cm-number">8000</span>);
+
+<span class="cm-keyword">async</span> <span class="cm-keyword">function</span> <span class="cm-def">notAllowed</span>(<span class="cm-def">request</span>) {
+  <span class="cm-keyword">return</span> {
+    <span class="cm-property">status</span>: <span class="cm-number">405</span>,
+    <span class="cm-property">body</span>: <span class="cm-string-2">`Method ${</span><span class="cm-variable-2">request</span>.<span class="cm-property">method</span><span class="cm-string-2">}</span> <span class="cm-string-2">not allowed.`</span>
+  };
+}</pre>
+
+<p><a class="p_ident" id="p_yWKuFrWjV3" href="#p_yWKuFrWjV3" tabindex="-1" role="presentation"></a>This starts a server that just returns 405 error responses, which is the code used to indicate that the server refuses to handle a given method.</p>
+
+<p><a class="p_ident" id="p_JXw1kc0aXP" href="#p_JXw1kc0aXP" tabindex="-1" role="presentation"></a>When a request handler’s promise is rejected, the <code>catch</code> call translates the error into a response object, if it isn’t one already, so that the server can send back an error response to inform the client that it failed to handle the request.</p>
+
+<p><a class="p_ident" id="p_hqnRLFr4tm" href="#p_hqnRLFr4tm" tabindex="-1" role="presentation"></a>The <code>status</code> field of the response description may be omitted, in which case it defaults to 200 (OK). The content type, in the <code>type</code> property, can also be left off, in which case the response is assumed to be plain text.</p>
+
+<p><a class="p_ident" id="p_qzp2F6cgBS" href="#p_qzp2F6cgBS" tabindex="-1" role="presentation"></a>When the value of <code>body</code> is a readable stream, it will have a <code>pipe</code> method that is used to forward all content from a readable stream to a writable stream. If not, it is assumed to be either <code>null</code> (no body), a string, or a buffer, and it is passed directly to the response’s <code>end</code> method.</p>
+
+<p><a class="p_ident" id="p_pL6vfBBk4E" href="#p_pL6vfBBk4E" tabindex="-1" role="presentation"></a>To figure out which file path corresponds to a request URL, the <code>urlPath</code> function uses Node’s built-in <code>url</code> module to parse the URL. It takes its pathname, which will be something like <code>&quot;/<wbr>file.<wbr>txt&quot;</code>, decodes that to get rid of the <code>%20</code>-style escape codes, and resolves it relative to the program’s working directory.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vgzzr4jj34" href="#c_vgzzr4jj34" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">parse</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;url&quot;</span>);
+<span class="cm-keyword">const</span> {<span class="cm-def">resolve</span>, <span class="cm-def">sep</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;path&quot;</span>);
+
+<span class="cm-keyword">const</span> <span class="cm-def">baseDirectory</span> <span class="cm-operator">=</span> <span class="cm-variable">process</span>.<span class="cm-property">cwd</span>();
+
+<span class="cm-keyword">function</span> <span class="cm-def">urlPath</span>(<span class="cm-def">url</span>) {
+  <span class="cm-keyword">let</span> {<span class="cm-def">pathname</span>} <span class="cm-operator">=</span> <span class="cm-variable">parse</span>(<span class="cm-variable-2">url</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">path</span> <span class="cm-operator">=</span> <span class="cm-variable">resolve</span>(<span class="cm-variable">decodeURIComponent</span>(<span class="cm-variable-2">pathname</span>).<span class="cm-property">slice</span>(<span class="cm-number">1</span>));
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">path</span> <span class="cm-operator">!=</span> <span class="cm-variable">baseDirectory</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
+      <span class="cm-operator">!</span><span class="cm-variable-2">path</span>.<span class="cm-property">startsWith</span>(<span class="cm-variable">baseDirectory</span> <span class="cm-operator">+</span> <span class="cm-variable">sep</span>)) {
+    <span class="cm-keyword">throw</span> {<span class="cm-property">status</span>: <span class="cm-number">403</span>, <span class="cm-property">body</span>: <span class="cm-string">&quot;Forbidden&quot;</span>};
+  }
+  <span class="cm-keyword">return</span> <span class="cm-variable-2">path</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_1NWx24yrl9" href="#p_1NWx24yrl9" tabindex="-1" role="presentation"></a>As soon as you set up a program to accept network requests, you have to start worrying about security. In this case, if we aren’t careful, it is likely that we’ll accidentally expose our whole file
+system to the network.</p>
+
+<p><a class="p_ident" id="p_m0GNABM8RH" href="#p_m0GNABM8RH" tabindex="-1" role="presentation"></a>File paths are strings in Node. To map such a string to an actual file, there is a nontrivial amount of interpretation going on. Paths may, for example, include <code>../</code> to refer to a parent directory. So one obvious source of problems would be requests for paths like <code>/../secret_file</code>.</p>
+
+<p><a class="p_ident" id="p_5zn0AvJXaW" href="#p_5zn0AvJXaW" tabindex="-1" role="presentation"></a>To avoid such problems, <code>urlPath</code> uses the <code>resolve</code> function from the <code>path</code> module, which resolves relative paths. It then verifies that the result is <em>below</em> the working directory. The <code>process.cwd</code> function (where <code>cwd</code> stands for “current working directory”) can be used to find this working directory. The <code>sep</code> binding from the <code>path</code> package is the system’s path separator—a backslash on Windows and a forward slash on most other systems. When the path doesn’t start with the base directory, the function throws an error response object, using the HTTP status code indicating that access to the resource is forbidden.</p>
+
+<p><a class="p_ident" id="p_0E1fkrPcjR" href="#p_0E1fkrPcjR" tabindex="-1" role="presentation"></a>We’ll set up the <code>GET</code> method to return a list of files when reading a directory and to return the file’s content when reading a regular file.</p>
+
+<p><a class="p_ident" id="p_zj6fKVP9SD" href="#p_zj6fKVP9SD" tabindex="-1" role="presentation"></a>One tricky question is what kind of <code>Content-Type</code> header we should set when returning a file’s content. Since these files could be anything, our server can’t simply return the same content type for all of them. NPM can help us again here. The <code>mime</code> package (content type indicators like <code>text/plain</code> are also called <em>MIME types</em>) knows the correct type for a large number of file extensions.</p>
+
+<p><a class="p_ident" id="p_ZZr+O24IMr" href="#p_ZZr+O24IMr" tabindex="-1" role="presentation"></a>The following <code>npm</code> command, in the directory where the server script lives, installs a specific version of <code>mime</code>:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_nzfHTZ/5TP" href="#c_nzfHTZ/5TP" tabindex="-1" role="presentation"></a>$ npm install mime@2.2.0</pre>
+
+<p><a class="p_ident" id="p_0oNrzailqn" href="#p_0oNrzailqn" tabindex="-1" role="presentation"></a>When a requested file does not exist, the correct HTTP status code to return is 404. We’ll use the <code>stat</code> function, which looks up information about a file, to find out both whether the file exists and whether it is a directory.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bUezN7Otmf" href="#c_bUezN7Otmf" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">createReadStream</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+<span class="cm-keyword">const</span> {<span class="cm-def">stat</span>, <span class="cm-def">readdir</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>).<span class="cm-property">promises</span>;
+<span class="cm-keyword">const</span> <span class="cm-def">mime</span> <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;mime&quot;</span>);
+
+<span class="cm-variable">methods</span>.<span class="cm-property">GET</span> <span class="cm-operator">=</span> <span class="cm-keyword">async</span> <span class="cm-keyword">function</span>(<span class="cm-def">request</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">path</span> <span class="cm-operator">=</span> <span class="cm-variable">urlPath</span>(<span class="cm-variable-2">request</span>.<span class="cm-property">url</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">stats</span>;
+  <span class="cm-keyword">try</span> {
+    <span class="cm-variable-2">stats</span> <span class="cm-operator">=</span> <span class="cm-keyword">await</span> <span class="cm-variable">stat</span>(<span class="cm-variable-2">path</span>);
+  } <span class="cm-keyword">catch</span> (<span class="cm-def">error</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">error</span>.<span class="cm-property">code</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;ENOENT&quot;</span>) <span class="cm-keyword">throw</span> <span class="cm-variable-2">error</span>;
+    <span class="cm-keyword">else</span> <span class="cm-keyword">return</span> {<span class="cm-property">status</span>: <span class="cm-number">404</span>, <span class="cm-property">body</span>: <span class="cm-string">&quot;File not found&quot;</span>};
+  }
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">stats</span>.<span class="cm-property">isDirectory</span>()) {
+    <span class="cm-keyword">return</span> {<span class="cm-property">body</span>: (<span class="cm-keyword">await</span> <span class="cm-variable">readdir</span>(<span class="cm-variable-2">path</span>)).<span class="cm-property">join</span>(<span class="cm-string">&quot;\n&quot;</span>)};
+  } <span class="cm-keyword">else</span> {
+    <span class="cm-keyword">return</span> {<span class="cm-property">body</span>: <span class="cm-variable">createReadStream</span>(<span class="cm-variable-2">path</span>),
+            <span class="cm-property">type</span>: <span class="cm-variable">mime</span>.<span class="cm-property">getType</span>(<span class="cm-variable-2">path</span>)};
+  }
+};</pre>
+
+<p><a class="p_ident" id="p_iYt4Ms5dC4" href="#p_iYt4Ms5dC4" tabindex="-1" role="presentation"></a>Because it has to touch the disk and thus might take a while, <code>stat</code> is asynchronous. Since we’re using promises rather than callback style, it has to be imported from <code>promises</code> instead of directly from <code>fs</code>.</p>
+
+<p><a class="p_ident" id="p_tdTunaPFS/" href="#p_tdTunaPFS/" tabindex="-1" role="presentation"></a>When the file does not exist, <code>stat</code> will throw an error object with a <code>code</code> property of <code>&quot;ENOENT&quot;</code>. These somewhat obscure, Unix-inspired codes are how you recognize error types in Node.</p>
+
+<p><a class="p_ident" id="p_f1+vCwgX9M" href="#p_f1+vCwgX9M" tabindex="-1" role="presentation"></a>The <code>stats</code> object returned by <code>stat</code> tells us a number of things about a file, such as its size (<code>size</code> property) and its modification date (<code>mtime</code> property). Here we are interested in the question of whether it is a directory or a regular file, which the <code>isDirectory</code> method tells us.</p>
+
+<p><a class="p_ident" id="p_E8HtJSMMtj" href="#p_E8HtJSMMtj" tabindex="-1" role="presentation"></a>We use <code>readdir</code> to read the array of files in a directory and return it to the client. For normal files, we create a readable stream with <code>createReadStream</code> and return that as the body, along with the content type that the <code>mime</code> package gives us for the file’s name.</p>
+
+<p><a class="p_ident" id="p_3SF21U54yR" href="#p_3SF21U54yR" tabindex="-1" role="presentation"></a>The code to handle <code>DELETE</code> requests is slightly simpler.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QVBbtdK0s5" href="#c_QVBbtdK0s5" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">rmdir</span>, <span class="cm-def">unlink</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>).<span class="cm-property">promises</span>;
+
+<span class="cm-variable">methods</span>.<span class="cm-property">DELETE</span> <span class="cm-operator">=</span> <span class="cm-keyword">async</span> <span class="cm-keyword">function</span>(<span class="cm-def">request</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">path</span> <span class="cm-operator">=</span> <span class="cm-variable">urlPath</span>(<span class="cm-variable-2">request</span>.<span class="cm-property">url</span>);
+  <span class="cm-keyword">let</span> <span class="cm-def">stats</span>;
+  <span class="cm-keyword">try</span> {
+    <span class="cm-variable-2">stats</span> <span class="cm-operator">=</span> <span class="cm-keyword">await</span> <span class="cm-variable">stat</span>(<span class="cm-variable-2">path</span>);
+  } <span class="cm-keyword">catch</span> (<span class="cm-def">error</span>) {
+    <span class="cm-keyword">if</span> (<span class="cm-variable-2">error</span>.<span class="cm-property">code</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;ENOENT&quot;</span>) <span class="cm-keyword">throw</span> <span class="cm-variable-2">error</span>;
+    <span class="cm-keyword">else</span> <span class="cm-keyword">return</span> {<span class="cm-property">status</span>: <span class="cm-number">204</span>};
+  }
+  <span class="cm-keyword">if</span> (<span class="cm-variable-2">stats</span>.<span class="cm-property">isDirectory</span>()) <span class="cm-keyword">await</span> <span class="cm-variable">rmdir</span>(<span class="cm-variable-2">path</span>);
+  <span class="cm-keyword">else</span> <span class="cm-keyword">await</span> <span class="cm-variable">unlink</span>(<span class="cm-variable-2">path</span>);
+  <span class="cm-keyword">return</span> {<span class="cm-property">status</span>: <span class="cm-number">204</span>};
+};</pre>
+
+<p><a class="p_ident" id="p_AXYF3FSJbj" href="#p_AXYF3FSJbj" tabindex="-1" role="presentation"></a>When an HTTP response does not contain any data, the status code 204 (“no content”) can be used to indicate this. Since the response to deletion doesn’t need to transmit any information beyond whether the operation succeeded, that is a sensible thing to return here.</p>
+
+<p><a class="p_ident" id="p_1CFycX4t/q" href="#p_1CFycX4t/q" tabindex="-1" role="presentation"></a>You may be wondering why trying to delete a nonexistent file returns a success status code, rather than an error. When the file that is being deleted is not there, you could say that the request’s objective is already fulfilled. The HTTP standard encourages us to make requests <em>idempotent</em>, which means that making the same request multiple times produces the same result as making it once. In a way, if you try to delete something that’s already gone, the effect you were trying to do has been achieved—the thing is no longer there.</p>
+
+<p><a class="p_ident" id="p_q7xnjGCxyr" href="#p_q7xnjGCxyr" tabindex="-1" role="presentation"></a>This is the handler for <code>PUT</code> requests:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SSOayCBrzD" href="#c_SSOayCBrzD" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">createWriteStream</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;fs&quot;</span>);
+
+<span class="cm-keyword">function</span> <span class="cm-def">pipeStream</span>(<span class="cm-def">from</span>, <span class="cm-def">to</span>) {
+  <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Promise</span>((<span class="cm-def">resolve</span>, <span class="cm-def">reject</span>) <span class="cm-operator">=&gt;</span> {
+    <span class="cm-variable-2">from</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;error&quot;</span>, <span class="cm-variable-2">reject</span>);
+    <span class="cm-variable-2">to</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;error&quot;</span>, <span class="cm-variable-2">reject</span>);
+    <span class="cm-variable-2">to</span>.<span class="cm-property">on</span>(<span class="cm-string">&quot;finish&quot;</span>, <span class="cm-variable-2">resolve</span>);
+    <span class="cm-variable-2">from</span>.<span class="cm-property">pipe</span>(<span class="cm-variable-2">to</span>);
+  });
+}
+
+<span class="cm-variable">methods</span>.<span class="cm-property">PUT</span> <span class="cm-operator">=</span> <span class="cm-keyword">async</span> <span class="cm-keyword">function</span>(<span class="cm-def">request</span>) {
+  <span class="cm-keyword">let</span> <span class="cm-def">path</span> <span class="cm-operator">=</span> <span class="cm-variable">urlPath</span>(<span class="cm-variable-2">request</span>.<span class="cm-property">url</span>);
+  <span class="cm-keyword">await</span> <span class="cm-variable">pipeStream</span>(<span class="cm-variable-2">request</span>, <span class="cm-variable">createWriteStream</span>(<span class="cm-variable-2">path</span>));
+  <span class="cm-keyword">return</span> {<span class="cm-property">status</span>: <span class="cm-number">204</span>};
+};</pre>
+
+<p><a class="p_ident" id="p_uDb6FJuQ47" href="#p_uDb6FJuQ47" tabindex="-1" role="presentation"></a>We don’t need to check whether the file exists this time—if it does, we’ll just overwrite it. We again use <code>pipe</code> to move data from a readable stream to a writable one, in this case from the request to the file. But since <code>pipe</code> isn’t written to return a promise, we have to write a wrapper, <code>pipeStream</code>, that creates a promise around the outcome of calling <code>pipe</code>.</p>
+
+<p><a class="p_ident" id="p_DGGAMEixPQ" href="#p_DGGAMEixPQ" tabindex="-1" role="presentation"></a>When something goes wrong when opening the file, <code>createWriteStream</code> will still return a stream, but that stream will fire an <code>&quot;error&quot;</code> event. The output stream to the request may also fail, for example if the network goes down. So we wire up both streams’ <code>&quot;error&quot;</code> events to reject the promise. When <code>pipe</code> is done, it will close the output stream, which causes it to fire a <code>&quot;finish&quot;</code> event. That’s the point where we can successfully resolve the promise (returning nothing).</p>
+
+<p><a class="p_ident" id="p_ig7HitKqRz" href="#p_ig7HitKqRz" tabindex="-1" role="presentation"></a>The full script for the server is available at <a href="https://eloquentjavascript.net/code/file_server.js"><em>https://eloquentjavascript.net/code/file_server.js</em></a>. You can download that and, after installing its dependencies, run it with Node to start your own file server. And, of course, you can modify and extend it to solve this chapter’s exercises or to experiment.</p>
+
+<p><a class="p_ident" id="p_fBFWTJncql" href="#p_fBFWTJncql" tabindex="-1" role="presentation"></a>The command line tool <code>curl</code>, widely available on Unix-like systems (such as macOS and Linux), can be used to make HTTP requests. The following session briefly tests our server. The <code>-X</code> option is used to set the request’s method, and <code>-d</code> is used to include a request body.</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_1De9cCo/FY" href="#c_1De9cCo/FY" tabindex="-1" role="presentation"></a>$ curl http://localhost:8000/file.txt
+File not found
+$ curl -X PUT -d hello http://localhost:8000/file.txt
+$ curl http://localhost:8000/file.txt
+hello
+$ curl -X DELETE http://localhost:8000/file.txt
+$ curl http://localhost:8000/file.txt
+File not found</pre>
+
+<p><a class="p_ident" id="p_AmMFBJGSkb" href="#p_AmMFBJGSkb" tabindex="-1" role="presentation"></a>The first request for <code>file.txt</code> fails since the file does not exist yet. The <code>PUT</code> request creates the file, and behold, the next request successfully retrieves it. After deleting it with a <code>DELETE</code> request, the file is again missing.</p>
+
+<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+
+<p><a class="p_ident" id="p_aI1QIDZs29" href="#p_aI1QIDZs29" tabindex="-1" role="presentation"></a>Node is a nice, small system that lets us run JavaScript in a nonbrowser context. It was originally designed for network tasks to play the role of a <em>node</em> in a network. But it lends itself to all kinds of scripting tasks, and if writing JavaScript is something you enjoy, automating tasks with Node works well.</p>
+
+<p><a class="p_ident" id="p_pVLEV4YWAu" href="#p_pVLEV4YWAu" tabindex="-1" role="presentation"></a>NPM provides packages for everything you can think of (and quite a few things you’d probably never think of), and it allows you to fetch and install those packages with the <code>npm</code> program. Node comes with a number of built-in modules, including the <code>fs</code> module for working with the file system and the <code>http</code> module for running HTTP servers and making HTTP requests.</p>
+
+<p><a class="p_ident" id="p_FBsszxt4wi" href="#p_FBsszxt4wi" tabindex="-1" role="presentation"></a>All input and output in Node is done asynchronously, unless you explicitly use a synchronous variant of a function, such as <code>readFileSync</code>. When calling such asynchronous functions, you provide callback functions, and Node will call them with an error value and (if available) a result when it is ready.</p>
+
+<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+
+<h3><a class="i_ident" id="i_9+y+iovU0J" href="#i_9+y+iovU0J" tabindex="-1" role="presentation"></a>Search tool</h3>
+
+<p><a class="p_ident" id="p_ca6ZBtGx1B" href="#p_ca6ZBtGx1B" tabindex="-1" role="presentation"></a>On Unix systems, there is a command line tool called <code>grep</code> that can be used to quickly search files for a regular expression.</p>
+
+<p><a class="p_ident" id="p_/pAmPm2px7" href="#p_/pAmPm2px7" tabindex="-1" role="presentation"></a>Write a Node script that can be run from the command line and acts somewhat like <code>grep</code>. It treats its first command line argument as a regular expression and treats any further arguments as files to search. It should output the names of any file whose content matches the regular expression.</p>
+
+<p><a class="p_ident" id="p_ddYdvItkvN" href="#p_ddYdvItkvN" tabindex="-1" role="presentation"></a>When that works, extend it so that when one of the arguments is a directory, it searches through all files in that directory and its subdirectories.</p>
+
+<p><a class="p_ident" id="p_y4ht4tsxKI" href="#p_y4ht4tsxKI" tabindex="-1" role="presentation"></a>Use asynchronous or synchronous file system functions as you see fit. Setting things up so that multiple asynchronous actions are requested at the same time might speed things up a little, but not a huge amount, since most file systems can read only one thing at a time.</p>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_3yQPGLxU85" href="#p_3yQPGLxU85" tabindex="-1" role="presentation"></a>Your first command line argument, the regular expression, can be found in <code>process.argv[2]</code>. The input files come after that. You can use the <code>RegExp</code> constructor to go from a string to a regular expression object.</p>
+
+<p><a class="p_ident" id="p_h+mtaoCbhZ" href="#p_h+mtaoCbhZ" tabindex="-1" role="presentation"></a>Doing this synchronously, with <code>readFileSync</code>, is more straightforward, but if you use <code>fs.promises</code> again to get promise-returning functions and write an <code>async</code> function, the code looks similar.</p>
+
+<p><a class="p_ident" id="p_r0XgnA8VK0" href="#p_r0XgnA8VK0" tabindex="-1" role="presentation"></a>To figure out whether something is a directory, you can again use <code>stat</code> (or <code>statSync</code>) and the stats object’s <code>isDirectory</code> method.</p>
+
+<p><a class="p_ident" id="p_KiWSClPPul" href="#p_KiWSClPPul" tabindex="-1" role="presentation"></a>Exploring a directory is a branching process. You can do it either by using a recursive function or by keeping an array of work (files that still need to be explored). To find the files in a directory, you can call <code>readdir</code> or <code>readdirSync</code>. The strange capitalization—Node’s file system function naming is loosely based on standard Unix functions, such as <code>readdir</code>, that are all lowercase, but then it adds <code>Sync</code> with a capital letter.</p>
+
+<p><a class="p_ident" id="p_dYrkZNxSEL" href="#p_dYrkZNxSEL" tabindex="-1" role="presentation"></a>To go from a filename read with <code>readdir</code> to a full path name, you have to combine it with the name of the directory, putting a slash
+character (<code>/</code>) between them.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_h8iNiA8ezX" href="#i_h8iNiA8ezX" tabindex="-1" role="presentation"></a>Directory creation</h3>
+
+<p><a class="p_ident" id="p_eKscmrM/cp" href="#p_eKscmrM/cp" tabindex="-1" role="presentation"></a>Though the <code>DELETE</code> method in our file server is able to delete directories (using <code>rmdir</code>), the server currently does not provide any way to <em>create</em> a directory.</p>
+
+<p><a class="p_ident" id="p_GpjSLUJk84" href="#p_GpjSLUJk84" tabindex="-1" role="presentation"></a>Add support for the <code>MKCOL</code> method (“make collection”), which should create a directory by calling <code>mkdir</code> from the <code>fs</code> module. <code>MKCOL</code> is not a widely used HTTP method, but it does exist for this same purpose in the <em>WebDAV</em> standard, which specifies a set of conventions on top of HTTP that make it suitable for creating documents.</p>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_Ptyerm4lHs" href="#p_Ptyerm4lHs" tabindex="-1" role="presentation"></a>You can use the function that implements the <code>DELETE</code> method as a blueprint for the <code>MKCOL</code> method. When no file is found, try to create a directory with <code>mkdir</code>. When a directory exists at that path, you can return a 204 response so that directory creation requests are idempotent. If a nondirectory file exists here, return an error code. Code 400 (“bad request”) would be appropriate.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_TLRTlwK6ZU" href="#i_TLRTlwK6ZU" tabindex="-1" role="presentation"></a>A public space on the web</h3>
+
+<p><a class="p_ident" id="p_fGFbxH6/FF" href="#p_fGFbxH6/FF" tabindex="-1" role="presentation"></a>Since the file server serves up any kind of file and even includes the right <code>Content-Type</code> header, you can use it to serve a website. Since it allows everybody to delete and replace files, it would be an interesting kind of website: one that can be modified, improved, and vandalized by everybody who takes the time to create the right HTTP request.</p>
+
+<p><a class="p_ident" id="p_A9LlE9TbZm" href="#p_A9LlE9TbZm" tabindex="-1" role="presentation"></a>Write a basic HTML page that includes a simple JavaScript file. Put the files in a directory served by the file server and open them in your browser.</p>
+
+<p><a class="p_ident" id="p_6IZvK/z6Ez" href="#p_6IZvK/z6Ez" tabindex="-1" role="presentation"></a>Next, as an advanced exercise or even a weekend project, combine all the knowledge you gained from this book to build a more user-friendly interface for modifying the website—from <em>inside</em> the website.</p>
+
+<p><a class="p_ident" id="p_PMJCxe07g5" href="#p_PMJCxe07g5" tabindex="-1" role="presentation"></a>Use an HTML form to edit the content of the files that make up the website, allowing the user to update them on the server by using HTTP requests, as described in <a href="18_http.html">Chapter 18</a>.</p>
+
+<p><a class="p_ident" id="p_hWSA1+odAv" href="#p_hWSA1+odAv" tabindex="-1" role="presentation"></a>Start by making only a single file editable. Then make it so that the user can select which file to edit. Use the fact that our file server returns lists of files when reading a directory.</p>
+
+<p><a class="p_ident" id="p_5JDgu6tuAT" href="#p_5JDgu6tuAT" tabindex="-1" role="presentation"></a>Don’t work directly in the code exposed by the file server since if you make a mistake, you are likely to damage the files there. Instead, keep your work outside of the publicly accessible directory and copy it there when testing.</p>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_v9JKMD5WJI" href="#p_v9JKMD5WJI" tabindex="-1" role="presentation"></a>You can create a <code>&lt;textarea&gt;</code> element to hold the content of the file that is being edited. A <code>GET</code> request, using <code>fetch</code>, can retrieve the current content of the file. You can use relative URLs like <em>index.html</em>, instead of <a href="http://localhost:8000/index.html"><em>http://localhost:8000/index.html</em></a>, to refer to files on the same server as the running script.</p>
+
+<p><a class="p_ident" id="p_AddxfNwTA3" href="#p_AddxfNwTA3" tabindex="-1" role="presentation"></a>Then, when the user clicks a button (you can use a <code>&lt;form&gt;</code> element and <code>&quot;submit&quot;</code> event), make a <code>PUT</code> request to the same URL, with the content of the <code>&lt;textarea&gt;</code> as request body, to save the file.</p>
+
+<p><a class="p_ident" id="p_E3aBDoYaVe" href="#p_E3aBDoYaVe" tabindex="-1" role="presentation"></a>You can then add a <code>&lt;select&gt;</code> element that contains all the files in the server’s top directory by adding <code>&lt;option&gt;</code> elements containing the lines returned by a <code>GET</code> request to the URL <code>/</code>. When the user selects another file (a <code>&quot;change&quot;</code> event on the field), the script must fetch and display that file. When saving a file, use the currently selected filename.</p>
+
+</div></div><nav><a href="19_paint.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="21_skillsharing.html" title="next chapter">▶</a></nav>
+</article>

@@ -1,0 +1,515 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Program Structure :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
+  <script src="js/acorn_codemirror.js"></script>
+  <link rel=stylesheet href="css/ejs.css">
+  <script src="js/sandbox.js"></script>
+  <script src="js/ejs.js"></script><script>var chapNum = 2;</script></head>
+
+<article>
+<nav><a href="01_values.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="03_functions.html" title="next chapter">▶</a></nav>
+
+<h1><span class=chap_num>Chapter 2</span>Program Structure</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p_J/zCYrllfQ" href="#p_J/zCYrllfQ" tabindex="-1" role="presentation"></a>And my heart glows bright red under my filmy, translucent skin and they have to administer 10cc of JavaScript to get me to come back. (I respond well to toxins in the blood.) Man, that stuff will kick the peaches right out your gills!</p>
+
+<footer>_why, <cite>Why's (Poignant) Guide to Ruby</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_2.jpg" alt="Picture of tentacles holding objects"></figure>
+
+<p><a class="p_ident" id="p_D1mgO0fMBD" href="#p_D1mgO0fMBD" tabindex="-1" role="presentation"></a>In this chapter, we will start to do things that can actually be called <em>programming</em>. We will expand our command of the JavaScript language beyond the nouns and sentence fragments we’ve seen so far, to the point where we can express meaningful prose.</p>
+
+<h2><a class="h_ident" id="h_5fUOQZwwHx" href="#h_5fUOQZwwHx" tabindex="-1" role="presentation"></a>Expressions and statements</h2>
+
+<p><a class="p_ident" id="p_qwJQaYxUlJ" href="#p_qwJQaYxUlJ" tabindex="-1" role="presentation"></a>In <a href="01_values.html">Chapter 1</a>, we made values and applied operators to them to get new values. Creating values like this is the main substance of any JavaScript program. But that substance has to be framed in a larger structure to be useful. So that’s what we’ll cover next.</p>
+
+<p><a class="p_ident" id="p_8CCep1TQ8b" href="#p_8CCep1TQ8b" tabindex="-1" role="presentation"></a>A fragment of code that produces a value is called an <em>expression</em>. Every value that is written literally (such as <code>22</code> or <code>&quot;psychoanalysis&quot;</code>) is an expression. An expression between parentheses is also an expression, as is a binary operator applied to two expressions or a unary operator applied to one.</p>
+
+<p><a class="p_ident" id="p_QXQG3kVSFh" href="#p_QXQG3kVSFh" tabindex="-1" role="presentation"></a>This shows part of the beauty of a language-based interface. Expressions can contain other expressions in a way similar to how subsentences in human languages are nested—a subsentence can contain its own subsentences, and so on. This allows us to build expressions that describe arbitrarily complex computations.</p>
+
+<p><a class="p_ident" id="p_UM5/kUz1tD" href="#p_UM5/kUz1tD" tabindex="-1" role="presentation"></a>If an expression corresponds to a sentence fragment, a JavaScript <em>statement</em> corresponds to a full sentence. A program is a list of statements.</p>
+
+<p><a class="p_ident" id="p_NAzxo1M6WC" href="#p_NAzxo1M6WC" tabindex="-1" role="presentation"></a>The simplest kind of statement is an expression with a semicolon after it. This is a program:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_hjwmfcgDR0" href="#c_hjwmfcgDR0" tabindex="-1" role="presentation"></a><span class="cm-number">1</span>;
+<span class="cm-operator">!</span><span class="cm-atom">false</span>;</pre>
+
+<p><a class="p_ident" id="p_dj4UvUmws0" href="#p_dj4UvUmws0" tabindex="-1" role="presentation"></a>It is a useless program, though. An expression can be content to just produce a value, which can then be used by the enclosing code. A statement stands on its own, so it amounts to something only if it affects the world. It could display something on the screen—that counts as changing the world—or it could change the internal state of the machine in a way that will affect the statements that come after it. These changes are called <em>side effects</em>. The statements in the previous example just produce the values <code>1</code> and <code>true</code> and then immediately throw them away. This leaves no impression on the world at all. When you run this program, nothing observable happens.</p>
+
+<p><a class="p_ident" id="p_z/83KOxUGo" href="#p_z/83KOxUGo" tabindex="-1" role="presentation"></a>In some cases, JavaScript allows you to omit the semicolon at the end of a statement. In other cases, it has to be there, or the next line will be treated as part of the same statement. The rules for when it can be safely omitted are somewhat complex and error-prone. So in this book, every statement that needs a semicolon will always get one. I recommend you do the same, at least until you’ve learned more about the subtleties of missing semicolons.</p>
+
+<h2><a class="h_ident" id="h_lnOC+GBEtu" href="#h_lnOC+GBEtu" tabindex="-1" role="presentation"></a>Bindings</h2>
+
+<p><a class="p_ident" id="p_jG4q4gLJDw" href="#p_jG4q4gLJDw" tabindex="-1" role="presentation"></a>How does a program keep an internal state? How does it remember things? We have seen how to produce new values from old values, but this does not change the old values, and the new value has to be immediately used or it will dissipate again. To catch and hold values, JavaScript provides a thing called a <em>binding</em>, or <em>variable</em>:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aT9yLxdY/V" href="#c_aT9yLxdY/V" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">caught</span> <span class="cm-operator">=</span> <span class="cm-number">5</span> <span class="cm-operator">*</span> <span class="cm-number">5</span>;</pre>
+
+<p><a class="p_ident" id="p_22bMgVFwvP" href="#p_22bMgVFwvP" tabindex="-1" role="presentation"></a>That’s a second kind of statement. The special word (<em>keyword</em>) <code>let</code> indicates that this sentence is going to define a binding. It is followed by the name of the binding and, if we want to immediately give it a value, by an <code>=</code> operator and an expression.</p>
+
+<p><a class="p_ident" id="p_EkxlfkTaWl" href="#p_EkxlfkTaWl" tabindex="-1" role="presentation"></a>The previous statement creates a binding called <code>caught</code> and uses it to grab hold of the number that is produced by multiplying 5 by 5.</p>
+
+<p><a class="p_ident" id="p_sAeFT14um2" href="#p_sAeFT14um2" tabindex="-1" role="presentation"></a>After a binding has been defined, its name can be used as an expression. The value of such an expression is the value the binding currently holds. Here’s an example:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FfLIqaoaFx" href="#c_FfLIqaoaFx" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ten</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">ten</span> <span class="cm-operator">*</span> <span class="cm-variable">ten</span>);
+<span class="cm-comment">// → 100</span></pre>
+
+<p><a class="p_ident" id="p_sR/0q2q2n6" href="#p_sR/0q2q2n6" tabindex="-1" role="presentation"></a>When a binding points at a value, that does not mean it is tied to that value forever. The <code>=</code> operator can be used at any time on existing bindings to disconnect them from their current value and have them point to a new one.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FiZBrHz3CX" href="#c_FiZBrHz3CX" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">mood</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;light&quot;</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">mood</span>);
+<span class="cm-comment">// → light</span>
+<span class="cm-variable">mood</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;dark&quot;</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">mood</span>);
+<span class="cm-comment">// → dark</span></pre>
+
+<p><a class="p_ident" id="p_tdX1rrdcPQ" href="#p_tdX1rrdcPQ" tabindex="-1" role="presentation"></a>You should imagine bindings as tentacles, rather than boxes. They do not <em>contain</em> values; they <em>grasp</em> them—two bindings can refer to the same value. A program can access only the values that it still has a reference to. When you need to remember something, you grow a tentacle to hold on to it or you reattach one of your existing tentacles to it.</p>
+
+<p><a class="p_ident" id="p_xk5wAppssa" href="#p_xk5wAppssa" tabindex="-1" role="presentation"></a>Let’s look at another example. To remember the number of dollars that Luigi still owes you, you create a binding. And then when he pays back $35, you give this binding a new value.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_UpFQBNACng" href="#c_UpFQBNACng" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">luigisDebt</span> <span class="cm-operator">=</span> <span class="cm-number">140</span>;
+<span class="cm-variable">luigisDebt</span> <span class="cm-operator">=</span> <span class="cm-variable">luigisDebt</span> <span class="cm-operator">-</span> <span class="cm-number">35</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">luigisDebt</span>);
+<span class="cm-comment">// → 105</span></pre>
+
+<p><a class="p_ident" id="p_OlJt23pj8f" href="#p_OlJt23pj8f" tabindex="-1" role="presentation"></a>When you define a binding without giving it a value, the tentacle has nothing to grasp, so it ends in thin air. If you ask for the value of an empty binding, you’ll get the value <code>undefined</code>.</p>
+
+<p><a class="p_ident" id="p_s1Y1EgGqy/" href="#p_s1Y1EgGqy/" tabindex="-1" role="presentation"></a>A single <code>let</code> statement may define multiple bindings. The definitions must be separated by commas.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_pT4pqev8kx" href="#c_pT4pqev8kx" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">one</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>, <span class="cm-def">two</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">one</span> <span class="cm-operator">+</span> <span class="cm-variable">two</span>);
+<span class="cm-comment">// → 3</span></pre>
+
+<p><a class="p_ident" id="p_9npyA8SKtx" href="#p_9npyA8SKtx" tabindex="-1" role="presentation"></a>The words <code>var</code> and <code>const</code> can also be used to create bindings, in a way similar to <code>let</code>.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_8QmBe23E5V" href="#c_8QmBe23E5V" tabindex="-1" role="presentation"></a><span class="cm-keyword">var</span> <span class="cm-def">name</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Ayda&quot;</span>;
+<span class="cm-keyword">const</span> <span class="cm-def">greeting</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Hello &quot;</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">greeting</span> <span class="cm-operator">+</span> <span class="cm-variable">name</span>);
+<span class="cm-comment">// → Hello Ayda</span></pre>
+
+<p><a class="p_ident" id="p_IvQMyQVoj9" href="#p_IvQMyQVoj9" tabindex="-1" role="presentation"></a>The first, <code>var</code> (short for “variable”), is the way bindings were declared in pre-2015 JavaScript. I’ll get back to the precise way it differs from <code>let</code> in the <a href="03_functions.html">next chapter</a>. For now, remember that it mostly does the same thing, but we’ll rarely use it in this book because it has some confusing properties.</p>
+
+<p><a class="p_ident" id="p_ReUkO4pLEi" href="#p_ReUkO4pLEi" tabindex="-1" role="presentation"></a>The word <code>const</code> stands for <em>constant</em>. It defines a constant binding, which points at the same value for as long as it lives. This is useful for bindings that give a name to a value so that you can easily refer to it later.</p>
+
+<h2><a class="h_ident" id="h_SbWNrIYjdH" href="#h_SbWNrIYjdH" tabindex="-1" role="presentation"></a>Binding names</h2>
+
+<p><a class="p_ident" id="p_D+UoiHGeN5" href="#p_D+UoiHGeN5" tabindex="-1" role="presentation"></a>Binding names can be any word. Digits can be part of binding names—<code>catch22</code> is a valid name, for example—but the name must not start with a digit. A binding name may include dollar signs (<code>$</code>) or underscores (<code>_</code>) but no other punctuation or special characters.</p>
+
+<p><a class="p_ident" id="p_GioEDRc+dl" href="#p_GioEDRc+dl" tabindex="-1" role="presentation"></a>Words with a special meaning, such as <code>let</code>, are <em>keywords</em>, and they may not be used as binding names. There are also a number of words that are “reserved for use” in future versions of JavaScript, which also can’t be used as binding names. The full list of keywords and reserved words is rather long.</p>
+
+<pre class="snippet cm-s-default" data-language="text/plain" ><a class="c_ident" id="c_7BGolnv7qC" href="#c_7BGolnv7qC" tabindex="-1" role="presentation"></a>break case catch class const continue debugger default
+delete do else enum export extends false finally for
+function if implements import interface in instanceof let
+new package private protected public return static super
+switch this throw true try typeof var void while with yield</pre>
+
+<p><a class="p_ident" id="p_5y7TPJMRIf" href="#p_5y7TPJMRIf" tabindex="-1" role="presentation"></a>Don’t worry about memorizing this list. When creating a binding produces an unexpected syntax error, see whether you’re trying to define a reserved word.</p>
+
+<h2><a class="h_ident" id="h_2Tc54fkIgF" href="#h_2Tc54fkIgF" tabindex="-1" role="presentation"></a>The environment</h2>
+
+<p><a class="p_ident" id="p_tJKFexJV/j" href="#p_tJKFexJV/j" tabindex="-1" role="presentation"></a>The collection of bindings and their values that exist at a given time is called the <em>environment</em>. When a program starts up, this environment is not empty. It always contains bindings that are part of the language standard, and most of the time, it also has bindings that provide ways to interact with the surrounding system. For example, in a browser, there are functions to interact with the currently loaded website and to read mouse and keyboard input.</p>
+
+<h2><a class="h_ident" id="h_K5Yd6h3Axg" href="#h_K5Yd6h3Axg" tabindex="-1" role="presentation"></a>Functions</h2>
+
+<p><a class="p_ident" id="p_S7KjMy3yAl" href="#p_S7KjMy3yAl" tabindex="-1" role="presentation"></a>A lot of the values provided in the default environment have the type <em>function</em>. A function is a piece of program wrapped in a value. Such values can be <em>applied</em> in order to run the wrapped program. For example, in a browser environment, the binding <code>prompt</code> holds a function that shows a little dialog box asking for user input. It is used like this:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QSUssd4nHv" href="#c_QSUssd4nHv" tabindex="-1" role="presentation"></a><span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Enter passcode&quot;</span>);</pre><figure><img src="img/prompt.png" alt="A prompt dialog"></figure>
+
+<p><a class="p_ident" id="p_9qu6Ki2/lH" href="#p_9qu6Ki2/lH" tabindex="-1" role="presentation"></a>Executing a function is called <em>invoking</em>, <em>calling</em>, or <em>applying</em> it. You can call a function by putting parentheses after an expression that produces a function value. Usually you’ll directly use the name of the binding that holds the function. The values between the parentheses are given to the program inside the function. In the example, the <code>prompt</code> function uses the string that we give it as the text to show in the dialog box. Values given to functions are called <em>arguments</em>. Different functions might need a different number or different types of arguments.</p>
+
+<p><a class="p_ident" id="p_P1XUFb0AF2" href="#p_P1XUFb0AF2" tabindex="-1" role="presentation"></a>The <code>prompt</code> function isn’t used much in modern web programming, mostly because you have no control over the way the resulting dialog looks, but can be helpful in toy programs and experiments.</p>
+
+<h2><a class="h_ident" id="h_6+Vb3XQoaa" href="#h_6+Vb3XQoaa" tabindex="-1" role="presentation"></a>The console.log function</h2>
+
+<p><a class="p_ident" id="p_z9zlqeaeEN" href="#p_z9zlqeaeEN" tabindex="-1" role="presentation"></a>In the examples, I used <code>console.log</code> to output values. Most JavaScript systems (including all modern web browsers and Node.js) provide a <code>console.log</code> function that writes out its arguments to <em>some</em> text output device. In browsers, the output lands in the JavaScript
+console. This part of the browser interface is hidden by default, but most browsers open it when you press F12 or, on a Mac, <span class="keyname">command</span>-<span class="keyname">option</span>-I. If that does not work, search through the menus for an item named Developer Tools or similar.</p>
+
+<p><a class="p_ident" id="p_KiTJ1BsGuf" href="#p_KiTJ1BsGuf" tabindex="-1" role="presentation"></a>When running the examples (or your own code) on the pages of this book, <code>console.log</code> output will be shown after the example, instead of in the browser’s JavaScript console.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_TuaqUrwlKB" href="#c_TuaqUrwlKB" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-number">30</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;the value of x is&quot;</span>, <span class="cm-variable">x</span>);
+<span class="cm-comment">// → the value of x is 30</span></pre>
+
+<p><a class="p_ident" id="p_p2JPaHsFdx" href="#p_p2JPaHsFdx" tabindex="-1" role="presentation"></a>Though binding names cannot contain period characters, <code>console.log</code> does have one. This is because <code>console.log</code> isn’t a simple binding. It is actually an expression that retrieves the <code>log</code> property from the value held by the <code>console</code> binding. We’ll find out exactly what this means in <a href="04_data.html#properties">Chapter 4</a>.</p>
+
+<h2 id="return_values"><a class="h_ident" id="h_nULi9znEdr" href="#h_nULi9znEdr" tabindex="-1" role="presentation"></a>Return values</h2>
+
+<p><a class="p_ident" id="p_0E23g2pjSW" href="#p_0E23g2pjSW" tabindex="-1" role="presentation"></a>Showing a dialog box or writing text to the screen is a <em>side
+effect</em>. A lot of functions are useful because of the side effects they produce. Functions may also produce values, in which case they don’t need to have a side effect to be useful. For example, the function <code>Math.max</code> takes any amount of number arguments and gives back the greatest.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_PEuTYZX6NI" href="#c_PEuTYZX6NI" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">max</span>(<span class="cm-number">2</span>, <span class="cm-number">4</span>));
+<span class="cm-comment">// → 4</span></pre>
+
+<p><a class="p_ident" id="p_j9xxLwTmeJ" href="#p_j9xxLwTmeJ" tabindex="-1" role="presentation"></a>When a function produces a value, it is said to <em>return</em> that value. Anything that produces a value is an expression in JavaScript, which means function calls can be used within larger expressions. Here a call to <code>Math.min</code>, which is the opposite of <code>Math.max</code>, is used as part of a plus expression:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_V4eUUr1Irj" href="#c_V4eUUr1Irj" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">min</span>(<span class="cm-number">2</span>, <span class="cm-number">4</span>) <span class="cm-operator">+</span> <span class="cm-number">100</span>);
+<span class="cm-comment">// → 102</span></pre>
+
+<p><a class="p_ident" id="p_CCHmKjEO/A" href="#p_CCHmKjEO/A" tabindex="-1" role="presentation"></a>The <a href="03_functions.html">next chapter</a> explains how to write your own functions.</p>
+
+<h2><a class="h_ident" id="h_rDxYNPd65Z" href="#h_rDxYNPd65Z" tabindex="-1" role="presentation"></a>Control flow</h2>
+
+<p><a class="p_ident" id="p_QdCrOXOgYy" href="#p_QdCrOXOgYy" tabindex="-1" role="presentation"></a>When your program contains more than one statement, the statements are executed as if they are a story, from top to bottom. This example program has two statements. The first one asks the user for a number, and the second, which is executed after the first, shows the square of that number.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6hF1Rg3sJ/" href="#c_6hF1Rg3sJ/" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">theNumber</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Your number is the square root of &quot;</span> <span class="cm-operator">+</span>
+            <span class="cm-variable">theNumber</span> <span class="cm-operator">*</span> <span class="cm-variable">theNumber</span>);</pre>
+
+<p><a class="p_ident" id="p_sRAFsk3Egv" href="#p_sRAFsk3Egv" tabindex="-1" role="presentation"></a>The function <code>Number</code> converts a value to a number. We need that conversion because the result of <code>prompt</code> is a string value, and we want a number. There are similar functions called <code>String</code> and <code>Boolean</code> that convert values to those types.</p>
+
+<p><a class="p_ident" id="p_/0ErLtUfJu" href="#p_/0ErLtUfJu" tabindex="-1" role="presentation"></a>Here is the rather trivial schematic representation of straight-line control flow:</p><figure><img src="img/controlflow-straight.svg" alt="Trivial control flow"></figure>
+
+<h2><a class="h_ident" id="h_wpz5oi2dy7" href="#h_wpz5oi2dy7" tabindex="-1" role="presentation"></a>Conditional execution</h2>
+
+<p><a class="p_ident" id="p_vIB/f6fX22" href="#p_vIB/f6fX22" tabindex="-1" role="presentation"></a>Not all programs are straight roads. We may, for example, want to create a branching road, where the program takes the proper branch based on the situation at hand. This is called <em>conditional
+execution</em>.</p><figure><img src="img/controlflow-if.svg" alt="Conditional control flow"></figure>
+
+<p><a class="p_ident" id="p_+kdDcK9eLo" href="#p_+kdDcK9eLo" tabindex="-1" role="presentation"></a>Conditional execution is created with the <code>if</code> keyword in JavaScript. In the simple case, we want some code to be executed if, and only if, a certain condition holds. We might, for example, want to show the square of the input only if the input is actually a number.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_D0zJWB8mO1" href="#c_D0zJWB8mO1" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">theNumber</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
+<span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable">Number</span>.<span class="cm-property">isNaN</span>(<span class="cm-variable">theNumber</span>)) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Your number is the square root of &quot;</span> <span class="cm-operator">+</span>
+              <span class="cm-variable">theNumber</span> <span class="cm-operator">*</span> <span class="cm-variable">theNumber</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_mKMHRLufE5" href="#p_mKMHRLufE5" tabindex="-1" role="presentation"></a>With this modification, if you enter “parrot”, no output is shown.</p>
+
+<p><a class="p_ident" id="p_Z3lb25LMfG" href="#p_Z3lb25LMfG" tabindex="-1" role="presentation"></a>The <code>if</code> keyword executes or skips a statement depending on the value of a Boolean expression. The deciding expression is written after the keyword, between parentheses, followed by the statement to execute.</p>
+
+<p><a class="p_ident" id="p_pG2wjXJ0HS" href="#p_pG2wjXJ0HS" tabindex="-1" role="presentation"></a>The <code>Number.isNaN</code> function is a standard JavaScript function that returns <code>true</code> only if the argument it is given is <code>NaN</code>. The <code>Number</code> function happens to return <code>NaN</code> when you give it a string that doesn’t represent a valid number. Thus, the condition translates to “unless <code>theNumber</code> is not-a-number, do this”.</p>
+
+<p><a class="p_ident" id="p_it4hLyYIxE" href="#p_it4hLyYIxE" tabindex="-1" role="presentation"></a>The statement after the <code>if</code> is wrapped in braces (<code>{</code> and <code>}</code>) in this example. The braces can be used to group any number of statements into a single statement, called a <em>block</em>. You could also have omitted them in this case, since they hold only a single statement, but to avoid having to think about whether they are needed, most JavaScript programmers use them in every wrapped statement like this. We’ll mostly follow that convention in this book, except for the occasional one-liner.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/Ndk5rqq2Z" href="#c_/Ndk5rqq2Z" tabindex="-1" role="presentation"></a><span class="cm-keyword">if</span> (<span class="cm-number">1</span> <span class="cm-operator">+</span> <span class="cm-number">1</span> <span class="cm-operator">==</span> <span class="cm-number">2</span>) <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;It's true&quot;</span>);
+<span class="cm-comment">// → It's true</span></pre>
+
+<p><a class="p_ident" id="p_nKal37wsBJ" href="#p_nKal37wsBJ" tabindex="-1" role="presentation"></a>You often won’t just have code that executes when a condition holds true, but also code that handles the other case. This alternate path is represented by the second arrow in the diagram. You can use the <code>else</code> keyword, together with <code>if</code>, to create two separate, alternative execution paths.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kLpqX2fnaC" href="#c_kLpqX2fnaC" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">theNumber</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
+<span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable">Number</span>.<span class="cm-property">isNaN</span>(<span class="cm-variable">theNumber</span>)) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Your number is the square root of &quot;</span> <span class="cm-operator">+</span>
+              <span class="cm-variable">theNumber</span> <span class="cm-operator">*</span> <span class="cm-variable">theNumber</span>);
+} <span class="cm-keyword">else</span> {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Hey. Why didn't you give me a number?&quot;</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_AfMbm4fyrl" href="#p_AfMbm4fyrl" tabindex="-1" role="presentation"></a>If you have more than two paths to choose from, you can “chain” multiple <code>if</code>/<code>else</code> pairs together. Here’s an example:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QrvIive0zT" href="#c_QrvIive0zT" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">num</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
+
+<span class="cm-keyword">if</span> (<span class="cm-variable">num</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Small&quot;</span>);
+} <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">num</span> <span class="cm-operator">&lt;</span> <span class="cm-number">100</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Medium&quot;</span>);
+} <span class="cm-keyword">else</span> {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Large&quot;</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_6w2546HxbK" href="#p_6w2546HxbK" tabindex="-1" role="presentation"></a>The program will first check whether <code>num</code> is less than 10. If it is, it chooses that branch, shows <code>&quot;Small&quot;</code>, and is done. If it isn’t, it takes the <code>else</code> branch, which itself contains a second <code>if</code>. If the second condition (<code>&lt; 100</code>) holds, that means the number is between 10 and 100, and <code>&quot;Medium&quot;</code> is shown. If it doesn’t, the second and last <code>else</code> branch is chosen.</p>
+
+<p><a class="p_ident" id="p_8cVBhHN8E8" href="#p_8cVBhHN8E8" tabindex="-1" role="presentation"></a>The schema for this program looks something like this:</p><figure><img src="img/controlflow-nested-if.svg" alt="Nested if control flow"></figure>
+
+<h2 id="loops"><a class="h_ident" id="h_FaGGgUI+MM" href="#h_FaGGgUI+MM" tabindex="-1" role="presentation"></a>while and do loops</h2>
+
+<p><a class="p_ident" id="p_FIHE6k56BA" href="#p_FIHE6k56BA" tabindex="-1" role="presentation"></a>Consider a program that outputs all even numbers from 0 to 12. One way to write this is as follows:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_NiH5lbw9eg" href="#c_NiH5lbw9eg" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">0</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">2</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">4</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">6</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">8</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">10</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">12</span>);</pre>
+
+<p><a class="p_ident" id="p_UADWQuBBKV" href="#p_UADWQuBBKV" tabindex="-1" role="presentation"></a>That works, but the idea of writing a program is to make something <em>less</em> work, not more. If we needed all even numbers less than 1,000, this approach would be unworkable. What we need is a way to run a piece of code multiple times. This form of control flow is called a <em>loop</em>.</p><figure><img src="img/controlflow-loop.svg" alt="Loop control flow"></figure>
+
+<p><a class="p_ident" id="p_ucfK/O4tJA" href="#p_ucfK/O4tJA" tabindex="-1" role="presentation"></a>Looping control flow allows us to go back to some point in the program where we were before and repeat it with our current program state. If we combine this with a binding that counts, we can do something like this:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_jMUfZIZChZ" href="#c_jMUfZIZChZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+<span class="cm-keyword">while</span> (<span class="cm-variable">number</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">12</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">number</span>);
+  <span class="cm-variable">number</span> <span class="cm-operator">=</span> <span class="cm-variable">number</span> <span class="cm-operator">+</span> <span class="cm-number">2</span>;
+}
+<span class="cm-comment">// → 0</span>
+<span class="cm-comment">// → 2</span>
+<span class="cm-comment">//   … etcetera</span></pre>
+
+<p><a class="p_ident" id="p_sQDC32i3eP" href="#p_sQDC32i3eP" tabindex="-1" role="presentation"></a>A statement starting with the keyword <code>while</code> creates a loop. The word <code>while</code> is followed by an expression in parentheses and then a statement, much like <code>if</code>. The loop keeps entering that statement as long as the expression produces a value that gives <code>true</code> when converted to Boolean.</p>
+
+<p><a class="p_ident" id="p_fqT+6kyNIX" href="#p_fqT+6kyNIX" tabindex="-1" role="presentation"></a>The <code>number</code> binding demonstrates the way a binding can track the progress of a program. Every time the loop repeats, <code>number</code> gets a value that is 2 more than its previous value. At the beginning of every repetition, it is compared with the number 12 to decide whether the program’s work is finished.</p>
+
+<p><a class="p_ident" id="p_9snSNKeii2" href="#p_9snSNKeii2" tabindex="-1" role="presentation"></a>As an example that actually does something useful, we can now write a program that calculates and shows the value of 2<sup>10</sup> (2 to the 10th power). We use two bindings: one to keep track of our result and one to count how often we have multiplied this result by 2. The loop tests whether the second binding has reached 10 yet and, if not, updates both bindings.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9AxUm9n4M9" href="#c_9AxUm9n4M9" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+<span class="cm-keyword">let</span> <span class="cm-def">counter</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
+<span class="cm-keyword">while</span> (<span class="cm-variable">counter</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10</span>) {
+  <span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">result</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+  <span class="cm-variable">counter</span> <span class="cm-operator">=</span> <span class="cm-variable">counter</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>;
+}
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">result</span>);
+<span class="cm-comment">// → 1024</span></pre>
+
+<p><a class="p_ident" id="p_MOu+A32W3I" href="#p_MOu+A32W3I" tabindex="-1" role="presentation"></a>The counter could also have started at <code>1</code> and checked for <code>&lt;= 10</code>, but for reasons that will become apparent in <a href="04_data.html#array_indexing">Chapter 4</a>, it is a good idea to get used to counting from 0.</p>
+
+<p><a class="p_ident" id="p_8uW9Q8jl2Q" href="#p_8uW9Q8jl2Q" tabindex="-1" role="presentation"></a>A <code>do</code> loop is a control structure similar to a <code>while</code> loop. It differs only on one point: a <code>do</code> loop always executes its body at least once, and it starts testing whether it should stop only after that first execution. To reflect this, the test appears after the body of the loop.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Rdlc+hwgyM" href="#c_Rdlc+hwgyM" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">yourName</span>;
+<span class="cm-keyword">do</span> {
+  <span class="cm-variable">yourName</span> <span class="cm-operator">=</span> <span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Who are you?&quot;</span>);
+} <span class="cm-keyword">while</span> (<span class="cm-operator">!</span><span class="cm-variable">yourName</span>);
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">yourName</span>);</pre>
+
+<p><a class="p_ident" id="p_1kqspDALxr" href="#p_1kqspDALxr" tabindex="-1" role="presentation"></a>This program will force you to enter a name. It will ask again and again until it gets something that is not an empty string. Applying the <code>!</code> operator will convert a value to Boolean type before negating it, and all strings except <code>&quot;&quot;</code> convert to <code>true</code>. This means the loop continues going round until you provide a non-empty name.</p>
+
+<h2><a class="h_ident" id="h_3I0M2f1Cmh" href="#h_3I0M2f1Cmh" tabindex="-1" role="presentation"></a>Indenting Code</h2>
+
+<p><a class="p_ident" id="p_IKFiLJvotP" href="#p_IKFiLJvotP" tabindex="-1" role="presentation"></a>In the examples, I’ve been adding spaces in front of statements that are part of some larger statement. These spaces are not required—the computer will accept the program just fine without them. In fact, even the line breaks in programs are optional. You could write a program as a single long line if you felt like it.</p>
+
+<p><a class="p_ident" id="p_IUZYH0xDM+" href="#p_IUZYH0xDM+" tabindex="-1" role="presentation"></a>The role of this indentation inside blocks is to make the structure of the code stand out. In code where new blocks are opened inside other blocks, it can become hard to see where one block ends and another begins. With proper indentation, the visual shape of a program corresponds to the shape of the blocks inside it. I like to use two spaces for every open block, but tastes differ—some people use four spaces, and some people use tab characters. The important thing is that each new block adds the same amount of space.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Dmd8L2VV0d" href="#c_Dmd8L2VV0d" tabindex="-1" role="presentation"></a><span class="cm-keyword">if</span> (<span class="cm-atom">false</span> <span class="cm-operator">!=</span> <span class="cm-atom">true</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;That makes sense.&quot;</span>);
+  <span class="cm-keyword">if</span> (<span class="cm-number">1</span> <span class="cm-operator">&lt;</span> <span class="cm-number">2</span>) {
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;No surprise there.&quot;</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p_mXrl608k46" href="#p_mXrl608k46" tabindex="-1" role="presentation"></a>Most code editor programs (including the one in this book) will help by automatically indenting new lines the proper amount.</p>
+
+<h2><a class="h_ident" id="h_oupMC+5FKN" href="#h_oupMC+5FKN" tabindex="-1" role="presentation"></a>for loops</h2>
+
+<p><a class="p_ident" id="p_t55fBgZ9ww" href="#p_t55fBgZ9ww" tabindex="-1" role="presentation"></a>Many loops follow the pattern shown in the <code>while</code> examples. First a “counter” binding is created to track the progress of the loop. Then comes a <code>while</code> loop, usually with a test expression that checks whether the counter has reached its end value. At the end of the loop body, the counter is updated to track progress.</p>
+
+<p><a class="p_ident" id="p_M1Sq5VUbFv" href="#p_M1Sq5VUbFv" tabindex="-1" role="presentation"></a>Because this pattern is so common, JavaScript and similar languages provide a slightly shorter and more comprehensive form, the <code>for</code> loop.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_bv526eAQ8J" href="#c_bv526eAQ8J" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">number</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">12</span>; <span class="cm-variable">number</span> <span class="cm-operator">=</span> <span class="cm-variable">number</span> <span class="cm-operator">+</span> <span class="cm-number">2</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">number</span>);
+}
+<span class="cm-comment">// → 0</span>
+<span class="cm-comment">// → 2</span>
+<span class="cm-comment">//   … etcetera</span></pre>
+
+<p><a class="p_ident" id="p_2z5HmSaT1g" href="#p_2z5HmSaT1g" tabindex="-1" role="presentation"></a>This program is exactly equivalent to the <a href="02_program_structure.html#loops">earlier</a> even-number-printing example. The only change is that all the statements that are related to the “state” of the loop are grouped together after <code>for</code>.</p>
+
+<p><a class="p_ident" id="p_8ou5wZ2rOs" href="#p_8ou5wZ2rOs" tabindex="-1" role="presentation"></a>The parentheses after a <code>for</code> keyword must contain two semicolons. The part before the first semicolon <em>initializes</em> the loop, usually by defining a binding. The second part is the expression that <em>checks</em> whether the loop must continue. The final part <em>updates</em> the state of the loop after every iteration. In most cases, this is shorter and clearer than a <code>while</code> construct.</p>
+
+<p><a class="p_ident" id="p_p2UzPdhGGE" href="#p_p2UzPdhGGE" tabindex="-1" role="presentation"></a>This is the code that computes 2<sup>10</sup> using <code>for</code> instead of <code>while</code>:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BPd5Bl+eyt" href="#c_BPd5Bl+eyt" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
+<span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">counter</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">counter</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10</span>; <span class="cm-variable">counter</span> <span class="cm-operator">=</span> <span class="cm-variable">counter</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>) {
+  <span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">result</span> <span class="cm-operator">*</span> <span class="cm-number">2</span>;
+}
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">result</span>);
+<span class="cm-comment">// → 1024</span></pre>
+
+<h2><a class="h_ident" id="h_WWKAoSPJ47" href="#h_WWKAoSPJ47" tabindex="-1" role="presentation"></a>Breaking Out of a Loop</h2>
+
+<p><a class="p_ident" id="p_+WELdc0naE" href="#p_+WELdc0naE" tabindex="-1" role="presentation"></a>Having the looping condition produce <code>false</code> is not the only way a loop can finish. There is a special statement called <code>break</code> that has the effect of immediately jumping out of the enclosing loop.</p>
+
+<p><a class="p_ident" id="p_Vnm45Nv5hS" href="#p_Vnm45Nv5hS" tabindex="-1" role="presentation"></a>This program illustrates the <code>break</code> statement. It finds the first number that is both greater than or equal to 20 and divisible by 7.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_G/xQzCJ2hv" href="#c_G/xQzCJ2hv" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">current</span> <span class="cm-operator">=</span> <span class="cm-number">20</span>; ; <span class="cm-variable">current</span> <span class="cm-operator">=</span> <span class="cm-variable">current</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>) {
+  <span class="cm-keyword">if</span> (<span class="cm-variable">current</span> <span class="cm-operator">%</span> <span class="cm-number">7</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">current</span>);
+    <span class="cm-keyword">break</span>;
+  }
+}
+<span class="cm-comment">// → 21</span></pre>
+
+<p><a class="p_ident" id="p_6KpM9sBZ2r" href="#p_6KpM9sBZ2r" tabindex="-1" role="presentation"></a>Using the remainder (<code>%</code>) operator is an easy way to test whether a number is divisible by another number. If it is, the remainder of their division is zero.</p>
+
+<p><a class="p_ident" id="p_xKPyWJdErp" href="#p_xKPyWJdErp" tabindex="-1" role="presentation"></a>The <code>for</code> construct in the example does not have a part that checks for the end of the loop. This means that the loop will never stop unless the <code>break</code> statement inside is executed.</p>
+
+<p><a class="p_ident" id="p_2mGltrXORo" href="#p_2mGltrXORo" tabindex="-1" role="presentation"></a>If you were to remove that <code>break</code> statement or you accidentally write an end condition that always produces <code>true</code>, your program would get stuck in an <em>infinite loop</em>. A program stuck in an infinite loop will never finish running, which is usually a bad thing.</p>
+
+<p><a class="p_ident" id="p_Q8rVWjQRRl" href="#p_Q8rVWjQRRl" tabindex="-1" role="presentation"></a>If you create an infinite loop in one of the examples on these pages, you’ll usually be asked whether you want to stop the script after a few seconds. If that fails, you will have to close the tab that you’re working in, or on some browsers close your whole browser, to recover.</p>
+
+<p><a class="p_ident" id="p_3ZS4iIPVud" href="#p_3ZS4iIPVud" tabindex="-1" role="presentation"></a>The <code>continue</code> keyword is similar to <code>break</code>, in that it influences the progress of a loop. When <code>continue</code> is encountered in a loop body, control jumps out of the body and continues with the loop’s next iteration.</p>
+
+<h2><a class="h_ident" id="h_1JSoOGP+6B" href="#h_1JSoOGP+6B" tabindex="-1" role="presentation"></a>Updating bindings succinctly</h2>
+
+<p><a class="p_ident" id="p_OFpXvgvhIR" href="#p_OFpXvgvhIR" tabindex="-1" role="presentation"></a>Especially when looping, a program often needs to “update” a binding to hold a value based on that binding’s previous value.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aegdj8V5XM" href="#c_aegdj8V5XM" tabindex="-1" role="presentation"></a><span class="cm-variable">counter</span> <span class="cm-operator">=</span> <span class="cm-variable">counter</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>;</pre>
+
+<p><a class="p_ident" id="p_n9PMtWEgzN" href="#p_n9PMtWEgzN" tabindex="-1" role="presentation"></a>JavaScript provides a shortcut for this.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/XU8FyoU4+" href="#c_/XU8FyoU4+" tabindex="-1" role="presentation"></a><span class="cm-variable">counter</span> <span class="cm-operator">+=</span> <span class="cm-number">1</span>;</pre>
+
+<p><a class="p_ident" id="p_3IlWnnMlMo" href="#p_3IlWnnMlMo" tabindex="-1" role="presentation"></a>Similar shortcuts work for many other operators, such as <code>result *= 2</code> to double <code>result</code> or <code>counter -= 1</code> to count downward.</p>
+
+<p><a class="p_ident" id="p_+odXBLNKvV" href="#p_+odXBLNKvV" tabindex="-1" role="presentation"></a>This allows us to shorten our counting example a little more.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_h8HkwMM+IM" href="#c_h8HkwMM+IM" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">number</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">12</span>; <span class="cm-variable">number</span> <span class="cm-operator">+=</span> <span class="cm-number">2</span>) {
+  <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">number</span>);
+}</pre>
+
+<p><a class="p_ident" id="p_D/8ovOfd2v" href="#p_D/8ovOfd2v" tabindex="-1" role="presentation"></a>For <code>counter += 1</code> and <code>counter -= 1</code>, there are even shorter equivalents: <code>counter++</code> and <code>counter--</code>.</p>
+
+<h2><a class="h_ident" id="h_jMKsa0SXdL" href="#h_jMKsa0SXdL" tabindex="-1" role="presentation"></a>Dispatching on a value with switch</h2>
+
+<p><a class="p_ident" id="p_not5JaXWWV" href="#p_not5JaXWWV" tabindex="-1" role="presentation"></a>It is not uncommon for code to look like this:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Q96dt8DAU9" href="#c_Q96dt8DAU9" tabindex="-1" role="presentation"></a><span class="cm-keyword">if</span> (<span class="cm-variable">x</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;value1&quot;</span>) <span class="cm-variable">action1</span>();
+<span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">x</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;value2&quot;</span>) <span class="cm-variable">action2</span>();
+<span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">x</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;value3&quot;</span>) <span class="cm-variable">action3</span>();
+<span class="cm-keyword">else</span> <span class="cm-variable">defaultAction</span>();</pre>
+
+<p><a class="p_ident" id="p_NAtglzdIez" href="#p_NAtglzdIez" tabindex="-1" role="presentation"></a>There is a construct called <code>switch</code> that is intended to express such a “dispatch” in a more direct way. Unfortunately, the syntax JavaScript uses for this (which it inherited from the C/Java line of programming languages) is somewhat awkward—a chain of <code>if</code> statements may look better. Here is an example:</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_B7WAWZEgcU" href="#c_B7WAWZEgcU" tabindex="-1" role="presentation"></a><span class="cm-keyword">switch</span> (<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;What is the weather like?&quot;</span>)) {
+  <span class="cm-keyword">case</span> <span class="cm-string">&quot;rainy&quot;</span>:
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Remember to bring an umbrella.&quot;</span>);
+    <span class="cm-keyword">break</span>;
+  <span class="cm-keyword">case</span> <span class="cm-string">&quot;sunny&quot;</span>:
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Dress lightly.&quot;</span>);
+  <span class="cm-keyword">case</span> <span class="cm-string">&quot;cloudy&quot;</span>:
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Go outside.&quot;</span>);
+    <span class="cm-keyword">break</span>;
+  <span class="cm-keyword">default</span>:
+    <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Unknown weather type!&quot;</span>);
+    <span class="cm-keyword">break</span>;
+}</pre>
+
+<p><a class="p_ident" id="p_zor9W4ZIH6" href="#p_zor9W4ZIH6" tabindex="-1" role="presentation"></a>You may put any number of <code>case</code> labels inside the block opened by <code>switch</code>. The program will start executing at the label that corresponds to the value that <code>switch</code> was given, or at <code>default</code> if no matching value is found. It will continue executing, even across other labels, until it reaches a <code>break</code> statement. In some cases, such as the <code>&quot;sunny&quot;</code> case in the example, this can be used to share some code between cases (it recommends going outside for both sunny and cloudy weather). But be careful—it is easy to forget such a <code>break</code>, which will cause the program to execute code you do not want executed.</p>
+
+<h2><a class="h_ident" id="h_t54vuASjLD" href="#h_t54vuASjLD" tabindex="-1" role="presentation"></a>Capitalization</h2>
+
+<p><a class="p_ident" id="p_0nbunST7FL" href="#p_0nbunST7FL" tabindex="-1" role="presentation"></a>Binding names may not contain spaces, yet it is often helpful to use multiple words to clearly describe what the binding represents. These are pretty much your choices for writing a binding name with several words in it:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_HtUFwP9TF9" href="#c_HtUFwP9TF9" tabindex="-1" role="presentation"></a>fuzzylittleturtle
+fuzzy_little_turtle
+FuzzyLittleTurtle
+fuzzyLittleTurtle</pre>
+
+<p><a class="p_ident" id="p_GveY0yoCxZ" href="#p_GveY0yoCxZ" tabindex="-1" role="presentation"></a>The first style can be hard to read. I rather like the look of the underscores, though that style is a little painful to type. The standard JavaScript functions, and most JavaScript programmers, follow the bottom style—they capitalize every word except the first. It is not hard to get used to little things like that, and code with mixed naming styles can be jarring to read, so we follow this convention.</p>
+
+<p><a class="p_ident" id="p_zMlRK/pymj" href="#p_zMlRK/pymj" tabindex="-1" role="presentation"></a>In a few cases, such as the <code>Number</code> function, the first letter of a binding is also capitalized. This was done to mark this function as a constructor. What a constructor is will become clear in <a href="06_object.html#constructors">Chapter 6</a>. For now, the important thing is not to be bothered by this apparent lack of consistency.</p>
+
+<h2><a class="h_ident" id="h_/OBuIOX390" href="#h_/OBuIOX390" tabindex="-1" role="presentation"></a>Comments</h2>
+
+<p><a class="p_ident" id="p_0/Ms9AYRwI" href="#p_0/Ms9AYRwI" tabindex="-1" role="presentation"></a>Often, raw code does not convey all the information you want a program to convey to human readers, or it conveys it in such a cryptic way that people might not understand it. At other times, you might just want to include some related thoughts as part of your program. This is what <em>comments</em> are for.</p>
+
+<p><a class="p_ident" id="p_c5N0ebF2ts" href="#p_c5N0ebF2ts" tabindex="-1" role="presentation"></a>A comment is a piece of text that is part of a program but is completely ignored by the computer. JavaScript has two ways of writing comments. To write a single-line comment, you can use two slash characters (<code>//</code>) and then the comment text after it.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/8e+JeWltg" href="#c_/8e+JeWltg" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">accountBalance</span> <span class="cm-operator">=</span> <span class="cm-variable">calculateBalance</span>(<span class="cm-variable">account</span>);
+<span class="cm-comment">// It's a green hollow where a river sings</span>
+<span class="cm-variable">accountBalance</span>.<span class="cm-property">adjust</span>();
+<span class="cm-comment">// Madly catching white tatters in the grass.</span>
+<span class="cm-keyword">let</span> <span class="cm-def">report</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Report</span>();
+<span class="cm-comment">// Where the sun on the proud mountain rings:</span>
+<span class="cm-variable">addToReport</span>(<span class="cm-variable">accountBalance</span>, <span class="cm-variable">report</span>);
+<span class="cm-comment">// It's a little valley, foaming like light in a glass.</span></pre>
+
+<p><a class="p_ident" id="p_UD6DcJKN/S" href="#p_UD6DcJKN/S" tabindex="-1" role="presentation"></a>A <code>//</code> comment goes only to the end of the line. A section of text between <code>/*</code> and <code>*/</code> will be ignored in its entirety, regardless of whether it contains line breaks. This is useful for adding blocks of information about a file or a chunk of program.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_mreOdwa/5Y" href="#c_mreOdwa/5Y" tabindex="-1" role="presentation"></a><span class="cm-comment">/*</span>
+<span class="cm-comment">  I first found this number scrawled on the back of an old notebook.</span>
+<span class="cm-comment">  Since then, it has often dropped by, showing up in phone numbers</span>
+<span class="cm-comment">  and the serial numbers of products that I've bought. It obviously</span>
+<span class="cm-comment">  likes me, so I've decided to keep it.</span>
+<span class="cm-comment">*/</span>
+<span class="cm-keyword">const</span> <span class="cm-def">myNumber</span> <span class="cm-operator">=</span> <span class="cm-number">11213</span>;</pre>
+
+<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+
+<p><a class="p_ident" id="p_0stpnGAHEr" href="#p_0stpnGAHEr" tabindex="-1" role="presentation"></a>You now know that a program is built out of statements, which themselves sometimes contain more statements. Statements tend to contain expressions, which themselves can be built out of smaller expressions.</p>
+
+<p><a class="p_ident" id="p_SBCUzJDpIP" href="#p_SBCUzJDpIP" tabindex="-1" role="presentation"></a>Putting statements after one another gives you a program that is executed from top to bottom. You can introduce disturbances in the flow of control by using conditional (<code>if</code>, <code>else</code>, and <code>switch</code>) and looping (<code>while</code>, <code>do</code>, and <code>for</code>) statements.</p>
+
+<p><a class="p_ident" id="p_eHusD1GvV0" href="#p_eHusD1GvV0" tabindex="-1" role="presentation"></a>Bindings can be used to file pieces of data under a name, and they are useful for tracking state in your program. The environment is the set of bindings that are defined. JavaScript systems always put a number of useful standard bindings into your environment.</p>
+
+<p><a class="p_ident" id="p_zgNEy0za9M" href="#p_zgNEy0za9M" tabindex="-1" role="presentation"></a>Functions are special values that encapsulate a piece of program. You can invoke them by writing <code>functionName(argument1, argument2)</code>. Such a function call is an expression and may produce a value.</p>
+
+<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+
+<p><a class="p_ident" id="p_QuFLn+G9+D" href="#p_QuFLn+G9+D" tabindex="-1" role="presentation"></a>If you are unsure how to test your solutions to the exercises, refer to the <a href="00_intro.html">Introduction</a>.</p>
+
+<p><a class="p_ident" id="p_INe++TKn91" href="#p_INe++TKn91" tabindex="-1" role="presentation"></a>Each exercise starts with a problem description. Read this description and try to solve the exercise. If you run into problems, consider reading the hints after the exercise. Full solutions to the exercises are not included in this book, but you can find them online at <a href="https://eloquentjavascript.net/code#2"><em>https://eloquentjavascript.net/code</em></a>. If you want to learn something from the exercises, I recommend looking at the solutions only after you’ve solved the exercise, or at least after you’ve attacked it long and hard enough to have a slight headache.</p>
+
+<h3><a class="i_ident" id="i_umoXp9u0e7" href="#i_umoXp9u0e7" tabindex="-1" role="presentation"></a>Looping a triangle</h3>
+
+<p><a class="p_ident" id="p_8imTrZ34w1" href="#p_8imTrZ34w1" tabindex="-1" role="presentation"></a>Write a loop that makes seven calls to <code>console.log</code> to output the following triangle:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_iAdOqXrnTq" href="#c_iAdOqXrnTq" tabindex="-1" role="presentation"></a>#
+##
+###
+####
+#####
+######
+#######</pre>
+
+<p><a class="p_ident" id="p_2gwFh5J631" href="#p_2gwFh5J631" tabindex="-1" role="presentation"></a>It may be useful to know that you can find the length of a string by writing <code>.length</code> after it.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qHvXAGuPvV" href="#c_qHvXAGuPvV" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">abc</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;abc&quot;</span>;
+<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">abc</span>.<span class="cm-property">length</span>);
+<span class="cm-comment">// → 3</span></pre>
+
+<p><a class="p_ident" id="p_hzLkQ7lBb5" href="#p_hzLkQ7lBb5" tabindex="-1" role="presentation"></a>Most exercises contain a piece of code that you can modify to solve the exercise. Remember that you can click code blocks to edit them.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HRKSrZS1tJ" href="#c_HRKSrZS1tJ" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_4G9czVhC4S" href="#p_4G9czVhC4S" tabindex="-1" role="presentation"></a>You can start with a program that prints out the numbers 1 to 7, which you can derive by making a few modifications to the <a href="02_program_structure.html#loops">even number printing example</a> given earlier in the chapter, where the <code>for</code> loop was introduced.</p>
+
+<p><a class="p_ident" id="p_Cfhk1uLlnS" href="#p_Cfhk1uLlnS" tabindex="-1" role="presentation"></a>Now consider the equivalence between numbers and strings of hash characters. You can go from 1 to 2 by adding 1 (<code>+= 1</code>). You can go from <code>&quot;#&quot;</code> to <code>&quot;##&quot;</code> by adding a character (<code>+= &quot;#&quot;</code>). Thus, your solution can closely follow the number-printing program.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_rebKE3gdjV" href="#i_rebKE3gdjV" tabindex="-1" role="presentation"></a>FizzBuzz</h3>
+
+<p><a class="p_ident" id="p_rwAdlrRyQP" href="#p_rwAdlrRyQP" tabindex="-1" role="presentation"></a>Write a program that uses <code>console.log</code> to print all the numbers from 1 to 100, with two exceptions. For numbers divisible by 3, print <code>&quot;Fizz&quot;</code> instead of the number, and for numbers divisible by 5 (and not 3), print <code>&quot;Buzz&quot;</code> instead.</p>
+
+<p><a class="p_ident" id="p_fJ/4Bt0n0A" href="#p_fJ/4Bt0n0A" tabindex="-1" role="presentation"></a>When you have that working, modify your program to print <code>&quot;FizzBuzz&quot;</code> for numbers that are divisible by both 3 and 5 (and still print <code>&quot;Fizz&quot;</code> or <code>&quot;Buzz&quot;</code> for numbers divisible by only one of those).</p>
+
+<p><a class="p_ident" id="p_ka7uWqFA4z" href="#p_ka7uWqFA4z" tabindex="-1" role="presentation"></a>(This is actually an interview question that has been claimed to weed out a significant percentage of programmer candidates. So if you solved it, your labor market value just went up.)</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><span class="cm-comment">// Your code here.</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_eChcRqNQtZ" href="#p_eChcRqNQtZ" tabindex="-1" role="presentation"></a>Going over the numbers is clearly a looping job, and selecting what to print is a matter of conditional execution. Remember the trick of using the remainder (<code>%</code>) operator for checking whether a number is divisible by another number (has a remainder of zero).</p>
+
+<p><a class="p_ident" id="p_rCF2gb77FE" href="#p_rCF2gb77FE" tabindex="-1" role="presentation"></a>In the first version, there are three possible outcomes for every number, so you’ll have to create an <code>if</code>/<code>else if</code>/<code>else</code> chain.</p>
+
+<p><a class="p_ident" id="p_dLVqJpXONX" href="#p_dLVqJpXONX" tabindex="-1" role="presentation"></a>The second version of the program has a straightforward solution and a clever one. The simple solution is to add another conditional “branch” to precisely test the given condition. For the clever solution, build up a string containing the word or words to output and print either this word or the number if there is no word, potentially by making good use of the <code>||</code> operator.</p>
+
+</div></div>
+
+<h3><a class="i_ident" id="i_swb9JBtSQQ" href="#i_swb9JBtSQQ" tabindex="-1" role="presentation"></a>Chessboard</h3>
+
+<p><a class="p_ident" id="p_1pkxSCSkVg" href="#p_1pkxSCSkVg" tabindex="-1" role="presentation"></a>Write a program that creates a string that represents an 8×8 grid, using newline characters to separate lines. At each position of the grid there is either a space or a &quot;#&quot; character. The characters should form a chessboard.</p>
+
+<p><a class="p_ident" id="p_9kgrie1A2f" href="#p_9kgrie1A2f" tabindex="-1" role="presentation"></a>Passing this string to <code>console.log</code> should show something like this:</p>
+
+<pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_7yVx5TrcJ/" href="#c_7yVx5TrcJ/" tabindex="-1" role="presentation"></a> # # # #
+# # # # 
+ # # # #
+# # # # 
+ # # # #
+# # # # 
+ # # # #
+# # # #</pre>
+
+<p><a class="p_ident" id="p_8n1E0bRGiW" href="#p_8n1E0bRGiW" tabindex="-1" role="presentation"></a>When you have a program that generates this pattern, define a binding <code>size = 8</code> and change the program so that it works for any <code>size</code>, outputting a grid of the given width and height.</p>
+
+<pre class="snippet cm-s-default" data-language="javascript" ><span class="cm-comment">// Your code here.</span></pre>
+
+<div class="solution"><div class="solution-text">
+
+<p><a class="p_ident" id="p_4RO84Y6SdY" href="#p_4RO84Y6SdY" tabindex="-1" role="presentation"></a>You can build the string by starting with an empty one (<code>&quot;&quot;</code>) and repeatedly adding characters. A newline character is written <code>&quot;\n&quot;</code>.</p>
+
+<p><a class="p_ident" id="p_IhsfdKcMVG" href="#p_IhsfdKcMVG" tabindex="-1" role="presentation"></a>To work with two dimensions, you will need a loop inside of a loop. Put braces around the bodies of both loops to make it easy to see where they start and end. Try to properly indent these bodies. The order of the loops must follow the order in which we build up the string (line by line, left to right, top to bottom). So the outer loop handles the lines, and the inner loop handles the characters on a line.</p>
+
+<p><a class="p_ident" id="p_hVwpRGFzkm" href="#p_hVwpRGFzkm" tabindex="-1" role="presentation"></a>You’ll need two bindings to track your progress. To know whether to put a space or a hash sign at a given position, you could test whether the sum of the two counters is even (<code>% 2</code>).</p>
+
+<p><a class="p_ident" id="p_9FaUCRZviB" href="#p_9FaUCRZviB" tabindex="-1" role="presentation"></a>Terminating a line by adding a newline character must happen after the line has been built up, so do this after the inner loop but inside the outer loop.</p>
+
+</div></div><nav><a href="01_values.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="03_functions.html" title="next chapter">▶</a></nav>
+</article>
