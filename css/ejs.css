@@ -142,8 +142,8 @@ h3 {
 }
 
 pre.cm-s-default, p, h2, h3 {
-  margin-right: -30px;
-  padding-right: 30px;
+  margin-left: -30px;
+  padding-left: 30px;
 }
 
 @media screen and (max-width: 800px) {
@@ -169,7 +169,7 @@ ol {
 }
 
 ol li {
-  margin: 0 0 0 40px;
+  margin: 0 40px 0 0;
   padding: 0;
   list-style: none;
   position: relative;
@@ -181,7 +181,7 @@ ol li:before {
   position: absolute;
   width: 2em;
   text-align: right;
-  left: -2.5em; top: 1px;
+  right: -2.5em; top: 1px;
   font-size: 90%;
 }
 
