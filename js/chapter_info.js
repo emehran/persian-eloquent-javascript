@@ -2,7 +2,7 @@ var chapterData = [
   {
     "number": 0,
     "id": "00_intro",
-    "title": "Introduction",
+    "title": "مقدمه",
     "start_code": "console.log(sum(range(1, 10)));\n",
     "exercises": [],
     "include": [
