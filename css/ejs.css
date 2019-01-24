@@ -445,7 +445,7 @@ figure img {
 }
 
 div.solution:before {
-  content: "» Display hints...";
+  content: "» نمایش راهنما...";
 }
 
 div.solution {

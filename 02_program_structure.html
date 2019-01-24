@@ -136,7 +136,7 @@ switch this throw true try typeof var void while with yield</pre>
 
 <p>اگرچه در نام متغیرها نمی توان از کاراکتر نقطه استفاده کرد، <code>console.log</code> نقطه دارد. علت آن این است که  <code>console.log</code> یک انتساب (متغیر) ساده نیست. در واقع عبارتی است که خصیصه‌ی <code>log</code> را از مقداری که در متغیر <code>console</code> نگه داری شده است بر می گرداند. در <a href="04_data.html#properties">فصل 4</a>، با مفهوم آن به طور دقیق آشنا خواهیم شد.</p>
 
-<h2 id="return_values"><a class="h_ident" id="h_uNjQM10JgQ" href="#h_uNjQM10JgQ" tabindex="-1" role="presentation"></a>مقادیر بازگشتی</h2>
+<h2 id="return_values"><a class="h_ident" id="h_oaLpXLEXbw" href="#h_oaLpXLEXbw" tabindex="-1" role="presentation"></a>بازگرداندن مقادیر</h2>
 
 <p>نمایش یک پنجره تعاملی یا نوشتن متن در صفحه‌ی نمایش یک <em>اثر جانبی</em> می باشد. خیلی از توابع به خاطر اثر جانبی ای که تولید می کنند کاربرد دارند. توابع همچنین می توانند مقدار تولید کنند و در این صورت نیازی به اثر جانبی ندارند تا در برنامه کاربرد داشته باشند. به عنوان مثال، تابع <code>Math.max</code> به تعداد دلخواه آرگومان عددی می گیرد و بزرگترین آن ها را برمی گرداند.</p>
 
@@ -152,13 +152,13 @@ switch this throw true try typeof var void while with yield</pre>
 
 <h2><a class="h_ident" id="h_6k9HePMYQh" href="#h_6k9HePMYQh" tabindex="-1" role="presentation"></a>جریان کنترل</h2>
 
-<p>زمانی که برنامه شما بیش از یک دستور دارد، دستورها شبیه به خواندن یک داستان از بالا به پایین اجرا می شوند. به عنوان مثال، این برنامه دو دستور دارد. اولین دستور از کاربر درخواست می کند که عددی را وارد نماید و دومی که پس از آن اجرا می شود، مربع عدد وارد شده را نشان می دهد.</p>
+<p>زمانی که برنامه شما بیش از یک دستور دارد، دستورها مثل خواندن یک داستان، از بالا به پایین اجرا می شوند. به عنوان مثال، این برنامه دو دستور دارد. اولین دستور از کاربر درخواست می کند که عددی را وارد نماید و دومین که پس از آن اجرا می شود، مربع عدد وارد شده را نشان می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6hF1Rg3sJ/" href="#c_6hF1Rg3sJ/" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">theNumber</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Your number is the square root of &quot;</span> <span class="cm-operator">+</span>
             <span class="cm-variable">theNumber</span> <span class="cm-operator">*</span> <span class="cm-variable">theNumber</span>);</pre>
 
-<p>تابع <code>Number</code> مقدار ورودی اش را به عدد تبدیل می کند. ما به این تبدیل نیاز داریم چرا که نتیجه تابع <code>prompt</code> از جنس رشته است و ما به دنبال عدد هستیم. توابع مشابهی به نام <code>String</code> و <code>Boolean</code> وجود دارد که مقادیر را به نوع خودشان تبدیل می کنند.</p>
+<p>تابع <code>Number</code> مقدار ورودی اش را به عدد تبدیل می کند. ما به این تبدیل نیاز داریم چرا که خروجی تابع <code>prompt</code> از جنس رشته است و ما به دنبال عدد هستیم. توابع مشابهی به نام‌های <code>String</code> و <code>Boolean</code> وجود دارند که مقادیر را به نوع خودشان تبدیل می کنند.</p>
 
 <p>در اینجا شمایی ابتدایی از چگونگی جریان کنترل  خطی مستقیم نمایش داده شده است.</p><figure><img src="img/controlflow-straight.svg" alt="Trivial control flow"></figure>
 
@@ -174,18 +174,18 @@ switch this throw true try typeof var void while with yield</pre>
               <span class="cm-variable">theNumber</span> <span class="cm-operator">*</span> <span class="cm-variable">theNumber</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_q5pBj5KOXK" href="#p_q5pBj5KOXK" tabindex="-1" role="presentation"></a>با این تغییر، اگر رشته‌ی “parrot” را وارد کنید، هیچ چیز به عنوان خروجی نشان داده نخواهد شد.</p>
+<p><a class="p_ident" id="p_q5pBj5KOXK" href="#p_q5pBj5KOXK" tabindex="-1" role="presentation"></a>با این تغییر، اگر رشته‌ی “parrot” را وارد کنید، چیزی به عنوان خروجی نشان داده نخواهد شد.</p>
 
-<p>کلمه کلیدی <code>if</code> براساس مقدار یک عبارت بولی، دستوری را اجرا یا از آن صرف نظر می کند. آین عبارت بولی که مبنای تصمیم گیری است درست بعد از کلمه کلیدی بین پرانتز نوشته می شود و در ادامه عبارتی که باید اجرا شود می آید.</p>
+<p>کلمه کلیدی <code>if</code> براساس مقدار یک عبارت بولی، دستوری را اجرا یا از آن صرف نظر می کند. این عبارت بولی که مبنای تصمیم گیری است درست بعد از کلمه کلیدی، داخل پرانتز نوشته می شود و در ادامه عبارتی می آید که قرار است اجرا شود.</p>
 
-<p>تابع <code>Number.isNaN</code> یک تابع استاندارد جاوااسکریپت است که زمانی مقدار <code>true</code> را برمی گرداند که آرگومان ورودی آن از نوع <code>NaN</code> باشد. تابع <code>Number</code> منجر به تولید <code>NaN</code> خواهد شد اگر رشته‌ای به آن بدهید که نمی تواند بیانگر یک عدد معتبر باشد. بنابراین، معنای عبارت شرطی این‌گونه می شود: “تا زمانی که <code>theNumber</code> از جنس عدد نیست، فلان کار رو انجام بده”.</p>
+<p>تابع <code>Number.isNaN</code> یک تابع استاندارد جاوااسکریپت است که زمانی مقدار <code>true</code> را برمی گرداند که آرگومان ورودی آن از نوع <code>NaN</code> باشد. اگر رشته‌ای که به تابع <code>Number</code> داده می شود، بیانگر یک عدد معتبر نباشد، این تابع مقدار <code>NaN</code> را برمی‌گرداند. بنابراین، معنای عبارت شرطی این‌گونه می شود: “اگر <code>theNumber</code> از جنس غیر عدد نباشد (عددی باشد) فلان کار را انجام بده”.</p>
 
-<p>در این مثال دستوری که در خط بعد از <code>if</code>  قرار دارد توسط با کروشه‌های مجعد محصور شده است (<code>{</code> و <code>}</code>). از کروشه ها می تواند برای گروه بندی دستورات متعدد به عنوان یک دستور استفاده کرد که به آن <em>بلاک</em> گفته می شود. در مثال فوق می توانستید که کروشه‌ها را حذف کنید به این علت که فقط یک دستور داشتید اما برای اجتناب از سردرگمی فکر کردن به زمان گذاشتن یا نگذاشتن کروشه‌ها، بیشتر برنامه نویسان جاوااسکریپت از کروشه‌ها در مواردی شبیه این هم استفاده می کنند. ما هم در این کتاب از همین عرف استفاده می کنیم مگر بعضی اوقات که قصد داریم  کلا دستور در یک خط باشد.</p>
+<p>در این مثال دستوری که در خط بعد از <code>if</code>  قرار دارد توسط کروشه‌های مجعد محصور شده است (<code>{</code> و <code>}</code>). از کروشه ها می توان برای گروه بندی دستورات متعدد به عنوان یک دستور استفاده کرد که به آن <em>بلاک</em> گفته می شود. در مثال فوق می توانستید که کروشه‌ها را حذف کنید چون فقط یک دستور داشتید اما برای دوری از ابهام مواقع گذاشتن یا نگذاشتن آن‌ها، بیشتر برنامه نویسان جاوااسکریپت از کروشه‌ها، در مواردی شبیه به این هم استفاده می کنند. ما هم در این کتاب از همین عرف استفاده می کنیم مگر در بعضی موارد که قصد داریم کلا دستور در یک خط باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/Ndk5rqq2Z" href="#c_/Ndk5rqq2Z" tabindex="-1" role="presentation"></a><span class="cm-keyword">if</span> (<span class="cm-number">1</span> <span class="cm-operator">+</span> <span class="cm-number">1</span> <span class="cm-operator">==</span> <span class="cm-number">2</span>) <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;It's true&quot;</span>);
 <span class="cm-comment">// → It's true</span></pre>
 
-<p><a class="p_ident" id="p_X/5TO4MPCK" href="#p_X/5TO4MPCK" tabindex="-1" role="presentation"></a>همیشه اینطور نیست که برنامه در صورت true بودن شرط بایستی اجرا شود، بلکه گاهی عکس این مطلب اتفاق می افتد. این مسیر جانبی در دیاگرام با پیکان دوم نمایش داده شده است. استفاده از کلمه کلیدی <code>else</code> به همراه <code>if</code> این امکان را به ما می دهد دو مسیر اجرایی متفاوت تعریف کنیم.</p>
+<p><a class="p_ident" id="p_X/5TO4MPCK" href="#p_X/5TO4MPCK" tabindex="-1" role="presentation"></a>همیشه اینطور نیست که برنامه در صورت true بودن شرط اجرا شود، بلکه گاهی عکس این مطلب اتفاق می افتد. این مسیر جانبی در دیاگرام با پیکان دوم نمایش داده شده است. استفاده از کلمه کلیدی <code>else</code> به همراه <code>if</code> این امکان را به ما می  تا دهد دو مسیر اجرایی متفاوت تعریف کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kLpqX2fnaC" href="#c_kLpqX2fnaC" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">theNumber</span> <span class="cm-operator">=</span> <span class="cm-variable">Number</span>(<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;Pick a number&quot;</span>));
 <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable">Number</span>.<span class="cm-property">isNaN</span>(<span class="cm-variable">theNumber</span>)) {
@@ -207,9 +207,9 @@ switch this throw true try typeof var void while with yield</pre>
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Large&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_7/D3JM10se" href="#p_7/D3JM10se" tabindex="-1" role="presentation"></a>برنامه در ابتدا بررسی می کند که آیا <code>num</code> از 10 مقدارش کم تر است یا خیر. اگر کمتر بود، به سراغ آن شاخه از کد می رود و <code>&quot;Small&quot;</code> را نشان می دهد و کار تمام است. اگر شرط دوم (<code>&lt; 100</code>) برقرار بود، به این معناست که عدد بین 10 و 100 است که در این صورت <code>&quot;Medium&quot;</code> نمایش داده می شود. اگر هیچ کدام نبود،  دومین و آخرین <code>else</code> انتخاب می شود.</p>
+<p><a class="p_ident" id="p_7/D3JM10se" href="#p_7/D3JM10se" tabindex="-1" role="presentation"></a>برنامه در ابتدا بررسی می کند که آیا <code>num</code> از 10 مقدارش کم تر است یا خیر. اگر کمتر بود، به سراغ آن شاخه از کد می رود و <code>&quot;Small&quot;</code> را نشان می دهد و کار تمام است. اگر شرط دوم (<bdo><code>&lt; 100</code></bdo>) برقرار بود، به این معناست که عدد بین 10 و 100 است که در این صورت <code>&quot;Medium&quot;</code> نمایش داده می شود. اگر هیچ کدام نبود،  دومین و آخرین <code>else</code> انتخاب می شود.</p>
 
-<p>فلوچارت برنامه بالا چیزی شبیه عکس زیر خواهد بود.</p><figure><img src="img/controlflow-nested-if.svg" alt="Nested if control flow"></figure>
+<p>نمودار برنامه بالا چیزی شبیه عکس زیر خواهد بود.</p><figure><img src="img/controlflow-nested-if.svg" alt="Nested if control flow"></figure>
 
 <h2 id="loops"><a class="h_ident" id="h_5CGy7baTQN" href="#h_5CGy7baTQN" tabindex="-1" role="presentation"></a>while و do loops</h2>
 
@@ -223,9 +223,9 @@ switch this throw true try typeof var void while with yield</pre>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">10</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-number">12</span>);</pre>
 
-<p><a class="p_ident" id="p_Hfgj5IIznr" href="#p_Hfgj5IIznr" tabindex="-1" role="presentation"></a>این برنامه کار خواهد کرد اما ایده‌ی اینکه اصلا برنامه‌ای نوشته می شود این است که چیزی <em>کمتر</em> کار ببرد نه بیشتر. اگر ما بخواهیم تمام اعداد زوج کوچکتر از ۱,۰۰۰ را جاپ کنیم، روش قبلی دیگر کاربردی نیست. آنچه ما می خواهیم روشی است که بتوان با آن کدهایی را تکرار کرد. این شکل جریان کنترل را <em>loop</em> یا <em>حلقه</em> می نامند.</p><figure><img src="img/controlflow-loop.svg" alt="Loop control flow"></figure>
+<p><a class="p_ident" id="p_6QAw2tH71f" href="#p_6QAw2tH71f" tabindex="-1" role="presentation"></a>این برنامه کار خواهد کرد اما ایده‌ی اینکه اصلا برنامه‌ای نوشته می شود این است که وظیفه‌ای، <em>کمتر</em> کار ببرد نه بیشتر. اگر ما بخواهیم تمام اعداد زوج کوچکتر از 1000 را چاپ کنیم، روش قبلی دیگر عملی نیست. چیزی که لازم داریم روشی است که بتوان با آن کدهایی را تکرار کرد. این شکل جریان کنترل را <em>loop</em> یا <em>حلقه</em> می نامند.</p><figure><img src="img/controlflow-loop.svg" alt="Loop control flow"></figure>
 
-<p>جریان کنترل حلقه‌ای به ما این امکان را می دهد که به نقطه‌ای در برنامه برگشته، جایی که قبلا بوده ایم و آن را در حالت فعلی برنامه تکرار کنیم. اگر این امکان را با یک متغیر شمارشگر ترکیب کنیم، می توانیم کاری شبیه زیر را انجام دهیم:</p>
+<p>جریان کنترل حلقه‌ای به ما این امکان را می دهد که به نقطه‌ای در برنامه برگردیم، جایی که قبلا بوده ایم و آن را در حالت فعلی برنامه تکرار کنیم. اگر این امکان را با یک متغیر شمارشگر ترکیب کنیم، می توانیم کاری شبیه زیر را انجام دهیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_jMUfZIZChZ" href="#c_jMUfZIZChZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
 <span class="cm-keyword">while</span> (<span class="cm-variable">number</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">12</span>) {
@@ -236,11 +236,11 @@ switch this throw true try typeof var void while with yield</pre>
 <span class="cm-comment">// → 2</span>
 <span class="cm-comment">//   … etcetera</span></pre>
 
-<p><a class="p_ident" id="p_G/WHQ6jJPa" href="#p_G/WHQ6jJPa" tabindex="-1" role="presentation"></a>دستوری که با کلمه کلیدی <code>while</code> شروع شود، یک حلقه ایجاد می کند. ساختار <code>while</code> بسیار شبیه به <code>if</code> است. کلمه <code>while</code> در ابتدا،‌ بعد از آن یک جفت پرانتز که در داخلش یک عبارت قرار می گیرد و بعد دستور نوشته می شود. حلقه while، دستور مورد نظر را اجرا به صورت مداوم اجرا می کند البته تا زمانی که عبارت داخل پرانتز true ارزیابی شود. مقدار داخل پرانتز به نوع داده بولی تبدیل می شود و بعد ارزیابی می شود.</p>
+<p><a class="p_ident" id="p_G/WHQ6jJPa" href="#p_G/WHQ6jJPa" tabindex="-1" role="presentation"></a>دستوری که با کلمه کلیدی <code>while</code> شروع شود، یک حلقه ایجاد می کند. ساختار <code>while</code> بسیار شبیه به <code>if</code> است. کلمه <code>while</code> در ابتدا،‌ بعد از آن یک جفت پرانتز که در داخلش یک عبارت قرار می گیرد و بعد دستور نوشته می شود. حلقه while، دستور مورد نظر را به صورت مداوم اجرا می کند البته تا زمانی که عبارت داخل پرانتز true ارزیابی شود. مقدار داخل پرانتز به نوع داده بولی تبدیل می شود و بعد ارزیابی می شود.</p>
 
 <p><a class="p_ident" id="p_Ph3DtL+xPq" href="#p_Ph3DtL+xPq" tabindex="-1" role="presentation"></a>متغیر <code>number</code> در اینجا نشان می دهد که چگونه می توان از یک متغیر برای نگه‌داری پیش رفت یک برنامه استفاده کرد. هر بار که حلقه تکرار می شود، مقدار <code>number</code>  به اندازه‌ی 2 واحد از قبل بیشتر می شود. در ابتدای هر تکرار این عدد با عدد 12 مقایسه شده تا مشخص شود که آیا به پایان اجرای برنامه رسیده ایم یا خیر.</p>
 
-<p><a class="p_ident" id="p_TDuJq/QshE" href="#p_TDuJq/QshE" tabindex="-1" role="presentation"></a>به عنوان یک مثال کاربردی، اکنون می توانیم برنامه ای بنویسیم که مقدار 2<sup>10</sup> را محاسبه و نمایش دهد. ما از دو متغیر استفاده خواهیم کرد: یکی برای نگه داشتن نتیجه محاسبه و دیگری برای شمردن تعداد دفعاتی که ما نتیجه را در 2 ضرب کرده ایم. حلقه بررسی می کند که آیا متغیر دوم به 10 رسیده است که در غیر این صورت هر دوی متغیرها را به روز رسانی می کند.</p>
+<p><a class="p_ident" id="p_TDuJq/QshE" href="#p_TDuJq/QshE" tabindex="-1" role="presentation"></a>به عنوان یک مثال کاربردی، اکنون می توانیم برنامه ای بنویسیم که مقدار 2<sup>10</sup> را محاسبه کند و نمایش دهد. از دو متغیر استفاده خواهیم کرد: یکی برای نگه داشتن نتیجه محاسبه و دیگری برای شمردن تعداد دفعاتی که نتیجه را در 2 ضرب کرده ایم. حلقه بررسی می کند که متغیر دوم به 10 رسیده باشد که در غیر این صورت هر دوی متغیرها را به روز رسانی کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9AxUm9n4M9" href="#c_9AxUm9n4M9" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">counter</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
@@ -251,7 +251,7 @@ switch this throw true try typeof var void while with yield</pre>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">result</span>);
 <span class="cm-comment">// → 1024</span></pre>
 
-<p><a class="p_ident" id="p_9GzPAv64Rj" href="#p_9GzPAv64Rj" tabindex="-1" role="presentation"></a>متغیر شمارنده counter همچنین می توانست از عدد <code>1</code> شروع شود و با شرط <bdo><code>&lt;= 10</code></bdo> بررسی شود، به دلایلی که در <a href="04_data.html#array_indexing">فصل 4</a> روشن خواهد شد، بهتر است که عادت کنیم تا از 0 بشماریم.</p>
+<p><a class="p_ident" id="p_9GzPAv64Rj" href="#p_9GzPAv64Rj" tabindex="-1" role="presentation"></a>می توانستیم متغیر شمارنده‌ی counter را از عدد <code>1</code> شروع کنیم که در این صورت شرط به صورت <bdo><code>&lt;= 10</code></bdo> بررسی می شود. به دلایلی که در <a href="04_data.html#array_indexing">فصل 4</a> روشن خواهد شد، بهتر است که عادت کنیم تا از 0 بشماریم.</p>
 
 <p>حلقه <code>do</code> یک ساختار کنترلی است شبیه به حلقه‌ی <code>while</code> است. تفاوت فقط در یک چیز است: یک حلقه‌ی <code>do</code> حداقل بدنه‌اش را یک بار اجرا می کند و بررسی شرط توقف را بعد از اولین اجرا انجام می دهد. برای نشان دادن این ویژگی، قسمت بررسی شرط، بعد از بدنه‌ی حلقه نوشته می شود:</p>
 
@@ -265,9 +265,9 @@ switch this throw true try typeof var void while with yield</pre>
 
 <h2><a class="h_ident" id="h_edGlbbAaXE" href="#h_edGlbbAaXE" tabindex="-1" role="presentation"></a>ایجاد تورفتگی در کدها</h2>
 
-<p>همان طور که در مثال‌ها مشاهده کرده اید، در ابتدای دستوراتی که به عنوان بخشی از دستورات بزرگتر محسوب می شوند فضاهای خالی قرار داده ام. در جاوااسکریپت، این فضاها ضروری نیستند – کامپیوتر برنامه را بدون آن ها به خوبی قبول می کند. در واقع، حتی شکستن خطوط در برنامه ها اختیاری است. شما می توانید اگر دوست داشتید برنامه ای را در یک خط بلند بنویسید.</p>
+<p>همان طور که در مثال‌ها مشاهده کرده اید، در ابتدای دستوراتی که بخشی از دستورات بزرگ‌تر هستند، فضاهای خالی قرار داده ام. در جاوااسکریپت، این فضاها ضروری نیستند – کامپیوتر برنامه را بدون آن ها به خوبی قبول می کند. در واقع، حتی شکستن خطوط در برنامه ها اختیاری است. اگر دوست داشته باشید می توانید برنامه‌ای را در یک خط بلند بنویسید.</p>
 
-<p>نقش تورفتگی‌ها در درون بلاک‌ها برای نمایان سازی ساختار کد است. در کدنویسی گاهی بلاک‌های جدید درون بلاک‌های دیگر قرار می گیرند و پیدا کردن پایان و شروع بلاک ها میتواند سخت شود. با ایجاد تورفتگی مناسب، شکل ظاهری برنامه خود بیانگر ساختار بلاک‌های درون آن خواهد بود.  من ترجیح می دهد که از دو فاصله برای هر بلاک باز استفاده کنم اما سلیقه‌ها متفاوت است بعضی مردم دوست دارند که از چهار فاصله استفاده کنند و بعضی کاراکتر تب را می پسندند. اما مساله مهم این است که برای هر بلاک جدید از میزان تورفتگی یکسانی استفاده کنیم.</p>
+<p>نقش تورفتگی‌ها در بلاک‌ها، نمایان سازی ساختار کد است. هنگام کدنویسی گاهی بلاک‌های جدید درون بلاک‌های دیگر قرار می گیرند و پیدا کردن پایان و شروع بلاک ها سخت می شود. با ایجاد تورفتگی مناسب، شکل ظاهری برنامه خود بیانگر ساختار بلاک‌های درون آن خواهد بود.  من ترجیح می دهم که از دو فاصله برای هر بلاک باز استفاده کنم اما سلیقه‌ها متفاوت است بعضی افراد دوست دارند که از چهار فاصله استفاده کنند و بعضی کاراکتر تب را می پسندند. اما مساله مهم این است که برای هر بلاک جدید از میزان تورفتگی یکسانی استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Dmd8L2VV0d" href="#c_Dmd8L2VV0d" tabindex="-1" role="presentation"></a><span class="cm-keyword">if</span> (<span class="cm-atom">false</span> <span class="cm-operator">!=</span> <span class="cm-atom">true</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;That makes sense.&quot;</span>);
@@ -293,7 +293,7 @@ switch this throw true try typeof var void while with yield</pre>
 
 <p>برنامه‌ی بالا دقیقا معادل برنامه‌ی چاپ اعداد زوج <a href="02_program_structure.html#loops">پیشین</a> است. تنها تفاوت این است که تمامی دستوراتی که به “وضعیت” برنامه ربط دارند، اکنون در یک گروه بعد از <code>for</code> قرار گرفته اند.</p>
 
-<p>پرانتزهای بعد از کلمه کلیدی <code>for</code> باید حتما دارای دو سمی کالن (نقطه ویرگول) باشند. قسمت قبل از نقطه‌ویرگول اول حلقه را <em>مقداردهی اولیه</em> می کند، که این کار معمولا با تعریف یک متغیر انجام می شود. قسمت دوم عبارتی است که <em>بررسی</em> می کند که تا کی حلقه بایستی ادامه پیدا کند. بخش نهایی  وضعیت حلقه را بعد از هربار تکرار <em>به روز رسانی</em> می کند. در بیشتر موارد، این روش از ساختار <code>while</code> کوتاهتر و سرراست تر است.</p>
+<p>پرانتزهای بعد از کلمه کلیدی <code>for</code> باید حتما دارای دو سمی کالن (نقطه ویرگول) باشند. قسمت قبل از نقطه‌ویرگول اول، حلقه را <em>مقداردهی اولیه</em> می کند، که این کار معمولا با تعریف یک متغیر انجام می شود. قسمت دوم، عبارتی است که <em>بررسی</em> می کند تا کی حلقه باید ادامه پیدا کند. بخش نهایی  وضعیت حلقه را بعد از هربار تکرار <em>به روز رسانی</em> می کند. در بیشتر موارد، این روش از ساختار <code>while</code> کوتاهتر و سرراست تر است.</p>
 
 <p><a class="p_ident" id="p_E13r1INwJr" href="#p_E13r1INwJr" tabindex="-1" role="presentation"></a>در اینجا کدی را مشاهده می کنید که 2<sup>10</sup> را محاسبه می کند البته با <code>for</code> به جای <code>while</code>:</p>
 
@@ -308,7 +308,7 @@ switch this throw true try typeof var void while with yield</pre>
 
 <p>تنها راه به پایان رسیدن یک حلقه فقط تولید مقدار <code>false</code> توسط بخش شرط حلقه نیست. دستور خاصی به نام <code>break</code> وجود دارد که در صورت استفاده باعث می شود که بلافاصله برنامه از حلقه‌ی محصورش بیرون بیاید.</p>
 
-<p><a class="p_ident" id="p_rD5dRfPR87" href="#p_rD5dRfPR87" tabindex="-1" role="presentation"></a>برنامه‌ی زیر چگونگی استفاده از <code>break</code> را نمایش می دهد. این برنامه اولین عددی که بزرگتر و مساوی 20 است و همچنین قابل تقسیم بر 7 است را می یابد.</p>
+<p><a class="p_ident" id="p_rD5dRfPR87" href="#p_rD5dRfPR87" tabindex="-1" role="presentation"></a>برنامه‌ی زیر چگونگی استفاده از <code>break</code> را نمایش می دهد. این برنامه، اولین عددی که بزرگتر و مساوی 20 است و همچنین قابل تقسیم بر 7 است را می یابد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_G/xQzCJ2hv" href="#c_G/xQzCJ2hv" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">current</span> <span class="cm-operator">=</span> <span class="cm-number">20</span>; ; <span class="cm-variable">current</span> <span class="cm-operator">=</span> <span class="cm-variable">current</span> <span class="cm-operator">+</span> <span class="cm-number">1</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable">current</span> <span class="cm-operator">%</span> <span class="cm-number">7</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
@@ -324,7 +324,7 @@ switch this throw true try typeof var void while with yield</pre>
 
 <p>اگر آن دستور <code>break</code> را حذف کنید یا به طور اتفاقی  شرطی را بنویسید که همیشه مقدار <code>true</code> را تولید نماید، برنامه شما در یک <em>حلقه‌ی بی‌نهایت</em> گیر خواهد افتاد. برنامه‌ای که در حلقه بی نهایت بیفتد، اجرای آن پایان نمی یابد، که معمولا چیز بدی است.</p>
 
-<p>اگر در مثال‌های موجود در صفحات آنلاین کتاب یک حلقه‌ی بی‌نهایت ایجاد کنید، پس از چند ثانیه، معمولا از شما پرسیده می شود که قصد ادامه اجرای اسکریپت را دارید یا خیر. اگر متوقف نشود، مجبور خواهید شد تا برگه‌ای که در آن کار می کنید را ببندید، یا در بعضی مرورگرها، کل مرورگر را ببندید.</p>
+<p>اگر در مثال‌های موجود در صفحات آنلاین کتاب یک حلقه‌ی بی‌نهایت ایجاد کنید، پس از چند ثانیه، معمولا از شما پرسیده می شود که قصد ادامه اجرای اسکریپت را دارید یا خیر. اگر برنامه‌ متوقف نشود، مجبور خواهید شد تا برگه‌ای که در آن کار می کنید را ببندید، یا در بعضی مرورگرها، کل مرورگر را ببندید.</p>
 
 <p>کلمه‌ی کلیدی <code>continue</code> همانند <code>break</code> روی پیشروی حلقه تاثیر می گذارد. زمانی که <code>continue</code> در داخل بدنه حلقه اجرا شود، کنترل برنامه از بدنه خارج شده و به تکرار بعدی منتقل شده و ادامه می یابد.</p>
 
@@ -338,9 +338,9 @@ switch this throw true try typeof var void while with yield</pre>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/XU8FyoU4+" href="#c_/XU8FyoU4+" tabindex="-1" role="presentation"></a><span class="cm-variable">counter</span> <span class="cm-operator">+=</span> <span class="cm-number">1</span>;</pre>
 
-<p><a class="p_ident" id="p_7p844Ya6Bv" href="#p_7p844Ya6Bv" tabindex="-1" role="presentation"></a>میانبرهای مشاهبی برای دیگر عملگرها وجود دارد مثل <bdo><code>result *= 2</code></bdo> که مقدار متغیر <code>result</code> را دوبرابر می کند یا <bdo><code>counter -= 1</code></bdo> که مقدار count را کاهش می دهد.</p>
+<p><a class="p_ident" id="p_7p844Ya6Bv" href="#p_7p844Ya6Bv" tabindex="-1" role="presentation"></a>میانبرهای مشابهی برای دیگر عملگرها وجود دارد مثل <bdo><code>result *= 2</code></bdo> که مقدار متغیر <code>result</code> را دوبرابر می کند یا <bdo><code>counter -= 1</code></bdo> که مقدار count را کاهش می دهد.</p>
 
-<p>این شیوه به ما این امکان را می دهد که مثال شمارش اعداد را کمی کوتاه تر بنویسیسم.</p>
+<p>با این روش می توانیم مثال شمارش اعداد را کمی کوتاه تر بنویسیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_h8HkwMM+IM" href="#c_h8HkwMM+IM" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">number</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">12</span>; <span class="cm-variable">number</span> <span class="cm-operator">+=</span> <span class="cm-number">2</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">number</span>);
@@ -357,7 +357,7 @@ switch this throw true try typeof var void while with yield</pre>
 <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">x</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;value3&quot;</span>) <span class="cm-variable">action3</span>();
 <span class="cm-keyword">else</span> <span class="cm-variable">defaultAction</span>();</pre>
 
-<p><a class="p_ident" id="p_RYZHlcmjhI" href="#p_RYZHlcmjhI" tabindex="-1" role="presentation"></a>ساختاری به نام <code>switch</code> وجود دارد که در مواردی شبیه بالا بسیار خوانا و سرراست تر است. متاسفانه، شیوه‌ی نوشتاری ای که جاوااسکریپت برای این ساختار استفاده می کند ( که از زبان‌های شبیه C/Java گرفته شده است) کمی بدقواره است – زنجیره‌ای از دستورات <code>if</code> ممکن است زیباتر به نظر بیاید. به مثال توجه فرمایید:</p>
+<p><a class="p_ident" id="p_RYZHlcmjhI" href="#p_RYZHlcmjhI" tabindex="-1" role="presentation"></a>ساختاری به نام <code>switch</code> وجود دارد که در مواردی شبیه بالا خواناتر و سرراست تر است. متاسفانه، سبکی که جاوااسکریپت برای این ساختار استفاده می کند ( که از زبان‌های شبیه C/Java گرفته شده است) کمی بدقواره است – زنجیره‌ای از دستورات <code>if</code> ممکن است زیباتر به نظر بیاید. به مثال توجه فرمایید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_B7WAWZEgcU" href="#c_B7WAWZEgcU" tabindex="-1" role="presentation"></a><span class="cm-keyword">switch</span> (<span class="cm-variable">prompt</span>(<span class="cm-string">&quot;What is the weather like?&quot;</span>)) {
   <span class="cm-keyword">case</span> <span class="cm-string">&quot;rainy&quot;</span>:
@@ -373,24 +373,24 @@ switch this throw true try typeof var void while with yield</pre>
     <span class="cm-keyword">break</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_bJZM6yHw0k" href="#p_bJZM6yHw0k" tabindex="-1" role="presentation"></a>می توانید هر تعداد دلخواه برچسب <code>case</code> درون یک بلاک <code>switch</code> قرار دهید. برنامه با توجه به مقداری که به <code>switch</code> داده می شود برچسب متناظر را انتخاب کرده و به آن قسمت منتقل می شود یا اگر موردی پیدا نشود قسمت <code>default</code> اجرا می شود. پس از انتخاب برچسب، دستورات آن اجرا می شوند حتی دستوراتی که زیر برچسب دیگری قرار دارند تا زمانیکه برنامه به دستور <code>break</code> برسد. در بعضی موارد، مانند مورد (case) <code>&quot;sunny&quot;</code> در مثال بالا، این امکان را می توان برای به اشتراک گذاری کدهایی بین case ها استفاده کرد ( برنامه رفتن به بیرون شهر را برای هر دو هوای ابری و آفتابی پیشنهاد می دهد). اما حواستان باشد: خیلی ساده می توان <code>break</code> را فراموش کرد که باعث اجرای کدهایی خواهد شد که شما نمی خواهید.</p>
+<p><a class="p_ident" id="p_bJZM6yHw0k" href="#p_bJZM6yHw0k" tabindex="-1" role="presentation"></a>می توانید هر تعداد دلخواه برچسب <code>case</code> درون یک بلاک <code>switch</code> قرار دهید. برنامه با توجه به مقداری که به <code>switch</code> داده می شود برچسب متناظر را انتخاب کرده و به آن قسمت منتقل می شود یا اگر موردی پیدا نشود قسمت <code>default</code> اجرا می شود. پس از انتخاب برچسب، دستورات آن اجرا می شوند حتی دستوراتی که زیر برچسب دیگری قرار دارند تا زمانیکه برنامه به دستور <code>break</code> برسد. در بعضی موارد، مانند case مربوط به <code>&quot;sunny&quot;</code> در مثال بالا، این امکان را می توان برای به اشتراک گذاری کدهایی بین case ها استفاده کرد ( برنامه، رفتن به بیرون شهر را برای هر دو هوای ابری و آفتابی پیشنهاد می دهد). اما حواستان باشد: خیلی ساده امکان دارد <code>break</code> فراموش شود که باعث می شود کدهایی اجرا شود که مورد نظر شما نبوده اند.</p>
 
 <h2><a class="h_ident" id="h_+zL/tN/VFj" href="#h_+zL/tN/VFj" tabindex="-1" role="presentation"></a>استفاده از حروف بزرگ</h2>
 
-<p>در نام متغیرها  نمی توان از فاصله (فضای خالی) استفاده کرد اما اغلب استفاده از چند واژه برای شرح محتوای متغیر مفید است. اینکه از چه شیوه‌ای برای نوشتن نام متغیرهای چند کلمه ای استفاده کنید بستگی به سلیقه شما دارد:</p>
+<p>در نام متغیرها  نمی توان از فاصله (فضای خالی) استفاده کرد اما اغلب، استفاده از چند واژه برای شرح محتوای متغیر، مفید است. اینکه از چه شیوه‌ای برای نوشتن نام متغیرهای چند کلمه ای استفاده می کنید بستگی به سلیقه شما دارد:</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_HtUFwP9TF9" href="#c_HtUFwP9TF9" tabindex="-1" role="presentation"></a>fuzzylittleturtle
 fuzzy_little_turtle
 FuzzyLittleTurtle
 fuzzyLittleTurtle</pre>
 
-<p><a class="p_ident" id="p_ZLxok7w82J" href="#p_ZLxok7w82J" tabindex="-1" role="presentation"></a>خواند سبک اول می تواند سخت باشد. شخصا، از روش استفاده از زیرخط (underscore) را می پسندم اگرچه تایپ آن کمی مشکل تر است. توابع استاندارد جاوااسکریپت و بیشتر برنامه نویسان جاوااسکریپت از روش اخر استفاده می کنند – به جز کلمه‌ی اول دیگر کلمات را با حروف بزرگ شروع می کنند. می توان به راحتی به یکی از این روش ها عادت کرد. کدنویسی با سبک‌های نامگذاری متفاوت می تواند مشکلاتی در خوانایی کد ایجاد کند، بنابراین ما فقط از یک سبک و آن هم سبک آخر استفاده خواهیم کرد.</p>
+<p><a class="p_ident" id="p_ZLxok7w82J" href="#p_ZLxok7w82J" tabindex="-1" role="presentation"></a>خواندن سبک اول می تواند سخت باشد. شخصا، روش استفاده از زیرخط (underscore) را می پسندم اگرچه تایپ آن کمی مشکل تر است. توابع استاندارد جاوااسکریپت و بیشتر برنامه نویسان جاوااسکریپت از روش آخر استفاده می کنند – به جز کلمه‌ی اول دیگر کلمات را با حروف بزرگ شروع می کنند. می توان به راحتی به یکی از این روش ها عادت کرد. کدنویسی با سبک‌های نامگذاری متفاوت، مشکلاتی در خوانایی کد ایجاد می کند، بنابراین ما فقط از یک سبک و آن هم سبک آخر استفاده خواهیم کرد.</p>
 
-<p>در موارد کمی، مثل تابع <code>Number</code> حرف اول متغیر به صورت بزرگ نوشته شده است. این برای نشانه‌گذاری این تابع به عنوان یک تابع سازنده است. اینکه یک تابع سازنده چیست در <a href="06_object.html#constructors">فصل 6</a> روشن خواهد شد. فعلا نکته مهم این است که با دیدن این نبود یکپارچگی در این گونه موارد خودتان را ناراحت نکنید.</p>
+<p>در موارد کمی، مثل تابع <code>Number</code> حرف اول متغیر به صورت بزرگ نوشته شده است. این کار برای نشانه‌گذاری این تابع به عنوان یک تابع سازنده است. اینکه یک تابع سازنده چیست در <a href="06_object.html#constructors">فصل 6</a> روشن خواهد شد. فعلا نکته مهم این است که این عدم یکپارچگی در این گونه موارد شما را ناراحت نکند.</p>
 
 <h2><a class="h_ident" id="h_VbvUuahfUk" href="#h_VbvUuahfUk" tabindex="-1" role="presentation"></a>توضیحات</h2>
 
-<p>اغلب اوقات، کدهای اصلی برنامه همه‌ی آنچه قصد دارید تا برنامه به کسانی که قصد نگاه کردن و فهمیدن کدها را دارند منتقل نمی کنند و یا به شکل پیچیده‌ای این کار را می کند که دیگران نمی توانند آن را درک کنند. یا ممکن است بخواهید تا توضیحات مرتبطی را به عنوان بخشی از برنامه بنویسید. می توانید از <em>توضیحات</em> برای این کار استفاده کنید.</p>
+<p>اغلب، کدهای اصلی برنامه، توان انتقال همه‌ی اطلاعاتی را که می خواهید افراد دیگر با دیدن کد‌های شما درک کنند، ندارند. یا این کار را به شکلی رمزآلود و گنگ انجام می دهند که دیگران ممکن است متوجه‌ آن نشوند. گاهی هم ممکن است بخواهید تا نظرات مرتبطی را به عنوان بخشی از برنامه به کد‌هایتان اضافه کنید. اینجاست که <em>توضیحات</em> به کار می آیند.</p>
 
 <p>یک توضیح، متنی است که بخشی از برنامه محسوب می شود اما کامپیوتر آن را نادیده می گیرد. جاوااسکریپت دو راه برای نوشتن توضیحات دارد. برای نوشتن توضیحات تک-خطی ، می توانید از دو کاراکتر اسلش (<code>//</code>) در ابتدای توضیح استفاده کنید.</p>
 
@@ -403,7 +403,7 @@ fuzzyLittleTurtle</pre>
 <span class="cm-variable">addToReport</span>(<span class="cm-variable">accountBalance</span>, <span class="cm-variable">report</span>);
 <span class="cm-comment">// It's a little valley, foaming like light in a glass.</span></pre>
 
-<p>توضیحی که با <code>//</code> مشخص شده باشد فقط تا پایان همان خط در نظر گرفته می شود. متنی که بین <code>/*</code> و <code>*/</code> محصور شده باشد به طور کامل و بدون توجه به اینکه حاوی چند خط باشد، به عنوان توضیح در نظر گرفته می شود. این ویژگی برای افزودن بلاک‌های اطلاعات در باره‌ی یک فایل یا بخشی از برنامه استفاده می شود.</p>
+<p>توضیحی که با <code>//</code> مشخص شده باشد فقط تا پایان همان خط در نظر گرفته می شود. متنی که بین <bdo><code>/*</code></bdo> و <bdo><code>*/</code></bdo> محصور شده باشد به طور کامل و بدون توجه به اینکه حاوی چند خط باشد، به عنوان توضیح در نظر گرفته می شود. این ویژگی برای افزودن بلاک‌های اطلاعات در باره‌ی یک فایل یا بخشی از برنامه استفاده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_mreOdwa/5Y" href="#c_mreOdwa/5Y" tabindex="-1" role="presentation"></a><span class="cm-comment">/*</span>
 <span class="cm-comment">  I first found this number scrawled on the back of an old notebook.</span>
@@ -415,19 +415,19 @@ fuzzyLittleTurtle</pre>
 
 <h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p>اکنون شما می دانیک که یک برنامه از مجموعه ای از دستورات ساخته می شود، که خود آن‌ها نیز گاهی حاوی دستورات بیشتری هستند. دستورات حاوی عبارت‌ها هستند که خود این عبارت‌ها نیز می توانند از عبارت‌های کوتاهتری تشکیل شده باشند.</p>
+<p>اکنون شما می دانید که یک برنامه از مجموعه ای از دستورات ساخته می شود، که خود آن‌ها نیز گاهی حاوی دستورات بیشتری هستند. دستورات حاوی عبارت‌ها هستند که خود این عبارت‌ها نیز می توانند از عبارت‌های کوتاهتری تشکیل شده باشند.</p>
 
-<p>قرار دادن دستورات یکی پس از دیگری، برنامه ای را می سازد که از بالا به پایین به ترتیب اجرا می شود. می شود این ترتیب در جریان کنترل را با استفاده از دستورات شرطی ( <code>if</code>, <code>else</code> و <code>switch</code>) و حلقه‌ها (<code>while</code>, <code>do</code>, و <code>for</code>)  به هم زد.</p>
+<p>قرار دادن دستورات یکی پس از دیگری، برنامه ای را می سازد که از بالا به پایین به ترتیب اجرا می شود. می توان این ترتیب جریان کنترل را با استفاده از دستورات شرطی ( <code>if</code>, <code>else</code> و <code>switch</code>) و حلقه‌ها (<code>while</code>, <code>do</code>, و <code>for</code>)  به هم زد.</p>
 
-<p>متغیرها می توانند برای دسته بندی بخش‌هایی از داده ها تحت یک نام استفاده شوند. همچنین آن‌ها برای حفظ و پیگیری حالت فعلی در برنامه شما مفید هستند. محیط اجرایی مجموعه‌ای از متغیرهاست که قبلا تعریف شده اند. سیستم‌های جاوااسکریپت همیشه تعدادی متغیر استاندارد مفید را در محیط شما تعبیه می کنند.</p>
+<p><a class="p_ident" id="p_oXyaqmHoCh" href="#p_oXyaqmHoCh" tabindex="-1" role="presentation"></a>متغیرها می را می توان برای دسته بندی بخشی از داده‌ها (data) تحت یک نام استفاده کرد. همچنین آن‌ها برای حفظ و پیگیری حالت فعلی برنامه‌ی شما مفید هستند. محیط اجرایی مجموعه‌ای از انتساب‌ها (متغیر‌ها) است که قبلا تعریف شده است. سیستم‌های جاوااسکریپت همیشه تعدادی متغیر استاندارد مفید را در محیط شما تعبیه می کنند.</p>
 
-<p>توابع مقدارهایی ویژه هستند که بخشی از برنامه را در درون خود نگه داری می کنند. می توانید آن‌ها را با نوشتن <code>functionName(argument1, argument2)</code> فراخوانی کنید. این گونه فراخوانی کردن یک تابع یک نوع عبارت است که می تواند مقداری را هم تولید کند.</p>
+<p>توابع مقدارهایی ویژه هستند که بخشی از برنامه را در درون خود نگه داری می کنند. می توانید آن‌ها را با نوشتن <bdo><code>functionName(argument1, argument2)</code></bdo> فراخوانی کنید. این گونه فراخوانی کردن یک تابع، یک نوع عبارت محسوب می شود که می تواند مقداری را هم تولید کند.</p>
 
 <h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<p>آگر مطمئن نیستید که چگونه راه حل‌هایی که برای تمرین ها ارائه می دهید را آزمایش کنید، به <a href="00_intro.html">مقدمه</a> رجوع کنید.</p>
+<p>آگر مطمئن نیستید که چگونه راه حل‌هایی را که برای تمرین ها ارائه می دهید آزمایش و اجرا کنید، به <a href="00_intro.html">مقدمه</a> رجوع کنید.</p>
 
-<p><a class="p_ident" id="p_ejmYnxbJ8x" href="#p_ejmYnxbJ8x" tabindex="-1" role="presentation"></a>هر تمرین با یک شرح مساله شروع می شود. آن را بخوانید و سعی کنید آن را حل کنید. اگر در حل مساله به مشکل برخورد کردید، به قسمت “راهنمایی کوچک” که در انتهای کتاب قرار گرفته است رجوع کنید. راه حل کامل برای تمرین‌ها در داخل این کتاب گنجانده نشده است،‌ اما می توانید آن ها را در  <a href="https://eloquentjavascript.net/code#2"><em>https://eloquentjavascript.net/code</em></a> بیابید. اگر واقعا می خواهید که از تمرین‌ها چیزی بیاموزید، فقط زمانی به سراغ راه حل ها بروید که مساله را حل نموده اید یا حداقل به اندازه کافی تلاش و زمان صرف حل آن کرده باشید که کمی احساس سردرد داشته باشید.</p>
+<p><a class="p_ident" id="p_ejmYnxbJ8x" href="#p_ejmYnxbJ8x" tabindex="-1" role="presentation"></a>هر تمرین با یک شرح مساله شروع می شود. آن را بخوانید و سعی کنید آن را حل کنید. اگر در حل مساله به مشکل برخورد کردید، به قسمت “راهنمایی” که در انتهای هر تمرین قرار گرفته است است رجوع کنید. راه حل کامل برای تمرین‌ها در داخل این کتاب گنجانده نشده است،‌ اما می توانید آن ها را در  <a href="https://eloquentjavascript.net/code#2"><em>https://eloquentjavascript.net/code</em></a> بیابید. اگر واقعا می خواهید که از تمرین‌ها چیزی بیاموزید، فقط زمانی به سراغ راه حل ها بروید که مساله را حل نموده اید یا حداقل به اندازه کافی تلاش و زمان صرف حل آن کرده باشید که کمی احساس سردرد داشته باشید.</p>
 
 <h3><a class="i_ident" id="i_sHMwjCOpSc" href="#i_sHMwjCOpSc" tabindex="-1" role="presentation"></a>حلقه و مثلث</h3>
 
@@ -441,7 +441,7 @@ fuzzyLittleTurtle</pre>
 ######
 #######</pre>
 
-<p>دانستن این نکته که طول یک رشته را می توان با گذاشتن <code>.length</code> در انتهای آن بدست آورد شاید به دردتان بخورد.</p>
+<p>دانستن این نکته که طول یک رشته را می توان با گذاشتن <bdo><code>.length</code></bdo> در انتهای آن بدست آورد شاید به دردتان بخورد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qHvXAGuPvV" href="#c_qHvXAGuPvV" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">abc</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;abc&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">abc</span>.<span class="cm-property">length</span>);
@@ -455,7 +455,7 @@ fuzzyLittleTurtle</pre>
 
 <p><a class="p_ident" id="p_jGwpEa81Ry" href="#p_jGwpEa81Ry" tabindex="-1" role="presentation"></a>می توانید با برنامه‌ای شروع کنید که اعداد 1 تا 7 را چاپ می کند، که با کمی دستکاری <a href="02_program_structure.html#loops">کد مثال چاپ اعداد زوج</a> که در این فصل آمد به دست می آید. جایی که حلقه‌ی <code>for</code> را معرفی کردیم.</p>
 
-<p><a class="p_ident" id="p_HFDGhh3PP2" href="#p_HFDGhh3PP2" tabindex="-1" role="presentation"></a>اکنون به شباهت بین اعداد و رشته‌هایی که از کاراکتر ‍‍<code>#</code> تشکیل شده اند توجه کنید. می توانید با افزودن 1، از 1 به 2 برسید (<code>+= 1</code>). برای به دست آوردن <code>&quot;##&quot;</code> از <code>&quot;#&quot;</code>، می توانید یک کاراکتر به آن اضافه کنید (<code>+= &quot;#&quot;</code>). در این صورت، راه حل شما می تواند بسیار نزدیک به برنامه چاپ اعداد باشد.</p>
+<p><a class="p_ident" id="p_HFDGhh3PP2" href="#p_HFDGhh3PP2" tabindex="-1" role="presentation"></a>اکنون به شباهت بین اعداد و رشته‌هایی که از کاراکتر ‍‍<code>#</code> تشکیل شده اند توجه کنید. با افزودن 1، می شود از عدد 1 به عدد 2 رسید (<bdo><code>+= 1</code></bdo>). همین کار را می توان برای ایجاد <code>&quot;##&quot;</code> از <code>&quot;#&quot;</code> انجام داد (<bdo><code>+= &quot;#&quot;</code></bdo>). پس راه حل، شباهت زیادی به مثال چاپ اعداد دارد.</p>
 
 </div></div>
 
@@ -475,13 +475,13 @@ fuzzyLittleTurtle</pre>
 
 <p>در نسخه‌ی اول، سه خروجی برای هر عدد ممکن است، بنابراین باید یک زنجیره‌ی <bdo><code>if</code>/<code>else if</code>/<code>else</code></bdo> ایجاد کنید.</p>
 
-<p>نسخه‌ی دوم این برنامه یک راه حل سرراست و یک راه حل هوشمندانه دارد. راه حل ساده این است که یک شاخه‌ی شرط دیگر اضافه شود تا شرط داده شده به دقت بررسی شود. برای راه هوشمندانه، رشته‌ای حاوی کلمه یا کلماتی بسازید که در صورت بودن عدد، رشته و در غیر این صورت عدد مورد نظر چاپ شود. می توان از عملگر <code>||</code> در اینجا به شکل خوبی استفاده کرد.</p>
+<p>نسخه‌ی دوم این برنامه یک راه حل سرراست و یک راه حل زیرکانه دارد. راه حل ساده این است که یک شاخه‌ی شرط دیگر اضافه شود تا شرط داده شده به دقت بررسی شود. برای راه زیرکانه، رشته‌ای حاوی کلمه یا کلماتی بسازید که در صورت تطبیق عدد، رشته و در غیر این صورت عدد چاپ شود. می توان از عملگر <code>||</code> در اینجا به شکل خوبی استفاده کرد.</p>
 
 </div></div>
 
 <h3><a class="i_ident" id="i_tJuIjl8sGl" href="#i_tJuIjl8sGl" tabindex="-1" role="presentation"></a>صفحه‌ی شطرنج</h3>
 
-<p><a class="p_ident" id="p_6rp3kofaLm" href="#p_6rp3kofaLm" tabindex="-1" role="presentation"></a>برنامه ای بنویسید که رشته‌ای را ایجاد می کند که نمایانگر یک صفحه‌ی 8×8 است. از کاراکتر خط جدید برای جداسازی خطوط استفاده کنید. در هر مکان از صفحه می توان یا از فضای خالی (فاصله) یا کاراکتر &quot;#&quot; استفاده کرد. مجموع کاراکترها باید شبیه صفحه شطرنج باشند.</p>
+<p><a class="p_ident" id="p_6rp3kofaLm" href="#p_6rp3kofaLm" tabindex="-1" role="presentation"></a>برنامه ای بنویسید که رشته‌ای را ایجاد می کند که نمایانگر یک صفحه‌ی 8×8 است. از کاراکتر خط جدید برای جداسازی خطوط استفاده کنید. در هر مکان از صفحه می توان فضای خالی (فاصله) یا کاراکتر &quot;#&quot; استفاده کرد. مجموع کاراکترها باید شبیه صفحه شطرنج باشند.</p>
 
 <p>رشته‌ی تولیدی را اگر به تابع <code>console.log</code> بدهید بایستی چیزی شبیه شکل زیر را تولید کند:</p>
 
@@ -500,13 +500,13 @@ fuzzyLittleTurtle</pre>
 
 <div class="solution"><div class="solution-text">
 
-<p>با یک رشته‌ی خالی (<code>&quot;&quot;</code>) می توانید ساخت رشته‌ی مورد نظر را شروع کنید و بعد به صورت مداوم کاراکتر‌ها را ضافه نمایید. یک کاراکتر خط جدید به صورت <code>&quot;\n&quot;</code> نوشته می شود.</p>
+<p>با یک رشته‌ی خالی (<code>&quot;&quot;</code>) می توانید ساخت رشته‌ی مورد نظر را شروع کنید و بعد به صورت مداوم کاراکتر‌ها را ضافه نمایید. یک کاراکتر خط جدید به صورت <bdo><code>&quot;\n&quot;</code></bdo> نوشته می شود.</p>
 
-<p>برای کار با دو بعد، لازم از تا از یک حلقه درون حلقه‌ای دیگر استفاده کنید. پیرامون بدنه‌های هر دو حلقه، کروشه بگذارید تا شروع و پایان هر یک را گم نکنید. سعی کنید تا برای بدنه‌ها به خوبی تورفتگی ایجاد کنید. ترتیب قرارگیری حلقه‌ها باید براساس رشته‌ای که می‌سازیم باشد (خط به خط، چپ به راست، بالا به پایین). بنابراین حلقه‌ی بیرونی خطوط را پوشش می دهد و حلقه‌ی درونی کاراکترهای هر خط را تولید می کند.</p>
+<p>برای کار با دو بعد، لازم است تا از یک حلقه درون حلقه‌ای دیگر استفاده کنید. پیرامون بدنه‌های هر دو حلقه، کروشه بگذارید تا شروع و پایان هر یک را گم نکنید. سعی کنید برای بدنه‌ها به خوبی تورفتگی ایجاد کنید. ترتیب قرارگیری حلقه‌ها باید براساس رشته‌ای که می‌سازیم باشد (خط به خط، چپ به راست، بالا به پایین). بنابراین حلقه‌ی بیرونی خطوط را پوشش می دهد و حلقه‌ی درونی کاراکترهای هر خط را تولید می کند.</p>
 
-<p>به دو متغیر برای ردگیری پیشرفت برنامه نیاز خواهید داشت. برای دانستن اینکه در یک موقعیت آیا باید فضای خالی قرار دهید یا کاراکتر <code>#</code>، می توانید بررسی کنید که جمع دو شمارنده‌ مقداری زوج باشد (<code>% 2</code>).</p>
+<p>به دو متغیر برای ردگیری پیشرفت برنامه نیاز خواهید داشت. برای دانستن اینکه در یک موقعیت آیا باید فضای خالی قرار دهید یا کاراکتر <code>#</code>، می توانید بررسی کنید که جمع دو شمارنده‌ مقداری زوج باشد (<bdo><code>% 2</code></bdo>).</p>
 
-<p>پایان دادن یک خط با یک کاراکتر خط جدید (<code>&quot;\n&quot;</code>) باید بعد از اینکه هر خط ساخته شد اتفاق بیفتند، بنابراین این کار را بعد از حلقه‌ی درونی اما درون حلقه‌ی بیرونی انجام دهید.</p>
+<p>پایان دادن یک خط با یک کاراکتر خط جدید (<bdo><code>&quot;\n&quot;</code></bdo>) باید بعد از اینکه هر خط ساخته شد اتفاق بیفتند، بنابراین این کار را بعد از حلقه‌ی درونی اما درون حلقه‌ی بیرونی انجام دهید.</p>
 
 </div></div><nav><a href="01_values.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="03_functions.html" title="next chapter">▶</a></nav>
 </article>
