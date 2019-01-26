@@ -22,15 +22,15 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_3.jpg" alt="Picture of fern leaves with a fractal shape"></figure>
 
-<p><a class="p_ident" id="p_SVgYA3/kPi" href="#p_SVgYA3/kPi" tabindex="-1" role="presentation"></a>Functions are the bread and butter of JavaScript programming. The concept of wrapping a piece of program in a value has many uses. It gives us a way to structure larger programs, to reduce repetition, to associate names with subprograms, and to isolate these subprograms from each other.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>توابع از پایه‌های اصلی برنامه نویسی به زبان جاوااسکریپت هستند. مفهموم قراردادن قطعه برنامه‌ای درون یک مقدار کاربردهای زیادی دارد. از آن می توان برای ساختاردهی به برنامه‌های بزرگتر استفاده کرد، از تکرار پرهیز کرد، به زیربرنامه ها نام اختصاص داد و آن ها را به شکلی مستقل مجزا کرد.</p>
 
-<p><a class="p_ident" id="p_R3iRdVuyh5" href="#p_R3iRdVuyh5" tabindex="-1" role="presentation"></a>The most obvious application of functions is defining new vocabulary. Creating new words in prose is usually bad style. But in programming, it is indispensable.</p>
+<p>واضح ترین کاربرد‌ توابع، استفاده از آن‌ها برای تعریف واژه‌ی جدید است. خلق واژه‌ای جدید در یک نثر معمولی معمولا کار جالبی نیست اما در برنامه نویسی این کار اجتناب ناپذیر است.</p>
 
-<p><a class="p_ident" id="p_PyAqHadpmm" href="#p_PyAqHadpmm" tabindex="-1" role="presentation"></a>Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that <em>is</em> available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually <em>have</em> to introduce new concepts to avoid repeating ourselves too much.</p>
+<p><a class="p_ident" id="p_9nkc20pB5J" href="#p_9nkc20pB5J" tabindex="-1" role="presentation"></a>معمولا انگلیسی زبانان بزرگسال در دامنه واژگانشان حدود 20,000 کلمه دارند. زبان‌های برنامه نویسی کمی هستند که 20,000 دستور از پیش تعریف شده دارند.  و این دستورات یا واژگانی که در دسترس هستند به صورت دقیقی تعریف می شوند که در نتیجه انعطاف کمتری نسبت به زبان‌های بشری دارند. بنابراین، معمولا بایستی مفاهیم جدید را خودمان تعریف کنیم تا خیلی درگیر تکرار نشویم.</p>
 
-<h2><a class="h_ident" id="h_tqLFw/oazr" href="#h_tqLFw/oazr" tabindex="-1" role="presentation"></a>Defining a function</h2>
+<h2><a class="h_ident" id="h_/hCfR38CAR" href="#h_/hCfR38CAR" tabindex="-1" role="presentation"></a>تعریف یک تابع</h2>
 
-<p><a class="p_ident" id="p_pBsAbh0THD" href="#p_pBsAbh0THD" tabindex="-1" role="presentation"></a>A function definition is a regular binding where the value of the binding is a function. For example, this code defines <code>square</code> to refer to a function that produces the square of a given number:</p>
+<p>تعریف یک تابع همان تعریف عادی یک متغیر است با این تفاوت که مقداری که به متغیر اختصاص داده می شود، از جنس تابع است. به عنوان مثال، کد پیش رو متغیر <code>square</code> را تعرف می کند که به تابعی ارجاع می دهد که مربع عدد داده شده را تولید می کند:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JW7vLBZMWv" href="#c_JW7vLBZMWv" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">square</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">x</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">x</span>;
@@ -39,9 +39,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">square</span>(<span class="cm-number">12</span>));
 <span class="cm-comment">// → 144</span></pre>
 
-<p><a class="p_ident" id="p_pEd/iApjCb" href="#p_pEd/iApjCb" tabindex="-1" role="presentation"></a>A function is created with an expression that starts with the keyword <code>function</code>. Functions have a set of <em>parameters</em> (in this case, only <code>x</code>) and a <em>body</em>, which contains the statements that are to be executed when the function is called. The function body of a function created this way must always be wrapped in braces, even when it consists of only a single statement.</p>
+<p>یک تابع را می توان به وسیله‌ی یک عبارت که با کلمه‌ی کلیدی <code>function</code> شروع می شود ایجاد کرد.توابع دارای  مجموعه‌ای از <em>پارامترها</em> (در مثال بالا فقط <code>x</code>) و یک <em>بدنه</em> که خود در بردارنده دستوراتی است که در صورت فراخوانی تابع اجرا می شوند، می باشد. بدنه‌ی تابع می بایست همیشه درون کروشه‌ها قرار گیرد حتی زمانی که فقط حاوی یک دستور است ( مانند مثال قبل ).</p>
 
-<p><a class="p_ident" id="p_H5CjsrL2Dh" href="#p_H5CjsrL2Dh" tabindex="-1" role="presentation"></a>A function can have multiple parameters or no parameters at all. In the following example, <code>makeNoise</code> does not list any parameter names, whereas <code>power</code> lists two:</p>
+<p>یک تابع می تواند چندین پارامتر داشته باشد یا هیچ پارامتری نداشته باشد. در مثال پیش رو، تابع <code>makeNoise</code> هیچ پارامتری ندارد در حالیکه  تابع <code>power</code> دو پارامتر دارد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_8fTeYA4ABW" href="#c_8fTeYA4ABW" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">makeNoise</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Pling!&quot;</span>);
@@ -61,17 +61,17 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">power</span>(<span class="cm-number">2</span>, <span class="cm-number">10</span>));
 <span class="cm-comment">// → 1024</span></pre>
 
-<p><a class="p_ident" id="p_5CRGZYJdq3" href="#p_5CRGZYJdq3" tabindex="-1" role="presentation"></a>Some functions produce a value, such as <code>power</code> and <code>square</code>, and some don’t, such as <code>makeNoise</code>, whose only result is a side effect. A <code>return</code> statement determines the value the function returns. When control comes across such a statement, it immediately jumps out of the current function and gives the returned value to the code that called the function. A <code>return</code> keyword without an expression after it will cause the function to return <code>undefined</code>. Functions that don’t have a <code>return</code> statement at all, such as <code>makeNoise</code>, similarly return <code>undefined</code>.</p>
+<p>بعضی توابع مقداری را برمی گردانند،‌ مانند تابع <code>power</code> و <code>square</code>، و بعضی توابع مانند <code>makeNoise</code> فقط اثر جانبی تولید می کنند و مقداری را باز نمی گردانند. دستوری به نام <code>return</code> مسئول بازگرداندن مقداری از تابع است. زمانی که برنامه به این دستور می رسد، به سرعت از تابع فعلی خارج شده و مقداری که “برگردانده شده” را به قسمتی از برنامه که تابع در آنجا فراخوانی شده، ارسال می کند. استفاده از دستور <code>return</code> بدون عبارتی بعد از آن ، باعث می شود که تابع مقدار <code>undefined</code> را برگرداند. توابعی که اصلا دستور <code>return</code> را ندارند مانند <code>makeNoise</code> نیز مقدار <code>undefined</code> را برمی گردانند.</p>
 
-<p><a class="p_ident" id="p_tSSGXmQE8/" href="#p_tSSGXmQE8/" tabindex="-1" role="presentation"></a>Parameters to a function behave like regular bindings, but their initial values are given by the <em>caller</em> of the function, not the code in the function itself.</p>
+<p>پارامترها در توابع درست شبیه متغیرهای عادی رفتار می کنند اما مقدار اولیه آن ها توسط <em>فراخواننده</em> تابع مقداردهی می شود نه کدی که در بدنه تابع نوشته می شود.</p>
 
-<h2><a class="h_ident" id="h_XqQR5FlX+8" href="#h_XqQR5FlX+8" tabindex="-1" role="presentation"></a>Bindings and scopes</h2>
+<h2><a class="h_ident" id="h_jswzJS0iuC" href="#h_jswzJS0iuC" tabindex="-1" role="presentation"></a>متغیرها و قلمرو‌ی آن</h2>
 
-<p><a class="p_ident" id="p_l52g4cvZTH" href="#p_l52g4cvZTH" tabindex="-1" role="presentation"></a>Each binding has a <em>scope</em>, which is the part of the program in which the binding is visible. For bindings defined outside of any function or block, the scope is the whole program—you can refer to such bindings wherever you want. These are called <em>global</em>.</p>
+<p>هر متغیری دارای یک <em>قلمرو</em> دسترسی است که عبارت است از بخشی از برنامه که در آن متغیر قابل دسترسی و مشاهده است. برای متغیرهایی که بیرون از یک تابع یا یک بلاک تعریف شده اند، این حوزه شامل کل برنامه می شود – می توانید به این متغیرها در هرجای برنامه دسترسی داشته باشید. به این متغیرها متغیرهای <em>سراسری</em> گفته می شود.</p>
 
-<p><a class="p_ident" id="p_+fqarrTTZ3" href="#p_+fqarrTTZ3" tabindex="-1" role="presentation"></a>But bindings created for function parameters or declared inside a function can be referenced only in that function, so they are known as <em>local</em> bindings. Every time the function is called, new instances of these bindings are created. This provides some isolation between functions—each function call acts in its own little world (its local environment) and can often be understood without knowing a lot about what’s going on in the global environment.</p>
+<p>اما متغیرهایی که برای پارامترهای توابع ایجاد می شوند یا آن هایی که درون یک تابع تعریف می شوند، فقط در درون همان تابع قابل ارجاع می باشند، به همین علت به آن ها متغیرهای <em>محلی</em> گفته می شود. هر دفعه که تابعی فراخوانی می شود، یک نمونه از این متغیرها ایجاد می شود. این کار باعث می شود که توابع به نوعی نسبت به هم مجزا (‌ایزوله) شوند- هر فراخوانی تابع در فضای اختصاصی خودش عمل می کند (محیط محلی خودش) و معمولا می توان این نحوه‌ی عملکرد را از برنامه دریافت بدون اینکه بخواهیم از جزئیاتی که در محیط اجرایی برنامه باخبر شویم.</p>
 
-<p><a class="p_ident" id="p_F5R+6ujj0e" href="#p_F5R+6ujj0e" tabindex="-1" role="presentation"></a>Bindings declared with <code>let</code> and <code>const</code> are in fact local to the <em>block</em> that they are declared in, so if you create one of those inside of a loop, the code before and after the loop cannot “see” it. In pre-2015 JavaScript, only functions created new scopes, so old-style bindings, created with the <code>var</code> keyword, are visible throughout the whole function that they appear in—or throughout the global scope, if they are not in a function.</p>
+<p><a class="p_ident" id="p_nN2mfe0/JY" href="#p_nN2mfe0/JY" tabindex="-1" role="presentation"></a>متغیرهایی که با <code>let</code>  یا <code>const</code> تعریف می شوند در واقع نسبت به <em>بلاکی</em> که درون آن تعریف شده اند محلی هستند، بنابراین اگر یکی از آن ها درون یک حلقه تعریف کنید، کدی که قبل و بعد از حلقه قرار گرفته نمی تواند آن را “ببیند”. در نسخه‌های قبل از 2015 جاوااسکریپت(؟)، فقط توابع بودند که می توانستند حوزه‌ی جدید ایجاد کنند، بنابراین متغیرهای قدیمی که با <code>var</code> تعریف می شدند در تابعی که که درآن تعریف شده بودند، دیده می شدند یا اگر بیرون تابع بودن، در کل برنامه در دسترس بوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_d7ecKvF5xD" href="#c_d7ecKvF5xD" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
 <span class="cm-keyword">if</span> (<span class="cm-atom">true</span>) {
@@ -84,7 +84,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">x</span> <span class="cm-operator">+</span> <span class="cm-variable">z</span>);
 <span class="cm-comment">// → 40</span></pre>
 
-<p><a class="p_ident" id="p_f7Rf2Pe44s" href="#p_f7Rf2Pe44s" tabindex="-1" role="presentation"></a>Each scope can “look out” into the scope around it, so <code>x</code> is visible inside the block in the example. The exception is when multiple bindings have the same name—in that case, code can see only the innermost one. For example, when the code inside the <code>halve</code> function refers to <code>n</code>, it is seeing its <em>own</em> <code>n</code>, not the global <code>n</code>.</p>
+<p>هر قلمرو می تواند حوزه‌ی پیرامونش را ببیند، مثلا در مثال بالا، متغیر <code>x</code> در درون بلاک قابل مشاهده است. یک استثناء اینجا زمانی رخ می دهد که چندین متغیر با یک نام وجود داشته باشد که در این صورت، کد برنامه می تواند درونی‌ترین مورد را ببیند. به عنوان مثلا، در تابع <code>halve</code> مثال پایین، زمانی که کد درون تابع به متغیر <code>n</code> اشاره می کند، متغیر <code>n</code> <em>خود</em> تابع استفاده می شود نه متغیر سراسری <code>n</code>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5g6POeoiQv" href="#c_5g6POeoiQv" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">halve</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">n</span> <span class="cm-operator">/</span> <span class="cm-number">2</span>;
@@ -96,11 +96,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">n</span>);
 <span class="cm-comment">// → 10</span></pre>
 
-<h3 id="scoping"><a class="i_ident" id="i_c/Ms2Ed/N0" href="#i_c/Ms2Ed/N0" tabindex="-1" role="presentation"></a>Nested scope</h3>
+<h3 id="scoping"><a class="i_ident" id="i_6kT7sc0PGc" href="#i_6kT7sc0PGc" tabindex="-1" role="presentation"></a>قلمروی تو در تو</h3>
 
-<p><a class="p_ident" id="p_tVHjFnvTdQ" href="#p_tVHjFnvTdQ" tabindex="-1" role="presentation"></a>JavaScript distinguishes not just <em>global</em> and <em>local</em> bindings. Blocks and functions can be created inside other blocks and functions, producing multiple degrees of locality.</p>
+<p>جاوااسکریپت تنها بین متغیرهای <em>سراسری</em> و <em>محلی</em> تفاوت قائل نمی شود. می توان توابع و بلاک‌ها را نیز به شکل تودرتو ایجاد کرد که باعث ایجاد درجه‌های مختلفی از محلی بودن میگردد.</p>
 
-<p><a class="p_ident" id="p_XO/6uCTKGf" href="#p_XO/6uCTKGf" tabindex="-1" role="presentation"></a>For example, this function—which outputs the ingredients needed to make a batch of hummus—has another function inside it:</p>
+<p>به عنوان مثال، این تابع – که مواد لازم برای تهیه حمص (نوعی غذا) را برمی گرداند – تابعی دیگر در درون خود دارد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cOSfyI1GsW" href="#c_cOSfyI1GsW" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">hummus</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">factor</span>) {
   <span class="cm-keyword">const</span> <span class="cm-def">ingredient</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">amount</span>, <span class="cm-def">unit</span>, <span class="cm-def">name</span>) {
@@ -118,15 +118,15 @@
   <span class="cm-variable-2">ingredient</span>(<span class="cm-number">0.5</span>, <span class="cm-string">&quot;teaspoon&quot;</span>, <span class="cm-string">&quot;cumin&quot;</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_UnbSAUz/Hi" href="#p_UnbSAUz/Hi" tabindex="-1" role="presentation"></a>The code inside the <code>ingredient</code> function can see the <code>factor</code> binding from the outer function. But its local bindings, such as <code>unit</code> or <code>ingredientAmount</code>, are not visible in the outer function.</p>
+<p>کدی که در تابع <code>ingredient</code> قرار دارد می تواند متغیر <code>factor</code> را از تابع بیرونی ببیند. اما متغیرهای محلیش مانند <code>unit</code> یا <code>ingredientAmount</code> توسط تابع بیرونی قابل مشاهده نیستند.</p>
 
-<p><a class="p_ident" id="p_OFMMq4wzcg" href="#p_OFMMq4wzcg" tabindex="-1" role="presentation"></a>The set of bindings visible inside a block is determined by the place of that block in the program text. Each local scope can also see all the local scopes that contain it, and all scopes can see the global scope. This approach to binding visibility is called <em>lexical scoping</em>.</p>
+<p>مجموعه‌ای از متغیرها که درون یک بلاک قابل رویت هستند بستگی به مکان بلاک در متن برنامه دارد.  هر قلمروی محلی همچنین می تواند قلمرو‌های محلی ای که آن را در بر گرفته اند را ببیند و همه قلمروها می تواند قلمرو سراسری را ببینند. این روش رویت پذیری متغیر را <em>حوزه‌بندی لغوی</em> می نامند.</p>
 
-<h2><a class="h_ident" id="h_y6WGSsYfER" href="#h_y6WGSsYfER" tabindex="-1" role="presentation"></a>Functions as values</h2>
+<h2><a class="h_ident" id="h_X2UZ4UkAI8" href="#h_X2UZ4UkAI8" tabindex="-1" role="presentation"></a>استفاده از توابع به عنوان مقدار</h2>
 
-<p><a class="p_ident" id="p_EP0+emaZPf" href="#p_EP0+emaZPf" tabindex="-1" role="presentation"></a>A function binding usually simply acts as a name for a specific piece of the program. Such a binding is defined once and never changed. This makes it easy to confuse the function and its name.</p>
+<p>متغیرهایی که توابع را نگه‌داری می کنند معمولا به شکلی ساده نقش یک نام را برای قطعه‌ای از برنامه بازی می کنند. این گونه متغیرها یک بار تعریف شده و دیگر تغییر نمی یابند. این امر ممکن است باعث بروز اشتباهاتی بین خود تابع و نام آن بشود.</p>
 
-<p><a class="p_ident" id="p_GmVFAjNN+C" href="#p_GmVFAjNN+C" tabindex="-1" role="presentation"></a>But the two are different. A function value can do all the things that other values can do—you can use it in arbitrary expressions, not just call it. It is possible to store a function value in a new binding, pass it as an argument to a function, and so on. Similarly, a binding that holds a function is still just a regular binding and can, if not constant, be assigned a new value, like so:</p>
+<p>اما این دو متفاوتند. یک مقدار تابع می تواند همه‌ی چیزهایی که دیگر مقدارها، انجام می دهند را انجام دهد – می توانید از آن ها در عبارت‌ها استفاده کنید نه اینکه فقط آن ها را فراخوانی کنید. می توان مقدار تابع را در متغیر جدیدی ذخیره کرد، به عنوان آرگومان به یک تابع فرستاد و از این قبیل. به طور مشابه متغیری که یک تابع را نگه داری می کند هنوز فقط یک متغیر عادی است و می توان مقدار جدیدی به آن اختصاص داد البته اگر به عنوان ثابت تعریف نشده باشد. مثلا:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SZ7MmN0oGC" href="#c_SZ7MmN0oGC" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">launchMissiles</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-variable">missileSystem</span>.<span class="cm-property">launch</span>(<span class="cm-string">&quot;now&quot;</span>);
@@ -135,19 +135,19 @@
   <span class="cm-variable">launchMissiles</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {<span class="cm-comment">/* do nothing */</span>};
 }</pre>
 
-<p><a class="p_ident" id="p_GCdjUSuSRH" href="#p_GCdjUSuSRH" tabindex="-1" role="presentation"></a>In <a href="05_higher_order.html">Chapter 5</a>, we will discuss the interesting things that can be done by passing around function values to other functions.</p>
+<p>در <a href="05_higher_order.html">فصل 5</a>، در مورد کارهای جالبی که می توان به وسیله ارسال توابع به عنوان مقدار به دیگر توابع انجام داد بحث خواهیم کرد.</p>
 
-<h2><a class="h_ident" id="h_H2WKvqbgVY" href="#h_H2WKvqbgVY" tabindex="-1" role="presentation"></a>Declaration notation</h2>
+<h2><a class="h_ident" id="h_Age4dw3mWK" href="#h_Age4dw3mWK" tabindex="-1" role="presentation"></a>استفاده از روش اعلان تابع</h2>
 
-<p><a class="p_ident" id="p_n4ivDQoJxV" href="#p_n4ivDQoJxV" tabindex="-1" role="presentation"></a>There is a slightly shorter way to create a function binding. When the <code>function</code> keyword is used at the start of a statement, it works differently.</p>
+<p>روش نسبتا کوتاه‌تری برای ایجاد یک تابع  وجود دارد. زمانی که از کلمه کلیدی <code>function</code> در ابتدای یک دستور استفاده می کنیم، این تعریف به شکل دیگری صورت می گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_4uHhsg+h7S" href="#c_4uHhsg+h7S" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">square</span>(<span class="cm-def">x</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">x</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_duIlcl5Ee6" href="#p_duIlcl5Ee6" tabindex="-1" role="presentation"></a>This is a function <em>declaration</em>. The statement defines the binding <code>square</code> and points it at the given function. It is slightly easier to write and doesn’t require a semicolon after the function.</p>
+<p>این روش، تعریف تابع با <em>اعلان</em> آن است. این دستور متغیری به نام <code>square</code> را تعریف کرده و آن را به تابع داده شده مرتبط می کند. تعریف تابع به این روش اندکی ساده تر به نظر می رسد و در این روش نیازی نیست بعد از تعریف تابع از نقطه ویرگول استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_lCZw7EPvYa" href="#p_lCZw7EPvYa" tabindex="-1" role="presentation"></a>There is one subtlety with this form of function definition.</p>
+<p>در اینجا یک نکته‌ی ریز در این شکل از تعریف تابع وجود دارد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_41Tuq8c/gg" href="#c_41Tuq8c/gg" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;The future says:&quot;</span>, <span class="cm-variable">future</span>());
 
@@ -155,11 +155,11 @@
   <span class="cm-keyword">return</span> <span class="cm-string">&quot;You'll never have flying cars&quot;</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_OO22/MKYA8" href="#p_OO22/MKYA8" tabindex="-1" role="presentation"></a>The preceding code works, even though the function is defined <em>below</em> the code that uses it. Function declarations are not part of the regular top-to-bottom flow of control. They are conceptually moved to the top of their scope and can be used by all the code in that scope. This is sometimes useful because it offers the freedom to order code in a way that seems meaningful, without worrying about having to define all functions before they are used.</p>
+<p>کد بالا به درستی کار می کند اگرچه تعریف تابع پایین تر از خطی که فراخوانی می شود اتفاق افتاده است. دلیل این اتفاق این است که اعلان‌های توابع در جاوااسکریپت به عنوان بخشی از جریان کنترل بالا به پایین عادی برنامه محسوب نمی شوند. به طور مفهومی آن ها به بالای حوزه‌ی خودشان منتقل می شوند و می توان از آن‌ها در همه‌ی کدهای موجود در آن حوزه استفاده کرد. این ویژگی گاهی اوقات کاربردی است چرا که این آزادی را به ما می دهد تا به شکلی کدها را مرتب کنیم که بهتر سازماندهی بشوند بدون اینکه نگران این باشیم که توابع ما حتما قبل از محل فراخوانی‌شان تعریف شده باشند.</p>
 
 <h2><a class="h_ident" id="h_/G0LSjQxoo" href="#h_/G0LSjQxoo" tabindex="-1" role="presentation"></a>Arrow functions</h2>
 
-<p><a class="p_ident" id="p_3pnFB5yqlb" href="#p_3pnFB5yqlb" tabindex="-1" role="presentation"></a>There’s a third notation for functions, which looks very different from the others. Instead of the <code>function</code> keyword, it uses an arrow (<code>=&gt;</code>) made up of an equal sign and a greater-than character (not to be confused with the greater-than-or-equal operator, which is written <code>&gt;=</code>).</p>
+<p>روش سومی هم برای تعریف توابع وجود دارد، که با روش‌های قبلی خیلی متفاوت‌ به نظر می رسد. به جای استفاده از کلیدواژه‌ی <code>function</code> از یک پیکان <bdo>(<code>=&gt;</code>)</bdo> که از علامت مساوی و بزرگتر استفاده می شود. ( نباید با عملگر بزرگتر-یا-مساوی-از اشتباه گرفته شود، که به شکل <bdo><code>&gt;=</code></bdo> نوشته می شود)</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_4WdKJKvocO" href="#c_4WdKJKvocO" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">power</span> <span class="cm-operator">=</span> (<span class="cm-def">base</span>, <span class="cm-def">exponent</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
@@ -169,24 +169,24 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">result</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_spvzaI8qML" href="#p_spvzaI8qML" tabindex="-1" role="presentation"></a>The arrow comes <em>after</em> the list of parameters and is followed by the function’s body. It expresses something like “this input (the parameters) produces this result (the body)”.</p>
+<p>کاراکتر پیکان درست بعد از لیستی از پارامترها می آید که <em>بعد</em> از آن بدنه‌ی تابع خواهد آمد. می توان به نوعی این طور تفسیرش کرد که ” این ورودی پارامترها) این نتیجه ( بدنه‌ی تابع‌ ) را تولید خواهد کرد”.</p>
 
-<p><a class="p_ident" id="p_ylUHhZPsv6" href="#p_ylUHhZPsv6" tabindex="-1" role="presentation"></a>When there is only one parameter name, you can omit the parentheses around the parameter list. If the body is a single expression, rather than a block in braces, that expression will be returned from the function. So, these two definitions of <code>square</code> do the same thing:</p>
+<p>زمانی که تنها یک پارامتر وجود دارد، می توانید از پرانتزها صرف نظر کنید. اگر بدنه تابع فقط شامل یک عبارت است، نسبت به یک بلاک که توسط کروشه‌ها محصور شده، آن عبارت توسط تابع برگردانده می شود. بنابراین  دو روش تعریف تابع <code>square</code> در زیر، کار مشابهی را انجام می دهند:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VIDIsvgTjA" href="#c_VIDIsvgTjA" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">square1</span> <span class="cm-operator">=</span> (<span class="cm-def">x</span>) <span class="cm-operator">=&gt;</span> { <span class="cm-keyword">return</span> <span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">x</span>; };
 <span class="cm-keyword">const</span> <span class="cm-def">square2</span> <span class="cm-operator">=</span> <span class="cm-def">x</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">x</span>;</pre>
 
-<p><a class="p_ident" id="p_fUkn+dhyOi" href="#p_fUkn+dhyOi" tabindex="-1" role="presentation"></a>When an arrow function has no parameters at all, its parameter list is just an empty set of parentheses.</p>
+<p><a class="p_ident" id="p_2jbaADpQVe" href="#p_2jbaADpQVe" tabindex="-1" role="presentation"></a>زمانی که یک arrow function فاقد پارامتر است، لیست پارامترهایش به صورت یک جفت پرانتز خالی نوشته می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VfJZoQnqTl" href="#c_VfJZoQnqTl" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">horn</span> <span class="cm-operator">=</span> () <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Toot&quot;</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_UKyLgbrDUa" href="#p_UKyLgbrDUa" tabindex="-1" role="presentation"></a>There’s no deep reason to have both arrow functions and <code>function</code> expressions in the language. Apart from a minor detail, which we’ll discuss in <a href="06_object.html">Chapter 6</a>, they do the same thing. Arrow functions were added in 2015, mostly to make it possible to write small function expressions in a less verbose way. We’ll be using them a lot in <a href="05_higher_order.html">Chapter 5</a>.</p>
+<p>نمی توان دلیل خیلی خوبی برای اینکه در زبان جاوااسکریپت نیاز به هر دو نوع تعریف تابع (روش پیکانی و معمول) وجود دارد پیدا کرد. از موارد جزئی که بگذریم ( که در <a href="06_object.html">فصل 6</a> به آن ها می پردازیم)، هر دوی آن ها کار یکسانی را انجام می دهند. روش پیکانی در سال 2015 به زبان اضافه شد بیشتر به این خاطر که بتوان توابع را به شکل کوتاه‌تر و خلاصه نوشت و از درازنویسی پرهیز کرد. در <a href="05_higher_order.html">فصل 5</a> از آن‌ها زیاد استفاده خواهیم کرد.</p>
 
-<h2 id="stack"><a class="h_ident" id="h_D2Yui+mx6D" href="#h_D2Yui+mx6D" tabindex="-1" role="presentation"></a>The call stack</h2>
+<h2 id="stack"><a class="h_ident" id="h_tB5d//rrwc" href="#h_tB5d//rrwc" tabindex="-1" role="presentation"></a>پشته‌ی فراخوانی توابع</h2>
 
-<p><a class="p_ident" id="p_0M8AnI8lnL" href="#p_0M8AnI8lnL" tabindex="-1" role="presentation"></a>The way control flows through functions is somewhat involved. Let’s take a closer look at it. Here is a simple program that makes a few function calls:</p>
+<p>روشی که کنترل برنامه در توابع جریان می یابد، نسبتا کمی پیچیده است. بجاست تا نگاهی دقیق تر به نحوه‌ی جریان کنترل در توابع بیاندازیم. در اینجا برنامه‌ی ساده ای داریم که چند فراخوانی تابع دارد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vruWG+bXUz" href="#c_vruWG+bXUz" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">greet</span>(<span class="cm-def">who</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Hello &quot;</span> <span class="cm-operator">+</span> <span class="cm-variable-2">who</span>);
@@ -194,9 +194,9 @@
 <span class="cm-variable">greet</span>(<span class="cm-string">&quot;Harry&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Bye&quot;</span>);</pre>
 
-<p><a class="p_ident" id="p_XTLaqYuUGF" href="#p_XTLaqYuUGF" tabindex="-1" role="presentation"></a>A run through this program goes roughly like this: the call to <code>greet</code> causes control to jump to the start of that function (line 2). The function calls <code>console.log</code>, which takes control, does its job, and then returns control to line 2. There it reaches the end of the <code>greet</code> function, so it returns to the place that called it, which is line 4. The line after that calls <code>console.log</code> again. After that returns, the program reaches its end.</p>
+<p><a class="p_ident" id="p_vx8FzaEQVq" href="#p_vx8FzaEQVq" tabindex="-1" role="presentation"></a>اجرای این برنامه به طور کلی به این شکل خواهد بود: فراخوانی تابع <code>greet</code> باعث می شود که کنترل برنامه به شروع بدنه‌ی آن تابع (خط 2) بپرد. تابع <code>console.log</code> (که تابعی از پیش ساخته شده در مرورگر است) را فراخوانی می کند، که کنترل را در دست گرفته، کارش را انجام می دهد و دوباره کنترل را به خط 2 بازمی گرداند. سپس به انتهای تابع <code>greet</code> می رسد بنابراین به جایی که در ابتدا فراخوانی شده بود باز می گردد، خط 4. خط بعدی دوباره <code>console.log</code> را فراخوانی می کند. بعد از آن، برنامه به پایان خود می رسد.</p>
 
-<p><a class="p_ident" id="p_l2J0qZcbr2" href="#p_l2J0qZcbr2" tabindex="-1" role="presentation"></a>We could show the flow of control schematically like this:</p>
+<p>می توانیم این جریان کنترل را به صورت شماتیک به این صورت نشان دهیم:</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_sK38O0sD4t" href="#c_sK38O0sD4t" tabindex="-1" role="presentation"></a>not in function
    in greet
@@ -206,12 +206,11 @@ not in function
    in console.log
 not in function</pre>
 
-<p><a class="p_ident" id="p_osbZNdYf81" href="#p_osbZNdYf81" tabindex="-1" role="presentation"></a>Because a function has to jump back to the place that called it when it returns, the computer must remember the context from which the call happened. In one case, <code>console.log</code> has to return to the <code>greet</code> function when it is done. In the other case, it returns to the end of the program.</p>
+<p>به دلیل اینکه تابع پس از اجرا می بایست به نقطه‌ای که از آن‌جا فراخوانی شده است بازگردد، کامپیوتر باید مکانی از برنامه که تابع از آنجا فراخوانی شده است را به خاطر بیاورد. در یک مورد، <code>console.log</code> پس از اجرا باید به تابع <code>greet</code> برگردد و در مورد بعدی به انتهای برنامه بر می گردد.</p>
 
-<p><a class="p_ident" id="p_PCO8aj4Plj" href="#p_PCO8aj4Plj" tabindex="-1" role="presentation"></a>The place where the computer stores this context is the <em>call
-stack</em>. Every time a function is called, the current context is stored on top of this stack. When a function returns, it removes the top context from the stack and uses that context to continue execution.</p>
+<p><a class="p_ident" id="p_7Ccns7cfB2" href="#p_7Ccns7cfB2" tabindex="-1" role="presentation"></a>جایی از کامپیوتر که این محل یا زمینه (context) ذخیره می شود <em>پشته‌ی فراخوانی</em> می باشد. هر بار که تابعی فراخوانی می شود، محل فعلی فراخوانی در بالای این “پشته” قرار می گیرد. زمانی که اجرای تابع تمام می شود، عنصر بالای پشته را از پشته حذف می کند و از آن محل برای ادامه اجرای برنامه استفاده می کند.</p>
 
-<p><a class="p_ident" id="p_HxxwtLgAhP" href="#p_HxxwtLgAhP" tabindex="-1" role="presentation"></a>Storing this stack requires space in the computer’s memory. When the stack grows too big, the computer will fail with a message like “out of stack space” or “too much recursion”. The following code illustrates this by asking the computer a really hard question that causes an infinite back-and-forth between two functions. Rather, it <em>would</em> be infinite, if the computer had an infinite stack. As it is, we will run out of space, or “blow the stack”.</p>
+<p><a class="p_ident" id="p_YHNeQouJ8W" href="#p_YHNeQouJ8W" tabindex="-1" role="presentation"></a>ذخیره‌ی این پشته نیاز به فضایی در حافظه‌ی کامپیوتر دارد. در صورت رشد بیش از اندازه پشته، کامپیوتر با مشکل روبرو شده و پیغام “out of stack space” یا “too much recursion” را تولید می کند. کدی که در ادامه می آید این موضوع را بیشتر باز می کند. در این مثال کامپیوتر با مساله‌ی بسیار مشکلی روبرو می شود که باعث می شود به طور بی نهایت بین دو تابع گیر بیفتد. اگر محدودیت حافظه‌ برای پشته نبود، احتمالا اجرای این برنامه بی نهایت می شد. اما در واقع، ما با کمبود فضا روبرو می شویم، یا اینکه پشته از کار خواهد افتاد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_fZaWglCohr" href="#c_fZaWglCohr" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">chicken</span>() {
   <span class="cm-keyword">return</span> <span class="cm-variable">egg</span>();
@@ -222,21 +221,21 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">chicken</span>() <span class="cm-operator">+</span> <span class="cm-string">&quot; came first.&quot;</span>);
 <span class="cm-comment">// → ??</span></pre>
 
-<h2><a class="h_ident" id="h_1pGtRjrCUp" href="#h_1pGtRjrCUp" tabindex="-1" role="presentation"></a>Optional Arguments</h2>
+<h2><a class="h_ident" id="h_hQkARX0UIY" href="#h_hQkARX0UIY" tabindex="-1" role="presentation"></a>آرگومان‌های اختیاری</h2>
 
-<p><a class="p_ident" id="p_npZ63wzfMQ" href="#p_npZ63wzfMQ" tabindex="-1" role="presentation"></a>The following code is allowed and executes without any problem:</p>
+<p>کد مثال زیر، معتبر است و بدون هیچ مشکلی کار می کند:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_IckdVt0tqA" href="#c_IckdVt0tqA" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">square</span>(<span class="cm-def">x</span>) { <span class="cm-keyword">return</span> <span class="cm-variable-2">x</span> <span class="cm-operator">*</span> <span class="cm-variable-2">x</span>; }
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">square</span>(<span class="cm-number">4</span>, <span class="cm-atom">true</span>, <span class="cm-string">&quot;hedgehog&quot;</span>));
 <span class="cm-comment">// → 16</span></pre>
 
-<p><a class="p_ident" id="p_JyyXKkZ6u6" href="#p_JyyXKkZ6u6" tabindex="-1" role="presentation"></a>We defined <code>square</code> with only one parameter. Yet when we call it with three, the language doesn’t complain. It ignores the extra arguments and computes the square of the first one.</p>
+<p>تابع <code>square</code> را که فقط یک پارامتر دارد را تعریف کردیم. اما زمانی که به شکل بالا با سه پارامتر  آن را فراخوانی می کنیم، با خطایی روبرو نمی شویم. این تابع به جز آرگومان اول از دیگر آرگومان‌ها صرف نظر می کند و مربع عدد اول را حساب می کند.</p>
 
-<p><a class="p_ident" id="p_kzCivbonMM" href="#p_kzCivbonMM" tabindex="-1" role="presentation"></a>JavaScript is extremely broad-minded about the number of arguments you pass to a function. If you pass too many, the extra ones are ignored. If you pass too few, the missing parameters get assigned the value <code>undefined</code>.</p>
+<p>جاوااسکریپت نسبت به تعداد آرگومان‌های دریافتی، بسیار روشن فکرانه عمل می کند. اگر آرگومان‌های بیشتری نسبت به آنچه از قبل تعریف شده است ارسال نمایید، به سادگی از آن ها چشم پوشی می کند. اگر آرگومان کمتری ارسال کنید، به آرگومان‌هایی که مقداردهی نشده اند مقدار <code>undefined</code> را اختصاص می دهد.</p>
 
-<p><a class="p_ident" id="p_U01Tix9/O1" href="#p_U01Tix9/O1" tabindex="-1" role="presentation"></a>The downside of this is that it is possible—likely, even—that you’ll accidentally pass the wrong number of arguments to functions. And no one will tell you about it.</p>
+<p>جنبه‌ی منفی این کار این است که ممکن است که شما ناخواسته و تصادفی تعداد اشتباهی آرگومان را به تابع ارسال کنید و اصلا متوجه آن هم نشوید.</p>
 
-<p><a class="p_ident" id="p_+iLdQF0mc4" href="#p_+iLdQF0mc4" tabindex="-1" role="presentation"></a>The upside is that this behavior can be used to allow a function to be called with different numbers of arguments. For example, this <code>minus</code> function tries to imitate the <code>-</code> operator by acting on either one or two arguments:</p>
+<p>و جنبه مثبت  این است که می توان با استفاده از آن به یک تابع اجازه داد که آرگومان‌های متعدد و متفاوتی فراخوانی شود. به عنوان مثال، تابع <code>minus</code>  که در ادامه می آید سعی می کند که عملگر <code>-</code> را با عمل کردن روی یک یا دو آرگومان شبیه سازی کند:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_8zGcY0SKdo" href="#c_8zGcY0SKdo" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">minus</span>(<span class="cm-def">a</span>, <span class="cm-def">b</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">b</span> <span class="cm-operator">===</span> <span class="cm-atom">undefined</span>) <span class="cm-keyword">return</span> <span class="cm-operator">-</span><span class="cm-variable-2">a</span>;
@@ -248,9 +247,9 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">minus</span>(<span class="cm-number">10</span>, <span class="cm-number">5</span>));
 <span class="cm-comment">// → 5</span></pre>
 
-<p id="power"><a class="p_ident" id="p_CqaWdlpcAr" href="#p_CqaWdlpcAr" tabindex="-1" role="presentation"></a>If you write an <code>=</code> operator after a parameter, followed by an expression, the value of that expression will replace the argument when it is not given.</p>
+<p id="power">اگر بعد از نوشتن پارامتر علامت <code>=</code> قرار داده و عبارتی را بنویسید، مقدار آن عبارت در صورتی که آرگومان ارسال نشود، جایگزین آن می شود.</p>
 
-<p><a class="p_ident" id="p_MIT3QGp7wx" href="#p_MIT3QGp7wx" tabindex="-1" role="presentation"></a>For example, this version of <code>power</code> makes its second argument optional. If you don’t provide it or pass the value <code>undefined</code>, it will default to two, and the function will behave like <code>square</code>.</p>
+<p><a class="p_ident" id="p_2kuSN7rMzf" href="#p_2kuSN7rMzf" tabindex="-1" role="presentation"></a>به عنوان مثال، این نسخه از تابع <code>power</code> آرگومان دومش را اختیاری تعریف کرده است. اگر آرگومان دوم را ارسال نکنید یا اینکه مقدار <code>undefined</code> را بفرستید، مقدار پیش‌فرض 2 در نظر گرفته می شود و تابع شبیه تابع <code>square</code> عمل می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_nTMMMpMRLQ" href="#c_nTMMMpMRLQ" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">power</span>(<span class="cm-def">base</span>, <span class="cm-def">exponent</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
@@ -265,16 +264,16 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">power</span>(<span class="cm-number">2</span>, <span class="cm-number">6</span>));
 <span class="cm-comment">// → 64</span></pre>
 
-<p><a class="p_ident" id="p_HXV4vPfIcZ" href="#p_HXV4vPfIcZ" tabindex="-1" role="presentation"></a>In the <a href="04_data.html#rest_parameters">next chapter</a>, we will see a way in which a function body can get at the whole list of arguments it was passed. This is helpful because it makes it possible for a function to accept any number of arguments. For example, <code>console.log</code> does this—it outputs all of the values it is given.</p>
+<p>در <a href="04_data.html#rest_parameters">فصل بعد</a>، با راهی آشنا خواهیم شد که در بدنه تابع می توان با آن به لیست دقیق آرگومان‌های ارسالی دست پیدا کرد. با این ویژگی می توان در یک تابع هر تعداد آرگومان قبول کرد. مثلا تابع <code>console.log</code> از این ویژگی استفاده می کند- همه‌ی مقادیری که به آن داده می شود به خروجی ارسال می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RvkwVkcUZ7" href="#c_RvkwVkcUZ7" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;C&quot;</span>, <span class="cm-string">&quot;O&quot;</span>, <span class="cm-number">2</span>);
 <span class="cm-comment">// → C O 2</span></pre>
 
-<h2><a class="h_ident" id="h_hOd+yVxaku" href="#h_hOd+yVxaku" tabindex="-1" role="presentation"></a>Closure</h2>
+<h2><a class="h_ident" id="h_RDU7jRFZ7F" href="#h_RDU7jRFZ7F" tabindex="-1" role="presentation"></a>بستار (closure)</h2>
 
-<p><a class="p_ident" id="p_Y88pfbKskW" href="#p_Y88pfbKskW" tabindex="-1" role="presentation"></a>The ability to treat functions as values, combined with the fact that local bindings are re-created every time a function is called, brings up an interesting question. What happens to local bindings when the function call that created them is no longer active?</p>
+<p>امکان استفاده از توابع به شکل مقدار، وقتی با این واقعیت ترکیب می شود که متغیرهای محلی با هر بار فراخوانی تابع از نوع ایجاد می شوند، سوال جالبی را به ذهن می آورد. چه اتفاقی برای متغیرهای محلی می افتد زمانی که تابعی که با فراخوانیش آن ها را ایجاد کرده دیگر فعال نیست؟</p>
 
-<p><a class="p_ident" id="p_f5+48lfrgA" href="#p_f5+48lfrgA" tabindex="-1" role="presentation"></a>The following code shows an example of this. It defines a function, <code>wrapValue</code>, that creates a local binding. It then returns a function that accesses and returns this local binding.</p>
+<p>کدی که در ادامه می آید مثالی از این مفهوم را نمایش می دهد. تابعی به نام <code>wrapValue</code> را تعریف کرده که درون آن متغیری محلی ایجاد شده است. سپس تابعی را بازمیگرداند که به این متغیر محلی دسترسی داشته و آن را برمی گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_DF70h3opbx" href="#c_DF70h3opbx" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">wrapValue</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">local</span> <span class="cm-operator">=</span> <span class="cm-variable-2">n</span>;
@@ -288,11 +287,11 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">wrap2</span>());
 <span class="cm-comment">// → 2</span></pre>
 
-<p><a class="p_ident" id="p_lgksIxSi8X" href="#p_lgksIxSi8X" tabindex="-1" role="presentation"></a>This is allowed and works as you’d hope—both instances of the binding can still be accessed. This situation is a good demonstration of the fact that local bindings are created anew for every call, and different calls can’t trample on one another’s local bindings.</p>
+<p>این کار مجاز و معتبر است و به خوبی کار می کند درست همانطور که انتظارش را دارید- هر دوی نمونه‌های متغیر مورد نظر هنوز در دسترس هستند. در واقع، نمونه‌های متعددی از متغیر را می توان در یک زمان زنده نگه داشت که خود مثال خوبی از این مفهوم است که متغیرهای محلی واقعا با هر با فراخوانی از نو ایجاد می شوند و فراخوانی های مختلف نمی توانند روی متغیرهای محلی یکدیگر اثری داشته باشند.</p>
 
-<p><a class="p_ident" id="p_O3ISvGjNhj" href="#p_O3ISvGjNhj" tabindex="-1" role="presentation"></a>This feature—being able to reference a specific instance of a local binding in an enclosing scope—is called <em>closure</em>. A function that references bindings from local scopes around it is called <em>a</em> closure. This behavior not only frees you from having to worry about lifetimes of bindings but also makes it possible to use function values in some creative ways.</p>
+<p>این ویژگی - امکان رجوع به یک نمونه مشخص از متغیرهای محلی محصور در یک تابع – <em>بستار</em> یا کلوژر نامیده می شود. تابعی که به متغیرهایی که در حوزه‌ی محلی پیرامونش قرار دارند ارجاع می دهد را <em>یک</em> بستار می نامند. این رفتار نه تنها شما را از نگرانی برای عمر متغیرها آزاد می کند بلکه همچنین این امکان استفاده‌های خلاقانه از مقدارهای تابع را فراهم می کند.</p>
 
-<p><a class="p_ident" id="p_YtnB1+ZhQb" href="#p_YtnB1+ZhQb" tabindex="-1" role="presentation"></a>With a slight change, we can turn the previous example into a way to create functions that multiply by an arbitrary amount.</p>
+<p>با کمی تغییر می توانیم مثال قبل را به روشی برای ایجاد توابعی که عمل ضرب را با یک مقدار دلخواه انجام می دهند استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_iIlCVmvMSs" href="#c_iIlCVmvMSs" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">multiplier</span>(<span class="cm-def">factor</span>) {
   <span class="cm-keyword">return</span> <span class="cm-def">number</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">number</span> <span class="cm-operator">*</span> <span class="cm-variable-2">factor</span>;
@@ -302,15 +301,15 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">twice</span>(<span class="cm-number">5</span>));
 <span class="cm-comment">// → 10</span></pre>
 
-<p><a class="p_ident" id="p_fVSBR58hMQ" href="#p_fVSBR58hMQ" tabindex="-1" role="presentation"></a>The explicit <code>local</code> binding from the <code>wrapValue</code> example isn’t really needed since a parameter is itself a local binding.</p>
+<p>به طور صریح نیازی به متغیر <code>local</code> از مثال <code>wrapValue</code> وجود ندارد به این علت که پارامتر خود یک متغیر محلی محسوب می شود.</p>
 
-<p><a class="p_ident" id="p_cC96lnpdpR" href="#p_cC96lnpdpR" tabindex="-1" role="presentation"></a>Thinking about programs like this takes some practice. A good mental model is to think of function values as containing both the code in their body and the environment in which they are created. When called, the function body sees the environment in which it was created, not the environment in which it is called.</p>
+<p>درک و فکر کردن به برنامه‌هایی شبیه مثال بالا نیاز به مقدار تمرین دارد. یک مدل ذهنی خوب این است که فرض کنید که مقدارهای تابع، کد،‌بدنه و محیطی که در آن ایجاد شده اند را نگه داری می کنند. زمانی که فراخوانی می شوند، بدنه تابع محیطی که در آن ایجاد شده را می بیند نه محیطی که در آن فراخوانی شده است.</p>
 
-<p><a class="p_ident" id="p_tgRn+dIrL8" href="#p_tgRn+dIrL8" tabindex="-1" role="presentation"></a>In the example, <code>multiplier</code> is called and creates an environment in which its <code>factor</code> parameter is bound to 2. The function value it returns, which is stored in <code>twice</code>, remembers this environment. So when that is called, it multiplies its argument by 2.</p>
+<p><a class="p_ident" id="p_wwW0b1Mdqm" href="#p_wwW0b1Mdqm" tabindex="-1" role="presentation"></a>در مثال، <code>multiplier</code> فراخوانی شده و محیطی را ایجاد کرده است که در آن پارامتر <code>factor</code> به 2 اختصاص داده شده است. مقدار تابعی که برمی گرداند، که خود در <code>twice</code> ذخیره شده است، محیط را به خاطر می آورد. بنابراین در هنگام فراخوانی، آرگومانش را در 2 ضرب می کند.</p>
 
-<h2><a class="h_ident" id="h_jxl1p970Fy" href="#h_jxl1p970Fy" tabindex="-1" role="presentation"></a>Recursion</h2>
+<h2><a class="h_ident" id="h_d8u9yeE6bu" href="#h_d8u9yeE6bu" tabindex="-1" role="presentation"></a>بازگشتی</h2>
 
-<p><a class="p_ident" id="p_LKVxHXuHsE" href="#p_LKVxHXuHsE" tabindex="-1" role="presentation"></a>It is perfectly okay for a function to call itself, as long as it doesn’t do it so often that it overflows the stack. A function that calls itself is called <em>recursive</em>. Recursion allows some functions to be written in a different style. Take, for example, this alternative implementation of <code>power</code>:</p>
+<p>فراخوانی یک تابع توسط خودش امری کاملا قابل قبول است البته تا زمانی که به نحوی انجام شود که باعث سرریز پشته نشود. تابعی که خودش را فراخوانی می کند را تابع <em>بازگشتی</em> می نامند. بازگشت این امکان را فراهم می سازد که بعضی توابع را به سبک دیگری بتوان نوشت. به عنوان مثال، به سبک دیگری که می توان تابع <code>power</code> را پیاده سازی کرد توجه نمایید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_agdELfiRGm" href="#c_agdELfiRGm" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">power</span>(<span class="cm-def">base</span>, <span class="cm-def">exponent</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">exponent</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
@@ -323,25 +322,25 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">power</span>(<span class="cm-number">2</span>, <span class="cm-number">3</span>));
 <span class="cm-comment">// → 8</span></pre>
 
-<p><a class="p_ident" id="p_/7VYZ2mLWF" href="#p_/7VYZ2mLWF" tabindex="-1" role="presentation"></a>This is rather close to the way mathematicians define exponentiation and arguably describes the concept more clearly than the looping variant. The function calls itself multiple times with ever smaller exponents to achieve the repeated multiplication.</p>
+<p>این روش  نسبتا شبیه راهی است که ریاضی‌دانان به توان رساندن اعداد را تعریف می کنند و احتمالا مفهوم  این تابع را نسب به نوع استفاده از حلقه‌ها، به شکل روشن تری (خواناتر) توصیف می کند. تابع خودش را چندین مرتبه با توان های کوچکتر فراخوانی می کند تا به حاصل مجموعه ضرب‌ها برسد.</p>
 
-<p><a class="p_ident" id="p_0kxF7WAzdn" href="#p_0kxF7WAzdn" tabindex="-1" role="presentation"></a>But this implementation has one problem: in typical JavaScript implementations, it’s about three times slower than the looping version. Running through a simple loop is generally cheaper than calling a function multiple times.</p>
+<p>اما این روش پیاده‌سازی یک مشکل مهم دارد: در پیاده‌سازی‌های رایج جاوااسکریپت، تقریبا سه برابر کندتر از روش استفاده از حلقه عمل می کند. پیمایش یک حلقه‌ی ساده بسیار هزینه‌ی کمتری نسبت به فراخوانی چندباره‌ی یک تابع دارد.</p>
 
-<p><a class="p_ident" id="p_wtRoace6Zn" href="#p_wtRoace6Zn" tabindex="-1" role="presentation"></a>The dilemma of speed versus elegance is an interesting one. You can see it as a kind of continuum between human-friendliness and machine-friendliness. Almost any program can be made faster by making it bigger and more convoluted. The programmer has to decide on an appropriate balance.</p>
+<p>معمای انتخاب بین خوانایی کد و سرعت اجرای بهتر، مساله‌ی جالبی است. می توان آن را به عنوان نوعی از مسائل مربوط به انسان پسند بودن و ماشین پسند بودن در نظر گرفت. تقریبا همه‌ی برنامه ها را می توان سریع‌تر ساخت اما با بزرگتر کردن و پیچیده کردن آن. برنامه‌نویس بایستی تصمیمی بر اساس تعادل این دو بگیرد.</p>
 
-<p><a class="p_ident" id="p_NQDJXQ8GE2" href="#p_NQDJXQ8GE2" tabindex="-1" role="presentation"></a>In the case of the <code>power</code> function, the inelegant (looping) version is still fairly simple and easy to read. It doesn’t make much sense to replace it with the recursive version. Often, though, a program deals with such complex concepts that giving up some efficiency in order to make the program more straightforward is helpful.</p>
+<p>در مورد تابع <code>power</code> که پیش تر آمد، روش استفاده از حلقه همچنان نسبتا قابل خواندن و فهمیدن است. زیاد توجیه ندارد که آن را با روش بازگشتی جایگزین کنیم. اگرچه گاهی یک برنامه با گونه‌ای از مفاهیم پیچیده روبرو است که صرف نظر کردن از مقداری سرعت یا کارایی در برابر سرراستی بیشتر گزینه‌ای جذاب به نظر می رسد.</p>
 
-<p><a class="p_ident" id="p_CXdgFigtgz" href="#p_CXdgFigtgz" tabindex="-1" role="presentation"></a>Worrying about efficiency can be a distraction. It’s yet another factor that complicates program design, and when you’re doing something that’s already difficult, that extra thing to worry about can be paralyzing.</p>
+<p>نگرانی در باره‌ی سرعت/کارایی برنامه می تواند شما را از مساله اصلی دور کند. شما هنگام برنامه نویسی مشغول حل مساله‌ای مشکل هستید و وقتی فاکتور پیچیده‌ی دیگری به طور همزمان شما را نگران کند، باعث می شود که نتوانید جلو بروید.</p>
 
-<p><a class="p_ident" id="p_6DvfGXOodS" href="#p_6DvfGXOodS" tabindex="-1" role="presentation"></a>Therefore, always start by writing something that’s correct and easy to understand. If you’re worried that it’s too slow—which it usually isn’t since most code simply isn’t executed often enough to take any significant amount of time—you can measure afterward and improve it if necessary.</p>
+<p>بنابراین، همیشه در ابتدا کدی را بنویسید که به طور صحیح کار می کند و قابل خواندن است. اگر نگرانید که خیلی کند عمل می کند – که معمولا این طور نخواهد بود،‌ چرا که اکثر کدها آن قدر به تعداد بالا اجرا نمی شوند که زمان قابل توجهی بگیرند- می توانید بعد از اتمام، اندازه گیری کرده و در صورت نیاز بهبودش بدهید.</p>
 
-<p><a class="p_ident" id="p_m264IT3dFt" href="#p_m264IT3dFt" tabindex="-1" role="presentation"></a>Recursion is not always just an inefficient alternative to looping. Some problems really are easier to solve with recursion than with loops. Most often these are problems that require exploring or processing several “branches”, each of which might branch out again into even more branches.</p>
+<p>نمی توان فرض کرد که همیشه روش استفاده از بازگشتی نسبت به حلقه، فاقد کارایی است. بعضی مسائل واقعا به روش بازگشتی بهتر و کاراتر حل می شوند. اکثر این مسائل مربوط به پیمایش و پردازش چندین شاخه که هر کدام ممکن است از شاخه‌های دیگر تشکیل شده باشند، می شوند.</p>
 
-<p id="recursive_puzzle"><a class="p_ident" id="p_s9LmvfKAdX" href="#p_s9LmvfKAdX" tabindex="-1" role="presentation"></a>Consider this puzzle: by starting from the number 1 and repeatedly either adding 5 or multiplying by 3, an infinite set of numbers can be produced. How would you write a function that, given a number, tries to find a sequence of such additions and multiplications that produces that number?</p>
+<p id="recursive_puzzle"><a class="p_ident" id="p_gsxOCL/1VV" href="#p_gsxOCL/1VV" tabindex="-1" role="presentation"></a>به این معما توجه کنید: با شروع از عدد 1 و افزودن مکرر عدد 5 یا ضرب در عدد 3، بی نهایت عدد جدید می توان تولید کرد. چگونه می توانید تابعی بنویسید که عددی را گرفته و دنباله‌ای از ضرب و جمع‌هایی که منجر به تولید آن عدد شده است را برگرداند؟</p>
 
-<p><a class="p_ident" id="p_mWzvA1dWtJ" href="#p_mWzvA1dWtJ" tabindex="-1" role="presentation"></a>For example, the number 13 could be reached by first multiplying by 3 and then adding 5 twice, whereas the number 15 cannot be reached at all.</p>
+<p><a class="p_ident" id="p_bCSmZ5NN6U" href="#p_bCSmZ5NN6U" tabindex="-1" role="presentation"></a>به عنوان مثال، عدد 13 را می توان با یک ضرب در 3 و دوبار افزودن 5 بدست آورد در حالیکه عددی مثل 15 را اصلا نمی توان به این شیوه تولید کرد.</p>
 
-<p><a class="p_ident" id="p_ca4W5yMbty" href="#p_ca4W5yMbty" tabindex="-1" role="presentation"></a>Here is a recursive solution:</p>
+<p>راه حل استفاده از روش بازگشتی:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_WGJ7JdCP7T" href="#c_WGJ7JdCP7T" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">findSolution</span>(<span class="cm-def">target</span>) {
   <span class="cm-keyword">function</span> <span class="cm-def">find</span>(<span class="cm-def">current</span>, <span class="cm-def">history</span>) {
@@ -360,15 +359,15 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">findSolution</span>(<span class="cm-number">24</span>));
 <span class="cm-comment">// → (((1 * 3) + 5) * 3)</span></pre>
 
-<p><a class="p_ident" id="p_TgOX2ClB7+" href="#p_TgOX2ClB7+" tabindex="-1" role="presentation"></a>Note that this program doesn’t necessarily find the <em>shortest</em> sequence of operations. It is satisfied when it finds any sequence at all.</p>
+<p>توجه داشته باشید که برنامه‌ی بالا لزوما <em>کوتاه‌ترین</em> دنباله‌ی عملیات را پیدا نمی کند. هدف تابع فقط پیدا کردن هر دنباله‌ای از عملیات صحیح است.</p>
 
-<p><a class="p_ident" id="p_GCxpDILpM6" href="#p_GCxpDILpM6" tabindex="-1" role="presentation"></a>It is okay if you don’t see how it works right away. Let’s work through it, since it makes for a great exercise in recursive thinking.</p>
+<p>اگر متوجه چگونگی کارکرد تابع بالا نشدید، نگران نباشید. بیایید با هم آن را بررسی کنیم چرا که تمرین بسیار خوبی برای تفکر بازگشتی است.</p>
 
-<p><a class="p_ident" id="p_AlwczX9axy" href="#p_AlwczX9axy" tabindex="-1" role="presentation"></a>The inner function <code>find</code> does the actual recursing. It takes two arguments: the current number and a string that records how we reached this number. If it finds a solution, it returns a string that shows how to get to the target. If no solution can be found starting from this number, it returns <code>null</code>.</p>
+<p>تابع درونی <code>find</code> عمل اصلی بازگشتی را انجام می دهد. دو آرگومان می گیرد که شامل عدد فعلی و رشته‌ای است که نحوه رسیدن به عدد را ضبط می کند. اگر راه حلی پیدا کرد ، رشته‌ای حاوی دنباله‌ی عملیات تا عدد مورد نظر را بر می گرداند. اگر راه حلی وجود نداشت، مقدار <code>null</code> را بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_2m+jfYF6Yv" href="#p_2m+jfYF6Yv" tabindex="-1" role="presentation"></a>To do this, the function performs one of three actions. If the current number is the target number, the current history is a way to reach that target, so it is returned. If the current number is greater than the target, there’s no sense in further exploring this branch because both adding and multiplying will only make the number bigger, so it returns <code>null</code>. Finally, if we’re still below the target number, the function tries both possible paths that start from the current number by calling itself twice, once for addition and once for multiplication. If the first call returns something that is not <code>null</code>, it is returned. Otherwise, the second call is returned, regardless of whether it produces a string or <code>null</code>.</p>
+<p><a class="p_ident" id="p_ZvedimMnyC" href="#p_ZvedimMnyC" tabindex="-1" role="presentation"></a>برای این کار، تابع یکی از این سه کار را انجام می دهد. اگر عدد فعلی عدد هدف بود، تاریخچه‌ی فعلی (history) به عنوان پاسخ برگردانده می شود. اگر عدد فعلی از عدد هدف بزرگتر بود، معنایی ندارد که کاوش بیشتری برای کشف تاریخچه انجام شود زیرا هر عمل جمع یا ضرب عدد را فقط بزرگتر می کند بنابراین مقدار <code>null</code> را برمی‌گرداند. در نهایت، اگر هنوز عدد فعلی از عدد هدف کوچکتر باشد، تابع هر دو مسیر ممکن که از عدد فعلی شروع می شود را آزمایش می کند و این کار را با دوبار فراخوانی خودش، یکبار برای جمع و یکبار برای ضرب انجام می دهد. اگر اولین فراخوانی چیزی به غیر از <code>null</code> را تولید کرد، آن را بر می گرداند. در غیر این صورت، فراخوانی دوم بازگردانده می شود – فارغ از اینکه رشته یا <code>null</code> را تولید کند.</p>
 
-<p><a class="p_ident" id="p_QvX/6dUvST" href="#p_QvX/6dUvST" tabindex="-1" role="presentation"></a>To better understand how this function produces the effect we’re looking for, let’s look at all the calls to <code>find</code> that are made when searching for a solution for the number 13.</p>
+<p><a class="p_ident" id="p_vTB6PsMp4Q" href="#p_vTB6PsMp4Q" tabindex="-1" role="presentation"></a>برای درک بهتر نحوه عملکرد تابع اجازه دهید به همه‌ی فراخوانی‌های <code>find</code> که برای پیدا کردن جواب مساله برای عدد 13 اتفاق می افتد نگاهی بیاندازیم.</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_KtyfRslIz2" href="#c_KtyfRslIz2" tabindex="-1" role="presentation"></a>find(1, &quot;1&quot;)
   find(6, &quot;(1 + 5)&quot;)
@@ -384,24 +383,24 @@ stack</em>. Every time a function is called, the current context is stored on to
       find(13, &quot;(((1 * 3) + 5) + 5)&quot;)
         found!</pre>
 
-<p><a class="p_ident" id="p_Akhgah+Kcu" href="#p_Akhgah+Kcu" tabindex="-1" role="presentation"></a>The indentation indicates the depth of the call stack. The first time <code>find</code> is called, it starts by calling itself to explore the solution that starts with <code>(1 + 5)</code>. That call will further recurse to explore <em>every</em> continued solution that yields a number less than or equal to the target number. Since it doesn’t find one that hits the target, it returns <code>null</code> back to the first call. There the <code>||</code> operator causes the call that explores <code>(1 * 3)</code> to happen. This search has more luck—its first recursive call, through yet <em>another</em> recursive call, hits upon the target number. That innermost call returns a string, and each of the <code>||</code> operators in the intermediate calls passes that string along, ultimately returning the solution.</p>
+<p>تورفتگی موجود در کد بالا برای نشان دادن عمق پشته‌ی فراخوانی توابع است. اولین بار که <code>find</code> فراخوانی می شود، خودش را برای کاوش راه حلی که با <bdo><code>(1 + 5)</code></bdo> شروع می شود فراخوانی می کند. این فراخوانی با استفاده بازگشت، تمامی راه حل هایی که عددی کمتر یا برابر عدد هدف را تولید می کند را مورد کاوش قرار می دهد. با توجه به این که این فراخوانی نمی تواند به راه حلی برسد مقدار <code>null</code> به عنوان خروجی فراخوانی اول بازگردانده می شود. عملگر <code>||</code> در اینجا باعث کاوش <bdo><code>(1 * 3)</code></bdo> می شود. این جستجو شانس بیشتری دارد به دلیل اینکه اول فراخوانی بازگشتی است که در دل یک فراخوانی بازگشتی دیگر قرار گرفته تا عدد هدف را تولید کند. درونی ترین فراخوانی بازگشتی یک رشته را بر می گرداند و هر کدام از عملگرهای <code>||</code> در فراخوانی‌های میانی آن رشته را دست به دست می کنند تا در نهایتا راه حل برگردانده شود.</p>
 
-<h2><a class="h_ident" id="h_eVDWIAuyBK" href="#h_eVDWIAuyBK" tabindex="-1" role="presentation"></a>Growing functions</h2>
+<h2><a class="h_ident" id="h_sAB7FPnQE6" href="#h_sAB7FPnQE6" tabindex="-1" role="presentation"></a>رشد توابع</h2>
 
-<p><a class="p_ident" id="p_/Xqzd2kxYz" href="#p_/Xqzd2kxYz" tabindex="-1" role="presentation"></a>There are two more or less natural ways for functions to be introduced into programs.</p>
+<p>دو روش دیگر به طور طبیعی باعث می شود که به سراغ استفاده از توابع در برنامه برویم.</p>
 
-<p><a class="p_ident" id="p_zNh7WEzSLI" href="#p_zNh7WEzSLI" tabindex="-1" role="presentation"></a>The first is that you find yourself writing similar code multiple times. You’d prefer not to do that. Having more code means more space for mistakes to hide and more material to read for people trying to understand the program. So you take the repeated functionality, find a good name for it, and put it into a function.</p>
+<p>اول زمانی است که متوجه می شوید در حال تکرار کد بسیار مشابه‌ای در چندین جای برنامه هستید. ترجیح می دهیم از این کار اجتناب کنیم چراکه داشتن کد بیشتر به معنای فضای بیشتر برای پنهان شدن اشتباهات است و همچنین کار بیشتر برای افرادی که قصد دارند با خواندن کد برنامه را بفهمند. بنابراین قسمت تکراری  را گرفته و نام خوبی برای آن انتخاب می کنیم و آن را به تابع تبدیل می کنیم.</p>
 
-<p><a class="p_ident" id="p_HJxU0H/STP" href="#p_HJxU0H/STP" tabindex="-1" role="presentation"></a>The second way is that you find you need some functionality that you haven’t written yet and that sounds like it deserves its own function. You’ll start by naming the function, and then you’ll write its body. You might even start writing code that uses the function before you actually define the function itself.</p>
+<p>حالت دوم زمانی است که متوجه می شوید که به قابلیتی در برنامه نیاز دارید اما هنوز آن را کد نویسی نکرده اید که می تواند به عنوان یک تابع تعریف شود. در این صورت ابتدا نامی برای این تابع در نظر می گیرد و بعدا بنده‌ی آن را می نویسید. ممکن است حتی از تابع مورد نظر در دیگر کدها استفاده کنید قبل از اینکه خود تابع را تعریف کنید.</p>
 
-<p><a class="p_ident" id="p_7YCpyNM9KP" href="#p_7YCpyNM9KP" tabindex="-1" role="presentation"></a>How difficult it is to find a good name for a function is a good indication of how clear a concept it is that you’re trying to wrap. Let’s go through an example.</p>
+<p>سختی پیدا کردن یک نام خوب برای یک تابع نشانه خوبی است تا بفهمیم که مفهومی که قصد داریم به تابع تبدیلش کنیم چقدر برای ما شفاف و روشن است. اجازه بدهید تا مثالی را بررسی کنیم.</p>
 
-<p><a class="p_ident" id="p_NB82EwGY1X" href="#p_NB82EwGY1X" tabindex="-1" role="presentation"></a>We want to write a program that prints two numbers: the numbers of cows and chickens on a farm, with the words <code>Cows</code> and <code>Chickens</code> after them and zeros padded before both numbers so that they are always three digits long.</p>
+<p><a class="p_ident" id="p_b+PAE+H+pa" href="#p_b+PAE+H+pa" tabindex="-1" role="presentation"></a>قصد داریم تا برنامه‌ای بنویسیم که دو عدد را چاپ کند: تعداد گاو‌ها و مرغ‌های یک مزرعه به همراه کلمات <code>Cows</code> و <code>Chickens</code> بعد از آن ها و نشان دادن هر دو عددها با طول 3 رقم ( استفاده از 0 برای ترازبندی)</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_NGDR3Ll2Zn" href="#c_NGDR3Ll2Zn" tabindex="-1" role="presentation"></a>007 Cows
 011 Chickens</pre>
 
-<p><a class="p_ident" id="p_YmL+RnMybe" href="#p_YmL+RnMybe" tabindex="-1" role="presentation"></a>This asks for a function of two arguments—the number of cows and the number of chickens. Let’s get coding.</p>
+<p>با توجه به مساله به تابعی با دو آرگومان نیاز داریم. تعداد گاو‌ها و تعداد مرغ‌ها.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RO+Vw8FSPK" href="#c_RO+Vw8FSPK" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">printFarmInventory</span>(<span class="cm-def">cows</span>, <span class="cm-def">chickens</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">cowString</span> <span class="cm-operator">=</span> <span class="cm-variable">String</span>(<span class="cm-variable-2">cows</span>);
@@ -417,11 +416,11 @@ stack</em>. Every time a function is called, the current context is stored on to
 }
 <span class="cm-variable">printFarmInventory</span>(<span class="cm-number">7</span>, <span class="cm-number">11</span>);</pre>
 
-<p><a class="p_ident" id="p_YLs54aH93M" href="#p_YLs54aH93M" tabindex="-1" role="presentation"></a>Writing <code>.length</code> after a string expression will give us the length of that string. Thus, the <code>while</code> loops keep adding zeros in front of the number strings until they are at least three characters long.</p>
+<p>استفاده از <bdo><code>.length</code></bdo> بعد از مقدار رشته‌ای طول رشته را به ما می دهد. بنابراین، حلقه <code>while</code> عمل افزودن صفر به ابتدای رشته‌ی اعداد را تا زمانی که حداقل طول آن سه کاراکتر بشود ادامه می دهد.</p>
 
-<p><a class="p_ident" id="p_8ePN7y41fs" href="#p_8ePN7y41fs" tabindex="-1" role="presentation"></a>Mission accomplished! But just as we are about to send the farmer the code (along with a hefty invoice), she calls and tells us she’s also started keeping pigs, and couldn’t we please extend the software to also print pigs?</p>
+<p>ماموریت تمام است! اما درست زمانی که قرار است برنامه را برای کشاورز مثال‌مان ( به همراه صورت حساب) ارسال کنیم، با ما تماس می گیرد و اعلام می کند که اخیرا پرورش خوک را نیز شروع کرده است و آیا ما می توانیم قابلیت نرم افزار را افزایش داده تا تعداد خوک ها را نیز چاپ کند؟</p>
 
-<p><a class="p_ident" id="p_h9O1PaViIa" href="#p_h9O1PaViIa" tabindex="-1" role="presentation"></a>We sure can. But just as we’re in the process of copying and pasting those four lines one more time, we stop and reconsider. There has to be a better way. Here’s a first attempt:</p>
+<p>حتما می توانیم. اما درست وقتی که یک بار دیگر در حال کپی و الصاق آن چهار خط هستیم، کمی صبر کرده و تجدید نظر می کنیم. بایستی راه بهتری برای این کار وجود داشته باشد. اولین تلاش ما اینگونه است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RHETS/If7p" href="#c_RHETS/If7p" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">printZeroPaddedWithLabel</span>(<span class="cm-def">number</span>, <span class="cm-def">label</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">numberString</span> <span class="cm-operator">=</span> <span class="cm-variable">String</span>(<span class="cm-variable-2">number</span>);
@@ -439,9 +438,9 @@ stack</em>. Every time a function is called, the current context is stored on to
 
 <span class="cm-variable">printFarmInventory</span>(<span class="cm-number">7</span>, <span class="cm-number">11</span>, <span class="cm-number">3</span>);</pre>
 
-<p><a class="p_ident" id="p_6/4BxnwWvK" href="#p_6/4BxnwWvK" tabindex="-1" role="presentation"></a>It works! But that name, <code>printZeroPaddedWithLabel</code>, is a little awkward. It conflates three things—printing, zero-padding, and adding a label—into a single function.</p>
+<p><a class="p_ident" id="p_zWGN4dSOxe" href="#p_zWGN4dSOxe" tabindex="-1" role="presentation"></a>روش جدید به خوبی کار می کند. اما نام <code>printZeroPaddedWithLabel</code> کمی ناجور به نظر می رسد. به نظر می رسد که سه چیز مختلف – چاپ کردن(printing)، ترازکردن با صفر(zero-padding) و افزودن برچسب (adding a lable) – در یک تابع مخلوط شده است.</p>
 
-<p><a class="p_ident" id="p_/zEyox400N" href="#p_/zEyox400N" tabindex="-1" role="presentation"></a>Instead of lifting out the repeated part of our program wholesale, let’s try to pick out a single <em>concept</em>.</p>
+<p>به جای به دوش کشیدن کل قسمت تکراری در یک تابع، اجازه دهید یک <em>مفهوم</em> را انتخاب کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_L3v+xO5gBH" href="#c_L3v+xO5gBH" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">zeroPad</span>(<span class="cm-def">number</span>, <span class="cm-def">width</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">string</span> <span class="cm-operator">=</span> <span class="cm-variable">String</span>(<span class="cm-variable-2">number</span>);
@@ -459,25 +458,25 @@ stack</em>. Every time a function is called, the current context is stored on to
 
 <span class="cm-variable">printFarmInventory</span>(<span class="cm-number">7</span>, <span class="cm-number">16</span>, <span class="cm-number">3</span>);</pre>
 
-<p><a class="p_ident" id="p_pRacTERPvh" href="#p_pRacTERPvh" tabindex="-1" role="presentation"></a>A function with a nice, obvious name like <code>zeroPad</code> makes it easier for someone who reads the code to figure out what it does. And such a function is useful in more situations than just this specific program. For example, you could use it to help print nicely aligned tables of numbers.</p>
+<p>داشتن یک تابع با یک نام خوب و واضح مثل <code>zeroPad</code> کار را برای کسی که قصد دارد کد برنامه را بفهمد آسان تر خواهد کرد. همچنین می تواند در موقعیت‌های بیشتری مورد استفاده قرار گیرد تا اینکه مخصوص فقط این برنامه باشد. به عنوان مثال، می توانید از این تابع در چاپ جدولی از اعداد که به خوبی تراز شده اند استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_JtW9SrsIA6" href="#p_JtW9SrsIA6" tabindex="-1" role="presentation"></a>How smart and versatile <em>should</em> our function be? We could write anything, from a terribly simple function that can only pad a number to be three characters wide to a complicated generalized number-formatting system that handles fractional numbers, negative numbers, alignment of decimal dots, padding with different characters, and so on.</p>
+<p>چقدر تابع‌مان می <em>باید</em> هوشمند و جامع باشد بسازیم؟  می توانیم هر تابعی را بنویسیم ازتابعی که عمل بسیار ساده افزودن کاراکتر برای تراز عدد در سه کاراکتر را انجام می دهد تا یک سیستم پیچیده عمومی قالب‌بندی اعداد که قادر است اعداد اعشاری، منفی، ترازبندی نقطه‌ها، فاصله‌گذاری با کاراکترهای مختلف و غیره را مدیریت کند.</p>
 
-<p><a class="p_ident" id="p_9fiX2KwoZe" href="#p_9fiX2KwoZe" tabindex="-1" role="presentation"></a>A useful principle is to not add cleverness unless you are absolutely sure you’re going to need it. It can be tempting to write general “frameworks” for every bit of functionality you come across. Resist that urge. You won’t get any real work done—you’ll just be writing code that you never use.</p>
+<p><a class="p_ident" id="p_8XiGfaKHnK" href="#p_8XiGfaKHnK" tabindex="-1" role="presentation"></a>یه قاعده کاربردی در اینجا این است که هوشمندی بیشتری به تابع اضافه نکنیم  مگر در حالتی که قطعا مطمئن هستیم که از آن استفاده خواهیم کرد. ممکن است وسوسه شویم که برای هرعملکرد کوچکی که نیاز داریم ، چهارچوب‌هایی(framework) عمومی بنویسیم. در مقابل این وسوسه باید مقاومت کرد. در غیر این صورت برنامه جلو نخواهد رفت و در پایان کدهای بسیاری خواهید نوشت که هرگز استفاده نخواهید کرد.</p>
 
-<h2 id="pure"><a class="h_ident" id="h_EdyBGBF6y/" href="#h_EdyBGBF6y/" tabindex="-1" role="presentation"></a>Functions and side effects</h2>
+<h2 id="pure"><a class="h_ident" id="h_Nm9AGiwA2E" href="#h_Nm9AGiwA2E" tabindex="-1" role="presentation"></a>توابع و اثرات جانبی</h2>
 
-<p><a class="p_ident" id="p_WWC8zZChk6" href="#p_WWC8zZChk6" tabindex="-1" role="presentation"></a>Functions can be roughly divided into those that are called for their side effects and those that are called for their return value. (Though it is definitely also possible to both have side effects and return a value.)</p>
+<p>به طور کلی می توان توابع را به آن‌هایی که برای اثرات جانبی‌شان فراخوانی می شوند و آن‌هایی که برای مقداری که برمی گردانند فراخوانی می شوند تقسیم کرد. (اگرچه قطعا می توان تابعی داشت که هم اثر جانبی داشته باشد و هم مقداری را بازگرداند).</p>
 
-<p><a class="p_ident" id="p_NoFe+XFM0N" href="#p_NoFe+XFM0N" tabindex="-1" role="presentation"></a>The first helper function in the farm example, <code>printZeroPaddedWithLabel</code>, is called for its side effect: it prints a line. The second version, <code>zeroPad</code>, is called for its return value. It is no coincidence that the second is useful in more situations than the first. Functions that create values are easier to combine in new ways than functions that directly perform side effects.</p>
+<p>اولین تابع کمکی که در مثال مربوط به مثال مزرعه آمد، تابع <code>printZeroPaddedWithLabel</code> برای اثر جانبی‌اش فراخوانی شد: چاپ یک خط در خروجی. در نسخه‌ی دوم، تابع <code>zeroPad</code> برای مقداری که برمی‌گرداند  فراخوانده شد. اینکه تابع دوم در موقعیت های بیشتری نسبت به تابع اول کاربرد دارد تصادفی نیست. توابعی که مقادیری را ایجاد می کنند را راحتتر می توان به شکل های جدید ترکیب کرد نسبت به توابعی که مستقیما اثرات جانبی خاصی را اجرا می کنند.</p>
 
-<p><a class="p_ident" id="p_f/i3GqalXG" href="#p_f/i3GqalXG" tabindex="-1" role="presentation"></a>A <em>pure</em> function is a specific kind of value-producing function that not only has no side effects but also doesn’t rely on side effects from other code—for example, it doesn’t read global bindings whose value might change. A pure function has the pleasant property that, when called with the same arguments, it always produces the same value (and doesn’t do anything else). A call to such a function can be substituted by its return value without changing the meaning of the code. When you are not sure that a pure function is working correctly, you can test it by simply calling it and know that if it works in that context, it will work in any context. Nonpure functions tend to require more scaffolding to test.</p>
+<p><a class="p_ident" id="p_MNdAzDkH2+" href="#p_MNdAzDkH2+" tabindex="-1" role="presentation"></a>یک تابع <em>ناب</em> (pure) شکل خاصی از یک تابعی است که مقداری را بر می گرداند و نه تنها خودش اثر جانبی ندارد، به اثرات جانبی دیگر کدها نیز وابستگی ندارد – مثلا متغیرهای جهانی که ممکن است در کدهای دیگر تغییر کنند را مورد استفاده قرار نمی دهد. یک تابع ناب ویژگی خوبش در این است که اگر با آرگومان‌های ثابت و مشابهی فراخوانی شود، همیشه مقدار مشابهی را برمیگرداند (و رفتار متفاوتی انجام نمی دهد). فراخوانی تابعی با این ویژگی را می توان بدون تغییر در معنای کد برنامه، معادل مقدار بازگشتی‌اش در نظر گرفت. زمانی که از صحت عملکرد یک تابع ناب مطمئن نیستید به راحتی می توانید با فراخوانی، آن را تست کنید و اگر در آن بستر (context) به درستی کار کرد، در همه‌ی بسترها هم به درستی کار خواهد کرد. توابع غیرناب اما برای آزمایش نیاز به شرایط و پیش‌نیازهای بیشتری دارند.</p>
 
-<p><a class="p_ident" id="p_PQLC9w+gBa" href="#p_PQLC9w+gBa" tabindex="-1" role="presentation"></a>Still, there’s no need to feel bad when writing functions that are not pure or to wage a holy war to purge them from your code. Side effects are often useful. There’d be no way to write a pure version of <code>console.log</code>, for example, and <code>console.log</code> is good to have. Some operations are also easier to express in an efficient way when we use side effects, so computing speed can be a reason to avoid purity.</p>
+<p>البته نیازی نیست هنگامی که توابعی می نویسید که ناب نیستند احساس بدی داشته باشید یا اینکه برای حذف آن‌ها از کدهایتان جنگی راه بیاندازید. اثرات جانبی معمولا کاربرد خودشان را دارند.  مثلا هیچ راه نابی برای نوشتن نسخه‌ای از تابع <code>console.log</code> وجود ندارد و مشخص است که <code>console.log</code> بسیار مفید است. بعضی کارها را اگر به کمک اثرات جانبی انجام دهیم راحت تر و سریع‌تر می توان عملی کرد که در این صورت سرعت محاسبه‌ی برنامه را می توان دلیلی بر اجتناب از تابع ناب دانست.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_LLhiHGkZNx" href="#p_LLhiHGkZNx" tabindex="-1" role="presentation"></a>This chapter taught you how to write your own functions. The <code>function</code> keyword, when used as an expression, can create a function value. When used as a statement, it can be used to declare a binding and give it a function as its value. Arrow functions are yet another way to create functions.</p>
+<p>این فصل به شما نوشتن توابع خودتان را یاد داد. کلمه‌ی کلیدی <code>function</code> زمانی که به عنوان یک عبارت استفاده می شود، می تواند یک مقدار تابع ایجاد کنید. زمانی‌ هم که به عنوان یک دستور استفاده می شود، متغیری را اعلان می کند و تابعی را به عنوان مقدار آن به آن اختصاص می دهد. روش پیکانی نیز راهی دیگر برای ایجاد توابع است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_x2/+thzlca" href="#c_x2/+thzlca" tabindex="-1" role="presentation"></a><span class="cm-comment">// Define f to hold a function value</span>
 <span class="cm-keyword">const</span> <span class="cm-def">f</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">a</span>) {
@@ -492,15 +491,15 @@ stack</em>. Every time a function is called, the current context is stored on to
 <span class="cm-comment">// A less verbose function value</span>
 <span class="cm-keyword">let</span> <span class="cm-def">h</span> <span class="cm-operator">=</span> <span class="cm-def">a</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span> <span class="cm-operator">%</span> <span class="cm-number">3</span>;</pre>
 
-<p><a class="p_ident" id="p_2uxoSaANas" href="#p_2uxoSaANas" tabindex="-1" role="presentation"></a>A key aspect in understanding functions is understanding scopes. Each block creates a new scope. Parameters and bindings declared in a given scope are local and not visible from the outside. Bindings declared with <code>var</code> behave differently—they end up in the nearest function scope or the global scope.</p>
+<p>نقطه‌ی کلیدی در فهم توابع، درک مفهوم حوزه‌ها است. هر بلاک از کد حوزه‌ی جدیدی را ایجاد می کند.  پارامترها و متغیرهایی که درون یک بلاک اعلان می شوند نسبت به آن تابع محلی هستند، و از بیرون بلاک قابل دسترسی نیستند. متغیرهایی که با کلیدواژه‌ی <code>var</code> ایجاد می شوند به شکل متفاوتی عمل می کنند – محدوده‌ی آن تا پایان حوزه‌ی نزدیک ترین تابع یا فضای سراسری برنامه است.</p>
 
-<p><a class="p_ident" id="p_MIZ+5rL4hE" href="#p_MIZ+5rL4hE" tabindex="-1" role="presentation"></a>Separating the tasks your program performs into different functions is helpful. You won’t have to repeat yourself as much, and functions can help organize a program by grouping code into pieces that do specific things.</p>
+<p>جداسازی قابلیت‌های برنامه به شکل توابع متفاوت بسیار مفید است. باعث می شود که از تکرار بی مورد پرهیز کنید. همچنین توابع باعث می شوند که یک برنامه به وسیله گروهبندی کدها به قسمت‌هایی که هر کدام کار خاصی انجام می دهند، سازماندهی بشود.</p>
 
 <h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
 
-<h3><a class="i_ident" id="i_XTmO7z7MPq" href="#i_XTmO7z7MPq" tabindex="-1" role="presentation"></a>Minimum</h3>
+<h3><a class="i_ident" id="i_R74RC5FV2X" href="#i_R74RC5FV2X" tabindex="-1" role="presentation"></a>کمینه</h3>
 
-<p><a class="p_ident" id="p_aW/Uoj4mDd" href="#p_aW/Uoj4mDd" tabindex="-1" role="presentation"></a>The <a href="02_program_structure.html#return_values">previous chapter</a> introduced the standard function <code>Math.min</code> that returns its smallest argument. We can build something like that now. Write a function <code>min</code> that takes two arguments and returns their minimum.</p>
+<p>در <a href="02_program_structure.html#return_values">فصل قبل</a> با تابع استاندارد <code>Math.min</code> که کوچکترین عدد را از بین آرگومان‌های ورودی برمی گرداند آشنا شدید. خودمان هم می توانیم این کار را برنامه نویسی کنیم. تابعی به نام <code>min</code> بنویسید که دو آرگومان دریافت کرده و کوچکترین آن‌ها را باز می‌گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_zoK4eQ6E3E" href="#c_zoK4eQ6E3E" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -517,27 +516,27 @@ stack</em>. Every time a function is called, the current context is stored on to
 
 </div></div>
 
-<h3><a class="i_ident" id="i_jxl1p970Fy" href="#i_jxl1p970Fy" tabindex="-1" role="presentation"></a>Recursion</h3>
+<h3><a class="i_ident" id="i_lyUVxDnHs6" href="#i_lyUVxDnHs6" tabindex="-1" role="presentation"></a>بازگشت</h3>
 
-<p><a class="p_ident" id="p_jU1r1XPp0G" href="#p_jU1r1XPp0G" tabindex="-1" role="presentation"></a>We’ve seen that <code>%</code> (the remainder operator) can be used to test whether a number is even or odd by using <code>% 2</code> to see whether it’s divisible by two. Here’s another way to define whether a positive whole number is even or odd:</p>
+<p>قبلا دیده بودایم که عملگر <code>%</code> (باقی مانده) را می توان برای تشخیص زوج یا فرد بودن عدد استفاده کرد که برای این کار با <bdo><code>% 2</code></bdo> بخش پذیری بر دو مورد آزمایش قرار می گرفت. در اینجا با راهی دیگر برای تشخیص زوج یا فرد بودن یک عدد صحیح مثبت آشنا می شویم:</p>
 
 <ul>
 
 <li>
 
-<p><a class="p_ident" id="p_lCOBPDdrEk" href="#p_lCOBPDdrEk" tabindex="-1" role="presentation"></a>Zero is even.</p></li>
+<p>صفر را زوج در نظر می گیریم</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_fWhtKbL+Su" href="#p_fWhtKbL+Su" tabindex="-1" role="presentation"></a>One is odd.</p></li>
+<p>یک فرد است</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_1dwrqpocrW" href="#p_1dwrqpocrW" tabindex="-1" role="presentation"></a>For any other number <em>N</em>, its evenness is the same as <em>N</em> - 2.</p></li></ul>
+<p><a class="p_ident" id="p_KpgZOkANgN" href="#p_KpgZOkANgN" tabindex="-1" role="presentation"></a>برای هر عددی دیگر <em>N</em> زوج بودن آن مشابه <bdo><em>N</em> - 2</bdo> خواهد بود.</p></li></ul>
 
-<p><a class="p_ident" id="p_zxMN8E0WOI" href="#p_zxMN8E0WOI" tabindex="-1" role="presentation"></a>Define a recursive function <code>isEven</code> corresponding to this description. The function should accept a single parameter (a positive, whole number) and return a Boolean.</p>
+<p>تابع بازگشتی <code>isEven</code> را با توجه به توضیحات بالا تعریف کنید. تابع باید پارامتری مثبت و از جنس اعداد صحیح دریافت کند و مقداری از جنس بولی برگرداند.</p>
 
-<p><a class="p_ident" id="p_0+fMeza2x5" href="#p_0+fMeza2x5" tabindex="-1" role="presentation"></a>Test it on 50 and 75. See how it behaves on -1. Why? Can you think of a way to fix this?</p>
+<p><a class="p_ident" id="p_F8nwhNCAnQ" href="#p_F8nwhNCAnQ" tabindex="-1" role="presentation"></a>تابع را با مقادیر 50 و 75 تست کنید. بررسی کنید که اگر <bdo>-1</bdo> را به آن بدهید چه خواهد شد. چرا؟ آیا می توانید راهی برای حل مشکل پیش آمده پیدا کنید؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7Dyz/3MMqh" href="#c_7Dyz/3MMqh" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -556,13 +555,13 @@ stack</em>. Every time a function is called, the current context is stored on to
 
 </div></div>
 
-<h3><a class="i_ident" id="i_3rsiDgC2do" href="#i_3rsiDgC2do" tabindex="-1" role="presentation"></a>Bean counting</h3>
+<h3><a class="i_ident" id="i_YU8xeCexae" href="#i_YU8xeCexae" tabindex="-1" role="presentation"></a>شمارش دانه</h3>
 
-<p><a class="p_ident" id="p_8y74cOkS91" href="#p_8y74cOkS91" tabindex="-1" role="presentation"></a>You can get the Nth character, or letter, from a string by writing <code>&quot;string&quot;[N]</code>. The returned value will be a string containing only one character (for example, <code>&quot;b&quot;</code>). The first character has position 0, which causes the last one to be found at position <code>string.<wbr>length - 1</code>. In other words, a two-character string has length 2, and its characters have positions 0 and 1.</p>
+<p><a class="p_ident" id="p_D3C8NOezly" href="#p_D3C8NOezly" tabindex="-1" role="presentation"></a>برای بدست آوردن کاراکتر یا حرف Nام یک رشته، می توانید از <code>&quot;string&quot;[N]</code> استفاده کنید. مقداری که برگردانده می شود رشته‌ای است که فقط یک کاراکتر دارد. (مثلا رشته‌ی <code>&quot;b&quot;</code>). کاراکتر اول در جایگاه صفرم قرار دارد. بنابراین آخرین کاراکتر در جایگاه <bdo><code>string.<wbr>length - 1</code></bdo> قرار بگیرد. به عبارتی دیگر، یک رشته‌ی دو کاراکتری طولش 2 کاراکتر است و کاراکتر‌هایش در جایگاه 0 و 1 قرار دارند.</p>
 
-<p><a class="p_ident" id="p_3+wBcfMbYR" href="#p_3+wBcfMbYR" tabindex="-1" role="presentation"></a>Write a function <code>countBs</code> that takes a string as its only argument and returns a number that indicates how many uppercase “B” characters there are in the string.</p>
+<p><a class="p_ident" id="p_rk8oHfWl0P" href="#p_rk8oHfWl0P" tabindex="-1" role="presentation"></a>تابعی به نام <code>countBs</code> بنویسید که رشته ای را به عنوان تنها آرگومانش می پذیرد و عددی را برمیگرداند که نشان می دهد چند کاراکتر “B” بزرگ در رشته وجود دارد.</p>
 
-<p><a class="p_ident" id="p_WdA52+sgwM" href="#p_WdA52+sgwM" tabindex="-1" role="presentation"></a>Next, write a function called <code>countChar</code> that behaves like <code>countBs</code>, except it takes a second argument that indicates the character that is to be counted (rather than counting only uppercase “B” characters). Rewrite <code>countBs</code> to make use of this new function.</p>
+<p>بعد، تابعی به نام <code>countChar</code> بنویسید که شبیه <code>countBs</code> کار می کند اما آرگومان دومی نیز دریافت می کند که مشخص کننده کاراکتری است که بایستی شمرده بشود ( به جای اینکه فقط B شمرده شود ). تابع <code>countBs</code> را بازنویسی کنید تا این ویژگی جدید را داشته باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QN+QdpdCe+" href="#c_QN+QdpdCe+" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
