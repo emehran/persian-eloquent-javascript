@@ -124,6 +124,7 @@ code {
 bdo{
   direction: ltr;
 }
+
 h1, h2, h3 {
   font-family: Shabnam, Georgia, serif;
   font-weight: 700;
@@ -474,11 +475,12 @@ td {
 }
 
 td + td {
-  padding-left: 1em;
+  padding-right: 1em;
 }
 
 table {
-  margin-left: 15px;
+  margin-right: 15px;
+  direction:ltr;
 }
 
 sub, sup {

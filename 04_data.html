@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Structures: Objects and Arrays :: Eloquent JavaScript</title>
+  <title>ساختارهای داده: اشیاء و آرایه‌ها :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
@@ -12,7 +12,7 @@
 <article>
 <nav><a href="03_functions.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="05_higher_order.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 4</span>Data Structures: Objects and Arrays</h1>
+<h1><span class=chap_num>Chapter 4</span>ساختارهای داده: اشیاء و آرایه‌ها</h1>
 
 <blockquote>
 
@@ -22,31 +22,31 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_4.jpg" alt="Picture of a weresquirrel"></figure>
 
-<p><a class="p_ident" id="p_j/UjCN3npi" href="#p_j/UjCN3npi" tabindex="-1" role="presentation"></a>Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. <em>Objects</em> allow us to group values—including other objects—to build more complex structures.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>اعداد، مقادیر بولی، و رشته‌ها عناصری هستند که ساختار داده‌‌ها از آن ها ساخته می شوند. اگرچه انواع زیادی از اطلاعات هستند که نیاز به چیزی بیش از یک عنصر دارند. <em>اشیاء</em> این امکان را به ما می دهند که مقادیر مختلف – از جمله دیگر اشیاء – را با هم ترکیب کنیم و ساختارهای پیچیده‌تری را بسازیم.</p>
 
-<p><a class="p_ident" id="p_F4YgzUjHcT" href="#p_F4YgzUjHcT" tabindex="-1" role="presentation"></a>The programs we have built so far have been limited by the fact that they were operating only on simple data types. This chapter will introduce basic data structures. By the end of it, you’ll know enough to start writing useful programs.</p>
+<p>برنامه هایی که تا کنون ساخته‌ایم محدود به کار با انواع داده‌ی ساده بوده اند. این فصل ساختارهای داده‌ی پایه معرفی می شوند. در انتهای این فصل ، به اندازه کافی اطلاعات دارید که شروع به نوشتن برنامه‌های کاربردی بکنید.</p>
 
-<p><a class="p_ident" id="p_vL8agXHSiL" href="#p_vL8agXHSiL" tabindex="-1" role="presentation"></a>The chapter will work through a more or less realistic programming example, introducing concepts as they apply to the problem at hand. The example code will often build on functions and bindings that were introduced earlier in the text.</p>
+<p>این فصل با مثال‌های برنامه‌نویسی کم و بیش واقعی جلو می رود تا مفاهیم جدید را همانطور که در مسئله پیش می آیند، معرفی کند. کدهای مثال‌ها اغلب با توابع و متغیرهایی که پیش‌تر معرفی شده اند ساخته می شوند.</p>
 
-<h2><a class="h_ident" id="h_NvjtahQLlw" href="#h_NvjtahQLlw" tabindex="-1" role="presentation"></a>The weresquirrel</h2>
+<h2><a class="h_ident" id="h_d+Hn7Tmkxv" href="#h_d+Hn7Tmkxv" tabindex="-1" role="presentation"></a>انسان‌سنجاب</h2>
 
-<p><a class="p_ident" id="p_0aih0sjFrb" href="#p_0aih0sjFrb" tabindex="-1" role="presentation"></a>Every now and then, usually between 8 p.m. and 10 p.m., Jacques finds himself transforming into a small furry rodent with a bushy tail.</p>
+<p>هر از چند گاهی معمولا بین ساعت هشت تا ده شب ژاک متوجه می شود که تغییر شکل داده و به یک جونده کوچک با دمی پرپشت تبدیل می شود.</p>
 
-<p><a class="p_ident" id="p_EIDMzKWaqr" href="#p_EIDMzKWaqr" tabindex="-1" role="presentation"></a>On one hand, Jacques is quite glad that he doesn’t have classic lycanthropy. Turning into a squirrel does cause fewer problems than turning into a wolf. Instead of having to worry about accidentally eating the neighbor (<em>that</em> would be awkward), he worries about being eaten by the neighbor’s cat. After two occasions where he woke up on a precariously thin branch in the crown of an oak, naked and disoriented, he has taken to locking the doors and windows of his room at night and putting a few walnuts on the floor to keep himself busy.</p>
+<p>از یک سو ژاک نسبتا خوشحال است که شبیه داستان‌های کلاسیک تبدیل به گرگ نمی شود. سنجاب شدن احتمالا مشکلاتی کمتری نسبت به گرگ شدن ایجاد می کند. به جای اینکه نگران باشد که اتفاقی همسایه‌اش را نخورد ( که خیلی ناجور است )، نگران خورده شدن توسط گربه‌ی همسایه است. بعد از دو مرتبه‌ای که روی شاخه‌ی باریک و لرزانی بالای یک درخت بلوط، لخت و گیج، بیدار شد، درها و پنجره‌های  اتاقش را شب‌ها قفل می کرد و چندتایی گردو هم کف اتاق قرار می داد که سرگرم بماند.</p>
 
-<p><a class="p_ident" id="p_ciZTylV1yl" href="#p_ciZTylV1yl" tabindex="-1" role="presentation"></a>That takes care of the cat and tree problems. But Jacques would prefer to get rid of his condition entirely. The irregular occurrences of the transformation make him suspect that they might be triggered by something. For a while, he believed that it happened only on days when he had been near oak trees. But avoiding oak trees did not stop the problem.</p>
+<p>این، مشکل گربه‌ی همسایه و درخت را حل می کرد. اما ژاک به دنبال این بود که از این مشکل به طور کلی رهایی یابد. تبدیل شدن‌های بی نظم و قاعده باعث شده بود که شک کند شاید چیز خاصی علت این مشکل باشد. برای مدتی،  فکر می کرد که این اتفاق در روزهایی رخ می دهد که نزدیک درخت بلوط بوده است. اما دوری از درخت بلوط هم کمکی نکرد و مشکل برطرف نشد.</p>
 
-<p><a class="p_ident" id="p_Xj6eprhXkS" href="#p_Xj6eprhXkS" tabindex="-1" role="presentation"></a>Switching to a more scientific approach, Jacques has started keeping a daily log of everything he does on a given day and whether he changed form. With this data he hopes to narrow down the conditions that trigger the transformations.</p>
+<p>ژاک با انتخاب روشی علمی تر، اقدام به نگه‌داری گزارشی روزانه از همه‌ی فعالیت‌هایی یک روز و وضعیت تبدیل شدن به سنجاب نموده است. با در دست داشتن این اطلاعات، امیدوار است بتواند شرایطی که باعث بروز تبدیل می شود را محدودتر کند.</p>
 
-<p><a class="p_ident" id="p_mcDf0Dxvcm" href="#p_mcDf0Dxvcm" tabindex="-1" role="presentation"></a>The first thing he needs is a data structure to store this information.</p>
+<p>اکنون اولین کاری که باید انجام دهد طراحی یک ساختار داده برای ذخیره این اطلاعات است.</p>
 
-<h2><a class="h_ident" id="h_HjL/otjEJn" href="#h_HjL/otjEJn" tabindex="-1" role="presentation"></a>Data sets</h2>
+<h2><a class="h_ident" id="h_v3yvJ+5nHg" href="#h_v3yvJ+5nHg" tabindex="-1" role="presentation"></a>مجموعه‌های داده</h2>
 
-<p><a class="p_ident" id="p_HFLfyQFSDp" href="#p_HFLfyQFSDp" tabindex="-1" role="presentation"></a>To work with a chunk of digital data, we’ll first have to find a way to represent it in our machine’s memory. Say, for example, that we want to represent a collection of the numbers 2, 3, 5, 7, and 11.</p>
+<p><a class="p_ident" id="p_oZVqgDTFVc" href="#p_oZVqgDTFVc" tabindex="-1" role="presentation"></a>برای کار با داده‌های دیجیتال، ابتدا باید راهی، برای ارائه‌ی آن‌ها در حافظه‌ی کامپیوتر (ماشین) بیابیم. به عنوان یک مثال ساده، فرض کنید که می خواهیم مجموعه ای از اعداد، 2، 3، 5، 7، و 11 را در حافظه قرار دهیم.</p>
 
-<p><a class="p_ident" id="p_cnzv4pg+Wz" href="#p_cnzv4pg+Wz" tabindex="-1" role="presentation"></a>We could get creative with strings—after all, strings can have any length, so we can put a lot of data into them—and use <code>&quot;2 3 5 7 11&quot;</code> as our representation. But this is awkward. You’d have to somehow extract the digits and convert them back to numbers to access them.</p>
+<p>برای این کار می توانیم از رشته‌ها، خلاقانه بهره ببریم – به هر حال رشته ها می توانند هر طولی داشته باشند؛ پس می توان داده‌های زیادی درون آن‌ها قرار داد – و از نمایش رشته‌ای <bdo><code>&quot;2 3 5 7 11&quot;</code></bdo> استفاده کنیم. اما این کار ایرادهایی دارد. برای استفاده از اعداد، مجبور خواهید شد که به شکلی آن ها را از دل رشته ها استخراج و به نوع عدد تبدیل کنید.</p>
 
-<p><a class="p_ident" id="p_/aFILq7bDn" href="#p_/aFILq7bDn" tabindex="-1" role="presentation"></a>Fortunately, JavaScript provides a data type specifically for storing sequences of values. It is called an <em>array</em> and is written as a list of values between square brackets, separated by commas.</p>
+<p>خوشبختانه، جاوااسکریپت نوع داده‌ای فراهم می کند که به طور خاص برای ذخیره دنباله‌ای از مقدارها استفاده می شود. این نوع داده خاص <em>آرایه</em> نام دارد و به این صورت نوشته می شود که مقدارها بین براکت قرار می گیرند و با ویرگول جدا می شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_05cIH1hy/D" href="#c_05cIH1hy/D" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">listOfNumbers</span> <span class="cm-operator">=</span> [<span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">5</span>, <span class="cm-number">7</span>, <span class="cm-number">11</span>];
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">listOfNumbers</span>[<span class="cm-number">2</span>]);
@@ -56,30 +56,30 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">listOfNumbers</span>[<span class="cm-number">2</span> <span class="cm-operator">-</span> <span class="cm-number">1</span>]);
 <span class="cm-comment">// → 3</span></pre>
 
-<p><a class="p_ident" id="p_xu5bhsrvS2" href="#p_xu5bhsrvS2" tabindex="-1" role="presentation"></a>The notation for getting at the elements inside an array also uses square brackets. A pair of square brackets immediately after an expression, with another expression inside of them, will look up the element in the left-hand expression that corresponds to the <em>index</em> given by the expression in the brackets.</p>
+<p>برای دستیابی به عناصر درون یک آرایه نیز، از براکت‌ها استفاده می شود. یک جفت براکت که بلافاصله بعد از یک عبارت می آیند و بعد از آن عبارتی دیگر درون آن قرار می گیرد. با این کار عنصر مورد نظرمان را با استفاده از <em>شاخصی</em> که به وسیله عبارت داخل براکت‌ها مشخص می کنیم، در داخل عبارت سمت چپ جستجو می کنیم.</p>
 
-<p id="array_indexing"><a class="p_ident" id="p_1+NmIJreij" href="#p_1+NmIJreij" tabindex="-1" role="presentation"></a>The first index of an array is zero, not one. So the first element is retrieved with <code>listOfNumbers[0]</code>. Zero-based counting has a long tradition in technology and in certain ways makes a lot of sense, but it takes some getting used to. Think of the index as the amount of items to skip, counting from the start of the array.</p>
+<p id="array_indexing">اولین خانه‌ی یک آرایه، صفر است، نه یک. بنابراین اولین عنصر را می توان با <bdo><code>listOfNumbers[0]</code></bdo> به دست آورد.  شمارش از صفر، در تکنولوژی سابقه‌ای دیرینه دارد و در بعضی مواقع کاری بسیار معقول می باشد؛ اما ممکن است کمی زمان ببرد تا به آن عادت کنید. می توانید اندیس آرایه را به صورت تعداد آیتم هایی که باید از ابتدای آرایه گذشت تا به عنصر مورد نظر رسید، تصور کرد.</p>
 
-<h2 id="properties"><a class="h_ident" id="h_vGyI2y8HA6" href="#h_vGyI2y8HA6" tabindex="-1" role="presentation"></a>Properties</h2>
+<h2 id="properties"><a class="h_ident" id="h_DOvcyyR3ED" href="#h_DOvcyyR3ED" tabindex="-1" role="presentation"></a>خاصیت‌ها</h2>
 
-<p><a class="p_ident" id="p_GC4++VF2pM" href="#p_GC4++VF2pM" tabindex="-1" role="presentation"></a>We’ve seen a few suspicious-looking expressions like <code>myString.length</code> (to get the length of a string) and <code>Math.max</code> (the maximum function) in past chapters. These are expressions that access a <em>property</em> of some value. In the first case, we access the <code>length</code> property of the value in <code>myString</code>. In the second, we access the property named <code>max</code> in the <code>Math</code> object (which is a collection of mathematics-related constants and functions).</p>
+<p>در فصل‌های قبل، با عبارت‌هایی روبرو شده ایم که ظاهری نامانوس داشتند مانند <bdo><code>myString.length</code></bdo> (برای بدست آوردن طول رشته) یا <code>Math.max</code> (برای یافتن بیشینه اعداد). این ها عبارت‌هایی هستند که به <em>خاصیتی</em> از یک مقدار دسترسی دارند. در مثال اول، به خاصیت <code>length</code> از مقدار <code>myString</code> اشاره می کنیم. در مورد دوم، به خاصیتی با نام <code>max</code> از شیء <code>Math</code> دسترسی پیدا کرده ایم ( که این شیء شامل مجموعه ای از ثابت ها و توابع ریاضی می باشد).</p>
 
-<p><a class="p_ident" id="p_dTOk+Nu/lR" href="#p_dTOk+Nu/lR" tabindex="-1" role="presentation"></a>Almost all JavaScript values have properties. The exceptions are <code>null</code> and <code>undefined</code>. If you try to access a property on one of these nonvalues, you get an error.</p>
+<p>تقریبا همه‌ی مقدارهای جاوااسکریپت دارای خاصیت‌ها می باشند. مورد استثنا <code>null</code> و <code>undefined</code>  است. اگر سعی کنید تا به خاصیتی از این دو اشاره کنید، با خطا مواجه خواهید شد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FNR95AymUx" href="#c_FNR95AymUx" tabindex="-1" role="presentation"></a><span class="cm-atom">null</span>.<span class="cm-property">length</span>;
 <span class="cm-comment">// → TypeError: null has no properties</span></pre>
 
-<p><a class="p_ident" id="p_wm1lZqKJ49" href="#p_wm1lZqKJ49" tabindex="-1" role="presentation"></a>The two main ways to access properties in JavaScript are with a dot and with square brackets. Both <code>value.x</code> and <code>value[x]</code> access a property on <code>value</code>—but not necessarily the same property. The difference is in how <code>x</code> is interpreted. When using a dot, the word after the dot is the literal name of the property. When using square brackets, the expression between the brackets is <em>evaluated</em> to get the property name. Whereas <code>value.x</code> fetches the property of <code>value</code> named “x”, <code>value[x]</code> tries to evaluate the expression <code>x</code> and uses the result, converted to a string, as the property name.</p>
+<p><a class="p_ident" id="p_EfatjsUqKY" href="#p_EfatjsUqKY" tabindex="-1" role="presentation"></a>دو روش رایج برای دسترسی به خاصیت‌ها در جاوااسکریپت استفاده از نقطه و براکت است. هر دوی <bdo><code>value.x</code></bdo> و <bdo><code>value[x]</code></bdo> به خاصیتی از <code>value</code> دسترسی دارند – اما نه لزوما به خاصیتی یکسان. تفاوت به نحوه‌ی تفسیر <code>x</code> بر می گردد. زمانی که از نقطه استفاده می کنیم، قسمت بعد از نقطه، بایستی نام متغیری معتبر باشد که مستقیما نام خاصیت را مشخص می کند. زمانی که از براکت استفاده می شود، عبارتی که بین براکت‌ها قرار می گیرد <em>ارزیابی</em> شده تا نام خاصیت مشخص شود. در حالیکه  <bdo><code>value.x</code></bdo> خاصیتی از <code>value</code> که نام آن “x” است را برمی‌گرداند، <bdo><code>value[x]</code></bdo> سعی می کند تا عبارت <code>x</code> را ارزیابی کرده و نتیجه‌ی آن را به عنوان نام خاصیت استفاده کند.</p>
 
-<p><a class="p_ident" id="p_PeocsmCJ3P" href="#p_PeocsmCJ3P" tabindex="-1" role="presentation"></a>So if you know that the property you are interested in is called <em>color</em>, you say <code>value.color</code>. If you want to extract the property named by the value held in the binding <code>i</code>, you say <code>value[i]</code>. Property names are strings. They can be any string, but the dot notation works only with names that look like valid binding names. So if you want to access a property named <em>2</em> or <em>John Doe</em>, you must use square brackets: <code>value[2]</code> or <code>value[&quot;John Doe&quot;]</code>.</p>
+<p><a class="p_ident" id="p_6/I9FI5SCH" href="#p_6/I9FI5SCH" tabindex="-1" role="presentation"></a>بنابراین اگر می دانید که نام خاصیتی که مورد نظرتان است <em>color</em> است شود به سراغ <bdo><code>value.color</code></bdo> بروید. اگر قصد دارید به خاصیتی اشاره کنید که نامش در متغیر <code>i</code> ذخیره شده است ، می توانید از <bdo><code>value[i]</code></bdo> استفاده کنید. نام یک خاصیت می تواند هر رشته‌ای باشد، اما روش استفاده از نقطه، فقط روی نام‌هایی کار می کند که برای یک متغیر معتبر می باشند. بنابراین اگر قصد دارید تا به خاصیتی به نام <em>2</em> یا <bdo><em>John Doe</em></bdo> دسترسی داشته باشید، باید حتما از براکتها استفاده کنید:‌<bdo><code>value[2]</code></bdo>  یا <bdo><code>value[&quot;John Doe&quot;]</code></bdo>.</p>
 
-<p><a class="p_ident" id="p_v2+DwDjnmO" href="#p_v2+DwDjnmO" tabindex="-1" role="presentation"></a>The elements in an array are stored as the array’s properties, using numbers as property names. Because you can’t use the dot notation with numbers and usually want to use a binding that holds the index anyway, you have to use the bracket notation to get at them.</p>
+<p>عناصر درون یک آرایه به عنوان خاصیت‌های آن ذخیره می شوند که برای نام این خاصیت ها از اعداد استفاده می شود. چون نمی توان از نقطه برای دسترسی به نام‌های عدد استفاده کرد، و اغلب لازم است تا به خانه‌های آرایه با استفاده از متغیرها اشاره کنیم، باید از روش براکت‌ برای دستیابی به آن‌ها استفاده کنیم.</p>
 
-<p><a class="p_ident" id="p_Bcq+Q3kiI4" href="#p_Bcq+Q3kiI4" tabindex="-1" role="presentation"></a>The <code>length</code> property of an array tells us how many elements it has. This property name is a valid binding name, and we know its name in advance, so to find the length of an array, you typically write <code>array.length</code> because that’s easier to write than <code>array[&quot;length&quot;]</code>.</p>
+<p><a class="p_ident" id="p_PVSXP1KLAQ" href="#p_PVSXP1KLAQ" tabindex="-1" role="presentation"></a>خاصیت <code>length</code> در آرایه‌ها هم تعداد عناصری که در آرایه وجود دارد را نشان می دهد. نام این خاصیت (length)، نامی معتبر برای یک متغیر می باشد و ما از آن آگاه بودیم پس به سراغ روش <bdo><code>array.length</code></bdo> می رویم چراکه از <bdo><code>array[&quot;length&quot;]</code></bdo> آسان تر نوشته می شود.</p>
 
-<h2 id="methods"><a class="h_ident" id="h_fkrGgDyRWc" href="#h_fkrGgDyRWc" tabindex="-1" role="presentation"></a>Methods</h2>
+<h2 id="methods"><a class="h_ident" id="h_X5eRdH5+Re" href="#h_X5eRdH5+Re" tabindex="-1" role="presentation"></a>متدها</h2>
 
-<p><a class="p_ident" id="p_t1dHhJEzat" href="#p_t1dHhJEzat" tabindex="-1" role="presentation"></a>Both string and array objects contain, in addition to the <code>length</code> property, a number of properties that hold function values.</p>
+<p>هر دوی اشیاء رشته‌ای و آرایه‌ای، علاوه بر خاصیت <code>length</code> تعدادی خاصیت دیگر دارند که که حاوی مقدارهایی از جنس تابع هستند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_prRDc5amqh" href="#c_prRDc5amqh" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">doh</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Doh&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">typeof</span> <span class="cm-variable">doh</span>.<span class="cm-property">toUpperCase</span>);
@@ -87,13 +87,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">doh</span>.<span class="cm-property">toUpperCase</span>());
 <span class="cm-comment">// → DOH</span></pre>
 
-<p><a class="p_ident" id="p_TWVl3O+8/l" href="#p_TWVl3O+8/l" tabindex="-1" role="presentation"></a>Every string has a <code>toUpperCase</code> property. When called, it will return a copy of the string in which all letters have been converted to uppercase. There is also <code>toLowerCase</code>, going the other way.</p>
+<p>همه‌ی رشته‌ها خاصیت <code>toUpperCase</code> را دارند که در صورت فراخوانی، یک کپی از رشته‌ را با حروف بزرگ برمی‌گرداند. همچنین <code>toLowerCase</code> نیز وجود دارد که عکس آن عمل می کند.</p>
 
-<p><a class="p_ident" id="p_ZYWrM09QFe" href="#p_ZYWrM09QFe" tabindex="-1" role="presentation"></a>Interestingly, even though the call to <code>toUpperCase</code> does not pass any arguments, the function somehow has access to the string <code>&quot;Doh&quot;</code>, the value whose property we called. How this works is described in <a href="06_object.html#obj_methods">Chapter 6</a>.</p>
+<p>جالب آن‌که، وقتی که <code>toUpperCase</code> فراخوانی می شود علی رغم اینکه مقداری به عنوان آرگومان دریافت نمی کند، این تابع به نحوی به رشته‌ی <code>&quot;Doh&quot;</code> دسترسی دارد (مقداری که خاصیت را روی آن فراخوانی کرده ایم). چگونگی کارکرد این موضوع در <a href="06_object.html#obj_methods">فصل 6</a> توضیح داده می شود.</p>
 
-<p><a class="p_ident" id="p_96KudJIN5i" href="#p_96KudJIN5i" tabindex="-1" role="presentation"></a>Properties that contain functions are generally called <em>methods</em> of the value they belong to, as in “<code>toUpperCase</code> is a method of a string”.</p>
+<p>خاصیت‌هایی که حاوی تابع هستند را عموما <em>متدهای</em> مقداری که به آن تعلق دارند، می نامند. همانطور که <code>toUpperCase</code> متدی از یک رشته محسوب می شود.</p>
 
-<p id="array_methods"><a class="p_ident" id="p_aAS6mUhzmc" href="#p_aAS6mUhzmc" tabindex="-1" role="presentation"></a>This example demonstrates two methods you can use to manipulate arrays:</p>
+<p id="array_methods">مثال پیش رو، دو متد را که می توانید از آن ها برای دستکاری آرایه‌ها استفاده کنید، شرح می دهد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RiFZUNk6gr" href="#c_RiFZUNk6gr" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">sequence</span> <span class="cm-operator">=</span> [<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>];
 <span class="cm-variable">sequence</span>.<span class="cm-property">push</span>(<span class="cm-number">4</span>);
@@ -105,16 +105,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sequence</span>);
 <span class="cm-comment">// → [1, 2, 3, 4]</span></pre>
 
-<p><a class="p_ident" id="p_6iATZ6SSgb" href="#p_6iATZ6SSgb" tabindex="-1" role="presentation"></a>The <code>push</code> method adds values to the end of an array, and the <code>pop</code> method does the opposite, removing the last value in the array and returning it.</p>
+<p>متد <code>push</code> را میتوان برای افزودن مقادیر به انتهای یک آرایه استفاده کرد. متد <code>pop</code> عکس آن عمل می کند: آخرین مقداری که در انتهای یک آرایه وجود دارد را حذف کرده و برمی گرداند.</p>
 
-<p><a class="p_ident" id="p_0p3gvnUXoK" href="#p_0p3gvnUXoK" tabindex="-1" role="presentation"></a>These somewhat silly names are the traditional terms for operations on a <em>stack</em>. A stack, in programming, is a data structure that allows you to push values into it and pop them out again in the opposite order so that the thing that was added last is removed first. These are common in programming—you might remember the function call
-stack from <a href="03_functions.html#stack">the previous chapter</a>, which is an instance of the same idea.</p>
+<p>نام این دو متد در کارهای مرتبط با پشته‌ها از قدیم استفاده می شده است. یک <em>پشته‌</em>، در برنامه نویسی، ساختار داده‌ای است که این امکان را به شما می دهد تا مقادیر را به آن وارد کرده و به ترتیب عکس از آن خارج نمایید. بنابراین مقداری که آخر از همه وارد شده است، اول از همه خارج می شود. این کارها در برنامه نویسی رایج هستند – ممکن است پشته‌ی فراخوانی توابع که در <a href="03_functions.html#stack">فصل قبل</a> بحث شد را به خاطر بیاورید که نمونه ای از همین مفهوم است.</p>
 
-<h2><a class="h_ident" id="h_cqg63Sxe3o" href="#h_cqg63Sxe3o" tabindex="-1" role="presentation"></a>Objects</h2>
+<h2><a class="h_ident" id="h_0rblQKnqEa" href="#h_0rblQKnqEa" tabindex="-1" role="presentation"></a>آبجکت‌ها یا اشیاء</h2>
 
-<p><a class="p_ident" id="p_D8cm1kz0P8" href="#p_D8cm1kz0P8" tabindex="-1" role="presentation"></a>Back to the weresquirrel. A set of daily log entries can be represented as an array. But the entries do not consist of just a number or a string—each entry needs to store a list of activities and a Boolean value that indicates whether Jacques turned into a squirrel or not. Ideally, we would like to group these together into a single value and then put those grouped values into an array of log entries.</p>
+<p>برگردیم به مثال انسان‌سنجاب.  می توان مجموعه‌ای از گزارشات روزانه را به صورت یک آرایه نشان داد. اما گزارشات فقط شامل رشته یا عدد نیستند – هر گزارش باید لیستی از فعالیت‌ها به همراه یک مقدار بولی که نشان می می دهد ژاک به سنجاب تبدیل شده است یا خیر را ذخیره کند. در حالت ایده‌آل، دوست داشتیم که این اطلاعات را با هم گروه کرده و یک مقدار بسازیم و آن مقادیر گروه شده را در یک آرایه‌ای از گزارشات ذخیره کنیم.</p>
 
-<p><a class="p_ident" id="p_amO+YCpNIz" href="#p_amO+YCpNIz" tabindex="-1" role="presentation"></a>Values of the type <em>object</em> are arbitrary collections of properties. One way to create an object is by using braces as an expression.</p>
+<p><a class="p_ident" id="p_FhUwfMRSPx" href="#p_FhUwfMRSPx" tabindex="-1" role="presentation"></a>مقادیری که از نوع <em>object</em> هستند دارای مجموعه‌ای از خاصیت‌های دلخواه هستند . یک راه برای ایجاد یک شیء استفاده از کروشه ها به عنوان یک عبارت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Y37a9WsXpl" href="#c_Y37a9WsXpl" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">day1</span> <span class="cm-operator">=</span> {
   <span class="cm-property">squirrel</span>: <span class="cm-atom">false</span>,
@@ -128,22 +127,22 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">day1</span>.<span class="cm-property">wolf</span>);
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_hPPBEWYY/i" href="#p_hPPBEWYY/i" tabindex="-1" role="presentation"></a>Inside the braces, there is a list of properties separated by commas. Each property has a name followed by a colon and a value. When an object is written over multiple lines, indenting it like in the example helps with readability. Properties whose names aren’t valid binding names or valid numbers have to be quoted.</p>
+<p>درون کروشه ها، می توانیم لیستی از خاصیت‌ها را که با ویرگول جدا می شوند را تعریف کنیم. هر خاصیت به وسیله‌ی یک نام، یک کاراکتر دونقطه در جلوی‌ آن و یک عبارت که مقدار خاصیت را مشخص می کند تعریف می شود. زمانی که تعریف یک شیء به چند خط می کشد،‌ استفاده از تورفتگی در کد‌ها باعث افزایش خوانایی می شود. خاصیت‌هایی که نامشان نام معتبری برای یک متغیر محسوب نمی شوند یا اعداد می بایست درون نقل قول قرار بگیرند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_n8ErtKNPW/" href="#c_n8ErtKNPW/" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">descriptions</span> <span class="cm-operator">=</span> {
   <span class="cm-property">work</span>: <span class="cm-string">&quot;Went to work&quot;</span>,
   <span class="cm-string cm-property">&quot;touched tree&quot;</span>: <span class="cm-string">&quot;Touched a tree&quot;</span>
 };</pre>
 
-<p><a class="p_ident" id="p_nZ3mgfn27O" href="#p_nZ3mgfn27O" tabindex="-1" role="presentation"></a>This means that braces have <em>two</em> meanings in JavaScript. At the start of a statement, they start a block of statements. In any other position, they describe an object. Fortunately, it is rarely useful to start a statement with an object in braces, so the ambiguity between these two is not much of a problem.</p>
+<p>این بدین معناست که کروشه‌ها در جاوااسکریپت <em>دو</em> معنای متفاوت دارند. در شروع یک دستور، نشانگر شروع یک بلاک از دستورات هستند. در دیگر مکان‌ها، نمایانگر تعریف یک شیء می باشند. خوشبختانه، به ندرت کاربردی برای شروع یک دستور با یک شیء درون کروشه‌ها پیدا می شود، بنابراین ابهام بین این دو، مسئله‌ای ایجاد نمی کند.</p>
 
-<p><a class="p_ident" id="p_lBjH6GtvXt" href="#p_lBjH6GtvXt" tabindex="-1" role="presentation"></a>Reading a property that doesn’t exist will give you the value <code>undefined</code>.</p>
+<p>خواندن خاصیتی که وجود نداشته باشد باعث تولید مقدار <code>undefined</code> می شود.</p>
 
-<p><a class="p_ident" id="p_m1hLPDyHXE" href="#p_m1hLPDyHXE" tabindex="-1" role="presentation"></a>It is possible to assign a value to a property expression with the <code>=</code> operator. This will replace the property’s value if it already existed or create a new property on the object if it didn’t.</p>
+<p>می توان مقداری را به خاصیتی به وسیله عملگر <code>=</code> اختصاص داد. این کار باعث می شود مقدار خاصیت مورد نظر – در صورت وجود – جایگزین شده یا در غیر این صورت خاصیت جدید در شیء به وجود بیاید.</p>
 
-<p><a class="p_ident" id="p_2b9eQWe4l/" href="#p_2b9eQWe4l/" tabindex="-1" role="presentation"></a>To briefly return to our tentacle model of bindings—property bindings are similar. They <em>grasp</em> values, but other bindings and properties might be holding onto those same values. You may think of objects as octopuses with any number of tentacles, each of which has a name tattooed on it.</p>
+<p>استعاره‌ی بازوچه که برای متغیرها استفاده شد در اینجا هم کاربرد دارد. خاصیت‌ها به مقدارها <em>چنگ می زنند</em> و این مقدارها ممکن است توسط دیگر متغیرها و خاصیت ها هم نگه داری شوند.  می توانید اشیاء را اختاپوسی در نظر بگیرید که بازوهای متعددی دارد که هر کدام از آن ها نامی دارد که روی آن حک شده است.</p>
 
-<p><a class="p_ident" id="p_nQBjCOh9nC" href="#p_nQBjCOh9nC" tabindex="-1" role="presentation"></a>The <code>delete</code> operator cuts off a tentacle from such an octopus. It is a unary operator that, when applied to an object property, will remove the named property from the object. This is not a common thing to do, but it is possible.</p>
+<p>عملگر <code>delete</code> باعث قطع یک بازوچه از این اختاپوس می شود. این عملگر، یکانی است و اگر به خاصیتی اعمال شود، خاصیت نام‌برده را از شیء حذف می کند. استفاده از این عملگر زیاد رایج نیست، اما به هر حال قابل استفاده است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_66M3B1wG98" href="#c_66M3B1wG98" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">anObject</span> <span class="cm-operator">=</span> {<span class="cm-property">left</span>: <span class="cm-number">1</span>, <span class="cm-property">right</span>: <span class="cm-number">2</span>};
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">anObject</span>.<span class="cm-property">left</span>);
@@ -156,23 +155,23 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;right&quot;</span> <span class="cm-keyword">in</span> <span class="cm-variable">anObject</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_vVEymXRSvR" href="#p_vVEymXRSvR" tabindex="-1" role="presentation"></a>The binary <code>in</code> operator, when applied to a string and an object, tells you whether that object has a property with that name. The difference between setting a property to <code>undefined</code> and actually deleting it is that, in the first case, the object still <em>has</em> the property (it just doesn’t have a very interesting value), whereas in the second case the property is no longer present and <code>in</code> will return <code>false</code>.</p>
+<p>عملگر دودویی <code>in</code> اگر به رشته‌ای یا شیءای اعمال شود، مقداری از جنس بولی بر می گرداند که مشخص می کند که آن شیء دارای آن خاصیت است یا خیر. تفاوت بین اختصاص <code>undefined</code> به یک خاصیت و حذف آن این است که در مورد اول، شیء مورد بحث همچنان آن خاصیت را دارد (اگرچه مقدار به درد بخوری ندارد) در حالیکه در مورد دوم خاصیت دیگر وجود ندارد و عملگر <code>in</code> مقدار <code>false</code> را بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_SvMW6lxfp+" href="#p_SvMW6lxfp+" tabindex="-1" role="presentation"></a>To find out what properties an object has, you can use the <code>Object.keys</code> function. You give it an object, and it returns an array of strings—the object’s property names.</p>
+<p>برای بدست آوردن خاصیت‌های یک شیء، می توانید از تابع <bdo><code>Object.keys</code></bdo> استفاده کنید. اگر شیءای را به آن بدهید، آرایه‌ای از نام خاصیت‌های شیء بر می گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_0oaalmpqn6" href="#c_0oaalmpqn6" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">keys</span>({<span class="cm-property">x</span>: <span class="cm-number">0</span>, <span class="cm-property">y</span>: <span class="cm-number">0</span>, <span class="cm-property">z</span>: <span class="cm-number">2</span>}));
 <span class="cm-comment">// → [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_z4/OPZzTTK" href="#p_z4/OPZzTTK" tabindex="-1" role="presentation"></a>There’s an <code>Object.assign</code> function that copies all properties from one object into another.</p>
+<p>تابع دیگری به نام <bdo><code>Object.assign</code></bdo> نیز وجوددارد که تمام خاصیت‌های یک شیء را در شیء دیگری کپی می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ngXKayzwiT" href="#c_ngXKayzwiT" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">objectA</span> <span class="cm-operator">=</span> {<span class="cm-property">a</span>: <span class="cm-number">1</span>, <span class="cm-property">b</span>: <span class="cm-number">2</span>};
 <span class="cm-variable">Object</span>.<span class="cm-property">assign</span>(<span class="cm-variable">objectA</span>, {<span class="cm-property">b</span>: <span class="cm-number">3</span>, <span class="cm-property">c</span>: <span class="cm-number">4</span>});
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">objectA</span>);
 <span class="cm-comment">// → {a: 1, b: 3, c: 4}</span></pre>
 
-<p><a class="p_ident" id="p_Rl8msr9DUz" href="#p_Rl8msr9DUz" tabindex="-1" role="presentation"></a>Arrays, then, are just a kind of object specialized for storing sequences of things. If you evaluate <code>typeof []</code>, it produces <code>&quot;object&quot;</code>. You can see them as long, flat octopuses with all their tentacles in a neat row, labeled with numbers.</p>
+<p>آرایه‌ها نیز، در واقع شکل خاصی از اشیاء هستند که برای ذخیره‌ی دنباله‌ای از چیزها اختصاصی شده اند. اگر <bdo><code>typeof []</code></bdo>  را ارزیابی کنید، مقدار <code>&quot;object&quot;</code> تولید می شود. می توانید آن ها را به عنوان اختاپوس‌های درازی در نظر بگیرید که همه‌ی بازوهای آن‌ها به شکل ردیفی مرتب با اعداد برچسب گذاری شده اند.</p>
 
-<p><a class="p_ident" id="p_d1H6/6O79A" href="#p_d1H6/6O79A" tabindex="-1" role="presentation"></a>We will represent the journal that Jacques keeps as an array of objects.</p>
+<p>بنابراین می توانیم دفترچه‌ی ژاک را به صورت آرایه ای از اشیاء نمایش دهیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_H7Np/tieSQ" href="#c_H7Np/tieSQ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">journal</span> <span class="cm-operator">=</span> [
   {<span class="cm-property">events</span>: [<span class="cm-string">&quot;work&quot;</span>, <span class="cm-string">&quot;touched tree&quot;</span>, <span class="cm-string">&quot;pizza&quot;</span>,
@@ -187,15 +186,15 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
   <span class="cm-comment">/* and so on... */</span>
 ];</pre>
 
-<h2><a class="h_ident" id="h_C3n45IkMhg" href="#h_C3n45IkMhg" tabindex="-1" role="presentation"></a>Mutability</h2>
+<h2><a class="h_ident" id="h_Ne+ieRcX6g" href="#h_Ne+ieRcX6g" tabindex="-1" role="presentation"></a>تغییر پذیری</h2>
 
-<p><a class="p_ident" id="p_HZ50qDRWmj" href="#p_HZ50qDRWmj" tabindex="-1" role="presentation"></a>We will get to actual programming <em>real</em> soon now. First there’s one more piece of theory to understand.</p>
+<p>به زودی به برنامه‌نویسی <em>واقعی</em> می رسیم. قبل از آن یک قسمت تئوری دیگر وجود دارد که باید درک شود.</p>
 
-<p><a class="p_ident" id="p_ZAtU8veKBN" href="#p_ZAtU8veKBN" tabindex="-1" role="presentation"></a>We saw that object values can be modified. The types of values discussed in earlier chapters, such as numbers, strings, and Booleans, are all <em>immutable</em>—it is impossible to change values of those types. You can combine them and derive new values from them, but when you take a specific string value, that value will always remain the same. The text inside it cannot be changed. If you have a string that contains <code>&quot;cat&quot;</code>, it is not possible for other code to change a character in your string to make it spell <code>&quot;rat&quot;</code>.</p>
+<p>تا حالا متوجه‌ شده‌ایم که مقدار اشیاء را می توان تغییر داد. انواع مقدارهایی که در فصلهای پیشین بحث کردیم، مانند اعداد، رشته‌ها و مقادیر بولی،‌ همه <em>غیرقابل تغییر</em> بودند. تغییر مقداری از این انواع داده غیر ممکن است. می توانید آن‌ها را ترکیب کنید تا مقادیر جدیدی ایجاد کنید اما اگر مقدار رشته‌ای خاصی را بگیرید، مقدارش همیشه همان خواهد ماند. متن داخلش را نمی توان عوض کرد. اگر رشته‌ای داشته باشید که مقدار <code>&quot;cat&quot;</code> را دربردارد، برای کدهای برنامه امکان ندارد که بتوانند یک کاراکتر از آن را تغییر دهند و مثلا به <code>&quot;rat&quot;</code> تبدیلش کنند.</p>
 
-<p><a class="p_ident" id="p_0geJong3Bv" href="#p_0geJong3Bv" tabindex="-1" role="presentation"></a>Objects work differently. You <em>can</em> change their properties, causing a single object value to have different content at different times.</p>
+<p>محتوای یک مقدار از نوع شیء را <em>می توان</em> به وسیله‌ی خاصیت‌هایش تغییر داد. این کار باعث می شود که یک شیء در زمان‌های مختلف محتوای متفاوتی داشته باشد.</p>
 
-<p><a class="p_ident" id="p_fVZ1xXAqW5" href="#p_fVZ1xXAqW5" tabindex="-1" role="presentation"></a>When we have two numbers, 120 and 120, we can consider them precisely the same number, whether or not they refer to the same physical bits. With objects, there is a difference between having two references to the same object and having two different objects that contain the same properties. Consider the following code:</p>
+<p><a class="p_ident" id="p_hDh8dIMBFX" href="#p_hDh8dIMBFX" tabindex="-1" role="presentation"></a>زمانی که دو عدد مثلا 120 و 120 را داریم می توانیم هر دو را دقیقا یک عدد مشابه در نظر بگیریم، فارغ از اینکه به بیت‌های فیزیکی یکسانی مربوط باشند یا خیر. اما در اشیاء، بین داشتن دو ارجاع به یک شیء یکسان و داشتن دو شیء متفاوت که خاصیت‌های مشابهی دارند،‌تفاوت وجود دارد. به کدهای زیر رو توجه کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I1Dv6D46/p" href="#c_I1Dv6D46/p" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">object1</span> <span class="cm-operator">=</span> {<span class="cm-property">value</span>: <span class="cm-number">10</span>};
 <span class="cm-keyword">let</span> <span class="cm-def">object2</span> <span class="cm-operator">=</span> <span class="cm-variable">object1</span>;
@@ -212,9 +211,9 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">object3</span>.<span class="cm-property">value</span>);
 <span class="cm-comment">// → 10</span></pre>
 
-<p><a class="p_ident" id="p_LKrvBk0ldY" href="#p_LKrvBk0ldY" tabindex="-1" role="presentation"></a>The <code>object1</code> and <code>object2</code> bindings grasp the <em>same</em> object, which is why changing <code>object1</code> also changes the value of <code>object2</code>. They are said to have the same <em>identity</em>. The binding <code>object3</code> points to a different object, which initially contains the same properties as <code>object1</code> but lives a separate life.</p>
+<p>متغیرهای <code>object1</code> و <code>object2</code> به شیء مشابهی اشاره می کنند که به همین دلیل تغییر <code>object1</code> منجر به تغییر مقدار <code>object2</code> هم می شود. گفته می شود این دو هویت یکسانی دارند. متغیر <code>object3</code> به شی دیگری اشاره می کند که دارای خاصیت هایی مشابه <code>object1</code> است اما در فضای متفاوتی قرار گرفته است.</p>
 
-<p><a class="p_ident" id="p_eic4GJbroA" href="#p_eic4GJbroA" tabindex="-1" role="presentation"></a>Bindings can also be changeable or constant, but this is separate from the way their values behave. Even though number values don’t change, you can use a <code>let</code> binding to keep track of a changing number by changing the value the binding points at. Similarly, though a <code>const</code> binding to an object can itself not be changed and will continue to point at the same object, the <em>contents</em> of that object might change.</p>
+<p>متغیرها نیز می توانند از نوع ثابت و غیر ثابت باشند، اما این قضیه ارتباطی به رفتار مقدارهای آن ها ندارد. اگرچه مقداری از جنس عدد تغییر ناپذیر است، می توانید از متغیر که با <code>let</code> تعریف شده است استفاده کنید تا عددی که متغیر به آن اشاره می کند را عوض کنید. به طور مشابه، اگرچه یک ثابت که با <code>const</code> برای یک شیء تعریف شده است را نمی توان تغییر داد و همیشه به شیء مشابهی اشاره خواهد کرد، اما <em>محتوای</em> آن شیء قابل تغییر است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_eOXMRndYxO" href="#c_eOXMRndYxO" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">score</span> <span class="cm-operator">=</span> {<span class="cm-property">visitors</span>: <span class="cm-number">0</span>, <span class="cm-property">home</span>: <span class="cm-number">0</span>};
 <span class="cm-comment">// This is okay</span>
@@ -222,11 +221,11 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-comment">// This isn't allowed</span>
 <span class="cm-variable">score</span> <span class="cm-operator">=</span> {<span class="cm-property">visitors</span>: <span class="cm-number">1</span>, <span class="cm-property">home</span>: <span class="cm-number">1</span>};</pre>
 
-<p><a class="p_ident" id="p_wD7jhXt+Tr" href="#p_wD7jhXt+Tr" tabindex="-1" role="presentation"></a>When you compare objects with JavaScript’s <code>==</code> operator, it compares by identity: it will produce <code>true</code> only if both objects are precisely the same value. Comparing different objects will return <code>false</code>, even if they have identical properties. There is no “deep” comparison operation built into JavaScript, which compares objects by contents, but it is possible to write it yourself (which is one of the <a href="04_data.html#exercise_deep_compare">exercises</a> at the end of this chapter).</p>
+<p>عملگر <code>==</code> جاوااسکریپت، وقتی برای مقایسه‌ی اشیاء استفاده می شود، تنها زمانی مقدار <code>true</code> را برمی گرداند که هر دو شیء دقیقا مقدار یکسانی باشند. مقایسه اشیاء متفاوت حتی زمانی که محتوای آن ها یکسان باشد باعث برگرداندن <code>false</code> می شود. در جاوااسکریپت عملگری برای مقایسه‌ی عمیق تعبیه نشده است که محتوای اشیاء را بررسی و مقایسه کند. اما خودتان می توانید آن را بنویسید ( یکی از <a href="04_data.html#exercise_deep_compare">تمرین‌های</a> پایان این فصل همین مساله خواهد بود).</p>
 
-<h2><a class="h_ident" id="h_qHGOoBxOeE" href="#h_qHGOoBxOeE" tabindex="-1" role="presentation"></a>The lycanthrope’s log</h2>
+<h2><a class="h_ident" id="h_cwzAZGK8pm" href="#h_cwzAZGK8pm" tabindex="-1" role="presentation"></a>برنامه‌ی گزارش مسخ</h2>
 
-<p><a class="p_ident" id="p_z1vPsL0dwv" href="#p_z1vPsL0dwv" tabindex="-1" role="presentation"></a>So, Jacques starts up his JavaScript interpreter and sets up the environment he needs to keep his journal.</p>
+<p>خوب ژاک برنامه مفسر جاوااسکریپت را اجرا می کند و محیطی که برای نوشتن گزارش روزانه نیاز دارد را فراهم می کند</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CI+dtzXW/x" href="#c_CI+dtzXW/x" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">journal</span> <span class="cm-operator">=</span> [];
 
@@ -234,9 +233,9 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
   <span class="cm-variable">journal</span>.<span class="cm-property">push</span>({<span class="cm-property">events</span>, <span class="cm-property">squirrel</span>});
 }</pre>
 
-<p><a class="p_ident" id="p_ljMiZolRIM" href="#p_ljMiZolRIM" tabindex="-1" role="presentation"></a>Note that the object added to the journal looks a little odd. Instead of declaring properties like <code>events: events</code>, it just gives a property name. This is shorthand that means the same thing—if a property name in brace notation isn’t followed by a value, its value is taken from the binding with the same name.</p>
+<p>توجه کنید که آبجکتی که به ژورنال اضافه می شود کمی غیر عادی به نظر می رسد. به جای اینکه خاصیت را به شکل <code>events: events</code> بنویسیم، فقط نام خاصیت نوشته شده است. این دستور کوتاه معادل همان روش معمولی است – اگر در روش تعریف شیء به وسیله کروشه‌ها، نام خاصیتی بدون تعریف مقدارش نوشته شود، مقدار آن از متغیری با همان نام گرفته می شود.</p>
 
-<p><a class="p_ident" id="p_cm0psWaVgC" href="#p_cm0psWaVgC" tabindex="-1" role="presentation"></a>So then, every evening at 10 p.m.—or sometimes the next morning, after climbing down from the top shelf of his bookcase—Jacques records the day.</p>
+<p>بنابراین هر شب ساعت ده – یا گاهی اوقات صبح روز بعد، بعد از پایین آمدن از قفسه بالایی کتابخانه اش-  ژاک گزارش روز را ثبت می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_S+F+R2oIfR" href="#c_S+F+R2oIfR" tabindex="-1" role="presentation"></a><span class="cm-variable">addEntry</span>([<span class="cm-string">&quot;work&quot;</span>, <span class="cm-string">&quot;touched tree&quot;</span>, <span class="cm-string">&quot;pizza&quot;</span>, <span class="cm-string">&quot;running&quot;</span>,
           <span class="cm-string">&quot;television&quot;</span>], <span class="cm-atom">false</span>);
@@ -245,18 +244,18 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">addEntry</span>([<span class="cm-string">&quot;weekend&quot;</span>, <span class="cm-string">&quot;cycling&quot;</span>, <span class="cm-string">&quot;break&quot;</span>, <span class="cm-string">&quot;peanuts&quot;</span>,
           <span class="cm-string">&quot;beer&quot;</span>], <span class="cm-atom">true</span>);</pre>
 
-<p><a class="p_ident" id="p_7VcOxe4CEu" href="#p_7VcOxe4CEu" tabindex="-1" role="presentation"></a>Once he has enough data points, he intends to use statistics to find out which of these events may be related to the squirrelifications.</p>
+<p>زمانی که مقدار کافی اطلاعات در دست داشت، قصد دارد تا به محاسبه‌ی ارتباط بین تبدیل شدنش به سنجاب و اتفاقاتی که در آن روز افتاده است بپردازد و امیدوار است چیزهای مفیدی از این همبستگی‌ها دستش بیاید.</p>
 
-<p><a class="p_ident" id="p_EedDVNQ30H" href="#p_EedDVNQ30H" tabindex="-1" role="presentation"></a><em>Correlation</em> is a measure of dependence between statistical variables. A statistical variable is not quite the same as a programming variable. In statistics you typically have a set of <em>measurements</em>, and each variable is measured for every measurement. Correlation between variables is usually expressed as a value that ranges from -1 to 1. Zero correlation means the variables are not related. A correlation of one indicates that the two are perfectly related—if you know one, you also know the other. Negative one also means that the variables are perfectly related but that they are opposites—when one is true, the other is false.</p>
+<p><a class="p_ident" id="p_pD/MhHwik3" href="#p_pD/MhHwik3" tabindex="-1" role="presentation"></a><em>همبستگی</em> مقیاسی برای تعیین میزان <em>وابستگی</em> بین متغیرهای آماری است. یک متغیر آماری شبیه به متغیرها در زبان‌های برنامه نویسی نیست. در آمار، شما معمولا مجموعه‌ای از سنجش‌ها را در اختیار دارید و هر متغیر با همه‌ی سنجش‌ها اندازه‌گیری می شود. همبستگی بین متغیرها معمولا به شکل ضریبی بین <bdo>-1</bdo> تا <bdo>1</bdo> تولید می شود. ضریب همبستگی صفر به معنای این است که دو متغیر هیچ ارتباطی با هم ندارند و ضریب همبستگی یک به معنای ارتباط کامل دو متغیر است – اگر یکی از آن ها را بدانید، دیگری را نیز می توانید بدست بیاورید. منفی یک نیز به معنای ارتباط کامل دو متغیر اما به شکل معکوس و مخالف است- زمانی که یکی درست است دیگری نادرست خواهد بود.</p>
 
-<p><a class="p_ident" id="p_mq//xARuKm" href="#p_mq//xARuKm" tabindex="-1" role="presentation"></a>To compute the measure of correlation between two Boolean variables, we can use the <em>phi coefficient</em> (<em>ϕ</em>). This is a formula whose input is a frequency table containing the number of times the different combinations of the variables were observed. The output of the formula is a number between -1 and 1 that describes the correlation.</p>
+<p>برای محاسبه اندازه ضریب همبستگی بین دو متغیر بولی، می توانیم از <em>ضریب فی</em> (<em>ϕ</em>) استفاده کنیم. این ضریب فرمولی است که ورودی آن یک جدول فراوانی از تعداد دفعاتی است که ترکیب های مختلف دو متغیر مشاهده شده اند. خروجی فرمول،  عددی بین <bdo>-1</bdo> و 1 است که میزان همبستگی را مشخص می کند.</p>
 
-<p><a class="p_ident" id="p_enPDgop6ZQ" href="#p_enPDgop6ZQ" tabindex="-1" role="presentation"></a>We could take the event of eating pizza and put that in a frequency table like this, where each number indicates the amount of times that combination occurred in our measurements:</p><figure><img src="img/pizza-squirrel.svg" alt="Eating pizza versus turning into a squirrel"></figure>
+<p>می توانیم رخداد خوردن پیتزا را در نظر بگیریم و آن را در جدول فراوانی به شکل زیر قرار دهیم، جایی که هر عدد نمایانگر تعداد دفعاتی است که ترکیب مورد نظر ما اتفاق افتاده است:</p><figure><img src="img/pizza-squirrel.svg" alt="Eating pizza versus turning into a squirrel"></figure>
 
-<p><a class="p_ident" id="p_34XzN30BBH" href="#p_34XzN30BBH" tabindex="-1" role="presentation"></a>If we call that table <em>n</em>, we can compute <em>ϕ</em> using the following formula:</p><div>
-<table style="border-collapse: collapse; margin-left: 1em;"><tr>
+<p><a class="p_ident" id="p_0YVMrokex7" href="#p_0YVMrokex7" tabindex="-1" role="presentation"></a>اگر جدول را <em>n</em> بنامیم، می توان <em>ϕ</em> را با فرمول زیر محاسبه کرد:</p><div>
+<table style="border-collapse: collapse; margin-right: 1em;"><tr>
   <td style="vertical-align: middle"><em>ϕ</em> =</td>
-  <td style="padding-left: .5em">
+  <td style="padding-right: .5em">
     <div style="border-bottom: 1px solid black; padding: 0 7px;"><em>n</em><sub>11</sub><em>n</em><sub>00</sub> −
       <em>n</em><sub>10</sub><em>n</em><sub>01</sub></div>
     <div style="padding: 0 7px;">√<span style="border-top: 1px solid black; position: relative; top: 2px;">
@@ -267,19 +266,19 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 </div>
 
 
-<p><a class="p_ident" id="p_BlqmmOB0tg" href="#p_BlqmmOB0tg" tabindex="-1" role="presentation"></a>(If at this point you’re putting the book down to focus on a terrible flashback to 10th grade math class—hold on! I do not intend to torture you with endless pages of cryptic notation—it’s just this one formula for now. And even with this one, all we do is turn it into JavaScript.)</p>
+<p>( اگر دارید کتاب را می بندید تا به سراغ خاطرات وحشتناک کتاب ریاضی دبیرستان بروید، صبر کنید! قرار نیست که در این کتاب شما را با فرمول‌های عجیب و غریب اذیت کنم – فعلا همین یک فرمول بس است. برای همین یک مورد هم تمام کاری که قرار است بکنیم تبدیل آن به جاوااسکریپت است.)</p>
 
-<p><a class="p_ident" id="p_6U87ck4G90" href="#p_6U87ck4G90" tabindex="-1" role="presentation"></a>The notation <em>n</em><sub>01</sub> indicates the number of measurements where the first variable (squirrelness) is false (0) and the second variable (pizza) is true (1). In the pizza table, <em>n</em><sub>01</sub> is 9.</p>
+<p><a class="p_ident" id="p_lmQJ3jhajF" href="#p_lmQJ3jhajF" tabindex="-1" role="presentation"></a>نماد <bdo><em>n</em><sub>01</sub></bdo> نشان دهنده‌ی تعداد اندازه‌گیری‌هایی است که اولین متغیر (سنجاب شدن) برابر false یا 0 و دومین اندازه‌گیری (پیتزا خوردن) <bdo>true (1)</bdo> شده است. در این مثال <bdo><em>n</em><sub>01</sub></bdo> برابر 9 است.</p>
 
-<p><a class="p_ident" id="p_pweIXp0GRF" href="#p_pweIXp0GRF" tabindex="-1" role="presentation"></a>The value <em>n</em><sub>1•</sub> refers to the sum of all measurements where the first variable is true, which is 5 in the example table. Likewise, <em>n</em><sub>•0</sub> refers to the sum of the measurements where the second variable is false.</p>
+<p><a class="p_ident" id="p_xoO8Idh12k" href="#p_xoO8Idh12k" tabindex="-1" role="presentation"></a>مقدار <bdo><em>n</em><sub>1•</sub></bdo> برابر با جمع همه اندازه‌گیری‌هایی است که متغیر اول آن ها true ارزیابی شده است که در این مثال 5 است. به همین صورت <bdo><em>n</em><sub>•0</sub></bdo> به مجموع اندازه‌گیری‌هایی که متغیر دوم‌ آن‌ها false است اشاره می کند.</p>
 
-<p><a class="p_ident" id="p_ACMn7uvFzz" href="#p_ACMn7uvFzz" tabindex="-1" role="presentation"></a>So for the pizza table, the part above the division line (the dividend) would be 1×76−4×9 = 40, and the part below it (the divisor) would be the square root of 5×85×10×80, or √340000. This comes out to <em>ϕ</em> ≈ 0.069, which is tiny. Eating pizza does not appear to have influence on the transformations.</p>
+<p><a class="p_ident" id="p_OFx+eKKJ8r" href="#p_OFx+eKKJ8r" tabindex="-1" role="presentation"></a>بنابراین برای جدول پیتزا، بالای کسر یا صورت کسر می شود <bdo> 1×76−4×9 = 40</bdo>  و مخرج کسر برابر است با ریشه‌ی دوم <bdo>5×85×10×80</bdo> یا <bdo>√340000</bdo>٫   که حاصل می شود <bdo><em>ϕ</em> ≈ 0.069</bdo>  که عدد خیلی کوچکی است. خوردن پیتزا به نظر می رسد تاثیری در تبدیل ژاک به سنجاب ندارد.</p>
 
-<h2><a class="h_ident" id="h_YwedOm6SqZ" href="#h_YwedOm6SqZ" tabindex="-1" role="presentation"></a>Computing correlation</h2>
+<h2><a class="h_ident" id="h_H06tFX+hYY" href="#h_H06tFX+hYY" tabindex="-1" role="presentation"></a>محاسبه‌ی ضریب همبستگی</h2>
 
-<p><a class="p_ident" id="p_jn2nhCXEpR" href="#p_jn2nhCXEpR" tabindex="-1" role="presentation"></a>We can represent a two-by-two table in JavaScript with a four-element array (<code>[76, 9, 4, 1]</code>). We could also use other representations, such as an array containing two two-element arrays (<code>[[76, 9], [4, 1]]</code>) or an object with property names like <code>&quot;11&quot;</code> and <code>&quot;01&quot;</code>, but the flat array is simple and makes the expressions that access the table pleasantly short. We’ll interpret the indices to the array as two-bit binary numbers, where the leftmost (most significant) digit refers to the squirrel variable and the rightmost (least significant) digit refers to the event variable. For example, the binary number <code>10</code> refers to the case where Jacques did turn into a squirrel, but the event (say, “pizza”) didn’t occur. This happened four times. And since binary <code>10</code> is 2 in decimal notation, we will store this number at index 2 of the array.</p>
+<p><a class="p_ident" id="p_2kuSN7rMzf" href="#p_2kuSN7rMzf" tabindex="-1" role="presentation"></a>در جاوااسکریپت می توانیم یک جدول دو-در-دو را با یک آرایه‌ی چهار-عنصری <bdo><code>[76, 9, 4, 1]</code></bdo> نشان دهیم.  همچنین می توان به شکل‌ها دیگر نیز این کار را کرد مثل استفاده از آرایه‌ای که از دو آرایه‌ی دو خانه‌ای تشکیل شده است <bdo>(<code>[[76, 9], [4, 1]]</code>)</bdo>  یا شیءای با خاصیت هایی به شکل <code>&quot;11&quot;</code> و <code>&quot;01&quot;</code>، اما استفاده از یک آرایه‌ی تخت ساده تر است و باعث می شود که عبارت‌هایی که برای دسترسی به خانه‌های آرایه می نویسیم کوتاه تر شوند. خانه‌های آرایه را به عنوان دو بیت دودویی محسوب می کنیم که رقم چپ (با ارزش‌ترین عدد) نمایانگر متغیر سنجاب‌شدن و رقم راست (کم ارزش ترین) معرف متغیر رخداد است. به عنوان مثال عدد دودویی <code>10</code> به موردی اشاره می کند که ژاک به سنجاب تبدیل شده است اما رخداد مورد نظر (مثلا خوردن پیتزا) رخ نداده است . این کار چهار مرتبه اتفاق افتاده است و به علت اینکه عدد دودویی  <code>10</code> در سیستم دهدهی معادل <code>2</code> می باشد، ما این عدد را در خانه‌ی 2 آرایه ذخیره خواهیم کرد.</p>
 
-<p id="phi_function"><a class="p_ident" id="p_h+u9TgFTTH" href="#p_h+u9TgFTTH" tabindex="-1" role="presentation"></a>This is the function that computes the <em>ϕ</em> coefficient from such an array:</p>
+<p id="phi_function">تابع زیر محاسبه‌ی مقدار <em>ϕ</em> را از آرایه‌ی مذکور انجام می دهد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AnoNjFldkv" href="#c_AnoNjFldkv" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">phi</span>(<span class="cm-def">table</span>) {
   <span class="cm-keyword">return</span> (<span class="cm-variable-2">table</span>[<span class="cm-number">3</span>] <span class="cm-operator">*</span> <span class="cm-variable-2">table</span>[<span class="cm-number">0</span>] <span class="cm-operator">-</span> <span class="cm-variable-2">table</span>[<span class="cm-number">2</span>] <span class="cm-operator">*</span> <span class="cm-variable-2">table</span>[<span class="cm-number">1</span>]) <span class="cm-operator">/</span>
@@ -292,11 +291,11 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">phi</span>([<span class="cm-number">76</span>, <span class="cm-number">9</span>, <span class="cm-number">4</span>, <span class="cm-number">1</span>]));
 <span class="cm-comment">// → 0.068599434</span></pre>
 
-<p><a class="p_ident" id="p_DPLO2QZk5F" href="#p_DPLO2QZk5F" tabindex="-1" role="presentation"></a>This is a direct translation of the <em>ϕ</em> formula into JavaScript. <code>Math.sqrt</code> is the square root function, as provided by the <code>Math</code> object in a standard JavaScript environment. We have to add two fields from the table to get fields like n<sub>1•</sub> because the sums of rows or columns are not stored directly in our data structure.</p>
+<p><a class="p_ident" id="p_UMfg8HjUt8" href="#p_UMfg8HjUt8" tabindex="-1" role="presentation"></a>کد بالا در واقع ترجمه‌ی مستقیم فرمول محاسبه <em>ϕ</em> به زبان جاوااسکریپت است. تابع <bdo><code>Math.sqrt</code></bdo> ریشه‌ی دوم عدد را حساب می کند که توسط شیء <code>Math</code> در محیط استاندارد جاوااسکریپت فراهم شده است. برای دستیابی به فیلد‌هایی شبیه به <bdo>n<sub>1•</sub></bdo> بایستی دو فیلد از جدول را با هم جمع کنیم چرا که مجموع ردیف ها یا ستون‌ها به شکل مستقیم در ساختار داده‌ی ما ذخیره نمی شوند.</p>
 
-<p><a class="p_ident" id="p_GhEP5hEDnb" href="#p_GhEP5hEDnb" tabindex="-1" role="presentation"></a>Jacques kept his journal for three months. The resulting data set is available in the <a href="https://eloquentjavascript.net/code#4">coding sandbox</a> for this chapter, where it is stored in the <code>JOURNAL</code> binding and in a downloadable <a href="https://eloquentjavascript.net/code/journal.js">file</a>.</p>
+<p><a class="p_ident" id="p_jmqrqfXZoe" href="#p_jmqrqfXZoe" tabindex="-1" role="presentation"></a>ژاک به ثبت روزانه‌ی خود برای سه ماه ادامه داد. مجموعه داده‌های بدست آماده را می توانید در قسمت <a href="https://eloquentjavascript.net/code#4">کدهای</a> این فصل  بدست بیاورید. این داده‌ها در متغیر <code>JOURNAL</code> ذخیره شده اند که <a href="https://eloquentjavascript.net/code/journal.js">فایل</a> آن قابل دانلود است.</p>
 
-<p><a class="p_ident" id="p_sM+4QT8FKs" href="#p_sM+4QT8FKs" tabindex="-1" role="presentation"></a>To extract a two-by-two table for a specific event from the journal, we must loop over all the entries and tally how many times the event occurs in relation to squirrel transformations.</p>
+<p>برای استخراج یک جدول دو-در-دو برای یک رخداد خاص از دفتر روزانه، بایستی تمامی رکوردها را پیمایش کنیم و تعداد دفعاتی که آن رخداد در ارتباط با سنجاب شدن اتفاق افتاده است را بشماریم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rfea+FwMb5" href="#c_rfea+FwMb5" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">tableFor</span>(<span class="cm-def">event</span>, <span class="cm-def">journal</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">table</span> <span class="cm-operator">=</span> [<span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>, <span class="cm-number">0</span>];
@@ -312,34 +311,34 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">tableFor</span>(<span class="cm-string">&quot;pizza&quot;</span>, <span class="cm-variable">JOURNAL</span>));
 <span class="cm-comment">// → [76, 9, 4, 1]</span></pre>
 
-<p><a class="p_ident" id="p_1/7IsMpwdF" href="#p_1/7IsMpwdF" tabindex="-1" role="presentation"></a>Arrays have an <code>includes</code> method that checks whether a given value exists in the array. The function uses that to determine whether the event name it is interested in is part of the event list for a given day.</p>
+<p>آرایه‌ها متدی به نام <code>includes</code> دارند که وجود یک مقدار داده شده را در آرایه بررسی می کند. تابع بالا از این متد برای بررسی وجود نام رخداد مورد نظر در لیست رخدادها برای یک روز مشخص استفاده می کند.</p>
 
-<p><a class="p_ident" id="p_2jmDtun7lQ" href="#p_2jmDtun7lQ" tabindex="-1" role="presentation"></a>The body of the loop in <code>tableFor</code> figures out which box in the table each journal entry falls into by checking whether the entry contains the specific event it’s interested in and whether the event happens alongside a squirrel incident. The loop then adds one to the correct box in the table.</p>
+<p>بدنه‌ی حلقه‌ی تابع <code>tableFor</code> مشخص می کند هر کدام از مدخل‌های دفتر روزانه در کدام قسمت از جدول قرار می گیرند .اینکار با بررسی بودن رخداد مورد نظر در مدخل و اینکه رخداد همزمان با سنجاب شدن اتفاق می افتد یا خیر، صورت می گیرد. سپس حلقه یک واحد به قسمت درست در جدول اضافه می کند.</p>
 
-<p><a class="p_ident" id="p_f0iI+VuF1R" href="#p_f0iI+VuF1R" tabindex="-1" role="presentation"></a>We now have the tools we need to compute individual correlations. The only step remaining is to find a correlation for every type of event that was recorded and see whether anything stands out.</p>
+<p>هم اکنون ما ابزاری که برای محاسبه همبستگی ها نیاز داشتیم را در اختیار داریم. تنها گامی که مانده است پیدا کردن ضریب همبستگی برای همه‌ی رخدادهای ضبط شده است و اینکه ببینیم کدام رخداد موثر است.</p>
 
-<h2 id="for_of_loop"><a class="h_ident" id="h_4WwZLib71C" href="#h_4WwZLib71C" tabindex="-1" role="presentation"></a>Array loops</h2>
+<h2 id="for_of_loop"><a class="h_ident" id="h_/vnWbeaDjX" href="#h_/vnWbeaDjX" tabindex="-1" role="presentation"></a>حلقه‌ها در آرایه</h2>
 
-<p><a class="p_ident" id="p_NcUX4h3Azc" href="#p_NcUX4h3Azc" tabindex="-1" role="presentation"></a>In the <code>tableFor</code> function, there’s a loop like this:</p>
+<p>در تابع <code>tableFor</code> حلقه‌ای وجود داشت که شبیه کد زیر بود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_pE7VRrRQir" href="#c_pE7VRrRQir" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable">JOURNAL</span>.<span class="cm-property">length</span>; <span class="cm-variable">i</span><span class="cm-operator">++</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">entry</span> <span class="cm-operator">=</span> <span class="cm-variable">JOURNAL</span>[<span class="cm-variable">i</span>];
   <span class="cm-comment">// Do something with entry</span>
 }</pre>
 
-<p><a class="p_ident" id="p_bofXG4HkzH" href="#p_bofXG4HkzH" tabindex="-1" role="presentation"></a>This kind of loop is common in classical JavaScript—going over arrays one element at a time is something that comes up a lot, and to do that you’d run a counter over the length of the array and pick out each element in turn.</p>
+<p>این شکل از حلقه در جاوااسکریپت کلاسیک رایج است – که در آن هر بار سراغ یک خانه‌ از آرایه می رویم که برای انجام آن شمارنده‌ای متناسب با طول آرایه استفاده می کنیم تا بتوانیم به هر عنصر دسترسی داشته باشیم.</p>
 
-<p><a class="p_ident" id="p_Xl/M0+NR/e" href="#p_Xl/M0+NR/e" tabindex="-1" role="presentation"></a>There is a simpler way to write such loops in modern JavaScript.</p>
+<p>راه ساده‌تری در جاوااسکریپت مدرن برای این گونه حلقه ها وجود دارد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_OXsCQPvDE1" href="#c_OXsCQPvDE1" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">entry</span> <span class="cm-keyword">of</span> <span class="cm-variable">JOURNAL</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`${</span><span class="cm-variable">entry</span>.<span class="cm-property">events</span>.<span class="cm-property">length</span><span class="cm-string-2">}</span> <span class="cm-string-2">events.`</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_LDkHv2luaA" href="#p_LDkHv2luaA" tabindex="-1" role="presentation"></a>When a <code>for</code> loop looks like this, with the word <code>of</code> after a variable definition, it will loop over the elements of the value given after <code>of</code>. This works not only for arrays but also for strings and some other data structures. We’ll discuss <em>how</em> it works in <a href="06_object.html">Chapter 6</a>.</p>
+<p>زمانی که یک حلقه‌ی <code>for</code> به این شکل نوشته می شود که بعد از تعریف یک متغیر، کلمه‌ی کلیدی <code>of</code> نوشته می شود، مقداری که بعد از <code>of</code> می آید را پیمایش می کند. این حلقه نه تنها برای آرایه‌ها کاربرد دارد بلکه برای رشته‌ها و بعضی از دیگر ساختارهای داده نیز استفاده می شود. با نحوه‌ی عملکر آن در <a href="06_object.html">فصل 6</a> آشنا می شویم.</p>
 
-<h2 id="analysis"><a class="h_ident" id="h_Lg5n7mjqw/" href="#h_Lg5n7mjqw/" tabindex="-1" role="presentation"></a>The final analysis</h2>
+<h2 id="analysis"><a class="h_ident" id="h_Dg98h+90By" href="#h_Dg98h+90By" tabindex="-1" role="presentation"></a>تحلیل نهایی</h2>
 
-<p><a class="p_ident" id="p_LI+01yIQON" href="#p_LI+01yIQON" tabindex="-1" role="presentation"></a>We need to compute a correlation for every type of event that occurs in the data set. To do that, we first need to <em>find</em> every type of event.</p>
+<p>لازم است تا محاسبه‌ی ضریب همبستگی را برای همه‌ی رخدادهایی که در مجموعه‌‌ی داده ها وجود دارد انجام دهیم. برای این کار، ابتدا باید همه‌ی انواع رخداد ها را <em>پیدا</em> کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P6cqJZBL1M" href="#c_P6cqJZBL1M" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">journalEvents</span>(<span class="cm-def">journal</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">events</span> <span class="cm-operator">=</span> [];
@@ -356,9 +355,9 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">journalEvents</span>(<span class="cm-variable">JOURNAL</span>));
 <span class="cm-comment">// → [&quot;carrot&quot;, &quot;exercise&quot;, &quot;weekend&quot;, &quot;bread&quot;, …]</span></pre>
 
-<p><a class="p_ident" id="p_vBsW+TJrFo" href="#p_vBsW+TJrFo" tabindex="-1" role="presentation"></a>By going over all the events and adding those that aren’t already in there to the <code>events</code> array, the function collects every type of event.</p>
+<p>با پیمایش تک تک رخدادها و افزودن آن‌هایی که قبلا در آرایه‌ی <code>events</code> موجود نبودند، این تابع تمامی رخدادها را جمع‌آوری می کند.</p>
 
-<p><a class="p_ident" id="p_HohHy+JZoP" href="#p_HohHy+JZoP" tabindex="-1" role="presentation"></a>Using that, we can see all the correlations.</p>
+<p>با استفاده از آن می توانیم همه‌ی همبستگی ها را ببینیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7ws9oWaneM" href="#c_7ws9oWaneM" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">event</span> <span class="cm-keyword">of</span> <span class="cm-variable">journalEvents</span>(<span class="cm-variable">JOURNAL</span>)) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">event</span> <span class="cm-operator">+</span> <span class="cm-string">&quot;:&quot;</span>, <span class="cm-variable">phi</span>(<span class="cm-variable">tableFor</span>(<span class="cm-variable">event</span>, <span class="cm-variable">JOURNAL</span>)));
@@ -370,7 +369,7 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-comment">// → pudding: -0.0648203724</span>
 <span class="cm-comment">// and so on...</span></pre>
 
-<p><a class="p_ident" id="p_TiI6dIjE18" href="#p_TiI6dIjE18" tabindex="-1" role="presentation"></a>Most correlations seem to lie close to zero. Eating carrots, bread, or pudding apparently does not trigger squirrel-lycanthropy. It <em>does</em> seem to occur somewhat more often on weekends. Let’s filter the results to show only correlations greater than 0.1 or less than -0.1.</p>
+<p><a class="p_ident" id="p_Srm6BE5exJ" href="#p_Srm6BE5exJ" tabindex="-1" role="presentation"></a>بیشتر ضرایب همبستگی به نظر می رسد که به صفر نزدیک هستند. خوردن هویج، نان، یا دسر، ظاهرا ارتباطی با سنجاب شدن ژاک ندارند. به نظر می رسد این تبدیل بیشتر در آخر هفته‌ها رخ می دهد. اجازه بدهید تا نتایج را کمی پالایش کنیم تا فقط نتایجی نشان داده شوند که ضریب همبستگی آن ها بیش از <bdo>0.1</bdo> یا کمتر از <bdo>-0.1</bdo>  باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_hBXzmb7hPU" href="#c_hBXzmb7hPU" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">event</span> <span class="cm-keyword">of</span> <span class="cm-variable">journalEvents</span>(<span class="cm-variable">JOURNAL</span>)) {
   <span class="cm-keyword">let</span> <span class="cm-def">correlation</span> <span class="cm-operator">=</span> <span class="cm-variable">phi</span>(<span class="cm-variable">tableFor</span>(<span class="cm-variable">event</span>, <span class="cm-variable">JOURNAL</span>));
@@ -386,9 +385,9 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-comment">// → reading:        0.1106828054</span>
 <span class="cm-comment">// → peanuts:        0.5902679812</span></pre>
 
-<p><a class="p_ident" id="p_SmM3fqump2" href="#p_SmM3fqump2" tabindex="-1" role="presentation"></a>Aha! There are two factors with a correlation that’s clearly stronger than the others. Eating peanuts has a strong positive effect on the chance of turning into a squirrel, whereas brushing his teeth has a significant negative effect.</p>
+<p>آها! دو فاکتور در بین نتایج وجود دارد که ضریب آن ها مشخصا قوی تر از دیگر موارد است. خوردن بادم زمینی اثر مثبت زیادی در شانس تبدیل شدن به سنجاب دارد، در حالیکه مسواک زدن اثری قابل توجه اما در جهت معکوس ایجاد می کند.</p>
 
-<p><a class="p_ident" id="p_CGdrhu89cM" href="#p_CGdrhu89cM" tabindex="-1" role="presentation"></a>Interesting. Let’s try something.</p>
+<p>جالب است. اجازه بدهید تا چیزی را آزمایش کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_x7WUJStSIp" href="#c_x7WUJStSIp" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">entry</span> <span class="cm-keyword">of</span> <span class="cm-variable">JOURNAL</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable">entry</span>.<span class="cm-property">events</span>.<span class="cm-property">includes</span>(<span class="cm-string">&quot;peanuts&quot;</span>) <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
@@ -399,19 +398,19 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">phi</span>(<span class="cm-variable">tableFor</span>(<span class="cm-string">&quot;peanut teeth&quot;</span>, <span class="cm-variable">JOURNAL</span>)));
 <span class="cm-comment">// → 1</span></pre>
 
-<p><a class="p_ident" id="p_Ji3VLlNJjI" href="#p_Ji3VLlNJjI" tabindex="-1" role="presentation"></a>That’s a strong result. The phenomenon occurs precisely when Jacques eats peanuts and fails to brush his teeth. If only he weren’t such a slob about dental hygiene, he’d have never even noticed his affliction.</p>
+<p>نتیجه‌ی قابل توجه‌ای است. تبدیل دقیقا زمانی رخ می دهد که ژاک بادم زمینی می خورد و فراموش می کند تا مسواک کند. اگر او آن قدر بی توجه به بهداشت دهان و دندان نبود ، هرگز به این رنج دچار نمی شد.</p>
 
-<p><a class="p_ident" id="p_CLBAQ41EVq" href="#p_CLBAQ41EVq" tabindex="-1" role="presentation"></a>Knowing this, Jacques stops eating peanuts altogether and finds that his transformations don’t come back.</p>
+<p>با دانستن این، ژاک دیگر بادام زمینی نمی خورد و متوجه می شود که تبدیل دیگر اتفاق نمی افتد.</p>
 
-<p><a class="p_ident" id="p_IMX7LE4P7A" href="#p_IMX7LE4P7A" tabindex="-1" role="presentation"></a>For a few years, things go great for Jacques. But at some point he loses his job. Because he lives in a nasty country where having no job means having no medical services, he is forced to take employment with a circus where he performs as <em>The Incredible Squirrelman</em>, stuffing his mouth with peanut butter before every show.</p>
+<p>تا چند سال، اوضاع برای ژاک خیلی خوب پیش می رود. تا این که روزی کارش را از دست می دهد. چون ژاک در کشوری زندگی می کند که نداشتن کار به معنای نداشتن خدمات بهداشت و سلامت است، مجبور می شود تا در یک سیرک مشغول به کار شود جایی که نقشش <em>مرد سنجابی شگفت‌انگیز</em> است. او قبل از هر نمایش دهانش را پر از کره‌ بادم زمینی می کند.</p>
 
-<p><a class="p_ident" id="p_SK7dEwTJMB" href="#p_SK7dEwTJMB" tabindex="-1" role="presentation"></a>One day, fed up with this pitiful existence, Jacques fails to change back into his human form, hops through a crack in the circus tent, and vanishes into the forest. He is never seen again.</p>
+<p>یک روز، ژاک خسته از این زندگی رقت انگیز، وقتی نتوانست به شکل انسانی خودش برگردد، لابلای یکی از شکاف‌های چادر سیرک می پرد و در جنگل ناپدید می شود. بعد از آن ژاک هرگز دیده نشد.</p>
 
-<h2><a class="h_ident" id="h_GFaxee4PuU" href="#h_GFaxee4PuU" tabindex="-1" role="presentation"></a>Further arrayology</h2>
+<h2><a class="h_ident" id="h_Vvx9NXXSIu" href="#h_Vvx9NXXSIu" tabindex="-1" role="presentation"></a>کمی آرایه‌شناسی بیشتر</h2>
 
-<p><a class="p_ident" id="p_Wik6gRMuIP" href="#p_Wik6gRMuIP" tabindex="-1" role="presentation"></a>Before finishing the chapter, I want to introduce you to a few more object-related concepts. I’ll start by introducing some generally useful array methods.</p>
+<p>قبل از تمام کردن این فصل، قصد دارم تا شما را با چند مفهوم دیگر مرتبط با اشیاء آشنا کنم. ابتدا با چند متد عمومی و مفید از آرایه ها آشنا می شویم.</p>
 
-<p><a class="p_ident" id="p_Px7nduaW01" href="#p_Px7nduaW01" tabindex="-1" role="presentation"></a>We saw <code>push</code> and <code>pop</code>, which add and remove elements at the end of an array, <a href="04_data.html#array_methods">earlier</a> in this chapter. The corresponding methods for adding and removing things at the start of an array are called <code>unshift</code> and <code>shift</code>.</p>
+<p><code>pop</code> و <code>push</code> را <a href="04_data.html#array_methods">پیش‌تر</a> در همین فصل دیدیم، که برای حذف و اضافه عناصر در انتهای آرایه استفاده می شدند. متدهای مرتبط دیگری که همین کار را در ابتدای آرایه انجام می دهند <code>shift</code> و <code>unshift</code> می باشند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Vq1IBpy+hP" href="#c_Vq1IBpy+hP" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">todoList</span> <span class="cm-operator">=</span> [];
 <span class="cm-keyword">function</span> <span class="cm-def">remember</span>(<span class="cm-def">task</span>) {
@@ -424,29 +423,29 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
   <span class="cm-variable">todoList</span>.<span class="cm-property">unshift</span>(<span class="cm-variable-2">task</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_Z35J/zKDAQ" href="#p_Z35J/zKDAQ" tabindex="-1" role="presentation"></a>That program manages a queue of tasks. You add tasks to the end of the queue by calling <code>remember(&quot;groceries&quot;)</code>, and when you’re ready to do something, you call <code>getTask()</code> to get (and remove) the front item from the queue. The <code>rememberUrgently</code> function also adds a task but adds it to the front instead of the back of the queue.</p>
+<p>کار برنامه‌ی بالا مدیریت صف وظایف است. برای افزودن یک وظیفه به انتهای صف، تابع <bdo><code>remember(&quot;groceries&quot;)</code></bdo> را فراخوانی می کنید و زمانی که برای انجام یک وظیفه آماده هستید ، تابع <bdo><code>getTask()</code></bdo> را برای گرفتن (و حذف) یک وظیفه از جلوی صف فراخوانی می کنید. تابع <code>rememberUrgently</code> نیز برای افزودن یک وظیفه استفاده می شود اما آن را به جلوی صف اضافه می کند نه انتهای صف.</p>
 
-<p><a class="p_ident" id="p_7VffwcInkI" href="#p_7VffwcInkI" tabindex="-1" role="presentation"></a>To search for a specific value, arrays provide an <code>indexOf</code> method. The method searches through the array from the start to the end and returns the index at which the requested value was found—or -1 if it wasn’t found. To search from the end instead of the start, there’s a similar method called <code>lastIndexOf</code>.</p>
+<p><a class="p_ident" id="p_NWoZK3kTsE" href="#p_NWoZK3kTsE" tabindex="-1" role="presentation"></a>برای جستجوی یک مقدار خاص، آرایه‌ها متدی به نام <code>indexOf</code> را فراهم می کنند. این متد در طول آرایه از شروع تا پایان حرکت کرده و اندیسی که در آن، مقدار مورد درخواست پیدا شد – یا <bdo>-1</bdo> در صورت پیدا نکردن – را بر می گرداند. برای جستجو از آخر به اول، متدی مشابهی وجود دارد که  <code>lastIndexOf</code> نامیده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_N+G0EtTfto" href="#c_N+G0EtTfto" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">2</span>, <span class="cm-number">1</span>].<span class="cm-property">indexOf</span>(<span class="cm-number">2</span>));
 <span class="cm-comment">// → 1</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">2</span>, <span class="cm-number">1</span>].<span class="cm-property">lastIndexOf</span>(<span class="cm-number">2</span>));
 <span class="cm-comment">// → 3</span></pre>
 
-<p><a class="p_ident" id="p_zErdHcwkcD" href="#p_zErdHcwkcD" tabindex="-1" role="presentation"></a>Both <code>indexOf</code> and <code>lastIndexOf</code> take an optional second argument that indicates where to start searching.</p>
+<p>هر دوی <code>indexOf</code> و <code>lastIndexOf</code> آرگومان اختیاری دیگری قبول می کنند که برای مشخص کردن نقطه‌ی شروع جستجو استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_xl0kBHXnu2" href="#p_xl0kBHXnu2" tabindex="-1" role="presentation"></a>Another fundamental array method is <code>slice</code>, which takes start and end indices and returns an array that has only the elements between them. The start index is inclusive, the end index exclusive.</p>
+<p>یکی دیگر از متدهای اساسی آرایه‌ها، متد <code>slice</code> است که شماره‌ی اندیس های شروع و پایان را گرفته و آرایه‌ای که شامل عناصر بین آن‌ها می شود را تولید می کند. این آرایه تولیدی شامل عنصر آغازین و فاقد عنصر پایانی خواهد بود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_zCBzPnMpIk" href="#c_zCBzPnMpIk" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">0</span>, <span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>].<span class="cm-property">slice</span>(<span class="cm-number">2</span>, <span class="cm-number">4</span>));
 <span class="cm-comment">// → [2, 3]</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">0</span>, <span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>].<span class="cm-property">slice</span>(<span class="cm-number">2</span>));
 <span class="cm-comment">// → [2, 3, 4]</span></pre>
 
-<p><a class="p_ident" id="p_Y6nY8puZtN" href="#p_Y6nY8puZtN" tabindex="-1" role="presentation"></a>When the end index is not given, <code>slice</code> will take all of the elements after the start index. You can also omit the start index to copy the entire array.</p>
+<p>زمانی که اندیس پایانی به متد داده نشود، <code>slice</code> تمامی عناصری که بعد از اندیس آغازین قرار می گیرند را بر می گرداند. می توانید همچنین اندیس اول را هم مشخص نکنید که باعث می شود کل آرایه کپی شود.</p>
 
-<p><a class="p_ident" id="p_QNFIcCtVLd" href="#p_QNFIcCtVLd" tabindex="-1" role="presentation"></a>The <code>concat</code> method can be used to glue arrays together to create a new array, similar to what the <code>+</code> operator does for strings.</p>
+<p>متد <code>concat</code> برای چسباندن آرایه‌ها بهم و ساخت یک آرایه جدید استفاده می شود، شبیه کاری که عملگر <code>+</code> برای رشته‌ها انجام می دهد.</p>
 
-<p><a class="p_ident" id="p_x8OwNmbLzo" href="#p_x8OwNmbLzo" tabindex="-1" role="presentation"></a>The following example shows both <code>concat</code> and <code>slice</code> in action. It takes an array and an index, and it returns a new array that is a copy of the original array with the element at the given index removed.</p>
+<p>مثال پیش رو نحوه‌ی عملکرد هر دوی متدهای  <code>slice</code>  و <code>concat</code> را نشان می  دهد.  تابع مثال، یک آرایه و یک اندیس را به عنوان ورودی دریافت می کند و آرایه‌ی جدیدی را برمی گرداند که نسخه‌ای از آرایه‌ی دریافتی بدون عنصری که اندیسش داده شده است می باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_q+NBMNgFFy" href="#c_q+NBMNgFFy" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">remove</span>(<span class="cm-def">array</span>, <span class="cm-def">index</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">array</span>.<span class="cm-property">slice</span>(<span class="cm-number">0</span>, <span class="cm-variable-2">index</span>)
@@ -455,42 +454,42 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">remove</span>([<span class="cm-string">&quot;a&quot;</span>, <span class="cm-string">&quot;b&quot;</span>, <span class="cm-string">&quot;c&quot;</span>, <span class="cm-string">&quot;d&quot;</span>, <span class="cm-string">&quot;e&quot;</span>], <span class="cm-number">2</span>));
 <span class="cm-comment">// → [&quot;a&quot;, &quot;b&quot;, &quot;d&quot;, &quot;e&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_RxH5uQN5Uq" href="#p_RxH5uQN5Uq" tabindex="-1" role="presentation"></a>If you pass <code>concat</code> an argument that is not an array, that value will be added to the new array as if it were a one-element array.</p>
+<p>اگر به متد <code>concat</code> آرگومانی غیرآرایه‌ای بفرستید، این مقدار به عنوان یک آرایه‌ی تک عنصری محسوب می شود و به انتهای آرایه‌ی جدید اضافه خواهد شد.</p>
 
-<h2><a class="h_ident" id="h_mT4YQfwHp6" href="#h_mT4YQfwHp6" tabindex="-1" role="presentation"></a>Strings and their properties</h2>
+<h2><a class="h_ident" id="h_wzHzVx4rZJ" href="#h_wzHzVx4rZJ" tabindex="-1" role="presentation"></a>رشته‌ها و خاصیت‌هایشان</h2>
 
-<p><a class="p_ident" id="p_sp+O+Km+2n" href="#p_sp+O+Km+2n" tabindex="-1" role="presentation"></a>We can read properties like <code>length</code> and <code>toUpperCase</code> from string values. But if you try to add a new property, it doesn’t stick.</p>
+<p>می توانیم خاصیت‌هایی مثل <code>length</code> و <code>toUpperCase</code> را از مقدارهای رشته‌ای بخوانیم. اما اگر سعی کنید خاصیت جدید به آن‌ها اضافه کنید، نتیجه‌ای نخواهد داشت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xvzL9wErq7" href="#c_xvzL9wErq7" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">kim</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Kim&quot;</span>;
 <span class="cm-variable">kim</span>.<span class="cm-property">age</span> <span class="cm-operator">=</span> <span class="cm-number">88</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">kim</span>.<span class="cm-property">age</span>);
 <span class="cm-comment">// → undefined</span></pre>
 
-<p><a class="p_ident" id="p_B+oSPYAIbV" href="#p_B+oSPYAIbV" tabindex="-1" role="presentation"></a>Values of type string, number, and Boolean are not objects, and though the language doesn’t complain if you try to set new properties on them, it doesn’t actually store those properties. As mentioned earlier, such values are immutable and cannot be changed.</p>
+<p>مقادیر نوع رشته، عدد و بولی، شیء محسوب نمی شوند. درست است که اگر سعی کنید خاصیت جدیدی روی آن تعریف کنید، مفسر جاوااسکریپت خطایی تولید نمی کند، اما این خاصیت ها را هم ایجاد و ذخیره نمی کند. همانطور که پیش‌تر گفته شد، این گونه مقادیر قابل تغییر نیستند.</p>
 
-<p><a class="p_ident" id="p_8L2ib2beYN" href="#p_8L2ib2beYN" tabindex="-1" role="presentation"></a>But these types do have built-in properties. Every string value has a number of methods. Some very useful ones are <code>slice</code> and <code>indexOf</code>, which resemble the array methods of the same name.</p>
+<p>اما این انواع داده، دارای خاصیت‌هایی از پیش تعریف شده می باشند.  هر مقدار رشته‌ای حاوی چند متد است. <code>slice</code> و <code>indexOf</code> از متدهای بسیار کاربردی رشته‌ها هستند که به  متدهایی با همین نام‌ها در آرایه‌ها، شباهت دارند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/Tmq1doYeG" href="#c_/Tmq1doYeG" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;coconuts&quot;</span>.<span class="cm-property">slice</span>(<span class="cm-number">4</span>, <span class="cm-number">7</span>));
 <span class="cm-comment">// → nut</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;coconut&quot;</span>.<span class="cm-property">indexOf</span>(<span class="cm-string">&quot;u&quot;</span>));
 <span class="cm-comment">// → 5</span></pre>
 
-<p><a class="p_ident" id="p_RUd6q+Q4dc" href="#p_RUd6q+Q4dc" tabindex="-1" role="presentation"></a>One difference is that a string’s <code>indexOf</code> can search for a string containing more than one character, whereas the corresponding array method looks only for a single element.</p>
+<p>یک تفاوت <code>indexOf</code> رشته نسبت به آرایه، توانایی جستجو رشته‌ای است که شامل بیش از یک کاراکتر می باشد در حالی که در متد مربوط به آرایه، فقط جستجو را روی عناصر تکی انجام می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xM5/GBnZVG" href="#c_xM5/GBnZVG" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;one two three&quot;</span>.<span class="cm-property">indexOf</span>(<span class="cm-string">&quot;ee&quot;</span>));
 <span class="cm-comment">// → 11</span></pre>
 
-<p><a class="p_ident" id="p_USclxilOGS" href="#p_USclxilOGS" tabindex="-1" role="presentation"></a>The <code>trim</code> method removes whitespace (spaces, newlines, tabs, and similar characters) from the start and end of a string.</p>
+<p>متد <code>trim</code> فضای خالی را ( شامل فضای خالی، کاراکتر خط جدید، کاراکتر تب، و کاراکترهای مشابه) از آغاز و پایان رشته حذف می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_0AfLRWyjq0" href="#c_0AfLRWyjq0" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;  okay \n &quot;</span>.<span class="cm-property">trim</span>());
 <span class="cm-comment">// → okay</span></pre>
 
-<p><a class="p_ident" id="p_pSkK9k9R0g" href="#p_pSkK9k9R0g" tabindex="-1" role="presentation"></a>The <code>zeroPad</code> function from the <a href="03_functions.html">previous chapter</a> also exists as a method. It is called <code>padStart</code> and takes the desired length and padding character as arguments.</p>
+<p>تابع <code>zeroPad</code> که در <a href="03_functions.html">فصل قبل</a> نوشتیم نیز به عنوان یک متد وجود دارد. اسم این متد <code>padStart</code> است و طول دلخواه و کاراکتر ترازبندی را به عنوان آرگومان می گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SJbD9MiYu+" href="#c_SJbD9MiYu+" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">String</span>(<span class="cm-number">6</span>).<span class="cm-property">padStart</span>(<span class="cm-number">3</span>, <span class="cm-string">&quot;0&quot;</span>));
 <span class="cm-comment">// → 006</span></pre>
 
-<p id="split"><a class="p_ident" id="p_/nMvmESoIj" href="#p_/nMvmESoIj" tabindex="-1" role="presentation"></a>You can split a string on every occurrence of another string with <code>split</code> and join it again with <code>join</code>.</p>
+<p id="split">می توانید با استفاده از متد <code>split</code> یک رشته را بر اساس تکرار رشته‌ای دیگر تقسیم و جدا کنید و با استفاده از متد <code>join</code> دوباره بهم بچسبانید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/rV2Ed5e8V" href="#c_/rV2Ed5e8V" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">sentence</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Secretarybirds specialize in stomping&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">words</span> <span class="cm-operator">=</span> <span class="cm-variable">sentence</span>.<span class="cm-property">split</span>(<span class="cm-string">&quot; &quot;</span>);
@@ -499,12 +498,12 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">words</span>.<span class="cm-property">join</span>(<span class="cm-string">&quot;. &quot;</span>));
 <span class="cm-comment">// → Secretarybirds. specialize. in. stomping</span></pre>
 
-<p><a class="p_ident" id="p_EKC26dOCjK" href="#p_EKC26dOCjK" tabindex="-1" role="presentation"></a>A string can be repeated with the <code>repeat</code> method, which creates a new string containing multiple copies of the original string, glued together.</p>
+<p>یک رشته را می توان با استفاده از متد <code>repeat</code> تکرار کرد که در این صورت رشته‌ای جدید تولید می شود که حاوی کپی های متعدد از رشته‌ای اصلی است که به هم چسبیده اند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_70WotkNADb" href="#c_70WotkNADb" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;LA&quot;</span>.<span class="cm-property">repeat</span>(<span class="cm-number">3</span>));
 <span class="cm-comment">// → LALALA</span></pre>
 
-<p><a class="p_ident" id="p_JoGJxr+Ofe" href="#p_JoGJxr+Ofe" tabindex="-1" role="presentation"></a>We have already seen the string type’s <code>length</code> property. Accessing the individual characters in a string looks like accessing array elements (with a caveat that we’ll discuss in <a href="05_higher_order.html#code_units">Chapter 5</a>).</p>
+<p>پیش از این، با خاصیت <code>length</code> برای نوع رشته آشنا شدیم. دستیابی به کاراکترهای یک رشته شبیه دستیابی به عناصر یک آرایه است ( با در نظر گرفتن یک نکته که در <a href="05_higher_order.html#code_units">فصل 5</a> به آن می پردازیم).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Aeop9AuKAb" href="#c_Aeop9AuKAb" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">string</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;abc&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">string</span>.<span class="cm-property">length</span>);
@@ -512,11 +511,11 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">string</span>[<span class="cm-number">1</span>]);
 <span class="cm-comment">// → b</span></pre>
 
-<h2 id="rest_parameters"><a class="h_ident" id="h_hX9DkIBp9y" href="#h_hX9DkIBp9y" tabindex="-1" role="presentation"></a>Rest parameters</h2>
+<h2 id="rest_parameters"><a class="h_ident" id="h_esgs3w7wfA" href="#h_esgs3w7wfA" tabindex="-1" role="presentation"></a>سایر پارامتر‌ها</h2>
 
-<p><a class="p_ident" id="p_4Vr2QMYcHp" href="#p_4Vr2QMYcHp" tabindex="-1" role="presentation"></a>It can be useful for a function to accept any number of arguments. For example, <code>Math.max</code> computes the maximum of <em>all</em> the arguments it is given.</p>
+<p>امکان مفیدی است اگر یک تابع می بتواند به تعداد دلخواه آرگومان دریافت کند. به عنوان مثال، <code>Math.max</code> بیشینه‌ی <em>همه</em> آرگومان‌هایی که به آن داده می شود را بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_eWuSc6aG2b" href="#p_eWuSc6aG2b" tabindex="-1" role="presentation"></a>To write such a function, you put three dots before the function’s last parameter, like this:</p>
+<p>برای نوشتن این گونه توابع، بایستی سه علامت نقطه قبل از آخرین پارامتر تابع قرار دهید، شبیه مثال زیر:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_UXPbyGFVIB" href="#c_UXPbyGFVIB" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">max</span>(<span class="cm-meta">...</span><span class="cm-def">numbers</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">result</span> <span class="cm-operator">=</span> <span class="cm-operator">-</span><span class="cm-atom">Infinity</span>;
@@ -528,33 +527,33 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">max</span>(<span class="cm-number">4</span>, <span class="cm-number">1</span>, <span class="cm-number">9</span>, <span class="cm-operator">-</span><span class="cm-number">2</span>));
 <span class="cm-comment">// → 9</span></pre>
 
-<p><a class="p_ident" id="p_rGoFNpUuEy" href="#p_rGoFNpUuEy" tabindex="-1" role="presentation"></a>When such a function is called, the <em>rest parameter</em> is bound to an array containing all further arguments. If there are other parameters before it, their values aren’t part of that array. When, as in <code>max</code>, it is the only parameter, it will hold all arguments.</p>
+<p>زمانی که تابعی با این تعریف فراخوانی شود، <em>پارامتر &quot;سایر&quot;</em> به آرایه‌ای که حاوی تمامی دیگر آرگومان‌ها می باشد اشاره می کند. اگر پارامترهای دیگری قبل از آن وجود داشته باشند، مقدار‌ آن ها در آن آرایه قرار نمی گیرد. در حالتی که، مانند متد <code>max</code>، اولین پارامتر به این صورت تعریف شود، تمامی آرگومان ها را در بر خواهد گرفت.</p>
 
-<p><a class="p_ident" id="p_ZVL6nOj2oy" href="#p_ZVL6nOj2oy" tabindex="-1" role="presentation"></a>You can use a similar three-dot notation to <em>call</em> a function with an array of arguments.</p>
+<p>با استفاده از این نماد سه نقطه‌ای، می توانید یک تابع را با آرایه‌ای از آرگومان‌ها <em>فراخوانی</em> کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_h9hmTe3vix" href="#c_h9hmTe3vix" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">numbers</span> <span class="cm-operator">=</span> [<span class="cm-number">5</span>, <span class="cm-number">1</span>, <span class="cm-number">7</span>];
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">max</span>(<span class="cm-meta">...</span><span class="cm-variable">numbers</span>));
 <span class="cm-comment">// → 7</span></pre>
 
-<p><a class="p_ident" id="p_Q6Tzyy9eaj" href="#p_Q6Tzyy9eaj" tabindex="-1" role="presentation"></a>This “spreads” out the array into the function call, passing its elements as separate arguments. It is possible to include an array like that along with other arguments, as in <code>max(9, .<wbr>.<wbr>.<wbr>numbers, 2)</code>.</p>
+<p>این کار باعث می شود که آرایه‌ی مورد نظر در فراخوانی تابع پخش بشود، به طوری که عناصرش به عنوان آرگومان‌های جدا محسوب شوند.  همچنین می توان آرایه‌ی مشابهی را لابه‌لای دیگر آرگومان ها ارسال کرد مثل :‌ <bdo><code>max(9, .<wbr>.<wbr>.<wbr>numbers, 2)</code></bdo>.</p>
 
-<p><a class="p_ident" id="p_/SfVO/tjcB" href="#p_/SfVO/tjcB" tabindex="-1" role="presentation"></a>Square bracket array notation similarly allows the triple-dot operator to spread another array into the new array.</p>
+<p>به  طور مشابه ، براکت‌های آرایه این امکان را به شما می دهند که از عملگر سه‌نقطه برای پخش آرایه‌ای دیگر در یک آرایه‌ی جدید استفاده کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_4t+LJt3Kyo" href="#c_4t+LJt3Kyo" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">words</span> <span class="cm-operator">=</span> [<span class="cm-string">&quot;never&quot;</span>, <span class="cm-string">&quot;fully&quot;</span>];
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-string">&quot;will&quot;</span>, <span class="cm-meta">...</span><span class="cm-variable">words</span>, <span class="cm-string">&quot;understand&quot;</span>]);
 <span class="cm-comment">// → [&quot;will&quot;, &quot;never&quot;, &quot;fully&quot;, &quot;understand&quot;]</span></pre>
 
-<h2><a class="h_ident" id="h_C51DnYk8WZ" href="#h_C51DnYk8WZ" tabindex="-1" role="presentation"></a>The Math object</h2>
+<h2><a class="h_ident" id="h_2vTq8gdL1s" href="#h_2vTq8gdL1s" tabindex="-1" role="presentation"></a>شیء Math</h2>
 
-<p><a class="p_ident" id="p_h3aa0itA5J" href="#p_h3aa0itA5J" tabindex="-1" role="presentation"></a>As we’ve seen, <code>Math</code> is a grab bag of number-related utility functions, such as <code>Math.max</code> (maximum), <code>Math.min</code> (minimum), and <code>Math.sqrt</code> (square root).</p>
+<p>همانطور که دیده‌ایم، <code>Math</code> حاوی تعدادی تابع کاربردی مرتبط با اعداد است، مثل <bdo><code>Math.max</code></bdo>  (بیشینه)، <bdo> <code>Math.min</code></bdo> (کمینه)، و <bdo><code>Math.sqrt</code></bdo> (ریشه دوم عدد).</p>
 
-<p id="namespace_pollution"><a class="p_ident" id="p_Sae3fXYP2/" href="#p_Sae3fXYP2/" tabindex="-1" role="presentation"></a>The <code>Math</code> object is used as a container to group a bunch of related functionality. There is only one <code>Math</code> object, and it is almost never useful as a value. Rather, it provides a <em>namespace</em> so that all these functions and values do not have to be global bindings.</p>
+<p id="namespace_pollution"><a class="p_ident" id="p_GWPrxhFzqI" href="#p_GWPrxhFzqI" tabindex="-1" role="presentation"></a>شیء <code>Math</code> به عنوان یک ظرف برای گروه‌بندی قابلیت‌های مرتبط استفاده می شود. تنها یک شیء <code>Math</code> وجود دارد، و تقریبا هرگز کاربردی به عنوان یک مقدار ندارد. در عوض، فضای نامی (<em>namespace</em>) را فراهم می کند که باعث می شود نیازی نباشد این متدها و مقدارها در فضای سراسری تعریف شوند.</p>
 
-<p><a class="p_ident" id="p_fGEMziAXhp" href="#p_fGEMziAXhp" tabindex="-1" role="presentation"></a>Having too many global bindings “pollutes” the namespace. The more names have been taken, the more likely you are to accidentally overwrite the value of some existing binding. For example, it’s not unlikely to want to name something <code>max</code> in one of your programs. Since JavaScript’s built-in <code>max</code> function is tucked safely inside the <code>Math</code> object, we don’t have to worry about overwriting it.</p>
+<p>داشتن متغیرهای سراسری زیاد، به نوعی موجب آلودگی فضای نام (namespace)می شود. هرچه نام‌های بیشتری اشغال شوند ، احتمال بیشتری برای جایگزینی ناخواسته و تصادفی مقدار متغیرها وجود دارد. به عنوان مثال، بعید نیست که بخواهید چیزی را به نام  <code>max</code> در یکی از برنامه‌هایتان تعریف کنید. اما به دلیل اینکه تابع از پیش تعریف شده‌ی  <code>max</code> در جاوااسکریپت  به شکل امنی درون شیء <code>Math</code> نگه داری می شود، نیازی نیست نگران تغییر تصادفی آن باشیم.</p>
 
-<p><a class="p_ident" id="p_6OHrUF+WEc" href="#p_6OHrUF+WEc" tabindex="-1" role="presentation"></a>Many languages will stop you, or at least warn you, when you are defining a binding with a name that is already taken. JavaScript does this for bindings you declared with <code>let</code> or <code>const</code> but—perversely—not for standard bindings nor for bindings declared with <code>var</code> or <code>function</code>.</p>
+<p>خیلی از زبان‌های برنامه نویسی، مانع از تعریف متغیری می شوند که قبلا تعریف شده است یا حداقل به شما در این باره اخطار می دهند. جاوااسکریپت این کار را برای متغیرهایی که با <code>let</code> یا <code>const</code> تعریف شده اند انجام می دهد اما عجیب اینکه برای متغیرهایی که با <code>var</code>، توابعی که با <code>function</code> تعریف شده اند و متغیرهای استاندارد زبان، حرکتی بروز نمی دهد.</p>
 
-<p><a class="p_ident" id="p_zWXQRNgLI/" href="#p_zWXQRNgLI/" tabindex="-1" role="presentation"></a>Back to the <code>Math</code> object. If you need to do trigonometry, <code>Math</code> can help. It contains <code>cos</code> (cosine), <code>sin</code> (sine), and <code>tan</code> (tangent), as well as their inverse functions, <code>acos</code>, <code>asin</code>, and <code>atan</code>, respectively. The number π (pi)—or at least the closest approximation that fits in a JavaScript number—is available as <code>Math.PI</code>. There is an old programming tradition of writing the names of constant values in all caps.</p>
+<p>برگردیم به شیء <code>Math</code>. اگر نیاز به محاسبات مثلثاتی دارید ، <code>Math</code> می تواند به شما کمک کند. مانند متدهای  <code>cos</code> (کسینوس)، <code>sin</code> (سینوس)، و <code>tan</code> (تانژانت) به همراه توابع معکوس آن‌ها، <code>acos</code> <code>asin</code> و <code>atan</code>. عدد π (پی) – در واقع نزدیک ترین تقریبی که برای آن در جاوااسکریپت وجود دارد – نیز به صورت <bdo><code>Math.PI</code></bdo> در دسترس است. یک سنت قدیمی در برنامه نویسی وجود دارد که نام ثابت ها را با حروف بزرگ می نویسند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_54zxf+2nsU" href="#c_54zxf+2nsU" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">randomPointOnCircle</span>(<span class="cm-def">radius</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">angle</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> <span class="cm-number">2</span> <span class="cm-operator">*</span> <span class="cm-variable">Math</span>.<span class="cm-property">PI</span>;
@@ -564,9 +563,9 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">randomPointOnCircle</span>(<span class="cm-number">2</span>));
 <span class="cm-comment">// → {x: 0.3667, y: 1.966}</span></pre>
 
-<p><a class="p_ident" id="p_KN16iaNdwJ" href="#p_KN16iaNdwJ" tabindex="-1" role="presentation"></a>If sines and cosines are not something you are familiar with, don’t worry. When they are used in this book, in <a href="14_dom.html#sin_cos">Chapter 14</a>, I’ll explain them.</p>
+<p>اگر با سینوس و کسینوس آشنا نیستنید، نگران نباشید. زمانی که به سراغ استفاده از آن ها خواهیم رفت،‌در <a href="14_dom.html#sin_cos">در فصل 14</a>، آن ها را توضیح خواهم داد.</p>
 
-<p><a class="p_ident" id="p_a6xMq73yCc" href="#p_a6xMq73yCc" tabindex="-1" role="presentation"></a>The previous example used <code>Math.random</code>. This is a function that returns a new pseudorandom number between zero (inclusive) and one (exclusive) every time you call it.</p>
+<p>در مثال قبل از<code>Math.random</code> استفاده شد. این تابع عددی تصادفی بین صفر (به غیر از خود صفر) و یک (شامل خود یک) با هر بار فراخوانی، تولید می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_+gqW4B1qk1" href="#c_+gqW4B1qk1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">random</span>());
 <span class="cm-comment">// → 0.36993729369714856</span>
@@ -575,20 +574,20 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">random</span>());
 <span class="cm-comment">// → 0.40180766698904335</span></pre>
 
-<p><a class="p_ident" id="p_wukRTlH+QE" href="#p_wukRTlH+QE" tabindex="-1" role="presentation"></a>Though computers are deterministic machines—they always react the same way if given the same input—it is possible to have them produce numbers that appear random. To do that, the machine keeps some hidden value, and whenever you ask for a new random number, it performs complicated computations on this hidden value to create a new value. It stores a new value and returns some number derived from it. That way, it can produce ever new, hard-to-predict numbers in a way that <em>seems</em> random.</p>
+<p>اگرچه کامپیوتر ها ماشین‌هایی قطعی محسوب می شوند- همیشه به ورودی یکسان، واکنش یکسانی بروز می دهند –  می توان از آن ها خواست تا اعدادی که ظاهرا تصادفی هستند را تولید کنند. برای این کار، کامپیوتر بعضی مقادیر مخفی را در نظر می گیرد، و هر وقت که شما درخواست عدد تصادفی می کنید، محاسبات پیچیده‌ای را روی آن مقدارهای مخفی انجام می دهد تا مقدار جدیدی بسازد.  مقدار جدید را ذخیره کرده و عددی که از آن گرفته شده را به عنوان پاسخ برمی گرداند. با این روش، قادر است که اعداد جدیدی تولید کند که به سختی قابل پیش بینی اند طوری که <em>به نظر</em> تصادفی می آیند.</p>
 
-<p><a class="p_ident" id="p_2guGKjrtTY" href="#p_2guGKjrtTY" tabindex="-1" role="presentation"></a>If we want a whole random number instead of a fractional one, we can use <code>Math.floor</code> (which rounds down to the nearest whole number) on the result of <code>Math.random</code>.</p>
+<p>اگر به جای اعداد اعشاری، به عدد تصادفی کامل(صحیح) نیاز داریم،‌می توانیم از متد <bdo><code>Math.floor</code></bdo> (که عدد ورودی‌اش را به نزدیک ترین عدد کوچکتر کامل گرد می کند ) برای نتیجه <bdo><code>Math.random</code></bdo> استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LlfOX4tbSH" href="#c_LlfOX4tbSH" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">floor</span>(<span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> <span class="cm-number">10</span>));
 <span class="cm-comment">// → 2</span></pre>
 
-<p><a class="p_ident" id="p_qcgl/8YUFj" href="#p_qcgl/8YUFj" tabindex="-1" role="presentation"></a>Multiplying the random number by 10 gives us a number greater than or equal to 0 and below 10. Since <code>Math.floor</code> rounds down, this expression will produce, with equal chance, any number from 0 through 9.</p>
+<p><a class="p_ident" id="p_qeS+PbyE0t" href="#p_qeS+PbyE0t" tabindex="-1" role="presentation"></a>ضرب عدد تصادفی در عدد 10 باعث می شود که عددی بزرگتر مساوی 0 و کوچکتر از 10 را تولید کنیم. به علت اینکه <bdo><code>Math.floor</code></bdo> به سمت پایین عدد را گرد می کند،  این عبارت، عددی تصادفی بین 0 تا 9 را تولید می کند.</p>
 
-<p><a class="p_ident" id="p_4Vo+PhEiYY" href="#p_4Vo+PhEiYY" tabindex="-1" role="presentation"></a>There are also the functions <code>Math.ceil</code> (for “ceiling”, which rounds up to a whole number), <code>Math.round</code> (to the nearest whole number), and <code>Math.abs</code>, which takes the absolute value of a number, meaning it negates negative values but leaves positive ones as they are.</p>
+<p>همچنین توابع دیگری وجود دارد مثل <bdo><code>Math.ceil</code></bdo>  برای گرد کردن به سمت بالا (سقف)، <bdo><code>Math.round</code></bdo> تولید نزدیک ترین عدد صحیح و <bdo><code>Math.abs</code></bdo> برای بدست آوردن قدرمطلق عدد (اندازه مطلق عدد فارغ از علامت آن، اعداد منفی را منفی کرده و به اعداد مثبت کاری ندارد).</p>
 
-<h2><a class="h_ident" id="h_B372u36cp6" href="#h_B372u36cp6" tabindex="-1" role="presentation"></a>Destructuring</h2>
+<h2><a class="h_ident" id="h_FM848ofYuz" href="#h_FM848ofYuz" tabindex="-1" role="presentation"></a>تجزیه کردن (destructring)</h2>
 
-<p><a class="p_ident" id="p_YaENzwA635" href="#p_YaENzwA635" tabindex="-1" role="presentation"></a>Let’s go back to the <code>phi</code> function for a moment.</p>
+<p>اجازه بدهید به تابع محاسبه <code>phi</code> (فی) برگردیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_8p90ivE8ZI" href="#c_8p90ivE8ZI" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">phi</span>(<span class="cm-def">table</span>) {
   <span class="cm-keyword">return</span> (<span class="cm-variable-2">table</span>[<span class="cm-number">3</span>] <span class="cm-operator">*</span> <span class="cm-variable-2">table</span>[<span class="cm-number">0</span>] <span class="cm-operator">-</span> <span class="cm-variable-2">table</span>[<span class="cm-number">2</span>] <span class="cm-operator">*</span> <span class="cm-variable-2">table</span>[<span class="cm-number">1</span>]) <span class="cm-operator">/</span>
@@ -598,7 +597,7 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
               (<span class="cm-variable-2">table</span>[<span class="cm-number">0</span>] <span class="cm-operator">+</span> <span class="cm-variable-2">table</span>[<span class="cm-number">2</span>]));
 }</pre>
 
-<p><a class="p_ident" id="p_KYh2WplVnQ" href="#p_KYh2WplVnQ" tabindex="-1" role="presentation"></a>One of the reasons this function is awkward to read is that we have a binding pointing at our array, but we’d much prefer to have bindings for the <em>elements</em> of the array, that is, <code>let n00 = table[0]</code> and so on. Fortunately, there is a succinct way to do this in JavaScript.</p>
+<p>یکی از دلایلی که این تابع خوانایی سختی دارد این است که متغیری داریم که به آرایه‌ی ما ارجاع می دهد، در حالیکه بهتر این بود که متغیرهایی برای اشاره به <em>عناصر</em> آرایه داشتیم، مثل، <bdo><code>let n00 = table[0]</code></bdo> و از این قبیل. خوشبختانه راه مختصری برای این کار در جاوااسکریپت تعبیه شده است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_z2cboTL/zX" href="#c_z2cboTL/zX" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">phi</span>([<span class="cm-def">n00</span>, <span class="cm-def">n01</span>, <span class="cm-def">n10</span>, <span class="cm-def">n11</span>]) {
   <span class="cm-keyword">return</span> (<span class="cm-variable-2">n11</span> <span class="cm-operator">*</span> <span class="cm-variable-2">n00</span> <span class="cm-operator">-</span> <span class="cm-variable-2">n10</span> <span class="cm-operator">*</span> <span class="cm-variable-2">n01</span>) <span class="cm-operator">/</span>
@@ -606,34 +605,34 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
               (<span class="cm-variable-2">n01</span> <span class="cm-operator">+</span> <span class="cm-variable-2">n11</span>) <span class="cm-operator">*</span> (<span class="cm-variable-2">n00</span> <span class="cm-operator">+</span> <span class="cm-variable-2">n10</span>));
 }</pre>
 
-<p><a class="p_ident" id="p_kBO/cFWeM1" href="#p_kBO/cFWeM1" tabindex="-1" role="presentation"></a>This also works for bindings created with <code>let</code>, <code>var</code>, or <code>const</code>. If you know the value you are binding is an array, you can use square brackets to “look inside” of the value, binding its contents.</p>
+<p>این روش برای متغیرهایی که با <code>let</code>، <code>var</code> یا <code>const</code> تعریف شده اند نیز کار می کند. اگر می دانید که مقدار مورد نظر، یک آرایه است، می توانید از براکت‌ها برای دسترسی به درون آن مقدار استفاده کرده و محتوایش را مورد ارجاع قرار دهید.</p>
 
-<p><a class="p_ident" id="p_Zr6hFslmUP" href="#p_Zr6hFslmUP" tabindex="-1" role="presentation"></a>A similar trick works for objects, using braces instead of square brackets.</p>
+<p>روش مشابهی برای اشیاء نیز وجود دارد، استفاده از کروشه به جای براکت‌.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ZXEdn9Xbfc" href="#c_ZXEdn9Xbfc" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> {<span class="cm-def">name</span>} <span class="cm-operator">=</span> {<span class="cm-property">name</span>: <span class="cm-string">&quot;Faraji&quot;</span>, <span class="cm-property">age</span>: <span class="cm-number">23</span>};
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">name</span>);
 <span class="cm-comment">// → Faraji</span></pre>
 
-<p><a class="p_ident" id="p_1RhWeB9//B" href="#p_1RhWeB9//B" tabindex="-1" role="presentation"></a>Note that if you try to destructure <code>null</code> or <code>undefined</code>, you get an error, much as you would if you directly try to access a property of those values.</p>
+<p>توجه داشته باشید، اگر سعی کنید <code>null</code> یا <code>undefined</code> را تجزیه کنید، با خطا مواجه خواهید شد، درست شبیه اینکه بخواهید مستقیما به خاصیتی از این دو مقدار اشاره کنید.</p>
 
 <h2><a class="h_ident" id="h_AxpOdvCznQ" href="#h_AxpOdvCznQ" tabindex="-1" role="presentation"></a>JSON</h2>
 
-<p><a class="p_ident" id="p_7o8VSa4Rvc" href="#p_7o8VSa4Rvc" tabindex="-1" role="presentation"></a>Because properties only grasp their value, rather than contain it, objects and arrays are stored in the computer’s memory as sequences of bits holding the <em>addresses</em>—the place in memory—of their contents. So an array with another array inside of it consists of (at least) one memory region for the inner array, and another for the outer array, containing (among other things) a binary number that represents the position of the inner array.</p>
+<p><a class="p_ident" id="p_0ESehgd0SY" href="#p_0ESehgd0SY" tabindex="-1" role="presentation"></a>به دلیل این واقعیت که خاصیت‌ها (properties)، به مقدارهای متناظرشان فقط دسترسی دارند نه اینکه واقعا آن‌ها را نگه‌داری کنند، آرایه‌ها و اشیاء به صورت دنباله‌ای از بیت‌ها در حافظه‌ی کامپیوتر ذخیره می شوند که آدرس‌های محتوای مرتبطشان را نگه داری می کنند (مکان‌های حافظه). بنابراین یک آرایه که آرایه‌ای دیگر درون آن قرار گرفته حداقل از یک ناحیه‌ی حافظه برای آرایه‌ی درونی، و ناحیه‌ای دیگر برای آرایه‌ی بیرونی تشکیل شده است، که حاوی (علاوه بر چیزهای دیگر) یک عدد دودویی است که نمایانگر موقعیت آرایه درونی می باشد.</p>
 
-<p><a class="p_ident" id="p_aF+08iJEQw" href="#p_aF+08iJEQw" tabindex="-1" role="presentation"></a>If you want to save data in a file for later or send it to another computer over the network, you have to somehow convert these tangles of memory addresses to a description that can be stored or sent. You <em>could</em> send over your entire computer memory along with the address of the value you’re interested in, I suppose, but that doesn’t seem like the best approach.</p>
+<p>اگر بخواهید که داده‌ها را برای استفاده در آینده، در یک فایل ذخیره کنید ، یا به کامپیوتر دیگری در شبکه ارسال کنید، می بایست به نحوی این آدرس‌های حافظه را تبدیل به توصیفاتی کنید که بتوان آن را ذخیره یا ارسال کرد.  می توانستید تمام حافظه‌ی کامپیوتر را همراه با آدرس مقدار مورد نظر ارسال کنید، ظاهرا شدنی است، اما به نظر می رسد روش خیلی خوبی محسوب نمی شود.</p>
 
-<p><a class="p_ident" id="p_ZM103Qyv6l" href="#p_ZM103Qyv6l" tabindex="-1" role="presentation"></a>What we can do is <em>serialize</em> the data. That means it is converted into a flat description. A popular serialization format is called <em>JSON</em> (pronounced “Jason”), which stands for JavaScript Object Notation. It is widely used as a data storage and communication format on the Web, even in languages other than JavaScript.</p>
+<p><a class="p_ident" id="p_KTs7dGQaDZ" href="#p_KTs7dGQaDZ" tabindex="-1" role="presentation"></a>کاری که می توانیم در این موقعیت بکنیم این است که داده ها را پشت سرهم ردیف کنیم( سریالایز). به این معنا که آن را تبدیل به متنی تخت در بیاوریم. یکی از فرمت‌های محبوب سریال کردن داده ها <em>JSON</em> نامیده می شود ( که جی سن تلفظ می شود)، که مخفف نشانه‌گذاری شیء جاوااسکریپت است (javascript object notation). این روش به طور گسترده به عنوان روشی برای ذخیره داده‌ها و ارسال/دریافت آن ها در وب استفاده می شود، حتی در دیگر زبان‌های برنامه نویسی غیر ازجاوااسکریپت نیز معمول است.</p>
 
-<p><a class="p_ident" id="p_IMEKAvSfAI" href="#p_IMEKAvSfAI" tabindex="-1" role="presentation"></a>JSON looks similar to JavaScript’s way of writing arrays and objects, with a few restrictions. All property names have to be surrounded by double quotes, and only simple data expressions are allowed—no function calls, bindings, or anything that involves actual computation. Comments are not allowed in JSON.</p>
+<p><a class="p_ident" id="p_mOPfDLWRIN" href="#p_mOPfDLWRIN" tabindex="-1" role="presentation"></a>JSON با کمی محدودیت، بسیار شبیه به روش جاوااسکریپت در نوشتن آرایه‌ها و اشیاء به نظر می رسد. نام خاصیت ها بایستی حتما با نقل قول جفتی احاطه شوند، و فقط عبارت‌های داده‌ای ساده قابل قبول هستند – متغیرها، فراخوانی توابع، یا هرچیزی که شامل محاسبه‌ی عملی باشد مجاز نیستند. توضیحات هم در JSON مجاز نیستند.</p>
 
-<p><a class="p_ident" id="p_9DCLKzKNiz" href="#p_9DCLKzKNiz" tabindex="-1" role="presentation"></a>A journal entry might look like this when represented as JSON data:</p>
+<p><a class="p_ident" id="p_AxpOdvCznQ" href="#p_AxpOdvCznQ" tabindex="-1" role="presentation"></a>یک مدخل گزارش روزانه ممکن است شبیه زیر باشد اگر به فرمت JSON  نوشته شود:</p>
 
 <pre class="snippet cm-s-default" data-language="application/json" ><a class="c_ident" id="c_A3jdCqz1Q6" href="#c_A3jdCqz1Q6" tabindex="-1" role="presentation"></a>{
   <span class="cm-string cm-property">&quot;squirrel&quot;</span>: <span class="cm-atom">false</span>,
   <span class="cm-string cm-property">&quot;events&quot;</span>: [<span class="cm-string">&quot;work&quot;</span>, <span class="cm-string">&quot;touched tree&quot;</span>, <span class="cm-string">&quot;pizza&quot;</span>, <span class="cm-string">&quot;running&quot;</span>]
 }</pre>
 
-<p><a class="p_ident" id="p_1IU60Zh2Af" href="#p_1IU60Zh2Af" tabindex="-1" role="presentation"></a>JavaScript gives us the functions <code>JSON.stringify</code> and <code>JSON.parse</code> to convert data to and from this format. The first takes a JavaScript value and returns a JSON-encoded string. The second takes such a string and converts it to the value it encodes.</p>
+<p><a class="p_ident" id="p_JnOVm6g13o" href="#p_JnOVm6g13o" tabindex="-1" role="presentation"></a>جاوااسکریپت دو متد <bdo><code>JSON.stringify</code></bdo>  و <bdo><code>JSON.parse</code></bdo> را در اختیار ما قرار داده است تا بتوانیم داده‌ها را به JSON تبدیل یا‌ از آن استخراج کنیم. تابع اول یک مقدار جاوااسکریپتی را گرفته و به رشته‌ای با فرمت JSON تبدیل می کند. تابع دوم رشته‌ای با فرمت JSON را گرفته و آن را به مقداری که درون رشته تعبیه شده است تبدیل می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HYCgCsK7z1" href="#c_HYCgCsK7z1" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">string</span> <span class="cm-operator">=</span> <span class="cm-variable">JSON</span>.<span class="cm-property">stringify</span>({<span class="cm-property">squirrel</span>: <span class="cm-atom">false</span>,
                              <span class="cm-property">events</span>: [<span class="cm-string">&quot;weekend&quot;</span>]});
@@ -642,29 +641,29 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">JSON</span>.<span class="cm-property">parse</span>(<span class="cm-variable">string</span>).<span class="cm-property">events</span>);
 <span class="cm-comment">// → [&quot;weekend&quot;]</span></pre>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_78ZfHX5x1B" href="#p_78ZfHX5x1B" tabindex="-1" role="presentation"></a>Objects and arrays (which are a specific kind of object) provide ways to group several values into a single value. Conceptually, this allows us to put a bunch of related things in a bag and run around with the bag, instead of wrapping our arms around all of the individual things and trying to hold on to them separately.</p>
+<p>آشیاء و آرایه ها ( آرایه‌ها هم شکلی خاصی از آشیاء هستند) روش‌هایی  فراهم می کنند که به وسیله‌ی آن‌ها، مقادیر متعددی را گروه‌بندی کرده و به عنوان یک مقدار در اختیار داشته باشیم. به لحاظ مفهومی، این کار ما را قادر می سازد به جای نگه‌داری چیزهای متعدد با دست، آن‌ها را در سبدی قرار داده و با خودمان جابجا کنیم.</p>
 
-<p><a class="p_ident" id="p_ayhyxvWlMH" href="#p_ayhyxvWlMH" tabindex="-1" role="presentation"></a>Most values in JavaScript have properties, the exceptions being <code>null</code> and <code>undefined</code>. Properties are accessed using <code>value.prop</code> or <code>value[&quot;prop&quot;]</code>. Objects tend to use names for their properties and store more or less a fixed set of them. Arrays, on the other hand, usually contain varying amounts of conceptually identical values and use numbers (starting from 0) as the names of their properties.</p>
+<p>اکثر مقادیر در جاواسکریپت داری مجموعه‌ای از خاصیت‌ها می باشند، مورد استثنا <code>null</code> و <code>undefined</code> است. می توان به خاصیت ها به صورت <bdo><code>value.prop</code></bdo> یا <bdo><code>value[&quot;prop&quot;]</code></bdo> دسترسی داشت. در اشیاء، خاصیت ها نام گذاری می شوند و معمولا مجموعه‌ی ثابتی از آن ها را نگه داری می کنند. آرایه‌ها، از سویی دیگر، حاوی تعداد متنوعی از مقدارهای معمولا یک جنس می باشند و از اعداد ( با شروع از صفر) به عنوان نام خاصیت‌هایشان استفاده می کنند.</p>
 
-<p><a class="p_ident" id="p_1lcitbawCQ" href="#p_1lcitbawCQ" tabindex="-1" role="presentation"></a>There <em>are</em> some named properties in arrays, such as <code>length</code> and a number of methods. Methods are functions that live in properties and (usually) act on the value they are a property of.</p>
+<p>البته بعضی خاصیت‌ها در آرایه‌ها وجود دارند که نام‌گذاری شده اند؛ مانند <code>length</code> و بعضی دیگر. متدها توابعی هستند که در خاصیت‌ها قرار دارند و (معمولا) روی مقداری که خاصیتی از آن محسوب می شوند عمل می کنند.</p>
 
-<p><a class="p_ident" id="p_KWzs1al6OP" href="#p_KWzs1al6OP" tabindex="-1" role="presentation"></a>You can iterate over arrays using a special kind of <code>for</code> loop—<code>for (let element of array)</code>.</p>
+<p><a class="p_ident" id="p_8WGwzmic/b" href="#p_8WGwzmic/b" tabindex="-1" role="presentation"></a>می توانی عناصر یک آرایه را به وسیله نوع خاصی از حلقه‌ی  <code>for</code> پیمایش کنید. <br> <bdo>for (let element of array)</bdo></p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_8ZspxiCEC/" href="#i_8ZspxiCEC/" tabindex="-1" role="presentation"></a>The sum of a range</h3>
+<h3><a class="i_ident" id="i_WHIVprwt1h" href="#i_WHIVprwt1h" tabindex="-1" role="presentation"></a>مجموع یک بازه</h3>
 
-<p><a class="p_ident" id="p_fpyyiv/hm1" href="#p_fpyyiv/hm1" tabindex="-1" role="presentation"></a>The <a href="00_intro.html">introduction</a> of this book alluded to the following as a nice way to compute the sum of a range of numbers:</p>
+<p>در <a href="00_intro.html">مقدمه‌ی</a> این کتاب، به مثال زیر به عنوان یک راه خوب برای محاسبه مجموع بازه‌ای از اعداد اشاره شد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KTbQMmMCli" href="#c_KTbQMmMCli" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sum</span>(<span class="cm-variable">range</span>(<span class="cm-number">1</span>, <span class="cm-number">10</span>)));</pre>
 
-<p><a class="p_ident" id="p_uTMnVb6I1m" href="#p_uTMnVb6I1m" tabindex="-1" role="presentation"></a>Write a <code>range</code> function that takes two arguments, <code>start</code> and <code>end</code>, and returns an array containing all the numbers from <code>start</code> up to (and including) <code>end</code>.</p>
+<p>تابعی به نام <code>range</code> بنویسید که دو آرگومان را دریاف می کند، <code>start</code> و <code>end</code> و آرایه‌ای بر می گرداند که حاوی تمامی اعدادی باشد که از <code>start</code> شروع شده و با عدد <code>end</code> پایان می یابد.</p>
 
-<p><a class="p_ident" id="p_0GiJNcBSop" href="#p_0GiJNcBSop" tabindex="-1" role="presentation"></a>Next, write a <code>sum</code> function that takes an array of numbers and returns the sum of these numbers. Run the example program and see whether it does indeed return 55.</p>
+<p><a class="p_ident" id="p_jv/uQJxiXh" href="#p_jv/uQJxiXh" tabindex="-1" role="presentation"></a>سپس، تابعی به نام <code>sum</code> بنویسید که آرایه‌ای از اعداد را گرفته و مجموع این اعداد را بر می گرداند. برنامه‌ ای که در مثال آمده را اجرا کرده و بررسی کنید که آیا 55 را به عنوان پاسخ بر می گرداند؟</p>
 
-<p><a class="p_ident" id="p_1Uvf7bfQT8" href="#p_1Uvf7bfQT8" tabindex="-1" role="presentation"></a>As a bonus assignment, modify your <code>range</code> function to take an optional third argument that indicates the “step” value used when building the array. If no step is given, the elements go up by increments of one, corresponding to the old behavior. The function call <code>range(1, 10, 2)</code> should return <code>[1, 3, 5, 7, 9]</code>. Make sure it also works with negative step values so that <code>range(5, 2, -1)</code> produces <code>[5, 4, 3, 2]</code>.</p>
+<p><a class="p_ident" id="p_vTcNG2+bNY" href="#p_vTcNG2+bNY" tabindex="-1" role="presentation"></a>به عنوان یک ماموریت تشویقی، تابع <code>range</code> خود را تغییر دهید تا آرگومان اختیاری سومی هم قبول کند. این آرگومان گام (step) را برای ساختن آرایه مشخص می کند. اگر گامی مشخص نشود، عناصر آرایه، مثل حالت پیش‌فرض، با یک واحد افزایش می یابند. فراخوانی تابع به شکل <bdo><code>range(1, 10, 2)</code></bdo> بایستی خروجی <bdo><code>[1, 3, 5, 7, 9]</code></bdo> را تولید کند. مطمئن شوید که تابع با گام منفی هم کار خواهد کرد پس  <bdo><code>range(5, 2, -1)</code></bdo> بایستی <bdo><code>[5, 4, 3, 2]</code></bdo> را تولید کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_gV3XCKJAqj" href="#c_gV3XCKJAqj" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -677,23 +676,23 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_AzWVqPrlre" href="#p_AzWVqPrlre" tabindex="-1" role="presentation"></a>Building up an array is most easily done by first initializing a binding to <code>[]</code> (a fresh, empty array) and repeatedly calling its <code>push</code> method to add a value. Don’t forget to return the array at the end of the function.</p>
+<p>ساختن یک آرایه، در ساده ترین شکل با تعریف یک متغیر و انتساب <code>[]</code> (یک آرایه‌ی تازه و خالی) و فراخوانی مکرر متد <code>push</code> برای افزودن مقدار، صورت می گیرد. فراموش نکنید که در انتهای تابع، آرایه را برگردانید.</p>
 
-<p><a class="p_ident" id="p_eu6MUPwjEb" href="#p_eu6MUPwjEb" tabindex="-1" role="presentation"></a>Since the end boundary is inclusive, you’ll need to use the <code>&lt;=</code> operator rather than <code>&lt;</code> to check for the end of your loop.</p>
+<p>به دلیل اینکه مرز انتهایی بازه باید شامل شود، لازم است تا از عملگر  <bdo><code>&lt;=</code></bdo> به جای عملگر <bdo><code>&lt;</code></bdo> برای بررسی انتهای حلقه استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_kvr5NnqBEW" href="#p_kvr5NnqBEW" tabindex="-1" role="presentation"></a>The step parameter can be an optional parameter that defaults (using the <code>=</code> operator) to 1.</p>
+<p><a class="p_ident" id="p_tDbwY2goFd" href="#p_tDbwY2goFd" tabindex="-1" role="presentation"></a>پارامتر step را می توان به صورت یک پارامتر پیش‌فرض تعریف کرد (استفاده از عملگر <code>=</code>) و مقدار آن را 1 قرار داد.</p>
 
-<p><a class="p_ident" id="p_zih2wFkrk5" href="#p_zih2wFkrk5" tabindex="-1" role="presentation"></a>Having <code>range</code> understand negative step values is probably best done by writing two separate loops—one for counting up and one for counting down—because the comparison that checks whether the loop is finished needs to be <code>&gt;=</code> rather than <code>&lt;=</code> when counting downward.</p>
+<p>برای اینکه <code>range</code> بتواند گام منفی را پیاده سازی کنید، احتمالا بهترین روش نوشتن دو حلقه است. یکی برای شمارش به بالا و دیگری برای شمارش به پایین. چراکه عمل مقایسه‌ای که به پایان رسیدن حلقه را بررسی می کند در حالت شمارش به پایین لازم است تا از <bdo><code>&gt;=</code></bdo> به جای <bdo><code>&lt;=</code></bdo> استفاده کند.</p>
 
-<p><a class="p_ident" id="p_d7Vi2uDSps" href="#p_d7Vi2uDSps" tabindex="-1" role="presentation"></a>It might also be worthwhile to use a different default step, namely, -1, when the end of the range is smaller than the start. That way, <code>range(5, 2)</code> returns something meaningful, rather than getting stuck in an infinite loop. It is possible to refer to previous parameters in the default value of a parameter.</p>
+<p>خوب است در مواقعی که پایان بازه از ابتدای آن کوچکتر است، از گام پیش‌فرض دیگری استفاده شود، مثلا <bdo>-1</bdo>. با این کار، <bdo><code>range(5, 2)</code></bdo> خروجی معقولی خواهد داشت و در حلقه‌ی بینهایت گیر نخواد افتاد. می توان در مقدار پیش‌فرض یک پارامتر به پارامترهای قبل ارجاع داد.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_6xTmjj4Rf5" href="#i_6xTmjj4Rf5" tabindex="-1" role="presentation"></a>Reversing an array</h3>
+<h3><a class="i_ident" id="i_MkGLDJw2/V" href="#i_MkGLDJw2/V" tabindex="-1" role="presentation"></a>معکوس کردن یک آرایه</h3>
 
-<p><a class="p_ident" id="p_+SVCOC/qcN" href="#p_+SVCOC/qcN" tabindex="-1" role="presentation"></a>Arrays have a <code>reverse</code> method that changes the array by inverting the order in which its elements appear. For this exercise, write two functions, <code>reverseArray</code> and <code>reverseArrayInPlace</code>. The first, <code>reverseArray</code>, takes an array as argument and produces a <em>new</em> array that has the same elements in the inverse order. The second, <code>reverseArrayInPlace</code>, does what the <code>reverse</code> method does: it <em>modifies</em> the array given as argument by reversing its elements. Neither may use the standard <code>reverse</code> method.</p>
+<p>آرایه‌ها متدی به نام <code>reverse</code> دارند که ترتیب عناصر آرایه را معکوس می نماید. برای این تمرین، دو تابع بنویسید:<code>reverseArray</code> و <code>reverseArrayInPlace</code>. تابع اول ، <code>reverseArray</code> آرایه ای را به عنوان ورودی می گیرد و آرایه‌ی <em>جدیدی</em> را تولید می کند که همان عناصر را دارد اما با ترتیب وارونه. تابع دوم، <code>reverseArrayInPlace</code> مشابه‌ متد <code>reverse</code> عمل می کند: همان آرایه‌ای را که به عنوان آرگومان دریافت می کند  <em>تغییر می دهد</em> و ترتیب عناصرش را عکس می کند. در این تمرین نمی توانید از متد استاندارد <code>reverse</code> استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_SpaDJmGkSI" href="#p_SpaDJmGkSI" tabindex="-1" role="presentation"></a>Thinking back to the notes about side effects and pure functions in the <a href="03_functions.html#pure">previous chapter</a>, which variant do you expect to be useful in more situations? Which one runs faster?</p>
+<p>به بحث اثرات جانبی و توابع ناب فکر کنید که در <a href="03_functions.html#pure">فصل قبل</a> صحبت شد، به نظر شما کدام تابع از موارد بالا در موقعیت های بیشتری کاربرد خواهد داشد؟ کدام سریع‌تر عمل می کند؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_sghv5avX0H" href="#c_sghv5avX0H" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -706,17 +705,17 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_bJlW8Cyw1e" href="#p_bJlW8Cyw1e" tabindex="-1" role="presentation"></a>There are two obvious ways to implement <code>reverseArray</code>. The first is to simply go over the input array from front to back and use the <code>unshift</code> method on the new array to insert each element at its start. The second is to loop over the input array backwards and use the <code>push</code> method. Iterating over an array backwards requires a (somewhat awkward) <code>for</code> specification, like <code>(let i = array.<wbr>length - 1; i &gt;= 0; i--)</code>.</p>
+<p>دو روش روشن برای پیاده‌سازی تابع <code>reverseArray</code> وجود دارد. اولین روش این است که خیلی ساده به سراغ آرایه‌ی ورودی رفته و از ابتدا تا پایان آن، از متد <code>unshift</code> برای قرار دادن تک تک عناصر درون آرایه‌ی جدید استفاده کنید. روش دوم این است که آرایه‌ی ورودی را به صورت وارونه پیمایش کنید و از متد ‍<code>push</code> استفاده نمایید. پیمایش معکوس یک آرایه نیاز به یک حلقه‌ی <code>for</code> خاص (کمی غیرمتعارف) دارد. چیزی شبیه <bdo><code>(let i = array.<wbr>length - 1; i &gt;= 0; i--)</code></bdo>.</p>
 
-<p><a class="p_ident" id="p_Y08sN3Yej5" href="#p_Y08sN3Yej5" tabindex="-1" role="presentation"></a>Reversing the array in place is harder. You have to be careful not to overwrite elements that you will later need. Using <code>reverseArray</code> or otherwise copying the whole array (<code>array.slice(0)</code> is a good way to copy an array) works but is cheating.</p>
+<p>وارونه کردن آرایه به صورت درجا، مشکل تر است. باید مراقب باشین عناصری که که در ادامه لازم دارید را رونویسی نکنید. استفاده از <code>reverseArray</code> یا کپی کردن کل آرایه (<bdo><code>array.slice(0)</code></bdo> روش خوبی برای کپی کردن یک آرایه است) کمک می کند اما تقلب محسوب می شود.</p>
 
-<p><a class="p_ident" id="p_hzYSkS4zzl" href="#p_hzYSkS4zzl" tabindex="-1" role="presentation"></a>The trick is to <em>swap</em> the first and last elements, then the second and second-to-last, and so on. You can do this by looping over half the length of the array (use <code>Math.floor</code> to round down—you don’t need to touch the middle element in an array with an odd number of elements) and swapping the element at position <code>i</code> with the one at position <code>array.<wbr>length - 1 - i</code>. You can use a local binding to briefly hold on to one of the elements, overwrite that one with its mirror image, and then put the value from the local binding in the place where the mirror image used to be.</p>
+<p>ترفند این است که عنصر‌های اول و پایانی را با هم عوض کنید، سپس عنصر دوم را با عنصر یکی مانده به پایانی و الی آخر. می توانید این کار را پیمایش نیمی از طول آرایه انجام دهید (از <bdo><code>Math.floor</code></bdo> برای گرد کردن استفاده کنید. نیازی نیست در آرایه‌ای با طول فرد، عنصر وسط آرایه را پیمایش کنید) و عنصر موقعیت <code>i</code> را با عنصر موقعیت <bdo><code>array.<wbr>length - 1 - i</code></bdo> عوض کنید. می توانید از یک متغیر محلی استفاده کنید تا یک عنصر را نگه‌داری کنید، آن را با قرینه‌اش رونویسی کنید و سپس مقدار متغیر محلی را جایی قرار دهید که قرینه قبلا قرار داشت.</p>
 
 </div></div>
 
-<h3 id="list"><a class="i_ident" id="i_nSTX34CM1M" href="#i_nSTX34CM1M" tabindex="-1" role="presentation"></a>A list</h3>
+<h3 id="list"><a class="i_ident" id="i_Ef6SfP47kD" href="#i_Ef6SfP47kD" tabindex="-1" role="presentation"></a>لیست</h3>
 
-<p><a class="p_ident" id="p_7AnSuS26HF" href="#p_7AnSuS26HF" tabindex="-1" role="presentation"></a>Objects, as generic blobs of values, can be used to build all sorts of data structures. A common data structure is the <em>list</em> (not to be confused with array). A list is a nested set of objects, with the first object holding a reference to the second, the second to the third, and so on.</p>
+<p>اشیاء به عنوان مقادیری بدون چارچوب خاص، می توانند برای ساختن هر نوع ساختار داده استفاده شوند. یکی از انواع رایج ساختار داده، <em>لیست</em> است ( نباید لیست را با آرایه اشتباه گرفت). یک لیست مجموعه‌ای تودرتو از اشیاء است که در آن اولین شیء ارجاعی به دومین، دومین به سومین و الی آخر، نگه داری می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kYAco70aHD" href="#c_kYAco70aHD" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">list</span> <span class="cm-operator">=</span> {
   <span class="cm-property">value</span>: <span class="cm-number">1</span>,
@@ -729,13 +728,13 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
   }
 };</pre>
 
-<p><a class="p_ident" id="p_2un5u6U14Q" href="#p_2un5u6U14Q" tabindex="-1" role="presentation"></a>The resulting objects form a chain, like this:</p><figure><img src="img/linked-list.svg" alt="A linked list"></figure>
+<p>اشیائی که در یک زنجیره وجود دارند به این شکل خواهند بود:</p><figure><img src="img/linked-list.svg" alt="A linked list"></figure>
 
-<p><a class="p_ident" id="p_NaI0fhp38z" href="#p_NaI0fhp38z" tabindex="-1" role="presentation"></a>A nice thing about lists is that they can share parts of their structure. For example, if I create two new values <code>{value: 0, rest: list}</code> and <code>{value: -1, rest: list}</code> (with <code>list</code> referring to the binding defined earlier), they are both independent lists, but they share the structure that makes up their last three elements. The original list is also still a valid three-element list.</p>
+<p><a class="p_ident" id="p_OLYr5L3apW" href="#p_OLYr5L3apW" tabindex="-1" role="presentation"></a>یکی از نکات خوب لیست ها این است که آن ها بخشی از ساختارشان را به اشتراک می گذارند. به عنوان مثال، اگر من دو مقدار جدید ایجاد کنم <bdo><code>{value: 0, rest: list}</code></bdo> و <bdo><code>{value: -1, rest: list}</code></bdo> (که list در اینجا به متغیری است که پیش‌تر تعریف شده است)، هر دوی آن ها لیست‌های مستقلی هستند، اما ساختاری را به اشتراک می گذارند که سه عنصر آخرشان را می سازد. لیست اصلی همچنین هنوز یک لیست سه عنصره‌ی معتبر است.</p>
 
-<p><a class="p_ident" id="p_iPlgVCeZGh" href="#p_iPlgVCeZGh" tabindex="-1" role="presentation"></a>Write a function <code>arrayToList</code> that builds up a list structure like the one shown when given <code>[1, 2, 3]</code> as argument. Also write a <code>listToArray</code> function that produces an array from a list. Then add a helper function <code>prepend</code>, which takes an element and a list and creates a new list that adds the element to the front of the input list, and <code>nth</code>, which takes a list and a number and returns the element at the given position in the list (with zero referring to the first element) or <code>undefined</code> when there is no such element.</p>
+<p>تابعی به نام <code>arrayToList</code> بنویسید که یک ساختار لیست شبیه لیستی که نشان داده شد بسازد و مقدار <bdo><code>[1, 2, 3]</code></bdo> را به عنوان آرگومان دریافت کند. همچنین تابعی به نام <code>listToArray</code> بنویسید که آرایه‌ای از لیست داده شده تولید کند. بعد تابع‌ کمکی <code>prepend</code> را تعریف کنید که یک عنصر به همراه یک لیست را گرفته و لیست جدیدی تولید می کند که عنصر مورد نظر در ابتدای آن اضافه شده است و تابع <code>nth</code> که یک لیست و یک عدد را گرفته و عنصری که در موقعیت خواسته شده قرار دارد را از لیست بر می گرداند ( صفر به عنصر اول اشاره می کند) یا اینکه در صورت نبودن عنصر مقدار <code>undefined</code> برگردانده می شود.</p>
 
-<p><a class="p_ident" id="p_8YcepSmcdv" href="#p_8YcepSmcdv" tabindex="-1" role="presentation"></a>If you haven’t already, also write a recursive version of <code>nth</code>.</p>
+<p>اگر به روش بازگشتی این مسئله را حل نکرده‌اید، اکنون نسخه‌ی بازگشتی تابع <code>nth</code> را هم بنویسید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rufmukl+AQ" href="#c_rufmukl+AQ" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -750,27 +749,27 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_gUGYq9Tjlx" href="#p_gUGYq9Tjlx" tabindex="-1" role="presentation"></a>Building up a list is easier when done back to front. So <code>arrayToList</code> could iterate over the array backwards (see the previous exercise) and, for each element, add an object to the list. You can use a local binding to hold the part of the list that was built so far and use an assignment like <code>list = {value: X, rest: list}</code> to add an element.</p>
+<p>ساختن یک لیست از انتها به ابتدا، ساده تر خواهد بود. بنابراین <code>arrayToList</code> می تواند آرایه را به صورت معکوس پیمایش کند (مانند تمرین قبل) و برای هر عنصر، یک شیء به لیست اضافه کند. می توانید از یک متغیر محلی برای نگه‌داری بخشی از لیست که تاکنون ساخته شده استفاده کنید و از انتسابی مثل <bdo> <code>list = {value: X, rest: list}</code></bdo> برای افزودن یک عنصر بهره ببرید.</p>
 
-<p><a class="p_ident" id="p_+rJULr60CD" href="#p_+rJULr60CD" tabindex="-1" role="presentation"></a>To run over a list (in <code>listToArray</code> and <code>nth</code>), a <code>for</code> loop specification like this can be used:</p>
+<p>برای پیمایش یک لیست ( در <code>listToArray</code> و <code>nth</code> )، یک حلقه‌ی <code>for</code> با مشخصاتی شبیه زیر، می تواند استفاده شود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HLrOQGihFR" href="#c_HLrOQGihFR" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">node</span> <span class="cm-operator">=</span> <span class="cm-variable">list</span>; <span class="cm-variable">node</span>; <span class="cm-variable">node</span> <span class="cm-operator">=</span> <span class="cm-variable">node</span>.<span class="cm-property">rest</span>) {}</pre>
 
-<p><a class="p_ident" id="p_LnwEAnSmsp" href="#p_LnwEAnSmsp" tabindex="-1" role="presentation"></a>Can you see how that works? Every iteration of the loop, <code>node</code> points to the current sublist, and the body can read its <code>value</code> property to get the current element. At the end of an iteration, <code>node</code> moves to the next sublist. When that is null, we have reached the end of the list, and the loop is finished.</p>
+<p><a class="p_ident" id="p_K+iMpCQsdu" href="#p_K+iMpCQsdu" tabindex="-1" role="presentation"></a>می توانید کارکرد آن را توضیح دهید؟ در هر تکرار حلقه، <code>node</code> به زیرلیست فعلی اشاره می کند و بدنه می تواند خاصیت <code>value</code> آن را بخواند تا عنصر فعلی را به دست بیاورد. در انتهای یک تکرار، <code>node</code> به سراغ زیرلیست بعد می رود. زمانی که برابر null شد، ما به انتهای لیست رسیده ایم و حلقه پایان می یابد.</p>
 
-<p><a class="p_ident" id="p_ASUOjWBRh5" href="#p_ASUOjWBRh5" tabindex="-1" role="presentation"></a>The recursive version of <code>nth</code> will, similarly, look at an ever smaller part of the “tail” of the list and at the same time count down the index until it reaches zero, at which point it can return the <code>value</code> property of the node it is looking at. To get the zeroth element of a list, you simply take the <code>value</code> property of its head node. To get element <em>N</em> + 1, you take the _N_th element of the list that’s in this list’s <code>rest</code> property.</p>
+<p><a class="p_ident" id="p_U2JSxd0Dr1" href="#p_U2JSxd0Dr1" tabindex="-1" role="presentation"></a>نسخه‌ی بازگشتی <code>nth</code>، به طور مشابه، در هر فراخوانی بازگشتی، بخش کوچک‌تری از دنباله‌ی لیست می پردازد و همزمان عدد اندیس را کاهش می دهد تا زمانی که به صفر برسد، در نقطه‌ای که می تواند خاصیت <code>value</code> مربوط به node مورد جستجو را برگرداند. برای گرفتن عنصر صفرم یک لیست، به سادگی می توانید خاصیت <code>value</code> سرگره (head node) را بگیرید. برای گرفتن عنصر <bdo><em>N</em> + 1</bdo>، عنصر Nام لیست را که در خاصیت <code>rest</code> این لیست قرار دارد، می گیرید.</p>
 
 </div></div>
 
-<h3 id="exercise_deep_compare"><a class="i_ident" id="i_IJBU+aXOIC" href="#i_IJBU+aXOIC" tabindex="-1" role="presentation"></a>Deep comparison</h3>
+<h3 id="exercise_deep_compare"><a class="i_ident" id="i_L+soasFN5H" href="#i_L+soasFN5H" tabindex="-1" role="presentation"></a>مقایسه عمیق</h3>
 
-<p><a class="p_ident" id="p_xTwbRlqHNJ" href="#p_xTwbRlqHNJ" tabindex="-1" role="presentation"></a>The <code>==</code> operator compares objects by identity. But sometimes you’d prefer to compare the values of their actual properties.</p>
+<p>عملگر <code>==</code> اشیاء را بر اساس همسانی مقایسه می کند  .  اما گاهی ممکن است بخواهید مقدارهای خاصیت‌های واقعی آن ها را مقایسه کنید.</p>
 
-<p><a class="p_ident" id="p_DwdnLiD0pC" href="#p_DwdnLiD0pC" tabindex="-1" role="presentation"></a>Write a function <code>deepEqual</code> that takes two values and returns true only if they are the same value or are objects with the same properties, where the values of the properties are equal when compared with a recursive call to <code>deepEqual</code>.</p>
+<p><a class="p_ident" id="p_X/5TO4MPCK" href="#p_X/5TO4MPCK" tabindex="-1" role="presentation"></a>تابعی به نام <code>deepEqual</code> بنویسید که دو مقدار را دریافت می یکند و زمانی مقدار true‌ را بر می گرداند که هر دوی مقدار ها مشابه باشند یا اگر شیء هستند خاصیت‌های یکسانی داشته باشند، به طوریکه مقدارهای خاصیت‌های آن ها نیز در صورت مقایسه با یک فراخوانی بازگشتی تابع <code>deepEqual</code>، برابر باشند.</p>
 
-<p><a class="p_ident" id="p_Znb46HKrMg" href="#p_Znb46HKrMg" tabindex="-1" role="presentation"></a>To find out whether values should be compared directly (use the <code>===</code> operator for that) or have their properties compared, you can use the <code>typeof</code> operator. If it produces <code>&quot;object&quot;</code> for both values, you should do a deep comparison. But you have to take one silly exception into account: because of a historical accident, <code>typeof null</code> also produces <code>&quot;object&quot;</code>.</p>
+<p>برای اینکه بدانیم آیا مقدارها باید مستقیما باهم مقایسه شوند ( از عملگر <code>===</code> برای آن استفاده کنید) یا اینکه خاصیت‌هایشان را باید مقایسه‌ کنیم، می توان از عملگر <code>typeof</code> استفاده کرد. اگر این عملگر <code>“object”</code> برای هر دو مقدار تولید کرد، بایستی عمل مقایسه‌ی عمیق انجام شود. راستی باید یک استثناء احمقانه را هم نیز در نظر بگیرید:  به دلیل اتفاقی قدیمی، <bdo><code>typeof null</code></bdo> نیز <code>“object”</code> را تولید می کند.</p>
 
-<p><a class="p_ident" id="p_n9AoXEbeFg" href="#p_n9AoXEbeFg" tabindex="-1" role="presentation"></a>The <code>Object.keys</code> function will be useful when you need to go over the properties of objects to compare them.</p>
+<p>وقتی برای مقایسه‌ی خاصیت‌های اشیاء لازم است که به خاصیت‌ها دسترسی پیدا کنید، تابع <bdo><code>Object.keys</code></bdo> به شما کمک خواهد کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kWPN5i/Y3x" href="#c_kWPN5i/Y3x" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -784,11 +783,11 @@ stack from <a href="03_functions.html#stack">the previous chapter</a>, which is 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_t3z+oosxP9" href="#p_t3z+oosxP9" tabindex="-1" role="presentation"></a>Your test for whether you are dealing with a real object will look something like <code>typeof x == &quot;object&quot; &amp;&amp; x != null</code>. Be careful to compare properties only when <em>both</em> arguments are objects. In all other cases you can just immediately return the result of applying <code>===</code>.</p>
+<p>آزمایش تشخیص شیء چیزی شبیه به <bdo><code>typeof x == &quot;object&quot; &amp;&amp; x != null</code></bdo> خواهد بود. دقت داشته باشید فقط زمانی خاصیت‌ها را مقایسه کنید که هر دو آرگومان object (شیء) باشند. در همه‌ی موارد دیگر، می توانید نتیجه‌ی <code>===</code> را برگردانید.</p>
 
-<p><a class="p_ident" id="p_csfrgdVrEd" href="#p_csfrgdVrEd" tabindex="-1" role="presentation"></a>Use <code>Object.keys</code> to go over the properties. You need to test whether both objects have the same set of property names and whether those properties have identical values. One way to do that is to ensure that both objects have the same number of properties (the lengths of the property lists are the same). And then, when looping over one of the object’s properties to compare them, always first make sure the other actually has a property by that name. If they have the same number of properties and all properties in one also exist in the other, they have the same set of property names.</p>
+<p>برای گرفتن خاصیت‌ها از <bdo><code>Object.keys</code></bdo> استفاده کنید. لازم است ببینید که هر دوی اشیاء خاصیت‌های مشابهی داشته باشند و مقادیر آن‌ها نیز یکسان باشد. یک روش این است که مطمئن شوید هر دو، تعداد خاصیت‌های یکسانی دارند (طول لیست خاصیت‌ها مشابه باشد). و سپس، هنگام پیمایش خاصیت‌های یک شیء برای مقایسه، همیشه اول اطمینان حاصل کنید که شیء دیگر خاصیتی با همان نام داشته باشد. اگر هر دو شیء تعداد خاصیت‌ یکسانی داشته باشند و همه‌ی خاصیت‌های موجود در یکی، در دیگر نیز باشد، هر دو، مجموعه‌ی یکسانی از خاصیت‌ها را دارند.</p>
 
-<p><a class="p_ident" id="p_ECXa1sWg6+" href="#p_ECXa1sWg6+" tabindex="-1" role="presentation"></a>Returning the correct value from the function is best done by immediately returning false when a mismatch is found and returning true at the end of the function.</p>
+<p><a class="p_ident" id="p_iYkMFxHxnk" href="#p_iYkMFxHxnk" tabindex="-1" role="presentation"></a>بهترین روش بازگرداندن مقدار درست از یک تابع این است که هر زمان یک عدم تطبیق پیدا شد، بلافاصله false برگردانده شود و در انتهای تابع مقدار true را برگردانیم.</p>
 
 </div></div><nav><a href="03_functions.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="05_higher_order.html" title="next chapter">▶</a></nav>
 </article>
