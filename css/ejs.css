@@ -66,7 +66,7 @@ article {
 nav {
   display: block;
   height: 0;
-  text-align: right;
+  text-align: left;
 }
 
 nav a {
@@ -211,7 +211,7 @@ blockquote p {
 blockquote:before {
   content: '“';
   position: absolute;
-  left: -.5em;
+  right: -.5em;
 }
 
 blockquote p:last-of-type:after {
@@ -220,7 +220,7 @@ blockquote p:last-of-type:after {
 
 blockquote footer {
   position: relative;
-  margin-left: 1em;
+  margin-right: 1em;
 }
 
 p + footer {
@@ -234,7 +234,7 @@ blockquote footer cite {
 blockquote footer:before {
   content: '—';
   position: absolute;
-  left: -1em;
+  right: -1em;
 }
 
 .editor-wrap {
