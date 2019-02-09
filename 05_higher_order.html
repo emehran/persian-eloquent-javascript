@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Higher-Order Functions :: Eloquent JavaScript</title>
+  <title>توابع رده‌بالا (Higher-Order) :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
@@ -12,7 +12,7 @@
 <article>
 <nav><a href="04_data.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="06_object.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 5</span>Higher-Order Functions</h1>
+<h1><span class=chap_num>Chapter 5</span>توابع رده‌بالا (Higher-Order)</h1>
 
 <blockquote>
 
@@ -30,9 +30,9 @@
 
 </blockquote><figure class="chapter true"><img src="img/chapter_picture_5.jpg" alt="Letters from different scripts"></figure>
 
-<p><a class="p_ident" id="p_rj9+mMLZbL" href="#p_rj9+mMLZbL" tabindex="-1" role="presentation"></a>A large program is a costly program, and not just because of the time it takes to build. Size almost always involves complexity, and complexity confuses programmers. Confused programmers, in turn, introduce mistakes (<em>bugs</em>) into programs. A large program then provides a lot of space for these bugs to hide, making them hard to find.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>یک برنامه بزرگ پرهزینه است و فقط به این خاطر نیست که زمان زیادی برای ساختن آن لازم است. اندازه‌ی برنامه همیشه شامل میزان پیچیدگی برنامه هم می شود، چیزی که برنامه نویسان را سردرگم می کند و موجب می شود اشتباه کنند و برنامه خطا (<em>باگ</em>) داشته باشد. بنابراین یک برنامه‌ی بزرگ فضای زیادی برای پنهان شدن باگ‌ها فراهم می سازد و پیدا کردن باگ‌ها را سخت می کند.</p>
 
-<p><a class="p_ident" id="p_nR+iebr1Ci" href="#p_nR+iebr1Ci" tabindex="-1" role="presentation"></a>Let’s briefly go back to the final two example programs in the introduction. The first is self-contained and six lines long.</p>
+<p>اجازه بدهید به طور مختصر به نسخه‌ی نهایی دو برنامه‌ی نمونه برگردیم که در مقدمه کتاب آورده شده اند. برنامه‌ی اول فاقد تابع و کلا دارای شش خط کد است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uIkg9pj99q" href="#c_uIkg9pj99q" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">total</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>, <span class="cm-def">count</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
 <span class="cm-keyword">while</span> (<span class="cm-variable">count</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">10</span>) {
@@ -41,57 +41,57 @@
 }
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">total</span>);</pre>
 
-<p><a class="p_ident" id="p_Sy8N6Qcb09" href="#p_Sy8N6Qcb09" tabindex="-1" role="presentation"></a>The second relies on two external functions and is one line long.</p>
+<p>دومین برنامه از دو تابع استفاده می و فقط یک خط دارد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KTbQMmMCli" href="#c_KTbQMmMCli" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sum</span>(<span class="cm-variable">range</span>(<span class="cm-number">1</span>, <span class="cm-number">10</span>)));</pre>
 
-<p><a class="p_ident" id="p_srOi7846QY" href="#p_srOi7846QY" tabindex="-1" role="presentation"></a>Which one is more likely to contain a bug?</p>
+<p>کدام یک بیشتر احتمال دارد باگ داشته باشد؟</p>
 
-<p><a class="p_ident" id="p_G+ApGqjOk4" href="#p_G+ApGqjOk4" tabindex="-1" role="presentation"></a>If we count the size of the definitions of <code>sum</code> and <code>range</code>, the second program is also big—even bigger than the first. But still, I’d argue that it is more likely to be correct.</p>
+<p>اگر اندازه‌ی تعریف توابع <code>sum</code> و <code>range</code> را هم به حساب بیاوریم، برنامه دوم نیز برنامه‌ای بزرگ محسوب می شود – حتی بزرگ تر از برنامه اول. اما هنوز، من ادعا می کنم که این برنامه با احتمال بیشتری درست کار خواهد کرد.</p>
 
-<p><a class="p_ident" id="p_R0XQHDENqH" href="#p_R0XQHDENqH" tabindex="-1" role="presentation"></a>It is more likely to be correct because the solution is expressed in a vocabulary that corresponds to the problem being solved. Summing a range of numbers isn’t about loops and counters. It is about ranges and sums.</p>
+<p><a class="p_ident" id="p_4PtR8M5Y69" href="#p_4PtR8M5Y69" tabindex="-1" role="presentation"></a>با احتمال بیشتری درست کار خواهد کرد زیرا راه‌حل آن با واژگانی بیان شده است که با حل مسئله ارتباط معنایی دارند. جمع  بستن (sum) یک بازه‌ (range) از اعداد ربطی به حلقه‌ها و شمارنده‌ها ؛ندارد بلکه مربوط به بازه‌ها و عمل جمع می شود.</p>
 
-<p><a class="p_ident" id="p_VwxmDNivhe" href="#p_VwxmDNivhe" tabindex="-1" role="presentation"></a>The definitions of this vocabulary (the functions <code>sum</code> and <code>range</code>) will still involve loops, counters, and other incidental details. But because they are expressing simpler concepts than the program as a whole, they are easier to get right.</p>
+<p>در تعریف این واژگان ( توابع <code>sum</code> و <code>range</code>) همچنان از حلقه‌ها، شمارنده‌ها و دیگر جزئیات فرعی استفاده خواهد شد. اما به دلیل اینکه آن‌ها به جای بیان برنامه به عنوان یک کل، مفاهیم ساده‌تری را نشان می دهند، آسان‌تر سامان می یابند.</p>
 
-<h2><a class="h_ident" id="h_j9ps8qrlyo" href="#h_j9ps8qrlyo" tabindex="-1" role="presentation"></a>Abstraction</h2>
+<h2><a class="h_ident" id="h_dbW+UMc4df" href="#h_dbW+UMc4df" tabindex="-1" role="presentation"></a>انتزاع</h2>
 
-<p><a class="p_ident" id="p_ZPK6t/LrMG" href="#p_ZPK6t/LrMG" tabindex="-1" role="presentation"></a>In the context of programming, these kinds of vocabularies are usually called <em>abstractions</em>. Abstractions hide details and give us the ability to talk about problems at a higher (or more abstract) level.</p>
+<p><a class="p_ident" id="p_ilqKIeyLYr" href="#p_ilqKIeyLYr" tabindex="-1" role="presentation"></a>در فضای برنامه‌نویسی، این گونه واژگان را عموما انتزاع‌ها یا <em>abstractions</em> می گویند. انتزاع‌ها جزئیات را مخفی می کنند و به ما این امکان را می دهند که در باره مسئله‌ها در سطح بالاتری ( انتزاع بیشتر ) گفتگو کنیم.</p>
 
-<p><a class="p_ident" id="p_bTxJr46qvN" href="#p_bTxJr46qvN" tabindex="-1" role="presentation"></a>As an analogy, compare these two recipes for pea soup. The first one goes like this:</p>
-
-<blockquote>
-
-<p><a class="p_ident" id="p_F+PunfZCXq" href="#p_F+PunfZCXq" tabindex="-1" role="presentation"></a>Put 1 cup of dried peas per person into a container. Add water until the peas are well covered. Leave the peas in water for at least 12 hours. Take the peas out of the water and put them in a cooking pan. Add 4 cups of water per person. Cover the pan and keep the peas simmering for two hours. Take half an onion per person. Cut it into pieces with a knife. Add it to the peas. Take a stalk of celery per person. Cut it into pieces with a knife. Add it to the peas. Take a carrot per person. Cut it into pieces. With a knife! Add it to the peas. Cook for 10 more minutes.</p>
-
-</blockquote>
-
-<p><a class="p_ident" id="p_K0c2hwcDfp" href="#p_K0c2hwcDfp" tabindex="-1" role="presentation"></a>And this is the second recipe:</p>
+<p>به عنوان تشبیه، می توان این دو طرز تهیه‌ی سوپ نخود را با هم مقایسه کرد. اولین مورد به صورت زیر خواهد بود:</p>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_iNBZReprTd" href="#p_iNBZReprTd" tabindex="-1" role="presentation"></a>Per person: 1 cup dried split peas, half a chopped onion, a stalk of celery, and a carrot.</p>
-
-<p><a class="p_ident" id="p_k5rI5P5p5u" href="#p_k5rI5P5p5u" tabindex="-1" role="presentation"></a>Soak peas for 12 hours. Simmer for 2 hours in 4 cups of water (per person). Chop and add vegetables. Cook for 10 more minutes.</p>
+<p><a class="p_ident" id="p_EzBRXPQ20K" href="#p_EzBRXPQ20K" tabindex="-1" role="presentation"></a>یک فنجان نخود خشک برای هر نفر درون یک ظرف بریزید. به آن آب اضافه کنید تا همه‌ی نخود‌ها را در بر بگیرد. اجازه بدهید نخودها حداقل 12 ساعت در آب بمانند. بعد نخودها را از آب درآورده درون یک قابلمه قرار دهید.  برای هر نفر 4 لیوان آب اضافه کنید. روی قابلمه را پوشانده  و بگذارید برای 2 ساعت روی گاز باشد. برای هر نفر نیمی از پیاز را برداشته آن را تکه تکه کنید و به نخود‌ها اضافه نمایید. برای هر نفر یک ساقه‌ی کرفس بردارید. با چاقو قطعه قطعه کنید و به نخود ها اضافه کنید. برای هر نفر یک هویج در نظر گرفته، تکه تکه کرده با چاقو! و به نخودها اضافه کنید. بگذارید 10 دقیقه دیگر بپزد.</p>
 
 </blockquote>
 
-<p><a class="p_ident" id="p_cSeY164LbX" href="#p_cSeY164LbX" tabindex="-1" role="presentation"></a>The second is shorter and easier to interpret. But you do need to understand a few more cooking-related words such as <em>soak</em>, <em>simmer</em>, <em>chop</em>, and, I guess, <em>vegetable</em>.</p>
+<p>طرز تهیه‌ی دوم:</p>
 
-<p><a class="p_ident" id="p_g/g3l7uyEG" href="#p_g/g3l7uyEG" tabindex="-1" role="presentation"></a>When programming, we can’t rely on all the words we need to be waiting for us in the dictionary. Thus, we might fall into the pattern of the first recipe—work out the precise steps the computer has to perform, one by one, blind to the higher-level concepts that they express.</p>
+<blockquote>
 
-<p><a class="p_ident" id="p_Hp26gkGVxA" href="#p_Hp26gkGVxA" tabindex="-1" role="presentation"></a>It is a useful skill, in programming, to notice when you are working at too low a level of abstraction.</p>
+<p>برای هر نفر: یک لیوان نخود خشک، نیمی از یک پیاز تکه تکه شده، یک ساقه کرفس، و یک هویج.</p>
 
-<h2><a class="h_ident" id="h_8AV6kA9jcD" href="#h_8AV6kA9jcD" tabindex="-1" role="presentation"></a>Abstracting repetition</h2>
+<p><a class="p_ident" id="p_LyHnQ+h/tZ" href="#p_LyHnQ+h/tZ" tabindex="-1" role="presentation"></a>نخود ها را 12 ساعت بخیسانید. 2 ساعت در 4 لیوان آب ( برای یک نفر) روی گاز آهسته بجوشانید. سبزیجات را تکه تکه کرده و اضافه کنید. برای 10 دقیقه دیگر پخته شود.</p>
 
-<p><a class="p_ident" id="p_kYV0l7wLUe" href="#p_kYV0l7wLUe" tabindex="-1" role="presentation"></a>Plain functions, as we’ve seen them so far, are a good way to build abstractions. But sometimes they fall short.</p>
+</blockquote>
 
-<p><a class="p_ident" id="p_1v9Uha9PnV" href="#p_1v9Uha9PnV" tabindex="-1" role="presentation"></a>It is common for a program to do something a given number of times. You can write a <code>for</code> loop for that, like this:</p>
+<p>دستور دوم کوتاه تر و توضیح ساده تری داشت. اما برای فهم آن بایستی چند واژه‌ی مرتبط با آشپزی را یاد داشته باشید – <em>خیساندن</em>،  <em>جوشاندن،</em> <em>ریز ریز کردن</em> و فکر کنم <em>سبزیجات</em>.</p>
+
+<p>هنگام برنامه‌نویسی، نمی توانیم فرض کنیم همه‌ی واژگانی که نیاز داریم وجود داشته و در واژه‌نامه منتظر ما باشند. بنابراین، ممکن است به دام الگوی موجود در طرز تهیه‌ی اول بیفتیم - کارکردن روی قدم‌های دقیقی که کامپیوتر بایستی اجرا کند، یکی پس از دیگری، بدون توجه به مفاهیم سطح بالاتری که این دستورات بیان می کنند.</p>
+
+<p>یکی از مهارت های کاربردی در برنامه نویسی، این است که زمانی که در سطح بسیار پایینی از انتزاع کار می کنید، نسبت به آن آگاه باشید.</p>
+
+<h2><a class="h_ident" id="h_k5Nc/FDVtG" href="#h_k5Nc/FDVtG" tabindex="-1" role="presentation"></a>تکرار انتزاعی</h2>
+
+<p>توابع ساده، مانند مواردی که تا کنون دیده ایم، برای ایجاد انتزاع مفید هستند. اما گاهی اوقات کافی نیستند.</p>
+
+<p>در برنامه‌ها رایج است که کاری را به تعداد مشخصی تکرار کنیم. می توان از یک حلقه‌ی <code>for</code> برای این کار استفاده کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5c+C2+9IG1" href="#c_5c+C2+9IG1" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">i</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10</span>; <span class="cm-variable">i</span><span class="cm-operator">++</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">i</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_cNB+u+7TGa" href="#p_cNB+u+7TGa" tabindex="-1" role="presentation"></a>Can we abstract “doing something <em>N</em> times” as a function? Well, it’s easy to write a function that calls <code>console.log</code> <em>N</em> times.</p>
+<p><a class="p_ident" id="p_0oZoOm1bri" href="#p_0oZoOm1bri" tabindex="-1" role="presentation"></a>آیا می توان “انجام یک کار به تعداد <em>N</em> بار” را با استفاده از یک تابع تجرید کرد؟ خوب خیلی راحت می توان تابعی نوشت که <bdo><code>console.log</code></bdo> را <em>N</em>  بار فراخوانی کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/gKhlra9P+" href="#c_/gKhlra9P+" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">repeatLog</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">n</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
@@ -99,7 +99,7 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_q8hNTrfIYb" href="#p_q8hNTrfIYb" tabindex="-1" role="presentation"></a>But what if we want to do something other than logging the numbers? Since “doing something” can be represented as a function and functions are just values, we can pass our action as a function value.</p>
+<p>اما اگر بخواهیم کاری به غیر از چاپ اعداد در خروجی انجام دهیم چه؟ با توجه به این که “انجام یک کار” را می توان به عنوان یک تابع در نظر گرفت و توابع هم در واقع مقدار هستند، می توانیم &quot;کار&quot;مان را به عنوان یک مقدار تابع ارسال کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_p03rPqGmn9" href="#c_p03rPqGmn9" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">repeat</span>(<span class="cm-def">n</span>, <span class="cm-def">action</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">n</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
@@ -112,7 +112,7 @@
 <span class="cm-comment">// → 1</span>
 <span class="cm-comment">// → 2</span></pre>
 
-<p><a class="p_ident" id="p_zYjmzihkkN" href="#p_zYjmzihkkN" tabindex="-1" role="presentation"></a>We don’t have to pass a predefined function to <code>repeat</code>. Often, it is easier to create a function value on the spot instead.</p>
+<p>نیازی نیست که حتما یک تابع از پیش تعریف شده را به تابع <code>repeat</code>  ارسال کنید. اغلب آسان تر است که یک مقدار تابع همان موقع ایجاد کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EiK2Y8M/Mh" href="#c_EiK2Y8M/Mh" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">labels</span> <span class="cm-operator">=</span> [];
 <span class="cm-variable">repeat</span>(<span class="cm-number">5</span>, <span class="cm-def">i</span> <span class="cm-operator">=&gt;</span> {
@@ -121,13 +121,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">labels</span>);
 <span class="cm-comment">// → [&quot;Unit 1&quot;, &quot;Unit 2&quot;, &quot;Unit 3&quot;, &quot;Unit 4&quot;, &quot;Unit 5&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_iuDYWrtCLy" href="#p_iuDYWrtCLy" tabindex="-1" role="presentation"></a>This is structured a little like a <code>for</code> loop—it first describes the kind of loop and then provides a body. However, the body is now written as a function value, which is wrapped in the parentheses of the call to <code>repeat</code>. This is why it has to be closed with the closing brace <em>and</em> closing parenthesis. In cases like this example, where the body is a single small expression, you could also omit the braces and write the loop on a single line.</p>
+<p>این ساختار کمی شبیه حلقه‌ی <code>for</code> به نظر می رسد – ابتدا نوع حلقه را مشخص می کند سپس بدنه را فراهم می کند.  با این حال، بدنه اکنون به صورت یک مقدار تابع نوشته می شود، که خود درون پرانتز‌های مربوط به فراخوانی تابع <code>repeat</code> قرار گرفته است. به همین دلیل است که باید حتما به وسیله کروشه‌ی پایانی  <em>و</em> پرانتز پایانی بسته شود.  در مواردی شبیه این مثال، جایی که بدنه، یک عبارت واحد کوچک است، می توانید کروشه‌ها را حذف کنید و حلقه را در یک خط بنویسید.</p>
 
-<h2><a class="h_ident" id="h_xxCc98lOBK" href="#h_xxCc98lOBK" tabindex="-1" role="presentation"></a>Higher-order functions</h2>
+<h2><a class="h_ident" id="h_msQfR7LHfK" href="#h_msQfR7LHfK" tabindex="-1" role="presentation"></a>توابع رده‌بالا</h2>
 
-<p><a class="p_ident" id="p_cao2fH68Tj" href="#p_cao2fH68Tj" tabindex="-1" role="presentation"></a>Functions that operate on other functions, either by taking them as arguments or by returning them, are called <em>higher-order functions</em>. Since we have already seen that functions are regular values, there is nothing particularly remarkable about the fact that such functions exist. The term comes from mathematics, where the distinction between functions and other values is taken more seriously.</p>
+<p><a class="p_ident" id="p_7og6VBGsqZ" href="#p_7og6VBGsqZ" tabindex="-1" role="presentation"></a>توابعی که روی توابع دیگر عمل می کنند، چه با گرفتن آن ها به عنوان آرگومان و چه با برگرداندن آن ها ، <em>توابع رده‌بالا</em> نامیده می شوند. با توجه به این که پیش تر دیده‌ایم که توابع در واقع یک نوع مقدار هستند، مسئله‌ی قابل توجه و به خصوصی در مورد فلسفه‌ی وجود اینگونه توابع وجود ندارد. اصطلاح رده‌بالا (higher-order) از ریاضیات گرفته شده است جایی که به تمایز بین توابع و دیگر مقادیر اهمیت بیشتری داده شده است.</p>
 
-<p><a class="p_ident" id="p_+cgNTV2i2y" href="#p_+cgNTV2i2y" tabindex="-1" role="presentation"></a>Higher-order functions allow us to abstract over <em>actions</em>, not just values. They come in several forms. For example, we can have functions that create new functions.</p>
+<p>توابع رده‌بالا، به ما این امکان را می دهند که براساس <em>اقدام‌ها</em>، انتزاع ایجاد کنیم، نه فقط بر اساس مقدارها.  این گونه توابع به اشکال مختلفی می آیند. به عنوان نمونه‌، می توانید توابعی داشته باشید که خود توابعی را ایجاد می کنند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kHXugeV8Vn" href="#c_kHXugeV8Vn" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">greaterThan</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">return</span> <span class="cm-def">m</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">m</span> <span class="cm-operator">&gt;</span> <span class="cm-variable-2">n</span>;
@@ -136,7 +136,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">greaterThan10</span>(<span class="cm-number">11</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_Py4BnhS60O" href="#p_Py4BnhS60O" tabindex="-1" role="presentation"></a>And we can have functions that change other functions.</p>
+<p>یا توابعی داشته باشید که دیگر توابع را تغییر می دهند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_17dfYaooPK" href="#c_17dfYaooPK" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">noisy</span>(<span class="cm-def">f</span>) {
   <span class="cm-keyword">return</span> (<span class="cm-meta">...</span><span class="cm-def">args</span>) <span class="cm-operator">=&gt;</span> {
@@ -150,8 +150,7 @@
 <span class="cm-comment">// → calling with [3, 2, 1]</span>
 <span class="cm-comment">// → called with [3, 2, 1] , returned 1</span></pre>
 
-<p><a class="p_ident" id="p_lObEs7dS9+" href="#p_lObEs7dS9+" tabindex="-1" role="presentation"></a>We can even write functions that provide new types of control
-flow.</p>
+<p>حتی می توانید توابعی بنویسید که نوعی جدیدی از جریان کنترل را فراهم نمایند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_of6iH06dyE" href="#c_of6iH06dyE" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">unless</span>(<span class="cm-def">test</span>, <span class="cm-def">then</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">test</span>) <span class="cm-variable-2">then</span>();
@@ -165,21 +164,21 @@ flow.</p>
 <span class="cm-comment">// → 0 is even</span>
 <span class="cm-comment">// → 2 is even</span></pre>
 
-<p><a class="p_ident" id="p_/zKXdveDWD" href="#p_/zKXdveDWD" tabindex="-1" role="presentation"></a>There is a built-in array method, <code>forEach</code>, that provides something like a <code>for</code>/<code>of</code> loop as a higher-order function.</p>
+<p>متد از پیش تعریف شده ای به نام <code>forEach</code> برای آرایه‌ها وجود دارد که کاری شبیه حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> را به عنوان یک تابع رده‌بالا انجام می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_v9jL6NafRj" href="#c_v9jL6NafRj" tabindex="-1" role="presentation"></a>[<span class="cm-string">&quot;A&quot;</span>, <span class="cm-string">&quot;B&quot;</span>].<span class="cm-property">forEach</span>(<span class="cm-def">l</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">l</span>));
 <span class="cm-comment">// → A</span>
 <span class="cm-comment">// → B</span></pre>
 
-<h2><a class="h_ident" id="h_/SVokn16u9" href="#h_/SVokn16u9" tabindex="-1" role="presentation"></a>Script data set</h2>
+<h2><a class="h_ident" id="h_NLbARNSu7u" href="#h_NLbARNSu7u" tabindex="-1" role="presentation"></a>مجموعه داده‌ی الفبا</h2>
 
-<p><a class="p_ident" id="p_t0gePcJ5To" href="#p_t0gePcJ5To" tabindex="-1" role="presentation"></a>One area where higher-order functions shine is data processing. To process data, we’ll need some actual data. This chapter will use a data set about scripts—writing systems such as Latin, Cyrillic, or Arabic.</p>
+<p>یکی از ناحیه‌هایی که توابع رده‌بالا درخشان عمل می کنند، پردازش داده ها می باشد. برای پردازش داده ها، نیاز به داده‌ی واقعی داریم. در این فصل از مجموعه‌ی داده‌ای در باره‌ی حروف الفبا – سیستم های نوشتاری مانند لاتین، سیریلیک، یا عربی – استفاده می کنیم.</p>
 
-<p><a class="p_ident" id="p_1SGsVGpO8P" href="#p_1SGsVGpO8P" tabindex="-1" role="presentation"></a>Remember Unicode from <a href="01_values.html#unicode">Chapter 1</a>, the system that assigns a number to each character in written language? Most of these characters are associated with a specific script. The standard contains 140 different scripts—81 are still in use today, and 59 are historic.</p>
+<p><a class="p_ident" id="p_k4cCIHQMIm" href="#p_k4cCIHQMIm" tabindex="-1" role="presentation"></a>یونیکد را از <a href="01_values.html#unicode">فصل 1</a> به خاطر بیاورید، سیستمی که برای هر کاراکتر از زبان های نوشتاری، عددی را اختصاص می داد. اکثر این کاراکترها به الفبای مشخصی تعلق دارند.  این استاندارد دارای 140 الفبای متفاوت است – از این تعداد، 81 تای آن ها امروزه استفاده می شوند و 59 مورد دیگر به تاریخ پیوسته اند.</p>
 
-<p><a class="p_ident" id="p_0ebPJMgh6D" href="#p_0ebPJMgh6D" tabindex="-1" role="presentation"></a>Though I can fluently read only Latin characters, I appreciate the fact that people are writing texts in at least 80 other writing systems, many of which I wouldn’t even recognize. For example, here’s a sample of Tamil handwriting:</p><figure><img src="img/tamil.png" alt="Tamil handwriting"></figure>
+<p><a class="p_ident" id="p_uIiymCa7U9" href="#p_uIiymCa7U9" tabindex="-1" role="presentation"></a>اگرچه من فقط می توانم کاراکترهای لاتین را به صورت روان بخوانم، اما این واقعیت که مردم جهان حداقل به 80 سیستم نوشتاری دیگر می نویسند که خیلی از آن ها را حتی نمی توانم تشخیص دهم را تحسین می کنم . به عنوان مثال، نمونه‌ی زیر دست نوشته ای از زبان تمیل است:</p><figure><img src="img/tamil.png" alt="Tamil handwriting"></figure>
 
-<p><a class="p_ident" id="p_RWVZnsc/dS" href="#p_RWVZnsc/dS" tabindex="-1" role="presentation"></a>The example data set contains some pieces of information about the 140 scripts defined in Unicode. It is available in the <a href="https://eloquentjavascript.net/code#5">coding sandbox</a> for this chapter as the <code>SCRIPTS</code> binding. The binding contains an array of objects, each of which describes a script.</p>
+<p><a class="p_ident" id="p_Ei6NLuQyZ4" href="#p_Ei6NLuQyZ4" tabindex="-1" role="presentation"></a>مجموعه‌ی داده نمونه‌ی ما حاوی اطلاعاتی از حدود 140 الفبای موجود در یونیکد است. این داده‌ها در قسمت <a href="https://eloquentjavascript.net/code#5">کدهای</a> این فصل  به عنوان متغیر <code>SCRIPTS</code> قابل دانلود می باشند. این متغیر شامل آرایه‌ای از اشیاء است که هر کدام معرف یک الفبا می باشند.</p>
 
 <pre class="snippet cm-s-default" data-language="application/json" ><a class="c_ident" id="c_YkfuyBG2fl" href="#c_YkfuyBG2fl" tabindex="-1" role="presentation"></a>{
   <span class="cm-property">name</span>: <span class="cm-string">&quot;Coptic&quot;</span>,
@@ -190,13 +189,13 @@ flow.</p>
   <span class="cm-property">link</span>: <span class="cm-string">&quot;https://en.wikipedia.org/wiki/Coptic_alphabet&quot;</span>
 }</pre>
 
-<p><a class="p_ident" id="p_rrPU5ybF5Y" href="#p_rrPU5ybF5Y" tabindex="-1" role="presentation"></a>Such an object tells us the name of the script, the Unicode ranges assigned to it, the direction in which it is written, the (approximate) origin time, whether it is still in use, and a link to more information. The direction may be <code>&quot;ltr&quot;</code> for left to right, <code>&quot;rtl&quot;</code> for right to left (the way Arabic and Hebrew text are written), or <code>&quot;ttb&quot;</code> for top to bottom (as with Mongolian writing).</p>
+<p>این اشیاء شامل نام الفبا، بازه‌ی یونیکدی که به آن اختصاص دارد،جهتی که به آن سمت نوشته می شود، منشاء زمانی (تقریبی)، اینکه اکنون نیز استفاده می شوند یا خیر، و لینکی به اطلاعات بیشتر می باشند. جهت نوشتن می تواند <code>&quot;ltr&quot;</code> برای چپ به راست، <code>&quot;rtl&quot;</code> راست به چپ (مانند عربی و عبری) یا <code>&quot;ttb&quot;</code> برای بالا به پایین (مانند زبان مغولی) باشد.</p>
 
-<p><a class="p_ident" id="p_AvCZCbMsgs" href="#p_AvCZCbMsgs" tabindex="-1" role="presentation"></a>The <code>ranges</code> property contains an array of Unicode character ranges, each of which is a two-element array containing a lower bound and an upper bound. Any character codes within these ranges are assigned to the script. The lower bound is inclusive (code 994 is a Coptic character), and the upper bound is non-inclusive (code 1008 isn’t).</p>
+<p><a class="p_ident" id="p_kubOhWdP4W" href="#p_kubOhWdP4W" tabindex="-1" role="presentation"></a>خاصیت <code>ranges</code> شامل آرایه‌ای از بازه‌های کاراکتر یونیکد می باشد که هر کدام یک آرایه‌ی دو عنصری است که یک مرز پایین و بالا دارد. هر کد کاراکتری که در این بازه قرار بگیرد متعلق به الفبای مذکور است. مرز پایین خود نیز شامل است ( کد 994 یک کاراکتر قبطی است) و مرز بالایی، خود شامل نمی شود (کد 1008 متعلق به قبطی نیست)</p>
 
-<h2><a class="h_ident" id="h_MM7RF32uzF" href="#h_MM7RF32uzF" tabindex="-1" role="presentation"></a>Filtering arrays</h2>
+<h2><a class="h_ident" id="h_kSp6ZlxcdG" href="#h_kSp6ZlxcdG" tabindex="-1" role="presentation"></a>فیلتر کردن آرایه ها</h2>
 
-<p><a class="p_ident" id="p_Vpf83lHLbL" href="#p_Vpf83lHLbL" tabindex="-1" role="presentation"></a>To find the scripts in the data set that are still in use, the following function might be helpful. It filters out the elements in an array that don’t pass a test.</p>
+<p>برای پیدا کردن‌ الفباهایی که همچنان استفاده می شوند، تابع پیش رو می تواند مفید باشد. این تابع یه عنوان یک صافی عمل می کند و عناصری که با شرط تطبیق ندارند را در نتایج نمی آورد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_POEf7pMCk0" href="#c_POEf7pMCk0" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">filter</span>(<span class="cm-def">array</span>, <span class="cm-def">test</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">passed</span> <span class="cm-operator">=</span> [];
@@ -211,20 +210,20 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">filter</span>(<span class="cm-variable">SCRIPTS</span>, <span class="cm-def">script</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">script</span>.<span class="cm-property">living</span>));
 <span class="cm-comment">// → [{name: &quot;Adlam&quot;, …}, …]</span></pre>
 
-<p><a class="p_ident" id="p_tQlzCduFqI" href="#p_tQlzCduFqI" tabindex="-1" role="presentation"></a>The function uses the argument named <code>test</code>, a function value, to fill a “gap” in the computation—the process of deciding which elements to collect.</p>
+<p>تابع بالا از آرگومانی به نام <code>test</code> استفاده می کند، یک مقدار تابع، تا محاسبه مورد نظر را تکمیل کند – عمل انتخاب عناصری که باید به مجموعه اضافه شوند.</p>
 
-<p><a class="p_ident" id="p_veimKHV5hF" href="#p_veimKHV5hF" tabindex="-1" role="presentation"></a>Note how the <code>filter</code> function, rather than deleting elements from the existing array, builds up a new array with only the elements that pass the test. This function is <em>pure</em>. It does not modify the array it is given.</p>
+<p><a class="p_ident" id="p_r+AD8RdksC" href="#p_r+AD8RdksC" tabindex="-1" role="presentation"></a>توجه کنید که چگونه تابع <code>filter،</code> به جای اینکه عناصر را از آرایه حذف کند، آرایه‌ی جدیدی می سازد که شامل فقط عناصری است که با شرط تطبیق دارند .این تابع <em>ناب</em> (pure) است. آرایه‌ای که دریافت می کند را تغییر نمی دهد.</p>
 
-<p><a class="p_ident" id="p_nxWtg+vobY" href="#p_nxWtg+vobY" tabindex="-1" role="presentation"></a>Like <code>forEach</code>, <code>filter</code> is a standard array method. The example defined the function only to show what it does internally. From now on, we’ll use it like this instead:</p>
+<p>شبیه <code>forEach،</code> تابع <code>filter</code> نیز یک متد استاندارد آرایه است. در مثالا بالا، تابع تعریف شد تا شیوه‌ی کارکرد درون آن را نشان دهد. از الان به بعد، به شکل زیر از آن استفاده خواهیم کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_x8e0PmGGB1" href="#c_x8e0PmGGB1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">SCRIPTS</span>.<span class="cm-property">filter</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">direction</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;ttb&quot;</span>));
 <span class="cm-comment">// → [{name: &quot;Mongolian&quot;, …}, …]</span></pre>
 
-<h2 id="map"><a class="h_ident" id="h_lJEtQ+qjXz" href="#h_lJEtQ+qjXz" tabindex="-1" role="presentation"></a>Transforming with map</h2>
+<h2 id="map"><a class="h_ident" id="h_ED83giG5cC" href="#h_ED83giG5cC" tabindex="-1" role="presentation"></a>تغییر شکل به وسیله‌ی map</h2>
 
-<p><a class="p_ident" id="p_z7ZYMFMZh1" href="#p_z7ZYMFMZh1" tabindex="-1" role="presentation"></a>Say we have an array of objects representing scripts, produced by filtering the <code>SCRIPTS</code> array somehow. But we want an array of names, which is easier to inspect.</p>
+<p>فرض کنید آرایه ای از اشیاء در دست داریم که نمایانگر الفبایی است که پس از اعمال فیلتر به آرایه‌ی <code>SCRIPTS</code> به وجود آمده است. اما اگر آرایه‌ای از نام ها در اختیار داشتیم کارمان ساده تر می شد.</p>
 
-<p><a class="p_ident" id="p_6b1/g51xNK" href="#p_6b1/g51xNK" tabindex="-1" role="presentation"></a>The <code>map</code> method transforms an array by applying a function to all of its elements and building a new array from the returned values. The new array will have the same length as the input array, but its content will have been <em>mapped</em> to a new form by the function.</p>
+<p>متد <code>map</code> برای تغییر یک آرایه استفاده می شود. به این صورت که تابعی را به همه‌ی عناصر آرایه اعمال کرده و آرایه‌ی جدیدی را از مقادیر برگردانده شده می سازد. تعداد عناصر آرایه‌ی جدید با آرایه‌ی ورودی برابر است. اما محتوای آن به وسیله‌ی تابع داده شده تغییر می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_03caQcQElo" href="#c_03caQcQElo" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">map</span>(<span class="cm-def">array</span>, <span class="cm-def">transform</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">mapped</span> <span class="cm-operator">=</span> [];
@@ -238,15 +237,15 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">map</span>(<span class="cm-variable">rtlScripts</span>, <span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">name</span>));
 <span class="cm-comment">// → [&quot;Adlam&quot;, &quot;Arabic&quot;, &quot;Imperial Aramaic&quot;, …]</span></pre>
 
-<p><a class="p_ident" id="p_337o6zaWyY" href="#p_337o6zaWyY" tabindex="-1" role="presentation"></a>Like <code>forEach</code> and <code>filter</code>, <code>map</code> is a standard array method.</p>
+<p>شبیه <code>forEach</code> و <code>filter</code> متد <code>map</code> نیز از متدهای استاندارد آرایه است.</p>
 
-<h2><a class="h_ident" id="h_fx3e34kT/k" href="#h_fx3e34kT/k" tabindex="-1" role="presentation"></a>Summarizing with reduce</h2>
+<h2><a class="h_ident" id="h_NCm3KSrFg3" href="#h_NCm3KSrFg3" tabindex="-1" role="presentation"></a>خلاصه‌ کردن یک آرایه به وسیله‌ی متد reduce</h2>
 
-<p><a class="p_ident" id="p_QSyM/hwBKc" href="#p_QSyM/hwBKc" tabindex="-1" role="presentation"></a>Another common thing to do with arrays is to compute a single value from them. Our recurring example, summing a collection of numbers, is an instance of this. Another example is finding the script with the most characters.</p>
+<p>یکی دیگر از کارهای رایجی که با آرایه‌ها انجام می شود، محاسبه‌ی یک مقدار واحد از آن ها است. مثال تکراری خودمان، جمع کردن مجموعه‌ای از اعداد، نمونه‌ی از آن است. یک مثال دیگر می تواند پیدا کردن الفبایی با بیشترین حروف باشد.</p>
 
-<p><a class="p_ident" id="p_AQTWjyAzxS" href="#p_AQTWjyAzxS" tabindex="-1" role="presentation"></a>The higher-order operation that represents this pattern is called <em>reduce</em> (sometimes also called <em>fold</em>). It builds a value by repeatedly taking a single element from the array and combining it with the current value. When summing numbers, you’d start with the number zero and, for each element, add that to the sum.</p>
+<p><a class="p_ident" id="p_SMNon23V6e" href="#p_SMNon23V6e" tabindex="-1" role="presentation"></a>عمل &quot;رده‌بالا&quot;یی که برای این الگو وجود دارد، <em>reduce</em> (کاهش) خوانده می شود ( گاهی اوقات هم آن‌ را <em>تاکردن</em> می نامند.) این متد به صورت مکرر عنصری از آرایه را گرفته و آن را با مقدار قبلی ترکیب کرده و در نهایت یک مقدار واحد تولید می کند. زمانی که اعداد را جمع می کنید، ابتدا با عدد صفر شروع می کنید و بعد یکایک عناصر را به مجموع اضافه می کنید.</p>
 
-<p><a class="p_ident" id="p_4TujL14aLE" href="#p_4TujL14aLE" tabindex="-1" role="presentation"></a>The parameters to <code>reduce</code> are, apart from the array, a combining function and a start value. This function is a little less straightforward than <code>filter</code> and <code>map</code>, so take a close look at it:</p>
+<p>پارامترهای تابع <code>reduce،</code> بدون در نظر گرفتن خود آرایه، شامل یک تابع ترکیب و یک مقدار اولیه می باشند. مفهوم این تابع به سرراستی <code>filter</code> و <code>map</code> نیست، پس بیایید نگاه دقیق تری بکنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_k5GDHjqpSc" href="#c_k5GDHjqpSc" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">reduce</span>(<span class="cm-def">array</span>, <span class="cm-def">combine</span>, <span class="cm-def">start</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">current</span> <span class="cm-operator">=</span> <span class="cm-variable-2">start</span>;
@@ -259,12 +258,12 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">reduce</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>], (<span class="cm-def">a</span>, <span class="cm-def">b</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span> <span class="cm-operator">+</span> <span class="cm-variable-2">b</span>, <span class="cm-number">0</span>));
 <span class="cm-comment">// → 10</span></pre>
 
-<p><a class="p_ident" id="p_r9cFmJJTar" href="#p_r9cFmJJTar" tabindex="-1" role="presentation"></a>The standard array method <code>reduce</code>, which of course corresponds to this function, has an added convenience. If your array contains at least one element, you are allowed to leave off the <code>start</code> argument. The method will take the first element of the array as its start value and start reducing at the second element.</p>
+<p>متد استاندارد آرایه‌ی <code>reduce</code> که شبیه به تابع بالا می باشد، یک مزیت بیشتر نیز دارد. اگر آرایه‌ی شما حداقل یک عنصر داشته باشد، می توانید آرگومان <code>start</code> را حذف کنید. خود تابع، اولین عنصر آرایه را به عنوان مقدار شروع در نظر گرفته و عمل کاهش را از عنصر دوم شروع می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Dxn7muuMkk" href="#c_Dxn7muuMkk" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>].<span class="cm-property">reduce</span>((<span class="cm-def">a</span>, <span class="cm-def">b</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span> <span class="cm-operator">+</span> <span class="cm-variable-2">b</span>));
 <span class="cm-comment">// → 10</span></pre>
 
-<p><a class="p_ident" id="p_co+X+c08nc" href="#p_co+X+c08nc" tabindex="-1" role="presentation"></a>To use <code>reduce</code> (twice) to find the script with the most characters, we can write something like this:</p>
+<p>برای استفاده از متد <code>reduce</code> (دو بار) برای پیدا کردن الفبایی که بیشترین حروف را دارد، می توانیم چیزی مثل کد پایین بنویسیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_x76Ukt5X+H" href="#c_x76Ukt5X+H" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">characterCount</span>(<span class="cm-def">script</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">script</span>.<span class="cm-property">ranges</span>.<span class="cm-property">reduce</span>((<span class="cm-def">count</span>, [<span class="cm-def">from</span>, <span class="cm-def">to</span>]) <span class="cm-operator">=&gt;</span> {
@@ -277,13 +276,13 @@ flow.</p>
 }));
 <span class="cm-comment">// → {name: &quot;Han&quot;, …}</span></pre>
 
-<p><a class="p_ident" id="p_Zk/GcSOyra" href="#p_Zk/GcSOyra" tabindex="-1" role="presentation"></a>The <code>characterCount</code> function reduces the ranges assigned to a script by summing their sizes. Note the use of destructuring in the parameter list of the reducer function. The second call to <code>reduce</code> then uses this to find the largest script by repeatedly comparing two scripts and returning the larger one.</p>
+<p><a class="p_ident" id="p_IHfwEcHMPM" href="#p_IHfwEcHMPM" tabindex="-1" role="presentation"></a>تابع <code>characterCount</code> بازه‌ های  مربوط به یک الفبا را به وسیله جمع کردن اندازه‌ی آن ها کاهش می دهد. به استفاده از “تجزیه” (destructing) در لیست پارامتر ها در تابع کاهش دهنده توجه کنید. در فراخوانی دوم تابع <code>reduce</code>، از این نتیجه برای پیدا کردن بزرگترین الفبا استفاده می شود؛  دو به دو الفبا ها را مقایسه کرده و الفبای بزرگتر را بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_mdiQoTXDgm" href="#p_mdiQoTXDgm" tabindex="-1" role="presentation"></a>The Han script has more than 89,000 characters assigned to it in the Unicode standard, making it by far the biggest writing system in the data set. Han is a script (sometimes) used for Chinese, Japanese, and Korean text. Those languages share a lot of characters, though they tend to write them differently. The (U.S.-based) Unicode Consortium decided to treat them as a single writing system to save character codes. This is called <em>Han unification</em> and still makes some people very angry.</p>
+<p><a class="p_ident" id="p_5FQGaj5ujw" href="#p_5FQGaj5ujw" tabindex="-1" role="presentation"></a>الفبای Han (هان) دارای بیش از <bdo>89,000</bdo> کاراکتر در استاندارد یونیکد است، که باعث شده به عنوان بزرگ‌ترین سیستم نوشتاری در این مجموعه شناخته شود. هان الفبایی است که (گاهی) برای متون چینی، ژاپنی، و کره‌ای استفاده می شود. این زبان‌ها کاراکترهای مشترک زیادی دارند اگرچه که به شکل متفاوتی آن ها را می نویسند. کنسرسیوم یونیکد ( مستقر در ایالات متحده) تصمیم گرفت که آن ها را به عنوان یک سیستم نوشتاری واحد در نظر بگیرد تا کدهای کارکتر کمتری استفاده شود. این کار <em>یکی سازی الفبای هان</em> خوانده می شود که هنوز بعضی افراد را خیلی عصبانی می کند.</p>
 
-<h2><a class="h_ident" id="h_+NeFt8aXxf" href="#h_+NeFt8aXxf" tabindex="-1" role="presentation"></a>Composability</h2>
+<h2><a class="h_ident" id="h_U/TVE+gCPe" href="#h_U/TVE+gCPe" tabindex="-1" role="presentation"></a>ترکیب پذیری</h2>
 
-<p><a class="p_ident" id="p_6rxgOjYIEh" href="#p_6rxgOjYIEh" tabindex="-1" role="presentation"></a>Consider how we would have written the previous example (finding the biggest script) without higher-order functions. The code is not that much worse.</p>
+<p>ملاحظه کنید چگونه بدون استفاده توابع‌ رده‌بالا، می توانستیم مثال قبل را بنویسیم ( پیدا کردن بزرگ‌ترین الفبا).  آن‌قدرها هم بد از کار در نمی آمد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_1FmIKHNB24" href="#c_1FmIKHNB24" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">biggest</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -295,9 +294,9 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">biggest</span>);
 <span class="cm-comment">// → {name: &quot;Han&quot;, …}</span></pre>
 
-<p><a class="p_ident" id="p_rW1l2uIQYQ" href="#p_rW1l2uIQYQ" tabindex="-1" role="presentation"></a>There are a few more bindings, and the program is four lines longer. But it is still very readable.</p>
+<p>با چند متغیر اضافی و چهار خط کدنویسی بیشتر، همچنان برنامه خوانایی خوبی دارد.</p>
 
-<p id="average_function"><a class="p_ident" id="p_a0FspsuDHF" href="#p_a0FspsuDHF" tabindex="-1" role="presentation"></a>Higher-order functions start to shine when you need to <em>compose</em> operations. As an example, let’s write code that finds the average year of origin for living and dead scripts in the data set.</p>
+<p id="average_function">توابع رده‌بالا زمانی شروع به درخشش می کنند که نیاز باشد عملیات را <em>ترکیب</em> کنید. به عنوان یک مثال، بیایید کدی بنویسیم که میانگین سال ایجاد را برای الفبا‌های زنده و از رده خارج پیدا می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rbnWPJoeJs" href="#c_rbnWPJoeJs" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">average</span>(<span class="cm-def">array</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">array</span>.<span class="cm-property">reduce</span>((<span class="cm-def">a</span>, <span class="cm-def">b</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span> <span class="cm-operator">+</span> <span class="cm-variable-2">b</span>) <span class="cm-operator">/</span> <span class="cm-variable-2">array</span>.<span class="cm-property">length</span>;
@@ -310,9 +309,9 @@ flow.</p>
   <span class="cm-variable">SCRIPTS</span>.<span class="cm-property">filter</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-operator">!</span><span class="cm-variable-2">s</span>.<span class="cm-property">living</span>).<span class="cm-property">map</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">year</span>))));
 <span class="cm-comment">// → 188</span></pre>
 
-<p><a class="p_ident" id="p_SoxeEh7KKJ" href="#p_SoxeEh7KKJ" tabindex="-1" role="presentation"></a>So the dead scripts in Unicode are, on average, older than the living ones. This is not a terribly meaningful or surprising statistic. But I hope you’ll agree that the code used to compute it isn’t hard to read. You can see it as a pipeline: we start with all scripts, filter out the living (or dead) ones, take the years from those, average them, and round the result.</p>
+<p>بنابراین به طور میانگین الفباهای از رده خارج در یونیکد، قدیمی تر از موارد زنده هستند. این نتیجه خیلی معنای خاصی نمی دهد یا آمار شگفت انگیزی محسوب نمی شود. اما امیدوارم  موافق باشید که کدی که برای محاسبه این نتیجه استفاده شده از خوانایی خوبی برخوردار است. می توانید آن را به عنوان یک خط لوله در نظر بگیرید:  با همه‌ی الفباها شروع می کنیم، موارد زنده (یا از رده خارج) را فیلتر می کنیم، سال‌ها را از آن ها گرفته، میانگین می گیریم و نتیجه را گرد می کنیم.</p>
 
-<p><a class="p_ident" id="p_FNSiaZ2hBC" href="#p_FNSiaZ2hBC" tabindex="-1" role="presentation"></a>You could definitely also write this computation as one big loop.</p>
+<p>قطعا می شد این محاسبه را به وسیله یک حلقه‌ی بزرگ پیاده‌سازی کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_PumCVjaL6O" href="#c_PumCVjaL6O" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">total</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>, <span class="cm-def">count</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -324,15 +323,15 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Math</span>.<span class="cm-property">round</span>(<span class="cm-variable">total</span> <span class="cm-operator">/</span> <span class="cm-variable">count</span>));
 <span class="cm-comment">// → 1188</span></pre>
 
-<p><a class="p_ident" id="p_yjuOvdnLHf" href="#p_yjuOvdnLHf" tabindex="-1" role="presentation"></a>But it is harder to see what was being computed and how. And because intermediate results aren’t represented as coherent values, it’d be a lot more work to extract something like <code>average</code> into a separate function.</p>
+<p>اما کاری که می کند و چگونگی آن به راحتی قابل درک نیست. و به علت اینکه نتایج میانی به عنوان مقادیری مربوط و منسجم نشان داده نمی شوند، برای اینکه بتوان چیزی شبیه به <code>average</code> را به عنوان یک تابع مستقل از دل آن استخراج کرد، کار زیادی خواهد برد.</p>
 
-<p><a class="p_ident" id="p_CiGDWoU0I9" href="#p_CiGDWoU0I9" tabindex="-1" role="presentation"></a>In terms of what the computer is actually doing, these two approaches are also quite different. The first will build up new arrays when running <code>filter</code> and <code>map</code>, whereas the second computes only some numbers, doing less work. You can usually afford the readable approach, but if you’re processing huge arrays, and doing so many times, the less abstract style might be worth the extra speed.</p>
+<p>با توجه به کاری که کامپیوتر در واقعیت انجام می دهد، این دو رهیافت نسبتا با هم متفاوت هستند. در مورد اول، یک آرایه جدید پس از اجرای <code>filter</code> و <code>map</code> ایجاد می شود، در حالیکه در مورد دوم فقط محاسباتی روی اعداد انجام می شود و کار کمتری صورت می گیرد. معمولا استفاده از روش خواناتر قابل استفاده و منطقی است اما اگر قصد پردازش آرایه‌های خیلی بزرگ را دارید، و این کار را به تعداد دفعات بالایی انجام می دهید، استفاده از روشی با خوانایی و انتزاع کمتر، ارزش سرعتی که دریافت می کنید را دارد.</p>
 
-<h2><a class="h_ident" id="h_gQf5HZNGpM" href="#h_gQf5HZNGpM" tabindex="-1" role="presentation"></a>Strings and character codes</h2>
+<h2><a class="h_ident" id="h_RVi4WcXKWO" href="#h_RVi4WcXKWO" tabindex="-1" role="presentation"></a>رشته‌ها و کدهای کاراکتر</h2>
 
-<p><a class="p_ident" id="p_CbVTXgjOFe" href="#p_CbVTXgjOFe" tabindex="-1" role="presentation"></a>One use of the data set would be figuring out what script a piece of text is using. Let’s go through a program that does this.</p>
+<p>یکی از کاربرد‌هایی که می توان برای این مجموعه‌ی داده در نظر گرفت، استفاده از آن برای تشخیص الفبای یک متن است. بیایید به سراغ برنامه‌ای برویم که همین کار را انجام می دهد.</p>
 
-<p><a class="p_ident" id="p_aEEZgRpp75" href="#p_aEEZgRpp75" tabindex="-1" role="presentation"></a>Remember that each script has an array of character code ranges associated with it. So given a character code, we could use a function like this to find the corresponding script (if any):</p>
+<p>به خاطر دارید که هر الفبا حاوی یک آرایه از بازه‌های کد کاراکتری که به آن اختصاص داشت بود. با داشتن یک کد کاراکتر، می توانیم از تابعی مثل زیر برای پیدا کردن الفبای مرتبطش ( در صورت وجود )‌ استفاده کنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Q8918ecfHn" href="#c_Q8918ecfHn" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">characterScript</span>(<span class="cm-def">code</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -348,16 +347,15 @@ flow.</p>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">characterScript</span>(<span class="cm-number">121</span>));
 <span class="cm-comment">// → {name: &quot;Latin&quot;, …}</span></pre>
 
-<p><a class="p_ident" id="p_j3Y+wD1N4H" href="#p_j3Y+wD1N4H" tabindex="-1" role="presentation"></a>The <code>some</code> method is another higher-order function. It takes a test function and tells you whether that function returns true for any of the elements in the array.</p>
+<p><a class="p_ident" id="p_viUD0tQjF6" href="#p_viUD0tQjF6" tabindex="-1" role="presentation"></a>متد <code>some</code> یکی دیگر از توابع رده‌بالا است. این متد تابعی را به عنوان شرط دریافت می کند. این شرط به تک تک عناصر آرایه اعمال شده و اگر حداقل برای یکی از آن ها صدق کند (true باشد)، تابع نیز true را بر می گرداند.</p>
 
-<p id="code_units"><a class="p_ident" id="p_NZ3lS1jnJX" href="#p_NZ3lS1jnJX" tabindex="-1" role="presentation"></a>But how do we get the character codes in a string?</p>
+<p id="code_units">اما چگونه می توانیم کدهای کاراکتر یک رشته را بدست بیاوریم؟</p>
 
-<p><a class="p_ident" id="p_UsDhhqR3EH" href="#p_UsDhhqR3EH" tabindex="-1" role="presentation"></a>In <a href="01_values.html">Chapter 1</a> I mentioned that JavaScript strings are encoded as a sequence of 16-bit numbers. These are called <em>code
-units</em>. A Unicode character code was initially supposed to fit within such a unit (which gives you a little over 65,000 characters). When it became clear that wasn’t going to be enough, many people balked at the need to use more memory per character. To address these concerns, UTF-16, the format used by JavaScript strings, was invented. It describes most common characters using a single 16-bit code unit but uses a pair of two such units for others.</p>
+<p><a class="p_ident" id="p_uZTbwHfeuE" href="#p_uZTbwHfeuE" tabindex="-1" role="presentation"></a>در <a href="01_values.html">فصل 1</a> اشاره کردم که در جاوااسکریپت رشته‌ها به عنوان دنباله‌ای از اعداد 16 بیتی کدگذاری می شوند که به آن‌ها واحد‌های کد گفته می شود. ابتدا قرار بود در یونیکد هر کد کاراکتر در یکی از این واحد‌ها قرار گیرد ( که چیزی بیش از <bdo>65,000</bdo> کاراکتر را در اختیار شما می گذارد).  زمانی که روشن شد این مقدار کافی نیست، خیلی ها از موضوع اختصاص حافظه‌ی بیشتر برای هر کاراکتر طفره می رفتند. برای حل این مشکل، UTF-16 اختراع شد ، فرمتی که برای رشته‌های جاوااسکریپت استفاده می شود.  این سیستم اکثر کاراکترهای رایج را با یک واحد کد 16 بیتی توصیف می کند اما برای دیگر کدها، از دو واحد استفاده می کند.</p>
 
-<p><a class="p_ident" id="p_VWL7aDQvAS" href="#p_VWL7aDQvAS" tabindex="-1" role="presentation"></a>UTF-16 is generally considered a bad idea today. It seems almost intentionally designed to invite mistakes. It’s easy to write programs that pretend code units and characters are the same thing. And if your language doesn’t use two-unit characters, that will appear to work just fine. But as soon as someone tries to use such a program with some less common Chinese characters, it breaks. Fortunately, with the advent of emoji, everybody has started using two-unit characters, and the burden of dealing with such problems is more fairly distributed.</p>
+<p><a class="p_ident" id="p_BaR3OpT/DK" href="#p_BaR3OpT/DK" tabindex="-1" role="presentation"></a>این‌ روزها UTF-16  عموما به عنوان ایده‌ی بدی شناخته می شود. به نظر می رسد که عمدا طوری طراحی شده است که اشتباه ساز باشد. به‌سادگی توان برنامه‌هایی نوشت که در ظاهر تفاوتی بین واحدها و کاراکترهای کد قائل نمی شوند و بدون مشکل هم کار می کنند. اما به محض اینکه کسی سعی کند از این گونه برنامه‌ها برای نوشتن بعضی کاراکترهای چینی نامتداول استفاده کند، برنامه از کار می افتد. خوشبختانه، با ظهور ایموجی، همه به سراغ استفاده از کاراکترهای دو واحده رفته اند، و مسئولیت سروکار داشتن با این گونه مشکلات با عدالت بیشتری توزیع شده است.</p>
 
-<p><a class="p_ident" id="p_iQl/Gok4Mf" href="#p_iQl/Gok4Mf" tabindex="-1" role="presentation"></a>Unfortunately, obvious operations on JavaScript strings, such as getting their length through the <code>length</code> property and accessing their content using square brackets, deal only with code units.</p>
+<p>متاسفانه، در جاوااسکریپت کارهای واضح روی رشته‌ها، مثل گرفتن طول آن ها به وسیله خاصیت <code>length</code> و دسترسی به محتوای آن‌ها به وسیله براکت ها، تنها از واحدهای کد پشتیبانی می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_50Oes+9anA" href="#c_50Oes+9anA" tabindex="-1" role="presentation"></a><span class="cm-comment">// Two emoji characters, horse and shoe</span>
 <span class="cm-keyword">let</span> <span class="cm-def">horseShoe</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;🐴👟&quot;</span>;
@@ -370,9 +368,9 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">horseShoe</span>.<span class="cm-property">codePointAt</span>(<span class="cm-number">0</span>));
 <span class="cm-comment">// → 128052 (Actual code for horse emoji)</span></pre>
 
-<p><a class="p_ident" id="p_whNOOL2UUI" href="#p_whNOOL2UUI" tabindex="-1" role="presentation"></a>JavaScript’s <code>charCodeAt</code> method gives you a code unit, not a full character code. The <code>codePointAt</code> method, added later, does give a full Unicode character. So we could use that to get characters from a string. But the argument passed to <code>codePointAt</code> is still an index into the sequence of code units. So to run over all characters in a string, we’d still need to deal with the question of whether a character takes up one or two code units.</p>
+<p>متد <code>charCodeAt</code> در جاوااسکریپت به شما یک واحد کد تحویل می دهد نه کد یک کاراکتر کامل. متد <code>codePointAt،</code> که بعدا اضافه شد، کد کامل یونیکد کاراکتر را برمی گرداند. بنابراین می توانیم از این متد برای گرفتن کاراکترهای یک رشته استفاده کنیم. اما آرگومانی که به متد <code>codePointAt</code> ارسال می شود هنوز یک اندیس گرفته‌ شده از دنباله‌ی کدهای واحد است. پس با توجه به آن، برای پیمایش همه‌ی کاراکتر‌های یک رشته، همچنان باید بدانیم که هر کاراکتر یک واحد یا دو واحد کد اشغال کرده است.</p>
 
-<p><a class="p_ident" id="p_AEbxGojOu6" href="#p_AEbxGojOu6" tabindex="-1" role="presentation"></a>In the <a href="04_data.html#for_of_loop">previous chapter</a>, I mentioned that a <code>for</code>/<code>of</code> loop can also be used on strings. Like <code>codePointAt</code>, this type of loop was introduced at a time where people were acutely aware of the problems with UTF-16. When you use it to loop over a string, it gives you real characters, not code units.</p>
+<p>در <a href="04_data.html#for_of_loop">فصل پیش</a>، اشاره کردم که حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo>  را همچنین می توان برای رشته‌ها استفاده کرد. شبیه <code>codePointAt</code>، این نوع از حلقه نیز زمانی معرفی شد که همه از مشکلات UTF-16 آگاه بودند. با استفاده از آن برای پیمایش یک رشته، به جای کدهای واحد، کاراکترهای واقعی برگردانده می شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9QIfA1qjtG" href="#c_9QIfA1qjtG" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">roseDragon</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;🌹🐉&quot;</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">char</span> <span class="cm-keyword">of</span> <span class="cm-variable">roseDragon</span>) {
@@ -381,11 +379,11 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 <span class="cm-comment">// → 🌹</span>
 <span class="cm-comment">// → 🐉</span></pre>
 
-<p><a class="p_ident" id="p_1lRKu8d5oS" href="#p_1lRKu8d5oS" tabindex="-1" role="presentation"></a>If you have a character (which will be a string of one or two code units), you can use <code>codePointAt(0)</code> to get its code.</p>
+<p>اگر کاراکتری دارید ( که رشته‌ای از یک یا دو واحد کد است)، می توانید از متد <bdo><code>codePointAt(0)</code></bdo> برای گرفتن کد متناظرش استفاده کنید.</p>
 
-<h2><a class="h_ident" id="h_qYzPQMwIvv" href="#h_qYzPQMwIvv" tabindex="-1" role="presentation"></a>Recognizing text</h2>
+<h2><a class="h_ident" id="h_dF/RGkNPy4" href="#h_dF/RGkNPy4" tabindex="-1" role="presentation"></a>تشخیص متن</h2>
 
-<p><a class="p_ident" id="p_tzTGijMwow" href="#p_tzTGijMwow" tabindex="-1" role="presentation"></a>We have a <code>characterScript</code> function and a way to correctly loop over characters. The next step is to count the characters that belong to each script. The following counting abstraction will be useful there:</p>
+<p>تا اینجا یک تابع به نام <code>characterScript</code> به همراه روشی برای پیمایش کاراکترها در اختیار داریم. گام بعدی شمردن کاراکترهایی است که به هر الفبا مربوط می شود. می توان از تابع زیر برای این کار استفاده کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_nau/OQcf6J" href="#c_nau/OQcf6J" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">countBy</span>(<span class="cm-def">items</span>, <span class="cm-def">groupName</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">counts</span> <span class="cm-operator">=</span> [];
@@ -404,11 +402,11 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">countBy</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>, <span class="cm-number">5</span>], <span class="cm-def">n</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">n</span> <span class="cm-operator">&gt;</span> <span class="cm-number">2</span>));
 <span class="cm-comment">// → [{name: false, count: 2}, {name: true, count: 3}]</span></pre>
 
-<p><a class="p_ident" id="p_XJKbcULdUw" href="#p_XJKbcULdUw" tabindex="-1" role="presentation"></a>The <code>countBy</code> function expects a collection (anything that we can loop over with <code>for</code>/<code>of</code>) and a function that computes a group name for a given element. It returns an array of objects, each of which names a group and tells you the number of elements that were found in that group.</p>
+<p>تابع <code>countBy</code> به عنوان آرگومان، یک مجموعه (هرچیزی که بتوان به وسیله‌ی <bdo><code>for</code>/<code>of</code></bdo> آن را پیمایش کرد) به همراه تابعی برای گروه‌بندی دریافت می کند. خروجی این تابع، آرایه‌ای از اشیاء است که هر یک معرف یک گروه است و به شما می گوید چه تعداد عنصر در آن گروه پیدا شده است.</p>
 
-<p><a class="p_ident" id="p_YjH+mbwxM+" href="#p_YjH+mbwxM+" tabindex="-1" role="presentation"></a>It uses another array method—<code>findIndex</code>. This method is somewhat like <code>indexOf</code>, but instead of looking for a specific value, it finds the first value for which the given function returns true. Like <code>indexOf</code>, it returns -1 when no such element is found.</p>
+<p><a class="p_ident" id="p_0yXQQurvWN" href="#p_0yXQQurvWN" tabindex="-1" role="presentation"></a>این تابع خود از متدی دیگر به نام <code>findIndex</code> استفاده می کند. این متد به شکلی شبیه به <code>indexOf</code> عمل می کند، اما به جای گشتن برای یک مقدار خاص، به دنبال اولین مقداری می گردد که تابع داده شده با آن مقدار true را برمی گرداند. مانند <code>indexOf،</code> اگر عنصری با آن شرایط پیدا نشود، <bdo>-1</bdo> برگردانده می شود.</p>
 
-<p><a class="p_ident" id="p_T2D/Ix5YaM" href="#p_T2D/Ix5YaM" tabindex="-1" role="presentation"></a>Using <code>countBy</code>, we can write the function that tells us which scripts are used in a piece of text.</p>
+<p><a class="p_ident" id="p_7fHPkrbqq2" href="#p_7fHPkrbqq2" tabindex="-1" role="presentation"></a>با استفاده از countBy می توانیم تابعی بنویسیم که الفبای یک متن را برای ما مشخص کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_TyAeKAD0HB" href="#c_TyAeKAD0HB" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">textScripts</span>(<span class="cm-def">text</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">scripts</span> <span class="cm-operator">=</span> <span class="cm-variable">countBy</span>(<span class="cm-variable-2">text</span>, <span class="cm-def">char</span> <span class="cm-operator">=&gt;</span> {
@@ -427,31 +425,31 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">textScripts</span>(<span class="cm-string">'英国的狗说&quot;woof&quot;, 俄罗斯的狗说&quot;тяв&quot;'</span>));
 <span class="cm-comment">// → 61% Han, 22% Latin, 17% Cyrillic</span></pre>
 
-<p><a class="p_ident" id="p_ydjmkrkJ8Y" href="#p_ydjmkrkJ8Y" tabindex="-1" role="presentation"></a>The function first counts the characters by name, using <code>characterScript</code> to assign them a name and falling back to the string <code>&quot;none&quot;</code> for characters that aren’t part of any script. The <code>filter</code> call drops the entry for <code>&quot;none&quot;</code> from the resulting array since we aren’t interested in those characters.</p>
+<p>تابع بالا ابتدا تعداد کاراکتر‌ها را با نام می شمارد، با استفاده از <code>characterScript</code> به آن‌ها نامی را اختصاص می دهد، و برای کاراکترهایی که جزء هیچ الفبایی محسوب نمی شوند، مقدار <code>“none”</code> را به رشته باز می گرداند. تابع <code>filter</code> تمامی <code>“none”</code> ها را از آرایه‌ی نتیجه حذف می کند، چرا که علاقه ای به این کاراکتر‌ها نداریم.</p>
 
-<p><a class="p_ident" id="p_avwH1AKErw" href="#p_avwH1AKErw" tabindex="-1" role="presentation"></a>To be able to compute percentages, we first need the total number of characters that belong to a script, which we can compute with <code>reduce</code>. If no such characters are found, the function returns a specific string. Otherwise, it transforms the counting entries into readable strings with <code>map</code> and then combines them with <code>join</code>.</p>
+<p>برای اینکه بتوانیم درصد‌ها را محاسبه کنیم، ابتدا به تعداد همه‌ی کاراکترهایی که به یک الفبا تعلق دارند نیاز داریم، که می توانیم این کار را با <code>reduce</code> انجام دهیم. اگر این اراکترها پیدا نشدند، تابع، یک رشته‌ی مشخص برمی گرداند. در غیر این صورت به وسیله تابع <code>map</code> موارد محاسبه‌شده را به رشته‌هایی مناسب خواندن تبدیل می کند و در آخر به وسیله <code>join</code> آن ها را به هم الحاق می نماید.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_N6wo+JYLCW" href="#p_N6wo+JYLCW" tabindex="-1" role="presentation"></a>Being able to pass function values to other functions is a deeply useful aspect of JavaScript. It allows us to write functions that model computations with “gaps” in them. The code that calls these functions can fill in the gaps by providing function values.</p>
+<p>یکی از جنبه‌های عمیقا کاربردی جاوااسکریپت، امکان ارسال مقدارهای تابع به دیگر توابع است. با این ویژگی می توان توابعی برای مدل‌سازی محاسباتی نوشت که دارای بخشی &quot;باز&quot; می باشند. کدی که این توابع را فراخوانی می کند، می تواند این فضای باز را به وسیله‌ی مقدار‌های تابع تکمیل کند.</p>
 
-<p><a class="p_ident" id="p_pZzOMOrxaO" href="#p_pZzOMOrxaO" tabindex="-1" role="presentation"></a>Arrays provide a number of useful higher-order methods. You can use <code>forEach</code> to loop over the elements in an array. The <code>filter</code> method returns a new array containing only the elements that pass the predicate function. Transforming an array by putting each element through a function is done with <code>map</code>. You can use <code>reduce</code> to combine all the elements in an array into a single value. The <code>some</code> method tests whether any element matches a given predicate function. And <code>findIndex</code> finds the position of the first element that matches a predicate.</p>
+<p>آرایه‌ها مجموعه‌ی مفیدی از توابع دست بالا را فراهم می سازند. می توانید از <code>forEach</code> برای پیمایش عناصر یک آرایه استفاده کنید. برای برگرداندن یک آرایه‌ی جدید با عناصری که شرایط خاصی دارند، متد <code>filter</code> مفید است. برای تغییر شکل عناصر یک آرایه به وسیله‌ی یک تابع، می توانید از <code>map</code> استفاده کنید. <code>reduce</code> برای ترکیب همه‌ی عناصر یک آرایه و ساخت یک مقدار واحد، کاربرد دارد. متد <code>some</code> بررسی می کند که آیا حداقل یک عنصر در آرایه با شرط تابع ورودی تطبیق می کند  و <code>findIndex</code> موقعیت اولین عنصری که با شرط ارسالی تطبیق دارد را بر می گرداند.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_aIOczlLyX1" href="#i_aIOczlLyX1" tabindex="-1" role="presentation"></a>Flattening</h3>
+<h3><a class="i_ident" id="i_1XCp3Vm6bW" href="#i_1XCp3Vm6bW" tabindex="-1" role="presentation"></a>یک‌سطح کردن آرایه</h3>
 
-<p><a class="p_ident" id="p_6CVUmjaoYw" href="#p_6CVUmjaoYw" tabindex="-1" role="presentation"></a>Use the <code>reduce</code> method in combination with the <code>concat</code> method to “flatten” an array of arrays into a single array that has all the elements of the original arrays.</p>
+<p>با استفاده از متد <code>reduce</code> و ترکیب آن با <code>concat،</code> آرایه‌ای از آرایه‌ها را گرفته و آرایه‌ی تختی (مسطح) بسازید که شامل همه‌ی عناصر آرایه‌های اصلی باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I+o+qLGLXB" href="#c_I+o+qLGLXB" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">arrays</span> <span class="cm-operator">=</span> [[<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>], [<span class="cm-number">4</span>, <span class="cm-number">5</span>], [<span class="cm-number">6</span>]];
 <span class="cm-comment">// Your code here.</span>
 <span class="cm-comment">// → [1, 2, 3, 4, 5, 6]</span></pre>
 
-<h3><a class="i_ident" id="i_gKQ1S54F4o" href="#i_gKQ1S54F4o" tabindex="-1" role="presentation"></a>Your own loop</h3>
+<h3><a class="i_ident" id="i_rU7fdIk3WU" href="#i_rU7fdIk3WU" tabindex="-1" role="presentation"></a>شبیه‌سازی حلقه</h3>
 
-<p><a class="p_ident" id="p_LWMRzXlJIe" href="#p_LWMRzXlJIe" tabindex="-1" role="presentation"></a>Write a higher-order function <code>loop</code> that provides something like a <code>for</code> loop statement. It takes a value, a test function, an update function, and a body function. Each iteration, it first runs the test function on the current loop value and stops if that returns false. Then it calls the body function, giving it the current value. Finally, it calls the update function to create a new value and starts from the beginning.</p>
+<p><a class="p_ident" id="p_fLbvuYully" href="#p_fLbvuYully" tabindex="-1" role="presentation"></a>تابع رده‌بالایی به نام <code>loop</code> بنویسید که کاری مشابه یک حلقه‌ی <code>for</code> انجام دهد. این تابع به عنوان آرگومان، یک مقدار، تابع شرط، تابع به‌روز‌رسانی و بدنه‌ی یک تابع را دریافت می کند. در هر تکرار، ابتدا، تابع شرط را بر روی مقدار فعلی حلقه اجرا می کند و در صورتی که false را تولید کرد متوقف می شود. سپس بدنه تابع ارسالی را با دادن مقدار فعلی به آن، اجرا می نماید. در نهایت برای ایجاد یک مقدار جدید، تابع به‌روزرسانی را فراخوانی کرده و از ابتدا شروع می کند.</p>
 
-<p><a class="p_ident" id="p_S48JjGYRAU" href="#p_S48JjGYRAU" tabindex="-1" role="presentation"></a>When defining the function, you can use a regular loop to do the actual looping.</p>
+<p>هنگام تعریف تابع، می توانید از یک حلقه‌ی معمولی برای پیاده‌سازی حلقه‌ی اصلی استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Fv1rc97GEM" href="#c_Fv1rc97GEM" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -460,11 +458,11 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 <span class="cm-comment">// → 2</span>
 <span class="cm-comment">// → 1</span></pre>
 
-<h3><a class="i_ident" id="i_SmbRSAd5GA" href="#i_SmbRSAd5GA" tabindex="-1" role="presentation"></a>Everything</h3>
+<h3><a class="i_ident" id="i_9HYBCnRNia" href="#i_9HYBCnRNia" tabindex="-1" role="presentation"></a>همه‌چیز</h3>
 
-<p><a class="p_ident" id="p_/J/AO4UyLj" href="#p_/J/AO4UyLj" tabindex="-1" role="presentation"></a>Analogous to the <code>some</code> method, arrays also have an <code>every</code> method. This one returns true when the given function returns true for <em>every</em> element in the array. In a way, <code>some</code> is a version of the <code>||</code> operator that acts on arrays, and <code>every</code> is like the <code>&amp;&amp;</code> operator.</p>
+<p>مشابه متد <code>some،</code> آرایه‌ها متدی به نام <code>every</code> نیز دارند. این متد زمانی <code>true</code> برمی گرداند که تابع داده شد برای <em>همه‌ی</em> عناصر آرایه، مقدار <code>true</code> را تولید کند. به نوعی، <code>some</code> نسخه‌ای از عملگر <code>||</code> است که روی آرایه‌ها عمل می کند و <code>every</code> شبیه به عملگر <code>&amp;&amp;</code> کار می کند.</p>
 
-<p><a class="p_ident" id="p_myqdLDWQWl" href="#p_myqdLDWQWl" tabindex="-1" role="presentation"></a>Implement <code>every</code> as a function that takes an array and a predicate function as parameters. Write two versions, one using a loop and one using the <code>some</code> method.</p>
+<p>متد <code>every</code> را به عنوان یک تابع پیاده سازی کنید که یک آرایه و یک تابع دریافت می کند. دو نسخه‌ از این تابع را بنویسید، یک نسخه با استفاده از حلقه و دیگری با استفاده از متد <code>some</code>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_NludaTWDls" href="#c_NludaTWDls" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">every</span>(<span class="cm-def">array</span>, <span class="cm-def">test</span>) {
   <span class="cm-comment">// Your code here.</span>
@@ -479,18 +477,17 @@ units</em>. A Unicode character code was initially supposed to fit within such a
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_1QG7tGMA79" href="#p_1QG7tGMA79" tabindex="-1" role="presentation"></a>Like the <code>&amp;&amp;</code> operator, the <code>every</code> method can stop evaluating further elements as soon as it has found one that doesn’t match. So the loop-based version can jump out of the loop—with <code>break</code> or <code>return</code>—as soon as it runs into an element for which the predicate function returns false. If the loop runs to its end without finding such an element, we know that all elements matched and we should return true.</p>
+<p><a class="p_ident" id="p_iYkMFxHxnk" href="#p_iYkMFxHxnk" tabindex="-1" role="presentation"></a>مانند عملگر <code>&amp;&amp;</code>، متد <code>every</code> به محض اینکه به موردی برخورد کند که با شرط تطبیق ندارد، ارزیابی دیگر عناصر را متوقف می کند. بنابراین در نسخه‌ی مبتنی بر حلقه، می توان با مشاهده‌ی خروجی false تابع روی یک عنصر، از حلقه به وسیله‌ی <code>break</code> یا <code>return</code> خارج شد. اگر حلقه بدون برخورد با چنین عنصری به انتهای خود برسد، می دانیم که همه‌ی عناصر مطابق تابع شرط بوده اند و می توانیم true را برگردانیم.</p>
 
-<p><a class="p_ident" id="p_Ox5LquJ8IQ" href="#p_Ox5LquJ8IQ" tabindex="-1" role="presentation"></a>To build <code>every</code> on top of <code>some</code>, we can apply <em>De Morgan’s
-laws</em>, which state that <code>a &amp;&amp; b</code> equals <code>!(!a || !b)</code>. This can be generalized to arrays, where all elements in the array match if there is no element in the array that does not match.</p>
+<p>برای ساخت <code>every‍‍</code> با استفاده از <code>some</code>، می توانیم از قوانین <em>دمورگان</em> استفاده کنیم، که براساس آن‌، <bdo><code>a &amp;&amp; b</code></bdo> برابر است با <bdo><code>!(!a || !b)</code></bdo>. می توان آن را به آرایه‌ها تعمیم داد به این صورت که همه‌ی عناصر در آرایه با شرط تطبیق خواهند داشت اگر عنصری در آرایه نباشد که تطبیق نخورد.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_4ccl4J1nOw" href="#i_4ccl4J1nOw" tabindex="-1" role="presentation"></a>Dominant writing direction</h3>
+<h3><a class="i_ident" id="i_csMsyLJrpx" href="#i_csMsyLJrpx" tabindex="-1" role="presentation"></a>جهت نوشتن غالب</h3>
 
-<p><a class="p_ident" id="p_9kMfnY4I1g" href="#p_9kMfnY4I1g" tabindex="-1" role="presentation"></a>Write a function that computes the dominant writing direction in a string of text. Remember that each script object has a <code>direction</code> property that can be <code>&quot;ltr&quot;</code> (left to right), <code>&quot;rtl&quot;</code> (right to left), or <code>&quot;ttb&quot;</code> (top to bottom).</p>
+<p>تابعی بنویسید که بتواند جهت نوشت غالب یک متن را محاسبه کند. به یاد دارید که هر شیء الفبا خاصیتی به نام <code>direction</code> دارد که می تواند <code>“ltr”</code> (چپ به راست)، <code>“rtl”</code> (راست به چپ)، یا  <code>“ttb”</code> (بالا به پایین) باشد.</p>
 
-<p><a class="p_ident" id="p_WGH1oH+EyU" href="#p_WGH1oH+EyU" tabindex="-1" role="presentation"></a>The dominant direction is the direction of a majority of the characters that have a script associated with them. The <code>characterScript</code> and <code>countBy</code> functions defined earlier in the chapter are probably useful here.</p>
+<p>جهت نوشتاری غالب جهتی است که بیشتر کاراکترهایی که الفبای مشخصی دارند، در آن جهت نوشته می شوند. احتمالا دو تابع <code>characterScript</code> و <code>countBy</code> که پیش تر نوشته شده اند، اینجا کاربرد خواهند داشت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CNawUvyti3" href="#c_CNawUvyti3" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">dominantDirection</span>(<span class="cm-def">text</span>) {
   <span class="cm-comment">// Your code here.</span>
@@ -503,9 +500,9 @@ laws</em>, which state that <code>a &amp;&amp; b</code> equals <code>!(!a || !b)
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_Z2nEY1sOaH" href="#p_Z2nEY1sOaH" tabindex="-1" role="presentation"></a>Your solution might look a lot like the first half of the <code>textScripts</code> example. You again have to count characters by a criterion based on <code>characterScript</code> and then filter out the part of the result that refers to uninteresting (script-less) characters.</p>
+<p>پاسخ شما ممکن است شباهت زیادی به نیمه‌ی اول مثال <code>textScripts</code> داشته باشد. دوباره باید کاراکترها را با شرطی براساس <code>characterScript</code> بشمارید و سپس بخشی از نتیجه که الفبای مشخصی ندارند را فیلتر کنید.</p>
 
-<p><a class="p_ident" id="p_1yNhVH0QH9" href="#p_1yNhVH0QH9" tabindex="-1" role="presentation"></a>Finding the direction with the highest character count can be done with <code>reduce</code>. If it’s not clear how, refer to the example earlier in the chapter, where <code>reduce</code> was used to find the script with the most characters.</p>
+<p>پیدا کردن جهت نوشته بر اساس شمارش بیشترین کاراکتر را می توان با متد <code>reduce</code> انجام داد. اگر راه حل به ذهن‌تان نرسید، به مثالی که پیش‌تر در این فصل در مورد استفاده از <code>reduce</code> برای پیدا کردن الفبایی با بیشترین حروف مراجعه کنید.</p>
 
 </div></div><nav><a href="04_data.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="06_object.html" title="next chapter">▶</a></nav>
 </article>
