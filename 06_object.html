@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Secret Life of Objects :: Eloquent JavaScript</title>
+  <title>زندگی اسرارآمیز اشیاء :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
@@ -12,7 +12,7 @@
 <article>
 <nav><a href="05_higher_order.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="07_robot.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 6</span>The Secret Life of Objects</h1>
+<h1><span class=chap_num>Chapter 6</span>زندگی اسرارآمیز اشیاء</h1>
 
 <blockquote>
 
@@ -22,29 +22,29 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_6.jpg" alt="Picture of a rabbit with its proto-rabbit"></figure>
 
-<p><a class="p_ident" id="p_KkunxYMaeO" href="#p_KkunxYMaeO" tabindex="-1" role="presentation"></a><a href="04_data.html">Chapter 4</a> introduced JavaScript’s objects. In programming culture, we have a thing called <em>object-oriented programming</em>, a set of techniques that use objects (and related concepts) as the central principle of program organization.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>اشیاء جاوااسکریپت، در <a href="04_data.html">فصل 4</a> معرفی شدند. در فرهنگ برنامه نویسی، مفهومی وجود دارد که به آن <em>برنامه نویسی شیء گرا</em> گفته می شود؛ مجموعه‌ای از تکنیک ها که در آن از اشیاء (و مفاهیم مرتبط با آن) به عنوان اصل مرکزی برای سازماندهی برنامه استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_iS8mjYhuYY" href="#p_iS8mjYhuYY" tabindex="-1" role="presentation"></a>Though no one really agrees on its precise definition, object-oriented programming has shaped the design of many programming languages, including JavaScript. This chapter will describe the way these ideas can be applied in JavaScript.</p>
+<p>با وجود اینکه هیچ کس روی تعریف دقیق آن توافق ندارد، برنامه نویسی شیء گرا، طراحی خیلی از زبان‌های برنامه نویسی را شکل داده است، مثل خود جاوااسکریپت. این فصل به توضیح چگونگی پیاده‌سازی این ایده‌ها در جاوااسکریپت می پردازد.</p>
 
-<h2><a class="h_ident" id="h_hn18MBjoh2" href="#h_hn18MBjoh2" tabindex="-1" role="presentation"></a>Encapsulation</h2>
+<h2><a class="h_ident" id="h_c1rmAfHOoY" href="#h_c1rmAfHOoY" tabindex="-1" role="presentation"></a>کپسوله‌سازی (Encapsulation)</h2>
 
-<p><a class="p_ident" id="p_76wqEvwMj/" href="#p_76wqEvwMj/" tabindex="-1" role="presentation"></a>The core idea in object-oriented programming is to divide programs into smaller pieces and make each piece responsible for managing its own state.</p>
+<p>ایده‌ی اصلی در برنامه نویسی شیء گرا، تقسیم برنامه به قسمت‌های کوچکتر است با این شرط که هر قسمت مسئول مدیریت وضعیت خودش باشد.</p>
 
-<p><a class="p_ident" id="p_Ww3ymqEfW3" href="#p_Ww3ymqEfW3" tabindex="-1" role="presentation"></a>This way, some knowledge about the way a piece of the program works can be kept <em>local</em> to that piece. Someone working on the rest of the program does not have to remember or even be aware of that knowledge. Whenever these local details change, only the code directly around it needs to be updated.</p>
+<p><a class="p_ident" id="p_k5u0agTDZA" href="#p_k5u0agTDZA" tabindex="-1" role="presentation"></a>در این روش، بعضی از اطلاعات مربوط به نحوه‌ی کارکرد یک قسمت از برنامه را می توان به صورت <em>محلی</em> (local) برای همان قسمت نگه داری کرد. کسی که روی قسمت‌های دیگر برنامه کار می کند نیازی نیست تا این اطلاعات را به خاطر داشته باشد یا حتی اصلا از وجودشان آگاه باشد.  در صورت تغییر این جزئیات محلی، فقط لازم است کد‌هایی را به‌روز کنیم که مستقیما پیرامون آن قرار دارند.</p>
 
-<p id="interface"><a class="p_ident" id="p_m1XIFUcUIg" href="#p_m1XIFUcUIg" tabindex="-1" role="presentation"></a>Different pieces of such a program interact with each other through <em>interfaces</em>, limited sets of functions or bindings that provide useful functionality at a more abstract level, hiding their precise implementation.</p>
+<p id="interface"><a class="p_ident" id="p_XqLYGongzc" href="#p_XqLYGongzc" tabindex="-1" role="presentation"></a>بخش‌های مختلف این گونه برنامه‌ها،  برای ارتباط با یکدیگر از  <em>رابط‌ها</em> (interface) استفاده می کنند؛ مجموعه‌ای محدود از توابع یا متغیرها که قابلیت‌های مفیدی در سطح بالاتری از انتزاع ایجاد می کنند  و جزئیات دقیق پیاده سازی‌شان را از دید استفاده‌کننده مخفی می کنند.</p>
 
-<p><a class="p_ident" id="p_n3o8Ctd3cn" href="#p_n3o8Ctd3cn" tabindex="-1" role="presentation"></a>Such program pieces are modeled using objects. Their interface consists of a specific set of methods and properties. Properties that are part of the interface are called <em>public</em>. The others, which outside code should not be touching, are called <em>private</em>.</p>
+<p><a class="p_ident" id="p_9Y1jkLJard" href="#p_9Y1jkLJard" tabindex="-1" role="presentation"></a>قسمت‌های این‌گونه برنامه‌ها را  به وسیله‌ی اشیاء مدل‌سازی می کنند. رابط آن‌ها شامل مجموعه‌ای مشخص از متدها و خاصیت‌ها می است. به آن گروه از خاصیت‌ها که بخشی از رابط محسوب می شوند، <em>عمومی</em> (public) و آن هایی را که کدهای بیرونی نباید به آن‌ها دسترسی داشته باشند، خاصیت‌های <em>خصوصی</em> (private) می نامند.</p>
 
-<p><a class="p_ident" id="p_RExXHtzJn1" href="#p_RExXHtzJn1" tabindex="-1" role="presentation"></a>Many languages provide a way to distinguish public and private properties and prevent outside code from accessing the private ones altogether. JavaScript, once again taking the minimalist approach, does not—not yet at least. There is work underway to add this to the language.</p>
+<p>بسیاری از زبان‌های برنامه نویسی راهی برای تمایز خاصیت‌های خصوصی و عمومی فراهم می سازند و از دسترسی کدهای بیرونی به خاصیت‌های خصوصی جلوگیری می کنند.  جاوااسکریپت بار دیگر با انتخاب روش مینیمال، این گونه عمل نمی کند – حداقل تا الان. البته کارهایی برای افزودن این ویژگی به زبان در حال شکل گیری است.</p>
 
-<p><a class="p_ident" id="p_h9lEzfGlTT" href="#p_h9lEzfGlTT" tabindex="-1" role="presentation"></a>Even though the language doesn’t have this distinction built in, JavaScript programmers <em>are</em> successfully using this idea. Typically, the available interface is described in documentation or comments. It is also common to put an underscore (<code>_</code>) character at the start of property names to indicate that those properties are private.</p>
+<p>با وجود اینکه خود زبان به صورت درونی از این تمایز پشتیبانی نمی کند، برنامه نویسان جاوااسکریپت این مفهوم را به شکل موفقیت‌آمیزی به کار می برند. معمولا برای مشخص کردن رابط‌های در دسترس از توضیحات یا مستندات برنامه استفاده می کنند. همچنین یک روش رایج برای مشخص کردن خاصیت‌های خصوصی، استفاده از کاراکتر زیرخط (<code>_</code>) در شروع این خاصیت‌ها است.</p>
 
-<p><a class="p_ident" id="p_ysFjuxKxY0" href="#p_ysFjuxKxY0" tabindex="-1" role="presentation"></a>Separating interface from implementation is a great idea. It is usually called <em>encapsulation</em>.</p>
+<p>ایجاد رابط مجزا برای کار با اشیاء و جدا کردن آن از پیاده‌سازی، ایده‌ی بسیار خوبی است. این کار را معمولا <em>کپسوله‌سازی</em> یا مخفی‌سازی می نامند.</p>
 
-<h2 id="obj_methods"><a class="h_ident" id="h_fkrGgDyRWc" href="#h_fkrGgDyRWc" tabindex="-1" role="presentation"></a>Methods</h2>
+<h2 id="obj_methods"><a class="h_ident" id="h_T5O250ROf4" href="#h_T5O250ROf4" tabindex="-1" role="presentation"></a>متد‌ها (Methods)</h2>
 
-<p><a class="p_ident" id="p_DKj01h8Gzf" href="#p_DKj01h8Gzf" tabindex="-1" role="presentation"></a>Methods are nothing more than properties that hold function values. This is a simple method:</p>
+<p>متدها خاصیت‌هایی هستند که مقدار‌های تابع را نگه‌داری می کنند؛ همین. این یک متد ساده است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BYfVVcFY2P" href="#c_BYfVVcFY2P" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">rabbit</span> <span class="cm-operator">=</span> {};
 <span class="cm-variable">rabbit</span>.<span class="cm-property">speak</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">line</span>) {
@@ -54,7 +54,7 @@
 <span class="cm-variable">rabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;I'm alive.&quot;</span>);
 <span class="cm-comment">// → The rabbit says 'I'm alive.'</span></pre>
 
-<p><a class="p_ident" id="p_N+6e0UGvFo" href="#p_N+6e0UGvFo" tabindex="-1" role="presentation"></a>Usually a method needs to do something with the object it was called on. When a function is called as a method—looked up as a property and immediately called, as in <code>object.method()</code>—the binding called <code>this</code> in its body automatically points at the object that it was called on.</p>
+<p>معمولا متد‌ها کاری را روی شیءای که بر روی آن فراخوانی شده‌اند انجام می دهند. زمانی که یک تابع به عنوان یک متد فراخوانی می شود – به عنوان یک خاصیت جستجو می شود و بلافاصله فراخوانی می شود مانند <bdo><code>object.method()</code></bdo> – متغیری که <code>this</code> نامیده می‌شود به طور خودکار به شیءای که روی آن فراخوانی شده است اشاره می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cXuIwPt+3C" href="#c_cXuIwPt+3C" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">speak</span>(<span class="cm-def">line</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`The ${</span><span class="cm-keyword">this</span>.<span class="cm-property">type</span><span class="cm-string-2">}</span> <span class="cm-string-2">rabbit says '${</span><span class="cm-variable-2">line</span><span class="cm-string-2">}</span><span class="cm-string-2">'`</span>);
@@ -69,14 +69,14 @@
 <span class="cm-variable">hungryRabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;I could use a carrot right now.&quot;</span>);
 <span class="cm-comment">// → The hungry rabbit says 'I could use a carrot right now.'</span></pre>
 
-<p id="call_method"><a class="p_ident" id="p_llBwR5t6LB" href="#p_llBwR5t6LB" tabindex="-1" role="presentation"></a>You can think of <code>this</code> as an extra parameter that is passed in a different way. If you want to pass it explicitly, you can use a function’s <code>call</code> method, which takes the <code>this</code> value as its first argument and treats further arguments as normal parameters.</p>
+<p id="call_method">می توانید <code>this</code> را یک پارامتر اضافه در نظر بگیرید که به شکلی دیگر ارسال شده است. اگر بخواهید آن آشکارا ارسال نمایید، می توانید از متد <code>call</code> توابع استفاده کنید. این متد مقدار <code>this</code> را به عنوان آرگومان اول می گیرد و دیگر آرگومان ها را به عنوان پارامترهای معمولی تفسیر می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9lDr0S2nEw" href="#c_9lDr0S2nEw" tabindex="-1" role="presentation"></a><span class="cm-variable">speak</span>.<span class="cm-property">call</span>(<span class="cm-variable">hungryRabbit</span>, <span class="cm-string">&quot;Burp!&quot;</span>);
 <span class="cm-comment">// → The hungry rabbit says 'Burp!'</span></pre>
 
-<p><a class="p_ident" id="p_8ZeOAlGKXe" href="#p_8ZeOAlGKXe" tabindex="-1" role="presentation"></a>Since each function has its own <code>this</code> binding, whose value depends on the way it is called, you cannot refer to the <code>this</code> of the wrapping scope in a regular function defined with the <code>function</code> keyword.</p>
+<p>به دلیل اینکه هر تابع متغیر <code>this</code> مربوط به خود را دارد، که مقدارش بستگی به نحوه‌ی فراخوانی آن تابع دارد، نمی توان به <code>this</code> محصور در  قلمروی تعریف یک تابع معمولی (که با کلیدواژه‌ی <code>function</code> تعریف شده است) دسترسی داشت.</p>
 
-<p><a class="p_ident" id="p_C4AqzW0fAV" href="#p_C4AqzW0fAV" tabindex="-1" role="presentation"></a>Arrow functions are different—they do not bind their own <code>this</code> but can see the <code>this</code> binding of the scope around them. Thus, you can do something like the following code, which references <code>this</code> from inside a local function:</p>
+<p><a class="p_ident" id="p_e1B1QHaHbK" href="#p_e1B1QHaHbK" tabindex="-1" role="presentation"></a>توابع پیکانی (arrow functions) متفاوت عمل می کنند - این توابع <code>this</code> را به جایی مقید نمی کنند اما می توانند متغیر <code>this</code> قلمروی پیرامونشان را ببینند. بنابراین، به وسیله‌ی کدی مانند مثال زیر، می توان به <code>this</code> از درون یک تابع محلی اشاره کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wg++tcauWw" href="#c_wg++tcauWw" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">normalize</span>() {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">this</span>.<span class="cm-property">coords</span>.<span class="cm-property">map</span>(<span class="cm-def">n</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">n</span> <span class="cm-operator">/</span> <span class="cm-keyword">this</span>.<span class="cm-property">length</span>));
@@ -84,11 +84,11 @@
 <span class="cm-variable">normalize</span>.<span class="cm-property">call</span>({<span class="cm-property">coords</span>: [<span class="cm-number">0</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>], <span class="cm-property">length</span>: <span class="cm-number">5</span>});
 <span class="cm-comment">// → [0, 0.4, 0.6]</span></pre>
 
-<p><a class="p_ident" id="p_YkWiHcMuVP" href="#p_YkWiHcMuVP" tabindex="-1" role="presentation"></a>If I had written the argument to <code>map</code> using the <code>function</code> keyword, the code wouldn’t work.</p>
+<p>اگر آرگومان ارسالی به تابع <code>map</code> را به وسیله کلیدواژه‌ی <code>function</code> نوشته‌ بودم، کد بالا کار نمی کرد.</p>
 
-<h2 id="prototypes"><a class="h_ident" id="h_SumMlRB7yn" href="#h_SumMlRB7yn" tabindex="-1" role="presentation"></a>Prototypes</h2>
+<h2 id="prototypes"><a class="h_ident" id="h_Wcq6F6Ot1d" href="#h_Wcq6F6Ot1d" tabindex="-1" role="presentation"></a>Prototype ها</h2>
 
-<p><a class="p_ident" id="p_hi1TWnD/2p" href="#p_hi1TWnD/2p" tabindex="-1" role="presentation"></a>Watch closely.</p>
+<p>با دقت به کد زیر نگاه کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P0GVdA5c8J" href="#c_P0GVdA5c8J" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">empty</span> <span class="cm-operator">=</span> {};
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">empty</span>.<span class="cm-property">toString</span>);
@@ -96,11 +96,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">empty</span>.<span class="cm-property">toString</span>());
 <span class="cm-comment">// → [object Object]</span></pre>
 
-<p><a class="p_ident" id="p_NUxqIXvg/G" href="#p_NUxqIXvg/G" tabindex="-1" role="presentation"></a>I pulled a property out of an empty object. Magic!</p>
+<p>خاصیتی را از یک شیء تهی بیرون کشیده‌ام. جادوگری!</p>
 
-<p><a class="p_ident" id="p_bJubL+gx0p" href="#p_bJubL+gx0p" tabindex="-1" role="presentation"></a>Well, not really. I have simply been withholding information about the way JavaScript objects work. In addition to their set of properties, most objects also have a <em>prototype</em>. A prototype is another object that is used as a fallback source of properties. When an object gets a request for a property that it does not have, its prototype will be searched for the property, then the prototype’s prototype, and so on.</p>
+<p><a class="p_ident" id="p_PCcoysQ0VE" href="#p_PCcoysQ0VE" tabindex="-1" role="presentation"></a>البته واقعا این‌طور نیست. نکته اینجاست که هنوز بخشی از اطلاعات مربوط به شیوه‌ی کارکرد اشیاء در جاوااسکریپت را توضیح نداده ام. بیشتر اشیاء علاوه بر خاصیت‌های خودشان، خاصیتی به نام <em>prototype</em> نیز دارند. یک prototype (نمونه‌ی اولیه) خود یک شیء دیگر است که به عنوان یک منبع جایگزین برای خاصیت‌ها استفاده می شود. زمانی که یک شیء، درخواستی برای یک خاصیت دریافت می کند و آن خاصیت را ندارد، جستجو در prototype اش صورت می گیرد، سپس prototype متعلق به prototype آن جستجو می شود و این روند ادامه دارد.</p>
 
-<p><a class="p_ident" id="p_XPuG8mFwbT" href="#p_XPuG8mFwbT" tabindex="-1" role="presentation"></a>So who is the prototype of that empty object? It is the great ancestral prototype, the entity behind almost all objects, <code>Object.prototype</code>.</p>
+<p><a class="p_ident" id="p_CG38WHlXpK" href="#p_CG38WHlXpK" tabindex="-1" role="presentation"></a>بنابراین نمونه‌ی اولیه‌ی (prototype) آن شیء تهی کدام است؟ بله آن prototype جد بزرگ شیء است که تقریبا پشت همه‌ی اشیاء قرار دارد: <bdo><code>Object.prototype</code></bdo>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7Q/HaNra3M" href="#c_7Q/HaNra3M" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>({}) <span class="cm-operator">==</span>
             <span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>);
@@ -108,11 +108,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p><a class="p_ident" id="p_GfVMu4b4D+" href="#p_GfVMu4b4D+" tabindex="-1" role="presentation"></a>As you guess, <code>Object.<wbr>getPrototypeOf</code> returns the prototype of an object.</p>
+<p><a class="p_ident" id="p_fCV8aozVN0" href="#p_fCV8aozVN0" tabindex="-1" role="presentation"></a>همانطور که حدس می زنید، <bdo><code>object.<wbr>getPrototypeOf</code></bdo>، برای به دست آوردن prototype یک شیء استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_4S0XbM8aBm" href="#p_4S0XbM8aBm" tabindex="-1" role="presentation"></a>The prototype relations of JavaScript objects form a tree-shaped structure, and at the root of this structure sits <code>Object.prototype</code>. It provides a few methods that show up in all objects, such as <code>toString</code>, which converts an object to a string representation.</p>
+<p>روابط بین prototype ها در اشیاء جاوااسکریپت، یک ساختار درختی را شکل می دهند که در ریشه‌ی این ساختار، <bdo><code>Object.prototype</code></bdo> قرار می گیرد. درون این شیء چند متد وجود دارد که در تمامی اشیاء حضور دارند، مانند <code>toString</code>، که عمل تبدیل یک شیء به رشته‌ را انجام می دهد.</p>
 
-<p><a class="p_ident" id="p_j+MLWf3JXr" href="#p_j+MLWf3JXr" tabindex="-1" role="presentation"></a>Many objects don’t directly have <code>Object.prototype</code> as their prototype but instead have another object that provides a different set of default properties. Functions derive from <code>Function.<wbr>prototype</code>, and arrays derive from <code>Array.prototype</code>.</p>
+<p>بسیاری از اشیاء به طور مستقیم دارای <bdo><code>Object.prototype</code></bdo> به عنوان prototype خودشان نیستند، اما در عوض شیء دیگری دارند که مجموعه‌ی متفاوتی از خاصیت‌های پیش‌فرض را فراهم می سازد. توابع از <bdo><code>Function.<wbr>prototype</code></bdo> و آرایه ها از <bdo><code>Array.prototype</code></bdo> مشتق شده اند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_NgntUaXZ1S" href="#c_NgntUaXZ1S" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Math</span>.<span class="cm-property">max</span>) <span class="cm-operator">==</span>
             <span class="cm-variable">Function</span>.<span class="cm-property">prototype</span>);
@@ -121,9 +121,9 @@
             <span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_1fIXMD62Nu" href="#p_1fIXMD62Nu" tabindex="-1" role="presentation"></a>Such a prototype object will itself have a prototype, often <code>Object.prototype</code>, so that it still indirectly provides methods like <code>toString</code>.</p>
+<p>این گونه prototype ها خود نیز دارای یک prototype می باشند که اغلب همان <bdo><code>Object.prototype</code></bdo> است. پس به طور غیر مستقیم متدهایی شبیه <code>toString</code> را فراهم می کنند.</p>
 
-<p><a class="p_ident" id="p_H2XhzSHHJP" href="#p_H2XhzSHHJP" tabindex="-1" role="presentation"></a>You can use <code>Object.create</code> to create an object with a specific prototype.</p>
+<p>می توانید از متد <bdo><code>Object.create</code></bdo> برای ساختن یک شیء با یک prototype خاص استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_gSGrvGTpkW" href="#c_gSGrvGTpkW" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">protoRabbit</span> <span class="cm-operator">=</span> {
   <span class="cm-property">speak</span>(<span class="cm-def">line</span>) {
@@ -135,17 +135,17 @@
 <span class="cm-variable">killerRabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;SKREEEE!&quot;</span>);
 <span class="cm-comment">// → The killer rabbit says 'SKREEEE!'</span></pre>
 
-<p><a class="p_ident" id="p_eBm7AuQUBb" href="#p_eBm7AuQUBb" tabindex="-1" role="presentation"></a>A property like <code>speak(line)</code> in an object expression is a shorthand way of defining a method. It creates a property called <code>speak</code> and gives it a function as its value.</p>
+<p>خاصیتی شبیه به <bdo><code>speak(line)</code></bdo> در یک تعریف شیء، شکل کوتاه تعریف یک متد است. این کار خاصیتی به نام <code>speak</code> را تعریف کرده و یک تابع را به عنوان مقدار به آن می دهد.</p>
 
-<p><a class="p_ident" id="p_y8kzFoQw1W" href="#p_y8kzFoQw1W" tabindex="-1" role="presentation"></a>The “proto” rabbit acts as a container for the properties that are shared by all rabbits. An individual rabbit object, like the killer rabbit, contains properties that apply only to itself—in this case its type—and derives shared properties from its prototype.</p>
+<p><a class="p_ident" id="p_6cBzJNEFIL" href="#p_6cBzJNEFIL" tabindex="-1" role="presentation"></a>“protoRabbit” به عنوان یک ظرف برای خاصیت‌های مشترک همه‌ی خرگوش‌ها استفاده می شود. یک شی مجزای rabbit (خرگوش) مثل killerRabbit، دارای خاصیت‌های اختصاصی است که فقط متعلق به خودش – و در این مثال متعلق به نوع خودش – است و نیز خاصیت‌های مشترکی دارد که آن‌ها را از نمونه‌ی اولیه‌اش می گیرد.</p>
 
-<h2 id="classes"><a class="h_ident" id="h_7RhGr+474h" href="#h_7RhGr+474h" tabindex="-1" role="presentation"></a>Classes</h2>
+<h2 id="classes"><a class="h_ident" id="h_6BrIXCOtjZ" href="#h_6BrIXCOtjZ" tabindex="-1" role="presentation"></a>کلاس‌ها</h2>
 
-<p><a class="p_ident" id="p_iYbDLfqSFW" href="#p_iYbDLfqSFW" tabindex="-1" role="presentation"></a>JavaScript’s prototype system can be interpreted as a somewhat informal take on an object-oriented concept called <em>classes</em>. A class defines the shape of a type of object—what methods and properties it has. Such an object is called an <em>instance</em> of the class.</p>
+<p>سیستم prototype جاوااسکریپت را می توان به عنوان برداشتی نسبتا غیر رسمی از مفهوم <em>کلاس‌ها</em> در برنامه‌نویسی شیء گرا  تفسیر کرد. یک کلاس، سرشت نوعی از شیء را تعریف می کند – دارای تعدادی متد و خاصیت می باشد. به اشیائی که از کلاس ها ایجاد می شوند، <em>نمونه‌های</em> یک کلاس می گویند.</p>
 
-<p><a class="p_ident" id="p_GhnffIpINq" href="#p_GhnffIpINq" tabindex="-1" role="presentation"></a>Prototypes are useful for defining properties for which all instances of a class share the same value, such as methods. Properties that differ per instance, such as our rabbits’ <code>type</code> property, need to be stored directly in the objects themselves.</p>
+<p>prototype ها برای تعریف خاصیت‌هایی مفید می باشند که مقدار مشابهی را در طول همه‌ی نمونه‌های یک کلاس به اشتراک می گذارند، مانند متدها. خاصیت‌هایی که برای هر نمونه متفاوت هستند، مانند خاصیت <code>type</code> در مثال خرگوش بایستی به طور مستقیم در خود اشیاء ذخیره بشوند.</p>
 
-<p id="constructors"><a class="p_ident" id="p_hflVCtYTKN" href="#p_hflVCtYTKN" tabindex="-1" role="presentation"></a>So to create an instance of a given class, you have to make an object that derives from the proper prototype, but you <em>also</em> have to make sure it, itself, has the properties that instances of this class are supposed to have. This is what a <em>constructor</em> function does.</p>
+<p id="constructors">بنابراین برای اینکه بتوان نمونه‌ای از یک کلاس داده شده را ساخت، باید شیءای را ایجاد کنید که از یک prototype درست گرفته شده است، <em>همچنین</em> باید مطمئن شوید که این شیء، خاصیت‌هایی که نمونه‌های کلاس قرار است از پیش داشته باشند را دارد. این کاری است که یک تابع <em>سازنده</em> انجام می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_oOKUeIzSVa" href="#c_oOKUeIzSVa" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">makeRabbit</span>(<span class="cm-def">type</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">rabbit</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-variable">protoRabbit</span>);
@@ -153,9 +153,9 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">rabbit</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_j8irpNziDb" href="#p_j8irpNziDb" tabindex="-1" role="presentation"></a>JavaScript provides a way to make defining this type of function easier. If you put the keyword <code>new</code> in front of a function call, the function is treated as a constructor. This means that an object with the right prototype is automatically created, bound to <code>this</code> in the function, and returned at the end of the function.</p>
+<p>جاوااسکریپت راهی را فراهم ساخته است که بتوان این گونه توابع را آسان تر تعریف کرد. اگر در ابتدای فراخوانی یک تابع کلیدواژه‌ی <code>new</code> را قرار دهید ، آن تابع به عنوان تابع سازنده عمل خواهد کرد. این بدان معناست که یک شیء با prototype صحیح به طور خودکار ساخته شده ، به <code>this</code>  درون تابع مقید می شود و در انتهای تابع برگردانده می شود.</p>
 
-<p><a class="p_ident" id="p_svyxVljkeg" href="#p_svyxVljkeg" tabindex="-1" role="presentation"></a>The prototype object used when constructing objects is found by taking the <code>prototype</code> property of the constructor function.</p>
+<p>برای دستیابی به پروتوتایپی که شیء جدید از روی آن ساخته می شود، می توانید به خاصیت <code>prototype</code> تابع سازنده‌ رجوع کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_p+u3OtMv8K" href="#c_p+u3OtMv8K" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">Rabbit</span>(<span class="cm-def">type</span>) {
   <span class="cm-keyword">this</span>.<span class="cm-property">type</span> <span class="cm-operator">=</span> <span class="cm-variable-2">type</span>;
@@ -166,11 +166,11 @@
 
 <span class="cm-keyword">let</span> <span class="cm-def">weirdRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;weird&quot;</span>);</pre>
 
-<p><a class="p_ident" id="p_IZA8w6crnz" href="#p_IZA8w6crnz" tabindex="-1" role="presentation"></a>Constructors (all functions, in fact) automatically get a property named <code>prototype</code>, which by default holds a plain, empty object that derives from <code>Object.prototype</code>. You can overwrite it with a new object if you want. Or you can add properties to the existing object, as the example does.</p>
+<p>سازنده‌ها (در حقیقت همه توابع) به طور خودکار خاصیتی به نام <code>prototype</code> را می گیرند، که این خاصیت به صورت پیش فرض، یک شیء خالی را که خود از <bdo><code>Object.prototype</code></bdo> گرفته شده است، نگه داری می کند. اگر بخواهید  می توانید این خاصیت را تغییر دهید و با شیءای دیگر عوض کنید. یا می توانید به شیء خالی فعلی خاصیت‌هایی را اضافه کنید همانطور که در مثال این کار انجام شد.</p>
 
-<p><a class="p_ident" id="p_DJG7BO1oTU" href="#p_DJG7BO1oTU" tabindex="-1" role="presentation"></a>By convention, the names of constructors are capitalized so that they can easily be distinguished from other functions.</p>
+<p>رسم است که نام سازنده‌ها با حروف بزرگ شروع شوند تا بتوان به سادگی بین آن ها و توابع معمولی تمایز قائل شد.</p>
 
-<p><a class="p_ident" id="p_9bg1buEAma" href="#p_9bg1buEAma" tabindex="-1" role="presentation"></a>It is important to understand the distinction between the way a prototype is associated with a constructor (through its <code>prototype</code> property) and the way objects <em>have</em> a prototype (which can be found with <code>Object.<wbr>getPrototypeOf</code>). The actual prototype of a constructor is <code>Function.<wbr>prototype</code> since constructors are functions. Its <code>prototype</code> <em>property</em> holds the prototype used for instances created through it.</p>
+<p><a class="p_ident" id="p_KWyoDh1o3l" href="#p_KWyoDh1o3l" tabindex="-1" role="presentation"></a>درک تفاوت بین چگونگی ارتباط یک prototype با یک سازنده ( توسط خاصیت‌ <code>prototype</code>اش) و اینکه اشیاء چگونه می توانند prototype داشته باشند ( که می تواند به وسیله <bdo><code>Object.<wbr>getPrototypeOf</code></bdo>  بدست آید) اهمیت دارد. prototype واقعی یک سازنده، در واقع <bdo><code>Function.<wbr>prototype</code></bdo> است، به این خاطر که سازنده‌ها از نوع تابع به شمار می آیند. <em>خاصیت</em> <code>prototype</code> یک سازنده، نمونه‌ی اولیه‌ای را نگه‌داری می کند که ساخت نمونه‌های اشیاء از روی آن صورت می گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KDYP9dCWfS" href="#c_KDYP9dCWfS" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Rabbit</span>) <span class="cm-operator">==</span>
             <span class="cm-variable">Function</span>.<span class="cm-property">prototype</span>);
@@ -179,9 +179,9 @@
             <span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<h2><a class="h_ident" id="h_hPv1gHC33s" href="#h_hPv1gHC33s" tabindex="-1" role="presentation"></a>Class notation</h2>
+<h2><a class="h_ident" id="h_1dNudZYe/9" href="#h_1dNudZYe/9" tabindex="-1" role="presentation"></a>استفاده از نماد class</h2>
 
-<p><a class="p_ident" id="p_T5Ghz5me/w" href="#p_T5Ghz5me/w" tabindex="-1" role="presentation"></a>So JavaScript classes are constructor functions with a prototype property. That is how they work, and until 2015, that was how you had to write them. These days, we have a less awkward notation.</p>
+<p><a class="p_ident" id="p_KLcviMLzbV" href="#p_KLcviMLzbV" tabindex="-1" role="presentation"></a>بنابراین مفهوم کلاس‌های جاوااسکریپت، همان توابع سازنده به همراه یک خاصیت prototype می باشند. به همین صورت نیز کار می کنند و تا پیش از سال 2015، این روش تنها راه پیاده‌سازی بود. این روز‌ها، روش مناسب‌تری برای پیاده‌سازی کلاس‌ها در اختیار داریم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kqKA+SZ6vS" href="#c_kqKA+SZ6vS" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Rabbit</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">type</span>) {
@@ -195,19 +195,19 @@
 <span class="cm-keyword">let</span> <span class="cm-def">killerRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;killer&quot;</span>);
 <span class="cm-keyword">let</span> <span class="cm-def">blackRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;black&quot;</span>);</pre>
 
-<p><a class="p_ident" id="p_wpM2aH78Jp" href="#p_wpM2aH78Jp" tabindex="-1" role="presentation"></a>The <code>class</code> keyword starts a class declaration, which allows us to define a constructor and a set of methods all in a single place. Any number of methods may be written inside the declaration’s braces. The one named <code>constructor</code> is treated specially. It provides the actual constructor function, which will be bound to the name <code>Rabbit</code>. The others are packaged into that constructor’s prototype. Thus, the earlier class declaration is equivalent to the constructor definition from the previous section. It just looks nicer.</p>
+<p>کلیدواژه‌ی <code>class</code> موجب شروع یک اعلان کلاس می شود که به ما این امکان را می دهد تا سازنده‌ و مجموعه‌ی متدها را یکجا تعریف کنیم. هر تعداد متدی که نیاز باشد را می توان درون کروشه‌های تعریف کلاس قرار داد. متدی که با نام <code>constructor</code> نوشته می شود، به صورت خاصی تفسیر می شود. این متد تابع سازنده‌ی واقعی را فراهم می سازد که به نام <code>Rabbit</code> قید خواهد خورد. دیگر متدها درون prototype سازنده بسته‌بندی می شوند. بنابراین، تعریف کلاس به شکل بالا، معادل تعریف سازنده در قسمت قبل است. فقط زیباتر به نظر می رسد.</p>
 
-<p><a class="p_ident" id="p_rJ0WbDXCuo" href="#p_rJ0WbDXCuo" tabindex="-1" role="presentation"></a>Class declarations currently allow only <em>methods</em>—properties that hold functions—to be added to the prototype. This can be somewhat inconvenient when you want to save a non-function value in there. The next version of the language will probably improve this. For now, you can create such properties by directly manipulating the prototype after you’ve defined the class.</p>
+<p>در تعریف کلاس فقط می توان <em>متدها</em> – خاصیت‌هایی که توابع را نگه‌داری می کنند – را برای اضافه شدن به prototype تعریف کرد. این محدودیت، در مواقعی که قصد دارید مقداری از نوع غیر تابع را ذخیره کنید، ممکن است مشکل ایجاد کند. برای این گونه خاصیت‌ها، می توانید همچنان به صورت مستقیم prototype را بعد از تعریف کلاس تغییر دهید.</p>
 
-<p><a class="p_ident" id="p_pp17mMu8If" href="#p_pp17mMu8If" tabindex="-1" role="presentation"></a>Like <code>function</code>, <code>class</code> can be used both in statements and in expressions. When used as an expression, it doesn’t define a binding but just produces the constructor as a value. You are allowed to omit the class name in a class expression.</p>
+<p><code>class</code> درست شبیه <code>function</code> می تواند به صورت عبارت و دستور استفاده شود. اگر به عنوان عبارت استفاده شود، متغیری تعریف نکرده و سازنده را به عنوان یک مقدار تولید می کند. می توانید نام کلاس را در این روش از تعریف حذف کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_79re+GWcTJ" href="#c_79re+GWcTJ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">object</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-keyword">class</span> { <span class="cm-property">getWord</span>() { <span class="cm-keyword">return</span> <span class="cm-string">&quot;hello&quot;</span>; } };
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">object</span>.<span class="cm-property">getWord</span>());
 <span class="cm-comment">// → hello</span></pre>
 
-<h2><a class="h_ident" id="h_oUlUep3Os8" href="#h_oUlUep3Os8" tabindex="-1" role="presentation"></a>Overriding derived properties</h2>
+<h2><a class="h_ident" id="h_FRJrzRLudm" href="#h_FRJrzRLudm" tabindex="-1" role="presentation"></a>بازنویسی و تغییر خاصیت‌های مشتق شده</h2>
 
-<p><a class="p_ident" id="p_Xbxf2Ooo0z" href="#p_Xbxf2Ooo0z" tabindex="-1" role="presentation"></a>When you add a property to an object, whether it is present in the prototype or not, the property is added to the object <em>itself</em>. If there was already a property with the same name in the prototype, this property will no longer affect the object, as it is now hidden behind the object’s own property.</p>
+<p>هنگامی که خاصیتی را به یک شیء اضافه می کنید، فارغ از اینکه در prototype آن وجود داشته باشد یا خیر، خاصیت مورد نظر به <em>خود</em> شیء اضافه خواهد شد. در صورت وجود خاصیتی با همین نام در prototype، خاصیت موجود در prototype بی اثر خواهد بود و پشت خاصیت خود شیء پنهان می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vja6JbO0si" href="#c_vja6JbO0si" tabindex="-1" role="presentation"></a><span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">teeth</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;small&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">killerRabbit</span>.<span class="cm-property">teeth</span>);
@@ -220,11 +220,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">teeth</span>);
 <span class="cm-comment">// → small</span></pre>
 
-<p><a class="p_ident" id="p_HM5YtS3KgJ" href="#p_HM5YtS3KgJ" tabindex="-1" role="presentation"></a>The following diagram sketches the situation after this code has run. The <code>Rabbit</code> and <code>Object</code> prototypes lie behind <code>killerRabbit</code> as a kind of backdrop, where properties that are not found in the object itself can be looked up.</p><figure><img src="img/rabbits.svg" alt="Rabbit object prototype schema"></figure>
+<p>نمودار زیر شرایطی را به تصویر می کشد که بعد از اجرای کد بالا رخ می دهد. prototypeهای <code>Rabbit</code> و <code>Object</code> پشت <code>killerRabbit</code> قرار می گیرند، مانند نوعی پس‌زمینه، که در صورت نبودن خاصیت‌ها در خود شیء، به آن‌ها رجوع می شود.</p><figure><img src="img/rabbits.svg" alt="Rabbit object prototype schema"></figure>
 
-<p><a class="p_ident" id="p_or3/lz1DV8" href="#p_or3/lz1DV8" tabindex="-1" role="presentation"></a>Overriding properties that exist in a prototype can be a useful thing to do. As the rabbit teeth example shows, overriding can be used to express exceptional properties in instances of a more generic class of objects, while letting the nonexceptional objects take a standard value from their prototype.</p>
+<p><a class="p_ident" id="p_Dn50QiBxf8" href="#p_Dn50QiBxf8" tabindex="-1" role="presentation"></a>تغییر و بازنویسی خاصیت‌هایی که در پروتوتایپ وجود دارند می تواند کاربرد داشته باشد. همانطور که در مثال rabbit teeth (خاصیت teeth در شیء خرگوش) نشان داده شد، می توان از آن برای مشخص کردن خاصیت های استثناء در نمونه‌ اشیاء یک کلاس عمومی‌تر استفاده کرد و اجازه داد اشیاء معمول، مقدار استاندارد را از prototype خود دریافت کنند.</p>
 
-<p><a class="p_ident" id="p_GIhnbh3MdO" href="#p_GIhnbh3MdO" tabindex="-1" role="presentation"></a>Overriding is also used to give the standard function and array prototypes a different <code>toString</code> method than the basic object prototype.</p>
+<p><a class="p_ident" id="p_qoyMsFpC3P" href="#p_qoyMsFpC3P" tabindex="-1" role="presentation"></a>بازنویسی به این شکل (overridding)، همچنین برای تعریف نسخه‌ی متفاوتی از متد <code>toString</code> برای prototypeهای استاندارد تابع(function) و آرایه (array) استفاده می شود. متدی که با <code>toString</code> پیش‌فرض شیء پایه متفاوت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_DrIRvUgeOD" href="#c_DrIRvUgeOD" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span> <span class="cm-operator">==</span>
             <span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span>);
@@ -232,16 +232,16 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>].<span class="cm-property">toString</span>());
 <span class="cm-comment">// → 1,2</span></pre>
 
-<p><a class="p_ident" id="p_FYf2A2jS65" href="#p_FYf2A2jS65" tabindex="-1" role="presentation"></a>Calling <code>toString</code> on an array gives a result similar to calling <code>.<wbr>join(&quot;,&quot;)</code> on it—it puts commas between the values in the array. Directly calling <code>Object.<wbr>prototype.<wbr>toString</code> with an array produces a different string. That function doesn’t know about arrays, so it simply puts the word <em>object</em> and the name of the type between square brackets.</p>
+<p><a class="p_ident" id="p_FhUwfMRSPx" href="#p_FhUwfMRSPx" tabindex="-1" role="presentation"></a>فراخوانی <code>toString</code> بر روی یک آرایه نتیجه‌ای شبیه فراخوانی <bdo><code>.<wbr>join(&quot;,&quot;)</code></bdo> روی آن را خواهد داشت – که باعث می شود بین مقادیر آرایه ویرگول قرار گیرد. فراخوانی مستقیم <bdo><code>Object.<wbr>prototype.<wbr>toString</code></bdo> با یک آرایه، رشته‌ی متفاوتی را تولید می کند. این تابع چیزی در مورد آرایه ها نمی داند، پس خیلی ساده واژه‌ی <em>object</em> و نام نوع داده را بین یک جفت براکت چاپ می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_XpqFUrDFJE" href="#c_XpqFUrDFJE" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span>.<span class="cm-property">call</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>]));
 <span class="cm-comment">// → [object Array]</span></pre>
 
-<h2><a class="h_ident" id="h_gAcc11EHzV" href="#h_gAcc11EHzV" tabindex="-1" role="presentation"></a>Maps</h2>
+<h2><a class="h_ident" id="h_VSVistMIX4" href="#h_VSVistMIX4" tabindex="-1" role="presentation"></a>ساختار داده‌ی Map</h2>
 
-<p><a class="p_ident" id="p_5v6QzULS7C" href="#p_5v6QzULS7C" tabindex="-1" role="presentation"></a>We saw the word <em>map</em> used in the <a href="05_higher_order.html#map">previous chapter</a> for an operation that transforms a data structure by applying a function to its elements. Confusing as it is, in programming the same word is also used for a related but rather different thing.</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>با واژه‌ی <em>map</em> در <a href="05_higher_order.html#map">فصل پیش</a> آشنا شدیم. از آن برای تغییر یک ساختار داده به وسیله‌ی اعمال یک تابع به عناصر آن استفاده شد. درست است که شاید کمی گیج‌کننده باشد اما در برنامه‌نویسی، همین واژه برای موضوع مرتبط و نسبتا متفاوتی نیز استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_++bw9zDmtH" href="#p_++bw9zDmtH" tabindex="-1" role="presentation"></a>A <em>map</em> (noun) is a data structure that associates values (the keys) with other values. For example, you might want to map names to ages. It is possible to use objects for this.</p>
+<p><a class="p_ident" id="p_FSP76p0srO" href="#p_FSP76p0srO" tabindex="-1" role="presentation"></a>یک <em>map</em> یک ساختار داده است که مقدارهایی را (کلید‌ها) به مقدارهای دیگر مرتبط می سازد. به عنوان مثال، ممکن است بخواهید اسم‌ها را به سن‌ها نگاشت (map) کنید. می‌توان از یک شیء برای این کار استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Wu6a8ObZI0" href="#c_Wu6a8ObZI0" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ages</span> <span class="cm-operator">=</span> {
   <span class="cm-property">Boris</span>: <span class="cm-number">39</span>,
@@ -256,16 +256,16 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Is toString's age known?&quot;</span>, <span class="cm-string">&quot;toString&quot;</span> <span class="cm-keyword">in</span> <span class="cm-variable">ages</span>);
 <span class="cm-comment">// → Is toString's age known? true</span></pre>
 
-<p><a class="p_ident" id="p_EQqc7pcOKT" href="#p_EQqc7pcOKT" tabindex="-1" role="presentation"></a>Here, the object’s property names are the people’s names, and the property values are their ages. But we certainly didn’t list anybody named toString in our map. Yet, because plain objects derive from <code>Object.prototype</code>, it looks like the property is there.</p>
+<p><a class="p_ident" id="p_p+3GCGqRwT" href="#p_p+3GCGqRwT" tabindex="-1" role="presentation"></a>در این مثال نام خاصیت های شیء، برابر با نام اشخاص و مقدار‌شان برابر با سن افراد تنظیم شده است. اما بی شک، در بین اسامی، کسی به نام toString نداشته‌ایم. بله به دلیل اینکه اشیاء ساده، از <bdo><code>Object.prototype</code></bdo> مشتق شده اند، به نظر می رسد که این خاصیت آنجا وجود دارد.</p>
 
-<p><a class="p_ident" id="p_enf1/9ItBM" href="#p_enf1/9ItBM" tabindex="-1" role="presentation"></a>As such, using plain objects as maps is dangerous. There are several possible ways to avoid this problem. First, it is possible to create objects with <em>no</em> prototype. If you pass <code>null</code> to <code>Object.create</code>, the resulting object will not derive from <code>Object.prototype</code> and can safely be used as a map.</p>
+<p><a class="p_ident" id="p_CweoCnt1GU" href="#p_CweoCnt1GU" tabindex="-1" role="presentation"></a>بدین لحاظ، استفاده از اشیاء ساده به جای map خطراتی دارد. راه های متفاوتی برای فرار از این مشکل وجود دارد. اول اینکه می توان شیءای را <em>بدون</em> prototype ایجاد کرد. اگر به متد <bdo><code>Object.create</code></bdo> مقدار <code>null</code> را بفرستید، شیء تولیدی دیگر از روی <bdo><code>Object.prototype</code></bdo> ساخته نمی شود و می توان با خیال راحت به عنوان یک نگاشت (map) از آن استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AkRQLQc4AG" href="#c_AkRQLQc4AG" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;toString&quot;</span> <span class="cm-keyword">in</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_jGC2iO9E1x" href="#p_jGC2iO9E1x" tabindex="-1" role="presentation"></a>Object property names must be strings. If you need a map whose keys can’t easily be converted to strings—such as objects—you cannot use an object as your map.</p>
+<p>نام خاصیت یک شیء باید از نوع رشته‌ باشد. اگر به یک نگاشت نیاز داشته باشید که کلید‌های آن را نتوان به سادگی به رشته تبدیل کرد (مثل استفاده اشیاء به عنوان کلید)، نمی توانید برای پیاده‌سازی آن نگاشت از یک شیء استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_nIsq9E5wmZ" href="#p_nIsq9E5wmZ" tabindex="-1" role="presentation"></a>Fortunately, JavaScript comes with a class called <code>Map</code> that is written for this exact purpose. It stores a mapping and allows any type of keys.</p>
+<p>خوشبختانه، جاوااسکریپت کلاسی به نام <code>Map</code> را فراهم ساخته است که دقیقا برای همین هدف نوشته شده است. این کلاس برای ذخیره‌ی نگاشت ها با هر نوع کلیدی استفاده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dd6KsGgAGP" href="#c_dd6KsGgAGP" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ages</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Map</span>();
 <span class="cm-variable">ages</span>.<span class="cm-property">set</span>(<span class="cm-string">&quot;Boris&quot;</span>, <span class="cm-number">39</span>);
@@ -279,18 +279,18 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">ages</span>.<span class="cm-property">has</span>(<span class="cm-string">&quot;toString&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_iIdp+mGl3Y" href="#p_iIdp+mGl3Y" tabindex="-1" role="presentation"></a>The methods <code>set</code>, <code>get</code>, and <code>has</code> are part of the interface of the <code>Map</code> object. Writing a data structure that can quickly update and search a large set of values isn’t easy, but we don’t have to worry about that. Someone else did it for us, and we can go through this simple interface to use their work.</p>
+<p>متدهای <code>get</code> و <code>set</code> و <code>has</code> بخش‌هایی از رابط شیء <code>Map</code> هستند. نوشتن ساختار داده‌ای که بتوان به وسیله‌ی آن مجموعه‌ی بزرگی از مقدارها را به سرعت به روز رسانی و جستجو کرد کار ساده ای نیست، اما نیازی نیست ما نگران آن باشیم. کسانی قبلا این کار را برای ما انجام داده اند و می توانیم به سراغ این رابط ساده برویم و از حاصل کار آن ها استفاده کنیم.</p>
 
-<p><a class="p_ident" id="p_tx3xnowcEp" href="#p_tx3xnowcEp" tabindex="-1" role="presentation"></a>If you do have a plain object that you need to treat as a map for some reason, it is useful to know that <code>Object.keys</code> returns only an object’s <em>own</em> keys, not those in the prototype. As an alternative to the <code>in</code> operator, you can use the <code>hasOwnProperty</code> method, which ignores the object’s prototype.</p>
+<p><a class="p_ident" id="p_XEYGZK2ryC" href="#p_XEYGZK2ryC" tabindex="-1" role="presentation"></a>اگر شیء ساده‌ای دارید و بنا به دلایلی لازم است از آن به عنوان یک ساختار map استفاده کنید، لازم است بدانید که <code>Object.keys</code> فقط کلید‌های <em>خود</em> یک شیء را برمی گرداند نه آن‌هایی که در prototype آن قرار دارند. به عنوان یک جایگزین برای عملگر <code>in،</code> می توانید از متد  <code>hasOwnProperty</code> استفاده کنید که پروتوتایپ شیء را در نظر نمی گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qBrd35Qiln" href="#c_qBrd35Qiln" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>({<span class="cm-property">x</span>: <span class="cm-number">1</span>}.<span class="cm-property">hasOwnProperty</span>(<span class="cm-string">&quot;x&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>({<span class="cm-property">x</span>: <span class="cm-number">1</span>}.<span class="cm-property">hasOwnProperty</span>(<span class="cm-string">&quot;toString&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<h2><a class="h_ident" id="h_mJ/JHQRHg9" href="#h_mJ/JHQRHg9" tabindex="-1" role="presentation"></a>Polymorphism</h2>
+<h2><a class="h_ident" id="h_wSViT4F465" href="#h_wSViT4F465" tabindex="-1" role="presentation"></a>چندریختی (Polymorphism)</h2>
 
-<p><a class="p_ident" id="p_ozkqUookhO" href="#p_ozkqUookhO" tabindex="-1" role="presentation"></a>When you call the <code>String</code> function (which converts a value to a string) on an object, it will call the <code>toString</code> method on that object to try to create a meaningful string from it. I mentioned that some of the standard prototypes define their own version of <code>toString</code> so they can create a string that contains more useful information than <code>&quot;[object Object]&quot;</code>. You can also do that yourself.</p>
+<p>زمانی که تابع <code>String</code> ( که یک مقدار را به رشته تبدیل می کند) را روی یک شیء فراخوانی می کنید، متد <code>toString</code> آن شیء فراخوانی می شود و سعی می کند تا رشته‌ای معنادار از شیء مورد نظر تولید کند. پیش‌تر اشاره کردم که بعضی از prototypeهای استاندارد، نسخه‌ی <code>toString</code> اختصاصی خودشان را تعریف می کنند تا با این کار بتوانند اطلاعات مفیدتری نسبت به <bdo><code>&quot;[object Object]&quot;</code></bdo>  تولید کنند. شما نیز می توانید این کار را انجام دهید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_V+CBn0VJnW" href="#c_V+CBn0VJnW" tabindex="-1" role="presentation"></a><span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-keyword">return</span> <span class="cm-string-2">`a ${</span><span class="cm-keyword">this</span>.<span class="cm-property">type</span><span class="cm-string-2">}</span> <span class="cm-string-2">rabbit`</span>;
@@ -299,19 +299,19 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">String</span>(<span class="cm-variable">blackRabbit</span>));
 <span class="cm-comment">// → a black rabbit</span></pre>
 
-<p><a class="p_ident" id="p_HgUFdFB6vM" href="#p_HgUFdFB6vM" tabindex="-1" role="presentation"></a>This is a simple instance of a powerful idea. When a piece of code is written to work with objects that have a certain interface—in this case, a <code>toString</code> method—any kind of object that happens to support this interface can be plugged into the code, and it will just work.</p>
+<p>این نمونه‌ای ساده از یک ایده‌ی قدرتمند است. زمانی که کدی نوشته می شود تا با اشیائی کار کند که دارای یک رابط خاص هستند – در این مثال، یک متد <code>toString</code> – می توان با این کد، هر شیء دیگری را که از این رابط پشتیبانی می کند، شامل نمود و به درستی استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_qNZih5k+vu" href="#p_qNZih5k+vu" tabindex="-1" role="presentation"></a>This technique is called <em>polymorphism</em>. Polymorphic code can work with values of different shapes, as long as they support the interface it expects.</p>
+<p>این تکنیک را چندریختی می گویند.  یک کد <em>چندریخت</em>  می تواند با مقدارهایی از شکل‌های مختلف کار کنند مادامیکه این شکل‌ها رابطی که کد انتظارش را دارد پشتیبانی کند.</p>
 
-<p><a class="p_ident" id="p_g9W26O8p4+" href="#p_g9W26O8p4+" tabindex="-1" role="presentation"></a>I mentioned in <a href="04_data.html#for_of_loop">Chapter 4</a> that a <code>for</code>/<code>of</code> loop can loop over several kinds of data structures. This is another case of polymorphism—such loops expect the data structure to expose a specific interface, which arrays and strings do. And we can also add this interface to your own objects! But before we can do that, we need to know what symbols are.</p>
+<p><a class="p_ident" id="p_gQol12wx5J" href="#p_gQol12wx5J" tabindex="-1" role="presentation"></a>در <a href="04_data.html#for_of_loop">فصل 4</a> اشاره کردم که با استفاده از حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> می توان ساختارهای داده‌ی مختلف را پیمایش کرد. این یک مورد دیگر از چندریختی محسوب می شود – این گونه حلقه‌ها از ساختار داده انتظار دارند که رابط‌ خاصی را در دسترس حلقه قرار دهند، رابطی که آرایه‌ها و رشته ها فراهم می سازند. و شما نیز می توانید این رابط را به اشیاء خودتان اضافه کنید! اما قبل از اینکه بتوانیم این کار را بکنیم، لازم است بدانیم که سمبل (symbol) چیست.</p>
 
-<h2><a class="h_ident" id="h_Iq1mTp65i3" href="#h_Iq1mTp65i3" tabindex="-1" role="presentation"></a>Symbols</h2>
+<h2><a class="h_ident" id="h_Rif17qzupG" href="#h_Rif17qzupG" tabindex="-1" role="presentation"></a>سمبل‌ها (Symbols)</h2>
 
-<p><a class="p_ident" id="p_9VjlXGAIAM" href="#p_9VjlXGAIAM" tabindex="-1" role="presentation"></a>It is possible for multiple interfaces to use the same property name for different things. For example, I could define an interface in which the <code>toString</code> method is supposed to convert the object into a piece of yarn. It would not be possible for an object to conform to both that interface and the standard use of <code>toString</code>.</p>
+<p>می توان در چند رابط، نام خاصیت‌ یکسانی برای کارهای مختلف استفاده کرد. به عنوان مثال، من می توانم رابطی تعریف کنم که در آن متد <code>toString</code> به صورت فرضی، یک شیء را به یک تکه ریسمان تبدیل کند. اما یک شیء نمی تواند هم از رابطی که تعریف کردیم و هم پیاده‌سازی استاندارد <code>toString</code> مطابقت کند.</p>
 
-<p><a class="p_ident" id="p_v6ZgtFDNeP" href="#p_v6ZgtFDNeP" tabindex="-1" role="presentation"></a>That would be a bad idea, and this problem isn’t that common. Most JavaScript programmers simply don’t think about it. But the language designers, whose <em>job</em> it is to think about this stuff, have provided us with a solution anyway.</p>
+<p>این کار نه ایده‌ی خوبی است و نه مشکل رایجی محسوب می شود. بیشتر برنامه‌نویسان جاوااسکریپت به آن فکر هم نمی کنند. اما طراحان زبان، همان افرادی که <em>شغلشان</em> فکر کردن به همین موضوعات است، به هر حال راه حلی برای ما فراهم ساخته اند.</p>
 
-<p><a class="p_ident" id="p_7p+O+Qr4bN" href="#p_7p+O+Qr4bN" tabindex="-1" role="presentation"></a>When I claimed that property names are strings, that wasn’t entirely accurate. They usually are, but they can also be <em>symbols</em>. Symbols are values created with the <code>Symbol</code> function. Unlike strings, newly created symbols are unique—you cannot create the same symbol twice.</p>
+<p>پیش‌تر که ادعا کردم نام خاصیت‌ها از جنس رشته هستند، عبارت کاملا دقیقی استفاده نکرده بودم.  بله معمولا از جنس رشته‌اند اما می توانند از نوع <em>symbol</em> نیز باشند. سمبل‌ها مقادیری هستند که با تابع <code>Symbol</code> ایجاد می شوند. برخلاف رشته‌ها، سمبل‌هایی که تازه ایجاد می شوند یکتا هستند – نمی توان یک سمبل یکسان را دوبار ایجاد کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/KAipM77Y+" href="#c_/KAipM77Y+" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">sym</span> <span class="cm-operator">=</span> <span class="cm-variable">Symbol</span>(<span class="cm-string">&quot;name&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sym</span> <span class="cm-operator">==</span> <span class="cm-variable">Symbol</span>(<span class="cm-string">&quot;name&quot;</span>));
@@ -320,9 +320,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">blackRabbit</span>[<span class="cm-variable">sym</span>]);
 <span class="cm-comment">// → 55</span></pre>
 
-<p><a class="p_ident" id="p_PBxnKMHKqV" href="#p_PBxnKMHKqV" tabindex="-1" role="presentation"></a>The string you pass to <code>Symbol</code> is included when you convert it to a string and can make it easier to recognize a symbol when, for example, showing it in the console. But it has no meaning beyond that—multiple symbols may have the same name.</p>
+<p>رشته‌ای که به تابع <code>Symbol</code> ارسال می کنید در هنگام تبدیل سمبل به رشته استفاده می شود و می تواند شناسایی آن را مثلا هنگام نشان دادن در کنسول ساده تر کند. فارغ از آن معنای دیگری ندارد - می توان چندین سمبل را با یک نام تعریف کرد.</p>
 
-<p><a class="p_ident" id="p_n90pM44NAN" href="#p_n90pM44NAN" tabindex="-1" role="presentation"></a>Being both unique and usable as property names makes symbols suitable for defining interfaces that can peacefully live alongside other properties, no matter what their names are.</p>
+<p>منحصر به فرد بودن و امکان استفاده به عنوان نام یک خاصیت، باعث می شود که استفاده از سمبل‌ها، گزینه‌ی مناسبی برای تعریف رابط‌هایی باشد که می توانند بی دردسر در کنار دیگر خاصیت‌ها بدون توجه به نام آن ها تعریف شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I6uO/ojWit" href="#c_I6uO/ojWit" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">toStringSymbol</span> <span class="cm-operator">=</span> <span class="cm-variable">Symbol</span>(<span class="cm-string">&quot;toString&quot;</span>);
 <span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>[<span class="cm-variable">toStringSymbol</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
@@ -334,7 +334,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>][<span class="cm-variable">toStringSymbol</span>]());
 <span class="cm-comment">// → 2 cm of blue yarn</span></pre>
 
-<p><a class="p_ident" id="p_VJSo/GYvCc" href="#p_VJSo/GYvCc" tabindex="-1" role="presentation"></a>It is possible to include symbol properties in object expressions and classes by using square brackets around the property name. That causes the property name to be evaluated, much like the square bracket property access notation, which allows us to refer to a binding that holds the symbol.</p>
+<p>می توان در تعریف شیء یا کلاس، خاصیت‌هایی که نامشان از جنس symbol است را با قراردادن براکت دور نامشان استفاده نمود. این کار باعث می شود که نام خاصیت ارزیابی شود، بسیار شبیه به استفاده از براکت برای دسترسی به خاصیت‌ها. با این کار به متغیری که یک سمبل را نگه‌داری می کند اشاره کرده ایم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aZAdJfdSRz" href="#c_aZAdJfdSRz" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">stringObject</span> <span class="cm-operator">=</span> {
   [<span class="cm-variable">toStringSymbol</span>]() { <span class="cm-keyword">return</span> <span class="cm-string">&quot;a jute rope&quot;</span>; }
@@ -342,15 +342,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stringObject</span>[<span class="cm-variable">toStringSymbol</span>]());
 <span class="cm-comment">// → a jute rope</span></pre>
 
-<h2><a class="h_ident" id="h_z2tOOXM8qO" href="#h_z2tOOXM8qO" tabindex="-1" role="presentation"></a>The iterator interface</h2>
+<h2><a class="h_ident" id="h_O9OLg3V1qG" href="#h_O9OLg3V1qG" tabindex="-1" role="presentation"></a>رابط تکرارکننده (Iterator Interface)</h2>
 
-<p><a class="p_ident" id="p_gtFNFSvSrt" href="#p_gtFNFSvSrt" tabindex="-1" role="presentation"></a>The object given to a <code>for</code>/<code>of</code> loop is expected to be <em>iterable</em>. This means it has a method named with the <code>Symbol.iterator</code> symbol (a symbol value defined by the language, stored as a property of the <code>Symbol</code> function).</p>
+<p>انتظار می رود شیءای که به حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> داده می شود <em>قابل تکرار</em> باشد. یعنی دارای متدی باشد که به وسیله‌ی <bdo><code>Symbol.iterator</code></bdo> نام گذاری شده است ( مقداری از نوع سمبل که توسط خود زبان تعریف شده است و به عنوان یک خاصیت از تابع <code>Symbol</code> ذخیره می شود).</p>
 
-<p><a class="p_ident" id="p_gs0GMX9PA7" href="#p_gs0GMX9PA7" tabindex="-1" role="presentation"></a>When called, that method should return an object that provides a second interface, <em>iterator</em>. This is the actual thing that iterates. It has a <code>next</code> method that returns the next result. That result should be an object with a <code>value</code> property that provides the next value, if there is one, and a <code>done</code> property, which should be true when there are no more results and false otherwise.</p>
+<p><a class="p_ident" id="p_k/l4Io+JM0" href="#p_k/l4Io+JM0" tabindex="-1" role="presentation"></a>وقتی این متد فراخوانی می شود، خروجی آن یک شیء خواهد بود که رابط دومی را فراهم می سازد، رابط <em>تکرارکننده</em>، رابطی که عمل تکرار را انجام می دهد. این تکرارکننده دارای متدی به نام <code>next</code> است که نتیجه‌ی بعدی را برمی گرداند. این نتیجه باید یک شیء با خاصیتی به نام  <code>value</code> باشد که مقدار بعدی را در صورت وجود در دسترس قرار می دهد و خاصیت دیگری به نام <code>done</code> دارد که در صورت نبود نتیجه‌ای دیگر، برابر با true خواهد و در غیر این صورت مقدار false را خواهد داشت.</p>
 
-<p><a class="p_ident" id="p_a9jQxjOo3t" href="#p_a9jQxjOo3t" tabindex="-1" role="presentation"></a>Note that the <code>next</code>, <code>value</code>, and <code>done</code> property names are plain strings, not symbols. Only <code>Symbol.iterator</code>, which is likely to be added to a <em>lot</em> of different objects, is an actual symbol.</p>
+<p>توجه داشته باشید که نام خاصیت های <code>next،</code> <code>value</code> و <code>done</code> از نوع رشته‌ی ساده است نه از جنس سمبل. فقط <bdo><code>Symbol.iterator</code></bdo> است که در واقع از جنس سمبل است و احتمالا به اشیاء متفاوت <em>زیادی</em> اضافه خواهد شد.</p>
 
-<p><a class="p_ident" id="p_wSWGcm7dId" href="#p_wSWGcm7dId" tabindex="-1" role="presentation"></a>We can directly use this interface ourselves.</p>
+<p>می توانیم مستقیما از این رابط استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CKTaBW3WjJ" href="#c_CKTaBW3WjJ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">okIterator</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;OK&quot;</span>[<span class="cm-variable">Symbol</span>.<span class="cm-property">iterator</span>]();
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">okIterator</span>.<span class="cm-property">next</span>());
@@ -360,7 +360,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">okIterator</span>.<span class="cm-property">next</span>());
 <span class="cm-comment">// → {value: undefined, done: true}</span></pre>
 
-<p id="matrix"><a class="p_ident" id="p_rqXAzunzIi" href="#p_rqXAzunzIi" tabindex="-1" role="presentation"></a>Let’s implement an iterable data structure. We’ll build a <em>matrix</em> class, acting as a two-dimensional array.</p>
+<p id="matrix">بیایید یک ساختار قابل تکرار را پیاده‌سازی کنیم. در مثال زیر یک کلاس <em>ماتریس</em> خواهیم ساخت که مانند یک آرایه‌ی دوبعدی عمل می کند</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Q128qlROKi" href="#c_Q128qlROKi" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Matrix</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">width</span>, <span class="cm-def">height</span>, <span class="cm-def">element</span> <span class="cm-operator">=</span> (<span class="cm-def">x</span>, <span class="cm-def">y</span>) <span class="cm-operator">=&gt;</span> <span class="cm-atom">undefined</span>) {
@@ -383,11 +383,11 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_I/q+okK5mh" href="#p_I/q+okK5mh" tabindex="-1" role="presentation"></a>The class stores its content in a single array of <em>width</em> × <em>height</em> elements. The elements are stored row by row, so, for example, the third element in the fifth row is (using zero-based indexing) stored at position 4 × <em>width</em> + 2.</p>
+<p><a class="p_ident" id="p_D+T9ulEH28" href="#p_D+T9ulEH28" tabindex="-1" role="presentation"></a>کلاس بالا محتوای خود را در یک آرایه به تعداد عناصر <bdo><em>width</em> × <em>height</em></bdo> ذخیره می کند. عناصر به صورت ردیف به ردیف ذخیره می شوند، بنابراین به عنوان مثلا عنصر سوم در ردیف پنجم در موقعیت <bdo>4 × <em>width</em> + 2</bdo> ذخیره می شود ( با در نظر داشتن اندیس گذاری از صفر).</p>
 
-<p><a class="p_ident" id="p_RlDQ7yqK2c" href="#p_RlDQ7yqK2c" tabindex="-1" role="presentation"></a>The constructor function takes a width, a height, and an optional content function that will be used to fill in the initial values. There are <code>get</code> and <code>set</code> methods to retrieve and update elements in the matrix.</p>
+<p>تابع سازنده، یک طول، یک عرض و تابعی اختیاری برای محتوا می گیرد که این تابع برای مقداردهی اولیه استفاده می شود.  متدهای <code>get</code> و <code>set</code> برای به روز رسانی عناصر و دریافت آن ها در ماتریس تعریف شده اند.</p>
 
-<p><a class="p_ident" id="p_DHPUGxvFrD" href="#p_DHPUGxvFrD" tabindex="-1" role="presentation"></a>When looping over a matrix, you are usually interested in the position of the elements as well as the elements themselves, so we’ll have our iterator produce objects with <code>x</code>, <code>y</code>, and <code>value</code> properties.</p>
+<p>در زمان پیمایش یک ماتریس، معمولا دانستن موقعیت عناصر به اندازه‌ی خود عناصر مهم هستند، بنابراین تکرارکننده‌ی ما، اشیائی با خاصیت‌های <code>x</code> و <code>y</code> و <code>value</code>  تولید می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LtbqF2pl4c" href="#c_LtbqF2pl4c" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">MatrixIterator</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">matrix</span>) {
@@ -411,15 +411,15 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_yBJg8/BmDJ" href="#p_yBJg8/BmDJ" tabindex="-1" role="presentation"></a>The class tracks the progress of iterating over a matrix in its <code>x</code> and <code>y</code> properties. The <code>next</code> method starts by checking whether the bottom of the matrix has been reached. If it hasn’t, it <em>first</em> creates the object holding the current value and <em>then</em> updates its position, moving to the next row if necessary.</p>
+<p>آمار پیش‌رفت تکرار در طول یک ماتریس توسط خاصیت‌های <code>x</code> و <code>y</code> ضبط و ثبت می شود. متد <code>next</code> با بررسی اینکه آیا به انتهای ماتریس رسیده ایم یا خیر شروع می کند. اگر به پایان نرسیده بود، <em>ابتدا</em> شیءای را ایجاد می کند که مقدار فعلی را نگه داری کند و <em>سپس</em> موقعیت آن را به روز رسانی می کند و در صورت نیاز به سراغ ردیف بعدی می رود.</p>
 
-<p><a class="p_ident" id="p_Iu3bFayPkp" href="#p_Iu3bFayPkp" tabindex="-1" role="presentation"></a>Let’s set up the <code>Matrix</code> class to be iterable. Throughout this book, I’ll occasionally use after-the-fact prototype manipulation to add methods to classes so that the individual pieces of code remain small and self-contained. In a regular program, where there is no need to split the code into small pieces, you’d declare these methods directly in the class instead.</p>
+<p>بیایید کلاس <code>Matrix</code> را قابل تکرار کنیم. در این کتاب، گاهی بعد از تعریف کلاس‌ها، prototype را دستکاری خواهم کرد تا متدهایی را به آن‌ها اضافه کنم، در نتیجه کدها مجزا و کوچک خواهند ماند و به دیگر قسمت‌ها وابسته نخواهند شد. در یک برنامه‌ی معمولی، جایی که نیازی نیست تا کدها را به قسمت‌های کوچکتر تقسیم کرد، می توانید این متدها را مستقیما درون بدنه کلاس تعریف کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BmOLk4O5HN" href="#c_BmOLk4O5HN" tabindex="-1" role="presentation"></a><span class="cm-variable">Matrix</span>.<span class="cm-property">prototype</span>[<span class="cm-variable">Symbol</span>.<span class="cm-property">iterator</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">MatrixIterator</span>(<span class="cm-keyword">this</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_+6FbIloB5k" href="#p_+6FbIloB5k" tabindex="-1" role="presentation"></a>We can now loop over a matrix with <code>for</code>/<code>of</code>.</p>
+<p>اکنون می توانیم یک ماتریس را به وسیله‌ی <bdo><code>for</code>/<code>of</code></bdo> پیمایش کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ek9pXBwNMJ" href="#c_ek9pXBwNMJ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">matrix</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Matrix</span>(<span class="cm-number">2</span>, <span class="cm-number">2</span>, (<span class="cm-def">x</span>, <span class="cm-def">y</span>) <span class="cm-operator">=&gt;</span> <span class="cm-string-2">`value ${</span><span class="cm-variable-2">x</span><span class="cm-string-2">}</span><span class="cm-string-2">,${</span><span class="cm-variable-2">y</span><span class="cm-string-2">}</span><span class="cm-string-2">`</span>);
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> {<span class="cm-def">x</span>, <span class="cm-def">y</span>, <span class="cm-def">value</span>} <span class="cm-keyword">of</span> <span class="cm-variable">matrix</span>) {
@@ -430,11 +430,11 @@
 <span class="cm-comment">// → 0 1 value 0,1</span>
 <span class="cm-comment">// → 1 1 value 1,1</span></pre>
 
-<h2><a class="h_ident" id="h_3vwredi8nD" href="#h_3vwredi8nD" tabindex="-1" role="presentation"></a>Getters, setters, and statics</h2>
+<h2><a class="h_ident" id="h_Kh2FF/4OC5" href="#h_Kh2FF/4OC5" tabindex="-1" role="presentation"></a>گیرنده‌ها(getters) ، گذارنده‌ها(setters) و متدهای ایستا (static)</h2>
 
-<p><a class="p_ident" id="p_6oukozZJBx" href="#p_6oukozZJBx" tabindex="-1" role="presentation"></a>Interfaces often consist mostly of methods, but it is also okay to include properties that hold non-function values. For example, <code>Map</code> objects have a <code>size</code> property that tells you how many keys are stored in them.</p>
+<p>رابط‌ها بیشتر از متد‌ها تشکیل شده اند، اما می توانند خاصیت‌هایی که مقادیر تابعی را نگه داری نمی کنند را نیز داشته باشند. به عنوان مثال، اشیاء <code>Map</code> دارای خاصیتی به نام <code>size</code> می باشند که تعداد کلید‌هایی که در آن‌ها ذخیره شده است را نگه داری می کند.</p>
 
-<p><a class="p_ident" id="p_SdyGtj5JbS" href="#p_SdyGtj5JbS" tabindex="-1" role="presentation"></a>It is not even necessary for such an object to compute and store such a property directly in the instance. Even properties that are accessed directly may hide a method call. Such methods are called <em>getters</em>, and they are defined by writing <code>get</code> in front of the method name in an object expression or class declaration.</p>
+<p><a class="p_ident" id="p_n5FiB3PTJz" href="#p_n5FiB3PTJz" tabindex="-1" role="presentation"></a>در این‌گونه اشیاء لزومی ندارد خاصیتی مثل <code>size</code> را مستقیما در خود نمونه شیء محاسبه و ذخیره نمود. حتی خاصیت‌هایی که به صورت مستقیم در دسترس هستند، ممکن است متدی را مخفیانه فراخوانی کنند. این گونه‌ی خاصیت‌ها را <em>getter</em> یا گیرنده‌ی می گویند که به وسیله‌ی نوشتن <code>get</code> در ابتدای نام یک متد، در یک عبارت تعریف شیء یا کلاس، تعریف می شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Np05mJ4GVO" href="#c_Np05mJ4GVO" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">varyingSize</span> <span class="cm-operator">=</span> {
   <span class="cm-property">get</span> <span class="cm-property">size</span>() {
@@ -447,7 +447,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">varyingSize</span>.<span class="cm-property">size</span>);
 <span class="cm-comment">// → 49</span></pre>
 
-<p><a class="p_ident" id="p_QwpqNIZOsS" href="#p_QwpqNIZOsS" tabindex="-1" role="presentation"></a>Whenever someone reads from this object’s <code>size</code> property, the associated method is called. You can do a similar thing when a property is written to, using a <em>setter</em>.</p>
+<p><a class="p_ident" id="p_AqxkiQamgo" href="#p_AqxkiQamgo" tabindex="-1" role="presentation"></a>زمانی که کسی مقدار خاصیت‌ <code>size</code> را درخواست می کند، متدی که به آن پیوند خورده است فراخوانی می شود. می توانید کار مشابهی را برای مقدار دهی به یک خاصیت هم انجام دهید که به آن <em>setter</em> یا گذارنده می گویند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7LQG88c1BA" href="#c_7LQG88c1BA" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Temperature</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">celsius</span>) {
@@ -472,21 +472,21 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">temp</span>.<span class="cm-property">celsius</span>);
 <span class="cm-comment">// → 30</span></pre>
 
-<p><a class="p_ident" id="p_Hf3p+suFR+" href="#p_Hf3p+suFR+" tabindex="-1" role="presentation"></a>The <code>Temperature</code> class allows you to read and write the temperature in either degrees Celsius or degrees Fahrenheit, but internally it stores only Celsius and automatically converts to and from Celsius in the <code>fahrenheit</code> getter and setter.</p>
+<p><a class="p_ident" id="p_K4Ul+pMqBX" href="#p_K4Ul+pMqBX" tabindex="-1" role="presentation"></a>کلاس <code>Temperature</code> در مثال بالا این امکان را فراهم می کند تا میزان دما را به صورت سلسیوس یا فارنهایت بنویسید، اما در درون کلاس، این مقدار فقط به سلسیوس ذخیره می شود و به طور خودکار توسط متدهای گیرنده و گذارنده (setter, getter) به ‍<code>fahrenheit</code> تبدیل می شود.</p>
 
-<p><a class="p_ident" id="p_MwIs1kR0mD" href="#p_MwIs1kR0mD" tabindex="-1" role="presentation"></a>Sometimes you want to attach some properties directly to your constructor function, rather than to the prototype. Such methods won’t have access to a class instance but can, for example, be used to provide additional ways to create instances.</p>
+<p>گاهی اوقات می خواهید تا بعضی خاصیت‌ها را به جای prototype، به طور مستقیم در تابع سازنده داشته باشید. این گونه متدها به نمونه‌ی کلاس دسترسی نخواهند داشت اما می توان از آن‌ها به عنوان روش‌های دیگر ایجاد نمونه‌ها استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_zLJ2u9mlXs" href="#p_zLJ2u9mlXs" tabindex="-1" role="presentation"></a>Inside a class declaration, methods that have <code>static</code> written before their name are stored on the constructor. So the <code>Temperature</code> class allows you to write <code>Temperature.<wbr>fromFahrenheit(100)</code> to create a temperature using degrees Fahrenheit.</p>
+<p>درون تعریف یک کلاس، متدهایی که کلیدواژه‌ی <code>static</code> در ابتدای آن ها نوشته می شود، روی تابع سازنده ذخیره می شوند. بنابراین در کلاس <code>Temperature</code> می توانید برای تولید دما به وسیله‌ی درجه‌ی فارنهایت از<bdo><code>Temperature.<wbr>fromFahrenheit(100)</code></bdo> استفاده کنید.</p>
 
-<h2><a class="h_ident" id="h_/a3bnONnws" href="#h_/a3bnONnws" tabindex="-1" role="presentation"></a>Inheritance</h2>
+<h2><a class="h_ident" id="h_Gr47ABRuDF" href="#h_Gr47ABRuDF" tabindex="-1" role="presentation"></a>ارث‌بری</h2>
 
-<p><a class="p_ident" id="p_seSalQnLZd" href="#p_seSalQnLZd" tabindex="-1" role="presentation"></a>Some matrices are known to be <em>symmetric</em>. If you mirror a symmetric matrix around its top-left-to-bottom-right diagonal, it stays the same. In other words, the value stored at <em>x</em>,<em>y</em> is always the same as that at <em>y</em>,<em>x</em>.</p>
+<p><a class="p_ident" id="p_NLw6nfy+Lw" href="#p_NLw6nfy+Lw" tabindex="-1" role="presentation"></a>بعضی از ماتریس‌ها را به عنوان ماتریس‌های <em>متقارن</em> می شناسند. اگر یک ماتریس متقارن را حول قطر بالا-چپ-به-پایین-راست بازتاب کنید، تفاوتی در شکل آن ایجاد نمی شود. به بیان دیگر، مقدار موجود در <em>x</em>,<em>y</em> همیشه مشابه مقدار <em>‌y</em>,<em>x</em> است.</p>
 
-<p><a class="p_ident" id="p_InrSr2m6Kl" href="#p_InrSr2m6Kl" tabindex="-1" role="presentation"></a>Imagine we need a data structure like <code>Matrix</code> but one that enforces the fact that the matrix is and remains symmetrical. We could write it from scratch, but that would involve repeating some code very similar to what we already wrote.</p>
+<p>تصور کنید که به یک ساختار داده مانند <code>Matrix</code> نیاز داریم با این شرط که متقارن بودن و ماندن ماتریس را ضمانت کند. می توانیم چنین ساختار داده‌ای را از صفر بنوسیم، اما این کار باعث می شود که کدهایی را تکرار کنیم که قبلا شبیه‌شان را نوشته ایم.</p>
 
-<p><a class="p_ident" id="p_kRtvgxF67W" href="#p_kRtvgxF67W" tabindex="-1" role="presentation"></a>JavaScript’s prototype system makes it possible to create a <em>new</em> class, much like the old class, but with new definitions for some of its properties. The prototype for the new class derives from the old prototype but adds a new definition for, say, the <code>set</code> method.</p>
+<p>سیستم prototype در جاوااسکریپت این امکان را فراهم کرده است که یک کلاس جدید را بر اساس یک کلاس دیگر اما با بازتعریف بعضی از خاصیت‌های آن ایجاد کنیم. prototype کلاس جدید از prototype کلاس قبلی مشتق می شود اما تعریف جدیدی را برای متد <code>set</code> آن به عنوان مثال در نظر می گیرد.</p>
 
-<p><a class="p_ident" id="p_a3GMshNFYT" href="#p_a3GMshNFYT" tabindex="-1" role="presentation"></a>In object-oriented programming terms, this is called <em>inheritance</em>. The new class inherits properties and behavior from the old class.</p>
+<p>در اصطلاح برنامه نویسی شیء گرا به این کار ارث بری می گویند. کلاس جدید خاصیت‌ها و رفتار را از کلاسی دیگر به <em>ارث می برد</em>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uuBcsDdS7D" href="#c_uuBcsDdS7D" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">SymmetricMatrix</span> <span class="cm-keyword">extends</span> <span class="cm-variable">Matrix</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">size</span>, <span class="cm-def">element</span> <span class="cm-operator">=</span> (<span class="cm-def">x</span>, <span class="cm-def">y</span>) <span class="cm-operator">=&gt;</span> <span class="cm-atom">undefined</span>) {
@@ -508,19 +508,19 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">matrix</span>.<span class="cm-property">get</span>(<span class="cm-number">2</span>, <span class="cm-number">3</span>));
 <span class="cm-comment">// → 3,2</span></pre>
 
-<p><a class="p_ident" id="p_RZZzYHZ3d6" href="#p_RZZzYHZ3d6" tabindex="-1" role="presentation"></a>The use of the word <code>extends</code> indicates that this class shouldn’t be directly based on the default <code>Object</code> prototype but on some other class. This is called the <em>superclass</em>. The derived class is the <em>subclass</em>.</p>
+<p><a class="p_ident" id="p_syFMyCMuk4" href="#p_syFMyCMuk4" tabindex="-1" role="presentation"></a>استفاده از واژه‌ی <code>extends</code> به این معنا است که این کلاس نباید بر اساس prototype پیش‌فرض <code>Object</code> ساخته شود بلکه بر اساس کلاس دیگری خواهد بود. این کلاس را <em>superclass</em> (کلاس والد) می نامند. کلاسی که از آن گرفته می شود را <em>subclass</em> (زیرکلاس) می گویند.</p>
 
-<p><a class="p_ident" id="p_mss/w8sDfy" href="#p_mss/w8sDfy" tabindex="-1" role="presentation"></a>To initialize a <code>SymmetricMatrix</code> instance, the constructor calls its superclass’s constructor through the <code>super</code> keyword. This is necessary because if this new object is to behave (roughly) like a <code>Matrix</code>, it is going to need the instance properties that matrices have. To ensure the matrix is symmetrical, the constructor wraps the <code>content</code> method to swap the coordinates for values below the diagonal.</p>
+<p><a class="p_ident" id="p_OKu40Dv+i/" href="#p_OKu40Dv+i/" tabindex="-1" role="presentation"></a>برای مقداردهی اولیه یک نمونه از  <code>SymmetricMatrix،</code> سازنده، تابع سازنده‌ی کلاس والدش (superclass) را به وسیله‌ کلیدواژه‌ی  <code>super</code> فراخوانی می کند. این کار لازم است به این دلیل که اگر این شیء جدید قرار است شبیه <code>Matrix</code> (به‌طورکلی) رفتار کند، به خاصیت‌هایی که ماتریس‌ها دارند نیاز پیدا خواهد کرد. برای اطمینان از متقارن بودن ماتریس، تابع سازنده، متد <code>element</code> را در بر می گیرد تا مختصات را برای مقادیر پایین قطر اصلی جابجا کند.</p>
 
-<p><a class="p_ident" id="p_9XrYhhYXI8" href="#p_9XrYhhYXI8" tabindex="-1" role="presentation"></a>The <code>set</code> method again uses <code>super</code> but this time not to call the constructor but to call a specific method from the superclass’s set of methods. We are redefining <code>set</code> but do want to use the original behavior. Because <code>this.set</code> refers to the <em>new</em> <code>set</code> method, calling that wouldn’t work. Inside class methods, <code>super</code> provides a way to call methods as they were defined in the superclass.</p>
+<p>متد <code>set</code> دوباره از <code>super</code> استفاده می کند، اما این بار هدف، فراخوانی سازنده‌اش نیست. بلکه برای فراخوانی یک متد خاص از متدهای کلاس والد (superclass) می باشد. متد <code>set</code> را بازنویسی می کنیم اما می خواهیم از رفتار اصلی آن استفاده کنیم. به دلیل اینکه <code>this.set</code> به متد <code>set</code> <em>جدید</em> اشاره می کند، نمی توان از آن استفاده کرد. درون متد‌های کلاس، کلیدواژه‌ی <code>super</code> راهی فراهم می سازد تا متد‌هایی که در کلاس والد تعریف شده اند را بتوان فراخوانی کرد.</p>
 
-<p><a class="p_ident" id="p_apvJjMYcsg" href="#p_apvJjMYcsg" tabindex="-1" role="presentation"></a>Inheritance allows us to build slightly different data types from existing data types with relatively little work. It is a fundamental part of the object-oriented tradition, alongside encapsulation and polymorphism. But while the latter two are now generally regarded as wonderful ideas, inheritance is more controversial.</p>
+<p>با کمک ارث‌بری می توانیم با کار نسبتا کمتری، نوع‌ داده‌های متفاوتی از انواع داده‌ی موجود بسازیم. درکنار کپسوله‌سازی و چندریختی، ارث‌بری یکی از مفاهیم اساسی برنامه‌نویسی شیء گرا می باشد. البته دو ویژگی اول را عموما به عنوان ایده‌هایی فوق‌العاده می شناسند اما در باره‌ی ارث‌بری اختلاف‌ نظرهایی وجود دارد.</p>
 
-<p><a class="p_ident" id="p_CWDhzksvzb" href="#p_CWDhzksvzb" tabindex="-1" role="presentation"></a>Whereas encapsulation and polymorphism can be used to <em>separate</em> pieces of code from each other, reducing the tangledness of the overall program, inheritance fundamentally ties classes together, creating <em>more</em> tangle. When inheriting from a class, you usually have to know more about how it works than when simply using it. Inheritance can be a useful tool, and I use it now and then in my own programs, but it shouldn’t be the first tool you reach for, and you probably shouldn’t actively go looking for opportunities to construct class hierarchies (family trees of classes).</p>
+<p>در حالیکه کپسوله‌سازی و چندریختی را می توان برای <em>جداسازی</em> کدها و کاهش نابسامانی کل برنامه استفاده کرد، ارث‌بری اساسا کلاس‌ها را به هم وابسته می کند و به شکلی باعث ایجاد درهم‌ریختگی <em>بیشتر</em> می شود. زمانی که از کلاسی ارث‌ می برید، نسبت به حالتی که فقط قصد استفاده از آن را دارید، باید اطلاعات بیشتری از نحوه‌ی کارکرد آن کلاس داشته باشید. ارث‌بری می تواند ابزار مفیدی باشد و من گاهی از آن در برنامه‌هایم استفاده می کنم، اما نباید اولین گزینه‌ای باشد که به سراغش می روید. و احتمالا خوب نیست به دنبال فرصت‌هایی باشید که در آن‌ها سلسله مراتبی از کلاس‌ها را ایجاد کنید (مثل شجره‌نامه‌ای از کلاس‌ها).</p>
 
-<h2><a class="h_ident" id="h_Fdk67dJHwg" href="#h_Fdk67dJHwg" tabindex="-1" role="presentation"></a>The instanceof operator</h2>
+<h2><a class="h_ident" id="h_hzaDsepLmL" href="#h_hzaDsepLmL" tabindex="-1" role="presentation"></a>عملگر instanceof</h2>
 
-<p><a class="p_ident" id="p_wnmK5D9foe" href="#p_wnmK5D9foe" tabindex="-1" role="presentation"></a>It is occasionally useful to know whether an object was derived from a specific class. For this, JavaScript provides a binary operator called <code>instanceof</code>.</p>
+<p>گاهی لازم است بدانیم که یک شیء از کلاس خاصی مشتق شده است یا خیر. برای این منظور، جاوااسکریپت یک عملگر دودویی به نام <code>instanceof</code> در نظر گرفته است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_1/4hH+dV3k" href="#c_1/4hH+dV3k" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(
   <span class="cm-keyword">new</span> <span class="cm-variable">SymmetricMatrix</span>(<span class="cm-number">2</span>) <span class="cm-keyword">instanceof</span> <span class="cm-variable">SymmetricMatrix</span>);
@@ -532,33 +532,33 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>] <span class="cm-keyword">instanceof</span> <span class="cm-variable">Array</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_VtvmEyRrv+" href="#p_VtvmEyRrv+" tabindex="-1" role="presentation"></a>The operator will see through inherited types, so a <code>SymmetricMatrix</code> is an instance of <code>Matrix</code>. The operator can also be applied to standard constructors like <code>Array</code>. Almost every object is an instance of <code>Object</code>.</p>
+<p>این عملگر انواع وارث را مورد کنکاش قرار می دهد، مثلا <code>SymmetricMatrix</code> نمونه‌ای از <code>Matrix</code> است. این عملگر را همچنین می توان برای سازنده‌های استاندارد مثل <code>Array</code> نیز استفاده کرد. تقریبا همه‌ی اشیاء نمونه‌ای از <code>Object</code> هستند.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_VPlYPbumD2" href="#p_VPlYPbumD2" tabindex="-1" role="presentation"></a>So objects do more than just hold their own properties. They have prototypes, which are other objects. They’ll act as if they have properties they don’t have as long as their prototype has that property. Simple objects have <code>Object.prototype</code> as their prototype.</p>
+<p>بنابراین اشیاء کاری بیش از نگه‌داری خاصیت‌های خود انجام می دهند. اشیاء prototype دارند که خود نیز اشیاء دیگری می باشند. تا زمانی که prototype یک شیء خاصیتی را داشته باشد، آن شیء نیز دارای آن خاصیت خواهد بود با وجود اینکه در ظاهر فاقد آن است. prototype اشیاء معمولی، <bdo><code>Object.prototype</code></bdo> می باشد.</p>
 
-<p><a class="p_ident" id="p_A+dQsxCVz8" href="#p_A+dQsxCVz8" tabindex="-1" role="presentation"></a>Constructors, which are functions whose names usually start with a capital letter, can be used with the <code>new</code> operator to create new objects. The new object’s prototype will be the object found in the <code>prototype</code> property of the constructor. You can make good use of this by putting the properties that all values of a given type share into their prototype. There’s a <code>class</code> notation that provides a clear way to define a constructor and its prototype.</p>
+<p>می توان از توابع سازنده که معمولا نامشان با حروف بزرگ شروع می شود، با استفاده از کلیدواژه‌ی <code>new</code>، برای ایجاد اشیاء جدید استفاده کرد. prototype شیء ایجاد شده، شیءای است که در خاصیت‌ <code>prototype</code> سازنده پیدا می شود. می توان از این ویژگی برای قرار دادن همه‌ی خاصیت‌های مشترک یک نوع خاص در prototype آن بهره برد. روش دیگری برای تعریف یک سازنده  و prototype آن وجود دارد که از کلیدواژه‌ی <code>class</code> استفاده می کند.</p>
 
-<p><a class="p_ident" id="p_AFyYjRH+5G" href="#p_AFyYjRH+5G" tabindex="-1" role="presentation"></a>You can define getters and setters to secretly call methods every time an object’s property is accessed. Static methods are methods stored in a class’s constructor, rather than its prototype.</p>
+<p><a class="p_ident" id="p_ghkYTbCXCQ" href="#p_ghkYTbCXCQ" tabindex="-1" role="presentation"></a>می توانید با تعریف گذارنده‌ها (setters) و گیرنده‌ها (getters)، به طور مخفیانه متدهایی را ایجاد کنید که با هر بار دسترسی به یک خاصیت شیء، فراخوانی می شوند. متدهای ایستا (static) متدهایی هستند که در سازنده‌ی کلاس ذخیره می شوند نه در prototype آن.</p>
 
-<p><a class="p_ident" id="p_U1iTgKNfyX" href="#p_U1iTgKNfyX" tabindex="-1" role="presentation"></a>The <code>instanceof</code> operator can, given an object and a constructor, tell you whether that object is an instance of that constructor.</p>
+<p>عملگر <code>instanceof</code> را اگر به یک شیء و یک سازنده اعمال کنید، به شما خواهد گفت که آن شیء نمونه‌ای از آن سازنده می باشد یا خیر.</p>
 
-<p><a class="p_ident" id="p_zzr1L1PppY" href="#p_zzr1L1PppY" tabindex="-1" role="presentation"></a>One useful thing to do with objects is to specify an interface for them and tell everybody that they are supposed to talk to your object only through that interface. The rest of the details that make up your object are now <em>encapsulated</em>, hidden behind the interface.</p>
+<p>یکی از کارهای مفیدی که می توان با اشیاء انجام داد این است که یک رابط برای آن‌ها مشخص نمود که دیگران فقط بتوانند از طریق آن رابط با شیء ارتباط برقرار کنند. با این کار، دیگر جزئیات مربوط به ساختار شیء شما کپسوله شده و پشت رابط مخفی می مانند.</p>
 
-<p><a class="p_ident" id="p_NWmKpeeGiT" href="#p_NWmKpeeGiT" tabindex="-1" role="presentation"></a>More than one type may implement the same interface. Code written to use an interface automatically knows how to work with any number of different objects that provide the interface. This is called <em>polymorphism</em>.</p>
+<p>اشیائی با انواع مختلف می توانند رابط یکسانی را پیاده‌سازی و استفاده کنند (توسط رابط یکسانی به کار گرفته شوند ). کدی که برای استفاده از یک رابط نوشته شده است به صورت خودکار می داند که چگونه با هر تعداد شیء متفاوت که آن رابط را دارند کار کند. این کار <em>چندریختی</em> نامیده می شود.</p>
 
-<p><a class="p_ident" id="p_fg/ZL+fqD3" href="#p_fg/ZL+fqD3" tabindex="-1" role="presentation"></a>When implementing multiple classes that differ in only some details, it can be helpful to write the new classes as <em>subclasses</em> of an existing class, <em>inheriting</em> part of its behavior.</p>
+<p>زمانی که چندین کلاس را پیاده سازی می کنیم که تنها در بعضی جزئیات با هم تفاوت دارند، می توانیم کلاس‌های جدید را به عنوان <em>زیرکلاس‌های</em> کلاس های موجود بنویسیم که بعضی از رفتارهای آن ها را به <em>ارث</em> ببرند.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3 id="exercise_vector"><a class="i_ident" id="i_zO8FRQBMAy" href="#i_zO8FRQBMAy" tabindex="-1" role="presentation"></a>A vector type</h3>
+<h3 id="exercise_vector"><a class="i_ident" id="i_VSng313eH4" href="#i_VSng313eH4" tabindex="-1" role="presentation"></a>تعریف یک نوع بردار</h3>
 
-<p><a class="p_ident" id="p_YtkHcQdZSH" href="#p_YtkHcQdZSH" tabindex="-1" role="presentation"></a>Write a class <code>Vec</code> that represents a vector in two-dimensional space. It takes <code>x</code> and <code>y</code> parameters (numbers), which it should save to properties of the same name.</p>
+<p>کلاسی به نام <code>Vec</code> تعریف کنید که نشان‌دهنده‌ی یک بردار در فضای دوبعدی باشد. این کلاس دو عدد <code>x</code> و <code>y</code> را به عنوان پارامتر (عددی) دریافت می کند، که با همین نام‌ها به عنوان خاصیت ذخیره می شوند.</p>
 
-<p><a class="p_ident" id="p_8DOrtO0lbU" href="#p_8DOrtO0lbU" tabindex="-1" role="presentation"></a>Give the <code>Vec</code> prototype two methods, <code>plus</code> and <code>minus</code>, that take another vector as a parameter and return a new vector that has the sum or difference of the two vectors’ (<code>this</code> and the parameter) <em>x</em> and <em>y</em> values.</p>
+<p><a class="p_ident" id="p_c97Fk0rcGV" href="#p_c97Fk0rcGV" tabindex="-1" role="presentation"></a>به پروتوتایپ <code>Vec</code> دو متد <code>plus</code> و <code>minus</code> را اضافه کنید که بردار دیگری را به عنوان یک پارامتر گرفته و بردار جدیدی را برمی‌گرداند، برداری که  تفاوت یا مجموع مقدارهای <em>x</em> و <em>y</em> دو بردار (<code>this</code> و پارامترها) را باز می گرداند.</p>
 
-<p><a class="p_ident" id="p_F5nP+jpza3" href="#p_F5nP+jpza3" tabindex="-1" role="presentation"></a>Add a getter property <code>length</code> to the prototype that computes the length of the vector—that is, the distance of the point (<em>x</em>, <em>y</em>) from the origin (0, 0).</p>
+<p><a class="p_ident" id="p_U2Ya8UXdSM" href="#p_U2Ya8UXdSM" tabindex="-1" role="presentation"></a>خاصیت گیرنده‌ای (getter) به نام <code>length</code> به prototype اضافه کنید که طول بردار را محاسبه می کند – فاصله‌ی بین نقطه‌ی (<em>x</em>,<em>y</em>)  از مبدا (0,0).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_f3P62tUJWH" href="#c_f3P62tUJWH" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span>
 
@@ -571,21 +571,21 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_jRIa414Yh5" href="#p_jRIa414Yh5" tabindex="-1" role="presentation"></a>Look back to the <code>Rabbit</code> class example if you’re unsure how <code>class</code> declarations look.</p>
+<p>اگر تعریف کلاس را فراموش کرده اید، به مثال کلاس <code>Rabbit</code> مراجعه کنید.</p>
 
-<p><a class="p_ident" id="p_uZnm2ZSaRd" href="#p_uZnm2ZSaRd" tabindex="-1" role="presentation"></a>Adding a getter property to the constructor can be done by putting the word <code>get</code> before the method name. To compute the distance from (0, 0) to (x, y), you can use the Pythagorean theorem, which says that the square of the distance we are looking for is equal to the square of the x-coordinate plus the square of the y-coordinate. Thus, √(x<sup>2</sup> + y<sup>2</sup>) is the number you want, and <code>Math.sqrt</code> is the way you compute a square root in JavaScript.</p>
+<p><a class="p_ident" id="p_sAFdtyQS4M" href="#p_sAFdtyQS4M" tabindex="-1" role="presentation"></a>افزودن یک خاصیت گیرنده به سازنده را می توان با قراردادن واژه‌ی <code>get</code> در ابتدای نام متد انجام داد.  برای محاسبه‌ی فاصله‌ی بین نقاط (0,0) و <bdo>(x, y)</bdo>، می توانید از قضیه‌ی فیثاغورث استفاده کنید که در آن توان‌دوم فاصله‌‌ای که مورد نظر ما است (وتر) برابر است با مجموع توان‌های دوم اندازه مختصات x و y. بنابراین، <bdo>√(x<sup>2</sup> + y<sup>2</sup>)</bdo> عددی است که شما لازم دارید. متد <bdo><code>Math.sqrt</code></bdo>، برای محاسبه‌ی ریشه‌ی دوم یک عدد در جاوااسکریپت استفاده می شود.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_rpYp9Ou4LG" href="#i_rpYp9Ou4LG" tabindex="-1" role="presentation"></a>Groups</h3>
+<h3><a class="i_ident" id="i_58KeFIu/qv" href="#i_58KeFIu/qv" tabindex="-1" role="presentation"></a>گروه‌ها</h3>
 
-<p id="groups"><a class="p_ident" id="p_1TnXiDoyR2" href="#p_1TnXiDoyR2" tabindex="-1" role="presentation"></a>The standard JavaScript environment provides another data structure called <code>Set</code>. Like an instance of <code>Map</code>, a set holds a collection of values. Unlike <code>Map</code>, it does not associate other values with those—it just tracks which values are part of the set. A value can be part of a set only once—adding it again doesn’t have any effect.</p>
+<p id="groups"><a class="p_ident" id="p_ZcENw1Sf4H" href="#p_ZcENw1Sf4H" tabindex="-1" role="presentation"></a>محیط استاندارد جاوااسکریپت ساختار داده‌ی دیگری به نام <code>Set</code> را فراهم می کند. مانند یک نمونه از<code>Map</code>، یک set (مجموعه) مجموعه‌ای از مقدارها را نگه داری می کند. برخلاف <code>Map</code>، این ساختار داده مقادیر را با هم مرتبط نمی کند – فقط مشخص می کند که کدام مقادیر در مجموعه وجود دارند.  یک مقدار فقط می تواند یکبار به مجموعه اضافه شود – اگر دوباره یک مقدار را اضافه کنیم، اثری نخواهد داشت.</p>
 
-<p><a class="p_ident" id="p_IBo4QI1mvy" href="#p_IBo4QI1mvy" tabindex="-1" role="presentation"></a>Write a class called <code>Group</code> (since <code>Set</code> is already taken). Like <code>Set</code>, it has <code>add</code>, <code>delete</code>, and <code>has</code> methods. Its constructor creates an empty group, <code>add</code> adds a value to the group (but only if it isn’t already a member), <code>delete</code> removes its argument from the group (if it was a member), and <code>has</code> returns a Boolean value indicating whether its argument is a member of the group.</p>
+<p><a class="p_ident" id="p_ZCkrHCsuE+" href="#p_ZCkrHCsuE+" tabindex="-1" role="presentation"></a>کلاسی به نام <code>Group</code> (زیرا <code>Set</code> قبلا رزرو شده است) تعریف کنید. شبیه <code>Set،</code> این کلاس متدهای  <code>add،</code> <code>delete</code> و <code>has</code> را دارد. سازنده‌ی این کلاس یک گروه (group)  خالی ایجاد می کند، متد <code>add،</code> یک مقدار را به گروه اضافه می کند (البته اگر قبلا عضو گروه نبود)، متد <code>delete</code> آرگومان ورودی‌اش را از گروه حذف می کند (البته اگر وجود داشت)، و متد <code>has،</code> یک مقدار بولی برمی‌گرداند که نشان می دهد آرگومانش در مجموعه وجود دارد یا خیر.</p>
 
-<p><a class="p_ident" id="p_cHm3PZ0L5i" href="#p_cHm3PZ0L5i" tabindex="-1" role="presentation"></a>Use the <code>===</code> operator, or something equivalent such as <code>indexOf</code>, to determine whether two values are the same.</p>
+<p>برای محاسبه‌ی تشابه‌ دو مقدار ، از عملگر <code>===</code> یا چیزی مشابه مانند <code>indexOf،</code> استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_CbJ60eqr+J" href="#p_CbJ60eqr+J" tabindex="-1" role="presentation"></a>Give the class a static <code>from</code> method that takes an iterable object as argument and creates a group that contains all the values produced by iterating over it.</p>
+<p>به کلاس متد استاتیکی به نام <code>from</code> اضافه کنید که شیءای قابل شمارش را به عنوان آرگومان دریافت می کند و گروهی ایجاد می کند که دارای تمامی مقادیری است که با پیمایش شیء بدست می آید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dNauaecKx+" href="#c_dNauaecKx+" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Group</span> {
   <span class="cm-comment">// Your code here.</span>
@@ -603,23 +603,23 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_fQA7KS4poU" href="#p_fQA7KS4poU" tabindex="-1" role="presentation"></a>The easiest way to do this is to store an array of group members in an instance property. The <code>includes</code> or <code>indexOf</code> methods can be used to check whether a given value is in the array.</p>
+<p>آسان‌ترین روش انجام این تمرین این است که آرایه‌ای از اعضای گروه را در یک خاصیت ذخیره کنید. متدهای ‍<code>includes</code> یا <code>indexOf</code> را می توان برای بررسی وجود یک مقدار در آرایه استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_2+V8dOgKHs" href="#p_2+V8dOgKHs" tabindex="-1" role="presentation"></a>Your class’s constructor can set the member collection to an empty array. When <code>add</code> is called, it must check whether the given value is in the array or add it, for example with <code>push</code>, otherwise.</p>
+<p>سازنده‌ی کلاس شما می تواند مجموعه‌ی اعضا را درون یک آرایه قرار دهد. هنگام فراخوانی <code>add</code>، متد باید ابتدا وجود مقدار در آرایه را بررسی کند و بعد آن را اضافه کند. این کار را می شود با متد <code>push</code> انجام داد.</p>
 
-<p><a class="p_ident" id="p_GVg0o9XSa+" href="#p_GVg0o9XSa+" tabindex="-1" role="presentation"></a>Deleting an element from an array, in <code>delete</code>, is less straightforward, but you can use <code>filter</code> to create a new array without the value. Don’t forget to overwrite the property holding the members with the newly filtered version of the array.</p>
+<p>حذف یک عنصر از یک آرایه به وسیله‌ی دستور <code>delete</code> نیاز به ملاحظات بیشتری دارد. به جای آن می توانید از متد <code>filter</code> برای ایجاد آرایه‌ای جدید استفاده کنید که عنصر مورد نظر را ندارد. فراموش نکنید که خاصیتی که اعضای گروه را نگه‌داری می کند با آرایه‌ی جدید به‌روز شود.</p>
 
-<p><a class="p_ident" id="p_1KdbI2vH34" href="#p_1KdbI2vH34" tabindex="-1" role="presentation"></a>The <code>from</code> method can use a <code>for</code>/<code>of</code> loop to get the values out of the iterable object and call <code>add</code> to put them into a newly created group.</p>
+<p>متد <code>from</code> می تواند از یک حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> برای گرفتن مقدارها از یک شیء قابل تکرار استفاده کند و با فراخوانی <code>add</code> آن ها را درون گروه تازه ایجاد شده قرار دهد.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_djD3XDJ27V" href="#i_djD3XDJ27V" tabindex="-1" role="presentation"></a>Iterable groups</h3>
+<h3><a class="i_ident" id="i_f0xI3INLAw" href="#i_f0xI3INLAw" tabindex="-1" role="presentation"></a>گروه‌های قابل تکرار</h3>
 
-<p id="group_iterator"><a class="p_ident" id="p_azaOoj0ezw" href="#p_azaOoj0ezw" tabindex="-1" role="presentation"></a>Make the <code>Group</code> class from the previous exercise iterable. Refer to the section about the iterator interface earlier in the chapter if you aren’t clear on the exact form of the interface anymore.</p>
+<p id="group_iterator">کلاس <code>Group</code> را که در مثال قبل ایجاد کردید اکنون قابل تکرار کنید. اگر در مورد شکل و ساختار رابط سوال دارید، می توانید به بخشی که پیش‌تر در همین فصل درباره‌ی رابط تکرارکننده آمد مراجعه نمایید.</p>
 
-<p><a class="p_ident" id="p_SoL9V7zUCt" href="#p_SoL9V7zUCt" tabindex="-1" role="presentation"></a>If you used an array to represent the group’s members, don’t just return the iterator created by calling the <code>Symbol.iterator</code> method on the array. That would work, but it defeats the purpose of this exercise.</p>
+<p>اگر از یک آرایه برای نمایش اعضای گروه استفاده کرده اید، فقط به بازگرداندن تکرارکننده‌ای که با فراخوانی متد <bdo><code>Symbol.iterator</code></bdo> روی آرایه ایجاد شده است اکتفا نکنید. این روش کار خواهد کرد اما شما را از هدف این تمرین منحرف می کند.</p>
 
-<p><a class="p_ident" id="p_rLyKomI6vw" href="#p_rLyKomI6vw" tabindex="-1" role="presentation"></a>It is okay if your iterator behaves strangely when the group is modified during iteration.</p>
+<p>اگر در هنگام انجام تکرار، گروه تغییر کند، ممکن است تکرارکننده‌ی شما رفتار عجیبی بروز دهد که نیازی نیست به آن توجه کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_n6ZNn/zRLj" href="#c_n6ZNn/zRLj" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here (and the code from the previous exercise)</span>
 
@@ -632,17 +632,17 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_URAzFlYuQP" href="#p_URAzFlYuQP" tabindex="-1" role="presentation"></a>It is probably worthwhile to define a new class <code>GroupIterator</code>. Iterator instances should have a property that tracks the current position in the group. Every time <code>next</code> is called, it checks whether it is done and, if not, moves past the current value and returns it.</p>
+<p>احتمالا ارزشش را دارد که کلاس جدیدی به نام <code>GroupIterator</code> تعریف شود. نمونه‌های تکرارکننده باید خاصیتی برای رصد موقعیت فعلی در گروه داشته باشند. هر بار که <code>next</code> فراخوانی می شود، این تابع رسیدن به پایان را بررسی می کند که در غیر این صورت، از مقدار فعلی عبور کرده و آن را بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_il9bvEkyQT" href="#p_il9bvEkyQT" tabindex="-1" role="presentation"></a>The <code>Group</code> class itself gets a method named by <code>Symbol.iterator</code> that, when called, returns a new instance of the iterator class for that group.</p>
+<p>کلاس <code>Group</code> خودش متدی به نام <bdo><code>Symbol.iterator</code></bdo> می گیرد که در صورت فراخوانی، نمونه‌ای جدید از کلاس تکرارکننده را برای آن گروه برمی‌گرداند.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_wcWSnr9zHV" href="#i_wcWSnr9zHV" tabindex="-1" role="presentation"></a>Borrowing a method</h3>
+<h3><a class="i_ident" id="i_tgW72lVEOQ" href="#i_tgW72lVEOQ" tabindex="-1" role="presentation"></a>قرض گرفتن یک متد</h3>
 
-<p><a class="p_ident" id="p_HxMI3VGcht" href="#p_HxMI3VGcht" tabindex="-1" role="presentation"></a>Earlier in the chapter I mentioned that an object’s <code>hasOwnProperty</code> can be used as a more robust alternative to the <code>in</code> operator when you want to ignore the prototype’s properties. But what if your map needs to include the word <code>&quot;hasOwnProperty&quot;</code>? You won’t be able to call that method anymore because the object’s own property hides the method value.</p>
+<p><a class="p_ident" id="p_OTblRvSIZD" href="#p_OTblRvSIZD" tabindex="-1" role="presentation"></a>پیش تر در این فصل گفته شد که متد <code>hasOwnProperty</code> را می توان به عنوان جایگزینی کاراتر نسبت به عملگر in استفاده کرد البته در شرایطی که قصد دارید تا خاصیت‌های prototype را درنظر نگیرید. اما اگر بخواهید در شیء نگاشت‌تان (map) کلید <code>&quot;hasOwnProperty&quot;</code> را داشته باشید چه؟ در این صورت دیگر نمی توانید آن متد را فراخوانی کنید چراکه خاصیت خود شیء باعث می شود که آن مخفی شود.</p>
 
-<p><a class="p_ident" id="p_nxOrPKy+Ky" href="#p_nxOrPKy+Ky" tabindex="-1" role="presentation"></a>Can you think of a way to call <code>hasOwnProperty</code> on an object that has its own property by that name?</p>
+<p>آیا می توانید راهی پیدا کنید که بتوان <code>hasOwnProperty</code> را روی یک شی فراخونی کرد، شیءای که خاصیتی با همین نام دارد؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LtMKqqkY0Q" href="#c_LtMKqqkY0Q" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">map</span> <span class="cm-operator">=</span> {<span class="cm-property">one</span>: <span class="cm-atom">true</span>, <span class="cm-property">two</span>: <span class="cm-atom">true</span>, <span class="cm-property">hasOwnProperty</span>: <span class="cm-atom">true</span>};
 
@@ -652,9 +652,9 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_Pg/cWjUrKm" href="#p_Pg/cWjUrKm" tabindex="-1" role="presentation"></a>Remember that methods that exist on plain objects come from <code>Object.prototype</code>.</p>
+<p>به یاد داشته باشید که متدهایی که در یک شیء معمولی وجود دارند از <bdo><code>Object.prototype</code></bdo> می آیند.</p>
 
-<p><a class="p_ident" id="p_wCf1aBfcJA" href="#p_wCf1aBfcJA" tabindex="-1" role="presentation"></a>Also remember that you can call a function with a specific <code>this</code> binding by using its <code>call</code> method.</p>
+<p>همچنین در نظر داشته باشید که می توانید یک تابع را با یک <code>this</code> خاص به وسیله‌ی متد <code>call</code> توابع، فراخوانی کنید.</p>
 
 </div></div><nav><a href="05_higher_order.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="07_robot.html" title="next chapter">▶</a></nav>
 </article>
