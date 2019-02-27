@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project: A Robot :: Eloquent JavaScript</title>
+  <title>پروژه: ساخت یک ربات :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
@@ -12,7 +12,7 @@
 <article>
 <nav><a href="06_object.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="08_error.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 7</span>Project: A Robot</h1>
+<h1><span class=chap_num>Chapter 7</span>پروژه: ساخت یک ربات</h1>
 
 <blockquote>
 
@@ -22,13 +22,13 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_7.jpg" alt="Picture of a package-delivery robot"></figure>
 
-<p><a class="p_ident" id="p_5AQpMxl1Fi" href="#p_5AQpMxl1Fi" tabindex="-1" role="presentation"></a>In “project” chapters, I’ll stop pummeling you with new theory for a brief moment, and instead we’ll work through a program together. Theory is necessary to learn to program, but reading and understanding actual programs is just as important.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>در فصل‌های “پروژه”، موقتا مطلب جدیدی معرفی نمی کنم و به جای آن باهم روی ساخت یک برنامه کار خواهیم کرد. مطالب تئوری برای برنامه نویسی لازم هستند، اما خواندن و فهمیدن برنامه‌های واقعی نیز به همان اندازه مهم می باشد.</p>
 
-<p><a class="p_ident" id="p_ncfl8fD8N8" href="#p_ncfl8fD8N8" tabindex="-1" role="presentation"></a>Our project in this chapter is to build an automaton, a little program that performs a task in a virtual world. Our automaton will be a mail-delivery robot picking up and dropping off parcels.</p>
+<p>پروژه‌ی ما در این فصل، ساخت یک ماشین خودکار است؛ برنامه‌ی کوچکی که وظیفه‌ای را در یک جهان مجازی انجام می دهد. ماشین خودکار ما، یک ربات نامه‌رسان است که بسته‌های پستی را تحویل گرفته و به مقصدشان می‌رساند.</p>
 
-<h2><a class="h_ident" id="h_UmFK5fYed8" href="#h_UmFK5fYed8" tabindex="-1" role="presentation"></a>Meadowfield</h2>
+<h2><a class="h_ident" id="h_SbbDoYLjwJ" href="#h_SbbDoYLjwJ" tabindex="-1" role="presentation"></a>روستای مدوفیلد</h2>
 
-<p><a class="p_ident" id="p_rnkG5XLqCA" href="#p_rnkG5XLqCA" tabindex="-1" role="presentation"></a>The village of Meadowfield isn’t very big. It consists of 11 places with 14 roads between them. It can be described with this array of roads:</p>
+<p><a class="p_ident" id="p_VxunETfsef" href="#p_VxunETfsef" tabindex="-1" role="presentation"></a>روستای مدوفیلد زیاد بزرگ نیست. دارای 11 مکان است که 14 راه بین آن‌ها وجود دارد. می توان آن را با این آرایه از راه‌ها توصیف نمود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Zs4LZxNb9d" href="#c_Zs4LZxNb9d" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">roads</span> <span class="cm-operator">=</span> [
   <span class="cm-string">&quot;Alice's House-Bob's House&quot;</span>,   <span class="cm-string">&quot;Alice's House-Cabin&quot;</span>,
@@ -40,9 +40,9 @@
   <span class="cm-string">&quot;Marketplace-Town Hall&quot;</span>,       <span class="cm-string">&quot;Shop-Town Hall&quot;</span>
 ];</pre><figure><img src="img/village2x.png" alt="The village of Meadowfield"></figure>
 
-<p><a class="p_ident" id="p_kUSGv0smF0" href="#p_kUSGv0smF0" tabindex="-1" role="presentation"></a>The network of roads in the village forms a <em>graph</em>. A graph is a collection of points (places in the village) with lines between them (roads). This graph will be the world that our robot moves through.</p>
+<p>شبکه‌ی راه‌ها در این روستا، یک گراف تشکیل می دهد. یک <em>گراف</em> مجموعه‌ای از نقطه‌ها است (مکان‌ها در روستا) به همراه‌ خطوطی که بین آن‌ها قرار می گیرند (راه‌ها). این گراف همان جهانی خواهد بود که ربات ما در آن حرکت خواهد کرد.</p>
 
-<p><a class="p_ident" id="p_zOR53PiwWK" href="#p_zOR53PiwWK" tabindex="-1" role="presentation"></a>The array of strings isn’t very easy to work with. What we’re interested in is the destinations that we can reach from a given place. Let’s convert the list of roads to a data structure that, for each place, tells us what can be reached from there.</p>
+<p>کارکردن با آرایه‌ای از رشته‌ها، زیاد راحت نیست. ما می خواهیم بدانیم از هر مکان به چه مقصد‌هایی می توان رفت. بیایید لیست راه ها را به ساختار داده‌ای تبدیل کنیم که برای هر مکان، جاهایی که می توان رفت را مشخص کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_URtngTWego" href="#c_URtngTWego" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">buildGraph</span>(<span class="cm-def">edges</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">graph</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
@@ -62,27 +62,27 @@
 
 <span class="cm-keyword">const</span> <span class="cm-def">roadGraph</span> <span class="cm-operator">=</span> <span class="cm-variable">buildGraph</span>(<span class="cm-variable">roads</span>);</pre>
 
-<p><a class="p_ident" id="p_zU4tmOhQOK" href="#p_zU4tmOhQOK" tabindex="-1" role="presentation"></a>Given an array of edges, <code>buildGraph</code> creates a map object that, for each node, stores an array of connected nodes.</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>این تابع، با گرفتن آرایه‌ای از راه‌ها، <code>buildGraph</code> شیءای از نوع نگاشت (map) را ایجاد خواهد کرد که برای هر گره، آرایه‌ای از گره‌های متصل به آن را ذخیره خواهد کرد.</p>
 
-<p><a class="p_ident" id="p_/eUhE55hg6" href="#p_/eUhE55hg6" tabindex="-1" role="presentation"></a>It uses the <code>split</code> method to go from the road strings, which have the form <code>&quot;Start-End&quot;</code>, to two-element arrays containing the start and end as separate strings.</p>
+<p>تابع از متد <code>split</code> برای تبدیل رشته‌های راه، که به صورت <code>&quot;انتها-ابتدا&quot;</code> می باشند، به آرایه‌های دوعنصری که نقاط شروع و پایان در آن‌ها جدا شده است، استفاده می کند.</p>
 
-<h2><a class="h_ident" id="h_oekYfM5x02" href="#h_oekYfM5x02" tabindex="-1" role="presentation"></a>The task</h2>
+<h2><a class="h_ident" id="h_21T02S+StD" href="#h_21T02S+StD" tabindex="-1" role="presentation"></a>ماموریت</h2>
 
-<p><a class="p_ident" id="p_MtO6TwqB5I" href="#p_MtO6TwqB5I" tabindex="-1" role="presentation"></a>Our robot will be moving around the village. There are parcels in various places, each addressed to some other place. The robot picks up parcels when it comes to them and delivers them when it arrives at their destinations.</p>
+<p>ربات ما در روستا گشت خواهد زد و بسته‌های پستی که در مکان‌های مختلف پراکنده هستند و هر کدام به مکان دیگری باید برده شوند را گرفته و در مقصد‌هایشان تحویل می دهد.</p>
 
-<p><a class="p_ident" id="p_jBwlptGwo9" href="#p_jBwlptGwo9" tabindex="-1" role="presentation"></a>The automaton must decide, at each point, where to go next. It has finished its task when all parcels have been delivered.</p>
+<p>این ماشین خودکار باید در هر نقطه تصمیم بگیرد که مکان بعدی کجاست. زمانی که همه‌ی بسته‌ها تحویل داده شدند، ماموریتش تمام می شود.</p>
 
-<p><a class="p_ident" id="p_xZG2sIniIX" href="#p_xZG2sIniIX" tabindex="-1" role="presentation"></a>To be able to simulate this process, we must define a virtual world that can describe it. This model tells us where the robot is and where the parcels are. When the robot has decided to move somewhere, we need to update the model to reflect the new situation.</p>
+<p>برای شبیه سازی این فرایند، باید یک جهان مجازی تعریف کنیم که آن را توصیف کند. این مدل، مکان ربات و بسته‌ها را مشخص می‌کند. زمانی که ربات تصمیم می گیرد که به سمتی حرکت کند، لازم است تا مدل را به روزرسانی کنیم تا شرایط جدید را منعکس کند.</p>
 
-<p><a class="p_ident" id="p_XP2aQths2D" href="#p_XP2aQths2D" tabindex="-1" role="presentation"></a>If you’re thinking in terms of object-oriented programming, your first impulse might be to start defining objects for the various elements in the world: a class for the robot, one for a parcel, maybe one for places. These could then hold properties that describe their current state, such as the pile of parcels at a location, which we could change when updating the world.</p>
+<p>اگر به با تفکر برنامه نویسی شیء گرا به مساله نگاه می کنید، حرکت اول شما شاید تعریف اشیاء مجزا برای عناصر مختلف این جهان باشد: یک کلاس برای ربات، یک کلاس برای یک بسته، و شاید یکی هم برای مکان‌ها. این کلاس‌ها می توانند خاصیت‌هایی را هم داشته باشند که وضعیت فعلی آن ها را نگه داری کند. مانند تعداد بسته‌ها در یک مکان، که می توانند با به‌روز‌رسانی جهان، تغییر کنند.</p>
 
-<p><a class="p_ident" id="p_SIo98R3+uq" href="#p_SIo98R3+uq" tabindex="-1" role="presentation"></a>This is wrong.</p>
+<p>این کار اشتباه است.</p>
 
-<p><a class="p_ident" id="p_md/LJiyP4s" href="#p_md/LJiyP4s" tabindex="-1" role="presentation"></a>At least, it usually is. The fact that something sounds like an object does not automatically mean that it should be an object in your program. Reflexively writing classes for every concept in your application tends to leave you with a collection of interconnected objects that each have their own internal, changing state. Such programs are often hard to understand and thus easy to break.</p>
+<p>حداقل ، معمولا اشتباه است. اینکه چیزی به نظر می‌رسد که یک شیء است، به این معنا نیست که در برنامه‌ی شما هم باید به عنوان یک شیء در نظر گرفته شود. این کار، در نظر گرفتن کلاس‌های مجزا برای تک تک مفاهیم در برنامه، شما را به سمتی می برد که با مجموعه‌ای از اشیاء به هم متصل روبرو شوید که هر کدام وضعیت‌ درونی قابل تغییر خود را دارند. معمولا به سختی می توان این‌گونه برنامه‌ها را درک کرد و در نتیجه، به سادگی با مشکل روبرو می شوند.</p>
 
-<p><a class="p_ident" id="p_GAVnAUZ9xz" href="#p_GAVnAUZ9xz" tabindex="-1" role="presentation"></a>Instead, let’s condense the village’s state down to the minimal set of values that define it. There’s the robot’s current location and the collection of undelivered parcels, each of which has a current location and a destination address. That’s it.</p>
+<p>به جای آن، بیایید وضعیت روستا را با کوچکترین مجموعه‌مقادیری که می تواند آن را توصیف کند خلاصه کنیم؛ موقعیت فعلی ربات و مجموعه‌‌ی بسته‌هایی که هنوز تحویل داده نشده اند. این بسته‌ها هر کدام دارای یک موقعیت فعلی و یک آدرس مقصد می باشند.</p>
 
-<p><a class="p_ident" id="p_/m1Ukpe9vV" href="#p_/m1Ukpe9vV" tabindex="-1" role="presentation"></a>And while we’re at it, let’s make it so that we don’t <em>change</em> this state when the robot moves but rather compute a <em>new</em> state for the situation after the move.</p>
+<p>اجازه دهید آن را طوری بسازیم که با حرکت ربات، خود وضعیت را تغییر ندهیم بلکه یک وضعیت جدید محاسبه‌ کنیم که حالت بعد از حرکت را نشان می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VcDNIi1lcV" href="#c_VcDNIi1lcV" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">VillageState</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">place</span>, <span class="cm-def">parcels</span>) {
@@ -103,11 +103,11 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_+1K4cYKxXh" href="#p_+1K4cYKxXh" tabindex="-1" role="presentation"></a>The <code>move</code> method is where the action happens. It first checks whether there is a road going from the current place to the destination, and if not, it returns the old state since this is not a valid move.</p>
+<p>متد <code>move</code> جایی است که کار صورت می گیرد. این متد ابتدا وجود مسیری بین مکان فعلی و مقصد را بررسی می‌کند، و در صورت نبود مسیر، وضعیت قبلی را برمی گرداند، دلیل آن هم این است که حرکت خواسته شده معتبر نیست.</p>
 
-<p><a class="p_ident" id="p_8hikodLOP1" href="#p_8hikodLOP1" tabindex="-1" role="presentation"></a>Then it creates a new state with the destination as the robot’s new place. But it also needs to create a new set of parcels—parcels that the robot is carrying (that are at the robot’s current place) need to be moved along to the new place. And parcels that are addressed to the new place need to be delivered—that is, they need to be removed from the set of undelivered parcels. The call to <code>map</code> takes care of the moving, and the call to <code>filter</code> does the delivering.</p>
+<p>سپس، یک وضعیت جدید ایجاد می‌کند که در آن، مقصد به عنوان مکان جدید ربات در نظر گرفته‌ می شود. همچنین لازم است تا یک مجموعه‌ی جدید از بسته‌ها ایجاد شود – بسته‌هایی که ربات در حال حمل آن‌ها است ( در مکان فعلی ربات قرار دارند) و باید به مکان جدید برده شوند. و بسته‌هایی که مقصدشان مکان جدید است و باید تحویل داده شوند  – که باید از مجموعه‌ی بسته‌های تحویل داده نشده، حذف شوند. فراخوانی <code>map</code> عمل حرکت ربات و فراخوانی <code>filter</code> کار تحویل بسته‌ها را انجام می دهد.</p>
 
-<p><a class="p_ident" id="p_r1QwqYFKH8" href="#p_r1QwqYFKH8" tabindex="-1" role="presentation"></a>Parcel objects aren’t changed when they are moved but re-created. The <code>move</code> method gives us a new village state but leaves the old one entirely intact.</p>
+<p>اشیاء مربوط به بسته‌ها،  زمانی که جابه‌جا می شوند تغییری نمی کنند بلکه از نو ایجاد می شوند. متد <code>move</code> به ما وضعیت جدیدی از روستا را می دهد و حالت قبلی را دست‌نخورده باقی می گذارد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Z0crEkc0Bs" href="#c_Z0crEkc0Bs" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">first</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">VillageState</span>(
   <span class="cm-string">&quot;Post Office&quot;</span>,
@@ -122,32 +122,32 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">first</span>.<span class="cm-property">place</span>);
 <span class="cm-comment">// → Post Office</span></pre>
 
-<p><a class="p_ident" id="p_tNPZKPr/w9" href="#p_tNPZKPr/w9" tabindex="-1" role="presentation"></a>The move causes the parcel to be delivered, and this is reflected in the next state. But the initial state still describes the situation where the robot is at the post office and the parcel is undelivered.</p>
+<p>متد <code>move</code> باعث می شود که بسته، تحویل داده شود و این عمل در وضعیت بعدی قابل مشاهده است. اما وضعیت ابتدایی هنوز شرایطی را نشان می دهد که ربات در دفتر پست است و بسته تحویل داده نشده است.</p>
 
-<h2><a class="h_ident" id="h_BgRu2ZQp4Z" href="#h_BgRu2ZQp4Z" tabindex="-1" role="presentation"></a>Persistent data</h2>
+<h2><a class="h_ident" id="h_IYubiS5alq" href="#h_IYubiS5alq" tabindex="-1" role="presentation"></a>داده‌های پایا (Persistent Data)</h2>
 
-<p><a class="p_ident" id="p_0XMckw7hMq" href="#p_0XMckw7hMq" tabindex="-1" role="presentation"></a>Data structures that don’t change are called <em>immutable</em> or <em>persistent</em>. They behave a lot like strings and numbers in that they are who they are and stay that way, rather than containing different things at different times.</p>
+<p><a class="p_ident" id="p_PmPz1w2C5d" href="#p_PmPz1w2C5d" tabindex="-1" role="presentation"></a>ساختارهای داده‌ای که تغییر نمی کنند را تغییرناپذیر (<em>immutable</em>) یا پایا (<em>persistent</em>) می‌نامند.  این ساختار‌ها، بسیار شبیه به رشته‌ها و اعداد عمل می کنند، یعنی همیشه آنی خواهند بود که هستند و به همین حالت می مانند، نه اینکه در زمان‌های مختلف محتوای مختلفی داشته باشند.</p>
 
-<p><a class="p_ident" id="p_Vzwj9t5LXR" href="#p_Vzwj9t5LXR" tabindex="-1" role="presentation"></a>In JavaScript, just about everything <em>can</em> be changed, so working with values that are supposed to be persistent requires some restraint. There is a function called <code>Object.freeze</code> that changes an object so that writing to its properties is ignored. You could use that to make sure your objects aren’t changed, if you want to be careful. Freezing does require the computer to do some extra work, and having updates ignored is just about as likely to confuse someone as having them do the wrong thing. So I usually prefer to just tell people that a given object shouldn’t be messed with and hope they remember it.</p>
+<p>در جاوااسکریپت، تقریبا همه چیز را <em>می توان</em> تغییر داد. بنابراین کار کردن با مقدارهایی که قرار است پایا باشند موانعی خواهد داشت.  تابعی به نام <bdo><code>Object.freeze</code></bdo> وجود دارد که در صورت اعمال به یک شیء، باعث می شود نتوان خاصیت‌های آن شیء را تغییر داد. اگر قصد دارید تا جوانب احتیاط را رعایت کنید، می توانید از این متد برای جلوگیری از تغییر شیءتان استفاده کنید. ثابت‌ نگه‌داشتن شیء باعث می شود که کامپیوتر کار بیشتری انجام دهد، و در نظر نگرفتن  به‌روز‌رسانی اشیاء، به احتمال زیاد افراد را به اشتباه‌ می اندازد. بنابراین من معمولا ترجیح می دهم که به دیگران اعلام کنم که یک فلان شیء را نباید دستکاری کرد و امیدوار باشم که دیگران هم رعایت کنند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tzmey+74SE" href="#c_tzmey+74SE" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">object</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">freeze</span>({<span class="cm-property">value</span>: <span class="cm-number">5</span>});
 <span class="cm-variable">object</span>.<span class="cm-property">value</span> <span class="cm-operator">=</span> <span class="cm-number">10</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">object</span>.<span class="cm-property">value</span>);
 <span class="cm-comment">// → 5</span></pre>
 
-<p><a class="p_ident" id="p_HAywJetNsC" href="#p_HAywJetNsC" tabindex="-1" role="presentation"></a>Why am I going out of my way to not change objects when the language is obviously expecting me to?</p>
+<p>چرا اصرار دارم که اشیاء را تغییر ندهم، با اینکه زبان به روشنی این کار را مجاز می داند؟</p>
 
-<p><a class="p_ident" id="p_OeVgQQywMt" href="#p_OeVgQQywMt" tabindex="-1" role="presentation"></a>Because it helps me understand my programs. This is about complexity management again. When the objects in my system are fixed, stable things, I can consider operations on them in isolation—moving to Alice’s house from a given start state always produces the same new state. When objects change over time, that adds a whole new dimension of complexity to this kind of reasoning.</p>
+<p><a class="p_ident" id="p_NTGCZMmpj6" href="#p_NTGCZMmpj6" tabindex="-1" role="presentation"></a>زیرا این کار به من در درک برنامه‌ها کمک می‌کند. این موضوع دوباره به مدیریت پیچیدگی برنامه باز می‌گردد.  زمانی که اشیاء در سیستم من چیزهایی ثابت و پایدار هستند، می توانم فرض کنم که عملیات روی آن‌ها در فضایی جداگانه انجام می پذیرد – رفتن به خانه‌ی Alice، از یک وضعیت ابتدایی داده شده، همیشه وضعیت جدید یکسانی را تولید می‌کند. زمانی که اشیاء در طول زمان تغییر می کنند، این کار باعث اضافه شدن بعد دیگری از پیچیدگی به این‌گونه نتیجه‌گیری می گردد.</p>
 
-<p><a class="p_ident" id="p_/7pvpOtS4H" href="#p_/7pvpOtS4H" tabindex="-1" role="presentation"></a>For a small system like the one we are building in this chapter, we could handle that bit of extra complexity. But the most important limit on what kind of systems we can build is how much we can understand. Anything that makes your code easier to understand makes it possible to build a more ambitious system.</p>
+<p>برای یک سیستم کوچک مانند چیزی که در این فصل در حال ساخت آن هستیم، می توانیم از پس این پیچیدگی اضافی بر بیاییم. اما مهم‌ترین محدودیتی که در نوع سیستم‌هایی که می توانیم بسازیم وجود دارد آن است که تا چه حد می توانیم آن سیستم‌ها را درک کنیم. هر چیزی که درک کد شما را آسان‌تر کند، باعث می شود که بتوانید سیستم بلندپروازانه‌تری بسازید.</p>
 
-<p><a class="p_ident" id="p_rFxLbiWTcZ" href="#p_rFxLbiWTcZ" tabindex="-1" role="presentation"></a>Unfortunately, although understanding a system built on persistent data structures is easier, <em>designing</em> one, especially when your programming language isn’t helping, can be a little harder. We’ll look for opportunities to use persistent data structures in this book, but we’ll also be using changeable ones.</p>
+<p>متاسفانه، با وجود اینکه درک سیستمی که با ساختارهای داده‌ی پایا ساخته شده آسان تر است، <em>طراحی</em> آن، مخصوصا وقتی که خود زبان برنامه‌نویسی کمکی نمی‌کند، ممکن است کمی مشکل تر باشد. با این حال، ما به دنبال فرصت‌هایی برای استفاده از ساختارهای داده پایا در این کتاب خواهیم بود، همچنین از موارد قابل تغییر نیز استفاده خواهیم کرد.</p>
 
-<h2><a class="h_ident" id="h_jjSUPDU+nv" href="#h_jjSUPDU+nv" tabindex="-1" role="presentation"></a>Simulation</h2>
+<h2><a class="h_ident" id="h_vcflslSyki" href="#h_vcflslSyki" tabindex="-1" role="presentation"></a>شبیه‌سازی</h2>
 
-<p><a class="p_ident" id="p_P+FbwSex0d" href="#p_P+FbwSex0d" tabindex="-1" role="presentation"></a>A delivery robot looks at the world and decides in which direction it wants to move. As such, we could say that a robot is a function that takes a <code>VillageState</code> object and returns the name of a nearby place.</p>
+<p>یک ربات تحویل دهنده به جهان پیرامون خود نگاه می‌کند و تصمیم می گیرد که از کدام جهت باید حرکت کند. بر این اساس، می توانیم بگوییم که یک ربات یک تابع است که یک شیء از نوع <code>VillageState</code> را گرفته و نام یک مکان نزدیک را برمی گرداند.</p>
 
-<p><a class="p_ident" id="p_d4Z1LYlBJq" href="#p_d4Z1LYlBJq" tabindex="-1" role="presentation"></a>Because we want robots to be able to remember things, so that they can make and execute plans, we also pass them their memory and allow them to return a new memory. Thus, the thing a robot returns is an object containing both the direction it wants to move in and a memory value that will be given back to it the next time it is called.</p>
+<p>به دلیل اینکه ربات‌ها قادر به برنامه‌ریزی و اجرای آن باشند، باید بتوانند چیزهایی به خاطر بسپارند. پس به آن‌ها حافظه‌شان را ارسال می کنیم و امکان برگرداندن حافظه‌ی جدید را نیز فراهم می‌سازیم . پس، چیزی که یک ربات برمی گرداند شیءای است که دارای دو چیز است:   جهتی که قرار است به سمت آن حرکت کند و یک مقدار حافظه که در فراخوانی بعد استفاده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_PAmfnoCtiQ" href="#c_PAmfnoCtiQ" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">runRobot</span>(<span class="cm-def">state</span>, <span class="cm-def">robot</span>, <span class="cm-def">memory</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">turn</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;; <span class="cm-variable-2">turn</span><span class="cm-operator">++</span>) {
@@ -162,11 +162,11 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_J4CsIfXFJR" href="#p_J4CsIfXFJR" tabindex="-1" role="presentation"></a>Consider what a robot has to do to “solve” a given state. It must pick up all parcels by visiting every location that has a parcel and deliver them by visiting every location that a parcel is addressed to, but only after picking up the parcel.</p>
+<p>ببینید یک ربات برای اینکه یک وضعیت داده شده را حل کند، چه کار باید انجام دهد. برای برداشتن بسته‌ها، باید به همه‌ی موقعیت‌هایی که بسته دارند برود و برای تحویل آن‌ها، باید به همه‌ی موقعیت‌هایی که بسته‌ای به آنجا آدرس‌دهی شده است سر بزند، البته بعد از اینکه بسته را تحویل گرفت.</p>
 
-<p><a class="p_ident" id="p_g8y41m0ZTO" href="#p_g8y41m0ZTO" tabindex="-1" role="presentation"></a>What is the dumbest strategy that could possibly work? The robot could just walk in a random direction every turn. That means, with great likelihood, it will eventually run into all parcels and then also at some point reach the place where they should be delivered.</p>
+<p>احمقانه ترین استراتژی برای حل این موضوع چیست؟ ربات می تواند به صورت تصادفی هر بار به جهتی برود. معنای آن این است که با احتمال زیاد، در نهایت به همه‌ی بسته‌ها دست خواهد یافت و بالاخره به مکان‌هایی که باید آن‌ها را تحویل دهد نیز می رسد.</p>
 
-<p><a class="p_ident" id="p_6Z1OgF/YEs" href="#p_6Z1OgF/YEs" tabindex="-1" role="presentation"></a>Here’s what that could look like:</p>
+<p>در این جا می توان نمونه‌ی این کد را دید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_eldzpwzhOB" href="#c_eldzpwzhOB" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">randomPick</span>(<span class="cm-def">array</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">choice</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">floor</span>(<span class="cm-variable">Math</span>.<span class="cm-property">random</span>() <span class="cm-operator">*</span> <span class="cm-variable-2">array</span>.<span class="cm-property">length</span>);
@@ -177,11 +177,11 @@
   <span class="cm-keyword">return</span> {<span class="cm-property">direction</span>: <span class="cm-variable">randomPick</span>(<span class="cm-variable">roadGraph</span>[<span class="cm-variable-2">state</span>.<span class="cm-property">place</span>])};
 }</pre>
 
-<p><a class="p_ident" id="p_2Q7kJZqP+x" href="#p_2Q7kJZqP+x" tabindex="-1" role="presentation"></a>Remember that <code>Math.random()</code> returns a number between zero and one—but always below one. Multiplying such a number by the length of an array and then applying <code>Math.floor</code> to it gives us a random index for the array.</p>
+<p>به خاطر داشته باشید که متد <bdo><code>Math.random()</code></bdo> عددی بین صفر و یک تولید می‌کند که همیشه کمتر از یک است. ضرب این عدد در طول یک آرایه و بعد اعمال <bdo><code>Math.floor</code></bdo> به آن باعث می شود که به صورت تصادفی یکی از اندیس‌های آرایه را بدست بیاوریم.</p>
 
-<p><a class="p_ident" id="p_sb9lL4ZUdF" href="#p_sb9lL4ZUdF" tabindex="-1" role="presentation"></a>Since this robot does not need to remember anything, it ignores its second argument (remember that JavaScript functions can be called with extra arguments without ill effects) and omits the <code>memory</code> property in its returned object.</p>
+<p>به دلیل اینکه این ربات نیازی ندارد تا چیزی را به خاطر داشته باشد، پس آرگومان دوم در نظر گرفته نمی شود  ( به یاد دارید که در جاوااسکریپت می توان بدون ایجاد خطا، یک تابع را با آرگومان بیشتر فراخوانی کرد) و خاصیت <code>memory</code> را هم در شیء خروجی قرار نمی دهد.</p>
 
-<p><a class="p_ident" id="p_Q8hya8VsaG" href="#p_Q8hya8VsaG" tabindex="-1" role="presentation"></a>To put this sophisticated robot to work, we’ll first need a way to create a new state with some parcels. A static method (written here by directly adding a property to the constructor) is a good place to put that functionality.</p>
+<p>برای بکار انداختن این ربات ، ابتدا لازم است راهی برای ایجاد یک وضعیت جدید به وسیله‌ی چند بسته پیدا کنیم. یک متد ایستا (در اینجا به طور مستقیم با افزودن یک خاصیت به سازنده تعریف می شود) جای خوبی برای این قابلیت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_oz9CFlpcci" href="#c_oz9CFlpcci" tabindex="-1" role="presentation"></a><span class="cm-variable">VillageState</span>.<span class="cm-property">random</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">parcelCount</span> <span class="cm-operator">=</span> <span class="cm-number">5</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">parcels</span> <span class="cm-operator">=</span> [];
@@ -196,9 +196,9 @@
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">VillageState</span>(<span class="cm-string">&quot;Post Office&quot;</span>, <span class="cm-variable-2">parcels</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_0gS69ySVJ4" href="#p_0gS69ySVJ4" tabindex="-1" role="presentation"></a>We don’t want any parcels that are sent from the same place that they are addressed to. For this reason, the <code>do</code> loop keeps picking new places when it gets one that’s equal to the address.</p>
+<p>بسته‌هایی که آدرس مبدا و مقصدشان یکی است را نیازی نیست در نظر بگیریم.  به همین علت، حلقه <code>do</code>  تا زمانی که مبدا و مقصد برابر باشد، به گرفتن مکان‌ها ادامه می دهد.</p>
 
-<p><a class="p_ident" id="p_eqF9VU0qYO" href="#p_eqF9VU0qYO" tabindex="-1" role="presentation"></a>Let’s start up a virtual world.</p>
+<p>بیاید تا یک جهان مجازی را شروع کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_1SZDRlmBkn" href="#c_1SZDRlmBkn" tabindex="-1" role="presentation"></a><span class="cm-variable">runRobot</span>(<span class="cm-variable">VillageState</span>.<span class="cm-property">random</span>(), <span class="cm-variable">randomRobot</span>);
 <span class="cm-comment">// → Moved to Marketplace</span>
@@ -206,17 +206,17 @@
 <span class="cm-comment">// → …</span>
 <span class="cm-comment">// → Done in 63 turns</span></pre>
 
-<p><a class="p_ident" id="p_BFu/OgG6OM" href="#p_BFu/OgG6OM" tabindex="-1" role="presentation"></a>It takes the robot a lot of turns to deliver the parcels because it isn’t planning ahead very well. We’ll address that soon.</p>
+<p>برای تحویل بسته‌ها، ربات باید حرکت‌های زیادی انجام دهد به این خاطر که از پیش به خوبی برنامه‌ریزی نشده است. به زودی این مشکل را حل خواهیم کرد.</p>
 
-<p><a class="p_ident" id="p_2yLwjyXxuR" href="#p_2yLwjyXxuR" tabindex="-1" role="presentation"></a>For a more pleasant perspective on the simulation, you can use the <code>runRobotAnimation</code> function that’s available in <a href="https://eloquentjavascript.net/code/#7">this chapter’s programming environment</a>. This runs the simulation, but instead of outputting text, it shows you the robot moving around the village map.</p>
+<p>برای دیدن نمایی بهتر از شبیه‌سازی، می توانید از تابع <code>runRobotAnimation</code> استفاده کنید که در <a href="https://eloquentjavascript.net/code/#7">فضای برنامه‌نویسی این فصل</a> موجود است. این تابع برای شبیه‌سازی، به جای استفاده از متن ساده، از حرکت ربات در نقشه‌ی روستا استفاده می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_jWQlJ73x2Z" href="#c_jWQlJ73x2Z" tabindex="-1" role="presentation"></a><span class="cm-variable">runRobotAnimation</span>(<span class="cm-variable">VillageState</span>.<span class="cm-property">random</span>(), <span class="cm-variable">randomRobot</span>);</pre>
 
-<p><a class="p_ident" id="p_ID6/NPeNSk" href="#p_ID6/NPeNSk" tabindex="-1" role="presentation"></a>The way <code>runRobotAnimation</code> is implemented will remain a mystery for now, but after you’ve read the <a href="14_dom.html">later chapters</a> of this book, which discuss JavaScript integration in web browsers, you’ll be able to guess how it works.</p>
+<p>نحوه‌ی پیاده‌سازی تابع <code>runRobotAnimation</code> فعلا سربسته می ماند، اما بعد از اینکه <a href="14_dom.html">فصل‌‌های بعدی</a> کتاب را خواندید، که به موضوع جاوااسکریپت در مرورگر‌های وب می پردازد، می توانید حدس بزنید که چگونه کار می کند.</p>
 
-<h2><a class="h_ident" id="h_Lj40iImbWq" href="#h_Lj40iImbWq" tabindex="-1" role="presentation"></a>The mail truck’s route</h2>
+<h2><a class="h_ident" id="h_cFXn83ngMD" href="#h_cFXn83ngMD" tabindex="-1" role="presentation"></a>مسیر ماشین پست</h2>
 
-<p><a class="p_ident" id="p_0ChAwB4vGA" href="#p_0ChAwB4vGA" tabindex="-1" role="presentation"></a>We should be able to do a lot better than the random robot. An easy improvement would be to take a hint from the way real-world mail delivery works. If we find a route that passes all places in the village, the robot could run that route twice, at which point it is guaranteed to be done. Here is one such route (starting from the post office):</p>
+<p>باید بتوانیم کاری بهتر از ساخت یک ربات تصادفی انجام دهیم. یک بهبود ساده می تواند الهام گیری از سیستم تحویل پست در دنیای واقعی باشد . اگر مسیری پیدا کنیم که از همه‌ی خانه‌های روستا بگذرد، ربات می تواند از آن مسیر دو مرتبه عبور کند. با این کار می توان ضمانت کرد که ماموریتش را انجام می دهد. در این جا مسیری با این مشخصات آورده شده است (شروع از دفتر پست):</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_smZcG/wBFx" href="#c_smZcG/wBFx" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">mailRoute</span> <span class="cm-operator">=</span> [
   <span class="cm-string">&quot;Alice's House&quot;</span>, <span class="cm-string">&quot;Cabin&quot;</span>, <span class="cm-string">&quot;Alice's House&quot;</span>, <span class="cm-string">&quot;Bob's House&quot;</span>,
@@ -225,7 +225,7 @@
   <span class="cm-string">&quot;Marketplace&quot;</span>, <span class="cm-string">&quot;Post Office&quot;</span>
 ];</pre>
 
-<p><a class="p_ident" id="p_yjFG5x6/qC" href="#p_yjFG5x6/qC" tabindex="-1" role="presentation"></a>To implement the route-following robot, we’ll need to make use of robot memory. The robot keeps the rest of its route in its memory and drops the first element every turn.</p>
+<p>برای پیاده‌سازی ربات مسیرپیما، باید از حافظه‌ی ربات استفاده کنیم.  ربات مسیر باقی‌مانده را در حافظه‌اش نگه داری می کند و با هر بار جابه‌جایی، اولین عنصر  را از آن خارج می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FlV5rBgCYM" href="#c_FlV5rBgCYM" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">routeRobot</span>(<span class="cm-def">state</span>, <span class="cm-def">memory</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">memory</span>.<span class="cm-property">length</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
@@ -234,23 +234,23 @@
   <span class="cm-keyword">return</span> {<span class="cm-property">direction</span>: <span class="cm-variable-2">memory</span>[<span class="cm-number">0</span>], <span class="cm-property">memory</span>: <span class="cm-variable-2">memory</span>.<span class="cm-property">slice</span>(<span class="cm-number">1</span>)};
 }</pre>
 
-<p><a class="p_ident" id="p_RfLBkheDsk" href="#p_RfLBkheDsk" tabindex="-1" role="presentation"></a>This robot is a lot faster already. It’ll take a maximum of 26 turns (twice the 13-step route) but usually less.</p>
+<p><a class="p_ident" id="p_S/aRrNXGNE" href="#p_S/aRrNXGNE" tabindex="-1" role="presentation"></a>این ربات از ربات قبلی بسیار سریع تر عمل می کند. در حالت بیشینه 26 حرکت خواهد داشت، ( دو برابر مسیر 13 گامه)، اما معمولا کمتر طول خواهد کشید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EkwtJVsUrQ" href="#c_EkwtJVsUrQ" tabindex="-1" role="presentation"></a><span class="cm-variable">runRobotAnimation</span>(<span class="cm-variable">VillageState</span>.<span class="cm-property">random</span>(), <span class="cm-variable">routeRobot</span>, []);</pre>
 
-<h2><a class="h_ident" id="h_oTHZwtVfKc" href="#h_oTHZwtVfKc" tabindex="-1" role="presentation"></a>Pathfinding</h2>
+<h2><a class="h_ident" id="h_wBSC7hceKm" href="#h_wBSC7hceKm" tabindex="-1" role="presentation"></a>مسیریابی</h2>
 
-<p><a class="p_ident" id="p_zm+XpdJWqT" href="#p_zm+XpdJWqT" tabindex="-1" role="presentation"></a>Still, I wouldn’t really call blindly following a fixed route intelligent behavior. The robot could work more efficiently if it adjusted its behavior to the actual work that needs to be done.</p>
+<p>هنوز، نمی توانم دنباله‌روی کورکورانه از یک مسیر ثابت را واقعا یک رفتار هوشمندانه بنامم. اگر رفتار ربات را به سمت کاری که واقعا باید انجام دهد اصلاح کنیم، می تواند با کارایی بیشتری عمل کند.</p>
 
-<p><a class="p_ident" id="p_I3lgtVYHps" href="#p_I3lgtVYHps" tabindex="-1" role="presentation"></a>To do that, it has to be able to deliberately move toward a given parcel or toward the location where a parcel has to be delivered. Doing that, even when the goal is more than one move away, will require some kind of route-finding function.</p>
+<p>برای این کار، باید بتواند به صورت دلخواه به سمت یک بسته‌ی مشخص، یا جایی که قرار است بسته تحویل داده شود حرکت کند. انجام این‌ کار، حتی زمانی که تا هدف تنها دو گام یا بیشتر فاصله دارد، به نوعی مسیریابی نیاز دارد.</p>
 
-<p><a class="p_ident" id="p_mZLFbUuvec" href="#p_mZLFbUuvec" tabindex="-1" role="presentation"></a>The problem of finding a route through a graph is a typical <em>search problem</em>. We can tell whether a given solution (a route) is a valid solution, but we can’t directly compute the solution the way we could for 2 + 2. Instead, we have to keep creating potential solutions until we find one that works.</p>
+<p><a class="p_ident" id="p_wwW0b1Mdqm" href="#p_wwW0b1Mdqm" tabindex="-1" role="presentation"></a>مساله پیدا کردن یک مسیر در یک گراف، یک <em>مساله‌ی جستجوی</em> معمولی است. ما می توانیم بگوییم که یک راه‌حل داده‌شده (یک مسیر) راه حلی معتبر است؛ اما نمی توانیم به همان صورت که 2+2 را محاسبه می کنیم، به طور مستقیم راه حل را به دست بیاوریم. در عوض، باید به ایجاد راه‌حل‌های بالقوه ادامه دهیم تا زمانی که به مورد صحیح برسیم.</p>
 
-<p><a class="p_ident" id="p_RL7DngqE+u" href="#p_RL7DngqE+u" tabindex="-1" role="presentation"></a>The  number of possible routes through a graph is infinite. But when searching for a route from <em>A</em> to <em>B</em>, we are interested only in the ones that start at <em>A</em>. We also don’t care about routes that visit the same place twice—those are definitely not the most efficient route anywhere. So that cuts down on the number of routes that the route finder has to consider.</p>
+<p><a class="p_ident" id="p_/bnyU8N/s2" href="#p_/bnyU8N/s2" tabindex="-1" role="presentation"></a>تعداد مسیرهای ممکن در یک گراف نامتناهی است. اما زمانی که به دنبال مسیری از نقطه‌ی <em>A</em> به <em>B</em> هستیم، تنها به مسیرهایی توجه می کنیم که از نقطه‌ی <em>A</em> شروع می شوند. همچنین به مسیرهایی که دوبار از یک مکان عبور می کنند، اهمیت نمی دهیم –  آن‌ها قطعا نمی توانند بهترین مسیر باشند. بنابراین، تعداد مسیرهایی که مسیریاب باید در نظر بگیرد کاهش می یابند.</p>
 
-<p><a class="p_ident" id="p_6AAxzrcDxc" href="#p_6AAxzrcDxc" tabindex="-1" role="presentation"></a>In fact, we are mostly interested in the <em>shortest</em> route. So we want to make sure we look at short routes before we look at longer ones. A good approach would be to “grow” routes from the starting point, exploring every reachable place that hasn’t been visited yet, until a route reaches the goal. That way, we’ll only explore routes that are potentially interesting, and we’ll find the shortest route (or one of the shortest routes, if there are more than one) to the goal.</p>
+<p>در واقع، ما بیشتر علاقمندیم تا <em>کوتاهترین</em> مسیر را پیدا کنیم. بنابراین باید اطمینان حاصل کنیم که پیش از مسیرهای بلند‌تر، مسیرهای کوتاه بررسی می شوند. یک راه حل خوب می تواند این باشد که از نقطه‌ی شروع، مسیرها را “رشد” دهیم، و هر مکان قابل دسترسی که قبلا بازدید نکرده‌ایم را بررسی کنیم تا اینکه یک مسیر به هدفش برسد. به این ترتیب، ما فقط مسیرهایی را کشف خواهیم کرد که به صورت بالقوه مرتبط به نظر می‌رسند و درنتیجه کوتاه‌ترین مسیر را تا هدف پیدا خواهیم کرد ( یا یکی از کوتاه‌ترین مسیرها در صورتی که بیش از یک مسیر وجود داشته باشد).</p>
 
-<p id="findRoute"><a class="p_ident" id="p_cQEEfIe4SC" href="#p_cQEEfIe4SC" tabindex="-1" role="presentation"></a>Here is a function that does this:</p>
+<p id="findRoute">تابع زیر این کار را انجام می دهد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qT/+IETEgM" href="#c_qT/+IETEgM" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">findRoute</span>(<span class="cm-def">graph</span>, <span class="cm-def">from</span>, <span class="cm-def">to</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">work</span> <span class="cm-operator">=</span> [{<span class="cm-property">at</span>: <span class="cm-variable-2">from</span>, <span class="cm-property">route</span>: []}];
@@ -265,15 +265,15 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_IIOF6RnmzN" href="#p_IIOF6RnmzN" tabindex="-1" role="presentation"></a>The exploring has to be done in the right order—the places that were reached first have to be explored first. We can’t immediately explore a place as soon as we reach it because that would mean places reached <em>from there</em> would also be explored immediately, and so on, even though there may be other, shorter paths that haven’t yet been explored.</p>
+<p>بررسی مکان‌ها باید با ترتیب درست انجام شود – مکان‌هایی که ربات زودتر به آن ها رسیده است را باید زودتر بررسی کرد. نمی توانیم یک مکان را به محض اینکه به آن رسیدیم مورد بررسی قرار دهیم زیرا در این صورت مکان‌هایی که از آن نقطه به دست می‌آیند را نیز باید بلافاصله بررسی کنیم و به همین ترتیب ادامه دهیم؛ در حالیکه ممکن است مسیرهای کوتاه تری باشند که اصلا بررسی نشده اند.</p>
 
-<p><a class="p_ident" id="p_n9z76d0Ph0" href="#p_n9z76d0Ph0" tabindex="-1" role="presentation"></a>Therefore, the function keeps a <em>work list</em>. This is an array of places that should be explored next, along with the route that got us there. It starts with just the start position and an empty route.</p>
+<p>بنابراین، تابع <em>فهرستی از کارها</em> را نگه داری می کند. این فهرست یک آرایه از مکان‌هایی است که باید در گام بعدی بررسی شود، به همراه مسیری که ما را به آنجا می‌رساند. این فهرست کار، در ابتدا فقط یک موقعیت شروع و یک مسیر خالی دارد.</p>
 
-<p><a class="p_ident" id="p_bijwRAV0uR" href="#p_bijwRAV0uR" tabindex="-1" role="presentation"></a>The search then operates by taking the next item in the list and exploring that, which means all roads going from that place are looked at. If one of them is the goal, a finished route can be returned. Otherwise, if we haven’t looked at this place before, a new item is added to the list. If we have looked at it before, since we are looking at short routes first, we’ve found either a longer route to that place or one precisely as long as the existing one, and we don’t need to explore it.</p>
+<p>سپس جستجو مورد بعدی در فهرست را می‌گیرد و آن را بررسی می کند، به این معنا که همه‌ی راه‌هایی که از آن مکان عبور می کنند دیده می شوند. اگر یکی از آن ها هدف باشد، یک مسیر کامل می تواند برگردانده شود. در غیر این صورت، اگر قبلا به این مکان نگاه نکرده باشیم، یک مورد جدید به فهرست اضافه می شود. اگر قبلا آن را دیده باشیم، از آنجا که ما اول مسیرهای کوتاه تر را بررسی می کنیم، یا یک مسیر طولانی تر به آن محل را پیدا کرده ایم یا مسیری دقیقا برابر با مسیر که در فهرست وجود دارد؛ پس نیازی نیست که آن را مورد بررسی قرار دهیم.</p>
 
-<p><a class="p_ident" id="p_vMO6D/7FJS" href="#p_vMO6D/7FJS" tabindex="-1" role="presentation"></a>You can visually imagine this as a web of known routes crawling out from the start location, growing evenly on all sides (but never tangling back into itself). As soon as the first thread reaches the goal location, that thread is traced back to the start, giving us our route.</p>
+<p>می توان آن را به عنوان یک شبکه‌ای مانند تار عنکبوت در نظر گرفت که از موقعیت شروع به صورت برابر و به سمت همه‌ی اضلاع به بیرون پیموده می شود ( اما تارها با هم قاطی و پیچیده نمی شوند). به محض اینکه اولین تار به مکان هدف رسید، این تار تا نقطه‌ی شروع رصد می شود و مسیر را مشخص می کند.</p>
 
-<p><a class="p_ident" id="p_SIkZT2qVfg" href="#p_SIkZT2qVfg" tabindex="-1" role="presentation"></a>Our code doesn’t handle the situation where there are no more work items on the work list because we know that our graph is <em>connected</em>, meaning that every location can be reached from all other locations. We’ll always be able to find a route between two points, and the search can’t fail.</p>
+<p><a class="p_ident" id="p_xeI0V6p8Kz" href="#p_xeI0V6p8Kz" tabindex="-1" role="presentation"></a>کد ما حالتی که در آرایه‌ی فهرست‌ کارها، موردی وجود نداشته باشد را در نظر نمی‌گیرد زیرا می دانیم که گراف ما یک گراف <em>متصل</em> است (<em>connected</em>) به این معنی که هر مکان را می توان از همه‌ی مکان‌های دیگر بدست آورد. همیشه قادر خواهیم بود مسیری بین دو نقطه پیدا کنیم و عمل جستجو هرگز با شکست روبرو نمی شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RJgvG9cgxq" href="#c_RJgvG9cgxq" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">goalOrientedRobot</span>({<span class="cm-def">place</span>, <span class="cm-def">parcels</span>}, <span class="cm-def">route</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">route</span>.<span class="cm-property">length</span> <span class="cm-operator">==</span> <span class="cm-number">0</span>) {
@@ -287,24 +287,24 @@
   <span class="cm-keyword">return</span> {<span class="cm-property">direction</span>: <span class="cm-variable-2">route</span>[<span class="cm-number">0</span>], <span class="cm-property">memory</span>: <span class="cm-variable-2">route</span>.<span class="cm-property">slice</span>(<span class="cm-number">1</span>)};
 }</pre>
 
-<p><a class="p_ident" id="p_sH38lI2ayD" href="#p_sH38lI2ayD" tabindex="-1" role="presentation"></a>This robot uses its memory value as a list of directions to move in, just like the route-following robot. Whenever that list is empty, it has to figure out what to do next. It takes the first undelivered parcel in the set and, if that parcel hasn’t been picked up yet, plots a route toward it. If the parcel <em>has</em> been picked up, it still needs to be delivered, so the robot creates a route toward the delivery address instead.</p>
+<p>این ربات از مقدار حافظه‌ی خود به عنوان یک لیست از جهت‌ها برای حرکت استفاده می‌کند، درست مانند ربات مسیرپیما. هر زمان که این لیست خالی می شود، ربات باید گام بعدی را کشف کند. برای این‌کار، به سراغ اولین بسته‌ی تحویل داده نشده در این مجموعه می‌رود، و اگر آن بسته هنوز برداشته نشده بود، مسیری به سمت آن طرح ریزی می‌کند. اگر قبلا تحویل گرفته شده باشد، پس هنوز باید تحویل داده شود، بنابراین ربات، مسیری به سمت آدرس تحویل ایجاد می‌کند.</p>
 
-<p><a class="p_ident" id="p_AA5uJa4YUg" href="#p_AA5uJa4YUg" tabindex="-1" role="presentation"></a>Let’s see how it does.</p>
+<p>بیایید ببینیم چگونه کار می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_yYuNlgXLX9" href="#c_yYuNlgXLX9" tabindex="-1" role="presentation"></a><span class="cm-variable">runRobotAnimation</span>(<span class="cm-variable">VillageState</span>.<span class="cm-property">random</span>(),
                   <span class="cm-variable">goalOrientedRobot</span>, []);</pre>
 
-<p><a class="p_ident" id="p_iSOwvxhYMe" href="#p_iSOwvxhYMe" tabindex="-1" role="presentation"></a>This robot usually finishes the task of delivering 5 parcels in about 16 turns. That’s slightly better than <code>routeRobot</code> but still definitely not optimal.</p>
+<p><a class="p_ident" id="p_8cujr+n2Lu" href="#p_8cujr+n2Lu" tabindex="-1" role="presentation"></a>این ربات معمولا تحویل 5 بسته را در 16 حرکت انجام می دهد. کمی بهتر از <code>routeRobot</code> کار می‌کند اما قطعا هنوز بهینه نیست.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_JrK0ADjuHH" href="#i_JrK0ADjuHH" tabindex="-1" role="presentation"></a>Measuring a robot</h3>
+<h3><a class="i_ident" id="i_relI12WB8+" href="#i_relI12WB8+" tabindex="-1" role="presentation"></a>اندازه‌گیری یک ربات</h3>
 
-<p><a class="p_ident" id="p_3o3bz0G4V0" href="#p_3o3bz0G4V0" tabindex="-1" role="presentation"></a>It’s hard to objectively compare robots by just letting them solve a few scenarios. Maybe one robot just happened to get easier tasks or the kind of tasks that it is good at, whereas the other didn’t.</p>
+<p>خیلی سخت بتوان ربات‌ها را بر اساس حل چند مساله‌ی محدود به طور صحیح مقایسه کرد. شاید یک ربات به صورت تصادفی با مساله‌های آسان روبرو شود یا مسائلی که در حل آن ها بهتر عمل می کند. اما دیگر ربات‌ها این شرایط را نداشته باشند.</p>
 
-<p><a class="p_ident" id="p_n9CHE7/Lua" href="#p_n9CHE7/Lua" tabindex="-1" role="presentation"></a>Write a function <code>compareRobots</code> that takes two robots (and their starting memory). It should generate 100 tasks and let each of the robots solve each of these tasks. When done, it should output the average number of steps each robot took per task.</p>
+<p>تابعی به نام <code>compareRobots</code> بنویسید که دو ربات را دریافت می‌کند (به همراه حافظه‌ی شروع‌شان).  تابع باید صد وظیفه ایجاد کرده و هر یک از ربات ها باید همه‌ی وظایف را انجام دهند. پس از پایان، متوسط تعداد گام‌هایی که هر ربات برای یک وظیفه برداشته است را برگرداند.</p>
 
-<p><a class="p_ident" id="p_O3TPJDzE3I" href="#p_O3TPJDzE3I" tabindex="-1" role="presentation"></a>For the sake of fairness, make sure you give each task to both robots, rather than generating different tasks per robot.</p>
+<p>برای رعایت عدالت، مطمئن شوید که هر وظیفه توسط هر دوی ربات ها انجام می شود و از ایجاد وظایف جدید برای هر ربات پرهیز کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Pif/U+hwqO" href="#c_Pif/U+hwqO" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">compareRobots</span>(<span class="cm-def">robot1</span>, <span class="cm-def">memory1</span>, <span class="cm-def">robot2</span>, <span class="cm-def">memory2</span>) {
   <span class="cm-comment">// Your code here</span>
@@ -314,17 +314,17 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_nI/WAc+Vc2" href="#p_nI/WAc+Vc2" tabindex="-1" role="presentation"></a>You’ll have to write a variant of the <code>runRobot</code> function that, instead of logging the events to the console, returns the number of steps the robot took to complete the task.</p>
+<p>برای این‌کار باید نسخه‌ای متفاوت از تابع <code>runRobot</code> را بنویسید که به جای چاپ گزارش رخداد‌ها در کنسول مرورگر، تعداد گام‌هایی که ربات برای انجام وظیفه طی کرده است را برگرداند.</p>
 
-<p><a class="p_ident" id="p_49cSkm+1VL" href="#p_49cSkm+1VL" tabindex="-1" role="presentation"></a>Your measurement function can then, in a loop, generate new states and count the steps each of the robots takes. When it has generated enough measurements, it can use <code>console.log</code> to output the average for each robot, which is the total number of steps taken divided by the number of measurements.</p>
+<p>تابع اندازه‌گیری شما می تواند به وسیله‌ی یک حلقه، وضعیت‌های جدید تولید کند و تعداد گام‌های هر ربات‌ را بشمارد. هنگامی‌ که به تعداد کافی اندازه‌گیری انجام شد، می توان از <bdo><code>console.log</code></bdo> برای قراردادن متوسط گام‌های طی‌شده توسط هر ربات در خروجی استفاده کرد که این متوسط با تقسیم مجموع گام‌ها بر تعداد اندازه‌گیری‌ها بدست می‌آید.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_VbBsQJ1lp6" href="#i_VbBsQJ1lp6" tabindex="-1" role="presentation"></a>Robot efficiency</h3>
+<h3><a class="i_ident" id="i_LMC1VH9SZD" href="#i_LMC1VH9SZD" tabindex="-1" role="presentation"></a>کارایی ربات</h3>
 
-<p><a class="p_ident" id="p_MjKPE+EDdI" href="#p_MjKPE+EDdI" tabindex="-1" role="presentation"></a>Can you write a robot that finishes the delivery task faster than <code>goalOrientedRobot</code>? If you observe that robot’s behavior, what obviously stupid things does it do? How could those be improved?</p>
+<p>آیا می توانید رباتی بنویسید که وظیفه تحویل بسته‌ها را سریع تر از ربات <code>goalOrientedRobot</code> انجام دهد؟ با مشاهده‌ی دقیق رفتار آن، چه اشتباهات روشنی انجام می‌دهد؟ چگونه می توان آن ها را بهبود بخشید؟</p>
 
-<p><a class="p_ident" id="p_qgKBJqRg+r" href="#p_qgKBJqRg+r" tabindex="-1" role="presentation"></a>If you solved the previous exercise, you might want to use your <code>compareRobots</code> function to verify whether you improved the robot.</p>
+<p>اگر تمرین قبلی را حل کرده اید، ممکن است بخواهید از تابع <code>compareRobots</code> که نوشته اید برای برای بررسی بهبود ربات جدید استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kgk5f055Ej" href="#c_kgk5f055Ej" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here</span>
 
@@ -332,25 +332,25 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_2jYz1tpdHQ" href="#p_2jYz1tpdHQ" tabindex="-1" role="presentation"></a>The main limitation of <code>goalOrientedRobot</code> is that it considers only one parcel at a time. It will often walk back and forth across the village because the parcel it happens to be looking at happens to be at the other side of the map, even if there are others much closer.</p>
+<p>محدودیت اصلی ربات <code>goalOrientedRobot</code> این است که در هر لحظه فقط یک بسته‌ را در نظر می‌گیرد. با این‌ کار، حتی زمانی که دیگر بسته‌ها در نزدیکی آن هستند،  اغلب بین خانه‌های روستا به عقب و جلو حرکت می‌کند زیرا بسته‌ای که ممکن است به دنبال آن باشد شاید در طرف دیگر نقشه است.</p>
 
-<p><a class="p_ident" id="p_+dCvWOpolq" href="#p_+dCvWOpolq" tabindex="-1" role="presentation"></a>One possible solution would be to compute routes for all packages and then take the shortest one. Even better results can be obtained, if there are multiple shortest routes, by preferring the ones that go to pick up a package instead of delivering a package.</p>
+<p>یک راه‌حل محتمل می تواند این باشد که مسیر‌ها را برای همه‌ی بسته‌ها محاسبه کنید و کوتاه‌ترین آن‌ها را برگزینید. در شرایطی که چند مسیر کوتاه‌ در دسترس است، می تواند با ترجیح مسیرهای برداشتن بسته‌ها به مسیر‌های تحویل، نتیجه‌ی بهتری گرفت.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_s+ntyh5xrm" href="#i_s+ntyh5xrm" tabindex="-1" role="presentation"></a>Persistent group</h3>
+<h3><a class="i_ident" id="i_8Zokh060Ru" href="#i_8Zokh060Ru" tabindex="-1" role="presentation"></a>گروه پایا (Persistent Group)</h3>
 
-<p><a class="p_ident" id="p_2U3yafqdvH" href="#p_2U3yafqdvH" tabindex="-1" role="presentation"></a>Most data structures provided in a standard JavaScript environment aren’t very well suited for persistent use. Arrays have <code>slice</code> and <code>concat</code> methods, which allow us to easily create new arrays without damaging the old one. But <code>Set</code>, for example, has no methods for creating a new set with an item added or removed.</p>
+<p>اکثر ساختارهای داده‌ای که به صورت استاندارد در جاوااسکریپت وجود دارند، برای استفاده به عنوان ساختار داده‌ی پایا، خیلی مناسب نیستند. آرایه ها دارای متدهای <code>slice</code>  و  <code>concat</code> می باشند که این امکان را فراهم می سازند تا آرایه های جدید را بدون تغییر آرایه‌ی اصلی ایجاد کنیم. اما مثلا <code>Set</code>، متدی برای ایجاد یک مجموعه‌ی جدید که آیتمی اضافه یا کم داشته باشد ندارد.</p>
 
-<p><a class="p_ident" id="p_GJFOUv4fQp" href="#p_GJFOUv4fQp" tabindex="-1" role="presentation"></a>Write a new class <code>PGroup</code>, similar to the <code>Group</code> class from <a href="06_object.html#groups">Chapter 6</a>, which stores a set of values. Like <code>Group</code>, it has <code>add</code>, <code>delete</code>, and <code>has</code> methods.</p>
+<p>کلاس جدیدی به نام <code>PGroup</code> بنویسید، شبیه‌ به کلاس <code>Group</code> که در <a href="06_object.html#groups">فصل 6</a> نوشتید، که مجموعه‌ای از مقادیر را ذخیره می‌کند. مانند <code>Group</code> دارای متدهای <code>add،</code> <code>delete</code> و <code>has</code> خواهد بود.</p>
 
-<p><a class="p_ident" id="p_CkpHJcowhH" href="#p_CkpHJcowhH" tabindex="-1" role="presentation"></a>Its <code>add</code> method, however, should return a <em>new</em> <code>PGroup</code> instance with the given member added and leave the old one unchanged. Similarly, <code>delete</code> creates a new instance without a given member.</p>
+<p>متد <code>add</code> آن، باید نمونه‌ی <em>جدیدی</em>  از <code>‌PGroup</code> را که شامل عضو جدید می باشد، تولید کند و نمونه‌ی قبلی را دست نخورده باقی بگذارد. به طور مشابه، متد <code>delete</code> نمونه‌ی جدیدی بدون عضو داده شده، تولید می‌کند.</p>
 
-<p><a class="p_ident" id="p_BF2ns3kTIW" href="#p_BF2ns3kTIW" tabindex="-1" role="presentation"></a>The class should work for values of any type, not just strings. It does <em>not</em> have to be efficient when used with large amounts of values.</p>
+<p>کلاس مورد نظر باید بتواند علاوه بر رشته‌، هر نوع داده‌ای را به عنوان کلید قبول کند. نیازی <em>نیست</em> تا کارایی بالایی در کار با تعداد بالای کلیدها داشته باشد.</p>
 
-<p><a class="p_ident" id="p_WVaFt53GdV" href="#p_WVaFt53GdV" tabindex="-1" role="presentation"></a>The constructor shouldn’t be part of the class’s interface (though you’ll definitely want to use it internally). Instead, there is an empty instance, <code>PGroup.empty</code>, that can be used as a starting value.</p>
+<p>سازنده نباید بخشی از رابط کلاس باشد ( اگرچه حتما لازم است که به صورت درونی از آن استفاده کنید). در عوض، یک نمونه‌ی تهی به نام <bdo><code>PGroup.empty</code></bdo> باید باشد که بتوان از آن برای مقدار ابتدایی استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_pV/91/QIt2" href="#p_pV/91/QIt2" tabindex="-1" role="presentation"></a>Why do you need only one <code>PGroup.empty</code> value, rather than having a function that creates a new, empty map every time?</p>
+<p>چرا به جای داشتن تابعی که بتواند هر بار یک نگاشت تهی جدید ایجاد کند، لازم است تا فقط یک <bdo><code>PGroup.empty</code></bdo> وجود داشته باشد؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KN+ky/iMYB" href="#c_KN+ky/iMYB" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">PGroup</span> {
   <span class="cm-comment">// Your code here</span>
@@ -369,15 +369,15 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_wJCTKfvlWG" href="#p_wJCTKfvlWG" tabindex="-1" role="presentation"></a>The most convenient way to represent the set of member values is still as an array since arrays are easy to copy.</p>
+<p>همچنان سرراست‌ترین روش نمایش یک مجموعه‌ از اعضا، آرایه است،‌ زیرا آرایه‌ها را می توان به راحتی کپی کرد.</p>
 
-<p><a class="p_ident" id="p_q2TqU7jyKB" href="#p_q2TqU7jyKB" tabindex="-1" role="presentation"></a>When a value is added to the group, you can create a new group with a copy of the original array that has the value added (for example, using <code>concat</code>). When a value is deleted, you filter it from the array.</p>
+<p>با اضافه‌شدن یک مقدار به گروه، می توانید با کپی کردن آرایه‌ی اصلی، گروه جدیدی ایجاد کنید که شامل عنصر جدید باشد (به عنوان مثال، به وسیله‌ی <code>concat</code>). با حذف یک مقدار، می توانید آن را از آرایه فیلتر کنید.</p>
 
-<p><a class="p_ident" id="p_EbZVh5gTfE" href="#p_EbZVh5gTfE" tabindex="-1" role="presentation"></a>The class’s constructor can take such an array as argument and store it as the instance’s (only) property. This array is never updated.</p>
+<p><a class="p_ident" id="p_w77GvLybnw" href="#p_w77GvLybnw" tabindex="-1" role="presentation"></a>سازنده‌ی کلاس می تواند این آرایه را به عنوان آرگومان دریافت کند و آن را به عنوان تنها خاصیت نمونه‌ (instance) ذخیره نماید. این آرایه هرگز تغییر نمی کند.</p>
 
-<p><a class="p_ident" id="p_oamLkQ+NjT" href="#p_oamLkQ+NjT" tabindex="-1" role="presentation"></a>To add a property (<code>empty</code>) to a constructor that is not a method, you have to add it to the constructor after the class definition, as a regular property.</p>
+<p>برای افزودن یک خاصیت غیر متد (<code>empty</code>) به یک سازنده، باید بعد از تعریف کلاس، آن را مانند یک خاصیت معمولی به سازنده اضافه کنید.</p>
 
-<p><a class="p_ident" id="p_no2z35iuBs" href="#p_no2z35iuBs" tabindex="-1" role="presentation"></a>You need only one <code>empty</code> instance because all empty groups are the same and instances of the class don’t change. You can create many different groups from that single empty group without affecting it.</p>
+<p>شما فقط به یک نمونه‌ی <code>empty</code> نیاز دارید زیرا تمامی گروه‌های تهی، مانند هم هستند و نمونه‌های کلاس تغییر نمی کنند. می توانید از همان گروه تهی واحد، گروه‌های متفاوت زیادی ایجاد کنید بدون آن‌که روی آن اثری داشته باشد.</p>
 
 </div></div><nav><a href="06_object.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="08_error.html" title="next chapter">▶</a></nav>
 </article>
