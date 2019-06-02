@@ -169,21 +169,21 @@
 
 <p>همچنین می توانید بازه‌هایی که انتهایی باز دارند را نیز مشخص کنید. این کار با حذف رقم پس از ویرگول انجام می شود. بنابراین، <bdo><code>{5,}</code></bdo> به معنای پنج یا بیشتر می باشد.</p>
 
-<h2><a class="h_ident" id="h_uICSDspz1I" href="#h_uICSDspz1I" tabindex="-1" role="presentation"></a>Grouping subexpressions</h2>
+<h2><a class="h_ident" id="h_FixWcalhE0" href="#h_FixWcalhE0" tabindex="-1" role="presentation"></a>دسته‌بندی زیرعبارات</h2>
 
-<p><a class="p_ident" id="p_pKTOYUDGIr" href="#p_pKTOYUDGIr" tabindex="-1" role="presentation"></a>To use an operator like <code>*</code> or <code>+</code> on more than one element at a time, you have to use parentheses. A part of a regular expression that is enclosed in parentheses counts as a single element as far as the operators following it are concerned.</p>
+<p>برای استفاده از یک عملگر مانند <code>*</code> یا <code>+</code> روی بیش از یک عنصر در آنِ واحد، باید از پرانتز استفاده کنید. از دید عملگرهایی که بعد از عبارت‌های داخل پرانتز قرار می‌گیرند، هر عبارت محصور بین پرانتز به عنوان یک عنصر در نظر گرفته می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P/f6a65XwI" href="#c_P/f6a65XwI" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">cartoonCrying</span> <span class="cm-operator">=</span> <span class="cm-string-2">/boo+(hoo+)+/i</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">cartoonCrying</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;Boohoooohoohooo&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_S5jkv2dMC+" href="#p_S5jkv2dMC+" tabindex="-1" role="presentation"></a>The first and second <code>+</code> characters apply only to the second <em>o</em> in <em>boo</em> and <em>hoo</em>, respectively. The third <code>+</code> applies to the whole group <code>(hoo+)</code>, matching one or more sequences like that.</p>
+<p><a class="p_ident" id="p_WI3aP26c24" href="#p_WI3aP26c24" tabindex="-1" role="presentation"></a>کاراکترهای <code>+</code> اول و دوم فقط به <em>o</em> دوم از <em>boo</em> و <em>hoo</em> اعمال می شوند. کاراکتر <code>+</code> سوم به کل گروه <bdo><code>(hoo+)</code></bdo> اعمال می شود و یک یا بیش از یک بار تکرار آن الگو را شامل می‌شود.</p>
 
-<p><a class="p_ident" id="p_c4RlIM4/HI" href="#p_c4RlIM4/HI" tabindex="-1" role="presentation"></a>The <code>i</code> at the end of the expression in the example makes this regular expression case insensitive, allowing it to match the uppercase <em>B</em> in the input string, even though the pattern is itself all lowercase.</p>
+<p><a class="p_ident" id="p_rk8oHfWl0P" href="#p_rk8oHfWl0P" tabindex="-1" role="presentation"></a>کاراکتر <code>i</code> که در انتهای عبارت مثال آمده است باعث می شود که عبارت باقاعده به بزرگی و کوچکی حروف حساس نباشد، یعنی کاراکتر <em>B</em> بزرگ هم در رشته‌ی ورودی تطبیق خواهد خورد، با وجود اینکه الگو خودش به حروف کوچک نوشته شده است.</p>
 
-<h2><a class="h_ident" id="h_CV5XL/TADP" href="#h_CV5XL/TADP" tabindex="-1" role="presentation"></a>Matches and groups</h2>
+<h2><a class="h_ident" id="h_XX70toH0eo" href="#h_XX70toH0eo" tabindex="-1" role="presentation"></a>تطبیق‌ها و گروه‌ها</h2>
 
-<p><a class="p_ident" id="p_K3KRDzatsp" href="#p_K3KRDzatsp" tabindex="-1" role="presentation"></a>The <code>test</code> method is the absolute simplest way to match a regular expression. It tells you only whether it matched and nothing else. Regular expressions also have an <code>exec</code> (execute) method that will return <code>null</code> if no match was found and return an object with information about the match otherwise.</p>
+<p>متد <code>test</code> ساده ترین راهی است که برای تطبیق یک عبارت باقاعده استفاده می شود. این متد فقط تطبیق و عدم تطبیق عبارت را مشخص می کند و دیگر هیچ. عبارات باقاعده همچنین متدی به نام <code>exec</code> (به معنای اجرا) دارند که در صورت نبود تطبیق، مقدار <code>null</code> را بر‌می گرداند و در صورت وجود تطبیق، شیئی شامل اطلاعاتی راجع به آن تولید می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JJMWZpk0iD" href="#c_JJMWZpk0iD" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">match</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d+/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;one two 100&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">match</span>);
@@ -191,29 +191,29 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">match</span>.<span class="cm-property">index</span>);
 <span class="cm-comment">// → 8</span></pre>
 
-<p><a class="p_ident" id="p_fJSwbQyG6w" href="#p_fJSwbQyG6w" tabindex="-1" role="presentation"></a>An object returned from <code>exec</code> has an <code>index</code> property that tells us <em>where</em> in the string the successful match begins. Other than that, the object looks like (and in fact is) an array of strings, whose first element is the string that was matched. In the previous example, this is the sequence of digits that we were looking for.</p>
+<p>شیءای که از یک متد <code>exec</code> برگردانده می شود خاصیتی به نام <code>index</code> دارد که نقطه شروع تطبیق پیدا شده را در رشته به ما می نشان می دهد. علاوه بر آن، این شیء شبیه به ( و در واقع یک ) آرایه‌ای از رشته‌ها است، که عنصر اولش رشته‌ای است که با الگو مطابقت داشته است – در مثال قبل ، دنباله‌ای از اعداد که به دنبال آن بودیم.</p>
 
-<p><a class="p_ident" id="p_VT4fpht7D7" href="#p_VT4fpht7D7" tabindex="-1" role="presentation"></a>String values have a <code>match</code> method that behaves similarly.</p>
+<p>مقدارهای رشتهای متدی به نام <code>match</code> دارند که به شکل مشابهی عمل می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uAkAqNYx+q" href="#c_uAkAqNYx+q" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;one two 100&quot;</span>.<span class="cm-property">match</span>(<span class="cm-string-2">/\d+/</span>));
 <span class="cm-comment">// → [&quot;100&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_/9rdcJO9zZ" href="#p_/9rdcJO9zZ" tabindex="-1" role="presentation"></a>When the regular expression contains subexpressions grouped with parentheses, the text that matched those groups will also show up in the array. The whole match is always the first element. The next element is the part matched by the first group (the one whose opening parenthesis comes first in the expression), then the second group, and so on.</p>
+<p>زمانی که یک عبارت باقاعده شامل زیرعبارتهایی باشد که با پرانتز گروه‌بندی شده اند، متن‌هایی که با آن گروه‌ها مطابقت دارند نیز درون یک آرایه نمایش داده خواهد شد. تطبیق کامل همیشه در همان عنصر اول است. عنصر بعدی آرایه متعلق به بخشی است که توسط اولین گروه تطبیق یافته است (گروهی که پرانتز شروعش در عبارت اول آمده است)، سپس گروه دوم و الی آخر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5E2M1BBsUm" href="#c_5E2M1BBsUm" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">quotedText</span> <span class="cm-operator">=</span> <span class="cm-string-2">/'([^']*)'/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">quotedText</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;she said 'hello'&quot;</span>));
 <span class="cm-comment">// → [&quot;'hello'&quot;, &quot;hello&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_f4bciMASJ1" href="#p_f4bciMASJ1" tabindex="-1" role="presentation"></a>When a group does not end up being matched at all (for example, when followed by a question mark), its position in the output array will hold <code>undefined</code>. Similarly, when a group is matched multiple times, only the last match ends up in the array.</p>
+<p>زمانی که برای یک گروه تطبیقی در رشته پیدا نمی شود (به عنوان مثال، زمانی که بعد از گروه علامت سوال قرار گرفته باشد) موقعیت آن در آرایه‌ی خروجی به صورت <code>undefined</code> خواهد بود. به طور مشابه، اگر یک گروه چندین تطبیق داشته باشد، فقط آخرین آن‌ها در آرایه قرار خواهد گرفت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_j9t+gn+1eT" href="#c_j9t+gn+1eT" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/bad(ly)?/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;bad&quot;</span>));
 <span class="cm-comment">// → [&quot;bad&quot;, undefined]</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/(\d)+/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;123&quot;</span>));
 <span class="cm-comment">// → [&quot;123&quot;, &quot;3&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_GvLofvnQnz" href="#p_GvLofvnQnz" tabindex="-1" role="presentation"></a>Groups can be useful for extracting parts of a string. If we don’t just want to verify whether a string contains a date but also extract it and construct an object that represents it, we can wrap parentheses around the digit patterns and directly pick the date out of the result of <code>exec</code>.</p>
+<p>از قابلیت گروه‌ها می توان برای استخراج قسمت‌های یک رشته استفاده کرد. به عنوان مثال، زمانی که فقط بودن یک تاریخ در یک رشته برای ما مهم نیست و قصد داریم تا آن را از دل آن استخراج کرده و شیئی حاوی آن بسازیم، می توانیم با استفاده از پرانتز در الگوی ارقام، به طور مستقیم آن را در نتیجه‌ی <code>exec</code> مجزا کنیم.</p>
 
-<p><a class="p_ident" id="p_DzNUSBaBZb" href="#p_DzNUSBaBZb" tabindex="-1" role="presentation"></a>But first we’ll take a brief detour, in which we discuss the built-in way to represent date and time values in JavaScript.</p>
+<p>اما ابتدا، یک فاصله‌ی کوتاه بگیریم و کمی در رابطه‌با راه از پیش تعریف شده برای نمایش مقادیر زمان و تاریخ در جاوااسکریپت صحبت کنیم.</p>
 
 <h2><a class="h_ident" id="h_8U7L7LCU27" href="#h_8U7L7LCU27" tabindex="-1" role="presentation"></a>The Date class</h2>
 
