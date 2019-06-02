@@ -2,17 +2,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Regular Expressions :: Eloquent JavaScript</title>
+  <title>عبارات باقاعده :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 9;</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 9;</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="08_error.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="10_modules.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 9</span>Regular Expressions</h1>
+<h1><span class=chap_num>Chapter 9</span>عبارات باقاعده</h1>
 
 <blockquote>
 
@@ -30,89 +33,88 @@
 
 </blockquote><figure class="chapter square-framed"><img src="img/chapter_picture_9.jpg" alt="A railroad diagram"></figure>
 
-<p><a class="p_ident" id="p_mYvGNMWwx9" href="#p_mYvGNMWwx9" tabindex="-1" role="presentation"></a>Programming tools and techniques survive and spread in a chaotic, evolutionary way. It’s not always the pretty or brilliant ones that win but rather the ones that function well enough within the right niche or that happen to be integrated with another successful piece of technology.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>ابزارها و تکنیک‌های برنامه نویسی در طول زمان به شکلی نامنظم و تکاملی حفظ می‌شوند و گسترش می یابند. این‌طور نیست که همیشه آن‌هایی که درخشان یا  خوب هستند برنده شوند؛ بلکه تکنیک‌ها و ابزارهایی باقی‌ می‌مانند که در یک حوزه‌ی مناسب به اندازه‌ی کافی خوب عمل می کنند یا این ویژگی را دارند که با تکنولوژی موفق دیگری به خوبی یکپارچه و تلفیق می شوند.</p>
 
-<p><a class="p_ident" id="p_iH3Aqi6y2A" href="#p_iH3Aqi6y2A" tabindex="-1" role="presentation"></a>In this chapter, I will discuss one such tool, <em>regular
-expressions</em>. Regular expressions are a way to describe patterns in string data. They form a small, separate language that is part of JavaScript and many other languages and systems.</p>
+<p>در این فصل، در باره‌ی یکی از این ابزارهای موفق، <em>عبارات باقاعده</em>، صحبت خواهم کرد. عبارات باقاعده روشی برای توصیف <em>الگوها</em> در داده‌های متنی (رشته‌ای) می‌باشند. این عبارات، زبانی کوچک و مجزا را تشکیل می دهند که بخشی از زبان جاوااسکریپت و خیلی زبان‌ها و سیستم های دیگر محسوب می شوند.</p>
 
-<p><a class="p_ident" id="p_cxbejyPUGl" href="#p_cxbejyPUGl" tabindex="-1" role="presentation"></a>Regular expressions are both terribly awkward and extremely useful. Their syntax is cryptic, and the programming interface JavaScript provides for them is clumsy. But they are a powerful tool for inspecting and processing strings. Properly understanding regular expressions will make you a more effective programmer.</p>
+<p>عبارات باقاعده، به طور همزمان هم خیلی بی‌قواره و هم فوق‌العاده کاربردی هستند. قواعد دستوری آن‌ها رمزگونه و رابط برنامه‌نویسی آن ها در جاوااسکریپت کمی نچسب است. اما ابزار بسیار قدرتمندی برای پردازش و وارسی رشته‌ها محسوب می شوند. درک صحیح عبارات باقاعده، شما را به برنامه‌نویس موثر‌تری تبدیل می کند.</p>
 
-<h2><a class="h_ident" id="h_5w4yGFJRYl" href="#h_5w4yGFJRYl" tabindex="-1" role="presentation"></a>Creating a regular expression</h2>
+<h2><a class="h_ident" id="h_QWP+tWudUY" href="#h_QWP+tWudUY" tabindex="-1" role="presentation"></a>ایجاد عبارات باقاعده</h2>
 
-<p><a class="p_ident" id="p_u/9SKAI2Yi" href="#p_u/9SKAI2Yi" tabindex="-1" role="presentation"></a>A regular expression is a type of object. It can be either constructed with the <code>RegExp</code> constructor or written as a literal value by enclosing a pattern in forward slash (<code>/</code>) characters.</p>
+<p>یک عبارت باقاعده یک نوع شیء است. می توان آن را هم با سازنده‌ی <code>RegExp</code> و هم به طور مستقیم با قرار دادن یک الگو بین دو کاراکتر اسلش (<code>/</code>) ایجاد نمود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_O1I2rl+HTy" href="#c_O1I2rl+HTy" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">re1</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">RegExp</span>(<span class="cm-string">&quot;abc&quot;</span>);
 <span class="cm-keyword">let</span> <span class="cm-def">re2</span> <span class="cm-operator">=</span> <span class="cm-string-2">/abc/</span>;</pre>
 
-<p><a class="p_ident" id="p_dviEva2QQM" href="#p_dviEva2QQM" tabindex="-1" role="presentation"></a>Both of those regular expression objects represent the same pattern: an <em>a</em> character followed by a <em>b</em> followed by a <em>c</em>.</p>
+<p><a class="p_ident" id="p_az8znGe7A9" href="#p_az8znGe7A9" tabindex="-1" role="presentation"></a>هر دوی عبارت‌های باقاعده‌ی بالا نمایانگر یک الگو می باشند: کاراکتر <em>a</em> که بعد از آن <em>b</em> و بعد <em>c</em>  می آید.</p>
 
-<p><a class="p_ident" id="p_qv8UWLVrTv" href="#p_qv8UWLVrTv" tabindex="-1" role="presentation"></a>When using the <code>RegExp</code> constructor, the pattern is written as a normal string, so the usual rules apply for backslashes.</p>
+<p>زمانی که از سازنده‌ی <code>RegExp</code> استفاده می شود، الگو به صورت رشته‌ی معمولی نوشته می شود؛ بنابراین قوانین معمول برای کاراکتر بک‌اسلش برقرار است.</p>
 
-<p><a class="p_ident" id="p_0mNIcPpslS" href="#p_0mNIcPpslS" tabindex="-1" role="presentation"></a>The second notation, where the pattern appears between slash characters, treats backslashes somewhat differently. First, since a forward slash ends the pattern, we need to put a backslash before any forward slash that we want to be <em>part</em> of the pattern. In addition, backslashes that aren’t part of special character codes (like <code>\n</code>) will be <em>preserved</em>, rather than ignored as they are in strings, and change the meaning of the pattern. Some characters, such as question marks and plus signs, have special meanings in regular expressions and must be preceded by a backslash if they are meant to represent the character itself.</p>
+<p>در روش دوم که در آن الگو بین دو کاراکتر اسلش ظاهر می شود، تفسیر بک اسلش کمی متفاوت است. اول اینکه، به دلیل اینکه کاراکتر اسلش نشان دهنده پایان الگو است، بایستی یک بک اسلش را قبل از اسلشی که می خواهیم به عنوان بخشی از الگو تفسیر شود قرار دهیم. افزون بر آن، بک اسلش‌هایی که بخشی از کدکاراکترهای خاص (مانند <bdo><code>\n</code></bdo>) محسوب نمی شوند، بر خلاف حالت رشته‌ای، حفظ شده و باعث تغییر در معنای الگو خواهند شد. بعضی کاراکترها مثل علامت سوال یا مثبت، معانی خاصی در عبارات باقاعده دارند و اگر قرار است نمایانگر کاراکتر خودشان باشند، باید قبلشان یک بک اسلش قرار داده شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uRzUiBSrul" href="#c_uRzUiBSrul" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">eighteenPlus</span> <span class="cm-operator">=</span> <span class="cm-string-2">/eighteen\+/</span>;</pre>
 
-<h2><a class="h_ident" id="h_vPyyYjMEtz" href="#h_vPyyYjMEtz" tabindex="-1" role="presentation"></a>Testing for matches</h2>
+<h2><a class="h_ident" id="h_Ybl25j760a" href="#h_Ybl25j760a" tabindex="-1" role="presentation"></a>آزمایش تطبیق الگو</h2>
 
-<p><a class="p_ident" id="p_SHaMWlzFzk" href="#p_SHaMWlzFzk" tabindex="-1" role="presentation"></a>Regular expression objects have a number of methods. The simplest one is <code>test</code>. If you pass it a string, it will return a Boolean telling you whether the string contains a match of the pattern in the expression.</p>
+<p>اشیاء عبارات باقاعده دارای تعدادی متد می باشند. ساده‌ترین آن ها متد <code>test</code> است. اگر به این متد یک رشته ارسال کنید، با برگرداندن یک مقدار بولی، به شما خواهد گفت که آیا در رشته‌ی داده شده نمونه‌ای مطابق الگوی عبارت باقاعده، وجود دارد یا خیر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Szn1CmrIV5" href="#c_Szn1CmrIV5" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/abc/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;abcde&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/abc/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;abxde&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_YGcbMDV493" href="#p_YGcbMDV493" tabindex="-1" role="presentation"></a>A regular expression consisting of only nonspecial characters simply represents that sequence of characters. If <em>abc</em> occurs anywhere in the string we are testing against (not just at the start), <code>test</code> will return <code>true</code>.</p>
+<p><a class="p_ident" id="p_qZk+NkcGgW" href="#p_qZk+NkcGgW" tabindex="-1" role="presentation"></a>اگر در عبارات باقاعده هیچ کاراکتر خاصی استفاده نشود، آن عبارت معادل همان دنباله‌ی کاراکترها می باشد. اگر <em>abc</em> در هر جای رشته‌ای که مورد آزمایش قرار داده ایم قرار گرفته باشد ( نه فقط در شروع رشته)، متد <code>test</code> مقدار <code>true</code> را تولید می کند.</p>
 
-<h2><a class="h_ident" id="h_8EFR0DU1xd" href="#h_8EFR0DU1xd" tabindex="-1" role="presentation"></a>Sets of characters</h2>
+<h2><a class="h_ident" id="h_y7YICXLgJL" href="#h_y7YICXLgJL" tabindex="-1" role="presentation"></a>مجموعه‌های کاراکتر</h2>
 
-<p><a class="p_ident" id="p_ZyB7HeLr75" href="#p_ZyB7HeLr75" tabindex="-1" role="presentation"></a>Finding out whether a string contains <em>abc</em> could just as well be done with a call to <code>indexOf</code>. Regular expressions allow us to express more complicated patterns.</p>
+<p>فهمیدن اینکه آیا یک رشته حاوی <em>abc</em> هست یا خیر را می توان به خوبی با متد  <code>indexOf</code>  نیز انجام داد. عبارات باقاعده به ما امکان تولید الگوهای پیچیده‌تری را می دهند.</p>
 
-<p><a class="p_ident" id="p_i/99SEfu9y" href="#p_i/99SEfu9y" tabindex="-1" role="presentation"></a>Say we want to match any number. In a regular expression, putting a set of characters between square brackets makes that part of the expression match any of the characters between the brackets.</p>
+<p>فرض کنید قصد داریم همه‌ اعداد را شناسایی کنیم. در یک عبارت باقاعده، قرار دادن یک مجموعه‌ کاراکتر درون براکت باعث می شود که آن بخش از عبارت با هر کاراکتری که بین براکت‌ها آمده است تطبیق یابد.</p>
 
-<p><a class="p_ident" id="p_sC+2E08KnL" href="#p_sC+2E08KnL" tabindex="-1" role="presentation"></a>Both of the following expressions match all strings that contain a digit:</p>
+<p>هر دوی عبارت‌های زیر همه‌ی رشته‌هایی که دارای رقم هستند را شامل می شود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Z3UJdL//cY" href="#c_Z3UJdL//cY" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/[0123456789]/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;in 1992&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/[0-9]/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;in 1992&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_i0WYLVUede" href="#p_i0WYLVUede" tabindex="-1" role="presentation"></a>Within square brackets, a hyphen (<code>-</code>) between two characters can be used to indicate a range of characters, where the ordering is determined by the character’s Unicode number. Characters 0 to 9 sit right next to each other in this ordering (codes 48 to 57), so <code>[0-9]</code> covers all of them and matches any digit.</p>
+<p><a class="p_ident" id="p_BOftwrLn6b" href="#p_BOftwrLn6b" tabindex="-1" role="presentation"></a>برای مشخص کرد یک بازه از کاراکترها می توان درون براکت‌ها از یک کاراکتر (‍<code>-</code>) بین دو کاراکتر استفاده کرد که ترتیب کاراکترها توسط کد یونیکد آن‌ها مشخص می شود. کاراکترهای ۰ تا ۹ کنار هم و در بازه‌ی یونیکد (کدهای 48 تا 57) قرار دارند بنابراین <bdo><code>[0-9]</code></bdo> همه‌ی آن ها را پوشش داده و هر رقمی را شامل می شود.</p>
 
-<p><a class="p_ident" id="p_1qtYlDfA/1" href="#p_1qtYlDfA/1" tabindex="-1" role="presentation"></a>A number of common character groups have their own built-in shortcuts. Digits are one of them: <code>\d</code> means the same thing as <code>[0-9]</code>.</p>
+<p>برای بعضی از گروه‌های کاراکتری روش کوتاه‌تری هم از پیش تعریف شده است. اعداد یکی از آن ها هستند: مثلا <bdo><code>\d</code></bdo> معنایی مشابه <bdo><code>[0-9]</code></bdo> دارد.</p>
 
 <table>
 
-<tr><td><code>\d</code></td><td>Any digit character</td>
+<tr><td><code>\d</code></td><td>هر کاراکتر عددی</td>
 
 </tr>
 
-<tr><td><code>\w</code></td><td>An alphanumeric character (“word character”)</td>
+<tr><td><code>\w</code></td><td>یک کاراکتر از نوع عدد یا حرف الفبا (“کاراکتر کلمه”)</td>
 
 </tr>
 
-<tr><td><code>\s</code></td><td>Any whitespace character (space, tab, newline, and similar)</td>
+<tr><td><code>\s</code></td><td>همه‌ی کاراکترهای فضای‌خالی ( فاصله، تب، خط جدید، و مشابه آن ها)</td>
 
 </tr>
 
-<tr><td><code>\D</code></td><td>A character that is <em>not</em> a digit</td>
+<tr><td><code>\D</code></td><td>کاراکتری که از نوع عدد <em>نباشد</em></td>
 
 </tr>
 
-<tr><td><code>\W</code></td><td>A nonalphanumeric character</td>
+<tr><td><code>\W</code></td><td>کاراکتری که عدد و حرف الفبا نباشد</td>
 
 </tr>
 
-<tr><td><code>\S</code></td><td>A nonwhitespace character</td>
+<tr><td><code>\S</code></td><td>کاراکتری که فضای خالی محسوب نشود</td>
 
 </tr>
 
-<tr><td><code>.</code></td><td>Any character except for newline</td>
+<tr><td><code>.</code></td><td>همه‌ی کاراکترها به جز کاراکتر خط جدید</td>
 
 </tr>
 
 </table>
 
-<p><a class="p_ident" id="p_yXMUKEYpwG" href="#p_yXMUKEYpwG" tabindex="-1" role="presentation"></a>So you could match a date and time format like 01-30-2003 15:20 with the following expression:</p>
+<p><a class="p_ident" id="p_utaY+Pxc2d" href="#p_utaY+Pxc2d" tabindex="-1" role="presentation"></a>بنابراین می توانید فرمت تاریخ و زمانی شبیه <bdo>01-30-2003 15:20</bdo> را با عبارت زیر شناسایی کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Y0e7M8nAL0" href="#c_Y0e7M8nAL0" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">dateTime</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d\d-\d\d-\d\d\d\d \d\d:\d\d/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">dateTime</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;01-30-2003 15:20&quot;</span>));
@@ -120,11 +122,11 @@ expressions</em>. Regular expressions are a way to describe patterns in string d
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">dateTime</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;30-jan-2003 15:20&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_gdY0EhLXlE" href="#p_gdY0EhLXlE" tabindex="-1" role="presentation"></a>That looks completely awful, doesn’t it? Half of it is backslashes, producing a background noise that makes it hard to spot the actual pattern expressed. We’ll see a slightly improved version of this expression <a href="09_regexp.html#date_regexp_counted">later</a>.</p>
+<p>ظاهر عبارت بالا خیلی بی‌قواره است، درست است؟ نیمی از آن بک‌اسلش است که الگو را بیش از حد شلوغ کرده و تشخیص معنای آن را سخت نموده‌ است. در <a href="09_regexp.html#date_regexp_counted">ادامه</a> با نسخه‌ای از آن که کمی بهبود یافته است آشنا خواهیم شد.</p>
 
-<p><a class="p_ident" id="p_P0qAMYu0C/" href="#p_P0qAMYu0C/" tabindex="-1" role="presentation"></a>These backslash codes can also be used inside square brackets. For example, <code>[\d.]</code> means any digit or a period character. But the period itself, between square brackets, loses its special meaning. The same goes for other special characters, such as <code>+</code>.</p>
+<p>این کدهای بک‌اسلش را همچنین می توان درون براکت استفاده کرد. به عنوان مثال، <bdo><code>[\d.]</code></bdo> به معنای یک رقم یا یک کاراکتر نقطه است. اما خود نقطه وقتی داخل براکت قرار می گیرد معنای خاصش را از دست می دهد. این قضیه برای دیگر کاراکتر های خاص مثل <code>+</code> هم برقرار است.</p>
 
-<p><a class="p_ident" id="p_HqQEZsitdl" href="#p_HqQEZsitdl" tabindex="-1" role="presentation"></a>To <em>invert</em> a set of characters—that is, to express that you want to match any character <em>except</em> the ones in the set—you can write a caret (<code>^</code>) character after the opening bracket.</p>
+<p>برای <em>معکوس</em> کردن یک مجموعه‌ی کاراکتر – به این معنا که شما قصد دارید هر کاراکتری <em>بجز</em> آنهایی که در مجموعه مشخص شده اند را بیان کنید – می توانید از یک کاراکتر (<code>^</code>) بعد از براکت شروع بازه استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_XH8deAcckk" href="#c_XH8deAcckk" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">notBinary</span> <span class="cm-operator">=</span> <span class="cm-string-2">/[^01]/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">notBinary</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;1100100010100110&quot;</span>));
@@ -132,11 +134,11 @@ expressions</em>. Regular expressions are a way to describe patterns in string d
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">notBinary</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;1100100010200110&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<h2><a class="h_ident" id="h_iFI1qvUwY9" href="#h_iFI1qvUwY9" tabindex="-1" role="presentation"></a>Repeating parts of a pattern</h2>
+<h2><a class="h_ident" id="h_eRhbDjdfBc" href="#h_eRhbDjdfBc" tabindex="-1" role="presentation"></a>تکرار بخش‌هایی از یک الگو</h2>
 
-<p><a class="p_ident" id="p_crYiu/oAUM" href="#p_crYiu/oAUM" tabindex="-1" role="presentation"></a>We now know how to match a single digit. What if we want to match a whole number—a sequence of one or more digits?</p>
+<p>می دانیم که چگونه یک عدد یا رقم را شناسایی کنیم.  چه باید کرد اگر بخواهیم که یک عدد کامل – دنباله‌ای از یک یا بیشتر رقم - را هدف قرار بدهیم؟</p>
 
-<p><a class="p_ident" id="p_B4wupHzbR+" href="#p_B4wupHzbR+" tabindex="-1" role="presentation"></a>When you put a plus sign (<code>+</code>) after something in a regular expression, it indicates that the element may be repeated more than once. Thus, <code>/\d+/</code> matches one or more digit characters.</p>
+<p>زمانی که از یک علامت مثبت (<code>+</code>) را بعد از چیزی در یک عبارت باقاعده قرار می‌دهید، این علامت نشان می دهد که آن عنصر ممکن است یک بار یا بیشتر تکرار شود. بنابراین ، <bdo> <code>/\d+/</code></bdo> به معنای مطابقت عبارت با تعداد یک یا بیشتر از کاراکترهای عددی خواهد بود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9/5mFF4Ih4" href="#c_9/5mFF4Ih4" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/'\d+'/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;'123'&quot;</span>));
 <span class="cm-comment">// → true</span>
@@ -147,9 +149,9 @@ expressions</em>. Regular expressions are a way to describe patterns in string d
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/'\d*'/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;''&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_/oNBIVm41F" href="#p_/oNBIVm41F" tabindex="-1" role="presentation"></a>The star (<code>*</code>) has a similar meaning but also allows the pattern to match zero times. Something with a star after it never prevents a pattern from matching—it’ll just match zero instances if it can’t find any suitable text to match.</p>
+<p>کاراکتر ستاره (<code>*</code>) معنای مشابهی دارد با این تفاوت که به الگو اجازه می دهد تا صفر بار تکرار (نبودن کاراکتر) را هم شامل شود. اگر بعد از چیزی کاراکتر ستاره قرار گیرد باعث می شود که الگو همیشه چیزی برای مطابقت پیدا کند - در صورتی که نتواند متنی برای مطابقت پیدا کند، با نبود آن عنصر مطابقت خواهد داد.</p>
 
-<p><a class="p_ident" id="p_77Y5t9C8NV" href="#p_77Y5t9C8NV" tabindex="-1" role="presentation"></a>A question mark makes a part of a pattern <em>optional</em>, meaning it may occur zero times or one time. In the following example, the <em>u</em> character is allowed to occur, but the pattern also matches when it is missing.</p>
+<p><a class="p_ident" id="p_UeaYkqtJ34" href="#p_UeaYkqtJ34" tabindex="-1" role="presentation"></a>استفاده از علامت سوال (?) در یک الگو به معنای <em>اختیاری</em> بودن است، یعنی ممکن است که آن عنصر نباشد یا یک بار حاضر باشد. در مثال پیش رو، کاراکتر <em>u</em> اختیاری است و می تواند باشد و در صورت نبودن هم الگو صدق خواهد کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EiCIowdq+d" href="#c_EiCIowdq+d" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">neighbor</span> <span class="cm-operator">=</span> <span class="cm-string-2">/neighbou?r/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">neighbor</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;neighbour&quot;</span>));
@@ -157,15 +159,15 @@ expressions</em>. Regular expressions are a way to describe patterns in string d
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">neighbor</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;neighbor&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_B4ikd8xN8i" href="#p_B4ikd8xN8i" tabindex="-1" role="presentation"></a>To indicate that a pattern should occur a precise number of times, use braces. Putting <code>{4}</code> after an element, for example, requires it to occur exactly four times. It is also possible to specify a range this way: <code>{2,4}</code> means the element must occur at least twice and at most four times.</p>
+<p><a class="p_ident" id="p_G2RTiSRzpG" href="#p_G2RTiSRzpG" tabindex="-1" role="presentation"></a>برای مشخص کردن این موضوع که یک الگو باید به تعداد دقیقی رخ دهد، می توانید از کروشه استفاده کنید؛ به عنوان مثال، قرار دادن <code>{4}</code> بعد از یک عنصر، باعث می‌شود که الگو انتظار داشته باشد آن عنصر دقیقا 4 مرتبه رخ داده باشد. همچنین می توان یک بازه را نیز مشخص نمود:‌ <bdo><code>{2,4}</code></bdo> به این معنا است که این عنصر باید حداقل دو مرتبه و حداکثر چهار مرتبه رخ دهد.</p>
 
-<p id="date_regexp_counted"><a class="p_ident" id="p_a1yNHuI+49" href="#p_a1yNHuI+49" tabindex="-1" role="presentation"></a>Here is another version of the date and time pattern that allows both single- and double-digit days, months, and hours. It is also slightly easier to decipher.</p>
+<p id="date_regexp_counted">اینجا نسخه‌ی دیگر از الگوی تشخیص تاریخ و زمان را داریم که امکان تشخیص روز، ماه و ساعت به هر دو فرمت تک رقمی و دو رقمی را دارد. همچنین درک این الگو کمی راحت‌تر از الگوی پیشین است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Tw+K6Mxe45" href="#c_Tw+K6Mxe45" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">dateTime</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2}/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">dateTime</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;1-30-2003 8:45&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_RjqN6VMQIa" href="#p_RjqN6VMQIa" tabindex="-1" role="presentation"></a>You can also specify open-ended ranges when using braces by omitting the number after the comma. So, <code>{5,}</code> means five or more times.</p>
+<p>همچنین می توانید بازه‌هایی که انتهایی باز دارند را نیز مشخص کنید. این کار با حذف رقم پس از ویرگول انجام می شود. بنابراین، <bdo><code>{5,}</code></bdo> به معنای پنج یا بیشتر می باشد.</p>
 
 <h2><a class="h_ident" id="h_uICSDspz1I" href="#h_uICSDspz1I" tabindex="-1" role="presentation"></a>Grouping subexpressions</h2>
 
