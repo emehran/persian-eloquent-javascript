@@ -215,36 +215,36 @@
 
 <p>اما ابتدا، یک فاصله‌ی کوتاه بگیریم و کمی در رابطه‌با راه از پیش تعریف شده برای نمایش مقادیر زمان و تاریخ در جاوااسکریپت صحبت کنیم.</p>
 
-<h2><a class="h_ident" id="h_8U7L7LCU27" href="#h_8U7L7LCU27" tabindex="-1" role="presentation"></a>The Date class</h2>
+<h2><a class="h_ident" id="h_blRb/5zgjW" href="#h_blRb/5zgjW" tabindex="-1" role="presentation"></a>کلاس Date</h2>
 
-<p><a class="p_ident" id="p_2NeTRvucQq" href="#p_2NeTRvucQq" tabindex="-1" role="presentation"></a>JavaScript has a standard class for representing dates—or, rather, points in time. It is called <code>Date</code>. If you simply create a date object using <code>new</code>, you get the current date and time.</p>
+<p>جاوااسکریپت کلاس استانداردی برای نمایش تاریخ‌ها – یا به عبارتی نقاطی در زمان – دارد. این کلاس <code>Date</code> نامیده می شود. اگر با <code>new</code> یک کلاس تاریخ ایجاد کنید، زمان و تاریخ فعلی را خواهید گرفت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AjgqFetryg" href="#c_AjgqFetryg" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>());
 <span class="cm-comment">// → Mon Nov 13 2017 16:19:11 GMT+0100 (CET)</span></pre>
 
-<p><a class="p_ident" id="p_IcV7kv3B1y" href="#p_IcV7kv3B1y" tabindex="-1" role="presentation"></a>You can also create an object for a specific time.</p>
+<p>همچنین می توانید یک شیء برای یک تاریخ مشخص ایجاد کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_2VCU0f4HsQ" href="#c_2VCU0f4HsQ" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2009</span>, <span class="cm-number">11</span>, <span class="cm-number">9</span>));
 <span class="cm-comment">// → Wed Dec 09 2009 00:00:00 GMT+0100 (CET)</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2009</span>, <span class="cm-number">11</span>, <span class="cm-number">9</span>, <span class="cm-number">12</span>, <span class="cm-number">59</span>, <span class="cm-number">59</span>, <span class="cm-number">999</span>));
 <span class="cm-comment">// → Wed Dec 09 2009 12:59:59 GMT+0100 (CET)</span></pre>
 
-<p><a class="p_ident" id="p_cYaexzwHiw" href="#p_cYaexzwHiw" tabindex="-1" role="presentation"></a>JavaScript uses a convention where month numbers start at zero (so December is 11), yet day numbers start at one. This is confusing and silly. Be careful.</p>
+<p><a class="p_ident" id="p_F7oHkUmduQ" href="#p_F7oHkUmduQ" tabindex="-1" role="presentation"></a>جاوااسکریپت از قراردادی استفاده می کند که در آن ماه‌ها از صفر شروع می شوند (بنابراین ماه دسامبر برابر 11 خواهد شد)، اما روزها از یک شروع می شوند. این به نظر گیج کننده و احمقانه می‌رسد. پس دقت داشته باشید.</p>
 
-<p><a class="p_ident" id="p_gVdQSb0Lv9" href="#p_gVdQSb0Lv9" tabindex="-1" role="presentation"></a>The last four arguments (hours, minutes, seconds, and milliseconds) are optional and taken to be zero when not given.</p>
+<p><a class="p_ident" id="p_78ZbbZFvoy" href="#p_78ZbbZFvoy" tabindex="-1" role="presentation"></a>چهار آرگومان آخر (hours, minutes, seconds و milliseconds) اختیاری هستند و اگر مشخص نشوند با صفر مقداردهی می شوند.</p>
 
-<p><a class="p_ident" id="p_1mIMU5T5MA" href="#p_1mIMU5T5MA" tabindex="-1" role="presentation"></a>Timestamps are stored as the number of milliseconds since the start of 1970, in the UTC time zone. This follows a convention set by “Unix time”, which was invented around that time. You can use negative numbers for times before 1970. The <code>getTime</code> method on a date object returns this number. It is big, as you can imagine.</p>
+<p><a class="p_ident" id="p_1/gBKgrdK7" href="#p_1/gBKgrdK7" tabindex="-1" role="presentation"></a>برچسب‌های ثبت زمان (timestamp) به عنوان تعداد هزارم ثانیه‌هایی ذخیره‌ می شوند که از شروع سال 1970 میلادی در ناحیه زمانی UTC می گذرد. این روش بر اساس “Unix time” است که خود حدود همان سال اختراع شد. می توانید برای زمان‌های قبل از 1970 از اعداد منفی استفاده کنید. متد <code>getTime</code> روی یک شیء Date این عدد را￼ تولید می کند. این عدد همانطور که می توانید حدس بزنید رقم بزرگی است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_lMlCuckMIc" href="#c_lMlCuckMIc" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2013</span>, <span class="cm-number">11</span>, <span class="cm-number">19</span>).<span class="cm-property">getTime</span>());
 <span class="cm-comment">// → 1387407600000</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">1387407600000</span>));
 <span class="cm-comment">// → Thu Dec 19 2013 00:00:00 GMT+0100 (CET)</span></pre>
 
-<p><a class="p_ident" id="p_Cn9WUyCZhq" href="#p_Cn9WUyCZhq" tabindex="-1" role="presentation"></a>If you give the <code>Date</code> constructor a single argument, that argument is treated as such a millisecond count. You can get the current millisecond count by creating a new <code>Date</code> object and calling <code>getTime</code> on it or by calling the <code>Date.now</code> function.</p>
+<p>اگر به تابع سازنده‌ی <code>Date</code> یک آرگومان ارسال نمایید، این آرگومان به عنوان همان شمارش هزارم‌ ثانیه‌ها تفسیر می شود. می توانید تعداد هزام‌ثانیه‌های لحظه‌ی کنونی را با ایجاد یک شیء جدید <code>Date</code> و فراخوانی متد <code>getTime</code> روی آن یا با فراخوانی تابع <bdo><code>Date.now</code></bdo> بدست بیاورید.</p>
 
-<p><a class="p_ident" id="p_iqL2Ehg9D4" href="#p_iqL2Ehg9D4" tabindex="-1" role="presentation"></a>Date objects provide methods such as <code>getFullYear</code>, <code>getMonth</code>, <code>getDate</code>, <code>getHours</code>, <code>getMinutes</code>, and <code>getSeconds</code> to extract their components. Besides <code>getFullYear</code> there’s also <code>getYear</code>, which gives you the year minus 1900 (<code>98</code> or <code>119</code>) and is mostly useless.</p>
+<p><a class="p_ident" id="p_uWWNdbwVF7" href="#p_uWWNdbwVF7" tabindex="-1" role="presentation"></a>اشیاء Date متدهایی مانند <code>getFullYear،</code> <code>getMonth،</code> <code>getDate،</code> <code>getHours</code>، <code>getMinutes</code>، و <code>getSeconds</code> را فراهم می کنند که بتوان اجزای یک تاریخ را به وسیله‌ی آن‌ها استخراج کرد. در کنار متد <code>getFullYear،</code> متدی به نام <code>getYear</code> وجود دارد، که سال را با کسر از 1900 تولید می کند (مثل <code>98</code> یا <code>119</code> ) که تقریبا کاربردی ندارد.</p>
 
-<p><a class="p_ident" id="p_/RCtQyD3w/" href="#p_/RCtQyD3w/" tabindex="-1" role="presentation"></a>Putting parentheses around the parts of the expression that we are interested in, we can now create a date object from a string.</p>
+<p>با قراردادن پرانتز دور بخش‌های عبارتی که به آن نیاز داریم، می توانیم شیء تاریخ را از یک رشته ایجاد کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xW0xfMnpiZ" href="#c_xW0xfMnpiZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">getDate</span>(<span class="cm-def">string</span>) {
   <span class="cm-keyword">let</span> [<span class="cm-def">_</span>, <span class="cm-def">month</span>, <span class="cm-def">day</span>, <span class="cm-def">year</span>] <span class="cm-operator">=</span>
@@ -254,22 +254,22 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">getDate</span>(<span class="cm-string">&quot;1-30-2003&quot;</span>));
 <span class="cm-comment">// → Thu Jan 30 2003 00:00:00 GMT+0100 (CET)</span></pre>
 
-<p><a class="p_ident" id="p_YUOJEGEtSI" href="#p_YUOJEGEtSI" tabindex="-1" role="presentation"></a>The <code>_</code> (underscore) binding is ignored and used only to skip the full match element in the array returned by <code>exec</code>.</p>
+<p>کاراکتر خط زیرین (<code>_</code>) که در مثال به عنوان یک متغیر استفاده شده است، در اینجا استفاده‌ای ندارد و فقط برای عبور از خانه‌ی اول آرایه‌ی تولیدی <code>exec</code> استفاده شده است.</p>
 
-<h2><a class="h_ident" id="h_26ixny78VY" href="#h_26ixny78VY" tabindex="-1" role="presentation"></a>Word and string boundaries</h2>
+<h2><a class="h_ident" id="h_ZXV7mPWekf" href="#h_ZXV7mPWekf" tabindex="-1" role="presentation"></a>مرز‌های واژه و رشته</h2>
 
-<p><a class="p_ident" id="p_xdYJVr9vlf" href="#p_xdYJVr9vlf" tabindex="-1" role="presentation"></a>Unfortunately, <code>getDate</code> will also happily extract the nonsensical date 00-1-3000 from the string <code>&quot;100-1-30000&quot;</code>. A match may happen anywhere in the string, so in this case, it’ll just start at the second character and end at the second-to-last character.</p>
+<p><a class="p_ident" id="p_P7OhqghsID" href="#p_P7OhqghsID" tabindex="-1" role="presentation"></a>متاسفانه، متد <code>getDate</code> همچنین تاریخ‌های غلطی مانند <bdo>00-1-3000</bdo> را از رشته‌ی <bdo><code>&quot;100-1-30000&quot;</code></bdo> استخراج می کند. یک تطبیق ممکن است در هرجای رشته رخ بدهد، بنابراین در این مورد، از کاراکتر دوم این رشته شروع می شود و در کاراکتر یکی مانده به پایان، تمام می شود.</p>
 
-<p><a class="p_ident" id="p_kLS7rqRrqG" href="#p_kLS7rqRrqG" tabindex="-1" role="presentation"></a>If we want to enforce that the match must span the whole string, we can add the markers <code>^</code> and <code>$</code>. The caret matches the start of the input string, whereas the dollar sign matches the end. So, <code>/^\d+$/</code> matches a string consisting entirely of one or more digits, <code>/^!/</code> matches any string that starts with an exclamation mark, and <code>/x^/</code> does not match any string (there cannot be an <em>x</em> before the start of the string).</p>
+<p><a class="p_ident" id="p_EfatjsUqKY" href="#p_EfatjsUqKY" tabindex="-1" role="presentation"></a>اگر بخواهیم تطبیق شامل کل رشته باشد، باید بااستفاده از نشانگرهای <code>^</code> و <code>$</code> این کار را انجام دهیم. کاراکتر <code>^</code>، شروع رشته‌ی ورودی را مشخص می کند، در حالیکه کاراکتر <code>$</code>، این کار را برای پایان انجام می‌دهد. بنابراین <bdo><code>/^\d+$/</code></bdo> رشته‌ای را تطبیق خواهد داد که کلا دارای یک یا بیش از یک رقم باشد،<bdo><code>/^!/</code></bdo> شامل همه‌ی رشته‌هایی می شود که با یک علامت تعجب شروع شده باشند، و <bdo><code>/x^/</code></bdo> هیچ رشته‌ای را شامل نخواهد شد (نمی توان یک کاراکتر <em>x</em> را قبل از کاراکتر شروع یک رشته تصور کرد).</p>
 
-<p><a class="p_ident" id="p_fEYS5Ev94W" href="#p_fEYS5Ev94W" tabindex="-1" role="presentation"></a>If, on the other hand, we just want to make sure the date starts and ends on a word boundary, we can use the marker <code>\b</code>. A word boundary can be the start or end of the string or any point in the string that has a word character (as in <code>\w</code>) on one side and a nonword character on the other.</p>
+<p>اگر، از سوی دیگر، بخواهیم مطمئن شویم که تاریخ مورد نظر در مرزهای یک کلمه شروع و پایان می‌یابد، می توانیم از نشانگر <bdo><code>\b</code></bdo> استفاده کنیم. یک مرز کلمه می تواند شروع یا پایان یک رشته یا هر نقطه‌ای در رشته باشد که یک کارکتر از نوع کلمه ( حرف الفبا یا رقم مثل <bdo><code>\w</code></bdo>) در یک سمت داشته باشد و یک کاراکتر غیر‌کلمه‌ای در سمت دیگر￼ داشته باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6U0b866tUk" href="#c_6U0b866tUk" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/cat/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;concatenate&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\bcat\b/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;concatenate&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_btxd6luedx" href="#p_btxd6luedx" tabindex="-1" role="presentation"></a>Note that a boundary marker doesn’t match an actual character. It just enforces that the regular expression matches only when a certain condition holds at the place where it appears in the pattern.</p>
+<p>توجه داشته باشید که یک نشانگر تعیین مرز (حدود) خود کاراکتری را تطبیق نمی دهد. این نشانگر فقط باعث می شود که عبارت باقاعده فقط زمانی تطبیق بخورد که یک شرط مشخص در نقطه‌ای که نشانگر در الگو قرار گرفته برقرار باشد.</p>
 
 <h2><a class="h_ident" id="h_In3b+t6uOO" href="#h_In3b+t6uOO" tabindex="-1" role="presentation"></a>Choice patterns</h2>
 
