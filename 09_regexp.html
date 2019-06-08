@@ -271,11 +271,11 @@
 
 <p>توجه داشته باشید که یک نشانگر تعیین مرز (حدود) خود کاراکتری را تطبیق نمی دهد. این نشانگر فقط باعث می شود که عبارت باقاعده فقط زمانی تطبیق بخورد که یک شرط مشخص در نقطه‌ای که نشانگر در الگو قرار گرفته برقرار باشد.</p>
 
-<h2><a class="h_ident" id="h_In3b+t6uOO" href="#h_In3b+t6uOO" tabindex="-1" role="presentation"></a>Choice patterns</h2>
+<h2><a class="h_ident" id="h_WidEO7HCmM" href="#h_WidEO7HCmM" tabindex="-1" role="presentation"></a>الگوهای انتخاب</h2>
 
-<p><a class="p_ident" id="p_G5RTt0AFku" href="#p_G5RTt0AFku" tabindex="-1" role="presentation"></a>Say we want to know whether a piece of text contains not only a number but a number followed by one of the words <em>pig</em>, <em>cow</em>, or <em>chicken</em>, or any of their plural forms.</p>
+<p><a class="p_ident" id="p_RPL9YC3XKT" href="#p_RPL9YC3XKT" tabindex="-1" role="presentation"></a>فرض کنید بخواهیم بدانیم که در یک رشته‌ی متنی عددی وجود دارد که بعد از آن یکی از کلمه‌های <em>pig</em>, <em>cow</em>, یا <em>chicken</em> به صورت مفرد یا جمع آمده باشد.</p>
 
-<p><a class="p_ident" id="p_GcEbQJT+nS" href="#p_GcEbQJT+nS" tabindex="-1" role="presentation"></a>We could write three regular expressions and test them in turn, but there is a nicer way. The pipe character (<code>|</code>) denotes a choice between the pattern to its left and the pattern to its right. So I can say this:</p>
+<p>می توانیم سه عبارت باقاعده‌ی مجزا نوشته و هر کدام را به نوبت روی نوشته آزمایش کنیم. اما یک راه بهتر نیز وجود دارد. کاراکتر پایپ (|) امکان انتخاب بین الگوی سمت راست و چپش را فراهم می کند. بنابراین می توانیم بنویسیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_z0soEIN8RB" href="#c_z0soEIN8RB" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">animalCount</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\b\d+ (pig|cow|chicken)s?\b/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">animalCount</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;15 pigs&quot;</span>));
@@ -283,59 +283,59 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">animalCount</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;15 pigchickens&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_bPWKulKcxf" href="#p_bPWKulKcxf" tabindex="-1" role="presentation"></a>Parentheses can be used to limit the part of the pattern that the pipe operator applies to, and you can put multiple such operators next to each other to express a choice between more than two alternatives.</p>
+<p>می توان با استفاده از پرانتز بخش‌هایی از الگو که عملگر پایپ روی آنها اعمال می شود را محدود کرد، و نیز می توان چندین عملگر پایپ را کنار هم قرار داد تا امکان انتخاب بین بیش از دو جایگزین را فراهم نمود.</p>
 
-<h2><a class="h_ident" id="h_AzxCBCKdvY" href="#h_AzxCBCKdvY" tabindex="-1" role="presentation"></a>The mechanics of matching</h2>
+<h2><a class="h_ident" id="h_q8R9oxL94f" href="#h_q8R9oxL94f" tabindex="-1" role="presentation"></a>مکانیک تطبیق‌دهی</h2>
 
-<p><a class="p_ident" id="p_SXQOi9ZwwH" href="#p_SXQOi9ZwwH" tabindex="-1" role="presentation"></a>Conceptually, when you use <code>exec</code> or <code>test</code>, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string, then from the second character, and so on, until it finds a match or reaches the end of the string. It’ll either return the first match that can be found or fail to find any match at all.</p>
+<p>از نظر مفهومی، زمانی که از متد <code>exec</code> یا <code>test</code> استفاده می کنید، موتور عبارت باقاعده به دنبال تطبیقی در رشته‌ی شما می گردد و سعی دارد این کار را با تطبیق دادن عبارت از ابتدای رشته انجام دهد، سپس از کاراکتر دوم، و همین طور ادامه می دهد تا اینکه تطبیقی پیدا کند یا به انتهای رشته داده شده برسد. در پایان رشته، یا اولین تطبیق ممکن را برمی‌گرداند یا جستجو با شکست روبرو می شود.</p>
 
-<p><a class="p_ident" id="p_HJjJAo8dQp" href="#p_HJjJAo8dQp" tabindex="-1" role="presentation"></a>To do the actual matching, the engine treats a regular expression something like a flow diagram. This is the diagram for the livestock expression in the previous example:</p><figure><img src="img/re_pigchickens.svg" alt="Visualization of /\b\d+ (pig|cow|chicken)s?\b/"></figure>
+<p>موتور جاوااسکریپت برای انجام تطبیق، با عبارت باقاعده مانند یک نمودار جریان برخورد می کند. نمودار پایین برای عبارت مربوط به مثال حیوانات است:</p><figure><img src="img/re_pigchickens.svg" alt="Visualization of /\b\d+ (pig|cow|chicken)s?\b/"></figure>
 
-<p><a class="p_ident" id="p_SNiUdMyezk" href="#p_SNiUdMyezk" tabindex="-1" role="presentation"></a>Our expression matches if we can find a path from the left side of the diagram to the right side. We keep a current position in the string, and every time we move through a box, we verify that the part of the string after our current position matches that box.</p>
+<p>عبارت ما موفق به تطبیق خواهد شد اگر بتوانیم مسیری از سمت چپ نمودار به سمت راست آن بیابیم. موقعیت￼ فعلی را در رشته حفظ می کنیم، و هر بار که به سمت یک مستطیل حرکت می کنیم، مطمئن می شویم که بخشی از رشته که بعد از موقعیت فعلی ما قرار دارد با آن مستطیل تطبیق دارد.</p>
 
-<p><a class="p_ident" id="p_MB99a8uIlE" href="#p_MB99a8uIlE" tabindex="-1" role="presentation"></a>So if we try to match <code>&quot;the 3 pigs&quot;</code> from position 4, our progress through the flow chart would look like this:</p>
+<p>بنابراین اگر سعی کنیم که رشته‌ی <code>&quot;the 3 pigs&quot;</code> را از موقعیت 4 تطبیق دهیم، پیشروی ما در نمودار چیزی شبیه به زیر می شود:</p>
 
 <ul>
 
 <li>
 
-<p><a class="p_ident" id="p_bgxoerTVW4" href="#p_bgxoerTVW4" tabindex="-1" role="presentation"></a>At position 4, there is a word boundary, so we can move past the first box.</p></li>
+<p>در موقعیت 4، یک مرز واژه وجود دارد، پس باید از اولین مستطیل عبور کنیم.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_YCV1/H+Rbe" href="#p_YCV1/H+Rbe" tabindex="-1" role="presentation"></a>Still at position 4, we find a digit, so we can also move past the second box.</p></li>
+<p>هنوز در موقعیت 4 هستیم، یک عدد می بینیم، پس می توان از مستطیل بعدی نیز عبور کرد.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_fQdWHxKgCF" href="#p_fQdWHxKgCF" tabindex="-1" role="presentation"></a>At position 5, one path loops back to before the second (digit) box, while the other moves forward through the box that holds a single space character. There is a space here, not a digit, so we must take the second path.</p></li>
+<p><a class="p_ident" id="p_rDR41po8gf" href="#p_rDR41po8gf" tabindex="-1" role="presentation"></a>در موقعیت 5، یک مسیر به مستطیل دوم (رقم) بر می گردد، در حالیکه مسیر دیگر به سمت مستطیلی می رود که یک کاراکتر فضای خالی را نگه می دارد. در اینجا یک فضای خالی وجود دارد، نه یک رقم، پس باید از مسیر دوم برویم.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_KItk5iNp9m" href="#p_KItk5iNp9m" tabindex="-1" role="presentation"></a>We are now at position 6 (the start of <em>pigs</em>) and at the three-way branch in the diagram. We don’t see <em>cow</em> or <em>chicken</em> here, but we do see <em>pig</em>, so we take that branch.</p></li>
+<p><a class="p_ident" id="p_C2QVX7oEpp" href="#p_C2QVX7oEpp" tabindex="-1" role="presentation"></a>اکنون در موقعیت 6 (شروع رشته‌ی pigs) قرار داریم و در شاخه‌ی سه‌راهی نمودار.  <em>cow</em> و <em>chiken</em> را اینجا نمی بینیم اما <em>pig</em> را می بینیم پس به سراغ آن شاخه می رویم.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_SowlGZC6lM" href="#p_SowlGZC6lM" tabindex="-1" role="presentation"></a>At position 9, after the three-way branch, one path skips the <em>s</em> box and goes straight to the final word boundary, while the other path matches an <em>s</em>. There is an <em>s</em> character here, not a word boundary, so we go through the <em>s</em> box.</p></li>
+<p><a class="p_ident" id="p_2BFtCV9RI8" href="#p_2BFtCV9RI8" tabindex="-1" role="presentation"></a>در موقعیت 9، بعد از شاخه‌ی سه راهی، یک مسیر مستطیل <em>s</em> را نادیده‌ می‌گیرد و مستقیما به مرز واژه‌ی نهایی می رود، درحالیکه مسیر دیگر یک <em>s</em> را تطبیق می دهد. در اینجا ما یک کاراکتر <em>s</em> داریم نه یک مرز کلمه، پس به سراغ مستطیل <em>s</em> می رویم.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_oJRMcnDoAt" href="#p_oJRMcnDoAt" tabindex="-1" role="presentation"></a>We’re at position 10 (the end of the string) and can match only a word boundary. The end of a string counts as a word boundary, so we go through the last box and have successfully matched this string.</p></li></ul>
+<p><a class="p_ident" id="p_sdV4ERHYT3" href="#p_sdV4ERHYT3" tabindex="-1" role="presentation"></a>در موقعیت 10 (پایان رشته) قرار گرفته ایم و تنها می توانیم یک مرز کلمه را تطبیق دهیم. پایان رشته به معنای یک مرز کلمه است؛ پس به سراغ آخرین مستطیل می رویم و با موفقیت این رشته را تطبیق می دهیم.</p></li></ul>
 
-<h2 id="backtracking"><a class="h_ident" id="h_NFMtGK0tD3" href="#h_NFMtGK0tD3" tabindex="-1" role="presentation"></a>Backtracking</h2>
+<h2 id="backtracking"><a class="h_ident" id="h_QAgvSTG0xW" href="#h_QAgvSTG0xW" tabindex="-1" role="presentation"></a>عقب‌گرد</h2>
 
-<p><a class="p_ident" id="p_tCd15MFAty" href="#p_tCd15MFAty" tabindex="-1" role="presentation"></a>The regular expression <code>/<wbr>\b([01]+b|[\da-f]+h|\d+)\b/<wbr></code> matches either a binary number followed by a <em>b</em>, a hexadecimal number (that is, base 16, with the letters <em>a</em> to <em>f</em> standing for the digits 10 to 15) followed by an <em>h</em>, or a regular decimal number with no suffix character. This is the corresponding diagram:</p><figure><img src="img/re_number.svg" alt="Visualization of /\b([01]+b|\d+|[\da-f]+h)\b/"></figure>
+<p><a class="p_ident" id="p_ac6u+t1n2x" href="#p_ac6u+t1n2x" tabindex="-1" role="presentation"></a>عبارت باقاعده‌ی <bdo><code>/<wbr>\b([01]+b|[\da-f]+h|\d+)\b/<wbr></code></bdo> یکی از اعداد زیر را تطبیق می دهد: یک عدد دودویی که بعد از آن یک <em>b</em> آمده باشد، یک عدد هگزادسیمال ( عددی در مبنای 16 که دارای حروف <em>a</em> تا <em>f</em> است که برای اعداد 10 تا 15 استفاده می شوند) که بعد از آن یک <em>h</em> قرار گرفته، یا یک عدد ده‌دهی معمولی که هیچ پسوندی ندارد. نمودار زیر مربوط به این عبارت است:</p><figure><img src="img/re_number.svg" alt="Visualization of /\b([01]+b|\d+|[\da-f]+h)\b/"></figure>
 
-<p><a class="p_ident" id="p_MypvfTaiTG" href="#p_MypvfTaiTG" tabindex="-1" role="presentation"></a>When matching this expression, it will often happen that the top (binary) branch is entered even though the input does not actually contain a binary number. When matching the string <code>&quot;103&quot;</code>, for example, it becomes clear only at the 3 that we are in the wrong branch. The string <em>does</em> match the expression, just not the branch we are currently in.</p>
+<p><a class="p_ident" id="p_d95o2uzYI7" href="#p_d95o2uzYI7" tabindex="-1" role="presentation"></a>در زمان تطبیق این عبارت، اغلب اینگونه می شود که علی رغم اینکه ممکن است ورودی دارای عدد دودویی نباشد، اما شاخه‌ی بالایی (دودویی) انتخاب می شود. در زمان تطبیق رشته‌ی <code>&quot;103&quot;</code> به عنوان مثال، فقط زمانی متوجه می شویم که در شاخه‌ی اشتباهی قرار داریم که به کاراکتر 3 برسیم. رشته با عبارت تطبیق دارد اما نه لزوما با شاخه‌ای که در حال حاضر در آن قرار گرفته ایم.</p>
 
-<p><a class="p_ident" id="p_SjTCKE9hvf" href="#p_SjTCKE9hvf" tabindex="-1" role="presentation"></a>So the matcher <em>backtracks</em>. When entering a branch, it remembers its current position (in this case, at the start of the string, just past the first boundary box in the diagram) so that it can go back and try another branch if the current one does not work out. For the string <code>&quot;103&quot;</code>, after encountering the 3 character, it will start trying the branch for hexadecimal numbers, which fails again because there is no <em>h</em> after the number. So it tries the decimal number branch. This one fits, and a match is reported after all.</p>
+<p><a class="p_ident" id="p_QTFUBgLx6+" href="#p_QTFUBgLx6+" tabindex="-1" role="presentation"></a>بنابراین تطبیق‌دهنده عقب‌گرد انجام می ‌دهد. هنگام ورود به یک شاخه، موقعیت کنونی خودش را به￼ خاطر می سپارد (در اینجا، در ابتدای رشته، درست قبل از اولین مستطیل مرز (محدوده) در نمودار) با این کار می تواند به عقب برگردد و اگر شاخه‌ی فعلی جواب نداد به سراغ شاخه‌ی دیگری برود. برای رشته‌ی <code>&quot;103&quot;</code> بعد از مواجه با کاراکتر 3، به سراغ شاخه‌ی اعداد هگزادسیمال می رود، که نتیجه‌‌ای نخواهد داشت به این دلیل که بعد از عدد، هیج کاراکتر <em>h</em> ای وجود ندارد. بنابراین به سراغ شاخه‌ی عدد ده‌دهی می رود. این شاخه انتخاب درستی است و یک تطبیق در پایان گزارش داده می شود.</p>
 
-<p><a class="p_ident" id="p_VymH7raTcU" href="#p_VymH7raTcU" tabindex="-1" role="presentation"></a>The matcher stops as soon as it finds a full match. This means that if multiple branches could potentially match a string, only the first one (ordered by where the branches appear in the regular expression) is used.</p>
+<p>تطبیق‌گر به محض اینکه یک تطبیق کامل پیدا می‌کند متوقف می شود. معنای این کار این است که اگر چندین شاخه‌ی بالقوه برای تطبیق یک رشته موجود باشد، فقط اولین شاخه (به ترتیبی که شاخه در عبارت منظم قرار گرفته است) استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_zEBIV8lYeb" href="#p_zEBIV8lYeb" tabindex="-1" role="presentation"></a>Backtracking also happens for repetition operators like + and <code>*</code>. If you match <code>/^.*x/</code> against <code>&quot;abcxe&quot;</code>, the <code>.*</code> part will first try to consume the whole string. The engine will then realize that it needs an <em>x</em> to match the pattern. Since there is no <em>x</em> past the end of the string, the star operator tries to match one character less. But the matcher doesn’t find an <em>x</em> after <code>abcx</code> either, so it backtracks again, matching the star operator to just <code>abc</code>. <em>Now</em> it finds an <em>x</em> where it needs it and reports a successful match from positions 0 to 4.</p>
+<p><a class="p_ident" id="p_VuhgpgUJq6" href="#p_VuhgpgUJq6" tabindex="-1" role="presentation"></a>عقب‌گرد همچنین برای عملگرهای تکرار مثل <code>+</code> و <code>*</code> نیز اتفاق می افتد. اگر الگوی <bdo><code>/^.*x/</code></bdo> را روی رشته‌ی <code>&quot;abcxe&quot;</code> تطبیق دهید، قسمت <bdo><code>.*</code></bdo>، ابتدا سعی می کند که تمام رشته را مصرف کند. موتور سپس متوجه می شود که نیاز به یک <em>x</em> دارد تا بتواند الگو را تطبیق دهد. چون هیچ <em>x</em> ای قبل از پایان رشته وجود ندارد، عملگر <code>*</code> سعی می کند تا یک کاراکتر کمتر را تطبیق دهد. اما تطبیق‌گر، <em>x</em> را بعد از <code>abcx</code> نیز پیدا نمی کند بنابراین عقب‌گرد دوباره اتفاق می افتد که موجب می شود عملگر ستاره فقط <code>abc</code> را تطبیق دهد. <em>اکنون</em> یک <em>x</em> درست جایی که لازمش دارد پیدا می کند و آن را به عنوان یک تطبیق موفق از موقعیت 0 تا 4 گزارش می دهد.</p>
 
-<p><a class="p_ident" id="p_0MBBMH8aI2" href="#p_0MBBMH8aI2" tabindex="-1" role="presentation"></a>It is possible to write regular expressions that will do a <em>lot</em> of backtracking. This problem occurs when a pattern can match a piece of input in many different ways. For example, if we get confused while writing a binary-number regular expression, we might accidentally write something like <code>/([01]+)+b/</code>.</p><figure><img src="img/re_slow.svg" alt="Visualization of /([01]+)+b/"></figure>
+<p>می توان عبارات باقاعده‌ای نوشت که در آن‌ها تعداد <em>زیادی</em> عقب‌گرد انجام شود. این مشکل زمانی رخ می دهد که یک الگو می تواند یک ورودی را به شیوه‌های زیاد و متفاوتی تطبیق دهد. به عنوان مثال، اگر هنگام نوشتن یک عبارت باقاعده برای یک عدد دودویی حواسمان نباشد، ممکن است تصادفا چیزی شبیه <bdo><code>/([01]+)+b/</code></bdo> بنویسیم.</p><figure><img src="img/re_slow.svg" alt="Visualization of /([01]+)+b/"></figure>
 
-<p><a class="p_ident" id="p_5cI0Ma3Wy8" href="#p_5cI0Ma3Wy8" tabindex="-1" role="presentation"></a>If that tries to match some long series of zeros and ones with no trailing <em>b</em> character, the matcher first goes through the inner loop until it runs out of digits. Then it notices there is no <em>b</em>, so it backtracks one position, goes through the outer loop once, and gives up again, trying to backtrack out of the inner loop once more. It will continue to try every possible route through these two loops. This means the amount of work <em>doubles</em> with each additional character. For even just a few dozen characters, the resulting match will take practically forever.</p>
+<p><a class="p_ident" id="p_dCURq8BxyO" href="#p_dCURq8BxyO" tabindex="-1" role="presentation"></a>اگر این الگو سعی کند که سری‌های بلندی از صفر و یک‌ها را بدون کاراکتر پایانی <em>b</em> تطبیق دهد، تطبیق‌گر ابتدا سراغ حلقه‌ی درونی می رود تا اینکه تمامی اعداد تمام شوند. سپس متوجه می شود که کاراکتر <em>b</em> وجود ندارد، بنابراین یک مکان (موقعیت) عقب‌گردد می کند، یک بار به سراغ حلقه‌ی بیرونی می رود و نتیجه‌ای نمی گیرد، دوباره برای خروج از حلقه‌ی درونی عقب‌گرد انجام می دهد. یعنی مقدار کار انجام شده به ازای هر کاراکتر دو برابر می شود. حتی برای چند دوجین کاراکتر، عمل تطبیق در واقع برای همیشه طول خواهد کشید.</p>
 
 <h2><a class="h_ident" id="h_k0YuTOu54D" href="#h_k0YuTOu54D" tabindex="-1" role="presentation"></a>The replace method</h2>
 
