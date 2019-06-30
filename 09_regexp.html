@@ -193,7 +193,7 @@
 
 <p>شیءای که از یک متد <code>exec</code> برگردانده می شود خاصیتی به نام <code>index</code> دارد که نقطه شروع تطبیق پیدا شده را در رشته به ما می نشان می دهد. علاوه بر آن، این شیء شبیه به ( و در واقع یک ) آرایه‌ای از رشته‌ها است، که عنصر اولش رشته‌ای است که با الگو مطابقت داشته است – در مثال قبل ، دنباله‌ای از اعداد که به دنبال آن بودیم.</p>
 
-<p>مقدارهای رشتهای متدی به نام <code>match</code> دارند که به شکل مشابهی عمل می کند.</p>
+<p>مقدارهای رشته‌ای متدی به نام <code>match</code> دارند که به شکل مشابهی عمل می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uAkAqNYx+q" href="#c_uAkAqNYx+q" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;one two 100&quot;</span>.<span class="cm-property">match</span>(<span class="cm-string-2">/\d+/</span>));
 <span class="cm-comment">// → [&quot;100&quot;]</span></pre>
@@ -337,23 +337,23 @@
 
 <p><a class="p_ident" id="p_dCURq8BxyO" href="#p_dCURq8BxyO" tabindex="-1" role="presentation"></a>اگر این الگو سعی کند که سری‌های بلندی از صفر و یک‌ها را بدون کاراکتر پایانی <em>b</em> تطبیق دهد، تطبیق‌گر ابتدا سراغ حلقه‌ی درونی می رود تا اینکه تمامی اعداد تمام شوند. سپس متوجه می شود که کاراکتر <em>b</em> وجود ندارد، بنابراین یک مکان (موقعیت) عقب‌گردد می کند، یک بار به سراغ حلقه‌ی بیرونی می رود و نتیجه‌ای نمی گیرد، دوباره برای خروج از حلقه‌ی درونی عقب‌گرد انجام می دهد. یعنی مقدار کار انجام شده به ازای هر کاراکتر دو برابر می شود. حتی برای چند دوجین کاراکتر، عمل تطبیق در واقع برای همیشه طول خواهد کشید.</p>
 
-<h2><a class="h_ident" id="h_k0YuTOu54D" href="#h_k0YuTOu54D" tabindex="-1" role="presentation"></a>The replace method</h2>
+<h2><a class="h_ident" id="h_ZLM3tPslu1" href="#h_ZLM3tPslu1" tabindex="-1" role="presentation"></a>متد replace</h2>
 
-<p><a class="p_ident" id="p_HMQv5qrs78" href="#p_HMQv5qrs78" tabindex="-1" role="presentation"></a>String values have a <code>replace</code> method that can be used to replace part of the string with another string.</p>
+<p>مقادیر رشته‌ای دارای متدی به نام <code>replace</code> هستند که می توان از آن برای جایگزینی بخشی از رشته با رشته‌ای دیگر استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dPdIdK/Wyi" href="#c_dPdIdK/Wyi" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;papa&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string">&quot;p&quot;</span>, <span class="cm-string">&quot;m&quot;</span>));
 <span class="cm-comment">// → mapa</span></pre>
 
-<p><a class="p_ident" id="p_jjBKX9l81o" href="#p_jjBKX9l81o" tabindex="-1" role="presentation"></a>The first argument can also be a regular expression, in which case the first match of the regular expression is replaced. When a <code>g</code> option (for <em>global</em>) is added to the regular expression, <em>all</em> matches in the string will be replaced, not just the first.</p>
+<p>آرگومان اول این متد همچنین می تواند یک عبارت باقاعده باشد، که در این صورت، اولین تطبیق پیدا شده توسط عبارت باقاعده، با رشته‌ی مورد نظر جایگزین می شود. زمانی که گزینه‌ی <code>g</code> (سراسری)  به عبارت باقاعده اضافه شود، به جای جایگزینی اولین مورد، تمامی تطبیق‌های پیداشده در رشته، جایگزین خواهند شد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ztGnSKyKy1" href="#c_ztGnSKyKy1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Borobudur&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/[ou]/</span>, <span class="cm-string">&quot;a&quot;</span>));
 <span class="cm-comment">// → Barobudur</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Borobudur&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/[ou]/g</span>, <span class="cm-string">&quot;a&quot;</span>));
 <span class="cm-comment">// → Barabadar</span></pre>
 
-<p><a class="p_ident" id="p_BTzyExrWv3" href="#p_BTzyExrWv3" tabindex="-1" role="presentation"></a>It would have been sensible if the choice between replacing one match or all matches was made through an additional argument to <code>replace</code> or by providing a different method, <code>replaceAll</code>. But for some unfortunate reason, the choice relies on a property of the regular expression instead.</p>
+<p>بهتر به نظر می رسید اگر گزینه‌ی  انتخاب بین جایگزینی همه‌ی تطبیق‌ها یا یک تطبیق، به شکل یک آرگومان مجزا برای متد <code>replace</code> تعریف می شد یا اینکه متدی متفاوت برای آن در نظر گرفته می شد؛ مانند <code>replaceAll</code>. اما از بد روزگار، این گزینه وابسته به خاصیتی در عبارت باقاعده می باشد.</p>
 
-<p><a class="p_ident" id="p_/5YU/Qo2Np" href="#p_/5YU/Qo2Np" tabindex="-1" role="presentation"></a>The real power of using regular expressions with <code>replace</code> comes from the fact that we can refer to matched groups in the replacement string. For example, say we have a big string containing the names of people, one name per line, in the format <code>Lastname, Firstname</code>. If we want to swap these names and remove the comma to get a <code>Firstname Lastname</code> format, we can use the following code:</p>
+<p>قدرت اصلی استفاده از عبارات باقاعده به وسیله‌ی متد <code>replace</code> اینجا است که می‌توانیم به گروه‌های تطبیق خورده در رشته‌ی جایگزین رجوع کنیم. به عنوان مثال، فرض کنید که یک رشته‌ی بزرگ که حاوی نام افراد است در اختیار داریم، در هر خط یک نام وجود دارد و فرمت آن به شکل <bdo><code>Lastname, Firstname</code></bdo> می‌باشد. اگر بخواهیم ترتیب قرار گیری نام‌ها را عوض کرده و ویرگول بین آن را حذف کنیم، می توانیم از کد زیر استفاده کنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5P5aZAbVLL" href="#c_5P5aZAbVLL" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(
   <span class="cm-string">&quot;Liskov, Barbara\nMcCarthy, John\nWadler, Philip&quot;</span>
@@ -362,18 +362,18 @@
 <span class="cm-comment">//   John McCarthy</span>
 <span class="cm-comment">//   Philip Wadler</span></pre>
 
-<p><a class="p_ident" id="p_sEudLRqyzC" href="#p_sEudLRqyzC" tabindex="-1" role="presentation"></a>The <code>$1</code> and <code>$2</code> in the replacement string refer to the parenthesized groups in the pattern. <code>$1</code> is replaced by the text that matched against the first group, <code>$2</code> by the second, and so on, up to <code>$9</code>. The whole match can be referred to with <code>$&amp;</code>.</p>
+<p><bdo><code>$1</code></bdo> و <bdo><code>$2</code></bdo> در رشته‌ی جایگزین به گروه‌هایی که با پرانتز در الگو مشخص شده اند اشاره می‌کنند. <bdo><code>$1</code></bdo> توسط متنی که با اولین گروه تطبیق یافته جایگزین می شود، <bdo><code>$2</code></bdo> نیز با دومین گروه و الی آخر تا <bdo><code>$9</code></bdo>. تطبیق کلی را می توان با <bdo><code>$&amp;</code></bdo> مورد ارجاع قرار داد.</p>
 
-<p><a class="p_ident" id="p_BpgnqwKFHn" href="#p_BpgnqwKFHn" tabindex="-1" role="presentation"></a>It is possible to pass a function—rather than a string—as the second argument to <code>replace</code>. For each replacement, the function will be called with the matched groups (as well as the whole match) as arguments, and its return value will be inserted into the new string.</p>
+<p>می توان یک تابع را به جای رشته به عنوان آرگومان دوم متد <code>replace</code> ارسال کرد. برای هر جایگزینی، این تابع فراخوانی می شود درحالیکه دسته‌ی تطبیق خورده (همچنین تطبیق کامل) به عنوان آرگومان به آن ارسال می شود و مقداری که برمی گرداند در رشته‌ی جدید قرار می گیرد.</p>
 
-<p><a class="p_ident" id="p_GbNoBizUD+" href="#p_GbNoBizUD+" tabindex="-1" role="presentation"></a>Here’s a small example:</p>
+<p>به مثال کوچک زیر توجه نمایید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_fwgl3+oeyX" href="#c_fwgl3+oeyX" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">s</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;the cia and fbi&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">s</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/\b(fbi|cia)\b/g</span>,
             <span class="cm-def">str</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">str</span>.<span class="cm-property">toUpperCase</span>()));
 <span class="cm-comment">// → the CIA and FBI</span></pre>
 
-<p><a class="p_ident" id="p_EXxvdgdiP1" href="#p_EXxvdgdiP1" tabindex="-1" role="presentation"></a>Here’s a more interesting one:</p>
+<p>و مثالی جالب‌تر:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Zo/y2Vv93l" href="#c_Zo/y2Vv93l" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">stock</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;1 lemon, 2 cabbages, and 101 eggs&quot;</span>;
 <span class="cm-keyword">function</span> <span class="cm-def">minusOne</span>(<span class="cm-def">match</span>, <span class="cm-def">amount</span>, <span class="cm-def">unit</span>) {
@@ -388,13 +388,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stock</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/(\d+) (\w+)/g</span>, <span class="cm-variable">minusOne</span>));
 <span class="cm-comment">// → no lemon, 1 cabbage, and 100 eggs</span></pre>
 
-<p><a class="p_ident" id="p_bv4e/DVilz" href="#p_bv4e/DVilz" tabindex="-1" role="presentation"></a>This takes a string, finds all occurrences of a number followed by an alphanumeric word, and returns a string wherein every such occurrence is decremented by one.</p>
+<p>این مثال رشته‌ای را می گیرد، تمامی دفعات تکرار یک عدد که بعد از آن یک کاراکتر کلمه (منظور کاراکتری از جنس حرف و عدد است) آمده باشد را پیدا می کند و رشته‌ای برمی گرداند که در آن هر تطبیق پیدا شده یک واحد کاهش یافته است.</p>
 
-<p><a class="p_ident" id="p_H94SX/MJX8" href="#p_H94SX/MJX8" tabindex="-1" role="presentation"></a>The <code>(\d+)</code> group ends up as the <code>amount</code> argument to the function, and the <code>(\w+)</code> group gets bound to <code>unit</code>. The function converts <code>amount</code> to a number—which always works since it matched <code>\d+</code>—and makes some adjustments in case there is only one or zero left.</p>
+<p>گروه <bdo><code>(\d+)</code></bdo> به عنوان آرگومان <code>amount</code> در تابع استفاده شده است، و گروه <bdo><code>(\w+)</code></bdo> به <code>unit</code> اختصاص یافته است. این تابع <code>amount</code> را به یک عدد تبدیل می کند – این عمل همیشه درست کار خواهد کرد چرا که توسط <bdo><code>\d+</code></bdo> تطبیق خورده است – و آن را در صورتی که فقط یک و صفر باقی مانده باشد، تغییراتی می دهد.</p>
 
-<h2><a class="h_ident" id="h_kiECehz+i+" href="#h_kiECehz+i+" tabindex="-1" role="presentation"></a>Greed</h2>
+<h2><a class="h_ident" id="h_BWZtpPcYWn" href="#h_BWZtpPcYWn" tabindex="-1" role="presentation"></a>عملگر‌های حریصانه</h2>
 
-<p><a class="p_ident" id="p_VccKwuX/1m" href="#p_VccKwuX/1m" tabindex="-1" role="presentation"></a>It is possible to use <code>replace</code> to write a function that removes all comments from a piece of JavaScript code. Here is a first attempt:</p>
+<p>می توان از متد <code>replace</code> برای نوشتن تابعی که همه‌ی توضیحات را از قطعه کدی جاوااسکریپت حذف کند استفاده نمود. اولین تلاش ما برای این کار به شکل زیر است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_u0oKSJTOA2" href="#c_u0oKSJTOA2" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">stripComments</span>(<span class="cm-def">code</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">code</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/\/\/.*|\/\*[^]*\*\//g</span>, <span class="cm-string">&quot;&quot;</span>);
@@ -406,15 +406,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stripComments</span>(<span class="cm-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
 <span class="cm-comment">// → 1  1</span></pre>
 
-<p><a class="p_ident" id="p_DkzBCJQQdu" href="#p_DkzBCJQQdu" tabindex="-1" role="presentation"></a>The part before the <em>or</em> operator matches two slash characters followed by any number of non-newline characters. The part for multiline comments is more involved. We use <code>[^]</code> (any character that is not in the empty set of characters) as a way to match any character. We cannot just use a period here because block comments can continue on a new line, and the period character does not match newline characters.</p>
+<p><a class="p_ident" id="p_F1g1bbIXWf" href="#p_F1g1bbIXWf" tabindex="-1" role="presentation"></a>قسمتی که قبل از عملگر &quot;یا&quot; (or) آمده است مطابق با دو کاراکتر <em>اسلشی</em> خواهد بود که می تواند بعد از آن ها هر کاراکتری غیر از کاراکترهای خط جدید بیاید. بخشی که مربوط به توضیحات چندخطه می باشد کمی پیچیده تر است. ما از <bdo><code>[^]</code></bdo> (به معنای هر کاراکتر که در یک مجموعه‌ی تهی از کاراکترها جا نمی گیرد) به عنوان روشی برای تطبیق همه‌ی کاراکترها استفاده کرده ایم. نمی توانیم فقط از یک نقطه (.) برای این منظور در اینجا استفاده کنیم چراکه بلاکهای کامنت را می توان در چند خط نوشت و کاراکتر نقطه کاراکترهای خطوط جدید را تطبیق نمی دهد.</p>
 
-<p><a class="p_ident" id="p_s9E9JYjAYp" href="#p_s9E9JYjAYp" tabindex="-1" role="presentation"></a>But the output for the last line appears to have gone wrong. Why?</p>
+<p>اما خروجی خط آخر به نظر می رسد که دارای اشتباه باشد. چرا؟</p>
 
-<p><a class="p_ident" id="p_atS1ERkauC" href="#p_atS1ERkauC" tabindex="-1" role="presentation"></a>The <code>[^]*</code> part of the expression, as I described in the section on backtracking, will first match as much as it can. If that causes the next part of the pattern to fail, the matcher moves back one character and tries again from there. In the example, the matcher first tries to match the whole rest of the string and then moves back from there. It will find an occurrence of <code>*/</code> after going back four characters and match that. This is not what we wanted—the intention was to match a single comment, not to go all the way to the end of the code and find the end of the last block comment.</p>
+<p>قسمت <bdo><code>[^]*</code></bdo> عبارت، همانطور که در قسمت عقب‌گرد توضیح دادم، در ابتدا تا آنجایی که می تواند تطبیق می‌دهد. اگر این کار منجر به این شود که بخش بعدی الگو شکست بخورد، تطبیق‌گر یک کاراکتر به عقب برگشته و از آن نقطه دوباره تلاش می کند. در مثال بالا، تطبیق‌گر ابتدا تلاش می کند تا کل رشته‌ی باقیمانده را تطبیق دهد سپس از آنجا به عقب برگردد. این موجب خواهد شد که یک نمونه از <bdo><code>*/</code></bdo> را بعد از اینکه چهار کاراکتر به عقب برمی گردد تطبیق دهد. این چیزی نیست که به دنبال آن بودیم- قصد ما این بود که یک توضیح را تطبیق دهیم، نه اینکه تا انتهای کدهای برنامه را برای پیدا کردن پایان￼ آخرین بلاک توضیحات پیمایش کنیم.</p>
 
-<p><a class="p_ident" id="p_eNtLSVH65f" href="#p_eNtLSVH65f" tabindex="-1" role="presentation"></a>Because of this behavior, we say the repetition operators (<code>+</code>, <code>*</code>, <code>?</code>, and <code>{}</code>) are <em>greedy</em>, meaning they match as much as they can and backtrack from there. If you put a question mark after them (<code>+?</code>, <code>*?</code>, <code>??</code>, <code>{}?</code>), they become nongreedy and start by matching as little as possible, matching more only when the remaining pattern does not fit the smaller match.</p>
+<p>به خاطر این عملکرد، به عملگرهای تکرار <bdo>(<code>+</code>, <code>*</code>, <code>?</code>, و <code>{}</code>)</bdo> عملگرهای <em>حریصانه</em> می گوییم، به این معنا که تا جای که می توانند تطبیق می دهند بعد به عقب برمی گردنند. اگر بعد از آن ها یک علامت سوال قرار دهید <bdo> (<code>+?</code>, <code>*?</code>, <code>??</code>, <code>{}?</code>)</bdo>، دیگر حریص نخواهند بود و با حداقل تطبیق شروع می کنند ، زمانی به تطبیق بیشتر می پردازند که الگوی باقیمانده با تطبیقی کوچکتر مطابقت نداشته باشد.</p>
 
-<p><a class="p_ident" id="p_0L47KZXZKa" href="#p_0L47KZXZKa" tabindex="-1" role="presentation"></a>And that is exactly what we want in this case. By having the star match the smallest stretch of characters that brings us to a <code>*/</code>, we consume one block comment and nothing more.</p>
+<p>و این دقیقا آن چیزی است که در این مورد آن را می خواهیم. با تطبیق کوچکترین بازه‌هایی از کاراکترها به وسیله‌ی ستاره که مارا به یک <bdo><code>*/</code></bdo> برساند، ما فقط یک بلاک توضیحات را انتخاب کردیم و نه چیز بیشتری را.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_MCNF7GxfR1" href="#c_MCNF7GxfR1" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">stripComments</span>(<span class="cm-def">code</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">code</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/\/\/.*|\/\*[^]*?\*\//g</span>, <span class="cm-string">&quot;&quot;</span>);
@@ -422,13 +422,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stripComments</span>(<span class="cm-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
 <span class="cm-comment">// → 1 + 1</span></pre>
 
-<p><a class="p_ident" id="p_o+3JCFC4Dr" href="#p_o+3JCFC4Dr" tabindex="-1" role="presentation"></a>A lot of bugs in regular expression programs can be traced to unintentionally using a greedy operator where a nongreedy one would work better. When using a repetition operator, consider the nongreedy variant first.</p>
+<p>زمانی که یک عملگر غیرحریصانه‌ کارکرد بهتری برای مسئله دارد، اگر بدون دلیل و آگاهی از یک عملگر حریصانه استفاده کنید، ممکن است با باگ‌های زیادی در برنامه‌ روبرو شوید. هنگام استفاده از یک عملگر تکرار، بهتر است ابتدا به سراغ نسخه‌ی غیر حریصانه آن بروید.</p>
 
-<h2><a class="h_ident" id="h_Rhu25fogrG" href="#h_Rhu25fogrG" tabindex="-1" role="presentation"></a>Dynamically creating RegExp objects</h2>
+<h2><a class="h_ident" id="h_8lIV0MSfPq" href="#h_8lIV0MSfPq" tabindex="-1" role="presentation"></a>ساخت اشیاء RegExp به صورت پویا</h2>
 
-<p><a class="p_ident" id="p_34PsyHYX4x" href="#p_34PsyHYX4x" tabindex="-1" role="presentation"></a>There are cases where you might not know the exact pattern you need to match against when you are writing your code. Say you want to look for the user’s name in a piece of text and enclose it in underscore characters to make it stand out. Since you will know the name only once the program is actually running, you can’t use the slash-based notation.</p>
+<p>در بعضی مواقع، ممکن است هنگام کدنویسی، الگوی مورد نیاز جهت تطبیق مشخص نباشد. فرض کنید که می‌خواهید به دنبال نام کاربر در یک متن بگردید و آن را توسط یک جفت کاراکتر خط زیرین محصور کنید تا بتوان آن‌را شناسایی کرد. به دلیل اینکه فقط در هنگام اجرای برنامه نام مورد نظر مشخص می شود، نمی توان از روش استفاده از اسلش بهره برد.</p>
 
-<p><a class="p_ident" id="p_KAQggWa80Y" href="#p_KAQggWa80Y" tabindex="-1" role="presentation"></a>But you can build up a string and use the <code>RegExp</code> constructor on that. Here’s an example:</p>
+<p>اما می توانید یک رشته تولید کنید و از سازنده‌ی <code>RegExp</code> روی آن استفاده کنید. به مثال توجه کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_3yQimfD35d" href="#c_3yQimfD35d" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">name</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;harry&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">text</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Harry is a suspicious character.&quot;</span>;
@@ -436,11 +436,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">text</span>.<span class="cm-property">replace</span>(<span class="cm-variable">regexp</span>, <span class="cm-string">&quot;_$1_&quot;</span>));
 <span class="cm-comment">// → _Harry_ is a suspicious character.</span></pre>
 
-<p><a class="p_ident" id="p_J6H1NBoQy/" href="#p_J6H1NBoQy/" tabindex="-1" role="presentation"></a>When creating the <code>\b</code> boundary markers, we have to use two backslashes because we are writing them in a normal string, not a slash-enclosed regular expression. The second argument to the <code>RegExp</code> constructor contains the options for the regular expression—in this case, <code>&quot;gi&quot;</code> for global and case insensitive.</p>
+<p>هنگام نوشتن نشان‌گرهای محدوده‌ی (مرز) <bdo><code>\b</code></bdo> ، باید از دو بک‌اسلش استفاده کنیم به این علت که آن ها را در یک رشته‌ی نرمال می نویسیم نه یک عبارت باقاعده که توسط اسلش محصور شده است. آرگومان دوم سازنده‌ی <code>RegExp</code> مربوط به گزینه‌های مربوط به عبارت باقاعده است – در این مثال، <code>&quot;gi&quot;</code> برای مشخص کردن سراسری بودن و غیرحساس بودن به حروف بزرگ و کوچک است.</p>
 
-<p><a class="p_ident" id="p_UPAgEiKHfS" href="#p_UPAgEiKHfS" tabindex="-1" role="presentation"></a>But what if the name is <code>&quot;dea+hl[]rd&quot;</code> because our user is a nerdy teenager? That would result in a nonsensical regular expression that won’t actually match the user’s name.</p>
+<p>اما چه می شود اگر نام کاربر مورد نظر  <bdo><code>&quot;dea+hl[]rd&quot;</code></bdo> باشد که متعلق یک نوجوان خوره‌ی کامپیوتر است؟ این نام باعث می شود که یک عبارت باقاعده‌ی بی معنا تولید شود که منجر به تطبیق نام کاربر نمی شود.</p>
 
-<p><a class="p_ident" id="p_Q+hqmMv8NT" href="#p_Q+hqmMv8NT" tabindex="-1" role="presentation"></a>To work around this, we can add backslashes before any character that has a special meaning.</p>
+<p>راه حل این مشکل، اضافه کردن بک‌اسلش قبل از هر کاراکتری که معنای خاصی دارد است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VVThPW6YGV" href="#c_VVThPW6YGV" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">name</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;dea+hl[]rd&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">text</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;This dea+hl[]rd guy is super annoying.&quot;</span>;
@@ -449,24 +449,24 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">text</span>.<span class="cm-property">replace</span>(<span class="cm-variable">regexp</span>, <span class="cm-string">&quot;_$&amp;_&quot;</span>));
 <span class="cm-comment">// → This _dea+hl[]rd_ guy is super annoying.</span></pre>
 
-<h2><a class="h_ident" id="h_Txg7z4j/ei" href="#h_Txg7z4j/ei" tabindex="-1" role="presentation"></a>The search method</h2>
+<h2><a class="h_ident" id="h_6SlL1IdtMU" href="#h_6SlL1IdtMU" tabindex="-1" role="presentation"></a>متد search</h2>
 
-<p><a class="p_ident" id="p_3QlEdRm5L2" href="#p_3QlEdRm5L2" tabindex="-1" role="presentation"></a>The <code>indexOf</code> method on strings cannot be called with a regular expression. But there is another method, <code>search</code>, that does expect a regular expression. Like <code>indexOf</code>, it returns the first index on which the expression was found, or -1 when it wasn’t found.</p>
+<p><a class="p_ident" id="p_NWoZK3kTsE" href="#p_NWoZK3kTsE" tabindex="-1" role="presentation"></a>متد <code>indexOf</code> که روی رشته ها کار می کرد را نمی توان با یک عبارت باقاعده فراخواند. اما متد دیگری به نام <code>search</code> وجود دارد که یک عبارت باقاعده را دریافت می کند. درست مانند <code>indexOf</code>، این متد نیز اولین خانه‌ی خروجی را به عبارتی که پیدا شد اختصاص می دهد و یا در صورت پیدا نکردن نتیجه،  <bdo>-1</bdo> را بر می گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_diUfxE6ifs" href="#c_diUfxE6ifs" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;  word&quot;</span>.<span class="cm-property">search</span>(<span class="cm-string-2">/\S/</span>));
 <span class="cm-comment">// → 2</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;    &quot;</span>.<span class="cm-property">search</span>(<span class="cm-string-2">/\S/</span>));
 <span class="cm-comment">// → -1</span></pre>
 
-<p><a class="p_ident" id="p_tqlyvUKoi5" href="#p_tqlyvUKoi5" tabindex="-1" role="presentation"></a>Unfortunately, there is no way to indicate that the match should start at a given offset (like we can with the second argument to <code>indexOf</code>), which would often be useful.</p>
+<p>متاسفانه، راهی برای مشخص کردن نقطه‌ی شروع برای تطبیق وجود ندارد (شبیه کاری که می توانیم با آرگومان دوم <code>indexOf</code> انجام دهیم) که در صورت وجود کاربرد داشت.</p>
 
-<h2><a class="h_ident" id="h_duFTd2hqd0" href="#h_duFTd2hqd0" tabindex="-1" role="presentation"></a>The lastIndex property</h2>
+<h2><a class="h_ident" id="h_EzWBx9Vn7i" href="#h_EzWBx9Vn7i" tabindex="-1" role="presentation"></a>خاصیت lastIndex</h2>
 
-<p><a class="p_ident" id="p_MvO8+re1D+" href="#p_MvO8+re1D+" tabindex="-1" role="presentation"></a>The <code>exec</code> method similarly does not provide a convenient way to start searching from a given position in the string. But it does provide an <em>in</em>convenient way.</p>
+<p>متد <code>exec</code> نیز راهی مناسب برای شروع جستجو از یک موقعیت داده شده در یک رشته را پشتیبانی نمی کند. اما یک راه غیر سرراست برای این کار وجود دارد.</p>
 
-<p><a class="p_ident" id="p_F+JgzwxLtK" href="#p_F+JgzwxLtK" tabindex="-1" role="presentation"></a>Regular expression objects have properties. One such property is <code>source</code>, which contains the string that expression was created from. Another property is <code>lastIndex</code>, which controls, in some limited circumstances, where the next match will start.</p>
+<p>اشیائی که از نوع عبارت باقاعده هستند دارای خاصیت‌هایی هستند. یکی از این خاصیت‌ها <code>source</code> است، که رشته‌ای که عبارت از آن تولید شده است را نگهداری می کند. یک خاصیت دیگر ، <code>lastIndex</code> است که در شرایط محدودی کنترل می کند که تطبیق بعدی از کجا شروع خواهد شد.</p>
 
-<p><a class="p_ident" id="p_Ld5Vcdy0jB" href="#p_Ld5Vcdy0jB" tabindex="-1" role="presentation"></a>Those circumstances are that the regular expression must have the global (<code>g</code>) or sticky (<code>y</code>) option enabled, and the match must happen through the <code>exec</code> method. Again, a less confusing solution would have been to just allow an extra argument to be passed to <code>exec</code>, but confusion is an essential feature of JavaScript’s regular expression interface.</p>
+<p>این شرایط این است که عبارت باقاعده باید گزینه‌های سراسری (<code>g</code>) یا چسبنده (<code>y</code>) را فعال داشته باشد و تطبیق باید با متد <code>‌exec</code> صورت پذیرد. دوباره، یک راه حل کمتر گیج کننده می توانست این باشد که اجازه داده شود که یک آرگومان اضافی برای این کار به متد <code>exec</code> فرستاده می شود، اما گیج کنندگی یکی از ویژگی‌های اساسی رابط عبارت باقاعده در جاوااسکریپت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_nXsHtqIJdF" href="#c_nXsHtqIJdF" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">pattern</span> <span class="cm-operator">=</span> <span class="cm-string-2">/y/g</span>;
 <span class="cm-variable">pattern</span>.<span class="cm-property">lastIndex</span> <span class="cm-operator">=</span> <span class="cm-number">3</span>;
@@ -476,9 +476,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">pattern</span>.<span class="cm-property">lastIndex</span>);
 <span class="cm-comment">// → 5</span></pre>
 
-<p><a class="p_ident" id="p_hjLQ+57mDd" href="#p_hjLQ+57mDd" tabindex="-1" role="presentation"></a>If the match was successful, the call to <code>exec</code> automatically updates the <code>lastIndex</code> property to point after the match. If no match was found, <code>lastIndex</code> is set back to zero, which is also the value it has in a newly constructed regular expression object.</p>
+<p>اگر تطبیق با موفقیت انجام شد،فراخوانی <code>exec</code> به طور خودکار خاصیت <code>lastIndex</code> را به روز رسانی کرده تا به نقطه‌ی بعد از تطبیق اشاره کند. اگر تطبیقی پیدا نشود، <code>lastIndex</code> مقدار صفر را خواهد گرفت، که مقداری است که شیء در هنگام ایجاد یک عبارات باقاعده جدید نگه‌داری می کند.</p>
 
-<p><a class="p_ident" id="p_dQPVkpMm7y" href="#p_dQPVkpMm7y" tabindex="-1" role="presentation"></a>The difference between the global and the sticky options is that, when sticky is enabled, the match will succeed only if it starts directly at <code>lastIndex</code>, whereas with global, it will search ahead for a position where a match can start.</p>
+<p>تفاوت بین گزینه‌ی سراسری و چسبنده این است که در حالت فعال بودن گزینه‌ی چسبنده، زمانی تطبیق موفق خواهد بود که مستقیما از نقطه‌ی <code>lastIndex</code> شروع شود درحالیکه در حالت سراسری، جستجو رو به جلو انجام خواهد شد تا به موقعیتی برسد که یک تطبیق بتواند شروع شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_98GwGRIMj8" href="#c_98GwGRIMj8" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">global</span> <span class="cm-operator">=</span> <span class="cm-string-2">/abc/g</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">global</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;xyz abc&quot;</span>));
@@ -487,7 +487,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sticky</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;xyz abc&quot;</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p><a class="p_ident" id="p_042bNmzNZK" href="#p_042bNmzNZK" tabindex="-1" role="presentation"></a>When using a shared regular expression value for multiple <code>exec</code> calls, these automatic updates to the <code>lastIndex</code> property can cause problems. Your regular expression might be accidentally starting at an index that was left over from a previous call.</p>
+<p>اگر از یک عبارت باقاعده‌ی مشترک برای چندین فراخوانی <code>exec</code> استفاده کنیم این به‌روز‌رسانی های خودکار خاصیت <code>lastIndex</code> می تواند مشکل‌ساز باشد. عبارت باقاعده‌ی شما ممکن است تصادفا از اندیسی شروع شود که از فراخوانی قبلی به جا مانده باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wrx2wO0P8M" href="#c_wrx2wO0P8M" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">digit</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d/g</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">digit</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;here it is: 1&quot;</span>));
@@ -495,16 +495,16 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">digit</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;and now: 1&quot;</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p><a class="p_ident" id="p_9l7tQ3SsME" href="#p_9l7tQ3SsME" tabindex="-1" role="presentation"></a>Another interesting effect of the global option is that it changes the way the <code>match</code> method on strings works. When called with a global expression, instead of returning an array similar to that returned by <code>exec</code>, <code>match</code> will find <em>all</em> matches of the pattern in the string and return an array containing the matched strings.</p>
+<p>یک اثر جالب توجه دیگر در صورت استفاده از گزینه‌ی سراسری این است که باعث می شود کارکرد متد <code>match</code> روی رشته‌ها، متفاوت باشد. زمانی که این متد با عبارتی سراسری فراخوانی شود، به جای اینکه آرایه‌ای شبیه چیزی که از <code>exec</code> برگردانده می شد تولید کند، متد <code>match</code> تمامی تطبیق‌های الگوی درون رشته را پیدا می کند و آرایه‌ای حاوی تمام رشته‌های تطبیق خورده تولید می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_weT/d5+8vE" href="#c_weT/d5+8vE" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Banana&quot;</span>.<span class="cm-property">match</span>(<span class="cm-string-2">/an/g</span>));
 <span class="cm-comment">// → [&quot;an&quot;, &quot;an&quot;]</span></pre>
 
-<p><a class="p_ident" id="p_zFHO63a2iV" href="#p_zFHO63a2iV" tabindex="-1" role="presentation"></a>So be cautious with global regular expressions. The cases where they are necessary—calls to <code>replace</code> and places where you want to explicitly use <code>lastIndex</code>—are typically the only places where you want to use them.</p>
+<p>بنابراین با احتیاط سراغ عبارات‌ باقاعده‌ی سراسری بروید. معمولا تنها مواردی که لازم است به سراغ آن‌ها بروید هنگامی است که به فراخوانی متد <code>replace</code> نیاز دارید و همچنین مواقعی که لازم است تا صراحتا از <code>lastIndex</code> استفاده کنید.</p>
 
-<h3><a class="i_ident" id="i_m0fs21dHEg" href="#i_m0fs21dHEg" tabindex="-1" role="presentation"></a>Looping over matches</h3>
+<h3><a class="i_ident" id="i_pR8PYScPxZ" href="#i_pR8PYScPxZ" tabindex="-1" role="presentation"></a>پیمایش تطبیق‌ها</h3>
 
-<p><a class="p_ident" id="p_Rhy/hnaaT+" href="#p_Rhy/hnaaT+" tabindex="-1" role="presentation"></a>A common thing to do is to scan through all occurrences of a pattern in a string, in a way that gives us access to the match object in the loop body. We can do this by using <code>lastIndex</code> and <code>exec</code>.</p>
+<p>یکی از کارهای رایج این است که تمامی موارد رخ‌داد یک الگو در رشته را در بدنه‌ی حلقه پیمایش کنیم به شکلی که شیء تطبیق شده در دسترس ما باشد. برای این‌کار می توانیم از متدهای <code>lastIndex</code> و <code>exec</code> استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rSzEnbVHja" href="#c_rSzEnbVHja" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">input</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;A string with 3 numbers in it... 42 and 88.&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\b\d+\b/g</span>;
@@ -516,11 +516,11 @@
 <span class="cm-comment">//   Found 42 at 33</span>
 <span class="cm-comment">//   Found 88 at 40</span></pre>
 
-<p><a class="p_ident" id="p_ZdCI2+edqA" href="#p_ZdCI2+edqA" tabindex="-1" role="presentation"></a>This makes use of the fact that the value of an assignment expression (<code>=</code>) is the assigned value. So by using <code>match = number.<wbr>exec(input)</code> as the condition in the <code>while</code> statement, we perform the match at the start of each iteration, save its result in a binding, and stop looping when no more matches are found.</p>
+<p>این مثال از این واقعیت استفاده می کند که مقدار یک عبارت تخصیص (<code>=</code>)، مقدار انتساب داده شده است. بنابراین با استفاده از <bdo><code>match = number.<wbr>exec(input)</code></bdo> به عنوان قسمت شرط دستور <code>while،</code> تطبیق را در شروع هر تکرار￼ حلقه اجرا می کنیم و نتیجه‌ی آن را در یک متغیر ذخیره می کنیم، و هنگامی پیمایش حلقه را متوقف می کنیم که تطبیقی پیدا نشود.</p>
 
-<h2 id="ini"><a class="h_ident" id="h_RGsf6ah1EY" href="#h_RGsf6ah1EY" tabindex="-1" role="presentation"></a>Parsing an INI file</h2>
+<h2 id="ini"><a class="h_ident" id="h_KEUpkgIz70" href="#h_KEUpkgIz70" tabindex="-1" role="presentation"></a>تجزیه‌ی یک فایل ini</h2>
 
-<p><a class="p_ident" id="p_JbrLORqV9r" href="#p_JbrLORqV9r" tabindex="-1" role="presentation"></a>To conclude the chapter, we’ll look at a problem that calls for regular expressions. Imagine we are writing a program to automatically collect information about our enemies from the Internet. (We will not actually write that program here, just the part that reads the configuration file. Sorry.) The configuration file looks like this:</p>
+<p>برای به پایان رساندن این فصل، به سراغ مسئله‌ای می رویم که به دست عبارات باقاعده حل می شود. فرض کنید که در حال نوشتن برنامه‌ای هستیم که به طور خودکار اطلاعاتی درباره‌ی دشمنانمان از سطح اینترنت جمع آوری می کند. (واقعا قرار نیست این برنامه‌ را در اینجا بنویسیم، فقط بخشی را می نویسیم که فایل حاوی تنظیمات را می خواند. از این بابت متاسفم.) فایل تنظیمات به این شکل است:</p>
 
 <pre class="snippet cm-s-default" data-language="text/plain" ><a class="c_ident" id="c_RV3f5fiptq" href="#c_RV3f5fiptq" tabindex="-1" role="presentation"></a>searchengine=https://duckduckgo.com/?q=$1
 spitefulness=9.7
@@ -537,29 +537,29 @@ fullname=Davaeorn
 type=evil wizard
 outputdir=/home/marijn/enemies/davaeorn</pre>
 
-<p><a class="p_ident" id="p_OgIQS1TJxB" href="#p_OgIQS1TJxB" tabindex="-1" role="presentation"></a>The exact rules for this format (which is a widely used format, usually called an <em>INI</em> file) are as follows:</p>
+<p><a class="p_ident" id="p_5+sfP6l0gN" href="#p_5+sfP6l0gN" tabindex="-1" role="presentation"></a>قوانین حاکم بر این فایل (که فرمتی بسیار رایج است و معمولا یک فایل INI نامیده می شود) به صورت زیر است:</p>
 
 <ul>
 
 <li>
 
-<p><a class="p_ident" id="p_jIewfc/40B" href="#p_jIewfc/40B" tabindex="-1" role="presentation"></a>Blank lines and lines starting with semicolons are ignored.</p></li>
+<p>خطوط خالی و خط‌هایی که با نقطه‌ویرگول شروع می شوند صرف نظر می شوند.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_O/dGCr+aR5" href="#p_O/dGCr+aR5" tabindex="-1" role="presentation"></a>Lines wrapped in <code>[</code> and <code>]</code> start a new section.</p></li>
+<p>خطوطی که بین <bdo><code>[</code></bdo> و <bdo><code>]</code></bdo> محصور هستند یک بخش جدید را شروع می کنند.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_l2Yjl1fUVB" href="#p_l2Yjl1fUVB" tabindex="-1" role="presentation"></a>Lines containing an alphanumeric identifier followed by an <code>=</code> character add a setting to the current section.</p></li>
+<p>خطوطی که حاوی یک شناسه‌ی عددی-حرفی هستند که بعد از آن کاراکتر <code>=</code> می آید، یک گزینه به تنظیمات بخش فعلی اضافه می کنند.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_bCaQwCXJCi" href="#p_bCaQwCXJCi" tabindex="-1" role="presentation"></a>Anything else is invalid.</p></li></ul>
+<p>هر چیز دیگری غیر از موارد بالا نامعتبر شناخته می شود.</p></li></ul>
 
-<p><a class="p_ident" id="p_clbD+OAS4y" href="#p_clbD+OAS4y" tabindex="-1" role="presentation"></a>Our task is to convert a string like this into an object whose properties hold strings for settings written before the first section header and subobjects for sections, with those subobjects holding the section’s settings.</p>
+<p>وظیفه‌ی ما این است که رشته‌ای شبیه این را به یک شیء تبدیل کنیم که خاصیت‌هایش رشته‌های تنظیمات نوشته شده قبل از اولین بخش را نگه‌داری می کنند و زیر‌شیءهایش به بخش‌ها تعلق دارند که هر زیر‌شیء تنظیمات یک بخش را در خود دارد.</p>
 
-<p><a class="p_ident" id="p_8U3vMRn7g4" href="#p_8U3vMRn7g4" tabindex="-1" role="presentation"></a>Since the format has to be processed line by line, splitting up the file into separate lines is a good start. We saw the <code>split</code> method in <a href="04_data.html#split">Chapter 4</a>. Some operating systems, however, use not just a newline character to separate lines but a carriage return character followed by a newline (<code>&quot;\r\n&quot;</code>). Given that the <code>split</code> method also allows a regular expression as its argument, we can use a regular expression like <code>/\r?\n/</code> to split in a way that allows both <code>&quot;\n&quot;</code> and <code>&quot;\r\n&quot;</code> between lines.</p>
+<p>به دلیل اینکه این فرمت باید خط به خط پردازش شود، تقسیم فایل به خطوط مجزا شروع خوبی به نظر می رسد. ما متد <code>split</code> را در <a href="04_data.html#split">فصل 4</a> دیدیم. بعضی سیستم عامل‌ها، به هر دلیلی، فقط از کاراکتر خط جدید برای جداسازی خطوط استفاده نمی کنند بلکه از یک کاراکتر بازگشت به ابتدای خط و بعد از آن کاراکتر خط جدید برای این کار استفاده می کنند <bdo>(<code>&quot;\r\n&quot;</code>)</bdo>. با درنظر گرفتن اینکه می دانیم می‌توان به متد <code>split</code>، یک عبارات باقاعده ارسال کرد می توانیم جداسازی خطوط را با عبارت باقاعده ای شبیه <bdo><code>/\r?\n/</code></bdo> انجام دهیم که باعث می شود هم <bdo><code>&quot;\n&quot;</code></bdo> و هم <bdo><code>&quot;\r\n&quot;</code></bdo> در نظر گرفته شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_neI86/XXg2" href="#c_neI86/XXg2" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parseINI</span>(<span class="cm-def">string</span>) {
   <span class="cm-comment">// Start with an object to hold the top-level fields</span>
@@ -584,24 +584,23 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 <span class="cm-string-2">city=Tessaloniki`</span>));
 <span class="cm-comment">// → {name: &quot;Vasilis&quot;, address: {city: &quot;Tessaloniki&quot;}}</span></pre>
 
-<p><a class="p_ident" id="p_86q0K3iF4C" href="#p_86q0K3iF4C" tabindex="-1" role="presentation"></a>The code goes over the file’s lines and builds up an object. Properties at the top are stored directly into that object, whereas properties found in sections are stored in a separate section object. The <code>section</code> binding points at the object for the current section.</p>
+<p>کد بالا به این صورت عمل می کند که خط به خط فایل را پردازش کرده و یک شیء می سازد. خاصیت‌های قسمت بالایی مستقیما درون شیء ذخیره می شوند، درحالیکه خاصیت‌هایی که در بخش‌ها قرار دارند به صورت جداگانه در￼ شیئی  مختص هر بخش قرار می گیرند. متغیر <code>section</code> به شیء بخش کنونی اشاره می کند.</p>
 
-<p><a class="p_ident" id="p_ixTfvSC1VN" href="#p_ixTfvSC1VN" tabindex="-1" role="presentation"></a>There are two kinds of significant lines—section headers or property lines. When a line is a regular property, it is stored in the current section. When it is a section header, a new section object is created, and <code>section</code> is set to point at it.</p>
+<p>دو نوع قابل توجه خط وجود دارد – سرتیترهای بخش یا خطوط خاصیت ها. زمانی که یک خط معرف یک خاصیت معمولی است، در بخش فعلی ذخیره می شود. زمانی که معرف یک سرتیتر بخش است، یک شیء جدید برای بخش مورد نظر ایجاد می شود و <code>section</code> به آن تخصیص می یابد.</p>
 
-<p><a class="p_ident" id="p_FPzqsloIkT" href="#p_FPzqsloIkT" tabindex="-1" role="presentation"></a>Note the recurring use of <code>^</code> and <code>$</code> to make sure the expression matches the whole line, not just part of it. Leaving these out results in code that mostly works but behaves strangely for some input, which can be a difficult bug to track down.</p>
+<p>توجه داشته باشید که استفاده‌ی مکرر از <code>^</code> و <code>$</code> برای این است که مطمئن شویم عبارت تمام خط را تطبیق می دهد نه فقط بخشی از آن را. اگر از آن ها استفاده نشود، کد در اکثر مواقع کار می‌کند اما برای بعضی ورودی ها رفتار عجیبی از خود نشان دهد که ممکن است اشکال زدایی آن سخت باشد.</p>
 
-<p><a class="p_ident" id="p_ACT8bIScp+" href="#p_ACT8bIScp+" tabindex="-1" role="presentation"></a>The pattern <code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code> is similar to the trick of using an assignment as the condition for <code>while</code>. You often aren’t sure that your call to <code>match</code> will succeed, so you can access the resulting object only inside an <code>if</code> statement that tests for this. To not break the pleasant chain of <code>else if</code> forms, we assign the result of the match to a binding and immediately use that assignment as the test for the <code>if</code> statement.</p>
+<p>الگوی <bdo><code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code></bdo> شبیه به ترفندی است که از عبارت تخصیص به عنوان شرط <code>while</code> استفاده کردیم. اغلب اطمینان ندارید که فراخوانی <code>match</code> موفق خواهد شد، بنابراین می توانید فقط درون یک دستور <code>if</code> که آن را آزمایش می کند به نتیجه‌ی آن دسترسی داشته باشید. برای جلوگیری از شکستن زنجیره‌ی <bdo><code>else if</code></bdo>،  نتیجه‌ی تطبیق را به متغیری اختصاص دادیم و بلافاصله آن تخصیص را به عنوان شرط دستور <code>if</code> استفاده کرده ایم.</p>
 
-<p><a class="p_ident" id="p_mwlBKfUu5D" href="#p_mwlBKfUu5D" tabindex="-1" role="presentation"></a>If a line is not a section header or a property, the function checks whether it is a comment or an empty line using the expression <code>/^\s*(;.*)?$/</code>. Do you see how it works? The part between the parentheses will match comments, and the <code>?</code> makes sure it also matches lines containing only whitespace. When a line doesn’t match any of the expected forms, the function throws an exception.</p>
+<p>اگر یک خط، سرتیتر بخش یا یک خاصیت نباشد، تابع با استفاده از عبارت <bdo><code>/^\s*(;.*)?$/</code></bdo> بررسی می کند که آیا این خط توضیح است یا خطی خالی. متوجه نحوه‌ی کارکرد آن شدید؟ قسمتی که داخل پرانتز است توضیحات را تطبیق می دهد و علامت سوال <code>?</code> اطمینان حاصل می کند که خطوطی که فقط فضای خالی هستند شناسایی شوند. اگر خطی با هیچکدام از اشکال قابل انتظار تطبیق نخورد، تابع یک استثنا تولید (رها) می کند.</p>
 
-<h2><a class="h_ident" id="h_+y54//b0l+" href="#h_+y54//b0l+" tabindex="-1" role="presentation"></a>International characters</h2>
+<h2><a class="h_ident" id="h_TW2GNFCWIU" href="#h_TW2GNFCWIU" tabindex="-1" role="presentation"></a>کاراکترهای بین‌المللی</h2>
 
-<p><a class="p_ident" id="p_2zJ37rLrbl" href="#p_2zJ37rLrbl" tabindex="-1" role="presentation"></a>Because of JavaScript’s initial simplistic implementation and the fact that this simplistic approach was later set in stone as standard behavior, JavaScript’s regular expressions are rather dumb about characters that do not appear in the English language. For example, as far as JavaScript’s regular expressions are concerned, a “word
-character” is only one of the 26 characters in the Latin alphabet (uppercase or lowercase), decimal digits, and, for some reason, the underscore character. Things like <em>é</em> or <em>β</em>, which most definitely are word characters, will not match <code>\w</code> (and <em>will</em> match uppercase <code>\W</code>, the nonword category).</p>
+<p><a class="p_ident" id="p_iHMJ0Ei+74" href="#p_iHMJ0Ei+74" tabindex="-1" role="presentation"></a>به دلیل اینکه پیاده‌سازی اولیه جاوااسکریپت بسیار ساده بوده است و این واقعیت که این شیوه‌ی ساده محور بعدها به عنوان یک استاندارد رفتاری در نظر گرفته شد، عبارات باقاعده در جاوااسکریپت نسبتا برای کاراکترهای غیر انگلیسی، حرفی برای گفتن ندارند. به عنوان مثال، در عبارات باقاعده جاوااسکریپت، یک “کاراکتر کلمه” فقط شامل 26 حرف لاتین (حروف بزرگ و کوچک)، اعداد ده‌دهی، و به دلایلی کاراکتر خط زیرین می شود. چیزهایی مثل <em>é</em> یا <em>β</em> که قطعا کاراکتر کلمه محسوب می شوند توسط <bdo><code>\w</code></bdo> تطبیق نمی خورند ( و با <bdo><code>\W</code></bdo> تطبیق می خورند، دسته‌ی کاراکترهای غیر کلمه).</p>
 
-<p><a class="p_ident" id="p_H4r1oRJB6J" href="#p_H4r1oRJB6J" tabindex="-1" role="presentation"></a>By a strange historical accident, <code>\s</code> (whitespace) does not have this problem and matches all characters that the Unicode standard considers whitespace, including things like the nonbreaking space and the Mongolian vowel separator.</p>
+<p>به خاطر یک اتفاق نامعلوم در گذشته، <bdo><code>\s</code></bdo> (فضای خالی) این مشکل را ندارد و همه‌ی کاراکترهایی که استاندارد یونیکد به عنوان فضای خالی درنظر می گیرد را شامل می شود، مثل کاراکترهایی از قبیل نیم‌فاصله و جداکننده حروف صدادار در زبان مغولی.</p>
 
-<p><a class="p_ident" id="p_Ln5OarYp4l" href="#p_Ln5OarYp4l" tabindex="-1" role="presentation"></a>Another problem is that, by default, regular expressions work on code units, as discussed in <a href="05_higher_order.html#code_units">Chapter 5</a>, not actual characters. This means characters that are composed of two code units behave strangely.</p>
+<p>مشکل دیگر این است که به طور پیش فرض عبارات باقاعده روی واحدهای کد عمل می‌کنند؛ نه روی کاراکترهای واقعی؛ همانطور که در <a href="05_higher_order.html#code_units">فصل 5</a> بحث شد. معنای آن این است که با کاراکترهایی که از دو واحد کد تشکیل شده اند به شکل نامشخصی رفتار می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CfMTYxun8D" href="#c_CfMTYxun8D" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/🍎{3}/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;🍎🍎🍎&quot;</span>));
 <span class="cm-comment">// → false</span>
@@ -610,11 +609,11 @@ character” is only one of the 26 characters in the Latin alphabet (uppercase o
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/&lt;.&gt;/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;&lt;🌹&gt;&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_j4Kcv6J/rF" href="#p_j4Kcv6J/rF" tabindex="-1" role="presentation"></a>The problem is that the 🍎 in the first line is treated as two code units, and the <code>{3}</code> part is applied only to the second one. Similarly, the dot matches a single code unit, not the two that make up the rose emoji.</p>
+<p>مشکل اینجاست که 🍎 در خط اول به عنوان دو واحد کد شناخته می شود، و <bdo><code>{3}</code></bdo> فقط به واحد دوم اعمال می شود. به طور مشابه، عملگر نقطه فقط یک واحد کد را می شناسد نه دو واحدی که ایموجی گل رز را می سازند.</p>
 
-<p><a class="p_ident" id="p_1OZOJ3sk/b" href="#p_1OZOJ3sk/b" tabindex="-1" role="presentation"></a>You must add a <code>u</code> option (for Unicode) to your regular expression to make it treat such characters properly. The wrong behavior remains the default, unfortunately, because changing that might cause problems for existing code that depends on it.</p>
+<p>برای اینکه عبارت باقاعده این گونه کاراکترها را در نظر بگیرد باید گزینه‌ی <code>u</code> (یونیکد) را استفاده کنید. متاسفانه به صورت پیش‌فرض این اشکال وجود خواهد داشت چون تغییر آن ممکن است مشکلاتی را برای کدهای نوشته شده از قبل که به این رفتار وابستگی دارند به وجود بیاورد.</p>
 
-<p><a class="p_ident" id="p_MmzTSqcyKg" href="#p_MmzTSqcyKg" tabindex="-1" role="presentation"></a>Though this was only just standardized and is, at the time of writing, not widely supported yet, it is possible to use <code>\p</code> in a regular expression (that must have the Unicode option enabled) to match all characters to which the Unicode standard assigns a given property.</p>
+<p>اگرچه این قضیه به تازگی استاندارد شده است، و در هنگام نوشتن این کتاب، هنوز به طور گسترده از آن پشتیبانی نمی شود، می توان از <bdo><code>\p</code></bdo> در یک عبارت باقاعده ( عبارتی که باید گزینه‌ی یونیکد را فعال داشته باشد) برای تطبیق همه‌ی کاراکترهایی که استاندارد یونیکد برای آن‌ها خاصیتی در نظر گرفته است، استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_+jV1oln0sr" href="#c_+jV1oln0sr" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\p{Script=Greek}/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;α&quot;</span>));
 <span class="cm-comment">// → true</span>
@@ -625,139 +624,139 @@ character” is only one of the 26 characters in the Latin alphabet (uppercase o
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\p{Alphabetic}/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;!&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_5NxQGhRrMq" href="#p_5NxQGhRrMq" tabindex="-1" role="presentation"></a>Unicode defines a number of useful properties, though finding the one that you need may not always be trivial. You can use the <code>\p{Property=Value}</code> notation to match any character that has the given value for that property. If the property name is left off, as in <code>\p{Name}</code>, the name is assumed to be either a binary property such as <code>Alphabetic</code> or a category such as <code>Number</code>.</p>
+<p>یونیکد تعدادی خاصیت مفید تعریف می کند، اگرچه پیدا کردن خاصیتی که نیاز شما باشد ممکن است که همیشه ساده نباشد. می توانید از دستور <bdo><code>\p{Property=Value}</code></bdo> برای تطبیق هر کاراکتری که مقدار داده شده را برای آن خاصیت داشته باشد استفاده کنید. اگر نام خاصیت را همانطور که در <bdo><code>\p{Name}</code></bdo> می بینید حذف کنیم، نام آن یا به عنوان یک خاصیت دودویی مثل <code>Alphabetic</code> در نظر گرفته می شود یا یک دسته مثل <code>Number</code>.</p>
 
-<h2 id="summary_regexp"><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2 id="summary_regexp"><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_/hQX04GtpS" href="#p_/hQX04GtpS" tabindex="-1" role="presentation"></a>Regular expressions are objects that represent patterns in strings. They use their own language to express these patterns.</p>
+<p>عبارات باقاعده اشیائی هستند که الگوها را در رشته‌ها نشان می دهند. این عبارات از زبانی مخصوص به خود برای بیان این الگوها استفاده می کنند.</p>
 
 <table>
 
-<tr><td><code>/abc/</code></td><td>A sequence of characters</td>
+<tr><td><code>/abc/</code></td><td>یک دنباله از کاراکترها</td>
 
 </tr>
 
-<tr><td><code>/[abc]/</code></td><td>Any character from a set of characters</td>
+<tr><td><code>/[abc]/</code></td><td>یک کاراکتر از یک مجموعه کاراکتر</td>
 
 </tr>
 
-<tr><td><code>/[^abc]/</code></td><td>Any character <em>not</em> in a set of characters</td>
+<tr><td><code>/[^abc]/</code></td><td>یک کاراکتر که در مجموعه‌ی مشخص شده نباشد</td>
 
 </tr>
 
-<tr><td><code>/[0-9]/</code></td><td>Any character in a range of characters</td>
+<tr><td><code>/[0-9]/</code></td><td>یک کاراکتر که در یک بازه از کاراکترها قرار دارد</td>
 
 </tr>
 
-<tr><td><code>/x+/</code></td><td>One or more occurrences of the pattern <code>x</code></td>
+<tr><td><code>/x+/</code></td><td>یک یا بیش از یک بار وقوع الگوی <code>x</code></td>
 
 </tr>
 
-<tr><td><code>/x+?/</code></td><td>One or more occurrences, nongreedy</td>
+<tr><td><code>/x+?/</code></td><td>یک یا بیش از یک بار وقوع به صورت غیر حریصانه</td>
 
 </tr>
 
-<tr><td><code>/x*/</code></td><td>Zero or more occurrences</td>
+<tr><td><code>/x*/</code></td><td>صفر یا بیش از صفر بار وقوع الگوی <code>x</code></td>
 
 </tr>
 
-<tr><td><code>/x?/</code></td><td>Zero or one occurrence</td>
+<tr><td><code>/x?/</code></td><td>صفر یا یک بار وقوع</td>
 
 </tr>
 
-<tr><td><code>/x{2,4}/</code></td><td>Two to four occurrences</td>
+<tr><td><code>/x{2,4}/</code></td><td>دو تا چهار بار وقوع</td>
 
 </tr>
 
-<tr><td><code>/(abc)/</code></td><td>A group</td>
+<tr><td><code>/(abc)/</code></td><td>یک دسته یا گروه</td>
 
 </tr>
 
-<tr><td><code>/a|b|c/</code></td><td>Any one of several patterns</td>
+<tr><td><code>/a|b|c/</code></td><td>یکی از الگوهای متعدد</td>
 
 </tr>
 
-<tr><td><code>/\d/</code></td><td>Any digit character</td>
+<tr><td><code>/\d/</code></td><td>یک کاراکتر رقمی (عدد)</td>
 
 </tr>
 
-<tr><td><code>/\w/</code></td><td>An alphanumeric character (“word character”)</td>
+<tr><td><code>/\w/</code></td><td>یک کاراکتر حرف-عددی (یک کاراکتر کلمه)</td>
 
 </tr>
 
-<tr><td><code>/\s/</code></td><td>Any whitespace character</td>
+<tr><td><code>/\s/</code></td><td>یک کاراکتر فضای خالی (هر نوعی)</td>
 
 </tr>
 
-<tr><td><code>/./</code></td><td>Any character except newlines</td>
+<tr><td><code>/./</code></td><td>هر کاراکتری به جز کاراکتر خط جدید</td>
 
 </tr>
 
-<tr><td><code>/\b/</code></td><td>A word boundary</td>
+<tr><td><code>/\b/</code></td><td>یک مرز کلمه</td>
 
 </tr>
 
-<tr><td><code>/^/</code></td><td>Start of input</td>
+<tr><td><code>/^/</code></td><td>شروع ورودی</td>
 
 </tr>
 
-<tr><td><code>/$/</code></td><td>End of input</td>
+<tr><td><code>/$/</code></td><td>پایان ورودی</td>
 
 </tr>
 
 </table>
 
-<p><a class="p_ident" id="p_AVY5pFcEyH" href="#p_AVY5pFcEyH" tabindex="-1" role="presentation"></a>A regular expression has a method <code>test</code> to test whether a given string matches it. It also has a method <code>exec</code> that, when a match is found, returns an array containing all matched groups. Such an array has an <code>index</code> property that indicates where the match started.</p>
+<p>یک عبارت باقاعده دارای متدی به نام <code>test</code> است که رشته‌ی داده شده را جهت تطبیق با عبارت بررسی می کند. همچنین متدی به نام <code>exec</code> دارد که در صورت پیدا کردن تطبیق، آرایه‌ای تولید می کند که همه‌ی گروه‌های تطبیق خورده را دربر دارد. این آرایه دارای خاصیتی به نام <code>index</code> است که نقطه‌ی شروع تطبیق را مشخص می کند.</p>
 
-<p><a class="p_ident" id="p_FoVJlvxp9q" href="#p_FoVJlvxp9q" tabindex="-1" role="presentation"></a>Strings have a <code>match</code> method to match them against a regular expression and a <code>search</code> method to search for one, returning only the starting position of the match. Their <code>replace</code> method can replace matches of a pattern with a replacement string or function.</p>
+<p>رشته‌ها دارای متدی به نام <code>match</code> می‌باشند که برای تطبیق آن ها با یک عبارات باقاعده استفاده می شود. متدی به نام <code>search</code> دارند که برای جستجوی یک عبارت استفاده می شود که تنها موقعیت شروع تطبیق یافته شده را برمی‌گرداند. متد <code>replace</code> رشته‌ها می تواند تطبیق‌های پیدا شده برای یک الگو را با یک رشته یا تابع جایگزین کند.</p>
 
-<p><a class="p_ident" id="p_APfM9C3A6j" href="#p_APfM9C3A6j" tabindex="-1" role="presentation"></a>Regular expressions can have options, which are written after the closing slash. The <code>i</code> option makes the match case insensitive. The <code>g</code> option makes the expression <em>global</em>, which, among other things, causes the <code>replace</code> method to replace all instances instead of just the first. The <code>y</code> option makes it sticky, which means that it will not search ahead and skip part of the string when looking for a match. The <code>u</code> option turns on Unicode mode, which fixes a number of problems around the handling of characters that take up two code units.</p>
+<p>عبارات باقاعده می توانند گزینه‌هایی هم داشته باشند که بعد از اسلش پایانی نوشته می شوند. گزینه‌ی <code>i</code> باعث می شود که تطبیق به بزرگی و کوچکی حروف حساس نباشد. گزینه‌ی <code>g</code> عبارت را <em>سراسری</em> می کند که علاوه بر نتایج دیگر، در متد <code>replace</code> باعث می شود که همه‌ی نمونه‌ها جایگزین شوند نه فقط اولین مورد. گزینه‌ی <code>y</code> باعث می شود که عبارت چسبنده شود، که معنای آن این است که به سمت جلو جستجو نخواهد کرد و بخشی از رشته را در هنگام جستجو برای تطبیق در نظر نمی گیرد. گزینه‌ی <code>u</code> حالت یونیکد را فعال می کند که مشکلات مربوط به کاراکترهایی که دو واحد کد اشغال می کنند را برطرف می کند.</p>
 
-<p><a class="p_ident" id="p_mvLGdyUb97" href="#p_mvLGdyUb97" tabindex="-1" role="presentation"></a>Regular expressions are a sharp tool with an awkward handle. They simplify some tasks tremendously but can quickly become unmanageable when applied to complex problems. Part of knowing how to use them is resisting the urge to try to shoehorn things that they cannot cleanly express into them.</p>
+<p>عبارت‌های باقاعده مانند چاقوی تیزی هستند که دسته‌ی نامناسبی دارند. بعضی از کارها را به شدت ساده می کنند اما زمانی که به مسائل پیچیده اعمال می شوند می توانند به سرعت غیر قابل کنترل شوند. بخشی از فرهنگ صحیح استفاده از عبارات باقاعده  این است که برای چیزهایی که به روشنی به وسیله‌ی آن‌ها قابل بیان نیستند به سراغشان نرویم.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<p><a class="p_ident" id="p_meNfX2B/+s" href="#p_meNfX2B/+s" tabindex="-1" role="presentation"></a>It is almost unavoidable that, in the course of working on these exercises, you will get confused and frustrated by some regular expression’s inexplicable behavior. Sometimes it helps to enter your expression into an online tool like <a href="https://www.debuggex.com/"><em>https://debuggex.com</em></a> to see whether its visualization corresponds to what you intended and to experiment with the way it responds to various input strings.</p>
+<p><a class="p_ident" id="p_ZLZe6zjlTr" href="#p_ZLZe6zjlTr" tabindex="-1" role="presentation"></a>تقریبا غیر قابل اجتناب است که در حین انجام تمرین‌های این فصل، با دیدن بعضی از رفتارهای پیچیده‌ی عبارات باقاعده، دچار سردرگمی و ناامیدی نشوید. گاهی اوقات بهتر است که عبارتتان را در ابزارهای آنلاینی مثل <a href="https://www.debuggex.com/"><em>https://debuggex.com</em></a> وارد کنید تا ببینید تجسم عبارتتان با آنچه در نظر داشته اید ارتباط دارد یا خیر و با توجه به واکنش آن رشته‌های ورودی متفاوتی را آزمایش کنید.</p>
 
-<h3><a class="i_ident" id="i_vDM8PzwQWU" href="#i_vDM8PzwQWU" tabindex="-1" role="presentation"></a>Regexp golf</h3>
+<h3><a class="i_ident" id="i_mjMEG+9L3E" href="#i_mjMEG+9L3E" tabindex="-1" role="presentation"></a>گلف Regexp</h3>
 
-<p><a class="p_ident" id="p_1t8xXpFN7O" href="#p_1t8xXpFN7O" tabindex="-1" role="presentation"></a><em>Code golf</em> is a term used for the game of trying to express a particular program in as few characters as possible. Similarly, <em>regexp golf</em> is the practice of writing as tiny a regular expression as possible to match a given pattern, and <em>only</em> that pattern.</p>
+<p><a class="p_ident" id="p_modNywux3k" href="#p_modNywux3k" tabindex="-1" role="presentation"></a><em>گلف کد</em> اصطلاحی است که برای تلاش نوشتن برنامه‌ای با حداقل کاراکتر به کار می‌رود. به طور مشابه <em>regexp golf</em>، تمرین نوشتن کوتاه‌ترین عبارت باقاعده‌ای است که برای تطبیق یک الگوی داده شده می توان نوشت و <em>فقط</em> همان الگو باید تطبیق بخورد.</p>
 
-<p><a class="p_ident" id="p_VGCqgCur6C" href="#p_VGCqgCur6C" tabindex="-1" role="presentation"></a>For each of the following items, write a regular expression to test whether any of the given substrings occur in a string. The regular expression should match only strings containing one of the substrings described. Do not worry about word boundaries unless explicitly mentioned. When your expression works, see whether you can make it any smaller.</p>
+<p>برای هر یک از آیتم‌های زیر، عبارت باقاعده‌ای بنویسید و تست کنید هر کدام از زیررشته‌های داده شده در یک رشته موجود هستند یا خیر. عبارت باقاعده‌ای که می نویسید باید فقط رشته‌هایی را تطبیق دهد که یکی از زیر رشته‌های داده شده را داشته باشند. نیازی نیست نگران مرزهای کلمات باشید مگر اینکه به طور صریح ذکر شده باشد. وقتی عبارت باقاعده‌ی شما به طور صحیح کار کرد، ببینید توانید آن را کوتاه تر بنویسید؟</p>
 
 <ol>
 
 <li>
 
-<p><a class="p_ident" id="p_togdFO+/b9" href="#p_togdFO+/b9" tabindex="-1" role="presentation"></a><em>car</em> and <em>cat</em></p></li>
+<p><a class="p_ident" id="p_xvWnbeToqT" href="#p_xvWnbeToqT" tabindex="-1" role="presentation"></a><em>car</em> و <em>cat</em></p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_2Q37Tsr9DS" href="#p_2Q37Tsr9DS" tabindex="-1" role="presentation"></a><em>pop</em> and <em>prop</em></p></li>
+<p><a class="p_ident" id="p_GyRYO2ZOIs" href="#p_GyRYO2ZOIs" tabindex="-1" role="presentation"></a><em>pop</em> و <em>prop</em></p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_2Ah4dFikw1" href="#p_2Ah4dFikw1" tabindex="-1" role="presentation"></a><em>ferret</em>, <em>ferry</em>, and <em>ferrari</em></p></li>
+<p><a class="p_ident" id="p_NCSfDeF7SR" href="#p_NCSfDeF7SR" tabindex="-1" role="presentation"></a><em>ferret</em>, <em>ferry</em>, و <em>ferrari</em></p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_ttiBCcePDl" href="#p_ttiBCcePDl" tabindex="-1" role="presentation"></a>Any word ending in <em>ious</em></p></li>
+<p><a class="p_ident" id="p_mTg3ONUIhL" href="#p_mTg3ONUIhL" tabindex="-1" role="presentation"></a>هر کلمه‌ای که با <em>ious</em> پایان پذیرد</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_XnqTy5SopM" href="#p_XnqTy5SopM" tabindex="-1" role="presentation"></a>A whitespace character followed by a period, comma, colon, or semicolon</p></li>
+<p>یک کاراکتر فضای خالی که بعد از نقطه، ویرگول، دونقطه، یا نقطه‌ویرگول بیاید</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_Ku7hE3qqDn" href="#p_Ku7hE3qqDn" tabindex="-1" role="presentation"></a>A word longer than six letters</p></li>
+<p>کلمه‌ای که از شش حرف بیشتر باشد</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_mFDWQqRtWe" href="#p_mFDWQqRtWe" tabindex="-1" role="presentation"></a>A word without the letter <em>e</em> (or <em>E</em>)</p></li>
+<p><a class="p_ident" id="p_LnjCe/FXPh" href="#p_LnjCe/FXPh" tabindex="-1" role="presentation"></a>یک کلمه بدون داشتن حرف <em>e</em> (یا <em>E</em>)</p></li>
 
 </ol>
 
-<p><a class="p_ident" id="p_Tzjl1Axr+h" href="#p_Tzjl1Axr+h" tabindex="-1" role="presentation"></a>Refer to the table in the <a href="09_regexp.html#summary_regexp">chapter summary</a> for help. Test each solution with a few test strings.</p>
+<p>به جدولی که در <a href="09_regexp.html#summary_regexp">خلاصه فصل</a> آمده است برای کمک گرفتن رجوع کنید. هر راه حل را با چندین رشته‌ی آزمایشی بررسی کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Ilu9sT4yKB" href="#c_Ilu9sT4yKB" tabindex="-1" role="presentation"></a><span class="cm-comment">// Fill in the regular expressions</span>
 
@@ -801,11 +800,11 @@ character” is only one of the 26 characters in the Latin alphabet (uppercase o
   }
 }</pre>
 
-<h3><a class="i_ident" id="i_dTiEW14oG0" href="#i_dTiEW14oG0" tabindex="-1" role="presentation"></a>Quoting style</h3>
+<h3><a class="i_ident" id="i_AFdhUO7dpx" href="#i_AFdhUO7dpx" tabindex="-1" role="presentation"></a>سبک نقل قول کردن</h3>
 
-<p><a class="p_ident" id="p_x7xoQ6mk60" href="#p_x7xoQ6mk60" tabindex="-1" role="presentation"></a>Imagine you have written a story and used single quotation marks throughout to mark pieces of dialogue. Now you want to replace all the dialogue quotes with double quotes, while keeping the single quotes used in contractions like <em>aren’t</em>.</p>
+<p><a class="p_ident" id="p_sHr9S/fcCS" href="#p_sHr9S/fcCS" tabindex="-1" role="presentation"></a>تصور کنید که یک داستان نوشته شده دارید و از علامت نقل قول تکی در طول کتاب برای مشخص کردن دیالوگ‌ها استفاده کرده اید. اکنون قصد دارید که همه‌ی علامت‌های تکی نقل قول را با علامت‌های جفتی عوض کنید و حواستان هم باشد که علامت‌های نقل قول تکی که در اختصار‌هایی مثل <em>aren’t</em> آمده اند را عوض نکنید.</p>
 
-<p><a class="p_ident" id="p_k3Y0NF9w4b" href="#p_k3Y0NF9w4b" tabindex="-1" role="presentation"></a>Think of a pattern that distinguishes these two kinds of quote usage and craft a call to the <code>replace</code> method that does the proper replacement.</p>
+<p>به الگویی فکر کنید که این دو نوع نقل قول را تمییز دهد و از <code>replace</code> برای جایگزینی صحیح استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_sPrcOR+s/4" href="#c_sPrcOR+s/4" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">text</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;'I'm the cook,' he said, 'it's my job.'&quot;</span>;
 <span class="cm-comment">// Change this call.</span>
@@ -820,9 +819,9 @@ character” is only one of the 26 characters in the Latin alphabet (uppercase o
 
 </div></div>
 
-<h3><a class="i_ident" id="i_izldJoT3uv" href="#i_izldJoT3uv" tabindex="-1" role="presentation"></a>Numbers again</h3>
+<h3><a class="i_ident" id="i_pjHcFZTbkd" href="#i_pjHcFZTbkd" tabindex="-1" role="presentation"></a>دوباره اعداد</h3>
 
-<p><a class="p_ident" id="p_0OQXsuIIcQ" href="#p_0OQXsuIIcQ" tabindex="-1" role="presentation"></a>Write an expression that matches only JavaScript-style numbers. It must support an optional minus <em>or</em> plus sign in front of the number, the decimal dot, and exponent notation—<code>5e-3</code> or <code>1E10</code>—again with an optional sign in front of the exponent. Also note that it is not necessary for there to be digits in front of or after the dot, but the number cannot be a dot alone. That is, <code>.5</code> and <code>5.</code> are valid JavaScript numbers, but a lone dot <em>isn’t</em>.</p>
+<p>عبارتی بنویسید که فقط اعداد سبک جاوااسکریپت را تطبیق دهد. عبارت باید علامت منفی یا مثبت را در جلوی عدد به صورت اختیاری پشتیبانی کند، همچنین نقطه‌ی ممیز و نماد توان – <bdo><code>5e-3</code></bdo> یا <bdo><code>1E10</code></bdo> – را دوباره با علامت اختیاری جلوی توان پشتیبانی کند. همچنین توجه داشته باشید که لازم نیست که بعد از نقطه‌ی ممیز حتما رقم بیابد اما نباید عدد  فقط شامل یک نقطه‌ی تنها باشد. بنابراین <bdo><code>.5</code></bdo>٫ و  <bdo><code>5.</code></bdo> اعدادی معتبر در جاوااسکریپت محسوب می شوند اما یک نقطه‌ی تنها <em>این طور نیست</em>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aHAzeMYYGe" href="#c_aHAzeMYYGe" tabindex="-1" role="presentation"></a><span class="cm-comment">// Fill in this regular expression.</span>
 <span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-string-2">/^...$/</span>;
