@@ -2,17 +2,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modules :: Eloquent JavaScript</title>
+  <title>ماژول‌ها :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 10;var sandboxLoadFiles = ["code/packages_chapter_10.js","code/chapter/07_robot.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 10;var sandboxLoadFiles = ["code/packages_chapter_10.js","code/chapter/07_robot.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="09_regexp.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="11_async.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 10</span>Modules</h1>
+<h1><span class=chap_num>Chapter 10</span>ماژول‌ها</h1>
 
 <blockquote>
 
@@ -22,55 +25,55 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_10.jpg" alt="Picture of a building built from modular pieces"></figure>
 
-<p><a class="p_ident" id="p_lt7t/NZub8" href="#p_lt7t/NZub8" tabindex="-1" role="presentation"></a>The ideal program has a crystal-clear structure. The way it works is easy to explain, and each part plays a well-defined role.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>یک برنامه‌ی ایده‌آل دارای ساختاری شفاف و روشن است. به راحتی می توان کارکرد آن را توضیح داد و هر بخش￼ آن نقشی را ایفا می کند که به خوبی تعریف شده است.</p>
 
-<p><a class="p_ident" id="p_HLTCewyOYT" href="#p_HLTCewyOYT" tabindex="-1" role="presentation"></a>A typical real program grows organically. New pieces of functionality are added as new needs come up. Structuring—and preserving structure—is additional work. It’s work that will pay off only in the future, the <em>next</em> time someone works on the program. So it is tempting to neglect it and allow the parts of the program to become deeply entangled.</p>
+<p>معمولا یک برنامه‌ی واقعی به شکلی ارگانیک رشد می کند. قابلیت‌های جدید، همانطور که لازم می شوند به برنامه افزوده شوند. ساختاردهی – و حفظ ساختار – کاری مجزایی است. کاری است که فقط در آینده با مزایای آن روبرو می‌شوید زمانی که کسی دوباره روی برنامه قرار است کار کند. پس ممکن است وسوسه‌انگیز باشد که از آن غفلت کنید و بگذارید بخش‌های برنامه عمیقا دچار آشفتگی شوند.</p>
 
-<p><a class="p_ident" id="p_Ph53LAfIAv" href="#p_Ph53LAfIAv" tabindex="-1" role="presentation"></a>This causes two practical issues. First, understanding such a system is hard. If everything can touch everything else, it is difficult to look at any given piece in isolation. You are forced to build up a holistic understanding of the entire thing. Second, if you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context.</p>
+<p>در عمل این غفلت دو اشکال ایجاد می کند. اول اینکه درک یک سیستم بدون‌ ساختار مشکل است. اگر همه‌ی بخش‌های برنامه در تماس با دیگر بخش‌ها باشند، سخت می توان بخشی از برنامه را به صورت جداگانه بررسی نمود. شما مجبورید که درکی کلی و جامع از برنامه داشته باشید. دوم اینکه، اگر بخواهید هر کدام از قابلیت‌های برنامه‌ای اینچنینی را در جایی دیگر استفاده کنید، از اول نوشتن آن قابلیت ممکن است از جداسازی آن از برنامه، آسان تر باشد.</p>
 
-<p><a class="p_ident" id="p_pzOEW37Kfc" href="#p_pzOEW37Kfc" tabindex="-1" role="presentation"></a>The phrase “big ball of mud” is often used for such large, structureless programs. Everything sticks together, and when you try to pick out a piece, the whole thing comes apart, and your hands get dirty.</p>
+<p><a class="p_ident" id="p_yhmJYha4k4" href="#p_yhmJYha4k4" tabindex="-1" role="presentation"></a>اصطلاح “big ball of mud” (توپ‌ بزرگ گلی) اغلب برای برنامه‌های بزرگی که ساختاری ندارند استفاده می شود. همه چیز به هم چسبیده است و زمانی که قصد دارید یک قسمت را جدا کنید، کل آن قسمت یا برنامه متلاشی می شود و دستانتان را کثیف کند.</p>
 
-<h2><a class="h_ident" id="h_BOlGLA/wK7" href="#h_BOlGLA/wK7" tabindex="-1" role="presentation"></a>Modules</h2>
+<h2><a class="h_ident" id="h_3Uyo5Wx/hs" href="#h_3Uyo5Wx/hs" tabindex="-1" role="presentation"></a>ماژول‌ها</h2>
 
-<p><a class="p_ident" id="p_LoWZBZ2Vpv" href="#p_LoWZBZ2Vpv" tabindex="-1" role="presentation"></a><em>Modules</em> are an attempt to avoid these problems. A module is a piece of program that specifies which other pieces it relies on and which functionality it provides for other modules to use (its <em>interface</em>).</p>
+<p>استفاده از <em>ماژول‌ها</em> تلاشی برای اجتناب از این گونه مشکلات است. یک ماژول بخشی از برنامه است که مشخص می کند به کدام بخش‌های دیگر از برنامه وابسته است (وابستگی‌های آن) و چه قابلیتی برای استفاده‌ی دیگر ماژول ها فراهم می کند (<em>رابط</em> آن).</p>
 
-<p><a class="p_ident" id="p_kjhUrZ1SF0" href="#p_kjhUrZ1SF0" tabindex="-1" role="presentation"></a>Module interfaces have a lot in common with object interfaces, as we saw them in <a href="06_object.html#interface">Chapter 6</a>. They make part of the module available to the outside world and keep the rest private. By restricting the ways in which modules interact with each other, the system becomes more like LEGO, where pieces interact through well-defined connectors, and less like mud, where everything mixes with everything.</p>
+<p>رابط‌های ماژول شباهت‌ زیادی با رابط‌های شیء دارند، همانطور که با آن ها در<a href="06_object.html#interface">فصل 6</a> آشنا شدیم. رابط‌ها بخشی از ماژول را در دسترس جهان بیرون می گذارند و بقیه‌ی قسمت ها را به صورت خصوصی حفظ می کنند. با محدودسازی راه‌های تعامل ماژول‌ها با یکدیگر ، سیستم بیشتر شبیه لگو می شود، جایی که قطعات توسط متصل‌کننده‌هایی که به خوبی تعریف شده اند با هم تعامل دارند و کمتر به توپ گلی شباهت دارد که همه چیز در آن با هم مخلوط شده است.</p>
 
-<p><a class="p_ident" id="p_l+1k6bprY2" href="#p_l+1k6bprY2" tabindex="-1" role="presentation"></a>The relations between modules are called <em>dependencies</em>. When a module needs a piece from another module, it is said to depend on that module. When this fact is clearly specified in the module itself, it can be used to figure out which other modules need to be present to be able to use a given module and to automatically load dependencies.</p>
+<p>ارتباطات بین ماژول ها را <em>وابستگی‌ها</em> می نامند. زمانی که یک ماژول به بخشی از یک ماژول دیگر نیاز دارد، گفته می شود که به آن ماژول وابستگی دارد. زمانی که این وابستگی در خود ماژول به صورت مشخص اعلام شود، می توان از آن برای شناسایی دیگر ماژول‌هایی که لازم است برای اجرای یک ماژول خاص حضور داشته باشند استفاده کرد و به صورت خودکار آن وابستگی‌ها را بارگذاری کرد.</p>
 
-<p><a class="p_ident" id="p_4WkC7snvFx" href="#p_4WkC7snvFx" tabindex="-1" role="presentation"></a>To separate modules in that way, each needs it own private scope.</p>
+<p>برا جداسازی ماژول‌ها به این روش ، لازم است هر کدام محدوده‌ی خصوصی خودش را داشته باشد.</p>
 
-<p><a class="p_ident" id="p_bgQuCetNwq" href="#p_bgQuCetNwq" tabindex="-1" role="presentation"></a>Just putting your JavaScript code into different files does not satisfy these requirements. The files still share the same global namespace. They can, intentionally or accidentally, interfere with each other’s bindings. And the dependency structure remains unclear. We can do better, as we’ll see later in the chapter.</p>
+<p>فقط قرار دادن کدهای جاوااسکریپت در فایل های جداگانه این امکان را فراهم نمی کند. فایل‌ها همچنان فضای نام سراسری یکسانی را به صورت مشترک استفاده می کنند. ممکن است به صورت تصادفی یا آگاهانه بین متغیرهای یکدیگر تداخل ایجاد کنند و ساختار وابستگی همچنان غیر شفاف خواهد ماند. می توان کار بهتری کرد که در ادامه خواهیم دید.</p>
 
-<p><a class="p_ident" id="p_uf1CU70zfG" href="#p_uf1CU70zfG" tabindex="-1" role="presentation"></a>Designing a fitting module structure for a program can be difficult. In the phase where you are still exploring the problem, trying different things to see what works, you might want to not worry about it too much since it can be a big distraction. Once you have something that feels solid, that’s a good time to take a step back and organize it.</p>
+<p>طراحی یک ساختار ماژول مناسب برای یک برنامه ممکن است سخت باشد. در مرحله‌ای که هنوز در حال بررسی مشکل هستید، و چیزهای متفاوتی را آزمایش می کنید، ممکن است علاقه‌ای نداشته باشید که زیاد به ساختاردهی فکر کنید، چرا که می تواند باعث حواسپرتی زیادی بشود. وقتی به نتیجه‌ای استوار و قابل اتکا رسیدید ، آن زمان مناسب برای اقدام جهت سازماندهی برنامه خواهد بود.</p>
 
-<h2><a class="h_ident" id="h_CpmQEv+4ez" href="#h_CpmQEv+4ez" tabindex="-1" role="presentation"></a>Packages</h2>
+<h2><a class="h_ident" id="h_pq4Kg1pCcs" href="#h_pq4Kg1pCcs" tabindex="-1" role="presentation"></a>بسته‌ها</h2>
 
-<p><a class="p_ident" id="p_g7o14y8ONd" href="#p_g7o14y8ONd" tabindex="-1" role="presentation"></a>One of the advantages of building a program out of separate pieces, and being actually able to run those pieces on their own, is that you might be able to apply the same piece in different programs.</p>
+<p>یکی از مزایای ساختن یک برنامه بر اساس قسمت‌های جداگانه، و داشتن قابلیت اجرای آن قسمت‌ها به صورت مستقل، این است که ممکن است بتوانید آن قسمت‌ها را در برنامه‌های مختلف به کار ببرید.</p>
 
-<p><a class="p_ident" id="p_iBvlR95Pda" href="#p_iBvlR95Pda" tabindex="-1" role="presentation"></a>But how do you set this up? Say I want to use the <code>parseINI</code> function from <a href="09_regexp.html#ini">Chapter 9</a> in another program. If it is clear what the function depends on (in this case, nothing), I can just copy all the necessary code into my new project and use it. But then, if I find a mistake in that code, I’ll probably fix it in whichever program I’m working with at the time and forget to also fix it in the other program.</p>
+<p>اما چگونه آن را راه‌اندازی می کنید؟ فرض کنیم من می خواهم که تابع <code>parseINI</code> را که در <a href="09_regexp.html#ini">فصل 9</a> نوشتیم در برنامه‌ی دیگری استفاده کنم. اگر روشن باشد که این تابع چه وابستگی‌هایی دارد (که در اینجا ندارد)، می توانم به سادگی کدهای مورد نیاز را به پروژه‌ی جدیدم کپی کنم و از آن استفاده کنم. اما در این صورت اگر مشکلی در آن کد پیدا کنم، احتمالا آن مشکل را فقط در برنامه‌ای که در حال کار روی آن هستم رفع خواهم کرد و فراموش می کنم که در برنامه‌ی دیگر نیز آن را اصلاح کنم.</p>
 
-<p><a class="p_ident" id="p_TA/SfLJ50i" href="#p_TA/SfLJ50i" tabindex="-1" role="presentation"></a>Once you start duplicating code, you’ll quickly find yourself wasting time and energy moving copies around and keeping them up-to-date.</p>
+<p>به محض اینکه به کپی کردن کدها اقدام کنید متوجه خواهید شد که با جابجا کردن کپی‌ها بین برنامه ها و به روز رسانی آن ها وقت و انرژی خودتان را تلف می کنید.</p>
 
-<p><a class="p_ident" id="p_CNI2vOkPJp" href="#p_CNI2vOkPJp" tabindex="-1" role="presentation"></a>That’s where <em>packages</em> come in. A package is a chunk of code that can be distributed (copied and installed). It may contain one or more modules and has information about which other packages it depends on. A package also usually comes with documentation explaining what it does so that people who didn’t write it might still be able to use it.</p>
+<p><a class="p_ident" id="p_2K4Iiu6Wk3" href="#p_2K4Iiu6Wk3" tabindex="-1" role="presentation"></a>اینجا‌ است که بسته‌ها <em>packages</em> کاربرد خواهند داشت. یک بسته یک قطعه کد است که می‌تواند توزیع شود (کپی و نصب شود). یک بسته می تواند دارای یک یا چند ماژول باشد و همچنین اطلاعاتی در باره‌ی دیگر بسته‌هایی که به آنها وابسته است دارد. یک بسته همچنین همراه با مستنداتی می آید که کارکرد آن را شرح می دهد، بنابراین کسانی که بسته را ننوشته اند قادر خواهند بود که از آن استفاده کنند.</p>
 
-<p><a class="p_ident" id="p_sZgcoPgtEe" href="#p_sZgcoPgtEe" tabindex="-1" role="presentation"></a>When a problem is found in a package or a new feature is added, the package is updated. Now the programs that depend on it (which may also be packages) can upgrade to the new version.</p>
+<p>زمانی که مشکلی در یک بسته شناسایی شود یا ویژگی جدیدی به آن افزوده شود بسته به روز رسانی می گردد. اکنون برنامه‌هایی که به آن وابستگی داشته اند (که خود ممکن است بسته باشند ) می توانند به نسخه جدیدتر به‌روز شوند.</p>
 
-<p id="modules_npm"><a class="p_ident" id="p_oiLHr3lvbw" href="#p_oiLHr3lvbw" tabindex="-1" role="presentation"></a>Working in this way requires infrastructure. We need a place to store and find packages and a convenient way to install and upgrade them. In the JavaScript world, this infrastructure is provided by NPM (<a href="https://npmjs.org"><em>https://npmjs.org</em></a>).</p>
+<p id="modules_npm"><a class="p_ident" id="p_HN/3W2IVS2" href="#p_HN/3W2IVS2" tabindex="-1" role="presentation"></a>کارکردن به این روش نیاز به زیرساخت دارد. جایی را نیاز داریم که بسته‌ها را ذخیره و جستجو کنیم و راهی￼ سرراست برای نصب و به روز رسانی آن ها لازم است. در دنیای جاوااسکریپت این زیرساخت توسط NPM در (<a href="https://npmjs.org"><em>https://npmjs.org</em></a>) فراهم شده است.</p>
 
-<p><a class="p_ident" id="p_WUPNc5b7D2" href="#p_WUPNc5b7D2" tabindex="-1" role="presentation"></a>NPM is two things: an online service where one can download (and upload) packages and a program (bundled with Node.js) that helps you install and manage them.</p>
+<p><a class="p_ident" id="p_2Ehj08AuWd" href="#p_2Ehj08AuWd" tabindex="-1" role="presentation"></a>NPM دارای دو بخش است: یک سرویس آنلاین که افراد می توانند به بارگیری و بارگذاری بسته‌ها اقدام کنند و یک برنامه (که به همراه Node.js می آید) که به شما کمک می کند که آن ها را مدیریت کنید.</p>
 
-<p><a class="p_ident" id="p_kcXuOxm8Rl" href="#p_kcXuOxm8Rl" tabindex="-1" role="presentation"></a>At the time of writing, there are more than half a million different packages available on NPM. A large portion of those are rubbish, I should mention, but almost every useful, publicly available package can be found on there. For example, an INI file parser, similar to the one we built in <a href="09_regexp.html">Chapter 9</a>, is available under the package name <code>ini</code>.</p>
+<p><a class="p_ident" id="p_E1MBXEc91D" href="#p_E1MBXEc91D" tabindex="-1" role="presentation"></a>در زمان نوشتن این کتاب، بیش از نیم میلیون بسته در NPM وجود دارد. باید بگم که بخش زیادی از این بسته‌ها بدرد نخور هستند اما تقریبا هر بسته‌ی مفیدی که عموما در دسترس باشد را می توان آنجا پیدا کرد. به عنوان مثال، یک تجزیه‌گر فایل ini، شبیه به چیزی که خودمان در  <a href="09_regexp.html">فصل 9</a> ساختیم، در بسته‌ای به نام <code>ini</code> وجود دارد.</p>
 
-<p><a class="p_ident" id="p_irXmhzBaaT" href="#p_irXmhzBaaT" tabindex="-1" role="presentation"></a><a href="20_node.html">Chapter 20</a> will show how to install such packages locally using the <code>npm</code> command line program.</p>
+<p><a href="20_node.html">فصل 20</a> شما را با نحوه‌ی نصب بسته‌ها به صورت محلی و با استفاده از برنامه‌ی خط فرمان <code>npm</code> آشنا خواهد کرد.</p>
 
-<p><a class="p_ident" id="p_D/2FJ7Crwg" href="#p_D/2FJ7Crwg" tabindex="-1" role="presentation"></a>Having quality packages available for download is extremely valuable. It means that we can often avoid reinventing a program that 100 people have written before and get a solid, well-tested implementation at the press of a few keys.</p>
+<p>در دسترس داشتن بسته‌های باکیفیت قابل دانلود بسیار ارزشمند است. این بدین معناست که می توان از اختراع دوباره یک برنامه در بیشتر مواقع جلوگیری کنیم، برنامه ای که صدها نفر قبل تر نوشته اند و می توان آن را با چند حرکت به صورت استوار و تست شده پیاده سازی کرد.</p>
 
-<p><a class="p_ident" id="p_4hMCknNFh+" href="#p_4hMCknNFh+" tabindex="-1" role="presentation"></a>Software is cheap to copy, so once someone has written it, distributing it to other people is an efficient process. But writing it in the first place <em>is</em> work, and responding to people who have found problems in the code, or who want to propose new features, is even more work.</p>
+<p>کپی کردن یک نرم افزار آسان است، بنابراین اگر کسی آن را نوشته باشد، انتشار آن بین دیگر افراد روند کارآمدی محسوب می شود. اما به عنوان فرد اول نوشتن آن کار می برد و پاسخ دادن به افرادی که مشکلاتی را در کد پیدا می‌کنند یا درخواست ویژگی جدیدی را دارند، کار بیشتری می طلبد.</p>
 
-<p><a class="p_ident" id="p_K/LevaOaUV" href="#p_K/LevaOaUV" tabindex="-1" role="presentation"></a>By default, you own the copyright to the code you write, and other people may use it only with your permission. But because some people are just nice and because publishing good software can help make you a little bit famous among programmers, many packages are published under a license that explicitly allows other people to use it.</p>
+<p><a class="p_ident" id="p_WSnlilqh/e" href="#p_WSnlilqh/e" tabindex="-1" role="presentation"></a>به صورت پیش فرض، شما مالک کپی‌رایت کدی هستید که می نویسید و دیگر افراد فقط با اجازه‌ی شما می توانند از آن استفاده کنند. اما به دلیل اینکه بعضی افراد باحال (nice) هستند و اینکه انتشار یک نرم افزار خوب باعث کمی شهرت بین برنامه نویسان می شود، خیلی از بسته‌ها تحت مجوزی منتشر می شوند که به صراحت اجازه استفاده دیگران از برنامه را می دهد.</p>
 
-<p><a class="p_ident" id="p_sWMlqqRmbd" href="#p_sWMlqqRmbd" tabindex="-1" role="presentation"></a>Most code on NPM is licensed this way. Some licenses require you to also publish code that you build on top of the package under the same license. Others are less demanding, just requiring that you keep the license with the code as you distribute it. The JavaScript community mostly uses the latter type of license. When using other people’s packages, make sure you are aware of their license.</p>
+<p><a class="p_ident" id="p_fZTrvwf1QX" href="#p_fZTrvwf1QX" tabindex="-1" role="presentation"></a>بیشتر کدهایی که در NPM وجود دارند دارای چنین مجوزی هستند. بعضی از مجوزها از شما می خواهند که کدی که با استفاده از بسته نوشته‌اید را با همان مجوز منتشر کنید. بعضی دیگر کمتر درخواستی دارند و فقط لازم است که مجوزی که همراه بسته وجود دارد را در هنگام توزیع کنار آن نگه دارید. بیشتر جامعه‌ی برنامه نویسی جاوااسکریپت از این نوع مجوز استفاده می کنند. زمانی که از بسته‌های دیگر افراد استفاده می کنید، مطمئن شوید که از مجوز آن آگاهی دارید.</p>
 
 <h2><a class="h_ident" id="h_QQ/m+TRmqd" href="#h_QQ/m+TRmqd" tabindex="-1" role="presentation"></a>Improvised modules</h2>
 
