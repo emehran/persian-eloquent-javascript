@@ -813,9 +813,9 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_rNoBQVCfFp" href="#p_rNoBQVCfFp" tabindex="-1" role="presentation"></a>The most obvious solution is to replace only quotes with a nonword character on at least one side—something like <code>/\W'|'\W/</code>. But you also have to take the start and end of the line into account.</p>
+<p>روشن‌ترین راه حل برای این مسئله این است که فقط نقل‌قول‌هایی را جایگزین کنید که حداقل در یک سمت آن یک غیرکلمه قرار داشته باشد مثل <bdo><code>/\W'|'\W/</code></bdo>. اما همچنین لازم است تا شروع و پایان خط را هم در نظر داشته باشید.</p>
 
-<p><a class="p_ident" id="p_1SUsrUgWek" href="#p_1SUsrUgWek" tabindex="-1" role="presentation"></a>In addition, you must ensure that the replacement also includes the characters that were matched by the <code>\W</code> pattern so that those are not dropped. This can be done by wrapping them in parentheses and including their groups in the replacement string (<code>$1</code>, <code>$2</code>). Groups that are not matched will be replaced by nothing.</p>
+<p>علاوه بر این، باید اطمینان حاصل کنید که جایگزینی شامل کاراکترهایی که توسط <bdo><code>\W</code></bdo> تطبیق می خورند هم باشد تا از قلم نیفتند. این کار را می توان با قرار دادن آن‌ها درون پرانتز و استفاده از گروه‌هایشان در رشته‌ی جایگزینی <bdo>(<code>$1</code>, <code>$2</code>)</bdo> انجام داد. گروه‌هایی که تطبیق نمی خورند با چیزی جایگزین نمی شوند.</p>
 
 </div></div>
 
@@ -842,13 +842,13 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_sWIFtGBNR7" href="#p_sWIFtGBNR7" tabindex="-1" role="presentation"></a>First, do not forget the backslash in front of the period.</p>
+<p>ابتدا، فراموش نکنید که بک‌اسلش را در جلوی نقطه قرار دهید.</p>
 
-<p><a class="p_ident" id="p_ShOca+aF11" href="#p_ShOca+aF11" tabindex="-1" role="presentation"></a>Matching the optional sign in front of the number, as well as in front of the exponent, can be done with <code>[+\-]?</code> or <code>(\+|-|)</code> (plus, minus, or nothing).</p>
+<p>تطبیق علامت اختیاری در جلوی یک عدد، همچنین جلوی یک توان، را می توان با استفاده از <bdo><code>[+\-]?</code></bdo> یا <bdo><code>(\+|-|)</code></bdo> انجام داد. (مثبت، منفی یا هیچی)</p>
 
-<p><a class="p_ident" id="p_z9QJjd6IxQ" href="#p_z9QJjd6IxQ" tabindex="-1" role="presentation"></a>The more complicated part of the exercise is the problem of matching both <code>&quot;5.&quot;</code> and <code>&quot;.5&quot;</code> without also matching <code>&quot;.&quot;</code>. For this, a good solution is to use the <code>|</code> operator to separate the two cases—either one or more digits optionally followed by a dot and zero or more digits <em>or</em> a dot followed by one or more digits.</p>
+<p>بخش پیچیده‌تر این تمرین این است که چه‌طور هر دوی <bdo><code>&quot;5.&quot;</code></bdo> و <bdo><code>&quot;.5&quot;</code></bdo> را بدون تطبیق خوردن <code>&quot;.&quot;</code> تطبیق بزنید. برای این‌کار، یک راه خوب این است که از <code>|</code> برای جداسازی دو حالت استفاده شود - یک یا دو رقم که ممکن است با یک نقطه و صفر یا ارقام بیشتر ادامه یابد یا نقطه‌ای که به همراه یک را چندین رقم بیاید.</p>
 
-<p><a class="p_ident" id="p_WHNmLsGl4C" href="#p_WHNmLsGl4C" tabindex="-1" role="presentation"></a>Finally, to make the <em>e</em> case insensitive, either add an <code>i</code> option to the regular expression or use <code>[eE]</code>.</p>
+<p><a class="p_ident" id="p_WOazpBSh4J" href="#p_WOazpBSh4J" tabindex="-1" role="presentation"></a>سرانجام، برای اینکه <em>e</em> را غیرحساس به بزرگی/کوچکی حروف داشته باشید، اضافه کردن گزینه‌ی <code>i</code> به انتهای عبارت باقاعده یا استفاده از <code>[eE]</code> مشکل را حل خواهد کرد.</p>
 
 </div></div><nav><a href="08_error.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="10_modules.html" title="next chapter">▶</a></nav>
 </article>
