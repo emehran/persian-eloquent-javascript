@@ -75,13 +75,13 @@
 
 <p><a class="p_ident" id="p_fZTrvwf1QX" href="#p_fZTrvwf1QX" tabindex="-1" role="presentation"></a>بیشتر کدهایی که در NPM وجود دارند دارای چنین مجوزی هستند. بعضی از مجوزها از شما می خواهند که کدی که با استفاده از بسته نوشته‌اید را با همان مجوز منتشر کنید. بعضی دیگر کمتر درخواستی دارند و فقط لازم است که مجوزی که همراه بسته وجود دارد را در هنگام توزیع کنار آن نگه دارید. بیشتر جامعه‌ی برنامه نویسی جاوااسکریپت از این نوع مجوز استفاده می کنند. زمانی که از بسته‌های دیگر افراد استفاده می کنید، مطمئن شوید که از مجوز آن آگاهی دارید.</p>
 
-<h2><a class="h_ident" id="h_QQ/m+TRmqd" href="#h_QQ/m+TRmqd" tabindex="-1" role="presentation"></a>Improvised modules</h2>
+<h2><a class="h_ident" id="h_/lUKS6kqAJ" href="#h_/lUKS6kqAJ" tabindex="-1" role="presentation"></a>فراهم ساختن ماژول‌ها</h2>
 
-<p><a class="p_ident" id="p_VhfSheFY3t" href="#p_VhfSheFY3t" tabindex="-1" role="presentation"></a>Until 2015, the JavaScript language had no built-in module system. Yet people had been building large systems in JavaScript for more than a decade, and they <em>needed</em> modules.</p>
+<p><a class="p_ident" id="p_nN2mfe0/JY" href="#p_nN2mfe0/JY" tabindex="-1" role="presentation"></a>قبل از 2015 در جاوااسکریپت سیستم ماژول داخلی وجود نداشت. با این وجود برنامه نویسان برای بیشتر از یک دهه، سیستم های بزرگی را برنامه نویسی می کردند درحالیکه <em>نیاز</em> به ماژول‌ها وجود داشت.</p>
 
-<p><a class="p_ident" id="p_EThAZWj4TA" href="#p_EThAZWj4TA" tabindex="-1" role="presentation"></a>So they designed their own module systems on top of the language. You can use JavaScript functions to create local scopes and objects to represent module interfaces.</p>
+<p>بنابراین آن ها سیستم ماژول خودشان را با استفاده از خود زبان طراحی کردند. می توان از توابع جاوااسکریپت برای ایجاد حوزه‌های محلی و از اشیاء به عنوان رابط‌های ماژول استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_3jjByT+Dg0" href="#p_3jjByT+Dg0" tabindex="-1" role="presentation"></a>This is a module for going between day names and numbers (as returned by <code>Date</code>’s <code>getDay</code> method). Its interface consists of <code>weekDay.name</code> and <code>weekDay.number</code>, and it hides its local binding <code>names</code> inside the scope of a function expression that is immediately invoked.</p>
+<p>مثال زیر یک ماژول برای انتخاب بین نام روزها و عددشان است ( که از متد <code>getDay</code> مربوط به <code>Date</code> استفاده می کند). رابط آن از <bdo><code>weekDay.name</code></bdo> و <bdo><code>weekDay.number</code></bdo> تشکیل شده است و متغیر محلی <code>names</code> را در حوزه‌ی یک تابع که بلادرنگ فراخوانی می شود پنهان می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_m+yRMF5NXw" href="#c_m+yRMF5NXw" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">weekDay</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-keyword">const</span> <span class="cm-def">names</span> <span class="cm-operator">=</span> [<span class="cm-string">&quot;Sunday&quot;</span>, <span class="cm-string">&quot;Monday&quot;</span>, <span class="cm-string">&quot;Tuesday&quot;</span>, <span class="cm-string">&quot;Wednesday&quot;</span>,
@@ -95,9 +95,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">weekDay</span>.<span class="cm-property">name</span>(<span class="cm-variable">weekDay</span>.<span class="cm-property">number</span>(<span class="cm-string">&quot;Sunday&quot;</span>)));
 <span class="cm-comment">// → Sunday</span></pre>
 
-<p><a class="p_ident" id="p_uv8xnuw95L" href="#p_uv8xnuw95L" tabindex="-1" role="presentation"></a>This style of modules provides isolation, to a certain degree, but it does not declare dependencies. Instead, it just puts its interface into the global scope and expects its dependencies, if any, to do the same. For a long time this was the main approach used in web programming, but it is mostly obsolete now.</p>
+<p>این سبک از ماژول‌ها، تا حدی ایزوله کردن را فراهم می کند، اما وابستگی را پشتیبانی نمی کند. به جای آن، رابطش را در حوزه‌ی سراسری قرار می دهد، و انتظار دارد که در صورت وجود، وابستگی‌هایش تعریف شده باشند تا بتواند کاری مشابه سیستم وابستگی‌ها انجام دهد. برای مدتی طولانی این روش در برنامه نویسی وب استفاده می شد اما الان تقریبا از رده خارج شده است.</p>
 
-<p><a class="p_ident" id="p_i8xxHMuJw+" href="#p_i8xxHMuJw+" tabindex="-1" role="presentation"></a>If we want to make dependency relations part of the code, we’ll have to take control of loading dependencies. Doing that requires being able to execute strings as code. JavaScript can do this.</p>
+<p>اگر قصد دارید ارتباطات مربوط به وابستگی را به عنوان بخشی از کد داشته باشید، بایستی مدیریت بارگیری وابستگی‌ها را به عهده بگیرید. برای این کار لازم است بتوانیم رشته‌ها را به عنوان کد اجرا کنیم. این کار در جاوااسکریپت قابل اجرا است.</p>
 
 <h2 id="eval"><a class="h_ident" id="h_oeOkEDaadU" href="#h_oeOkEDaadU" tabindex="-1" role="presentation"></a>Evaluating data as code</h2>
 
