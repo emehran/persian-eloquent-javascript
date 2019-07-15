@@ -99,11 +99,11 @@
 
 <p>اگر قصد دارید ارتباطات مربوط به وابستگی را به عنوان بخشی از کد داشته باشید، بایستی مدیریت بارگیری وابستگی‌ها را به عهده بگیرید. برای این کار لازم است بتوانیم رشته‌ها را به عنوان کد اجرا کنیم. این کار در جاوااسکریپت قابل اجرا است.</p>
 
-<h2 id="eval"><a class="h_ident" id="h_oeOkEDaadU" href="#h_oeOkEDaadU" tabindex="-1" role="presentation"></a>Evaluating data as code</h2>
+<h2 id="eval"><a class="h_ident" id="h_E7w8weTT/n" href="#h_E7w8weTT/n" tabindex="-1" role="presentation"></a>ارزیابی داده‌ها به عنوان کد‌های اجرایی</h2>
 
-<p><a class="p_ident" id="p_jvij1au4eP" href="#p_jvij1au4eP" tabindex="-1" role="presentation"></a>There are several ways to take data (a string of code) and run it as part of the current program.</p>
+<p>راه‌های متعددی برای گرفتن داده‌ها (یک رشته از کد) و اجرای آن به عنوان بخشی از برنامه کنونی وجود دارد.</p>
 
-<p><a class="p_ident" id="p_8T3Py6Zkwc" href="#p_8T3Py6Zkwc" tabindex="-1" role="presentation"></a>The most obvious way is the special operator <code>eval</code>, which will execute a string in the <em>current</em> scope. This is usually a bad idea because it breaks some of the properties that scopes normally have, such as it being easily predictable which binding a given name refers to.</p>
+<p><a class="p_ident" id="p_qs0xA/Px/K" href="#p_qs0xA/Px/K" tabindex="-1" role="presentation"></a>روشن ترین راه، استفاده از عملگر <code>eval</code> است که رشته‌ای را در قلمروی (scope) <em>فعلی</em> اجرا می کند. این ایده معمولا ایده‌ی بدی محسوب می شود چرا که باعث از بین رفتن بعضی از خاصیت‌هایی می شود که در قلمرو‌ها به صورت نرمال وجود دارند، مثل حدس زدن آسان متغیری که یک نام مشخص به آن ارجاع می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_14x3bOXX9G" href="#c_14x3bOXX9G" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">x</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
 <span class="cm-keyword">function</span> <span class="cm-def">evalAndReturnX</span>(<span class="cm-def">code</span>) {
@@ -116,25 +116,25 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">x</span>);
 <span class="cm-comment">// → 1</span></pre>
 
-<p><a class="p_ident" id="p_wzjzmC3uLa" href="#p_wzjzmC3uLa" tabindex="-1" role="presentation"></a>A less scary way of interpreting data as code is to use the <code>Function</code> constructor. It takes two arguments: a string containing a comma-separated list of argument names and a string containing the function body. It wraps the code in a function value so that it gets its own scope and won’t do odd things with other scopes.</p>
+<p>یک راه کم‌خطرتر تفسیر داده به عنوان کد، استفاده از سازنده <code>Function</code> است. این تابع دو آرگومان دریافت می کند: یک رشته که حاوی یک لیست جدا شده با ویرگول از نام آرگومان‌ها است و یک رشته که حاوی بدنه تابع است. این تابع کد را درون یک مقدار تابع می‌پوشاند بنابراین قلمروی مختص به خودش خواهد داشت و تداخلی با دیگر قلمروها نخواهد داشت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Mc9BAi4AVK" href="#c_Mc9BAi4AVK" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">plusOne</span> <span class="cm-operator">=</span> <span class="cm-variable">Function</span>(<span class="cm-string">&quot;n&quot;</span>, <span class="cm-string">&quot;return n + 1;&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">plusOne</span>(<span class="cm-number">4</span>));
 <span class="cm-comment">// → 5</span></pre>
 
-<p><a class="p_ident" id="p_vgKeYBfC4h" href="#p_vgKeYBfC4h" tabindex="-1" role="presentation"></a>This is precisely what we need for a module system. We can wrap the module’s code in a function and use that function’s scope as module scope.</p>
+<p>این دقیقا همان‌ چیزی است که برای یک سیستم ماژول نیاز داریم. می توانیم کدهای ماژول را درون یک تابع قرار دهیم و از قلمروی مربوط به تابع به عنوان قلمروی ماژول استفاده نماییم.</p>
 
 <h2><a class="h_ident" id="h_N33QHgUxbG" href="#h_N33QHgUxbG" tabindex="-1" role="presentation"></a>CommonJS</h2>
 
-<p id="commonjs"><a class="p_ident" id="p_kAtCGxNjIq" href="#p_kAtCGxNjIq" tabindex="-1" role="presentation"></a>The most widely used approach to bolted-on JavaScript modules is called <em>CommonJS modules</em>. Node.js uses it and is the system used by most packages on NPM.</p>
+<p id="commonjs"><a class="p_ident" id="p_FQuYAj9Pbx" href="#p_FQuYAj9Pbx" tabindex="-1" role="presentation"></a>رایج ترین شیوه‌ای که برای اضافه کردن ماژول‌ها به جاوااسکریپت استفاده می شود، ماژول‌های <em>CommonJS</em> می‌باشد. <bdo>Node.js</bdo> از آن استفاده می کند و سیستمی است که بیشتر بسته‌های NPM از آن استفاده می کنند.</p>
 
-<p><a class="p_ident" id="p_NM2zfHqLcE" href="#p_NM2zfHqLcE" tabindex="-1" role="presentation"></a>The main concept in CommonJS modules is a function called <code>require</code>. When you call this with the module name of a dependency, it makes sure the module is loaded and returns its interface.</p>
+<p><a class="p_ident" id="p_N33QHgUxbG" href="#p_N33QHgUxbG" tabindex="-1" role="presentation"></a>مفهوم اصلی در ماژول‌های CommonJS تابعی به نام <code>‌require</code> است. زمانی که از این تابع به همراه نام ماژول یک وابستگی استفاده می کنید، این تابع اطمینان حاصل می کند که ماژول مورد نظر بارگیری شده است و رابط آن را برمی گرداند.</p>
 
-<p><a class="p_ident" id="p_CNeZtts3Cz" href="#p_CNeZtts3Cz" tabindex="-1" role="presentation"></a>Because the loader wraps the module code in a function, modules automatically get their own local scope. All they have to do is call <code>require</code> to access their dependencies and put their interface in the object bound to <code>exports</code>.</p>
+<p><a class="p_ident" id="p_xX4IryjIXn" href="#p_xX4IryjIXn" tabindex="-1" role="presentation"></a>به دلیل اینکه بارگیرنده‌ (loader)، ماژول مورد نظر را درون یک تابع قرار می دهد، ماژول‌ها به صورت خودکار قلمروی‌ محلی خودشان را می گیرند. تنها کاری که بایستی بکنند این است که تابع <code>require</code> را فراخوانی کنند تا به وابستگی های آن ها دسترسی داشته باشند و رابطشان را در شیئی که به <code>exports</code> تخصیص یافته قرار دهند.</p>
 
-<p><a class="p_ident" id="p_ew2dDAURuM" href="#p_ew2dDAURuM" tabindex="-1" role="presentation"></a>This example module provides a date-formatting function. It uses two packages from NPM—<code>ordinal</code> to convert numbers to strings like <code>&quot;1st&quot;</code> and <code>&quot;2nd&quot;</code>, and <code>date-names</code> to get the English names for weekdays and months. It exports a single function, <code>formatDate</code>, which takes a <code>Date</code> object and a template string.</p>
+<p><a class="p_ident" id="p_+7R7Wno/9p" href="#p_+7R7Wno/9p" tabindex="-1" role="presentation"></a>این ماژول به عنوان مثال، یک تابع ویرایش تاریخ فراهم می سازد (date-formatting). اینجا از دو بسته از NMP استفاده می شود – بسته‌ی <code>ordinal</code> برای تبدیل اعداد به رشته‌های شبیه <code>&quot;1st&quot;</code> و <code>&quot;2nd&quot;</code> , و بسته‌ی <bdo><code>date-names</code></bdo> برای گرفتن نام‌های انگلیسی روزهای هفته و ماه‌ها. این ماژول یک تابع به نام <code>fomatDate</code> را صادر (export) می کند که یک شیء <code>Date</code> و یک رشته به عنوان قالب دریافت‌ می کند.</p>
 
-<p><a class="p_ident" id="p_fH0b3BN1Fp" href="#p_fH0b3BN1Fp" tabindex="-1" role="presentation"></a>The template string may contain codes that direct the format, such as <code>YYYY</code> for the full year and <code>Do</code> for the ordinal day of the month. You could give it a string like <code>&quot;MMMM Do YYYY&quot;</code> to get output like “November 22nd 2017”.</p>
+<p><a class="p_ident" id="p_zo2zifU/qh" href="#p_zo2zifU/qh" tabindex="-1" role="presentation"></a>رشته‌ی قالب می تواند حاوی کدهایی باشد که فرمت تاریخ را مشخص می کند مثل <code>YYYY</code> برای نمایش سال به صورت کامل و <code>‌Do</code> برای نام‌های ترتیبی روزهای ماه. می توانید به آن رشته‌ای به شکل <bdo><code>&quot;MMMM Do YYYY&quot;</code></bdo> برای دریافت چیزی شبیه <bdo>“November 22nd 2017”</bdo> ارسال کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_hEFnba6fud" href="#c_hEFnba6fud" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">ordinal</span> <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;ordinal&quot;</span>);
 <span class="cm-keyword">const</span> {<span class="cm-def">days</span>, <span class="cm-def">months</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;date-names&quot;</span>);
@@ -150,9 +150,9 @@
   });
 };</pre>
 
-<p><a class="p_ident" id="p_jvrgfRxGB4" href="#p_jvrgfRxGB4" tabindex="-1" role="presentation"></a>The interface of <code>ordinal</code> is a single function, whereas <code>date-names</code> exports an object containing multiple things—<code>days</code> and <code>months</code> are arrays of names. Destructuring is very convenient when creating bindings for imported interfaces.</p>
+<p><a class="p_ident" id="p_B372u36cp6" href="#p_B372u36cp6" tabindex="-1" role="presentation"></a>رابط <code>ordinal</code> یک تابع ساده است در حالیکه <bdo><code>date-names</code></bdo> یک شیء را که حاوی چند چیز متفاوت است صادر می کند- دو مقداری که در نام های آرایه‌ها استفاده کردیم. استفاده از روش تخریب (Destructuring) برای ایجاد متغیر برای رابط‌های وارد شده بسیار مناسب است.</p>
 
-<p><a class="p_ident" id="p_cHv4rZkvfj" href="#p_cHv4rZkvfj" tabindex="-1" role="presentation"></a>The module adds its interface function to <code>exports</code> so that modules that depend on it get access to it. We could use the module like this:</p>
+<p>ماژول تابع رابط خودش را به <code>exports</code> اضافه می کند در نتیجه ماژول‌های وابسته، به آن دسترسی خواهند داشت. می توانیم از این ماژول به این صورت استفاده کنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_pWURcHuHTt" href="#c_pWURcHuHTt" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">formatDate</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;./format-date&quot;</span>);
 
@@ -160,7 +160,7 @@
                        <span class="cm-string">&quot;dddd the Do&quot;</span>));
 <span class="cm-comment">// → Friday the 13th</span></pre>
 
-<p id="require"><a class="p_ident" id="p_vmJrDleGRH" href="#p_vmJrDleGRH" tabindex="-1" role="presentation"></a>We can define <code>require</code>, in its most minimal form, like this:</p>
+<p id="require">می توان <code>require</code> را در کوتاه ترین شکل خودش  تعریف کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="require"><a class="c_ident" id="c_CSMfqoYOzp" href="#c_CSMfqoYOzp" tabindex="-1" role="presentation"></a><span class="cm-variable">require</span>.<span class="cm-property">cache</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
 
@@ -175,19 +175,19 @@
   <span class="cm-keyword">return</span> <span class="cm-variable">require</span>.<span class="cm-property">cache</span>[<span class="cm-variable-2">name</span>].<span class="cm-property">exports</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_sc1VEkBDCY" href="#p_sc1VEkBDCY" tabindex="-1" role="presentation"></a>In this code, <code>readFile</code> is a made-up function that reads a file and returns its contents as a string. Standard JavaScript provides no such functionality—but different JavaScript environments, such as the browser and Node.js, provide their own ways of accessing files. The example just pretends that <code>readFile</code> exists.</p>
+<p><a class="p_ident" id="p_Kzh6PibMf8" href="#p_Kzh6PibMf8" tabindex="-1" role="presentation"></a>در این کد، <code>readFile</code> یک تابع ساختگی است که یک فایل را خوانده و محتوای آن را به صورت رشته برمی‌گرداند. جاوااسکریپت استاندارد، این قابلیت را فراهم نمی کند – اما محیط‌های متفاوت جاوااسکریپت مثل مرورگر و <bdo>Node.js</bdo>، راه‌های خودشان را برای دسترسی به فایل‌ها فراهم می سازند. مثال بالا فقط وانمود می کند که <code>readFile</code> وجود دارد.</p>
 
-<p><a class="p_ident" id="p_DxNIETFONd" href="#p_DxNIETFONd" tabindex="-1" role="presentation"></a>To avoid loading the same module multiple times, <code>require</code> keeps a store (cache) of already loaded modules. When called, it first checks if the requested module has been loaded and, if not, loads it. This involves reading the module’s code, wrapping it in a function, and calling it.</p>
+<p>برای جلوگیری از بارگیری چندباره‌ی یک ماژول ، <code>require</code> ماژول‌هایی که تاکنون بارگیری شده اند را جایی (در حافظه‌ی نهان) نگه داری می کند. در زمان فراخوانی، ابتدا بارگیری ماژول خواسته شده را در گذشته بررسی می کند و در صورت نبود، آن را بارگیری می کند. این روند شامل خواندن کد ماژول، قرار دادن آن درون یک تابع و فراخوانی آن می شود.</p>
 
-<p><a class="p_ident" id="p_tI7DzFSLjM" href="#p_tI7DzFSLjM" tabindex="-1" role="presentation"></a>The interface of the <code>ordinal</code> package we saw before is not an object but a function. A quirk of the CommonJS modules is that, though the module system will create an empty interface object for you (bound to <code>exports</code>), you can replace that with any value by overwriting <code>module.exports</code>. This is done by many modules to export a single value instead of an interface object.</p>
+<p>رابط بسته‌ی <code>ordinal</code> که قبل تر دیدیم یک شیء نیست بلکه یک تابع است. یک ایراد وارده به ماژول‌های CommonJS این است که اگرچه سیستم ماژول، یک رابط به صورت شیئی خالی برای شما ایجاد می کند (که در <code>exports</code> قرار می گیرد)، می توانید آن را با هر مقداری که بخواهید به وسیله‌ی بازنویسی خاصیت <bdo><code>module.exports</code></bdo> جایگزین کنید. این کار را خیلی از ماژول ها انجام می دهند تا بتوانند یک مقدار ساده را به جای یک شیء رابط صادر کنند.</p>
 
-<p><a class="p_ident" id="p_1en0vUqbeI" href="#p_1en0vUqbeI" tabindex="-1" role="presentation"></a>By defining <code>require</code>, <code>exports</code>, and <code>module</code> as parameters for the generated wrapper function (and passing the appropriate values when calling it), the loader makes sure that these bindings are available in the module’s scope.</p>
+<p>با تعریف <code>require</code>، <code>exports</code>، و <code>module</code> به عنوان پارامترهای تابع پوشش دهنده‌ی تولید شده (و ارسال مقدارهای مناسب در هنگام فراخوانی)، بارگیرنده‌ اطمینان حاصل می کند که این متغیرها در قلمروی مربوط به ماژول در دسترس خواهند بود.</p>
 
-<p><a class="p_ident" id="p_xriS0EN27o" href="#p_xriS0EN27o" tabindex="-1" role="presentation"></a>The way the string given to <code>require</code> is translated to an actual filename or web address differs in different systems. When it starts with <code>&quot;./&quot;</code> or <code>&quot;../&quot;</code>, it is generally interpreted as relative to the current module’s filename. So <code>&quot;./<wbr>format-date&quot;</code> would be the file named <code>format-date.js</code> in the same directory.</p>
+<p>روشی که در آن، رشته‌ی داده شده به <code>require</code> به یک نام فایل واقعی یا یک آدرس وب تفسیر می شود، در سیستم های مختلف متفاوت است. زمانی که این رشته با <bdo><code>&quot;./&quot;</code></bdo> یا <bdo><code>&quot;../&quot;</code></bdo> شروع می شود عموما نسبت به نام فایل ماژول فعلی در نظر گرفته می شود. بنابراین <bdo><code>&quot;./<wbr>format-date&quot;</code></bdo> فایلی به نام <bdo><code>format-date.js</code></bdo> که در همان پوشه قرار دارد در نظر گرفته می شود.</p>
 
-<p><a class="p_ident" id="p_L5+LG67XHa" href="#p_L5+LG67XHa" tabindex="-1" role="presentation"></a>When the name isn’t relative, Node.js will look for an installed package by that name. In the example code in this chapter, we’ll interpret such names as referring to NPM packages. We’ll go into more detail on how to install and use NPM modules in <a href="20_node.html">Chapter 20</a>.</p>
+<p><a class="p_ident" id="p_XY1RLgBv7D" href="#p_XY1RLgBv7D" tabindex="-1" role="presentation"></a>زمانی که نام نسبی نیست، <bdo>Node.js</bdo> به جستجوی بسته ای با همان نام اقدام می کند. در کد مثال این فصل، ما این گونه نام‌ها را به عنوان بسته‌های NPM تفسیر می کنیم. در <a href="20_node.html">فصل 20</a> به جزئیات نصب و استفاده از ماژول‌های NPM خواهیم پرداخت.</p>
 
-<p id="modules_ini"><a class="p_ident" id="p_B5bzWP/zEC" href="#p_B5bzWP/zEC" tabindex="-1" role="presentation"></a>Now, instead of writing our own INI file parser, we can use one from NPM.</p>
+<p id="modules_ini"><a class="p_ident" id="p_uDGpTokBLh" href="#p_uDGpTokBLh" tabindex="-1" role="presentation"></a>اکنون به جای نوشتن تجزیه‌گر فایل INI خودمان، می توانیم از یکی از بسته‌های موجود در NPM استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LfcCXOMZGr" href="#c_LfcCXOMZGr" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> {<span class="cm-def">parse</span>} <span class="cm-operator">=</span> <span class="cm-variable">require</span>(<span class="cm-string">&quot;ini&quot;</span>);
 
