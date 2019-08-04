@@ -2,84 +2,86 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Asynchronous Programming :: Eloquent JavaScript</title>
+  <title>برنامه‌نویسی ناهمگام :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 11;var sandboxLoadFiles = ["code/crow-tech.js","code/chapter/11_async.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 11;var sandboxLoadFiles = ["code/crow-tech.js","code/chapter/11_async.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="10_modules.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="12_language.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 11</span>Asynchronous Programming</h1>
+<h1><span class=chap_num>Chapter 11</span>برنامه‌نویسی ناهمگام</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_zgFDYrsuxU" href="#p_zgFDYrsuxU" tabindex="-1" role="presentation"></a>Who can wait quietly while the mud settles?<br>Who can remain still until the moment of action?</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>چه‌کسی می تواند زمانی که گل‌های آب ته‌نشین می‌شوند شکیبا باشد؟ چه‌کسی می تواند تا رسیدن لحظه‌ی عمل مناسب بی‌حرکت باقی‌ بماند؟</p>
 
-<footer>Laozi, <cite>Tao Te Ching</cite></footer>
+<footer>لائودْزی, <cite>دائو ده جینگ</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_11.jpg" alt="Picture of two crows on a branch"></figure>
 
-<p><a class="p_ident" id="p_i07NtkAZRR" href="#p_i07NtkAZRR" tabindex="-1" role="presentation"></a>The central part of a computer, the part that carries out the individual steps that make up our programs, is called the <em>processor</em>. The programs we have seen so far are things that will keep the processor busy until they have finished their work. The speed at which something like a loop that manipulates numbers can be executed depends pretty much entirely on the speed of the processor.</p>
+<p>بخش مرکزی یک کامپیوتر، بخشی که گام‌های اجرای برنامه‌ی ما را بر‌می‌دارد، <em>پردازشگر</em> نامیده می￼ شود. برنامه‌هایی که تا کنون دیده‌ایم از نوعی بوده اند که پردازشگر را تا وقتی که کارشان تمام شود، مشغول نگه می دارند. سرعت اجرا در چیزی مثل یک حلقه که با اعداد سر و کار دارد به میزان زیادی به سرعت پردازشگر ارتباط دارد.</p>
 
-<p><a class="p_ident" id="p_DvfTBQjvgo" href="#p_DvfTBQjvgo" tabindex="-1" role="presentation"></a>But many programs interact with things outside of the processor. For example, they may communicate over a computer network or request data from the hard disk—which is a lot slower than getting it from memory.</p>
+<p>اما خیلی از برنامه‌ها، با چیزهایی غیر از پردازشگر تعامل دارند. به عنوان مثال، ممکن است با کامپیوتری در یک شبکه تعامل داشته باشند یا داده‌ها را از دیسک سخت بخوانند – که خیلی کندتر از گرفتن آن ها از حافظه‌ی اصلی است.</p>
 
-<p><a class="p_ident" id="p_QDVyt/iXeq" href="#p_QDVyt/iXeq" tabindex="-1" role="presentation"></a>When such a thing is happening, it would be a shame to let the processor sit idle—there might be some other work it could do in the meantime. In part, this is handled by your operating system, which will switch the processor between multiple running programs. But that doesn’t help when we want a <em>single</em> program to be able to make progress while it is waiting for a network request.</p>
+<p>زمانی که اتفاقی این چنینی می افتد، بی کار گذاشتن پردازشگر کار نادرستی است- ممکن است کارهای دیگری وجود داشته باشد که بتوان در آن حین انجام داد. این کار تا حدی توسط سیستم عامل مدیریت می شود که پردازشگر را بین برنامه‌های متعددی که در حال اجرا هستند بکار می گیرد. اما در مواقعی که می‌خواهیم یک برنامه‌ی واحد بتواند در هنگام انتظار برای یک درخواست شبکه به اجرا و پیش‌رفت خود ادامه دهد، از سیستم‌عامل کمکی بر نمی‌آید.</p>
 
-<h2><a class="h_ident" id="h_HH3wvnWMnd" href="#h_HH3wvnWMnd" tabindex="-1" role="presentation"></a>Asynchronicity</h2>
+<h2><a class="h_ident" id="h_1leuaMqErl" href="#h_1leuaMqErl" tabindex="-1" role="presentation"></a>ناهمگامی</h2>
 
-<p><a class="p_ident" id="p_UMfVhtpDiH" href="#p_UMfVhtpDiH" tabindex="-1" role="presentation"></a>In a <em>synchronous</em> programming model, things happen one at a time. When you call a function that performs a long-running action, it returns only when the action has finished and it can return the result. This stops your program for the time the action takes.</p>
+<p>در یک مدل برنامه‌نویسی <em>همگام،</em> همه چیز یک به یک اتفاق می افتد. زمانی که تابعی را فراخوانی می کنید که عهده‌دار اجرای کاری طولانی است، تنها بعد از اتمام آن کار و برگرداندن نتیجه‌ی تابع، کنترل به برنامه‌ برمی‌گردد. در حین اجرای تابع، برنامه‌ی شما متوقف خواهد ماند.</p>
 
-<p><a class="p_ident" id="p_w/nshgUouX" href="#p_w/nshgUouX" tabindex="-1" role="presentation"></a>An <em>asynchronous</em> model allows multiple things to happen at the same time. When you start an action, your program continues to run. When the action finishes, the program is informed and gets access to the result (for example, the data read from disk).</p>
+<p>در مدل <em>ناهمگام</em> می توان چندین کار را در یک زمان انجام داد. زمانی که کاری را شروع می کنید، برنامه‌ی شما به اجرا ادامه خواهد داد. زمانی که آن کار تمام می شود، برنامه خبردار شده و به نتایج دست خواهد یافت (به عنوان مثال می توان به خواندن اطلاعات از دیسک سخت اشاره کرد).</p>
 
-<p><a class="p_ident" id="p_4+uLDdNazP" href="#p_4+uLDdNazP" tabindex="-1" role="presentation"></a>We can compare synchronous and asynchronous programming using a small example: a program that fetches two resources from the network and then combines results.</p>
+<p>می توان برنامه نویسی همگام و ناهمگام را با یک مثال کوچک مقایسه کرد: برنامه‌ای که از دو منبع در شبکه، اطلاعاتی دریافت می کند و بعد نتایج را با هم ترکیب می کند.</p>
 
-<p><a class="p_ident" id="p_dCIBPdfDLZ" href="#p_dCIBPdfDLZ" tabindex="-1" role="presentation"></a>In a synchronous environment, where the request function returns only after it has done its work, the easiest way to perform this task is to make the requests one after the other. This has the drawback that the second request will be started only when the first has finished. The total time taken will be at least the sum of the two response times.</p>
+<p>در یک محیط همگام، جایی که درخواست فقط زمانی برمی گردد که کارش را تمام کرده باشد، آسان ترین روش انجام این کار ارسال درخواست ها یکی پس از دیگری است. مشکل این روش این است که درخواست دوم زمانی شروع می شود که درخواست اول تمام شده باشد. جمع زمانی که صرف می شود حداقل برابر است با مجموع زمان پاسخ‌های درخواست ها.</p>
 
-<p><a class="p_ident" id="p_GzbDIalJ5Y" href="#p_GzbDIalJ5Y" tabindex="-1" role="presentation"></a>The solution to this problem, in a synchronous system, is to start additional threads of control. A <em>thread</em> is another running program whose execution may be interleaved with other programs by the operating system—since most modern computers contain multiple processors, multiple threads may even run at the same time, on different processors. A second thread could start the second request, and then both threads wait for their results to come back, after which they resynchronize to combine their results.</p>
+<p><a class="p_ident" id="p_3SG8LH3yFM" href="#p_3SG8LH3yFM" tabindex="-1" role="presentation"></a>راه حل این مسئله، در یک سیستم همگام، استفاده از نخ‌های (threads) اضافی کنترل است. یک <em>thread</em> یک برنامه‌ی دیگر است که در حال اجرا است که اجرای آن ممکن است توسط سیستم عامل بین برنامه‌های دیگر قرار گیرد – چون بیشتر کامپیوترهای مدرن دارای چندین پردازشگر هستند، چندین thread را می توان در یک آن روی پردازشگرها اجرا کرد. یک thread دیگر می تواند درخواست دوم را شروع کند و سپس هر دوی thread ها￼ منتظر نتیجه‌ی درخواستشان می مانند که بعد از آن دوباره همگام شده و نتایج را باهم ترکیب می کنند.</p>
 
-<p><a class="p_ident" id="p_EWjYy77pGQ" href="#p_EWjYy77pGQ" tabindex="-1" role="presentation"></a>In the following diagram, the thick lines represent time the program spends running normally, and the thin lines represent time spent waiting for the network. In the synchronous model, the time taken by the network is <em>part</em> of the timeline for a given thread of control. In the asynchronous model, starting a network action conceptually causes a <em>split</em> in the timeline. The program that initiated the action continues running, and the action happens alongside it, notifying the program when it is finished.</p><figure><img src="img/control-io.svg" alt="Control flow for synchronous and asynchronous programming"></figure>
+<p><a class="p_ident" id="p_woPjde2M6/" href="#p_woPjde2M6/" tabindex="-1" role="presentation"></a>در نمودار پیش رو، خطوط درشت نمایانگر زمانی است که برنامه سپری می کند تا در حالت نرمال اجرا شود، و خطوط باریک نشانگر زمانی است که برای پاسخ شبکه صرف می شود. در مدل همگام، زمانی که توسط شبکه گرفته می شود به عنوان بخشی از جدول زمانی برای thread داده شده محسوب می شود. در مدل ناهمگام، شروع یک عملیات مرتبط با شبکه، به طور مفهومی باعث ایجاد یک انشعاب در جدول زمانی می شود. برنامه‌ای که این انشعاب را شروع کرده است به اجرای خود ادامی می دهد، و آن عملیات به موازات آن انجام می شود و وقتی پایان یافت برنامه را باخبر می کند.</p><figure><img src="img/control-io.svg" alt="Control flow for synchronous and asynchronous programming"></figure>
 
-<p><a class="p_ident" id="p_2edJ/IzPV6" href="#p_2edJ/IzPV6" tabindex="-1" role="presentation"></a>Another way to describe the difference is that waiting for actions to finish is <em>implicit</em> in the synchronous model, while it is <em>explicit</em>, under our control, in the asynchronous one.</p>
+<p>راه دیگری که می توان با آن تفاوت این دو را بیان کرد این است که در مدل همگام، انتظار برای پایان درخواست‌ها به صورت ضمنی است در حالیکه در مدل ناهمگام صریح و تحت کنترل ما می‌باشد.</p>
 
-<p><a class="p_ident" id="p_8Ij/ZgHMRP" href="#p_8Ij/ZgHMRP" tabindex="-1" role="presentation"></a>Asynchronicity cuts both ways. It makes expressing programs that do not fit the straight-line model of control easier, but it can also make expressing programs that do follow a straight line more awkward. We’ll see some ways to address this awkwardness later in the chapter.</p>
+<p>ناهمگامی مثل چاقوی دولبه است. برای برنامه‌هایی که مناسب اجرای مستقیم خطی نیستند کار را ساده تر می کند اما در عین حال می تواند برای برنامه هایی که به صورت مستقیم خطی اجرا می شوند نامناسب باشد. در ادامه این فصل با راه‌هایی برای حل این ناهمگونی آشنا خواهیم شد.</p>
 
-<p><a class="p_ident" id="p_9fBOnSzsqK" href="#p_9fBOnSzsqK" tabindex="-1" role="presentation"></a>Both of the important JavaScript programming platforms—browsers and Node.js—make operations that might take a while asynchronous, rather than relying on threads. Since programming with threads is notoriously hard (understanding what a program does is much more difficult when it’s doing multiple things at once), this is generally considered a good thing.</p>
+<p><a class="p_ident" id="p_DJSgOGbrf5" href="#p_DJSgOGbrf5" tabindex="-1" role="presentation"></a>هر دو پلتفرم مهم برنامه نویسی جاوااسکریپت – مرورگرها و <bdo>Node.js</bdo> – عملیاتی که ممکن است زمانگیر باشند را به صورت ناهمگام اجرا می کنند و از نخ‌ها (threads) استفاده نمی کنند. به دلیل اینکه برنامه نویسی روی thread ها کار سختی محسوب می شود (در این نوع برنامه نویسی درک کارکرد برنامه، به دلیل انجام چند کار در آن واحد بسیار سخت‌تر می شود)، روش ناهمگام عموما چیز خوبی محسوب می شود.</p>
 
-<h2><a class="h_ident" id="h_Lao/OEmKKI" href="#h_Lao/OEmKKI" tabindex="-1" role="presentation"></a>Crow tech</h2>
+<h2><a class="h_ident" id="h_zUZJr7Lzut" href="#h_zUZJr7Lzut" tabindex="-1" role="presentation"></a>فناوری کلاغ‌ها</h2>
 
-<p><a class="p_ident" id="p_pnZ1JVpOVQ" href="#p_pnZ1JVpOVQ" tabindex="-1" role="presentation"></a>Most people are aware of the fact that crows are very smart birds. They can use tools, plan ahead, remember things, and even communicate these things among themselves.</p>
+<p>خیلی از مردم می‌دانند که کلاغ‌ها پرنده‌هایی بسیار باهوش هستند. آن ها می توانند از ابزار استفاده کنند، برای آینده برنامه ریزی کنند، چیزهایی را به خاطر بسپارند و حتی این موارد را با هم به اشتراک بگذارند.</p>
 
-<p><a class="p_ident" id="p_6wGoxYcEfi" href="#p_6wGoxYcEfi" tabindex="-1" role="presentation"></a>What most people don’t know is that they are capable of many things that they keep well hidden from us. I’ve been told by a reputable (if somewhat eccentric) expert on corvids that crow technology is not far behind human technology, and they are catching up.</p>
+<p>چیزی که بیشتر مردم از آن آگاه نیستند این است که کلاغ‌ها توانایی های زیادی دارند که از دید ما مخفی می کنند. یک فرد مشهور (و کمی عجیب و غریب) متخصص کلاغ‌ها به من گفت که فناوری کلاغ خیلی از فناوری انسان عقب نیست و آن ها در حال رسیدن به انسان ها هستند.</p>
 
-<p><a class="p_ident" id="p_C/prtcqwC/" href="#p_C/prtcqwC/" tabindex="-1" role="presentation"></a>For example, many crow cultures have the ability to construct computing devices. These are not electronic, as human computing devices are, but operate through the actions of tiny insects, a species closely related to the termite, which has developed a symbiotic relationship with the crows. The birds provide them with food, and in return the insects build and operate their complex colonies that, with the help of the living creatures inside them, perform computations.</p>
+<p>به عنوان مثال، نهاد‌های زیادی بین کلاغ‌ها وجود دارد که توانایی ساخت وسایل محاسباتی را دارند. این وسایل شبیه وسایل محاسباتی انسان‌ها، الکترونیکی نیستند بلکه از رفتارهای حشراتی کوچک، گونه‌هایی نزدیک به موریانه￼ که یک رابطه‌ی همزیستی با کلاغ ها توسعه داده اند، بهره برداری می کنند. کلاغ‌ها برایشان غذا فراهم می کنند و در عوض حشرات کلنی‌های پیچیده‌ی آن ها را ساخته و بکار می اندازند، که به کمک موجودات زنده‌ای که در درون آن ها زندگی می کنند، محاسبات را انجام می دهند.</p>
 
-<p><a class="p_ident" id="p_6lPeENM1/D" href="#p_6lPeENM1/D" tabindex="-1" role="presentation"></a>Such colonies are usually located in big, long-lived nests. The birds and insects work together to build a network of bulbous clay structures, hidden between the twigs of the nest, in which the insects live and work.</p>
+<p>این گونه کلنی‌ها معمولا در لانه‌های بزرگ و قدیمی قرار دارند. پرنده‌ها و حشرات با همکاری هم شبکه‌ای از ساختارهای گلی پیازی‌شکل را می‌سازند و بین ترک‌های لانه پنهان می کنند که در آن حشرات زندگی و کار خواهند کرد.</p>
 
-<p><a class="p_ident" id="p_GCtbVBOldY" href="#p_GCtbVBOldY" tabindex="-1" role="presentation"></a>To communicate with other devices, these machines use light signals. The crows embed pieces of reflective material in special communication stalks, and the insects aim these to reflect light at another nest, encoding data as a sequence of quick flashes. This means that only nests that have an unbroken visual connection can communicate.</p>
+<p>برای تعامل با دیگر وسایل،این ماشین‌ها از سیگنال‌های نور استفاده می کنند. کلاغ‌ها قطعاتی از مواد انعکاسی را در ساقه‌های خاصی که برای ارتباط در نظر گرفته شده اند جاسازی می کنند و حشرات آن ها را هدف قرار می دهند تا نور را به لانه‌ی دیگری بتابانند و داده‌ها را به صورت دنباله‌ای از چشمک‌های کوتاه به رمز در می آورند. این یعنی فقط لانه‌هایی که دارای یک ارتباط متصل بصری هستند می توانند با یکدیگر تعامل کنند.</p>
 
-<p><a class="p_ident" id="p_vIkGOLeRGq" href="#p_vIkGOLeRGq" tabindex="-1" role="presentation"></a>Our friend the corvid expert has mapped the network of crow nests in the village of Hières-sur-Amby, on the banks of the river Rhône. This map shows the nests and their connections:</p><figure><img src="img/Hieres-sur-Amby.png" alt="A network of crow nests in a small village"></figure>
+<p><a class="p_ident" id="p_cCgxPRsF1V" href="#p_cCgxPRsF1V" tabindex="-1" role="presentation"></a>دوست متخصص کلاغ ما نقشه‌ای از شبکه‌ی لانه‌های کلاغ‌ها در روستای <bdo>Hières-sur-Amby</bdo> قرار دارد، کشیده است که در حاشیه‌ی رودخانه‌ی Rhône قرار دارد. آن نقشه نشان می دهد که لانه‌ها و ارتباطاتشان چگونه است:</p><figure><img src="img/Hieres-sur-Amby.png" alt="A network of crow nests in a small village"></figure>
 
-<p><a class="p_ident" id="p_DgtWrWr+T8" href="#p_DgtWrWr+T8" tabindex="-1" role="presentation"></a>In an astounding example of convergent evolution, crow computers run JavaScript. In this chapter we’ll write some basic networking functions for them.</p>
+<p>در نمونه‌ای شگفت‌انگیز از تکامل همگرا، کامپیوترهای کلاغ‌ها، جاوااسکریپت را اجرا می کنند. در این فصل قرار است بعضی از قابلیت‌های پایه‌ای شبکه را برایشان برنامه نویسی کنیم.</p>
 
-<h2><a class="h_ident" id="h_n9ws/jdPpb" href="#h_n9ws/jdPpb" tabindex="-1" role="presentation"></a>Callbacks</h2>
+<h2><a class="h_ident" id="h_LtY0V3+tmI" href="#h_LtY0V3+tmI" tabindex="-1" role="presentation"></a>callbacks - فراخوان برگشتی</h2>
 
-<p><a class="p_ident" id="p_He8eYTpzz8" href="#p_He8eYTpzz8" tabindex="-1" role="presentation"></a>One approach to asynchronous programming is to make functions that perform a slow action take an extra argument, a <em>callback
-function</em>. The action is started, and when it finishes, the callback function is called with the result.</p>
+<p><a class="p_ident" id="p_jU9HKeneWd" href="#p_jU9HKeneWd" tabindex="-1" role="presentation"></a>یکی از راه‌های برنامه نویسی ناهمگام این است توابعی که یک کار زمانگیر را انجام می دهند یک آرگومان اضافی دریافت کنند، یک تابع callback. تابع اصلی اجرا شده و پایان می پذیرد بعد تابع callback با نتایج دریافتی از تابع اصلی فراخوانی می گردد.</p>
 
-<p><a class="p_ident" id="p_xXv7FoAy7v" href="#p_xXv7FoAy7v" tabindex="-1" role="presentation"></a>As an example, the <code>setTimeout</code> function, available both in Node.js and in browsers, waits a given number of milliseconds (a second is a thousand milliseconds) and then calls a function.</p>
+<p><a class="p_ident" id="p_Kzh6PibMf8" href="#p_Kzh6PibMf8" tabindex="-1" role="presentation"></a>به عنوان یک مثال، تابع <code>setTimeout</code>، که در <bdo>Node.js</bdo> و مرورگرها در دسترس است، به اندازه‌ی هزارم ثانیه‌ ای که مشخص شده است منتظر می ماند و سپس یک تابع را فراخوانی می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RyFm7Uoiuv" href="#c_RyFm7Uoiuv" tabindex="-1" role="presentation"></a><span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Tick&quot;</span>), <span class="cm-number">500</span>);</pre>
 
-<p><a class="p_ident" id="p_9Tu7uanv/t" href="#p_9Tu7uanv/t" tabindex="-1" role="presentation"></a>Waiting is not generally a very important type of work, but it can be useful when doing something like updating an animation or checking whether something is taking longer than a given amount of time.</p>
+<p>این انتظار معمولا خیلی کاربردهای مهمی ندارد اما در مواقعی می تواند مفید باشد مثل به روز رسانی یک انیمیشن یا بررسی اینکه چیزی بیش از زمان مشخصی طول کشیده باشد.</p>
 
-<p><a class="p_ident" id="p_7FItlRu6ne" href="#p_7FItlRu6ne" tabindex="-1" role="presentation"></a>Performing multiple asynchronous actions in a row using callbacks means that you have to keep passing new functions to handle the continuation of the computation after the actions.</p>
+<p><a class="p_ident" id="p_tNWze/ephs" href="#p_tNWze/ephs" tabindex="-1" role="presentation"></a>اجرای چندین عمل ناهمگام در یک ردیف با استفاده از توابع callback به این معنا است که شما باید به ارسال توابع جدید برای ادامه‌ی محاسبه بعد از هر عمل ادامه دهید.</p>
 
-<p><a class="p_ident" id="p_GBzdHEp9fD" href="#p_GBzdHEp9fD" tabindex="-1" role="presentation"></a>Most crow nest computers have a long-term data storage bulb, where pieces of information are etched into twigs so that they can be retrieved later. Etching, or finding a piece of data, takes a moment, so the interface to long-term storage is asynchronous and uses callback functions.</p>
+<p>بیشتر کامپیوترهای لانه‌های کلاغ‌ها، دارای یک بافت ذخیره‌سازی بلند مدت می باشند، جاییکه اطلاعات، درون شاخه‌ها حک می شوند و می توان آن ها را بعدا دوباره خواند. حک کردن یا پیدا کردن یک بخش از اطلاعات زمانگیر است بنابراین رابط سیستم ذخیره‌سازی بلند مدت، ناهمگام خواهد بود و از توابع callback استفاده خواهد شد.</p>
 
-<p><a class="p_ident" id="p_qrVbRBjxbB" href="#p_qrVbRBjxbB" tabindex="-1" role="presentation"></a>Storage bulbs store pieces of JSON-encodable data under names. A crow might store information about the places where it’s hidden food under the name <code>&quot;food caches&quot;</code>, which could hold an array of names that point at other pieces of data, describing the actual cache. To look up a food cache in the storage bulbs of the <em>Big Oak</em> nest, a crow could run code like this:</p>
+<p><a class="p_ident" id="p_KiwPWHDFBj" href="#p_KiwPWHDFBj" tabindex="-1" role="presentation"></a>بافت‌های ذخیره‌سازی، بخش‌های اطلاعات را که به صورت JSON درآمده اند را تحت نام‌هایی ذخیره می کنند. یک کلاغ ممکن است اطلاعاتی در مورد مخفیگاه‌ غذاها را به عنوان <bdo><code>&quot;food caches&quot;</code></bdo> ذخیره کند، که می تواند دارای آرایه‌ای از نام‌هایی باشد که به دیگر بخش‌های اطلاعات اشاره می نمایند، اطلاعاتی که مخفیگاه واقعی را توصیف می کنند. برای جستجوی یک مخفیگاه غذا در بافت‌های ذخیره‌سازی لانه‌ی <bdo>Big Oak</bdo>، یک کلاغ می تواند کدی مثل زیر را اجرا کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_f7XSZ4G+k8" href="#c_f7XSZ4G+k8" tabindex="-1" role="presentation"></a><span class="cm-keyword">import</span> {<span class="cm-def">bigOak</span>} <span class="cm-keyword">from</span> <span class="cm-string">&quot;./crow-tech&quot;</span>;
 
@@ -90,20 +92,20 @@ function</em>. The action is started, and when it finishes, the callback functio
   });
 });</pre>
 
-<p><a class="p_ident" id="p_drcmHan03C" href="#p_drcmHan03C" tabindex="-1" role="presentation"></a>(All binding names and strings have been translated from crow language to English.)</p>
+<p>(تمامی متغیرها و رشته‌ها از زبان کلاغی به زبان انگلیسی ترجمه شده اند.)</p>
 
-<p><a class="p_ident" id="p_aCzLiqd4ZF" href="#p_aCzLiqd4ZF" tabindex="-1" role="presentation"></a>This style of programming is workable, but the indentation level increases with each asynchronous action because you end up in another function. Doing more complicated things, such as running multiple actions at the same time, can get a little awkward.</p>
+<p>این سبک از برنامه نویسی شدنی است اما با هر بار عمل همگام، میزان تورفتگی اضافه می شود ،چرا که به تابع دیگر نیاز خواهید داشت. برای انجام کارهای پیچیده‌تر ، مثل انجام چند عمل در یک زمان واحد، این شیوه‌ی کدنویسی می تواند کمی بدقواره شود.</p>
 
-<p><a class="p_ident" id="p_HQVI9t8QwN" href="#p_HQVI9t8QwN" tabindex="-1" role="presentation"></a>Crow nest computers are built to communicate using request-response pairs. That means one nest sends a message to another nest, which then immediately sends a message back, confirming receipt and possibly including a reply to a question asked in the message.</p>
+<p>کامپیوترهای لانه‌ها طوری ساخته شده اند که بتوانند به وسیله‌ی جفت‌های درخواست-پاسخ با هم ارتباط برقرار کنند. این یعنی یک لانه، پیامی را به لانه‌ی دیگری ارسال می کند، که این لانه نیز بلافاصله پیامی را که حاوی تایید دریافت و احتمالا شامل پاسخی به درخواست است برمی‌گرداند.</p>
 
-<p><a class="p_ident" id="p_1UN167Dotu" href="#p_1UN167Dotu" tabindex="-1" role="presentation"></a>Each message is tagged with a <em>type</em>, which determines how it is handled. Our code can define handlers for specific request types, and when such a request comes in, the handler is called to produce a response.</p>
+<p>هر پیغام توسط یک <em>نوع</em>، برچسب گذاری می شود که تعیین کننده‌ی نحوه‌ی مدیریت آن می باشد. کد ما می تواند توابعی را برای رسیدگی به انواع خاص، تعریف کند، و زمانی که درخواستی از آن نوع آمد ، تابع رسیدگی‌کننده فراخوانی شده تا پاسخی را تولید کند.</p>
 
-<p><a class="p_ident" id="p_VJjqeXBfmZ" href="#p_VJjqeXBfmZ" tabindex="-1" role="presentation"></a>The interface exported by the <code>&quot;./<wbr>crow-tech&quot;</code> module provides callback-based functions for communication. Nests have a <code>send</code> method that sends off a request. It expects the name of the target nest, the type of the request, and the content of the request as its first three arguments, and it expects a function to call when a response comes in as its fourth and last argument.</p>
+<p>رابطی که توسط ماژول <bdo><code>&quot;./<wbr>crow-tech&quot;</code></bdo> صادر می شود، تابعی دارای callback برای تعامل فراهم می کند. لانه‌ها دارای متدی به نام <code>send</code> هستند که درخواست‌ها را ارسال می کند. این متد نام لانه‌ی مقصد، نوع درخواست و محتوای درخواست را به عنوان سه آرگومان اول گرفته و آرگومان بعدی یک تابع است که زمانی که یک پاسخ دریافت می شود، فراخوانی می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qzWIKDLKSP" href="#c_qzWIKDLKSP" tabindex="-1" role="presentation"></a><span class="cm-variable">bigOak</span>.<span class="cm-property">send</span>(<span class="cm-string">&quot;Cow Pasture&quot;</span>, <span class="cm-string">&quot;note&quot;</span>, <span class="cm-string">&quot;Let's caw loudly at 7PM&quot;</span>,
             () <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Note delivered.&quot;</span>));</pre>
 
-<p><a class="p_ident" id="p_fY1oYJALqf" href="#p_fY1oYJALqf" tabindex="-1" role="presentation"></a>But to make nests capable of receiving that request, we first have to define a request type named <code>&quot;note&quot;</code>. The code that handles the requests has to run not just on this nest-computer but on all nests that can receive messages of this type. We’ll just assume that a crow flies over and installs our handler code on all the nests.</p>
+<p>اما برای اینکه لانه‌ها را قادر سازیم تا آن درخواست را دریافت کند، می‌بایست ابتدا نوع درخواستی به نام <code>&quot;note&quot;</code> را تعریف کنیم. کدی که به این درخواست‌ها رسیدگی می کند باید نه تنها بر روی کامپیوتر این لانه اجرا شود بلکه باید روی تمامی لانه‌هایی که می توانند پیامی از این نوع را دریافت کنند اجرا شود. ما فرض می کنیم که کلاغی پرواز کرده و کد ما را روی همه‌ی لانه‌ها نصب می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_38THPHvc7d" href="#c_38THPHvc7d" tabindex="-1" role="presentation"></a><span class="cm-keyword">import</span> {<span class="cm-def">defineRequestType</span>} <span class="cm-keyword">from</span> <span class="cm-string">&quot;./crow-tech&quot;</span>;
 
@@ -112,33 +114,33 @@ function</em>. The action is started, and when it finishes, the callback functio
   <span class="cm-variable-2">done</span>();
 });</pre>
 
-<p><a class="p_ident" id="p_Mr/K2c1G6w" href="#p_Mr/K2c1G6w" tabindex="-1" role="presentation"></a>The <code>defineRequestType</code> function defines a new type of request. The example adds support for <code>&quot;note&quot;</code> requests, which just sends a note to a given nest. Our implementation calls <code>console.log</code> so that we can verify that the request arrived. Nests have a <code>name</code> property that holds their name.</p>
+<p>تابع <code>defineRequestType</code> یک نوع درخواست جدید را تعریف می کند. در مثال، امکان پشتیبانی از درخواست‌های <code>&quot;note&quot;</code> اضافه می می‌شود که در واقع تنها یک یادداشت را به لانه‌ی داده شده ارسال می کند. پیاده‌سازی ما از <bdo><code>console.log</code></bdo> برای تایید رسیدن درخواست استفاده می کند. لانه‌ها دارای خاصیتی به نام <code>name</code> هستند که نامشان را نگه داری می کند.</p>
 
-<p><a class="p_ident" id="p_vzmLB4UIgA" href="#p_vzmLB4UIgA" tabindex="-1" role="presentation"></a>The fourth argument given to the handler, <code>done</code>, is a callback function that it must call when it is done with the request. If we had used the handler’s return value as the response value, that would mean that a request handler can’t itself perform asynchronous actions. A function doing asynchronous work typically returns before the work is done, having arranged for a callback to be called when it completes. So we need some asynchronous mechanism—in this case, another callback function—to signal when a response is available.</p>
+<p><a class="p_ident" id="p_lEh6rApDCd" href="#p_lEh6rApDCd" tabindex="-1" role="presentation"></a>آرگومان چهارمی که به تابع رسیدگی کننده داده می شود، <code>done</code>، یک تابع callback است که باید زمانی که درخواست کارش تمام شد فراخوانی شود. اگر از مقدار بازگشتی (توسط return) از تابع رسیدگی کننده به عنوان مقدار پاسخ استفاده کرده بودیم ، در این‌صورت رسیدگی‌کننده‌ی درخواست نمی توانست خودش یک عمل ناهمگام را اجرا کند. تابعی که یک کار ناهمگام را انجام می دهد نوعا قبل از انجام آن کار بر‌می‌گردد و برای اجرای تابع callback پس از انجام کار تنظیم می شود. بنابراین ما نیاز به مکانیزم‌هایی ناهمگام داریم – در این مثال، به یک تابع callback دیگر- تا وقتی که یک پاسخ آماده بود، علامت بدهیم.</p>
 
-<p><a class="p_ident" id="p_Kg8Vsu1J2B" href="#p_Kg8Vsu1J2B" tabindex="-1" role="presentation"></a>In a way, asynchronicity is <em>contagious</em>. Any function that calls a function that works asynchronously must itself be asynchronous, using a callback or similar mechanism to deliver its result. Calling a callback is somewhat more involved and error-prone than simply returning a value, so needing to structure large parts of your program that way is not great.</p>
+<p>به شکلی، ناهمگامی مسری است. هر تابعی که یک تابع را فراخوانی کند که به صورت ناهمگام عمل می کند، خودش باید ناهمگام باشد که می توان با استفاده از یک callback یا مکانیزمی شبیه به آن باشد تا نتیجه‌اش را تحویل دهد. فراخوانی یک callback کمی پیچیده تر و مشکل‌ساز تر است از برگرداندن یک مقدار به شکل ساده، بنابراین استفاده از این روش برای ساختاردهی بخش‌های بزرگی از برنامه‌تان جالب نیست.</p>
 
-<h2><a class="h_ident" id="h_sdRy5CTAP/" href="#h_sdRy5CTAP/" tabindex="-1" role="presentation"></a>Promises</h2>
+<h2><a class="h_ident" id="h_i7gRmvd0TO" href="#h_i7gRmvd0TO" tabindex="-1" role="presentation"></a>Promise ها</h2>
 
-<p><a class="p_ident" id="p_cJV/7Xc1YN" href="#p_cJV/7Xc1YN" tabindex="-1" role="presentation"></a>Working with abstract concepts is often easier when those concepts can be represented by values. In the case of asynchronous actions, you could, instead of arranging for a function to be called at some point in the future, return an object that represents this future event.</p>
+<p>اگر بتوان مفاهیم مجرد را به صورت مقدار‌ها نمایش داد، اغلب ساده تر می شوند. در رابطه با کارهای ناهمگام می توانید به جای تنظیم یک تابع برای فراخوانی در یک نقطه‌ی خاص در آینده، یک شیء را برگردانید که این رخداد آینده را نمایندگی کند.</p>
 
-<p><a class="p_ident" id="p_c7IGxt0qcZ" href="#p_c7IGxt0qcZ" tabindex="-1" role="presentation"></a>This is what the standard class <code>Promise</code> is for. A <em>promise</em> is an asynchronous action that may complete at some point and produce a value. It is able to notify anyone who is interested when its value is available.</p>
+<p><a class="p_ident" id="p_jC/YRC/GWd" href="#p_jC/YRC/GWd" tabindex="-1" role="presentation"></a>این دقیقا چیزی است که کلاس استاندارد <code>Promise</code> انجام می دهد. یک <em>promise</em> یک عمل ناهمگام است که در زمانی تکمیل می شود و مقداری را تولید می کند. می تواند هرکسی که علاقمند باشد را در زمان آماده شدن مقدارش باخبر کند.</p>
 
-<p><a class="p_ident" id="p_uoWOt7zYca" href="#p_uoWOt7zYca" tabindex="-1" role="presentation"></a>The easiest way to create a promise is by calling <code>Promise.resolve</code>. This function ensures that the value you give it is wrapped in a promise. If it’s already a promise, it is simply returned—otherwise, you get a new promise that immediately finishes with your value as its result.</p>
+<p><a class="p_ident" id="p_rAjGu7aKrd" href="#p_rAjGu7aKrd" tabindex="-1" role="presentation"></a>آسان ترین روش ایجاد یک promise فراخوانی <bdo><code>Promise.resolve</code></bdo> است. این تابع اطمینان حاصل می کند که مقداری که به آن می دهید درون یک promise قرار می گیرد. اگر خودش از قبل یک promise بود، برگردانده می  شود – در غیر این صورت، شما promise جدیدی دریافت می کنید که با مقدار شما به عنوان نتیجه‌اش بلافاصله پایان می می‌پذیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_fzJ7VLwQ/i" href="#c_fzJ7VLwQ/i" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">fifteen</span> <span class="cm-operator">=</span> <span class="cm-variable">Promise</span>.<span class="cm-property">resolve</span>(<span class="cm-number">15</span>);
 <span class="cm-variable">fifteen</span>.<span class="cm-property">then</span>(<span class="cm-def">value</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`Got ${</span><span class="cm-variable-2">value</span><span class="cm-string-2">}</span><span class="cm-string-2">`</span>));
 <span class="cm-comment">// → Got 15</span></pre>
 
-<p><a class="p_ident" id="p_dq+GKs56Gg" href="#p_dq+GKs56Gg" tabindex="-1" role="presentation"></a>To get the result of a promise, you can use its <code>then</code> method. This registers a callback function to be called when the promise resolves and produces a value. You can add multiple callbacks to a single promise, and they will be called, even if you add them after the promise has already <em>resolved</em> (finished).</p>
+<p><a class="p_ident" id="p_Q87nCNSnKu" href="#p_Q87nCNSnKu" tabindex="-1" role="presentation"></a>برای گرفتن نتیجه‌ی یک promise، می توانید از متد <code>then</code> آن استفاده کنید. این متد تابع callbackای را ثبت می کند که در هنگامی که promise به نتیجه رسید و مقداری را تولید کرد، فراخوانی می شود. می توانید چندین تابع callback را به یک promise اضافه کنید، و همه‌ی آن‌ها فراخوانی خواهند شد، حتی اگر آن‌ها را بعد از به نتیجه‌رسیدن promise اضافه کنید.</p>
 
-<p><a class="p_ident" id="p_BLNHvARdwj" href="#p_BLNHvARdwj" tabindex="-1" role="presentation"></a>But that’s not all the <code>then</code> method does. It returns another promise, which resolves to the value that the handler function returns or, if that returns a promise, waits for that promise and then resolves to its result.</p>
+<p><a class="p_ident" id="p_J2+Ok30Bhh" href="#p_J2+Ok30Bhh" tabindex="-1" role="presentation"></a>اما این همه‌ی آن چیزی نیست که متد <code>then</code> انجام می دهد. این متد promise دیگری را برمی‌گرداند، که مقداری که از تابع رسیدگی کننده برمی گردد را (resolve) را نتیجه‌یابی می کند یا اگر یک promise را برگرداند، برای آن promise منتظر می ماند سپس به حل و فصل نتیجه‌اش می پردازد.</p>
 
-<p><a class="p_ident" id="p_I53M7bh5Zh" href="#p_I53M7bh5Zh" tabindex="-1" role="presentation"></a>It is useful to think of promises as a device to move values into an asynchronous reality. A normal value is simply there. A promised value is a value that <em>might</em> already be there or might appear at some point in the future. Computations defined in terms of promises act on such wrapped values and are executed asynchronously as the values become available.</p>
+<p><a class="p_ident" id="p_x1wxB3v/ex" href="#p_x1wxB3v/ex" tabindex="-1" role="presentation"></a>خوب است که promiseها را به عنوان وسایلی که مقدارها را به درون فضای ناهمگام انتقال می دهند تصور کنید. یک مقدار نرمال به سادگی وجود دارد. یک مقدار وعده داده شده (promised value) مقداری است که ممکن است از قبل وجود داشته باشد یا در نقطه‌ای در آینده ظاهر شود. محاسباتی که به عنوان promise تعریف می شوند روی این گونه مقدارها عمل می کنند و همزمان با در دسترس قرار گرفتن مقدارها به اجرا در می آیند.</p>
 
-<p><a class="p_ident" id="p_sPGdi+3o75" href="#p_sPGdi+3o75" tabindex="-1" role="presentation"></a>To create a promise, you can use <code>Promise</code> as a constructor. It has a somewhat odd interface—the constructor expects a function as argument, which it immediately calls, passing it a function that it can use to resolve the promise. It works this way, instead of for example with a <code>resolve</code> method, so that only the code that created the promise can resolve it.</p>
+<p><a class="p_ident" id="p_CZ6CO6EnK8" href="#p_CZ6CO6EnK8" tabindex="-1" role="presentation"></a>برای ایجاد یک promise، می‌توانید از <code>Promise</code> به عنوان یک سازنده استفاده کنید. رابط آن کمی متفاوت است – سازنده یک تابع را به عنوان آرگومان می گیرد که آن را بلافاصله فراخوانی می کند ، تابعی که می تواند برای نتیجه‌یابی promise استفاده شود. به این صورت کار می کند، به جای اینکه به عنوان مثال با یک متد <code>resolve</code> کار کند، به طوری که فقط کدی که promise را ایجاد کرده است می تواند آن را نتیجه‌یابی کند.</p>
 
-<p><a class="p_ident" id="p_N1xvulQh1Y" href="#p_N1xvulQh1Y" tabindex="-1" role="presentation"></a>This is how you’d create a promise-based interface for the <code>readStorage</code> function:</p>
+<p>این روشی است که می توانید برای ایجاد یک رابط مبتنی بر promise برای تابع <code>readStorage</code> ایجاد کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_gYXlRtzMyd" href="#c_gYXlRtzMyd" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">storage</span>(<span class="cm-def">nest</span>, <span class="cm-def">name</span>) {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Promise</span>(<span class="cm-def">resolve</span> <span class="cm-operator">=&gt;</span> {
@@ -149,7 +151,7 @@ function</em>. The action is started, and when it finishes, the callback functio
 <span class="cm-variable">storage</span>(<span class="cm-variable">bigOak</span>, <span class="cm-string">&quot;enemies&quot;</span>)
   .<span class="cm-property">then</span>(<span class="cm-def">value</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Got&quot;</span>, <span class="cm-variable-2">value</span>));</pre>
 
-<p><a class="p_ident" id="p_teu5aKy22g" href="#p_teu5aKy22g" tabindex="-1" role="presentation"></a>This asynchronous function returns a meaningful value. This is the main advantage of promises—they simplify the use of asynchronous functions. Instead of having to pass around callbacks, promise-based functions look similar to regular ones: they take input as arguments and return their output. The only difference is that the output may not be available yet.</p>
+<p><a class="p_ident" id="p_AJNl7eWKVe" href="#p_AJNl7eWKVe" tabindex="-1" role="presentation"></a>این تابع ناهمگام یک مقدار معنادار را تولید می کند. این مزیت اصلی promise ها است – آن ها استفاده از توابع ناهمگام را ساده می کنند. به جای اینکه مجبور باشیم callbackهای متعددی ارسال کنیم، توابع مبتنی بر promise￼ شبیه توابع معمولی به نظر می رسند: ورودی ها را به عنوان آرگومان می گیرند و خروجی شان را تولید می کنند. تنها تفاوت این است که خروجی ممکن است هنوز در دسترس نباشد.</p>
 
 <h2><a class="h_ident" id="h_FlZkkRfkN/" href="#h_FlZkkRfkN/" tabindex="-1" role="presentation"></a>Failure</h2>
 
