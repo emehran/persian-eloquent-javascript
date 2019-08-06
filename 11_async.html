@@ -269,7 +269,7 @@
 
 <p><a class="p_ident" id="p_cTnz5bc7io" href="#p_cTnz5bc7io" tabindex="-1" role="presentation"></a>در گرداننده‌ای که برای promise ترکیب شده در نظر گرفته شده است، <code>filter</code> برای حذف آن عناصر از آرایه‌ی <code>neighbors</code> می‌باشد. عناصری که مقدار متناظرشان برابر با false می‌باشد. این کار از این واقعیت بهره می برد که <code>filter</code> اندیس عنصر فعلی در آرایه‌ را به عنوان آرگومان دومش به تابع فیلترش (مانند <code>map</code>، <code>some</code> یا دیگر توابع رده‌بالای آرایه‌ها که مشابه عمل می کنند) ارسال می کند.</p>
 
-<h2><a class="h_ident" id="h_h/HJBkOhjw" href="#h_h/HJBkOhjw" tabindex="-1" role="presentation"></a>جریان سیل‌ آسا در شبکه</h2>
+<h2><a class="h_ident" id="h_O1/k+50Gd4" href="#h_O1/k+50Gd4" tabindex="-1" role="presentation"></a>جریان سیل‌گونه در شبکه</h2>
 
 <p>این واقعیت که لانه‌ها فقط می توانند با همسایه‌هایشان ارتباط برقرار کنند در مفید بودن این شبکه مانع ایجاد می کند.</p>
 
@@ -298,25 +298,25 @@
 
 <p><a class="p_ident" id="p_qkpfgSXyNB" href="#p_qkpfgSXyNB" tabindex="-1" role="presentation"></a>برای جلوگیری از ارسال یک پیام یکسان در شبکه به صورت همیشگی، هر لانه آرایه‌ای از رشته‌هایی که قبلا دیده شده اند را نگه داری می کند. برای تعریف این آرایه، از تابع <code>everywhere</code> استفاده می کنیم – که کد را روی هر لانه اجرا می کند – برای افزودن یک خاصیت به شیء state لانه، که جایی است که ما وضعیت محلی لانه را نگه داری خواهیم کرد.</p>
 
-<p><a class="p_ident" id="p_iuIpNkZ6Y1" href="#p_iuIpNkZ6Y1" tabindex="-1" role="presentation"></a>When a nest receives a duplicate gossip message, which is very likely to happen with everybody blindly resending them, it ignores it. But when it receives a new message, it excitedly tells all its neighbors except for the one who sent it the message.</p>
+<p>زمانی که یک لانه یک پیام تکراری را دریافت کند، که احتمالش جایی که هر لانه پیام‌ها را ندید بازارسال می کند وجود دارد، از آن پیام صرف نظر می شود. اما زمانی که پیامی جدید را دریافت می کند، آن پیام را با هیجان به همه‌ی لانه‌ها به جز لانه‌ای که فرستنده‌ی پیام بوده است ارسال می کند.</p>
 
-<p><a class="p_ident" id="p_Vf87ZzInCt" href="#p_Vf87ZzInCt" tabindex="-1" role="presentation"></a>This will cause a new piece of gossip to spread through the network like an ink stain in water. Even when some connections aren’t currently working, if there is an alternative route to a given nest, the gossip will reach it through there.</p>
+<p>این باعث می شود که شبیه به پخش شدن جوهر در آب، خبر جدیدی در شبکه پخش شود . حتی زمانی که بعضی از ارتباطات در دسترس نیستند، اگر مسیر جایگزینی به یک لانه‌ی مشخص وجود داشته باشد، خبر از آن طریق به آن لانه خواهد رسید.</p>
 
-<p><a class="p_ident" id="p_vuq8D4aVHG" href="#p_vuq8D4aVHG" tabindex="-1" role="presentation"></a>This style of network communication is called <em>flooding</em>—it floods the network with a piece of information until all nodes have it.</p>
+<p><a class="p_ident" id="p_COKlrJswvV" href="#p_COKlrJswvV" tabindex="-1" role="presentation"></a>این سبک از ارتباطات شبکه‌ای را سیل‌گونه (flooding) می گویند – مانند سیل تمام شبکه را با اطلاعات فرا‌ می‌گیرد تا این که همه‌ی گره ها را پوشش دهد.</p>
 
-<p><a class="p_ident" id="p_uA2Fs2G7PW" href="#p_uA2Fs2G7PW" tabindex="-1" role="presentation"></a>We can call <code>sendGossip</code> to see a message flow through the village.</p>
+<p>با فراخوانی <code>sendGossip</code> می توانیم جریان پیغام درون روستا را مشاهده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KWBmLZ/aO7" href="#c_KWBmLZ/aO7" tabindex="-1" role="presentation"></a><span class="cm-variable">sendGossip</span>(<span class="cm-variable">bigOak</span>, <span class="cm-string">&quot;Kids with airgun in the park&quot;</span>);</pre>
 
-<h2><a class="h_ident" id="h_qb23G8H5P9" href="#h_qb23G8H5P9" tabindex="-1" role="presentation"></a>Message routing</h2>
+<h2><a class="h_ident" id="h_53a+eNWwKU" href="#h_53a+eNWwKU" tabindex="-1" role="presentation"></a>مسیردهی پیام</h2>
 
-<p><a class="p_ident" id="p_DfGu9P/nDx" href="#p_DfGu9P/nDx" tabindex="-1" role="presentation"></a>If a given node wants to talk to a single other node, flooding is not a very efficient approach. Especially when the network is big, that would lead to a lot of useless data transfers.</p>
+<p>اگر یک گره بخواهد با یک گره‌ی مشخص دیگر ارتباط برقرار کند، سبک سیل‌گونه زیاد بهینه نخواهد بود. مخصوصا زمانی که شبکه بزرگ باشد، که باعث می‌شود میزان زیادی مخابره اطلاعات بدون کاربرد صورت گیرد.</p>
 
-<p><a class="p_ident" id="p_+/v2WfaNg2" href="#p_+/v2WfaNg2" tabindex="-1" role="presentation"></a>An alternative approach is to set up a way for messages to hop from node to node until they reach their destination. The difficulty with that is it requires knowledge about the layout of the network. To send a request in the direction of a faraway nest, it is necessary to know which neighboring nest gets it closer to its destination. Sending it in the wrong direction will not do much good.</p>
+<p>یک راه حل جایگزین این است که برای پیام‌ها راهی در نظر گرفته شود تا از گره‌ای به گره‌های دیگر بپرند تا به گره‌ی مقصد برسند. مشکل این روش این است که بایستی اطلاعاتی در باره‌ی نقشه‌ی شبکه داشته باشیم. برای ارسال درخواستی به سمت یک گره دور، لازم است بدانیم کدام لانه‌های همسایه پیام را به مقصد نزدیک تر می کنند. ارسال آن به سمتی اشتباه مارا به هدف نمی‌رساند.</p>
 
-<p><a class="p_ident" id="p_H9F/PkVSom" href="#p_H9F/PkVSom" tabindex="-1" role="presentation"></a>Since each nest knows only about its direct neighbors, it doesn’t have the information it needs to compute a route. We must somehow spread the information about these connections to all nests, preferably in a way that allows it to change over time, when nests are abandoned or new nests are built.</p>
+<p>به دلیل اینکه هر لانه فقط همسایه‌های مجاورش را می‌شناسد، اطلاعات کافی برای محاسبه یک مسیر را در دست ندارد. باید به شیوه‌ای اطلاعات این اتصالات را بین همه‌ی لانه‌ها منتشر کنیم. ترجیحا به روشی که بتوان در آینده در آن تغییر ایجاد کرد مثلا زمانی‌که که یک لانه متروکه می شود یا لانه‌ی جدیدی ساخته می شود.</p>
 
-<p><a class="p_ident" id="p_NNmqy7WOzL" href="#p_NNmqy7WOzL" tabindex="-1" role="presentation"></a>We can use flooding again, but instead of checking whether a given message has already been received, we now check whether the new set of neighbors for a given nest matches the current set we have for it.</p>
+<p>می توانیم دوباره به سراغ روش سیل‌گونه برویم، اما به جای استفاده از آن برای بررسی دریافت یک پیام، اکنون بررسی می کنیم آیا مجموعه‌ی همسایه‌ها برای یک گره‌ی مشخص با مجموعه‌ای که اکنون برای آن در دسترس داریم مطابقت دارد یا خیر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_68Z9trrpeS" href="#c_68Z9trrpeS" tabindex="-1" role="presentation"></a><span class="cm-variable">requestType</span>(<span class="cm-string">&quot;connections&quot;</span>, (<span class="cm-variable">nest</span>, {<span class="cm-property">name</span>, <span class="cm-property">neighbors</span>},
                             <span class="cm-variable">source</span>) <span class="cm-operator">=&gt;</span> {
@@ -343,13 +343,13 @@
   <span class="cm-variable">broadcastConnections</span>(<span class="cm-variable-2">nest</span>, <span class="cm-variable-2">nest</span>.<span class="cm-property">name</span>);
 });</pre>
 
-<p><a class="p_ident" id="p_Dpash2ByBo" href="#p_Dpash2ByBo" tabindex="-1" role="presentation"></a>The comparison uses <code>JSON.stringify</code> because <code>==</code>, on objects or arrays, will return true only when the two are the exact same value, which is not what we need here. Comparing the JSON strings is a crude but effective way to compare their content.</p>
+<p><a class="p_ident" id="p_mWQe772OAF" href="#p_mWQe772OAF" tabindex="-1" role="presentation"></a>در مقایسه از <bdo><code>JSON.stringify</code></bdo> استفاده می شود چرا که <code>==</code>، روی اشیاء و آرایه‌ها، فقط زمانی true برمی گرداند که هر دو طرف دارای مقدار یکسانی باشند، که چیزی نیست که ما در اینجا لازم داریم. مقایسه‌ی رشته‌های JSON جالب به نظر نمی رسد اما روشی موثر برای مقایسه‌ی محتوای آن ها است.</p>
 
-<p><a class="p_ident" id="p_qfljgqkp+v" href="#p_qfljgqkp+v" tabindex="-1" role="presentation"></a>The nodes immediately start broadcasting their connections, which should, unless some nests are completely unreachable, quickly give every nest a map of the current network graph.</p>
+<p>گره‌ها بلافاصله شروع به مخابره‌ی اتصالاتشان می کنند، که باید به سرعت به هر لانه یک نقشه از گراف فعلی شبکه را بدهد، مگر اینکه بعضی از لانه‌ها کلا در دسترس نباشند.</p>
 
-<p><a class="p_ident" id="p_hDQVurU6rz" href="#p_hDQVurU6rz" tabindex="-1" role="presentation"></a>A thing you can do with graphs is find routes in them, as we saw in <a href="07_robot.html">Chapter 7</a>. If we have a route toward a message’s destination, we know which direction to send it in.</p>
+<p>یکی از کارهایی که در گراف‌ها می توان انجام داد پیدا کردن مسیر‌ها در آن‌ها است ، همانطور که در <a href="07_robot.html">فصل 7</a> دیدیم. اگر مسیری به سمت یک مقصد پیام داشته باشیم، می دانیم از کدام جهت باید اقدام به ارسال آن کنیم.</p>
 
-<p><a class="p_ident" id="p_nLh7irC9fa" href="#p_nLh7irC9fa" tabindex="-1" role="presentation"></a>This <code>findRoute</code> function, which greatly resembles the <code>findRoute</code> from <a href="07_robot.html#findRoute">Chapter 7</a>, searches for a way to reach a given node in the network. But instead of returning the whole route, it just returns the next step. That next nest will itself, using its current information about the network, decide where <em>it</em> sends the message.</p>
+<p>این تابع <code>findRoute</code>، که بسیار شباهت به تابع <code>findRoute</code> <a href="07_robot.html#findRoute">فصل 7</a> دارد، برای رسیدن به یک گره مشخص شده در شبکه به جستجو می پردازد. اما به جای برگرداندن تمام مسیر، فقط گام بعدی را برمی گرداند. لانه‌ی بعدی خودش، از اطلاعات فعلی اش در رابطه با شبکه استفاده خواهد کرد و تصمیم می گیرد که کجا پیغام را بفرستد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BDriUx0MeG" href="#c_BDriUx0MeG" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">findRoute</span>(<span class="cm-def">from</span>, <span class="cm-def">to</span>, <span class="cm-def">connections</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">work</span> <span class="cm-operator">=</span> [{<span class="cm-property">at</span>: <span class="cm-variable-2">from</span>, <span class="cm-property">via</span>: <span class="cm-atom">null</span>}];
@@ -365,7 +365,7 @@
   <span class="cm-keyword">return</span> <span class="cm-atom">null</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_khShpBYpjP" href="#p_khShpBYpjP" tabindex="-1" role="presentation"></a>Now we can build a function that can send long-distance messages. If the message is addressed to a direct neighbor, it is delivered as usual. If not, it is packaged in an object and sent to a neighbor that is closer to the target, using the <code>&quot;route&quot;</code> request type, which will cause that neighbor to repeat the same behavior.</p>
+<p>اکنون می توانیم تابعی بسازیم که می تواند پیغام‌ها را به نقاط دور ارسال کند. اگر پیام مورد نظر مقصدش یک همسایه‌ی مجاور بود، به طور معمولی تحویل داده می شود. در غیر این صورت، درون یک شیء قرار گرفته و به همسایه‌ای ارسال می شود که به هدف نزدیک تر است، با استفاده از نوع درخواست <code>&quot;route&quot;</code> که باعث می شود آن همسایه نیز این رفتار را تکرار کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qgwq/4PpOq" href="#c_qgwq/4PpOq" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">routeRequest</span>(<span class="cm-def">nest</span>, <span class="cm-def">target</span>, <span class="cm-def">type</span>, <span class="cm-def">content</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">nest</span>.<span class="cm-property">neighbors</span>.<span class="cm-property">includes</span>(<span class="cm-variable-2">target</span>)) {
@@ -383,20 +383,20 @@
   <span class="cm-keyword">return</span> <span class="cm-variable">routeRequest</span>(<span class="cm-variable-2">nest</span>, <span class="cm-variable-2">target</span>, <span class="cm-variable-2">type</span>, <span class="cm-variable-2">content</span>);
 });</pre>
 
-<p><a class="p_ident" id="p_2KFj5q8DUa" href="#p_2KFj5q8DUa" tabindex="-1" role="presentation"></a>We can now send a message to the nest in the church tower, which is four network hops removed.</p>
+<p>اکنون می‌توانیم پیامی به لانه‌ای که در برج کلیسا قرار دارد ارسال کنیم که چهار گام در شبکه نیاز دارد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_S73i8jJBHA" href="#c_S73i8jJBHA" tabindex="-1" role="presentation"></a><span class="cm-variable">routeRequest</span>(<span class="cm-variable">bigOak</span>, <span class="cm-string">&quot;Church Tower&quot;</span>, <span class="cm-string">&quot;note&quot;</span>,
              <span class="cm-string">&quot;Incoming jackdaws!&quot;</span>);</pre>
 
-<p><a class="p_ident" id="p_T0OvjpGy1d" href="#p_T0OvjpGy1d" tabindex="-1" role="presentation"></a>We’ve constructed several layers of functionality on top of a primitive communication system to make it convenient to use. This is a nice (though simplified) model of how real computer networks work.</p>
+<p>تاکنون لایه‌های متعددی از قابلیت‌ها را روی یک سیستم ارتباطی اولیه ساخته ایم تا استفاده از آن را راحت و سرراست کنیم. این مدل (البته ساده شده‌ی) خوبی از چگونگی عملکرد شبکه‌های کامپیوتر در واقعیت است.</p>
 
-<p><a class="p_ident" id="p_BCiG5DVrmR" href="#p_BCiG5DVrmR" tabindex="-1" role="presentation"></a>A distinguishing property of computer networks is that they aren’t reliable—abstractions built on top of them can help, but you can’t abstract away network failure. So network programming is typically very much about anticipating and dealing with failures.</p>
+<p><a class="p_ident" id="p_1oBJu4VFTA" href="#p_1oBJu4VFTA" tabindex="-1" role="presentation"></a>یک خاصیت متمایز کننده در شبکه‌های کامپیوتری این است که آن ها قابل اتکا نیستند – تجریدهایی که بر اساس آن‌ها انجام می‌ شود می توانند مفید باشند، اما شکست شبکه را نمی توان با آن‌ها پوشش داد. بنابراین برنامه‌نویسی تحت شبکه نوعا با انتظار خرابی (failure) در شبکه و مدیریت آن سر و کار دارد.</p>
 
-<h2><a class="h_ident" id="h_XvLsfAhtsE" href="#h_XvLsfAhtsE" tabindex="-1" role="presentation"></a>Async functions</h2>
+<h2><a class="h_ident" id="h_qZQ84odw86" href="#h_qZQ84odw86" tabindex="-1" role="presentation"></a>توابع Async</h2>
 
-<p><a class="p_ident" id="p_4FwmFfekYV" href="#p_4FwmFfekYV" tabindex="-1" role="presentation"></a>To store important information, crows are known to duplicate it across nests. That way, when a hawk destroys a nest, the information isn’t lost.</p>
+<p>برای ذخیره‌ی اطلاعات مهم، کلاغ‌ها اطلاعات را بین لانه‌ها تکثیر می کنند. در این روش ، زمانی که یک شاهین یکی از لانه‌ها را از بین می برد، اطلاعات از بین نخواهند رفت.</p>
 
-<p><a class="p_ident" id="p_QezI5I8rjm" href="#p_QezI5I8rjm" tabindex="-1" role="presentation"></a>To retrieve a given piece of information that it doesn’t have in its own storage bulb, a nest computer might consult random other nests in the network until it finds one that has it.</p>
+<p>برای بازیابی یک بخش از اطلاعات که در بافت موجود در خود لانه وجود ندارد، یک کامپیوتر لانه ممکن است با لانه‌های تصادفی در شبکه ارتباط بگیرد تا اینکه آن لانه‌ای که اطلاعات را دارد پیدا شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QLKv1tpg1i" href="#c_QLKv1tpg1i" tabindex="-1" role="presentation"></a><span class="cm-variable">requestType</span>(<span class="cm-string">&quot;storage&quot;</span>, (<span class="cm-def">nest</span>, <span class="cm-def">name</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable">storage</span>(<span class="cm-variable-2">nest</span>, <span class="cm-variable-2">name</span>));
 
@@ -428,15 +428,15 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">next</span>();
 }</pre>
 
-<p><a class="p_ident" id="p_9ueI22bqmz" href="#p_9ueI22bqmz" tabindex="-1" role="presentation"></a>Because <code>connections</code> is a <code>Map</code>, <code>Object.keys</code> doesn’t work on it. It has a <code>keys</code> <em>method</em>, but that returns an iterator rather than an array. An iterator (or iterable value) can be converted to an array with the <code>Array.from</code> function.</p>
+<p>به دلیل اینکه <code>connections</code> از جنس <code>Map</code> است، <bdo><code>Object.keys</code></bdo> روی آن جواب نمی دهد. متد <code>keys</code> در این شیء هم وجود دارد اما یک شمارنده را برمی گرداند نه یک آرایه. یک شمارنده (یا مقدار شمارنده) را می توان به وسیله‌ی <bdo><code>Array.from</code></bdo> به آرایه تبدیل کرد.</p>
 
-<p><a class="p_ident" id="p_1yDETF9zmK" href="#p_1yDETF9zmK" tabindex="-1" role="presentation"></a>Even with promises this is some rather awkward code. Multiple asynchronous actions are chained together in non-obvious ways. We again need a recursive function (<code>next</code>) to model looping through the nests.</p>
+<p><a class="p_ident" id="p_ZEHr4qx6tt" href="#p_ZEHr4qx6tt" tabindex="-1" role="presentation"></a>حتی با وجود استفاده از promise ها این کد نسبتا شکل خوبی ندارد. عملیات متعدد ناهمگام با هم زنجیر شده اند به صورتی که اصلا خوانا و واضح نیست. دوباره نیاز به یک تابع بازگشتی داریم (<code>next</code>) تا بتوانیم حلقه (looping) را بین لانه‌ها مدل سازی کنیم.</p>
 
-<p><a class="p_ident" id="p_ZdDrrtYpkB" href="#p_ZdDrrtYpkB" tabindex="-1" role="presentation"></a>And the thing the code actually does is completely linear—it always waits for the previous action to complete before starting the next one. In a synchronous programming model, it’d be simpler to express.</p>
+<p>و این که کاری که این کد درواقع انجام می دهد کاملا خطی است – همیشه منتظر اتمام عمل قبلی پیش از شروع￼ عمل بعدی می ماند. در یک مدل برنامه نویسی همگام ، ساده‌تر می توان این کارها را پیاده سازی کرد.</p>
 
-<p><a class="p_ident" id="p_YB91K5v8Ro" href="#p_YB91K5v8Ro" tabindex="-1" role="presentation"></a>The good news is that JavaScript allows you to write pseudo-synchronous code to describe asynchronous computation. An <code>async</code> function is a function that implicitly returns a promise and that can, in its body, <code>await</code> other promises in a way that <em>looks</em> synchronous.</p>
+<p>خبر خوب این است که جاوااسکریپت این امکان را فراهم کرده است که کدهای شبه-همگام بنویسید. یک تابع <code>async</code> تابعی است که به طور ضمنی یک promise را بر‌می‌گرداند و می تواند در بدنه‌اش ، به وسیله‌ی دستور <code>await</code> منتظر دیگر promiseها باشد به طوری که همگام به نظر برسد.</p>
 
-<p><a class="p_ident" id="p_+aWABbtzTM" href="#p_+aWABbtzTM" tabindex="-1" role="presentation"></a>We can rewrite <code>findInStorage</code> like this:</p>
+<p>می توانیم تابع <code>findInStorage</code> را به شکل زیر بازنویسی کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_eDKVOF1oo/" href="#c_eDKVOF1oo/" tabindex="-1" role="presentation"></a><span class="cm-keyword">async</span> <span class="cm-keyword">function</span> <span class="cm-def">findInStorage</span>(<span class="cm-def">nest</span>, <span class="cm-def">name</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">local</span> <span class="cm-operator">=</span> <span class="cm-keyword">await</span> <span class="cm-variable">storage</span>(<span class="cm-variable-2">nest</span>, <span class="cm-variable-2">name</span>);
@@ -456,22 +456,22 @@
   <span class="cm-keyword">throw</span> <span class="cm-keyword">new</span> <span class="cm-variable">Error</span>(<span class="cm-string">&quot;Not found&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_yJ9vEuqhm9" href="#p_yJ9vEuqhm9" tabindex="-1" role="presentation"></a>An <code>async</code> function is marked by the word <code>async</code> before the <code>function</code> keyword. Methods can also be made <code>async</code> by writing <code>async</code> before their name. When such a function or method is called, it returns a promise. As soon as the body returns something, that promise is resolved. If it throws an exception, the promise is rejected.</p>
+<p><a class="p_ident" id="p_WGJXcLYhs0" href="#p_WGJXcLYhs0" tabindex="-1" role="presentation"></a>یک تابع async را می توان با واژه‌ی <code>async</code> قبل از کلیدواژه‌ی <code>function</code> مشخص کرد. متدها را نیز می توان با نوشتن آن قبل از نام متد تبدیل به <code>async</code> کرد . زمانی که تابع یا متدی با این خصوصیت فراخوانی شود یک promise را تولید خواهد کرد. به محض این که بدنه‌ی تابع چیزی را برگرداند، آن promise نتیجه‌یابی می شود. اگر استثنایی تولید کند، promise رد می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_04MPwtOsw6" href="#c_04MPwtOsw6" tabindex="-1" role="presentation"></a><span class="cm-variable">findInStorage</span>(<span class="cm-variable">bigOak</span>, <span class="cm-string">&quot;events on 2017-12-21&quot;</span>)
   .<span class="cm-property">then</span>(<span class="cm-variable">console</span>.<span class="cm-property">log</span>);</pre>
 
-<p><a class="p_ident" id="p_0PWuoWXaWE" href="#p_0PWuoWXaWE" tabindex="-1" role="presentation"></a>Inside an <code>async</code> function, the word <code>await</code> can be put in front of an expression to wait for a promise to resolve and only then continue the execution of the function.</p>
+<p>درون یک تابع <code>async،</code> واژه‌ی <code>await</code> را می توان در ابتدای یک عبارت قرار داد تا تابع برای دریافت نتیجه‌ی promise منتظر بماند و بعد از آن به ادامه‌ی اجرای تابع بپردازد.</p>
 
-<p><a class="p_ident" id="p_hTH03GxRLH" href="#p_hTH03GxRLH" tabindex="-1" role="presentation"></a>Such a function no longer, like a regular JavaScript function, runs from start to completion in one go. Instead, it can be <em>frozen</em> at any point that has an <code>await</code>, and can be resumed at a later time.</p>
+<p>این گونه توابع دیگر مانند توابع معمولی جاوااسکریپت از ابتدا تا انتها در یک حرکت اجرا نمی شوند. بلکه ممکن است در هر نقطه‌ای که یک <code>await</code> دارند ایست کنند و بعدا به ادامه مسیرشان بپردازند.</p>
 
-<p><a class="p_ident" id="p_6JNP8vemlA" href="#p_6JNP8vemlA" tabindex="-1" role="presentation"></a>For non-trivial asynchronous code, this notation is usually more convenient than directly using promises. Even if you need to do something that doesn’t fit the synchronous model, such as perform multiple actions at the same time, it is easy to combine <code>await</code> with the direct use of promises.</p>
+<p>برای کدهای ناهمگام مهم، استفاده از این روش معمولا مناسب تر است از استفاده از promise ها. حتی اگر لازم است که کاری انجام بدهید که مناسب مدل همگام نیست، مثل اجرای چندین کار در یک زمان، به آسانی می توان <code>await</code> را با استفاده مستقیم از promise ها ترکیب کرد.</p>
 
-<h2><a class="h_ident" id="h_o+cFzGGhnz" href="#h_o+cFzGGhnz" tabindex="-1" role="presentation"></a>Generators</h2>
+<h2><a class="h_ident" id="h_FTcnrJ/73W" href="#h_FTcnrJ/73W" tabindex="-1" role="presentation"></a>مولدها Generators</h2>
 
-<p><a class="p_ident" id="p_zFhfm+tYq8" href="#p_zFhfm+tYq8" tabindex="-1" role="presentation"></a>This ability of functions to be paused and then resumed again is not exclusive to <code>async</code> functions. JavaScript also has a feature called <em>generator</em> functions. These are similar, but without the promises.</p>
+<p><a class="p_ident" id="p_PuKbCCrieL" href="#p_PuKbCCrieL" tabindex="-1" role="presentation"></a>این قابلیت در توابع که می توانند متوقف شده و بعدا دوباره به مسیرشان ادامه بدهند فقط مخصوص به توابع <code>async</code> نیست. جاوااسکریپت قابلیتی به نام توابع <em>generator</em> (مولد) دارد. این توابع به طور مشابه عمل می کنند اما بدون promise ها.</p>
 
-<p><a class="p_ident" id="p_+0474o2QAY" href="#p_+0474o2QAY" tabindex="-1" role="presentation"></a>When you define a function with <code>function*</code> (placing an asterisk after the word <code>function</code>), it becomes a generator. When you call a generator, it returns an iterator, which we already saw in <a href="06_object.html">Chapter 6</a>.</p>
+<p><a class="p_ident" id="p_qes9UFq0bh" href="#p_qes9UFq0bh" tabindex="-1" role="presentation"></a>زمانی که تابعی را با <code>function*</code> (یک ستاره بعد از کلیدواژه‌ی function قرار می دهید)، تعریف می کنید، باعث می شود که آن تابع به یک مولد تبدیل شود. زمانی که یک تابع مولد فراخوانی می شود، یک تکرار‌کننده (iterator) را برمی گرداند که￼ پیش تر در <a href="06_object.html">فصل 6</a> دیده ایم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_B4ek89g871" href="#c_B4ek89g871" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span><span class="cm-keyword">*</span> <span class="cm-def">powers</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">current</span> <span class="cm-operator">=</span> <span class="cm-variable-2">n</span>;; <span class="cm-variable-2">current</span> <span class="cm-operator">*=</span> <span class="cm-variable-2">n</span>) {
@@ -487,9 +487,9 @@
 <span class="cm-comment">// → 9</span>
 <span class="cm-comment">// → 27</span></pre>
 
-<p><a class="p_ident" id="p_66VAHXEtbn" href="#p_66VAHXEtbn" tabindex="-1" role="presentation"></a>Initially, when you call <code>powers</code>, the function is frozen at its start. Every time you call <code>next</code> on the iterator, the function runs until it hits a <code>yield</code> expression, which pauses it and causes the yielded value to become the next value produced by the iterator. When the function returns (the one in the example never does), the iterator is done.</p>
+<p>در ابتدا، وقتی که تابع <code>powers</code> را فراخوانی می کنید، تابع در ابتدای خودش ایست می کند. هر بار که <code>next</code> را روی تکرارکننده فراخوانی می کنید، تابع تا رسیدن به یک عبارت <code>yield</code> اجرا می شود، و دوباره متوقف شده و مقداری که به وسیله‌ی <code>yield</code> حاصل شده است به عنوان مقدار بعدی تولیدی توسط تکرارکننده در نظر گرفته می شود. زمانی که تابع به پایان می رسد (که در این مثال هرگز اتفاق نمی افتد) تکرارکننده نیز به پایان می رسد.</p>
 
-<p><a class="p_ident" id="p_ck21A7VgZt" href="#p_ck21A7VgZt" tabindex="-1" role="presentation"></a>Writing iterators is often much easier when you use generator functions. The iterator for the <code>Group</code> class (from the exercise in <a href="06_object.html#group_iterator">Chapter 6</a>) can be written with this generator:</p>
+<p>نوشتن تکرارکننده‌ها اغلب در هنگام استفاده از توابع مولد ساده تر می باشد. تکرارکننده‌ی مربوط به کلاس <code>Groupe</code> (مربوط به تمرین <a href="06_object.html#group_iterator">فصل 6</a>) را می توان با این مولد بازنویسی کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_C6OZWjI9EM" href="#c_C6OZWjI9EM" tabindex="-1" role="presentation"></a><span class="cm-variable">Group</span>.<span class="cm-property">prototype</span>[<span class="cm-variable">Symbol</span>.<span class="cm-property">iterator</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span><span class="cm-keyword">*</span>() {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-keyword">this</span>.<span class="cm-property">members</span>.<span class="cm-property">length</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
@@ -497,11 +497,11 @@
   }
 };</pre>
 
-<p><a class="p_ident" id="p_oMZiyktu3O" href="#p_oMZiyktu3O" tabindex="-1" role="presentation"></a>There’s no longer a need to create an object to hold the iteration state—generators automatically save their local state every time they yield.</p>
+<p><a class="p_ident" id="p_8S4ej0Vfgj" href="#p_8S4ej0Vfgj" tabindex="-1" role="presentation"></a>دیگر نیازی نیست که یک شیء را ایجاد کرده تا وضعیت تکرار را نگه داری کنیم – مولدها این کار را به صورت خودکار با ذخیره‌ی وضعیت محلی‌شان با هر بار خواندن yield انجام می دهند.</p>
 
-<p><a class="p_ident" id="p_YCNJmBl4aF" href="#p_YCNJmBl4aF" tabindex="-1" role="presentation"></a>Such <code>yield</code> expressions may occur only directly in the generator function itself and not in an inner function you define inside of it. The state a generator saves, when yielding, is only its <em>local</em> environment and the position where it yielded.</p>
+<p><a class="p_ident" id="p_K+GGmrPUSt" href="#p_K+GGmrPUSt" tabindex="-1" role="presentation"></a>عبارت‌های <code>yield</code> فقط می توانند مستقیما درون خود تابع مولد استفاده شوند نه درون تابعی که درون مولد تعریف می کنید. وضعیتی که یک مولد در هنگام اجرای yield ذخیره می کند ، فقط شامل محیط محلی آن و موقعیتی که در آنجا yield انجام شده می شود.</p>
 
-<p><a class="p_ident" id="p_TnoowE9/OQ" href="#p_TnoowE9/OQ" tabindex="-1" role="presentation"></a>An <code>async</code> function is a special type of generator. It produces a promise when called, which is resolved when it returns (finishes) and rejected when it throws an exception. Whenever it yields (awaits) a promise, the result of that promise (value or thrown exception) is the result of the <code>await</code> expression.</p>
+<p><a class="p_ident" id="p_QRQ2o23GXY" href="#p_QRQ2o23GXY" tabindex="-1" role="presentation"></a>یک تابع <code>async</code> یک نوع خاص از یک مولد است. در هنگام فراخوانی یک promise تولید می کند که در هنگام پایان تابع به نتیجه می رسد و زمانی که یک استثنا تولید می کنند reject می شوند. هر وقت که این تابع یک promise را yield می کند (به عبارتی با <code>await</code> منتظر یک promise می ماند)، نتیجه‌ی آن promise (مقدار یا استثنای تولید شده) نتیجه‌ی عبارت <code>await</code> خواهد بود.</p>
 
 <h2><a class="h_ident" id="h_GXDb0+eMId" href="#h_GXDb0+eMId" tabindex="-1" role="presentation"></a>The event loop</h2>
 
