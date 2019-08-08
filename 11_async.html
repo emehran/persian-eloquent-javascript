@@ -37,7 +37,7 @@
 
 <p>در مدل <em>ناهمگام</em> می توان چندین کار را در یک زمان انجام داد. زمانی که کاری را شروع می کنید، برنامه‌ی شما به اجرا ادامه خواهد داد. زمانی که آن کار تمام می شود، برنامه خبردار شده و به نتایج دست خواهد یافت (به عنوان مثال می توان به خواندن اطلاعات از دیسک سخت اشاره کرد).</p>
 
-<p>می توان برنامه نویسی همگام و ناهمگام را با یک مثال کوچک مقایسه کرد: برنامه‌ای که از دو منبع در شبکه، اطلاعاتی دریافت می کند و بعد نتایج را با هم ترکیب می کند.</p>
+<p>می توان برنامه‌نویسی همگام و ناهمگام را با یک مثال کوچک مقایسه کرد: برنامه‌ای که از دو منبع در شبکه، اطلاعاتی دریافت می کند و بعد نتایج را با هم ترکیب می کند.</p>
 
 <p>در یک محیط همگام، جایی که درخواست فقط زمانی برمی گردد که کارش را تمام کرده باشد، آسان ترین روش انجام این کار ارسال درخواست ها یکی پس از دیگری است. مشکل این روش این است که درخواست دوم زمانی شروع می شود که درخواست اول تمام شده باشد. جمع زمانی که صرف می شود حداقل برابر است با مجموع زمان پاسخ‌های درخواست ها.</p>
 
@@ -49,7 +49,7 @@
 
 <p>ناهمگامی مثل چاقوی دولبه است. برای برنامه‌هایی که مناسب اجرای مستقیم خطی نیستند کار را ساده تر می کند اما در عین حال می تواند برای برنامه هایی که به صورت مستقیم خطی اجرا می شوند نامناسب باشد. در ادامه این فصل با راه‌هایی برای حل این ناهمگونی آشنا خواهیم شد.</p>
 
-<p><a class="p_ident" id="p_DJSgOGbrf5" href="#p_DJSgOGbrf5" tabindex="-1" role="presentation"></a>هر دو پلتفرم مهم برنامه نویسی جاوااسکریپت – مرورگرها و <bdo>Node.js</bdo> – عملیاتی که ممکن است زمانگیر باشند را به صورت ناهمگام اجرا می کنند و از نخ‌ها (threads) استفاده نمی کنند. به دلیل اینکه برنامه نویسی روی thread ها کار سختی محسوب می شود (در این نوع برنامه نویسی درک کارکرد برنامه، به دلیل انجام چند کار در آن واحد بسیار سخت‌تر می شود)، روش ناهمگام عموما چیز خوبی محسوب می شود.</p>
+<p><a class="p_ident" id="p_DJSgOGbrf5" href="#p_DJSgOGbrf5" tabindex="-1" role="presentation"></a>هر دو پلتفرم مهم برنامه‌نویسی جاوااسکریپت – مرورگرها و <bdo>Node.js</bdo> – عملیاتی که ممکن است زمانگیر باشند را به صورت ناهمگام اجرا می کنند و از نخ‌ها (threads) استفاده نمی کنند. به دلیل اینکه برنامه‌نویسی روی thread ها کار سختی محسوب می شود (در این نوع برنامه‌نویسی درک کارکرد برنامه، به دلیل انجام چند کار در آن واحد بسیار سخت‌تر می شود)، روش ناهمگام عموما چیز خوبی محسوب می شود.</p>
 
 <h2><a class="h_ident" id="h_zUZJr7Lzut" href="#h_zUZJr7Lzut" tabindex="-1" role="presentation"></a>فناوری کلاغ‌ها</h2>
 
@@ -65,11 +65,11 @@
 
 <p><a class="p_ident" id="p_cCgxPRsF1V" href="#p_cCgxPRsF1V" tabindex="-1" role="presentation"></a>دوست متخصص کلاغ ما نقشه‌ای از شبکه‌ی لانه‌های کلاغ‌ها در روستای <bdo>Hières-sur-Amby</bdo> قرار دارد، کشیده است که در حاشیه‌ی رودخانه‌ی Rhône قرار دارد. آن نقشه نشان می دهد که لانه‌ها و ارتباطاتشان چگونه است:</p><figure><img src="img/Hieres-sur-Amby.png" alt="A network of crow nests in a small village"></figure>
 
-<p>در نمونه‌ای شگفت‌انگیز از تکامل همگرا، کامپیوترهای کلاغ‌ها، جاوااسکریپت را اجرا می کنند. در این فصل قرار است بعضی از قابلیت‌های پایه‌ای شبکه را برایشان برنامه نویسی کنیم.</p>
+<p>در نمونه‌ای شگفت‌انگیز از تکامل همگرا، کامپیوترهای کلاغ‌ها، جاوااسکریپت را اجرا می کنند. در این فصل قرار است بعضی از قابلیت‌های پایه‌ای شبکه را برایشان برنامه‌نویسی کنیم.</p>
 
 <h2><a class="h_ident" id="h_LtY0V3+tmI" href="#h_LtY0V3+tmI" tabindex="-1" role="presentation"></a>callbacks - فراخوان برگشتی</h2>
 
-<p><a class="p_ident" id="p_jU9HKeneWd" href="#p_jU9HKeneWd" tabindex="-1" role="presentation"></a>یکی از راه‌های برنامه نویسی ناهمگام این است توابعی که یک کار زمانگیر را انجام می دهند یک آرگومان اضافی دریافت کنند، یک تابع callback. تابع اصلی اجرا شده و پایان می پذیرد بعد تابع callback با نتایج دریافتی از تابع اصلی فراخوانی می گردد.</p>
+<p><a class="p_ident" id="p_jU9HKeneWd" href="#p_jU9HKeneWd" tabindex="-1" role="presentation"></a>یکی از راه‌های برنامه‌نویسی ناهمگام این است توابعی که یک کار زمانگیر را انجام می دهند یک آرگومان اضافی دریافت کنند، یک تابع callback. تابع اصلی اجرا شده و پایان می پذیرد بعد تابع callback با نتایج دریافتی از تابع اصلی فراخوانی می گردد.</p>
 
 <p><a class="p_ident" id="p_Kzh6PibMf8" href="#p_Kzh6PibMf8" tabindex="-1" role="presentation"></a>به عنوان یک مثال، تابع <code>setTimeout</code>، که در <bdo>Node.js</bdo> و مرورگرها در دسترس است، به اندازه‌ی هزارم ثانیه‌ ای که مشخص شده است منتظر می ماند و سپس یک تابع را فراخوانی می کند.</p>
 
@@ -94,7 +94,7 @@
 
 <p>(تمامی متغیرها و رشته‌ها از زبان کلاغی به زبان انگلیسی ترجمه شده اند.)</p>
 
-<p>این سبک از برنامه نویسی شدنی است اما با هر بار عمل همگام، میزان تورفتگی اضافه می شود ،چرا که به تابع دیگر نیاز خواهید داشت. برای انجام کارهای پیچیده‌تر ، مثل انجام چند عمل در یک زمان واحد، این شیوه‌ی کدنویسی می تواند کمی بدقواره شود.</p>
+<p>این سبک از برنامه‌نویسی شدنی است اما با هر بار عمل همگام، میزان تورفتگی اضافه می شود ،چرا که به تابع دیگر نیاز خواهید داشت. برای انجام کارهای پیچیده‌تر ، مثل انجام چند عمل در یک زمان واحد، این شیوه‌ی کدنویسی می تواند کمی بدقواره شود.</p>
 
 <p>کامپیوترهای لانه‌ها طوری ساخته شده اند که بتوانند به وسیله‌ی جفت‌های درخواست-پاسخ با هم ارتباط برقرار کنند. این یعنی یک لانه، پیامی را به لانه‌ی دیگری ارسال می کند، که این لانه نیز بلافاصله پیامی را که حاوی تایید دریافت و احتمالا شامل پاسخی به درخواست است برمی‌گرداند.</p>
 
@@ -432,7 +432,7 @@
 
 <p><a class="p_ident" id="p_ZEHr4qx6tt" href="#p_ZEHr4qx6tt" tabindex="-1" role="presentation"></a>حتی با وجود استفاده از promise ها این کد نسبتا شکل خوبی ندارد. عملیات متعدد ناهمگام با هم زنجیر شده اند به صورتی که اصلا خوانا و واضح نیست. دوباره نیاز به یک تابع بازگشتی داریم (<code>next</code>) تا بتوانیم حلقه (looping) را بین لانه‌ها مدل سازی کنیم.</p>
 
-<p>و این که کاری که این کد درواقع انجام می دهد کاملا خطی است – همیشه منتظر اتمام عمل قبلی پیش از شروع￼ عمل بعدی می ماند. در یک مدل برنامه نویسی همگام ، ساده‌تر می توان این کارها را پیاده سازی کرد.</p>
+<p>و این که کاری که این کد درواقع انجام می دهد کاملا خطی است – همیشه منتظر اتمام عمل قبلی پیش از شروع￼ عمل بعدی می ماند. در یک مدل برنامه‌نویسی همگام ، ساده‌تر می توان این کارها را پیاده سازی کرد.</p>
 
 <p>خبر خوب این است که جاوااسکریپت این امکان را فراهم کرده است که کدهای شبه-همگام بنویسید. یک تابع <code>async</code> تابعی است که به طور ضمنی یک promise را بر‌می‌گرداند و می تواند در بدنه‌اش ، به وسیله‌ی دستور <code>await</code> منتظر دیگر promiseها باشد به طوری که همگام به نظر برسد.</p>
 
@@ -503,14 +503,13 @@
 
 <p><a class="p_ident" id="p_QRQ2o23GXY" href="#p_QRQ2o23GXY" tabindex="-1" role="presentation"></a>یک تابع <code>async</code> یک نوع خاص از یک مولد است. در هنگام فراخوانی یک promise تولید می کند که در هنگام پایان تابع به نتیجه می رسد و زمانی که یک استثنا تولید می کنند reject می شوند. هر وقت که این تابع یک promise را yield می کند (به عبارتی با <code>await</code> منتظر یک promise می ماند)، نتیجه‌ی آن promise (مقدار یا استثنای تولید شده) نتیجه‌ی عبارت <code>await</code> خواهد بود.</p>
 
-<h2><a class="h_ident" id="h_GXDb0+eMId" href="#h_GXDb0+eMId" tabindex="-1" role="presentation"></a>The event loop</h2>
+<h2><a class="h_ident" id="h_JlVHOMU26a" href="#h_JlVHOMU26a" tabindex="-1" role="presentation"></a>حلقه‌ی رویداد</h2>
 
-<p><a class="p_ident" id="p_AfROx8LXEr" href="#p_AfROx8LXEr" tabindex="-1" role="presentation"></a>Asynchronous programs are executed piece by piece. Each piece may start some actions and schedule code to be executed when the action finishes or fails. In between these pieces, the program sits idle, waiting for the next action.</p>
+<p>برنامه‌های ناهمگام به صورت بخش بخش اجرا می شوند. هر بخش ممکن است کارهایی را شروع کند و کدهایی را هم برنامه ریزی کند که در صورت پایان یا شکست آن کارها اجرا شوند. بین این بخش ها، برنامه بیکار می نشیند و منتظر کار بعدی خواهد ماند.</p>
 
-<p><a class="p_ident" id="p_WG0CglTDJj" href="#p_WG0CglTDJj" tabindex="-1" role="presentation"></a>So callbacks are not directly called by the code that scheduled them. If I call <code>setTimeout</code> from within a function, that function will have returned by the time the callback function is called. And when the callback returns, control does not go back to the function that scheduled it.</p>
+<p><a class="p_ident" id="p_mYfa1fy9XO" href="#p_mYfa1fy9XO" tabindex="-1" role="presentation"></a>بنابراین callbackها به طور مستقیم توسط کدی که آن ها را زمانبندی کرده اند فراخوانی نمی شوند. اگر من تابع <code>setTimeout</code> را از درون یک تابع فراخوانی کنم، آن تابع زمانی برگردانده می شود که تابع callback فراخوانی می￼ شود. و زمانی که تابع callback اجرا و بر‌می‌گردد، کنترل برنامه به تابعی که آن را زمانبندی کرده بود بر نخواهد گشت.</p>
 
-<p><a class="p_ident" id="p_jb72lBvUWs" href="#p_jb72lBvUWs" tabindex="-1" role="presentation"></a>Asynchronous behavior happens on its own empty function call
-stack. This is one of the reasons that, without promises, managing exceptions across asynchronous code is hard. Since each callback starts with a mostly empty stack, your <code>catch</code> handlers won’t be on the stack when they throw an exception.</p>
+<p><a class="p_ident" id="p_l29z7MW66K" href="#p_l29z7MW66K" tabindex="-1" role="presentation"></a>رفتار ناهمگام، در تابع تهی خودش (پشته‌ی فراخوانی) اتفاق می‌افتد. این یکی از دلایلی است که بدون استفاده از promiseها، مدیریت استثناها در کدهای ناهمگام مشکل است. به دلیل اینکه هر callback با یک پشته‌ی تقریبا خالی شروع می شود، گرداننده‌های <code>catch</code> شما در پشته در هنگام بروز یک استثنا در پشته نخواهند بود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_UswfjtMHu4" href="#c_UswfjtMHu4" tabindex="-1" role="presentation"></a><span class="cm-keyword">try</span> {
   <span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> {
@@ -521,9 +520,9 @@ stack. This is one of the reasons that, without promises, managing exceptions ac
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Caught!&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_SHy5RpBOP1" href="#p_SHy5RpBOP1" tabindex="-1" role="presentation"></a>No matter how closely together events—such as timeouts or incoming requests—happen, a JavaScript environment will run only one program at a time. You can think of this as it running a big loop <em>around</em> your program, called the <em>event loop</em>. When there’s nothing to be done, that loop is stopped. But as events come in, they are added to a queue, and their code is executed one after the other. Because no two things run at the same time, slow-running code might delay the handling of other events.</p>
+<p><a class="p_ident" id="p_f1DBc3jezP" href="#p_f1DBc3jezP" tabindex="-1" role="presentation"></a>اهمیتی ندارد چقدر این رخدادها به هم نزدیک باشند- مانند timeoutها یا درخواست‌های وارده – ، یک محیط جاوااسکریپت فقط یک برنامه را در یک لحظه اجرا می کند. می توان این را به عنوان اجرای یک حلقه‌ی بزرگ دور برنامه شما تصور کرد که به آن حلقه‌ی رخداد (event loop) می گویند. وقتی کاری دیگر برای انجام نمانده باشد ، حلقه از کار می ایستد. اما با ورود رخدادها، آن‌ها به یک صف اضافه می شوند و کدهایشان یکی بعد از دیگری اجرا می شوند. بدلیل اینکه هیچگاه دو کار در یک لحظه اجرا نمی شود، کدهای کند و زمانگیر ممکن است در رسیدگی به دیگر رخدادها تاخیر ایجاد کنند.</p>
 
-<p><a class="p_ident" id="p_o5sS+xwBLP" href="#p_o5sS+xwBLP" tabindex="-1" role="presentation"></a>This example sets a timeout but then dallies until after the timeout’s intended point of time, causing the timeout to be late.</p>
+<p><a class="p_ident" id="p_VtPJSQviYI" href="#p_VtPJSQviYI" tabindex="-1" role="presentation"></a>در این مثال یک timeout تنظیم می شود، اما اجرای آن به بعد از زمان اجرای در نظر گرفته شده به تاخیر می‌افتد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Xozg9CCvVZ" href="#c_Xozg9CCvVZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">start</span> <span class="cm-operator">=</span> <span class="cm-variable">Date</span>.<span class="cm-property">now</span>();
 <span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> {
@@ -534,20 +533,20 @@ stack. This is one of the reasons that, without promises, managing exceptions ac
 <span class="cm-comment">// → Wasted time until 50</span>
 <span class="cm-comment">// → Timeout ran at 55</span></pre>
 
-<p><a class="p_ident" id="p_OZm6Yhq/Wa" href="#p_OZm6Yhq/Wa" tabindex="-1" role="presentation"></a>Promises always resolve or reject as a new event. Even if a promise is already resolved, waiting for it will cause your callback to run after the current script finishes, rather than right away.</p>
+<p><a class="p_ident" id="p_6zLBnp0Ex1" href="#p_6zLBnp0Ex1" tabindex="-1" role="presentation"></a>promise ها همیشه به عنوان یک رخداد جدید، رد یا حل‌ و فصل می‌شوند. حتی اگر یک promise از پیش به نتیجه رسیده باشد، انتظار برای آن باعث می شود که callback شما بعد از پایان اسکریپت کنونی اجرا شود، نه به صورت فوری.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_B4TYo0a2ol" href="#c_B4TYo0a2ol" tabindex="-1" role="presentation"></a><span class="cm-variable">Promise</span>.<span class="cm-property">resolve</span>(<span class="cm-string">&quot;Done&quot;</span>).<span class="cm-property">then</span>(<span class="cm-variable">console</span>.<span class="cm-property">log</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Me first!&quot;</span>);
 <span class="cm-comment">// → Me first!</span>
 <span class="cm-comment">// → Done</span></pre>
 
-<p><a class="p_ident" id="p_/AFx3XpMr1" href="#p_/AFx3XpMr1" tabindex="-1" role="presentation"></a>In later chapters we’ll see various other types of events that run on the event loop.</p>
+<p>در فصل‌های بعدی انواع مختلفی از رخدادها را مشاهده خواهیم کرد که روی حلقه‌ی رخدادها اجرا می شوند.</p>
 
-<h2><a class="h_ident" id="h_FcctcOqtcF" href="#h_FcctcOqtcF" tabindex="-1" role="presentation"></a>Asynchronous bugs</h2>
+<h2><a class="h_ident" id="h_gTEP5a9/M7" href="#h_gTEP5a9/M7" tabindex="-1" role="presentation"></a>باگ‌ها در مدل برنامه‌نویسی ناهمگام</h2>
 
-<p><a class="p_ident" id="p_7G3I/OEwrS" href="#p_7G3I/OEwrS" tabindex="-1" role="presentation"></a>When your program runs synchronously, in a single go, there are no state changes happening except those that the program itself makes. For asynchronous programs this is different—they may have <em>gaps</em> in their execution during which other code can run.</p>
+<p>زمانی که برنامه‌ی شما به صورت همگام اجرا می شود، در یک اجرای واحد، هیچ تغییر وضعیتی به جز آن هایی که خود برنامه ایجاد می کند وجود ندارد. در برنامه‌های ناهمگام قضیه متفاوت است- ممکن است شامل وقفه‌هایی در اجرایشان باشند که در این وقفه‌ها دیگر کدها می توانند اجرا شوند.</p>
 
-<p><a class="p_ident" id="p_IHtlm+p6vM" href="#p_IHtlm+p6vM" tabindex="-1" role="presentation"></a>Let’s look at an example. One of the hobbies of our crows is to count the number of chicks that hatch throughout the village every year. Nests store this count in their storage bulbs. The following code tries to enumerate the counts from all the nests for a given year:</p>
+<p>اجازه بدهید تا به مثالی نگاه کنیم. یکی از سرگرمی‌های کلاغ‌های ما این است که تعداد جوجه‌هایی که از تخم بیرون می آیند در طول یک سال در روستا را بشمارند. لانه‌ها این عدد را در بافت‌های ذخیره‌سازی‌شان حفظ می کنند. کد پیش رو تلاش می کند تا تمامی اعداد موجود در همه‌ی لانه‌ها را برای یک سال مشخص بشمارد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_IMqeevTorV" href="#c_IMqeevTorV" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">anyStorage</span>(<span class="cm-def">nest</span>, <span class="cm-def">source</span>, <span class="cm-def">name</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">source</span> <span class="cm-operator">==</span> <span class="cm-variable-2">nest</span>.<span class="cm-property">name</span>) <span class="cm-keyword">return</span> <span class="cm-variable">storage</span>(<span class="cm-variable-2">nest</span>, <span class="cm-variable-2">name</span>);
@@ -564,21 +563,23 @@ stack. This is one of the reasons that, without promises, managing exceptions ac
   <span class="cm-keyword">return</span> <span class="cm-variable-2">list</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_0pgRtcGBdP" href="#p_0pgRtcGBdP" tabindex="-1" role="presentation"></a>The <code>async name =&gt;</code> part shows that arrow functions can also be made <code>async</code> by putting the word <code>async</code> in front of them.</p>
+<p><a class="p_ident" id="p_e1B1QHaHbK" href="#p_e1B1QHaHbK" tabindex="-1" role="presentation"></a>قسمت <bdo><code>async name =&gt;</code></bdo> نشان می دهد که توابع پیکانی arrow functions را همچنین می توان به صورت <code>async</code> با قرار دادن واژه‌ی <code>async</code> در ابتدای آن ایجاد کرد.</p>
 
-<p><a class="p_ident" id="p_KHzN+dp1hs" href="#p_KHzN+dp1hs" tabindex="-1" role="presentation"></a>The code doesn’t immediately look suspicious...it maps the <code>async</code> arrow function over the set of nests, creating an array of promises, and then uses <code>Promise.all</code> to wait for all of these before returning the list they build up.</p>
+<p>کد ما در نگاه اول نادرست به نظر نمی‌رسد... تابع پیکانی <code>async</code> بر روی مجموعه‌ی لانه‌ها نگاشت می شود، آرایه‌‌ای از promiseها تولید می شود و سپس از <bdo><code>Promise.all</code></bdo> برای انتظار برای همه‌ی این‌ها قبل از بازگشتن از لیستی که می‌سازند استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_TdSgPYi+yD" href="#p_TdSgPYi+yD" tabindex="-1" role="presentation"></a>But it is seriously broken. It’ll always return only a single line of output, listing the nest that was slowest to respond.</p>
+<p>اما این کد مطمئنا مشکل دارد. خروجی آن همیشه لانه‌ای است که کند‌ترین پاسخ را داشته است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_GWIpudJZ4o" href="#c_GWIpudJZ4o" tabindex="-1" role="presentation"></a><span class="cm-variable">chicks</span>(<span class="cm-variable">bigOak</span>, <span class="cm-number">2017</span>).<span class="cm-property">then</span>(<span class="cm-variable">console</span>.<span class="cm-property">log</span>);</pre>
 
+<p>می توانید علت این مشکل را بیابید؟</p>
+
 <p><a class="p_ident" id="p_Dvt4nbkZZR" href="#p_Dvt4nbkZZR" tabindex="-1" role="presentation"></a>Can you work out why?</p>
 
-<p><a class="p_ident" id="p_vdkIPINyQy" href="#p_vdkIPINyQy" tabindex="-1" role="presentation"></a>The problem lies in the <code>+=</code> operator, which takes the <em>current</em> value of <code>list</code> at the time where the statement starts executing and then, when the <code>await</code> finishes, sets the <code>list</code> binding to be that value plus the added string.</p>
+<p>مشکل در قسمت عملگر <bdo><code>+=</code></bdo> قرار دارد، که مقدار فعلی لیست را در زمانی که دستور شروع به اجرا می کند می گیرد و بعد از اینکه دستور <code>await</code> به پایان می رسد، متغیر <code>list</code> را معادل با آن مقدار به اضافه رشته‌ی افزوده شده قرار می دهد.</p>
 
-<p><a class="p_ident" id="p_faVxxgg3dQ" href="#p_faVxxgg3dQ" tabindex="-1" role="presentation"></a>But between the time where the statement starts executing and the time where it finishes there’s an asynchronous gap. The <code>map</code> expression runs before anything has been added to the list, so each of the <code>+=</code> operators starts from an empty string and ends up, when its storage retrieval finishes, setting <code>list</code> to a single-line list—the result of adding its line to the empty string.</p>
+<p>اما در این میان جایی که دستور شروع به اجرا می کند و زمانی که به اتمام می رسد یک وقفه‌ی ناهمگام وجود دارد. عبارت <code>map</code> قبل از اینکه چیزی به لیست اضافه شود، اجرا می شود بنابراین هرکدام از عملگرهای <bdo><code>+=</code></bdo> با یک رشته‌ی خالی شروع می کنند و به پایان می رسند، زمانی که بازیابی مخزنش به اتمام برسد، متغیر <code>list</code> را برابر با یک لیست تک-خطی قرار می دهد — نتیجه افزودن خطش به رشته‌ی تهی.</p>
 
-<p><a class="p_ident" id="p_WrnTDweOkP" href="#p_WrnTDweOkP" tabindex="-1" role="presentation"></a>This could have easily been avoided by returning the lines from the mapped promises and calling <code>join</code> on the result of <code>Promise.all</code>, instead of building up the list by changing a binding. As usual, computing new values is less error-prone than changing existing values.</p>
+<p>بجای اینکه لیست را با تغییر یک متغیر بسازیم، با برگرداندن خطوط از promiseهای نگاشت شده و فراخوانی <code>join</code> روی نتیجه‌ی <bdo><code>Promise.all</code></bdo>، می توان به سادگی از این اشکال جلوگیری کرد. به طور معمول، محاسبه‌ی مقدارهای جدید نسبت به تغییر مقادیر فعلی کمتر خطاساز هستند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_gkD231Soao" href="#c_gkD231Soao" tabindex="-1" role="presentation"></a><span class="cm-keyword">async</span> <span class="cm-keyword">function</span> <span class="cm-def">chicks</span>(<span class="cm-def">nest</span>, <span class="cm-def">year</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">lines</span> <span class="cm-operator">=</span> <span class="cm-variable">network</span>(<span class="cm-variable-2">nest</span>).<span class="cm-property">map</span>(<span class="cm-keyword">async</span> <span class="cm-def">name</span> <span class="cm-operator">=&gt;</span> {
@@ -588,27 +589,27 @@ stack. This is one of the reasons that, without promises, managing exceptions ac
   <span class="cm-keyword">return</span> (<span class="cm-keyword">await</span> <span class="cm-variable">Promise</span>.<span class="cm-property">all</span>(<span class="cm-variable-2">lines</span>)).<span class="cm-property">join</span>(<span class="cm-string">&quot;\n&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_7XYZHth7ax" href="#p_7XYZHth7ax" tabindex="-1" role="presentation"></a>Mistakes like this are easy to make, especially when using <code>await</code>, and you should be aware of where the gaps in your code occur. An advantage of JavaScript’s <em>explicit</em> asynchronicity (whether through callbacks, promises, or <code>await</code>) is that spotting these gaps is relatively easy.</p>
+<p><a class="p_ident" id="p_U+0BUkeym7" href="#p_U+0BUkeym7" tabindex="-1" role="presentation"></a>اشتباهاتی شبیه این خیلی ساده اتفاق می افتند مخصوصا زمانی که از <code>await</code> استفاده می کنیم، و باید حواستان به￼ جایی که وقفه‌ها در کدتان رخ می دهد باشد. یک مزیت برنامه نویسی ناهمگام (چه با استفاده از callbackها ، promise ها یا await) به صورت صریح در جاوااسکریپت، این است که پیدا کردن این وقفه‌ها نسبتا ساده است.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_MoVe59fjo8" href="#p_MoVe59fjo8" tabindex="-1" role="presentation"></a>Asynchronous programming makes it possible to express waiting for long-running actions without freezing the program during these actions. JavaScript environments typically implement this style of programming using callbacks, functions that are called when the actions complete. An event loop schedules such callbacks to be called when appropriate, one after the other, so that their execution does not overlap.</p>
+<p>برنامه‌نویسی ناهمگام این امکان را فراهم می سازد که بتوان برای کارهای اجرایی زمانگیر صبر کرد بدون اینکه برنامه در حین انجام این کارها متوقف شود. محیط‌های جاوااسکریپت نوعا این سبک از برنامه‌نویسی را با استفاده از callback ها پیاده سازی می کنند، توابعی که که زمانی که کارهای مورد نظر پایان می پذیرد فراخوانی می شوند. یک حلقه‌ی رخداد، این توابع callback را زمانبندی می کند تا در زمان مناسب فراخوانی شوند، یکی پس از دیگری، تا اجرای آن‌ها با تداخل روبرو نشود.</p>
 
-<p><a class="p_ident" id="p_8QVLsE1w4k" href="#p_8QVLsE1w4k" tabindex="-1" role="presentation"></a>Programming asynchronously is made easier by promises, objects that represent actions that might complete in the future, and <code>async</code> functions, which allow you to write an asynchronous program as if it were synchronous.</p>
+<p>برنامه‌نویسی ناهمگام با استفاده از promise ها آسان تر می شود، اشیائی که نماینده‌ی کارهایی هستند که ممکن است در آینده تکمیل شوند، و توابع <code>async</code>، که به شما این امکان را می دهد تا یک برنامه‌ی ناهمگام را به شکلی بنویسید که انگار همگام است.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_UvyahfUnfl" href="#i_UvyahfUnfl" tabindex="-1" role="presentation"></a>Tracking the scalpel</h3>
+<h3><a class="i_ident" id="i_4zlaDf3FG4" href="#i_4zlaDf3FG4" tabindex="-1" role="presentation"></a>رهگیری چاقوی جراحی</h3>
 
-<p><a class="p_ident" id="p_x4s0mGpqFW" href="#p_x4s0mGpqFW" tabindex="-1" role="presentation"></a>The village crows own an old scalpel that they occasionally use on special missions—say, to cut through screen doors or packaging. To be able to quickly track it down, every time the scalpel is moved to another nest, an entry is added to the storage of both the nest that had it and the nest that took it, under the name <code>&quot;scalpel&quot;</code>, with its new location as the value.</p>
+<p>کلاغ‌های روستا یک چاقوی جراحی قدیمی دارند که گاهی اوقات از آن برای ماموریت‌های خاص استفاده می می‌کنند — فرض کنید، برای بریدن توری درها یا بسته ها. برای اینکه بتوان به سرعت آن را رهگیری کرد، هربار که چاقو به لانه‌ی دیگری منتقل می شد، یک مدخل به مخزن هر دو لانه اضافه می شد، لانه‌ای که آن را داشت و لانه‌ای که آن را دریافت کرده است و این مدخل با نام <code>&quot;scalpel&quot;</code> و با مقداری برای محل جدیدش ذخیره می شود.</p>
 
-<p><a class="p_ident" id="p_X85b03YAMx" href="#p_X85b03YAMx" tabindex="-1" role="presentation"></a>This means that finding the scalpel is a matter of following the breadcrumb trail of storage entries, until you find a nest where that points at the nest itself.</p>
+<p>این به این معنا است که برای پیدا کردن چاقو باید به تاریخچه‌ی نشانه‌های موجود در مخزن مراجعه کرد تا اینکه به لانه‌ای برسید که به خودش ارجاع می دهد.</p>
 
-<p><a class="p_ident" id="p_pGzF+NquWH" href="#p_pGzF+NquWH" tabindex="-1" role="presentation"></a>Write an <code>async</code> function <code>locateScalpel</code> that does this, starting at the nest on which it runs. You can use the <code>anyStorage</code> function defined earlier to access storage in arbitrary nests. The scalpel has been going around long enough that you may assume that every nest has a <code>&quot;scalpel&quot;</code> entry in its data storage.</p>
+<p>یک تابع <code>async</code> به نام <code>locateScalpel</code> ایجاد کنید که این کار را انجام می دهد که از لانه‌ای که روی آن اجرا می شود شروع می کند. می توانید از تابع <code>anyStorage</code> که پیش تر تعریف شده برای دسترسی به لانه‌های مورد نظر استفاده کنید. چاقو از مدت زمان مدیدی است که بین لانه‌ها دست به دست می شود که می توان نتیجه گرفت که هر لانه یک مدخل <code>&quot;scalpel&quot;</code> را در مخزنش دارد.</p>
 
-<p><a class="p_ident" id="p_kCIUGPuKAV" href="#p_kCIUGPuKAV" tabindex="-1" role="presentation"></a>Next, write the same function again without using <code>async</code> and <code>await</code>.</p>
+<p>در گام بعدی، همین تابع را بدون استفاده از <code>async</code> و <code>await</code> بنویسید.</p>
 
-<p><a class="p_ident" id="p_rIlnOS1Bz0" href="#p_rIlnOS1Bz0" tabindex="-1" role="presentation"></a>Do request failures properly show up as rejections of the returned promise in both versions? How?</p>
+<p>آیا شکست‌های درخواست‌ها به درستی به عنوان عدم پذیرش یک promise برگردانده شده، نمایش داده می شوند در￼ هر دو نسخه؟ چگونه؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_YnFVXk9tRo" href="#c_YnFVXk9tRo" tabindex="-1" role="presentation"></a><span class="cm-keyword">async</span> <span class="cm-keyword">function</span> <span class="cm-def">locateScalpel</span>(<span class="cm-def">nest</span>) {
   <span class="cm-comment">// Your code here.</span>
@@ -623,25 +624,25 @@ stack. This is one of the reasons that, without promises, managing exceptions ac
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_HBYJhQLRh0" href="#p_HBYJhQLRh0" tabindex="-1" role="presentation"></a>This can be done with a single loop that searches through the nests, moving forward to the next when it finds a value that doesn’t match the current nest’s name and returning the name when it finds a matching value. In the <code>async</code> function, a regular <code>for</code> or <code>while</code> loop can be used.</p>
+<p>این کار را می توان به وسیله‌ی یک حلقه که درون‌ لانه‌ها را می‌گردد صورت داد، اگر مقداری مطابق نام لانه‌ی فعلی پیدا کند آن را بر‌می گرداند و درغیر این صورت به سراغ لانه‌ی بعدی می رود. در تابع <code>async</code>، یک دستور <code>for</code> یا <code>while</code> می تواند استفاده شود.</p>
 
-<p><a class="p_ident" id="p_dvm1OVOM4s" href="#p_dvm1OVOM4s" tabindex="-1" role="presentation"></a>To do the same in a plain function, you will have to build your loop using a recursive function. The easiest way to do this is to have that function return a promise by calling <code>then</code> on the promise that retrieves the storage value. Depending on whether that value matches the name of the current nest, the handler returns that value or a further promise created by calling the loop function again.</p>
+<p>برای انجام این کار در یک تابع ساده، باید حلقه‌ی خودتان را به وسیله‌ی یک تابع بازگشتی بنویسید. آسان ترین روش انجام این کار این است که تابع یک promise را با فراخوانی <code>then</code> روی promiseای که مقدار ذخیره‌شده را بر‌می‌گرداند بنویسید. بسته به اینکه آن مقدار با نام لانه‌ی فعلی مطابقت داشته باشد یا خیر ، تابع گرداننده، یا آن مقدار را بر‌می‌گرداند یا یک promise دیگر با فراخوانی دوباره‌ی تابع بر‌می‌گرداند.</p>
 
-<p><a class="p_ident" id="p_4zv80GXYD/" href="#p_4zv80GXYD/" tabindex="-1" role="presentation"></a>Don’t forget to start the loop by calling the recursive function once from the main function.</p>
+<p>فراموش نکنید که حلقه‌ را با یک بار فراخوانی تابع بازگشتی از درون تابع اصلی شروع کنید.</p>
 
-<p><a class="p_ident" id="p_h9Yrbo5Eju" href="#p_h9Yrbo5Eju" tabindex="-1" role="presentation"></a>In the <code>async</code> function, rejected promises are converted to exceptions by <code>await</code>. When an <code>async</code> function throws an exception, its promise is rejected. So that works.</p>
+<p>در تابع <code>async</code>، promiseهای رد شده به وسیله‌ی <code>await</code> به استثنا تبدیل می‌شوند. زمانی که یک تابع <code>async</code> یک استثنا تولید می کند، promise آن رد شده است.</p>
 
-<p><a class="p_ident" id="p_GEDOzip0j2" href="#p_GEDOzip0j2" tabindex="-1" role="presentation"></a>If you implemented the non-<code>async</code> function as outlined earlier, the way <code>then</code> works also automatically causes a failure to end up in the returned promise. If a request fails, the handler passed to <code>then</code> isn’t called, and the promise it returns is rejected with the same reason.</p>
+<p>اگر تابع را بدون استفاده از <code>async</code> همانطور که مشخص شده است پیاده سازی کنید، نحوه‌ی عملکرد پیش‌فرض <code>then</code> نیز باعث تولید یک شکست برای پایان دادن promise برگشتی می شود. اگر درخواستی با شکست روبرو شود، گرداننده‌ای که به <code>then</code> ارسال می‌شود، فراخوانی نمی‌گردد و promiseای که برمی‌گرداند به همان دلیل رد می‌شود.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_Ug+Dv9Mmsw" href="#i_Ug+Dv9Mmsw" tabindex="-1" role="presentation"></a>Building Promise.all</h3>
+<h3><a class="i_ident" id="i_Uy3j2HjqAG" href="#i_Uy3j2HjqAG" tabindex="-1" role="presentation"></a>ساختن Promise.all</h3>
 
-<p><a class="p_ident" id="p_V49Fgs6t/I" href="#p_V49Fgs6t/I" tabindex="-1" role="presentation"></a>Given an array of promises, <code>Promise.all</code> returns a promise that waits for all of the promises in the array to finish. It then succeeds, yielding an array of result values. If a promise in the array fails, the promise returned by <code>all</code> fails too, with the failure reason from the failing promise.</p>
+<p><a class="p_ident" id="p_elCjOOWYcy" href="#p_elCjOOWYcy" tabindex="-1" role="presentation"></a>با داشتن یک آرایه از promise ها، متد <bdo><code>Promise.all</code></bdo> یک promise را برمی گرداند که برای همه‌ی promise های موجود در آرایه، منتظر می ماند تا پایان یابند. در صورت موفقیت، آرایه‌ای از مقدارهای نتایج تولید می شود. اگر یک promise موجود در آرایه با شکست روبرو شود، promise ای که به وسیله <code>all</code> برگردانده می شود نیز با شکست روبرو می شود، همراه با دلیل شکست promise مشکل خورده.</p>
 
-<p><a class="p_ident" id="p_D4i3Qt21e7" href="#p_D4i3Qt21e7" tabindex="-1" role="presentation"></a>Implement something like this yourself as a regular function called <code>Promise_all</code>.</p>
+<p>تابعی به نام <code>Promise_all</code> بنویسید که همین کار را انجام دهد.</p>
 
-<p><a class="p_ident" id="p_pUBmweFzla" href="#p_pUBmweFzla" tabindex="-1" role="presentation"></a>Remember that after a promise has succeeded or failed, it can’t succeed or fail again, and further calls to the functions that resolve it are ignored. This can simplify the way you handle failure of your promise.</p>
+<p>به خاطر داشته‌باشید که بعد از اینکه یک promise موفق شود یا با شکست روبرو شود، دیگر نمی تواند دوباره موفق یا شکست بخورد و فراخوانی‌های بعدی به توابعی که برای نتیجه‌یابی آن اقدام می کنند صرف نظر می شوند. این می تواند راهی که شما شکست‌ها را در promise تان رسیدگی می کنید ساده تر سازد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_70Eq9i3rpH" href="#c_70Eq9i3rpH" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">Promise_all</span>(<span class="cm-def">promises</span>) {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Promise</span>((<span class="cm-def">resolve</span>, <span class="cm-def">reject</span>) <span class="cm-operator">=&gt;</span> {
