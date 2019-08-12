@@ -2,17 +2,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project: A Programming Language :: Eloquent JavaScript</title>
+  <title>پروژه: نوشتن یک زبان برنامه‌نویسی :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 12;var sandboxLoadFiles = ["code/chapter/12_language.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 12;var sandboxLoadFiles = ["code/chapter/12_language.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="11_async.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="13_browser.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 12</span>Project: A Programming Language</h1>
+<h1><span class=chap_num>Chapter 12</span>پروژه: نوشتن یک زبان برنامه‌نویسی</h1>
 
 <blockquote>
 
@@ -22,34 +25,34 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_12.jpg" alt="Picture of an egg with smaller eggs inside"></figure>
 
-<p><a class="p_ident" id="p_sLOpE8A1YZ" href="#p_sLOpE8A1YZ" tabindex="-1" role="presentation"></a>Building your own programming language is surprisingly easy (as long as you do not aim too high) and very enlightening.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>نوشتن زبان برنامه‌نویسی خودتان به طرز شگفت‌آوری آسان و آموزنده است (تا زمانی که سطح انتظاراتتان زیاد￼ بالا نباشد).</p>
 
-<p><a class="p_ident" id="p_XWyxXihLGw" href="#p_XWyxXihLGw" tabindex="-1" role="presentation"></a>The main thing I want to show in this chapter is that there is no magic involved in building your own language. I’ve often felt that some human inventions were so immensely clever and complicated that I’d never be able to understand them. But with a little reading and experimenting, they often turn out to be quite mundane.</p>
+<p>هدف اصلی من در این فصل این است که به شما نشان دهم نوشتن زبان برنامه‌نویسی خودتان چیزی ماوارایی و جادویی نیست. خیلی وقت‌ها احساس می کردم بعضی از اختراعات انسان ها به شدت هوشمندانه و پیچیده است و من هرگز نمی توانم آن ها را درک کنم. اما با کمی مطالعه و آزمایش، اغلب متوجه می شدم که اتفاقا معمولی و شدنی هستند.</p>
 
-<p><a class="p_ident" id="p_lwKaxcGOfP" href="#p_lwKaxcGOfP" tabindex="-1" role="presentation"></a>We will build a programming language called Egg. It will be a tiny, simple language—but one that is powerful enough to express any computation you can think of. It will allow simple abstraction based on functions.</p>
+<p><a class="p_ident" id="p_Msm8sQztf+" href="#p_Msm8sQztf+" tabindex="-1" role="presentation"></a>در این فصل یک زبان برنامه‌نویسی خواهیم ساخت که نام آن Egg می‌باشد. این زبان بسیار ساده و کوچک خواهد بود – اما به اندازه‌ی کافی قدرتمند خواهد بود تا بتواند هر محاسبه‌ای که تصور می‌کنید را انجام دهد. در این زبان می توان با استفاده از توابع، تجرید‌های ساده را به وجود آورد.</p>
 
-<h2 id="parsing"><a class="h_ident" id="h_cpTTNxAWkQ" href="#h_cpTTNxAWkQ" tabindex="-1" role="presentation"></a>Parsing</h2>
+<h2 id="parsing"><a class="h_ident" id="h_k6wBlqL0+k" href="#h_k6wBlqL0+k" tabindex="-1" role="presentation"></a>تجزیه</h2>
 
-<p><a class="p_ident" id="p_iHS+/Um+4q" href="#p_iHS+/Um+4q" tabindex="-1" role="presentation"></a>The most immediately visible part of a programming language is its <em>syntax</em>, or notation. A <em>parser</em> is a program that reads a piece of text and produces a data structure that reflects the structure of the program contained in that text. If the text does not form a valid program, the parser should point out the error.</p>
+<p><a class="p_ident" id="p_mIhNmG84f4" href="#p_mIhNmG84f4" tabindex="-1" role="presentation"></a>در چشم ترین قسمت یک زبان برنامه‌نویسی، گرامر (<em>syntax</em>) یا شیوه‌ی نشان‌گذاری آن است. یک تجزیه‌گر (<em>parser</em>) برنامه‌ای است که متنی را خوانده و ساختار داده‌ای تولید می کند که نمایانگر ساختار برنامه‌ای است که در آن متن قرار دارد. اگر آن متن یک برنامه‌ی معتبر را شکل نداده باشد، تجزیه‌گر باید خطایی تولید کند.</p>
 
-<p><a class="p_ident" id="p_aBKAId2dD2" href="#p_aBKAId2dD2" tabindex="-1" role="presentation"></a>Our language will have a simple and uniform syntax. Everything in Egg is an expression. An expression can be the name of a binding, a number, a string, or an <em>application</em>. Applications are used for function calls but also for constructs such as <code>if</code> or <code>while</code>.</p>
+<p><a class="p_ident" id="p_mLfbhCTbWv" href="#p_mLfbhCTbWv" tabindex="-1" role="presentation"></a>زبان برنامه‌نویسی ما گرامری ساده و یکپارچه خواهد داشت. همه چیز در زبان Egg از جنس عبارت خواهند بود. یک عبارت می تواند نام یک متغیر، یک عدد، یک رشته، یا یک کاربرد (application) باشد. کاربردها برای فراخوانی توابع استفاده می شوند؛ همچنین برای ساختارهایی مثل <code>if</code> و <code>while</code> نیز استفاده می شوند.</p>
 
-<p><a class="p_ident" id="p_Us9En1q6+r" href="#p_Us9En1q6+r" tabindex="-1" role="presentation"></a>To keep the parser simple, strings in Egg do not support anything like backslash escapes. A string is simply a sequence of characters that are not double quotes, wrapped in double quotes. A number is a sequence of digits. Binding names can consist of any character that is not whitespace and that does not have a special meaning in the syntax.</p>
+<p>برای این که تجزیه‌گر را ساده نگه داریم، رشته‌ها در زبان Egg چیزهایی مثل گریز با بک‌اسلش را پشتیبانی نمی کنند. یک رشته به طور ساده دنباله‌ای از کاراکترها است که شامل نقل‌قول جفتی نمی‌باشد و توسط نقل قول جفتی محصور می‌شود. یک عدد برابر با دنباله‌ای از ارقام است. در نام متغیرها می می‌توان از هر کاراکتری به جز فضای خالی و کاراکترهایی که معنای خاصی در گرامر زبان دارند استفاده نمود.</p>
 
-<p><a class="p_ident" id="p_N7llkiWaN/" href="#p_N7llkiWaN/" tabindex="-1" role="presentation"></a>Applications are written the way they are in JavaScript, by putting parentheses after an expression and having any number of arguments between those parentheses, separated by commas.</p>
+<p>کاربردها به همان سبکی که در جاوااسکریپت هستند نوشته می شوند: بعد از یک عبارت پرانتز قرار می‌گیرد که درون آن هر تعداد آرگومان مجاز می‌باشد که به وسیله‌ی ویرگول از هم جدا می‌شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_WUuISgykcX" href="#c_WUuISgykcX" tabindex="-1" role="presentation"></a>do(define(x, 10),
    if(&gt;(x, 5),
       print(&quot;large&quot;),
       print(&quot;small&quot;)))</pre>
 
-<p><a class="p_ident" id="p_HBJ5fbzauR" href="#p_HBJ5fbzauR" tabindex="-1" role="presentation"></a>The uniformity of the Egg language means that things that are operators in JavaScript (such as <code>&gt;</code>) are normal bindings in this language, applied just like other functions. And since the syntax has no concept of a block, we need a <code>do</code> construct to represent doing multiple things in sequence.</p>
+<p>یکریختی مورد نظر در زبان Egg به این معنا است که چیزهایی که در جاوااسکریپت به عنوان عملگر محسوب می شدند (مثل <code>&gt;</code>)، در این زبان متغیرهایی معمولی می‌باشند که مثل دیگر قابلیت‌ها به کار گرفته می شوند. و به دلیل اینکه در گرامر این زبان مفهومی به نام بلاک وجود ندارد، به ساختاری به نام <code>do</code> نیاز داریم بتوانیم انجام متوالی چند عمل را نمایش دهیم.</p>
 
-<p><a class="p_ident" id="p_aL3GdDKR9a" href="#p_aL3GdDKR9a" tabindex="-1" role="presentation"></a>The data structure that the parser will use to describe a program consists of expression objects, each of which has a <code>type</code> property indicating the kind of expression it is and other properties to describe its content.</p>
+<p>ساختار داده‌ای که تجزیه‌گر از آن برای توصیف یک برنامه استفاده خواهد کرد از اشیاء عبارت تشکیل شده است که هر کدام از آن ها یک خاصیت <code>type</code> دارد که نمایانگر نوع آن عبارت و خاصیت‌های دیگری برای توصیف محتوای آن دارد.</p>
 
-<p><a class="p_ident" id="p_1s3I5AYr64" href="#p_1s3I5AYr64" tabindex="-1" role="presentation"></a>Expressions of type <code>&quot;value&quot;</code> represent literal strings or numbers. Their <code>value</code> property contains the string or number value that they represent. Expressions of type <code>&quot;word&quot;</code> are used for identifiers (names). Such objects have a <code>name</code> property that holds the identifier’s name as a string. Finally, <code>&quot;apply&quot;</code> expressions represent applications. They have an <code>operator</code> property that refers to the expression that is being applied, as well as an <code>args</code> property that holds an array of argument expressions.</p>
+<p>عبارت‌های نوع <code>&quot;value&quot;</code> نمایانگر رشته‌ها و اعداد خام می‌باشند. خاصیت <code>value</code> آن ها حاوی مقدار رشته یا عددی است که نماینده آن هستند. عبارت‌های نوع <code>&quot;word&quot;</code> برای شناسه‌ها (نام‌ها) استفاده می شوند. این گونه اشیاء دارای خاصیتی به نام <code>name</code> می باشند که نام شناسه‌ را به عنوان یک رشته نگه‌داری می کند. در آخر، عبارت <code>&quot;apply&quot;</code> نمایانگر یک کاربرد است. این عبارت‌ها دارای یک خاصیت به نام <code>operator</code> می باشند که به عبارتی اشاره می کند مورد استعمال قرار گرفته است و خاصیتی به نام <code>args</code> دارند که آرایه‌ای از عبارت‌های آرگومان را نگه‌داری می کند.</p>
 
-<p><a class="p_ident" id="p_wueahIWuuc" href="#p_wueahIWuuc" tabindex="-1" role="presentation"></a>The <code>&gt;(x, 5)</code> part of the previous program would be represented like this:</p>
+<p>بخش <bdo><code>&gt;(x, 5)</code></bdo> از برنامه‌ی قبلی به شکل زیر نمایش داده می شود:</p>
 
 <pre class="snippet cm-s-default" data-language="application/json" ><a class="c_ident" id="c_YRUVy1WdLZ" href="#c_YRUVy1WdLZ" tabindex="-1" role="presentation"></a>{
   <span class="cm-property">type</span>: <span class="cm-string">&quot;apply&quot;</span>,
@@ -60,15 +63,17 @@
   ]
 }</pre>
 
-<p><a class="p_ident" id="p_97QzTGLJEr" href="#p_97QzTGLJEr" tabindex="-1" role="presentation"></a>Such a data structure is called a <em>syntax tree</em>. If you imagine the objects as dots and the links between them as lines between those dots, it has a treelike shape. The fact that expressions contain other expressions, which in turn might contain more expressions, is similar to the way tree branches split and split again.</p><figure><img src="img/syntax_tree.svg" alt="The structure of a syntax tree"></figure>
+<p>این گونه از ساختار داده را <em>درخت گرامر</em> می گویند. اگر اشیاء را به عنوان نقطه در نظر بگیرید و پیوندهای بین‌شان را به عنوان خطوط بین نقطه‌ها، نمای آن شبیه به درخت خواهد بود. این واقعیت که عبارت‌ها خود از عبارت‌های دیگری تشکیل می شوند ، که آن ها هم ممکن است شامل عبارت‌های دیگری باشند ، شبیه به شاخه‌های درخت است که خود دارای شاخه‌های دیگر هستند.</p><figure><img src="img/syntax_tree.svg" alt="The structure of a syntax tree"></figure>
 
-<p><a class="p_ident" id="p_TiCtOm6qwQ" href="#p_TiCtOm6qwQ" tabindex="-1" role="presentation"></a>Contrast this to the parser we wrote for the configuration file format in <a href="09_regexp.html#ini">Chapter 9</a>, which had a simple structure: it split the input into lines and handled those lines one at a time. There were only a few simple forms that a line was allowed to have.</p>
+<p>این را با تجزیه‌گری که برای فایل تنظیمات در <a href="09_regexp.html#ini">فصل 9</a> نوشتیم مقایسه کنید، که ساختاری ساده داشت: ورودی را به خطوطی تقسیم می کرد و همه‌ی آن خطوط را یکی یکی رسیدگی می کرد. خطوط فقط می‌توانستند شکل‌های محدودی داشته باشند.</p>
 
-<p><a class="p_ident" id="p_OtoCO51d4l" href="#p_OtoCO51d4l" tabindex="-1" role="presentation"></a>Here we must find a different approach. Expressions are not separated into lines, and they have a recursive structure. Application expressions <em>contain</em> other expressions.</p>
+<p><a class="p_ident" id="p_0gBcwgbMv9" href="#p_0gBcwgbMv9" tabindex="-1" role="presentation"></a>در اینجا باید راه حلی دیگری پیدا کنیم. عبارت‌ها توسط خطوط جدا نمی شوند و ساختاری بازگشتی دارند. عبارت‌های کاربردی (application) حاوی عبارت‌های دیگر می‌باشند.</p>
 
-<p><a class="p_ident" id="p_ouduag85mO" href="#p_ouduag85mO" tabindex="-1" role="presentation"></a>Fortunately, this problem can be solved very well by writing a parser function that is recursive in a way that reflects the recursive nature of the language.</p>
+<p>خوشبختانه، این مشکل را می توان به خوبی با نوشتن یک تابع بازگشتی تجزیه‌گر حل نمود به صورتی که نمایانگر ماهیت بازگشتی زبان باشد.</p>
 
-<p><a class="p_ident" id="p_vEMw7RQ1iA" href="#p_vEMw7RQ1iA" tabindex="-1" role="presentation"></a>We define a function <code>parseExpression</code>, which takes a string as input and returns an object containing the data structure for the expression at the start of the string, along with the part of the string left after parsing this expression. When parsing subexpressions (the argument to an application, for example), this function can be called again, yielding the argument expression as well as the text that remains. This text may in turn contain more arguments or may be the closing parenthesis that ends the list of arguments.</p>
+<p>تابعی به نام <code>parseExpression</code> را تعریف می کنیم که رشته‌ای را به عنوان ورودی دریافت می کند و یک شیء را باز می گرداند که حاوی ساختار داده‌ی مورد نظر برای عبارتی است که در ابتدای رشته آمده است، به همراه بخشی از رشته که بعد از تجزیه آن عبارت باقی می ماند. در زمان تجزیه‌ زیر عبارت‌ها (مثلا آرگومان‌های ورودی یک کاربرد)، این تابع را می توان دوباره فراخوانی کرد تا عبارت آرگومان را به همراه متن باقی مانده تولید کند. ممکن است که این متن، حاوی آرگومان‌های بیشتر یا پرانتز‌ آخر لیست ورودی‌ها باشد.</p>
+
+<p>اولین بخش تجزیه‌گر به این صورت خواهد بود:</p>
 
 <p><a class="p_ident" id="p_qQZOLuZdMw" href="#p_qQZOLuZdMw" tabindex="-1" role="presentation"></a>This is the first part of the parser:</p>
 
@@ -94,11 +99,11 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">string</span>.<span class="cm-property">slice</span>(<span class="cm-variable-2">first</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_Y6B44JswIj" href="#p_Y6B44JswIj" tabindex="-1" role="presentation"></a>Because Egg, like JavaScript, allows any amount of whitespace between its elements, we have to repeatedly cut the whitespace off the start of the program string. That is what the <code>skipSpace</code> function helps with.</p>
+<p>به دلیل این که زبان Egg مانند جاوااسکریپت امکان استفاده از فضاهای خالی بین عناصر را مجاز می شمرد، می بایست مکررا فضاهای خالی را از ابتدای یک رشته‌ی برنامه حذف کنیم. این کار توسط تابع <code>skipSpace</code> صورت می گیرد.</p>
 
-<p><a class="p_ident" id="p_OMLAKNeu9S" href="#p_OMLAKNeu9S" tabindex="-1" role="presentation"></a>After skipping any leading space, <code>parseExpression</code> uses three regular expressions to spot the three atomic elements that Egg supports: strings, numbers, and words. The parser constructs a different kind of data structure depending on which one matches. If the input does not match one of these three forms, it is not a valid expression, and the parser throws an error. We use <code>SyntaxError</code> instead of <code>Error</code> as the exception constructor, which is another standard error type, because it is a little more specific—it is also the error type thrown when an attempt is made to run an invalid JavaScript program.</p>
+<p>بعد از چشم‌پوشی از فضاهای خالی ابتدایی، تابع <code>parseExpression</code> از سه عبارت باقاعده برای شناسایی سه عنصر اساسی که زبان Egg از آن‌ها پشتیبانی می کند شامل: رشته‌ها، اعداد و کلمه‌ها، استفاده می کند. تجزیه‌گر با توجه به اینکه کدام یک از آن عناصر تطبیق بخورد ساختار‌داده‌ی متفاوتی را تولید می کند. اگر ورودی با هیچ کدام از آن سه شکل تطبیق نخورد، آن عبارت معتبر نخواهد بود و تجزیه‌گر یک خطا تولید می کند. ما از <code>SyntaxError</code> به جای <code>Error</code> به عنوان تابع سازنده استثنا استفاده می کنیم که یک نوع خطای استاندارد دیگر است، به این دلیل که این نوع کمی اختصاصی تر است – همچنین این نوع خطا زمانی تولید می شود که تلاشی برای اجرای یک برنامه نامعتبر جاوااسکریپت صورت می گرفته باشد.</p>
 
-<p><a class="p_ident" id="p_pGQdVONUL4" href="#p_pGQdVONUL4" tabindex="-1" role="presentation"></a>We then cut off the part that was matched from the program string and pass that, along with the object for the expression, to <code>parseApply</code>, which checks whether the expression is an application. If so, it parses a parenthesized list of arguments.</p>
+<p>سپس آن قسمت که تطبیق خورده است را از رشته‌ی برنامه حذف می کنیم و رشته را به همراه شیء متعلق به عبارت، به <code>parseApply</code> ارسال می کنیم که بررسی کند آیا عبارت از نوع کاربرد (application) است. اگر بود، تابع قسمت داخل پرانتز را – لیست آرگومان‌ها – تجزیه می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tCV23NW6UI" href="#c_tCV23NW6UI" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parseApply</span>(<span class="cm-def">expr</span>, <span class="cm-def">program</span>) {
   <span class="cm-variable-2">program</span> <span class="cm-operator">=</span> <span class="cm-variable">skipSpace</span>(<span class="cm-variable-2">program</span>);
@@ -121,14 +126,13 @@
   <span class="cm-keyword">return</span> <span class="cm-variable">parseApply</span>(<span class="cm-variable-2">expr</span>, <span class="cm-variable-2">program</span>.<span class="cm-property">slice</span>(<span class="cm-number">1</span>));
 }</pre>
 
-<p><a class="p_ident" id="p_s9VFvU/BT3" href="#p_s9VFvU/BT3" tabindex="-1" role="presentation"></a>If the next character in the program is not an opening parenthesis, this is not an application, and <code>parseApply</code> returns the expression it was given.</p>
+<p>اگر کاراکتر بعدی در برنامه یک پرانتز آغاز نباشد، پس ورودی یک کاربرد نیست و تابع <code>parseApply</code> عبارتی که دریافت کرده بود را بر‌می‌گرداند.</p>
 
-<p><a class="p_ident" id="p_rdoND4Um+i" href="#p_rdoND4Um+i" tabindex="-1" role="presentation"></a>Otherwise, it skips the opening parenthesis and creates the syntax
-tree object for this application expression. It then recursively calls <code>parseExpression</code> to parse each argument until a closing parenthesis is found. The recursion is indirect, through <code>parseApply</code> and <code>parseExpression</code> calling each other.</p>
+<p>در غیر این صورت، از پرانتز آغاز عبور کرده و شیء درخت گرامر را برای این عبارت کاربرد می سازد. سپس به صورت بازگشتی تابع <code>parseExpression</code> را فراخوانی می کند تا هر یک از آرگومان‌ها را تا زمانیکه به یک پرانتز پایان برسد تجزیه کند. عمل بازگشتی به صورت غیر مستقیم است، و با فراخوانی یکدیگر <code>parseApply</code> و <code>parseExpression</code> صورت می پذیرد.</p>
 
-<p><a class="p_ident" id="p_G9HFeaWQ5+" href="#p_G9HFeaWQ5+" tabindex="-1" role="presentation"></a>Because an application expression can itself be applied (such as in <code>multiplier(2)(1)</code>), <code>parseApply</code> must, after it has parsed an application, call itself again to check whether another pair of parentheses follows.</p>
+<p>به دلیل اینکه می توان یک عبارت کاربرد را اجرا کرد (مثل عبارت <bdo><code>multiplier(2)(1)</code></bdo>)، تابع <code>parseApply</code> باید بعد از آن که یک کاربرد را تجزیه کرد خودش را دوباره فراخوانی کند تا اگر جفت پرانتز دیگری در ادامه آمده است متوجه آن بشود.</p>
 
-<p><a class="p_ident" id="p_ZG1H567GVD" href="#p_ZG1H567GVD" tabindex="-1" role="presentation"></a>This is all we need to parse Egg. We wrap it in a convenient <code>parse</code> function that verifies that it has reached the end of the input string after parsing the expression (an Egg program is a single expression), and that gives us the program’s data structure.</p>
+<p><a class="p_ident" id="p_+cdP7Sgw90" href="#p_+cdP7Sgw90" tabindex="-1" role="presentation"></a>این تمام چیزی است که برای قسمت تجزیه‌ی Egg نیاز داریم. آن را در تابعی سرراست به نام <code>parse</code> قرار می دهیم که بررسی می کند آیا بعد از تجزیه‌ی عبارت (یک برنامه‌ی Egg یک عبارت واحد است) به انتهای رشته‌ی ورودی رسیده باشد و به ما ساختار دادهی برنامه را تحویل دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P0tq+UdJy1" href="#c_P0tq+UdJy1" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parse</span>(<span class="cm-def">program</span>) {
   <span class="cm-keyword">let</span> {<span class="cm-def">expr</span>, <span class="cm-def">rest</span>} <span class="cm-operator">=</span> <span class="cm-variable">parseExpression</span>(<span class="cm-variable-2">program</span>);
@@ -144,7 +148,7 @@ tree object for this application expression. It then recursively calls <code>par
 <span class="cm-comment">//    args: [{type: &quot;word&quot;, name: &quot;a&quot;},</span>
 <span class="cm-comment">//           {type: &quot;value&quot;, value: 10}]}</span></pre>
 
-<p><a class="p_ident" id="p_sbjERs3L8Y" href="#p_sbjERs3L8Y" tabindex="-1" role="presentation"></a>It works! It doesn’t give us very helpful information when it fails and doesn’t store the line and column on which each expression starts, which might be helpful when reporting errors later, but it’s good enough for our purposes.</p>
+<p>کار می کند! این تابع اطلاعات خیلی مفیدی در زمان بروز شکست به ما نمی دهد و خط و ستونی که در آن عبارت شروع می شود را ذخیره نمی کند، که اگر بود، در زمان گزارش خطاها در آینده کاربرد داشت، اما به هر حال برای هدف فعلی ما به اندازه کافی خوب است.</p>
 
 <h2><a class="h_ident" id="h_HlYkF24q0q" href="#h_HlYkF24q0q" tabindex="-1" role="presentation"></a>The evaluator</h2>
 
