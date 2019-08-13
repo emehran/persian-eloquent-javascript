@@ -150,9 +150,9 @@
 
 <p>کار می کند! این تابع اطلاعات خیلی مفیدی در زمان بروز شکست به ما نمی دهد و خط و ستونی که در آن عبارت شروع می شود را ذخیره نمی کند، که اگر بود، در زمان گزارش خطاها در آینده کاربرد داشت، اما به هر حال برای هدف فعلی ما به اندازه کافی خوب است.</p>
 
-<h2><a class="h_ident" id="h_HlYkF24q0q" href="#h_HlYkF24q0q" tabindex="-1" role="presentation"></a>The evaluator</h2>
+<h2><a class="h_ident" id="h_DqiZ/jdYeG" href="#h_DqiZ/jdYeG" tabindex="-1" role="presentation"></a>ارزیاب</h2>
 
-<p><a class="p_ident" id="p_zhwRUqtrSl" href="#p_zhwRUqtrSl" tabindex="-1" role="presentation"></a>What can we do with the syntax tree for a program? Run it, of course! And that is what the evaluator does. You give it a syntax tree and a scope object that associates names with values, and it will evaluate the expression that the tree represents and return the value that this produces.</p>
+<p>با داشتن درخت گرامر یک برنامه چه می تواند کرد؟ البته که اجرای آن! و این چیزی است که ارزیاب انجام می دهد. ارزیاب، یک درخت گرامر و یک قلمروی شیء که مقادیر را به نام‌ها اختصاص می دریافت می کند و عبارتی را که درخت نمایش می دهد، ارزیابی می کند و مقداری که این عبارت تولید می کند را برمی‌گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_v23JbR3fAL" href="#c_v23JbR3fAL" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">specialForms</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
 
@@ -182,19 +182,19 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_iJ+cB7ncAD" href="#p_iJ+cB7ncAD" tabindex="-1" role="presentation"></a>The evaluator has code for each of the expression types. A literal value expression produces its value. (For example, the expression <code>100</code> just evaluates to the number 100.) For a binding, we must check whether it is actually defined in the scope and, if it is, fetch the binding’s value.</p>
+<p>ارزیاب برای هر نوعی از عبارت‌ها کد به خصوصی دارد. عبارتی که شامل یک مقدار ساده باشد، معادل خود مقدار خواهد بود. (به عنوان مثال، عبارت <code>100</code> فقط به عنوان عدد <code>100</code> ارزیابی می شود) برای یک متغیر، باید بررسی کنیم که در قلمروی مورد نظر تعریف شده باشد و در این صورت مقدار آن متغیر را بدست بیاوریم.</p>
 
-<p><a class="p_ident" id="p_NLdaIAcdf6" href="#p_NLdaIAcdf6" tabindex="-1" role="presentation"></a>Applications are more involved. If they are a special form, like <code>if</code>, we do not evaluate anything and pass the argument expressions, along with the scope, to the function that handles this form. If it is a normal call, we evaluate the operator, verify that it is a function, and call it with the evaluated arguments.</p>
+<p>کاربردها کمی پیچیده‌تر هستند. اگر در شکل خاصی باشند، مانند <code>if</code>، چیزی را ارزیابی نمی کنیم و عبارت‌های آرگومان را به همراه قلمرو به تابعی که این شکل را رسیدگی می کند ارسال می کنیم. اگر یک فراخوانی معمولی باشد، عملگر را ارزیابی کرده، اطمینان حاصل می کنیم که یک تابع باشد، و آن را با آرگومان‌های ارزیابی شده فراخوانی می کنیم.</p>
 
-<p><a class="p_ident" id="p_6TdgYHF3F3" href="#p_6TdgYHF3F3" tabindex="-1" role="presentation"></a>We use plain JavaScript function values to represent Egg’s function values. We will come back to this <a href="12_language.html#egg_fun">later</a>, when the special form called <code>fun</code> is defined.</p>
+<p>برای نمایش مقدارهای تابع Egg از مقدارهای تابع جاوااسکریپت استفاده خواهیم کرد. در <a href="12_language.html#egg_fun">ادامه</a> به این بخش باز خواهیم گشت، زمانی که شکل خاصی که <code>fun</code> خوانده می شود تعریف شده باشد.</p>
 
-<p><a class="p_ident" id="p_wol0KtLeGh" href="#p_wol0KtLeGh" tabindex="-1" role="presentation"></a>The recursive structure of <code>evaluate</code> resembles the similar structure of the parser, and both mirror the structure of the language itself. It would also be possible to integrate the parser with the evaluator and evaluate during parsing, but splitting them up this way makes the program clearer.</p>
+<p>ساختار بازگشتی <code>evaluate</code> به ساختاری مشابه تجزیه‌گر نزدیک است و هر دو بازتاب ساختار خود زبان هستند. همچنین می توانستیم ارزیاب و تجزیه‌گر را یکپارچه کنیم و در حین تجزیه، ارزیابی را نیز انجام دهیم، اما جدا کردن آن ها به این سبک باعث شفافیت بیشتر برنامه می شود.</p>
 
-<p><a class="p_ident" id="p_lfbXYqM2w2" href="#p_lfbXYqM2w2" tabindex="-1" role="presentation"></a>This is really all that is needed to interpret Egg. It is that simple. But without defining a few special forms and adding some useful values to the environment, you can’t do much with this language yet.</p>
+<p>این تمام چیزی است که برای تفسیر Egg مورد نیاز است. به همین سادگی. اما هنوز بدون تعریف چندین شکل خاص و افزودن چند مقدار مفید به محیط، نمی توان کار زیادی با این زبان انجام داد.</p>
 
-<h2><a class="h_ident" id="h_JOCrYKZbDr" href="#h_JOCrYKZbDr" tabindex="-1" role="presentation"></a>Special forms</h2>
+<h2><a class="h_ident" id="h_dIqUwwOD36" href="#h_dIqUwwOD36" tabindex="-1" role="presentation"></a>شکل‌های خاص</h2>
 
-<p><a class="p_ident" id="p_R9YTZoL8Oo" href="#p_R9YTZoL8Oo" tabindex="-1" role="presentation"></a>The <code>specialForms</code> object is used to define special syntax in Egg. It associates words with functions that evaluate such forms. It is currently empty. Let’s add <code>if</code>.</p>
+<p>شیء <code>specialForm</code> برای تعریف گرامر ویژه در Egg استفاده می شود. این شیء کلمه‌ها را به توابعی که این شکل‌ها را ارزیابی می کنند انتساب می دهد. فعلا این شیء تهی است. بیایید  <code>if</code> را به آن اضافه کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_4kMBuxSNgt" href="#c_4kMBuxSNgt" tabindex="-1" role="presentation"></a><span class="cm-variable">specialForms</span>.<span class="cm-property">if</span> <span class="cm-operator">=</span> (<span class="cm-def">args</span>, <span class="cm-def">scope</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">args</span>.<span class="cm-property">length</span> <span class="cm-operator">!=</span> <span class="cm-number">3</span>) {
@@ -206,13 +206,13 @@
   }
 };</pre>
 
-<p><a class="p_ident" id="p_8j6jdyDOpo" href="#p_8j6jdyDOpo" tabindex="-1" role="presentation"></a>Egg’s <code>if</code> construct expects exactly three arguments. It will evaluate the first, and if the result isn’t the value <code>false</code>, it will evaluate the second. Otherwise, the third gets evaluated. This <code>if</code> form is more similar to JavaScript’s ternary <code>?:</code> operator than to JavaScript’s <code>if</code>. It is an expression, not a statement, and it produces a value, namely, the result of the second or third argument.</p>
+<p>ساختار <code>if</code> در Egg دقیقا به سه آرگومان نیاز دارد. اولین آرگومان را ارزیابی می کند، و اگر نتیجه‌ی آن برابر با مقدار <code>false</code> نبود، به سراغ ارزیابی دومی می رود. در غیر این صورت، سومین آرگومان ارزیابی می شود. این شکل <code>if</code> بیشتر شبیه به عملگر سه‌تای <bdo><code>?:</code></bdo> در جاوااسکریپت است تا دستور <code>if</code> در آن. این یک عبارت است، نه یک دستور و مقداری را تولید می کند که همان نتیجه‌ی آرگومان دوم و سوم می‌باشد.</p>
 
-<p><a class="p_ident" id="p_9fjtidVbOZ" href="#p_9fjtidVbOZ" tabindex="-1" role="presentation"></a>Egg also differs from JavaScript in how it handles the condition value to <code>if</code>. It will not treat things like zero or the empty string as false, only the precise value <code>false</code>.</p>
+<p>Egg همچنین در چگونگی رسیدگی به مقدار شرط در عبارت <code>if</code> با جاواسکریپت تفاوت دارد. این عبارت چیزهایی مثل صفر یا رشته‌ی خالی را <code>false</code> در نظر نمی گیرد، فقط مقدار دقیق <code>false</code> را در نظر می گیرد.</p>
 
-<p><a class="p_ident" id="p_vwKmxnusyS" href="#p_vwKmxnusyS" tabindex="-1" role="presentation"></a>The reason we need to represent <code>if</code> as a special form, rather than a regular function, is that all arguments to functions are evaluated before the function is called, whereas <code>if</code> should evaluate only <em>either</em> its second or its third argument, depending on the value of the first.</p>
+<p>علت نمایش <code>if</code> به عنوان یک شکل خاص به جای یک تابع معمولی، این است که تمامی آرگومان‌ها در توابع قبل از این که تابع فراخوانی بشود ارزیابی می شوند در حالیکه <code>if</code> بایستی فقط بعد از یکی از آرگومان‌ها دوم یا سوم بسته به مقدار آرگومان اول ارزیابی شود.</p>
 
-<p><a class="p_ident" id="p_QqSon2ioSi" href="#p_QqSon2ioSi" tabindex="-1" role="presentation"></a>The <code>while</code> form is similar.</p>
+<p>شکل خاص <code>while</code> به همین صورت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wZb+EB+hgA" href="#c_wZb+EB+hgA" tabindex="-1" role="presentation"></a><span class="cm-variable">specialForms</span>.<span class="cm-property">while</span> <span class="cm-operator">=</span> (<span class="cm-def">args</span>, <span class="cm-def">scope</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">args</span>.<span class="cm-property">length</span> <span class="cm-operator">!=</span> <span class="cm-number">2</span>) {
@@ -227,7 +227,7 @@
   <span class="cm-keyword">return</span> <span class="cm-atom">false</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_SIqEJzuMdz" href="#p_SIqEJzuMdz" tabindex="-1" role="presentation"></a>Another basic building block is <code>do</code>, which executes all its arguments from top to bottom. Its value is the value produced by the last argument.</p>
+<p>یکی دیگر از بلاک‌ها ساختاری پایه <code>do</code> است که تمامی آرگومان‌هایش را از بالا به پایین اجرا می کند. مقدار آن برابر با مقداری است که توسط آرگومان آخر تولید می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_QkaRUun3ao" href="#c_QkaRUun3ao" tabindex="-1" role="presentation"></a><span class="cm-variable">specialForms</span>.<span class="cm-property">do</span> <span class="cm-operator">=</span> (<span class="cm-def">args</span>, <span class="cm-def">scope</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">let</span> <span class="cm-def">value</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;
@@ -237,7 +237,7 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">value</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_KvAMPTVJ2y" href="#p_KvAMPTVJ2y" tabindex="-1" role="presentation"></a>To be able to create bindings and give them new values, we also create a form called <code>define</code>. It expects a word as its first argument and an expression producing the value to assign to that word as its second argument. Since <code>define</code>, like everything, is an expression, it must return a value. We’ll make it return the value that was assigned (just like JavaScript’s <code>=</code> operator).</p>
+<p>برای این که قادر باشیم تا متغیرهایی ایجاد کنیم و مقادیر جدیدی را به آن ها اختصاص دهیم، همچنین نیاز به تعریف شکلی به نام <code>define</code> داریم. این شکل به عنوان آرگومان اول یک واژه را دریافت می کند و به عنوان آرگومان دوم، عبارتی را که منجر به تولید مقداری می شود که قرار است به آن واژه منتسب شود. به دلیل این که <code>define</code> مثل هر چیز دیگر، یک عبارت است باید مقداری را برگرداند. ما طوری آن را می سازیم که مقداری که به آن انتساب یافته را برگرداند (درست شبیه عملگر <code>=</code> در جاوااسکریپت).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/TYE9JhkNk" href="#c_/TYE9JhkNk" tabindex="-1" role="presentation"></a><span class="cm-variable">specialForms</span>.<span class="cm-property">define</span> <span class="cm-operator">=</span> (<span class="cm-def">args</span>, <span class="cm-def">scope</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">args</span>.<span class="cm-property">length</span> <span class="cm-operator">!=</span> <span class="cm-number">2</span> <span class="cm-operator">|</span><span class="cm-operator">|</span> <span class="cm-variable-2">args</span>[<span class="cm-number">0</span>].<span class="cm-property">type</span> <span class="cm-operator">!=</span> <span class="cm-string">&quot;word&quot;</span>) {
@@ -248,43 +248,43 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">value</span>;
 };</pre>
 
-<h2><a class="h_ident" id="h_2Tc54fkIgF" href="#h_2Tc54fkIgF" tabindex="-1" role="presentation"></a>The environment</h2>
+<h2><a class="h_ident" id="h_A1AQlkbi9c" href="#h_A1AQlkbi9c" tabindex="-1" role="presentation"></a>محیط</h2>
 
-<p><a class="p_ident" id="p_Mkc8xlkeHk" href="#p_Mkc8xlkeHk" tabindex="-1" role="presentation"></a>The scope accepted by <code>evaluate</code> is an object with properties whose names correspond to binding names and whose values correspond to the values those bindings are bound to. Let’s define an object to represent the global scope.</p>
+<p>قلمرویی که توسط <code>evaluate</code> قبول می شود یک شیء است که خاصیت‌هایی دارد که نام آن‌ها متناظر با نام متغیرها می‌باشد و مقادیر آن برابر مقدار آن متغیرها خواهد بود. بیایید شیئی را تعریف کنیم که نماینده قلمروی سراسری باشد.</p>
 
-<p><a class="p_ident" id="p_3eybUSvE1z" href="#p_3eybUSvE1z" tabindex="-1" role="presentation"></a>To be able to use the <code>if</code> construct we just defined, we must have access to Boolean values. Since there are only two Boolean values, we do not need special syntax for them. We simply bind two names to the values <code>true</code> and <code>false</code> and use them.</p>
+<p>برای این که بتوان از ساختار <code>if</code> که پیش‌تر تعریف کرده ایم استفاده کنیم باید به مقادیر بولی دسترسی داشته باشیم. به دلیل این که فقط دو مقدار بولی وجوددارد، نیاز به گرامر خاصی برای آن ها نداریم. کافی است تا دو مقدار <code>true</code> و <code>false</code> را به دو نام منتسب کنیم و از آن ها استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vJ45zHlK0v" href="#c_vJ45zHlK0v" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">topScope</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
 
 <span class="cm-variable">topScope</span>.<span class="cm-property">true</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;
 <span class="cm-variable">topScope</span>.<span class="cm-property">false</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;</pre>
 
-<p><a class="p_ident" id="p_mLmm584R4a" href="#p_mLmm584R4a" tabindex="-1" role="presentation"></a>We can now evaluate a simple expression that negates a Boolean value.</p>
+<p>اکنون می توانیم یک عبارت ساده را که یک مقدار بولی را معکوس میکند ارزیابی کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ynBEgrK+/h" href="#c_ynBEgrK+/h" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">prog</span> <span class="cm-operator">=</span> <span class="cm-variable">parse</span>(<span class="cm-string-2">`if(true, false, true)`</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">evaluate</span>(<span class="cm-variable">prog</span>, <span class="cm-variable">topScope</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_zuRstuTjxo" href="#p_zuRstuTjxo" tabindex="-1" role="presentation"></a>To supply basic arithmetic and comparison operators, we will also add some function values to the scope. In the interest of keeping the code short, we’ll use <code>Function</code> to synthesize a bunch of operator functions in a loop, instead of defining them individually.</p>
+<p>برای فراهم ساختن عملگرهای اصلی حسابی و مقایسه، همچنین چند مقدار تابع به قلمرو اضافه خواهیم کرد. به خاطر علاقه به کوتاه نگه داشتن کد، به جای تعریف جداگانه‌ی هر کدام، از سازنده‌ی <code>Function</code> برای ترکیب چند تابع عملگر در یک حلقه استفاده می کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_OTgmEw/s8v" href="#c_OTgmEw/s8v" tabindex="-1" role="presentation"></a><span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">op</span> <span class="cm-keyword">of</span> [<span class="cm-string">&quot;+&quot;</span>, <span class="cm-string">&quot;-&quot;</span>, <span class="cm-string">&quot;*&quot;</span>, <span class="cm-string">&quot;/&quot;</span>, <span class="cm-string">&quot;==&quot;</span>, <span class="cm-string">&quot;&lt;&quot;</span>, <span class="cm-string">&quot;&gt;&quot;</span>]) {
   <span class="cm-variable">topScope</span>[<span class="cm-variable">op</span>] <span class="cm-operator">=</span> <span class="cm-variable">Function</span>(<span class="cm-string">&quot;a, b&quot;</span>, <span class="cm-string-2">`return a ${</span><span class="cm-variable">op</span><span class="cm-string-2">}</span> <span class="cm-string-2">b;`</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_nv+OyOKpzZ" href="#p_nv+OyOKpzZ" tabindex="-1" role="presentation"></a>A way to output values is also useful, so we’ll wrap <code>console.log</code> in a function and call it <code>print</code>.</p>
+<p>داشتن راهی برای چاپ مقادیر نیز بسیار کاربردی خواهد بود، بنابراین <bdo><code>console.log</code></bdo> را در یک تابع قرار می دهیم و نام ان را <code>print</code> می گذاریم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_XFrq8jIuQC" href="#c_XFrq8jIuQC" tabindex="-1" role="presentation"></a><span class="cm-variable">topScope</span>.<span class="cm-property">print</span> <span class="cm-operator">=</span> <span class="cm-def">value</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">value</span>);
   <span class="cm-keyword">return</span> <span class="cm-variable-2">value</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_+CG1YjXYFG" href="#p_+CG1YjXYFG" tabindex="-1" role="presentation"></a>That gives us enough elementary tools to write simple programs. The following function provides a convenient way to parse a program and run it in a fresh scope:</p>
+<p>با این کار به اندازه کافی ابزارهای مقدماتی برای نوشتن برنامه‌های ساده در اختیار خواهیم داشت. توابع پیش رو راهی مناسب براب تجزیه‌ی یک برنامه و اجرای آن در یک قلمروی جدید را فراهم می سازند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aPeJgSZPEO" href="#c_aPeJgSZPEO" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">run</span>(<span class="cm-def">program</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable">evaluate</span>(<span class="cm-variable">parse</span>(<span class="cm-variable-2">program</span>), <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-variable">topScope</span>));
 }</pre>
 
-<p><a class="p_ident" id="p_3RSx9KsCbf" href="#p_3RSx9KsCbf" tabindex="-1" role="presentation"></a>We’ll use object prototype chains to represent nested scopes so that the program can add bindings to its local scope without changing the top-level scope.</p>
+<p>ما از زنجیره‌ی پروتوتایپ شیء برای نمایش قلمروهای تودرتو استفاده خواهیم کرد، تا برنامه بتواند متغیرهای خودش را به قلمروی محلی بدون ایجاد تغییر در قلمروی بالادست اضافه کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uW/XtfVXMZ" href="#c_uW/XtfVXMZ" tabindex="-1" role="presentation"></a><span class="cm-variable">run</span>(<span class="cm-string-2">`</span>
 <span class="cm-string-2">do(define(total, 0),</span>
@@ -296,13 +296,13 @@
 <span class="cm-string-2">`</span>);
 <span class="cm-comment">// → 55</span></pre>
 
-<p><a class="p_ident" id="p_4cQhF2ypgW" href="#p_4cQhF2ypgW" tabindex="-1" role="presentation"></a>This is the program we’ve seen several times before, which computes the sum of the numbers 1 to 10, expressed in Egg. It is clearly uglier than the equivalent JavaScript program—but not bad for a language implemented in less than 150 lines of code.</p>
+<p><a class="p_ident" id="p_0KQ+esLp48" href="#p_0KQ+esLp48" tabindex="-1" role="presentation"></a>این برنامه‌ای است که تاکنون چندین بار دیده‌ایم، که مجموع اعداد ‍‍1 تا 10 را محاسبه می کند و به زبان Egg نوشته شده است. قطعا ظاهر این برنامه از برنامه‌ی معادل جاوااسکریپتش زشت‌تر است – اما برای زبان برنامه‌نویسی‌ای که با کمتر از 150 خط کدنویسی پیاده‌سازی شده است بد نیست.</p>
 
-<h2 id="egg_fun"><a class="h_ident" id="h_K5Yd6h3Axg" href="#h_K5Yd6h3Axg" tabindex="-1" role="presentation"></a>Functions</h2>
+<h2 id="egg_fun"><a class="h_ident" id="h_vAoppXbLUs" href="#h_vAoppXbLUs" tabindex="-1" role="presentation"></a>توابع</h2>
 
-<p><a class="p_ident" id="p_r7HIVKVzo4" href="#p_r7HIVKVzo4" tabindex="-1" role="presentation"></a>A programming language without functions is a poor programming language indeed.</p>
+<p>یک زبان برنامه‌نویسی بدون داشتن توابع، زبانی فقیر محسوب می شود.</p>
 
-<p><a class="p_ident" id="p_OEAPwS9R8Z" href="#p_OEAPwS9R8Z" tabindex="-1" role="presentation"></a>Fortunately, it isn’t hard to add a <code>fun</code> construct, which treats its last argument as the function’s body and uses all arguments before that as the names of the function’s parameters.</p>
+<p>خوشبختانه، به آسانی می توان یک ساختار <code>fun</code> به زبان افزود، که آرگومان آخرش را به عنوان بدنه‌ی تابع در نظر بگیرد و از آرگومان های قبلی به عنوان نام پارامترهای تابع استفاده کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cnvuH0fWH0" href="#c_cnvuH0fWH0" tabindex="-1" role="presentation"></a><span class="cm-variable">specialForms</span>.<span class="cm-property">fun</span> <span class="cm-operator">=</span> (<span class="cm-def">args</span>, <span class="cm-def">scope</span>) <span class="cm-operator">=&gt;</span> {
   <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">args</span>.<span class="cm-property">length</span>) {
@@ -328,7 +328,7 @@
   };
 };</pre>
 
-<p><a class="p_ident" id="p_KsTEGYhZ+f" href="#p_KsTEGYhZ+f" tabindex="-1" role="presentation"></a>Functions in Egg get their own local scope. The function produced by the <code>fun</code> form creates this local scope and adds the argument bindings to it. It then evaluates the function body in this scope and returns the result.</p>
+<p>توابع در Egg، قلمروی محلی خودشان را دریافت می کنند. تابعی که با <code>fun</code> تولید می شود قلمروی محلی خودش را ایجاد کرده و آرگومان‌هایش را به آن مقید می کند. سپس بدنه‌ی تابع را در این قلمرو ارزیابی کرده و نتیجه را باز می گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tn5DChGAkA" href="#c_tn5DChGAkA" tabindex="-1" role="presentation"></a><span class="cm-variable">run</span>(<span class="cm-string-2">`</span>
 <span class="cm-string-2">do(define(plusOne, fun(a, +(a, 1))),</span>
@@ -345,29 +345,29 @@
 <span class="cm-string-2">`</span>);
 <span class="cm-comment">// → 1024</span></pre>
 
-<h2><a class="h_ident" id="h_qtdV3kKVQe" href="#h_qtdV3kKVQe" tabindex="-1" role="presentation"></a>Compilation</h2>
+<h2><a class="h_ident" id="h_5SgRFiRmCf" href="#h_5SgRFiRmCf" tabindex="-1" role="presentation"></a>کامپایل کردن</h2>
 
-<p><a class="p_ident" id="p_JRcPOXDFEi" href="#p_JRcPOXDFEi" tabindex="-1" role="presentation"></a>What we have built is an interpreter. During evaluation, it acts directly on the representation of the program produced by the parser.</p>
+<p>چیزی که تاکنون ساخته‌ایم یک مفسر است. در طول ارزیابی، این مفسر به طور مستقیم روی چیزی که توسط تجزیه‌گر تولید شده عمل می نماید.</p>
 
-<p><a class="p_ident" id="p_Lk17qNau8L" href="#p_Lk17qNau8L" tabindex="-1" role="presentation"></a><em>Compilation</em> is the process of adding another step between the parsing and the running of a program, which transforms the program into something that can be evaluated more efficiently by doing as much work as possible in advance. For example, in well-designed languages it is obvious, for each use of a binding, which binding is being referred to, without actually running the program. This can be used to avoid looking up the binding by name every time it is accessed, instead directly fetching it from some predetermined memory location.</p>
+<p>کامپایل کردن روندی است که در آن گامی دیگر بین تفسیر و اجرای برنامه اضافه می شود، که کد برنامه را به چیزی که بتوان با کارایی بیشتری ارزیابی کرد تبدیل می کند و این کار با انجام حداکثر کار ممکن قبل از مرحله‌ی ارزیابی میسر می شود. به عنوان مثال، در زبان‌هایی که خوب طراحی شده اند، در زمان استفاده از یک متغیر، به روشنی می توان فهمید که کدام متغیر مورد اشاره است، بدون اینکه نیاز باشد برنامه واقعا اجرا شود. این کار باعث می شود که از جستجوی متغیر بر اساس نام در هر بار استفاده از آن جلوگیری شود، و به جای آن مستقیما آن را از قسمت‌های مشخصی از حافظه به‌دست بیاوریم.</p>
 
-<p><a class="p_ident" id="p_HrQe0PuoCJ" href="#p_HrQe0PuoCJ" tabindex="-1" role="presentation"></a>Traditionally, compilation involves converting the program to machine code, the raw format that a computer’s processor can execute. But any process that converts a program to a different representation can be thought of as compilation.</p>
+<p>به طور سنتی، کامپایل شامل تبدیل برنامه به کد ماشین می شود، فرمت خامی که یک پردازنده‌ی کامپیوتر می تواند اجرا کند. اما هر روندی که برنامه را به نمایش متفاوتی تبدیل کند را می توان به عنوان کامپایل در نظر گرفت.</p>
 
-<p><a class="p_ident" id="p_+HfDnbf6cY" href="#p_+HfDnbf6cY" tabindex="-1" role="presentation"></a>It would be possible to write an alternative evaluation strategy for Egg, one that first converts the program to a JavaScript program, uses <code>Function</code> to invoke the JavaScript compiler on it, and then runs the result. When done right, this would make Egg run very fast while still being quite simple to implement.</p>
+<p>می توان یک استراتژی ارزیابی جایگزین برای Egg، نوشت که در آن ابتدا برنامه را به یک برنامه‌ی جاوااسکریپت تبدیل کند، از <code>Function</code> برای فراخوانی جاوااسکریپت برای کامپایل آن استفاده کند و سپس نتیجه را اجرا کند. اگر این کار به درستی انجام شود باعث می شود که Egg خیلی سریع تر اجرا شود در حالیکه سادگی پیادهسازی را هنوز با خود دارد.</p>
 
-<p><a class="p_ident" id="p_bV8xBkdmzN" href="#p_bV8xBkdmzN" tabindex="-1" role="presentation"></a>If you are interested in this topic and willing to spend some time on it, I encourage you to try to implement such a compiler as an exercise.</p>
+<p>اگر به این موضوع علاقه دارید و قصد دارید مقداری زمان صرف آن کنید، پیشنهاد می کنم این کامپایلری که ذکر شد را به عنوان یک تمرین پیاده سازی کنید.</p>
 
-<h2><a class="h_ident" id="h_DmDK0dWdfE" href="#h_DmDK0dWdfE" tabindex="-1" role="presentation"></a>Cheating</h2>
+<h2><a class="h_ident" id="h_nA1o6NN6Pb" href="#h_nA1o6NN6Pb" tabindex="-1" role="presentation"></a>تقلب</h2>
 
-<p><a class="p_ident" id="p_WFyw9AWF7D" href="#p_WFyw9AWF7D" tabindex="-1" role="presentation"></a>When we defined <code>if</code> and <code>while</code>, you probably noticed that they were more or less trivial wrappers around JavaScript’s own <code>if</code> and <code>while</code>. Similarly, the values in Egg are just regular old JavaScript values.</p>
+<p>زمانی که <code>if</code> و <code>while</code> را تعریف کردیم، احتمالا متوجه شدید که این دو پوششی کم و بیش ساده برای <code>if</code> و <code>while</code> خود جاواسکریپت بودند. به طور مشابه، مقدارها در Egg همان مقدارهای معمولی جاوااسکریپت هستند.</p>
 
-<p><a class="p_ident" id="p_qMvm2xpt6o" href="#p_qMvm2xpt6o" tabindex="-1" role="presentation"></a>If you compare the implementation of Egg, built on top of JavaScript, with the amount of work and complexity required to build a programming language directly on the raw functionality provided by a machine, the difference is huge. Regardless, this example ideally gave you an impression of the way programming languages work.</p>
+<p>اگر پیاده‌سازی Egg را که بر اساس جاوااسکریپت ساخته شده است با میزان کار و پیچیدگی ای که لازم است تا بتوان یک زبان برنامه‌نویسی را مستقیما بر اساس قابلیت‌های خامی که ماشین می تواند انجام دهد ساخت، مقایسه کنید، تفاوت خیلی قابل توجه است. صرف نظر از آن، امیدوارم این مثال درکی از روش کارکرد زبان‌های برنامه‌نویسی را به شما منتقل کرده باشد.</p>
 
-<p><a class="p_ident" id="p_xuQu2Hdpx2" href="#p_xuQu2Hdpx2" tabindex="-1" role="presentation"></a>And when it comes to getting something done, cheating is more effective than doing everything yourself. Though the toy language in this chapter doesn’t do anything that couldn’t be done better in JavaScript, there <em>are</em> situations where writing small languages helps get real work done.</p>
+<p>و زمانی‌که لازم است کاری انجام شود، تقلب کردن موثرتر از این است که همه چیز را خودتان انجام دهید. البته زبانی که برای آموزش در این فصل ایجاد شد کاری را انجام نمی دهد که از معادلش در جاوااسکریپت بهتر عمل کند￼ اما موقعیت‌هایی وجود دارد که نوشتن زبان‌های کوچک برای انجام کارهای واقعی کاربرد دارد.</p>
 
-<p><a class="p_ident" id="p_0TKyk5rWYK" href="#p_0TKyk5rWYK" tabindex="-1" role="presentation"></a>Such a language does not have to resemble a typical programming language. If JavaScript didn’t come equipped with regular expressions, for example, you could write your own parser and evaluator for regular expressions.</p>
+<p>این گونه زبان‌ها نیازی نیست که شبیه به یک زبان برنامه‌نویسی متداول باشند. مثلا اگر جاوااسکریپت از عبارت‌های باقاعده به صورت درونی پشتیبانی نمی کرد، می توانستید مفسر و ارزیاب خودتان را برای عبارات باقاعده بنویسید.</p>
 
-<p><a class="p_ident" id="p_fdoy9duCSp" href="#p_fdoy9duCSp" tabindex="-1" role="presentation"></a>Or imagine you are building a giant robotic dinosaur and need to program its behavior. JavaScript might not be the most effective way to do this. You might instead opt for a language that looks like this:</p>
+<p>یا تصور کنید که در حال ساخت یک دایناسور روباتیک غول پیکر هستید و لازم است تا رفتار آن را برنامه‌نویسی کنید. جاوااسکریپت ممکن است موثر ترین روش این کار نباشد، ممکن است در عوض به دنبال زبانی شبیه به زیر باشید.</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_831P/I2TjC" href="#c_831P/I2TjC" tabindex="-1" role="presentation"></a>behavior walk
   perform when
@@ -383,13 +383,13 @@ behavior attack
     fire laser-eyes
     launch arm-rockets</pre>
 
-<p><a class="p_ident" id="p_O9+2Ve51P4" href="#p_O9+2Ve51P4" tabindex="-1" role="presentation"></a>This is what is usually called a <em>domain-specific language</em>, a language tailored to express a narrow domain of knowledge. Such a language can be more expressive than a general-purpose language because it is designed to describe exactly the things that need to be described in its domain, and nothing else.</p>
+<p>به این گونه زبانها، معمولا <em>زبانی با دامنه‌ی خاص</em> نامیده می شوند، زبانی که برای بیان دامنه‌ی کوچکی از اطلاعات تدارک دیده می شود. این گونه زبان‌ها می توانند نسبت به یک زبان متداول عام رساتر باشند زیرا طراحی آن‌ها دقیقا برای توصیف چیزهایی بوده است که در دامنه‌شان وجود دارد نه چیز دیگر.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_uQzJv9I1Z6" href="#i_uQzJv9I1Z6" tabindex="-1" role="presentation"></a>Arrays</h3>
+<h3><a class="i_ident" id="i_wt7dc1PMKA" href="#i_wt7dc1PMKA" tabindex="-1" role="presentation"></a>آرایه‌ها</h3>
 
-<p><a class="p_ident" id="p_tNcRruOv4Q" href="#p_tNcRruOv4Q" tabindex="-1" role="presentation"></a>Add support for arrays to Egg by adding the following three functions to the top scope: <code>array(...values)</code> to construct an array containing the argument values, <code>length(array)</code> to get an array’s length, and <code>element(array, n)</code> to fetch the n<sup>th</sup> element from an array.</p>
+<p><a class="p_ident" id="p_yENkOHhEKC" href="#p_yENkOHhEKC" tabindex="-1" role="presentation"></a>پشتیبانی از آرایه‌ها را به Egg اضافه کنید و این کار را با افزودن سه تابع پیش رو به قلمروی بالایی انجام دهید: تابع <bdo><code>array(...values)</code></bdo> برای ساختن آرایه‌ای که حاوی مقدارهای آرگومان است، <bdo><code>length(array)</code></bdo> برای گرفتن طول یک آرایه و <bdo><code>element(array, n)</code></bdo> برای به دست آوردن n<sup>th</sup> عنصر آرایه.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_eB3J9xBy0h" href="#c_eB3J9xBy0h" tabindex="-1" role="presentation"></a><span class="cm-comment">// Modify these definitions...</span>
 
@@ -413,17 +413,17 @@ behavior attack
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_wvp5VE3wUs" href="#p_wvp5VE3wUs" tabindex="-1" role="presentation"></a>The easiest way to do this is to represent Egg arrays with JavaScript arrays.</p>
+<p>ساده‌ترین روش انجام آن این است که از آرایه‌های خود جاوااسکریپت برای نمایش آرایه‌های Egg بهره ببرید.</p>
 
-<p><a class="p_ident" id="p_pIQgd4yDJ0" href="#p_pIQgd4yDJ0" tabindex="-1" role="presentation"></a>The values added to the top scope must be functions. By using a rest argument (with triple-dot notation), the definition of <code>array</code> can be <em>very</em> simple.</p>
+<p><a class="p_ident" id="p_J60WctjJfX" href="#p_J60WctjJfX" tabindex="-1" role="presentation"></a>مقادیری که به قلمروی بالایی اضافه می ‌شوند باید تابع باشند. با استفاده از یک آرگومان rest (که با سه نقطه نوشته می شود)، تعریف <code>array</code> بسیار ساده خواهد شد.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_hOd+yVxaku" href="#i_hOd+yVxaku" tabindex="-1" role="presentation"></a>Closure</h3>
+<h3><a class="i_ident" id="i_TMER9FuDfN" href="#i_TMER9FuDfN" tabindex="-1" role="presentation"></a>بستار (Closure)</h3>
 
-<p><a class="p_ident" id="p_v1H/2L3I5F" href="#p_v1H/2L3I5F" tabindex="-1" role="presentation"></a>The way we have defined <code>fun</code> allows functions in Egg to reference the surrounding scope, allowing the function’s body to use local values that were visible at the time the function was defined, just like JavaScript functions do.</p>
+<p>روشی که برای تعریف <code>fun</code> استفاده کردیم به توابع در Egg این امکان را می دهد که به قلمروی پیرامونشان بتوانند ارجاع دهند، به این صورت که به بدنه‌ی تابع این امکان را می دهد تا از مقدارهای محلی که در زمان تعریف تابع قابل مشاهده بوده اند استفاده کند درست شبیه کاری که توابع در جاوااسکریپت انجام می دهند.</p>
 
-<p><a class="p_ident" id="p_CyqsFIcQdy" href="#p_CyqsFIcQdy" tabindex="-1" role="presentation"></a>The following program illustrates this: function <code>f</code> returns a function that adds its argument to <code>f</code>’s argument, meaning that it needs access to the local scope inside <code>f</code> to be able to use binding <code>a</code>.</p>
+<p>برنامه‌ی پیش رو این مفهوم را نشان می‌دهد: تابع <code>f</code> یک یک تابع دیگر برمی‌گرداند؛ تابعی که آرگومان‌هایش را با آرگومان‌های <code>f</code> جمع می نماید، به این معنا که برای انجام این کار باید بتواند به قلمروی محلی درون <code>f</code> دسترسی داشته باشد تا از مقدار متغیر <code>a</code> استفاده کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_zJ2x7sbWRv" href="#c_zJ2x7sbWRv" tabindex="-1" role="presentation"></a><span class="cm-variable">run</span>(<span class="cm-string-2">`</span>
 <span class="cm-string-2">do(define(f, fun(a, fun(b, +(a, b)))),</span>
@@ -431,13 +431,13 @@ behavior attack
 <span class="cm-string-2">`</span>);
 <span class="cm-comment">// → 9</span></pre>
 
-<p><a class="p_ident" id="p_40Yj7LMkYl" href="#p_40Yj7LMkYl" tabindex="-1" role="presentation"></a>Go back to the definition of the <code>fun</code> form and explain which mechanism causes this to work.</p>
+<p>به قسمت تعریف <code>fun</code> برگردید و توضیح دهید چه مکانیزمی باعث این رفتار شده است.</p>
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_LOgpHZsyhJ" href="#p_LOgpHZsyhJ" tabindex="-1" role="presentation"></a>Again, we are riding along on a JavaScript mechanism to get the equivalent feature in Egg. Special forms are passed the local scope in which they are evaluated so that they can evaluate their subforms in that scope. The function returned by <code>fun</code> has access to the <code>scope</code> argument given to its enclosing function and uses that to create the function’s local scope when it is called.</p>
+<p>می‌دانیم که ما از مکانیزم جاوااسکریپت برای ساخت یک قابلیت مشابه در Egg بهره می‌بریم. قلمروی محلی به صورتی که ارزیابی می‌شوند به شکل‌های خاص داده می‌شوند در نتیجه شکل‌های خاص می توانند زیر‌شکل‌های خودشان را در همان قلمرو ارزیابی کنند. تابعی که توسط <code>fun</code> برگردانده می شود به آرگومان <code>scope</code>ای که به تابع محصورش داده می‌شود دسترسی دارد و از آن برای ایجاد قلمروی محلی‌اش در هنگام فراخوانی استفاده می کند.</p>
 
-<p><a class="p_ident" id="p_w6RFAh/z4Z" href="#p_w6RFAh/z4Z" tabindex="-1" role="presentation"></a>This means that the prototype of the local scope will be the scope in which the function was created, which makes it possible to access bindings in that scope from the function. This is all there is to implementing closure (though to compile it in a way that is actually efficient, you’d need to do some more work).</p>
+<p>معنای آن این است که خمیرمایه‌ی قلمروی محلی برابر با قلمرویی خواهد بود که در آن تابع ایجاد شده است، که موجب می شود بتوان به متغیرهای آن از درون تابع دسترسی داشت. این تمام چیزی است که در پیاده‌سازی بستار وجود دارد (اگرچه برای کامپایل آن به صورتی که بهینه عمل کند لازم است تا کارهای بیشتری انجام شود).</p>
 
 </div></div>
 
