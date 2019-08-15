@@ -25,32 +25,32 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_12.jpg" alt="Picture of an egg with smaller eggs inside"></figure>
 
-<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>نوشتن زبان برنامه‌نویسی خودتان به طرز شگفت‌آوری آسان و آموزنده است (تا زمانی که سطح انتظاراتتان زیاد￼ بالا نباشد).</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>نوشتن زبان برنامه‌نویسی خودتان به طرز شگفت‌آوری آسان و آموزنده است (البته تا زمانی که سطح انتظاراتتان زیاد￼ بالا نباشد).</p>
 
-<p>هدف اصلی من در این فصل این است که به شما نشان دهم نوشتن زبان برنامه‌نویسی خودتان چیزی ماوارایی و جادویی نیست. خیلی وقت‌ها احساس می کردم بعضی از اختراعات انسان ها به شدت هوشمندانه و پیچیده است و من هرگز نمی توانم آن ها را درک کنم. اما با کمی مطالعه و آزمایش، اغلب متوجه می شدم که اتفاقا معمولی و شدنی هستند.</p>
+<p>هدف اصلی من در این فصل این است که به شما نشان دهم نوشتن یک زبان برنامه‌نویسی، چیزی ماوارایی و جادویی نیست. خیلی وقت‌ها احساس می کردم که بعضی از اختراعات انسان‌ها بسیار هوشمندانه و پیچیده است و من هرگز نمی توانم آن ها را درک کنم. اما با کمی مطالعه و آزمایش، اغلب متوجه می شدم که اتفاقا قابل درک و ساده هستند.</p>
 
-<p><a class="p_ident" id="p_Msm8sQztf+" href="#p_Msm8sQztf+" tabindex="-1" role="presentation"></a>در این فصل یک زبان برنامه‌نویسی خواهیم ساخت که نام آن Egg می‌باشد. این زبان بسیار ساده و کوچک خواهد بود – اما به اندازه‌ی کافی قدرتمند خواهد بود تا بتواند هر محاسبه‌ای که تصور می‌کنید را انجام دهد. در این زبان می توان با استفاده از توابع، تجرید‌های ساده را به وجود آورد.</p>
+<p><a class="p_ident" id="p_Msm8sQztf+" href="#p_Msm8sQztf+" tabindex="-1" role="presentation"></a>در این فصل یک زبان برنامه‌نویسی به نام Egg خواهیم ساخت. این زبان بسیار ساده و کوچک خواهد بود – اما به اندازه‌ی کافی قدرتمند است تا بتواند هر محاسبه‌ای که تصور می‌کنید را انجام دهد. در این زبان می توان با استفاده از توابع، تجرید‌های ساده را به وجود آورد.</p>
 
-<h2 id="parsing"><a class="h_ident" id="h_k6wBlqL0+k" href="#h_k6wBlqL0+k" tabindex="-1" role="presentation"></a>تجزیه</h2>
+<h2 id="parsing"><a class="h_ident" id="h_8S7jf7RGIb" href="#h_8S7jf7RGIb" tabindex="-1" role="presentation"></a>تجزیه (Parsing)</h2>
 
 <p><a class="p_ident" id="p_mIhNmG84f4" href="#p_mIhNmG84f4" tabindex="-1" role="presentation"></a>در چشم ترین قسمت یک زبان برنامه‌نویسی، گرامر (<em>syntax</em>) یا شیوه‌ی نشان‌گذاری آن است. یک تجزیه‌گر (<em>parser</em>) برنامه‌ای است که متنی را خوانده و ساختار داده‌ای تولید می کند که نمایانگر ساختار برنامه‌ای است که در آن متن قرار دارد. اگر آن متن یک برنامه‌ی معتبر را شکل نداده باشد، تجزیه‌گر باید خطایی تولید کند.</p>
 
-<p><a class="p_ident" id="p_mLfbhCTbWv" href="#p_mLfbhCTbWv" tabindex="-1" role="presentation"></a>زبان برنامه‌نویسی ما گرامری ساده و یکپارچه خواهد داشت. همه چیز در زبان Egg از جنس عبارت خواهند بود. یک عبارت می تواند نام یک متغیر، یک عدد، یک رشته، یا یک کاربرد (application) باشد. کاربردها برای فراخوانی توابع استفاده می شوند؛ همچنین برای ساختارهایی مثل <code>if</code> و <code>while</code> نیز استفاده می شوند.</p>
+<p><a class="p_ident" id="p_mLfbhCTbWv" href="#p_mLfbhCTbWv" tabindex="-1" role="presentation"></a>زبان برنامه‌نویسی ما گرامری ساده و یکپارچه خواهد داشت. همه چیز در زبان Egg از جنس عبارت خواهند بود. یک عبارت می تواند نام یک متغیر، یک عدد، یک رشته، یا یک کاربرد (application) باشد. کاربردها برای فراخوانی توابع استفاده می شوند؛ همچنین برای ساختارهایی مثل <code>if</code> و <code>while</code> نیز از آن‌ها بهره ‌می‌بریم.</p>
 
-<p>برای این که تجزیه‌گر را ساده نگه داریم، رشته‌ها در زبان Egg چیزهایی مثل گریز با بک‌اسلش را پشتیبانی نمی کنند. یک رشته به طور ساده دنباله‌ای از کاراکترها است که شامل نقل‌قول جفتی نمی‌باشد و توسط نقل قول جفتی محصور می‌شود. یک عدد برابر با دنباله‌ای از ارقام است. در نام متغیرها می می‌توان از هر کاراکتری به جز فضای خالی و کاراکترهایی که معنای خاصی در گرامر زبان دارند استفاده نمود.</p>
+<p>برای این که تجزیه‌گر را ساده نگه داریم، رشته‌ها در زبان Egg چیزهایی مثل گریز با بک‌اسلش را پشتیبانی نمی کنند. یک رشته دنباله‌ای از کاراکترها به جز نقل قول جفتی می‌باشد که خود توسط نقل قول جفتی محصور می‌شود. یک عدد برابر با دنباله‌ای از ارقام است. در نام متغیرها می‌توان از هر کاراکتری به جز فضای خالی و کاراکترهایی که معنای خاصی در گرامر زبان دارند استفاده نمود.</p>
 
-<p>کاربردها به همان سبکی که در جاوااسکریپت هستند نوشته می شوند: بعد از یک عبارت پرانتز قرار می‌گیرد که درون آن هر تعداد آرگومان مجاز می‌باشد که به وسیله‌ی ویرگول از هم جدا می‌شوند.</p>
+<p>کاربردها به همان سبکی که در جاوااسکریپت هستند نوشته می شوند: بعد از یک عبارت پرانتز قرار می‌گیرد که درون آن هر تعداد آرگومان مجاز می‌باشد و به وسیله‌ی ویرگول از هم جدا می‌شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_WUuISgykcX" href="#c_WUuISgykcX" tabindex="-1" role="presentation"></a>do(define(x, 10),
    if(&gt;(x, 5),
       print(&quot;large&quot;),
       print(&quot;small&quot;)))</pre>
 
-<p>یکریختی مورد نظر در زبان Egg به این معنا است که چیزهایی که در جاوااسکریپت به عنوان عملگر محسوب می شدند (مثل <code>&gt;</code>)، در این زبان متغیرهایی معمولی می‌باشند که مثل دیگر قابلیت‌ها به کار گرفته می شوند. و به دلیل اینکه در گرامر این زبان مفهومی به نام بلاک وجود ندارد، به ساختاری به نام <code>do</code> نیاز داریم بتوانیم انجام متوالی چند عمل را نمایش دهیم.</p>
+<p>یکپارچگی موجود در زبان Egg به این معنا است که چیزهایی که در جاوااسکریپت به عنوان عملگر محسوب می شدند (مثل <bdo><code>&gt;</code></bdo>)، در این زبان متغیرهایی معمولی می‌باشند که مثل دیگر قابلیت‌ها به کار گرفته می شوند. و به دلیل اینکه در گرامر این زبان مفهومی به نام بلاک وجود ندارد، به ساختاری به نام <code>do</code> نیاز داریم تا بتوانیم انجام متوالی چند عمل را نمایش دهیم.</p>
 
-<p>ساختار داده‌ای که تجزیه‌گر از آن برای توصیف یک برنامه استفاده خواهد کرد از اشیاء عبارت تشکیل شده است که هر کدام از آن ها یک خاصیت <code>type</code> دارد که نمایانگر نوع آن عبارت و خاصیت‌های دیگری برای توصیف محتوای آن دارد.</p>
+<p>ساختار داده‌ای که تجزیه‌گر از آن برای توصیف یک برنامه استفاده خواهد کرد از اشیاء عبارت تشکیل شده است که هر کدام از آن ها یک خاصیت <code>type</code> دارد که نمایانگر نوع آن عبارت است و نیز خاصیت‌های دیگری برای توصیف محتوای آن دارد.</p>
 
-<p>عبارت‌های نوع <code>&quot;value&quot;</code> نمایانگر رشته‌ها و اعداد خام می‌باشند. خاصیت <code>value</code> آن ها حاوی مقدار رشته یا عددی است که نماینده آن هستند. عبارت‌های نوع <code>&quot;word&quot;</code> برای شناسه‌ها (نام‌ها) استفاده می شوند. این گونه اشیاء دارای خاصیتی به نام <code>name</code> می باشند که نام شناسه‌ را به عنوان یک رشته نگه‌داری می کند. در آخر، عبارت <code>&quot;apply&quot;</code> نمایانگر یک کاربرد است. این عبارت‌ها دارای یک خاصیت به نام <code>operator</code> می باشند که به عبارتی اشاره می کند مورد استعمال قرار گرفته است و خاصیتی به نام <code>args</code> دارند که آرایه‌ای از عبارت‌های آرگومان را نگه‌داری می کند.</p>
+<p>عبارت‌های نوع <code>&quot;value&quot;</code> نمایانگر رشته‌ها و اعداد خام می‌باشند. خاصیت <code>value</code> آن ها حاوی مقدار رشته یا عددی است که نماینده آن می‌باشند. عبارت‌های نوع <code>&quot;word&quot;</code> برای شناسه‌ها (نام‌ها) استفاده می شوند. این گونه اشیاء دارای خاصیتی به نام <code>name</code> می باشند که نام شناسه‌ را به عنوان یک رشته نگه‌داری می کند. در آخر، عبارت <code>&quot;apply&quot;</code> نمایانگر یک کاربرد است. این عبارت‌ها دارای یک خاصیت به نام <code>operator</code> می باشند که به عبارتی اشاره می کند که مورد استعمال قرار گرفته است و خاصیتی به نام <code>args</code> دارند که آرایه‌ای از عبارت‌های آرگومان را نگه‌داری می کند.</p>
 
 <p>بخش <bdo><code>&gt;(x, 5)</code></bdo> از برنامه‌ی قبلی به شکل زیر نمایش داده می شود:</p>
 
@@ -67,15 +67,13 @@
 
 <p>این را با تجزیه‌گری که برای فایل تنظیمات در <a href="09_regexp.html#ini">فصل 9</a> نوشتیم مقایسه کنید، که ساختاری ساده داشت: ورودی را به خطوطی تقسیم می کرد و همه‌ی آن خطوط را یکی یکی رسیدگی می کرد. خطوط فقط می‌توانستند شکل‌های محدودی داشته باشند.</p>
 
-<p><a class="p_ident" id="p_0gBcwgbMv9" href="#p_0gBcwgbMv9" tabindex="-1" role="presentation"></a>در اینجا باید راه حلی دیگری پیدا کنیم. عبارت‌ها توسط خطوط جدا نمی شوند و ساختاری بازگشتی دارند. عبارت‌های کاربردی (application) حاوی عبارت‌های دیگر می‌باشند.</p>
+<p><a class="p_ident" id="p_0gBcwgbMv9" href="#p_0gBcwgbMv9" tabindex="-1" role="presentation"></a>در اینجا باید راه حل دیگری پیدا کنیم. عبارت‌ها توسط خطوط جدا نمی شوند و ساختاری بازگشتی دارند. عبارت‌های کاربردی (application) حاوی عبارت‌های دیگر می‌باشند.</p>
 
 <p>خوشبختانه، این مشکل را می توان به خوبی با نوشتن یک تابع بازگشتی تجزیه‌گر حل نمود به صورتی که نمایانگر ماهیت بازگشتی زبان باشد.</p>
 
 <p>تابعی به نام <code>parseExpression</code> را تعریف می کنیم که رشته‌ای را به عنوان ورودی دریافت می کند و یک شیء را باز می گرداند که حاوی ساختار داده‌ی مورد نظر برای عبارتی است که در ابتدای رشته آمده است، به همراه بخشی از رشته که بعد از تجزیه آن عبارت باقی می ماند. در زمان تجزیه‌ زیر عبارت‌ها (مثلا آرگومان‌های ورودی یک کاربرد)، این تابع را می توان دوباره فراخوانی کرد تا عبارت آرگومان را به همراه متن باقی مانده تولید کند. ممکن است که این متن، حاوی آرگومان‌های بیشتر یا پرانتز‌ آخر لیست ورودی‌ها باشد.</p>
 
 <p>اولین بخش تجزیه‌گر به این صورت خواهد بود:</p>
-
-<p><a class="p_ident" id="p_qQZOLuZdMw" href="#p_qQZOLuZdMw" tabindex="-1" role="presentation"></a>This is the first part of the parser:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Wq0wHUqay5" href="#c_Wq0wHUqay5" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parseExpression</span>(<span class="cm-def">program</span>) {
   <span class="cm-variable-2">program</span> <span class="cm-operator">=</span> <span class="cm-variable">skipSpace</span>(<span class="cm-variable-2">program</span>);
@@ -101,9 +99,9 @@
 
 <p>به دلیل این که زبان Egg مانند جاوااسکریپت امکان استفاده از فضاهای خالی بین عناصر را مجاز می شمرد، می بایست مکررا فضاهای خالی را از ابتدای یک رشته‌ی برنامه حذف کنیم. این کار توسط تابع <code>skipSpace</code> صورت می گیرد.</p>
 
-<p>بعد از چشم‌پوشی از فضاهای خالی ابتدایی، تابع <code>parseExpression</code> از سه عبارت باقاعده برای شناسایی سه عنصر اساسی که زبان Egg از آن‌ها پشتیبانی می کند شامل: رشته‌ها، اعداد و کلمه‌ها، استفاده می کند. تجزیه‌گر با توجه به اینکه کدام یک از آن عناصر تطبیق بخورد ساختار‌داده‌ی متفاوتی را تولید می کند. اگر ورودی با هیچ کدام از آن سه شکل تطبیق نخورد، آن عبارت معتبر نخواهد بود و تجزیه‌گر یک خطا تولید می کند. ما از <code>SyntaxError</code> به جای <code>Error</code> به عنوان تابع سازنده استثنا استفاده می کنیم که یک نوع خطای استاندارد دیگر است، به این دلیل که این نوع کمی اختصاصی تر است – همچنین این نوع خطا زمانی تولید می شود که تلاشی برای اجرای یک برنامه نامعتبر جاوااسکریپت صورت می گرفته باشد.</p>
+<p>بعد از چشم‌پوشی از فضاهای خالی ابتدایی، تابع <code>parseExpression</code> از سه عبارت باقاعده برای شناسایی سه عنصر اساسی که زبان Egg از آن‌ها پشتیبانی می کند، استفاده می‌کند؛ شامل: رشته‌ها، اعداد و کلمه‌ها. تجزیه‌گر با توجه به اینکه کدام یک از آن عناصر تطبیق بخورد ساختار‌داده‌ی متفاوتی را تولید می کند. اگر ورودی با هیچ کدام از آن سه شکل تطبیق نخورد، آن عبارت معتبر نخواهد بود و تجزیه‌گر یک خطا تولید می کند. ما از <code>SyntaxError</code> به جای <code>Error</code> به عنوان تابع سازنده استثنا استفاده می کنیم که یک نوع خطای استاندارد دیگر است، به این دلیل که این نوع کمی اختصاصی تر است – همچنین این نوع خطا زمانی تولید می شود که تلاشی برای اجرای یک برنامه نامعتبر جاوااسکریپت صورت گرفته باشد.</p>
 
-<p>سپس آن قسمت که تطبیق خورده است را از رشته‌ی برنامه حذف می کنیم و رشته را به همراه شیء متعلق به عبارت، به <code>parseApply</code> ارسال می کنیم که بررسی کند آیا عبارت از نوع کاربرد (application) است. اگر بود، تابع قسمت داخل پرانتز را – لیست آرگومان‌ها – تجزیه می کند.</p>
+<p>سپس آن قسمت که تطبیق خورده است را از رشته‌ی برنامه حذف می کنیم و رشته را به همراه شیء متعلق به عبارت، به <code>parseApply</code> ارسال می کنیم که بررسی کند عبارت از نوع کاربرد (application) باشد. اگر بود، تابع قسمت داخل پرانتز را – لیست آرگومان‌ها – تجزیه می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_tCV23NW6UI" href="#c_tCV23NW6UI" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parseApply</span>(<span class="cm-def">expr</span>, <span class="cm-def">program</span>) {
   <span class="cm-variable-2">program</span> <span class="cm-operator">=</span> <span class="cm-variable">skipSpace</span>(<span class="cm-variable-2">program</span>);
@@ -132,7 +130,7 @@
 
 <p>به دلیل اینکه می توان یک عبارت کاربرد را اجرا کرد (مثل عبارت <bdo><code>multiplier(2)(1)</code></bdo>)، تابع <code>parseApply</code> باید بعد از آن که یک کاربرد را تجزیه کرد خودش را دوباره فراخوانی کند تا اگر جفت پرانتز دیگری در ادامه آمده است متوجه آن بشود.</p>
 
-<p><a class="p_ident" id="p_+cdP7Sgw90" href="#p_+cdP7Sgw90" tabindex="-1" role="presentation"></a>این تمام چیزی است که برای قسمت تجزیه‌ی Egg نیاز داریم. آن را در تابعی سرراست به نام <code>parse</code> قرار می دهیم که بررسی می کند آیا بعد از تجزیه‌ی عبارت (یک برنامه‌ی Egg یک عبارت واحد است) به انتهای رشته‌ی ورودی رسیده باشد و به ما ساختار دادهی برنامه را تحویل دهد.</p>
+<p><a class="p_ident" id="p_+cdP7Sgw90" href="#p_+cdP7Sgw90" tabindex="-1" role="presentation"></a>این تمام چیزی است که برای قسمت تجزیه‌ی Egg نیاز داریم. آن را در تابعی سرراست به نام <code>parse</code> قرار می دهیم که بررسی می کند که بعد از تجزیه‌ی عبارت (یک برنامه‌ی Egg یک عبارت واحد است) به انتهای رشته‌ی ورودی رسیده باشد و به ما ساختار داده‌ی برنامه را تحویل دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P0tq+UdJy1" href="#c_P0tq+UdJy1" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parse</span>(<span class="cm-def">program</span>) {
   <span class="cm-keyword">let</span> {<span class="cm-def">expr</span>, <span class="cm-def">rest</span>} <span class="cm-operator">=</span> <span class="cm-variable">parseExpression</span>(<span class="cm-variable-2">program</span>);
@@ -441,11 +439,11 @@ behavior attack
 
 </div></div>
 
-<h3><a class="i_ident" id="i_/OBuIOX390" href="#i_/OBuIOX390" tabindex="-1" role="presentation"></a>Comments</h3>
+<h3><a class="i_ident" id="i_VbvUuahfUk" href="#i_VbvUuahfUk" tabindex="-1" role="presentation"></a>توضیحات</h3>
 
-<p><a class="p_ident" id="p_qV4w3Ov/ee" href="#p_qV4w3Ov/ee" tabindex="-1" role="presentation"></a>It would be nice if we could write comments in Egg. For example, whenever we find a hash sign (<code>#</code>), we could treat the rest of the line as a comment and ignore it, similar to <code>//</code> in JavaScript.</p>
+<p>خوب می شد اگر می توانستیم در Egg توضیحات بنویسیم. مثلا، هر بار که به علامت (<code>#</code>) برسیم، بقیه‌ی خط را به عنوان یک توضیح در نظر بگیریم شبیه به <code>//</code> در جاوااسکریپت.</p>
 
-<p><a class="p_ident" id="p_EVGdU2vHLH" href="#p_EVGdU2vHLH" tabindex="-1" role="presentation"></a>We do not have to make any big changes to the parser to support this. We can simply change <code>skipSpace</code> to skip comments as if they are whitespace so that all the points where <code>skipSpace</code> is called will now also skip comments. Make this change.</p>
+<p>نیازی به ایجاد تغییرات بزرگی در تجزیه‌گر برای پشتیبانی از توضیحات نیست. می توانیم <code>skipSpace</code> را تغییر داده تا توضیحات را همان طور که از فضاهای خالی صرف نظر می شود، پردازش نکند؛ بنابراین در تمامی نقاطی که تابع <code>skipSpace</code> فراخوانی می شود اکنون توضیحات نیز شناسایی و صرف نظر می شوند. این تغییر را اعمال کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HlvQkY82YH" href="#c_HlvQkY82YH" tabindex="-1" role="presentation"></a><span class="cm-comment">// This is the old skipSpace. Modify it...</span>
 <span class="cm-keyword">function</span> <span class="cm-def">skipSpace</span>(<span class="cm-def">string</span>) {
@@ -464,21 +462,21 @@ behavior attack
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_Dds6GLJzwb" href="#p_Dds6GLJzwb" tabindex="-1" role="presentation"></a>Make sure your solution handles multiple comments in a row, with potentially whitespace between or after them.</p>
+<p>اطمینان حاصل کنید که راه حل شما چند توضیح در یک خط را مدیریت می کند و در صورت وجود فضای خالی قبل و بعد هر توضیح با مشکل روبرو نمی‌شود.</p>
 
-<p><a class="p_ident" id="p_w/PeZhCFV2" href="#p_w/PeZhCFV2" tabindex="-1" role="presentation"></a>A regular expression is probably the easiest way to solve this. Write something that matches “whitespace or a comment, zero or more times”. Use the <code>exec</code> or <code>match</code> method and look at the length of the first element in the returned array (the whole match) to find out how many characters to slice off.</p>
+<p>احتمالا ساده‌ترین روش حل این مسئله استفاده از عبارات باقاعده است. چیزی بنویسید که &quot;فضای خالی یا توضیح، با صفر یا بیشتر تکرار&quot; را تطبیق بزند. از متد <code>exec</code> یا <code>match</code> استفاده کنید و به طول عنصر اول آرایه‌ی برگشتی (تطبیق کامل) توجه کنید تا متوجه شوید چه تعداد کاراکتر نیاز است تا جدا شود.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_Y9ZDMshYCQ" href="#i_Y9ZDMshYCQ" tabindex="-1" role="presentation"></a>Fixing scope</h3>
+<h3><a class="i_ident" id="i_HdzBG6Qs+q" href="#i_HdzBG6Qs+q" tabindex="-1" role="presentation"></a>رفع مشکل قلمرو</h3>
 
-<p><a class="p_ident" id="p_wiUendOwjA" href="#p_wiUendOwjA" tabindex="-1" role="presentation"></a>Currently, the only way to assign a binding a value is <code>define</code>. This construct acts as a way both to define new bindings and to give existing ones a new value.</p>
+<p>در حال حاضر، تنها راهی که می توان یک متغیر و مقدار را به هم منتسب کرد استفاده از <code>define</code> است. این ساختار برای هر دو کار تعریف متغیر جدید و تغییر مقدار یک متغیر موجود استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_O06fqfa6CU" href="#p_O06fqfa6CU" tabindex="-1" role="presentation"></a>This ambiguity causes a problem. When you try to give a nonlocal binding a new value, you will end up defining a local one with the same name instead. Some languages work like this by design, but I’ve always found it an awkward way to handle scope.</p>
+<p>این ابهام مشکلی را ایجاد می کند. زمانی که به یک متغیر غیرمحلی یک مقدار جدید را منتسب می کنید، باعث می‌شود که به جای آن، متغیری محلی با همان نام را تعریف کنید. برخی زبان‌ها به همین صورت طراحی شده اند، اما من همیشه این روش مدیریت قلمرو را نامناسب دیده‌ام.</p>
 
-<p><a class="p_ident" id="p_wG0OsCIoJb" href="#p_wG0OsCIoJb" tabindex="-1" role="presentation"></a>Add a special form <code>set</code>, similar to <code>define</code>, which gives a binding a new value, updating the binding in an outer scope if it doesn’t already exist in the inner scope. If the binding is not defined at all, throw a <code>ReferenceError</code> (another standard error type).</p>
+<p>یک شکل خاصی به نام <code>set</code> را ،شبیه به <code>define</code>، اضافه کنید که به یک متغیر یک مقدار جدید منتسب می کند، و متغیر را در صورت عدم وجود در قلمروی درونی، در قلمروی بالاتر (بیرونی‌تر) به روز رسانی می کند. اگر آن متغیر درکل تعریف نشده بود، یک خطای <code>ReferenceError</code> (یک یک نوع خطای استاندارد است) را تولید کند.</p>
 
-<p><a class="p_ident" id="p_vI0CMB91dl" href="#p_vI0CMB91dl" tabindex="-1" role="presentation"></a>The technique of representing scopes as simple objects, which has made things convenient so far, will get in your way a little at this point. You might want to use the <code>Object.<wbr>getPrototypeOf</code> function, which returns the prototype of an object. Also remember that scopes do not derive from <code>Object.prototype</code>, so if you want to call <code>hasOwnProperty</code> on them, you have to use this clumsy expression:</p>
+<p>تکنیکی که برای نمایش قلمروها از اشیاء ساده استفاده می کرد که تا الان کارها را خیلی راحت کرده است، در این جا کمی مانع ایجاد خواهد کرد. ممکن است بخواهید از <bdo><code>Object.<wbr>getPrototypeOf</code></bdo> استفاده کنید، که پروتوتایپ یک شیء را بر می گرداند. همچنین به خاطر داشته باشید که قلمروها از <bdo><code>Object.prototype</code></bdo> مشتق نمی شوند،بنابراین اگر می خواهید تا <code>hasOwnProperty</code> را روی آن ها فراخوانی کنید، باید از این عبارت بدترکیب استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uQ8XmGT/j0" href="#c_uQ8XmGT/j0" tabindex="-1" role="presentation"></a><span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>.<span class="cm-property">hasOwnProperty</span>.<span class="cm-property">call</span>(<span class="cm-variable">scope</span>, <span class="cm-variable">name</span>);</pre>
 
@@ -498,9 +496,9 @@ behavior attack
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_NhXhfFLedb" href="#p_NhXhfFLedb" tabindex="-1" role="presentation"></a>You will have to loop through one scope at a time, using <code>Object.<wbr>getPrototypeOf</code> to go to the next outer scope. For each scope, use <code>hasOwnProperty</code> to find out whether the binding, indicated by the <code>name</code> property of the first argument to <code>set</code>, exists in that scope. If it does, set it to the result of evaluating the second argument to <code>set</code> and then return that value.</p>
+<p>باید هر بار با استفاده از <bdo><code>Object.<wbr>getPrototypeOf</code></bdo> یک قلمرو را پیمایش نمایید تا به قلمروی بیرونی‌تر برسید. برای هر قلمرو، از متد <code>hasOwnProperty</code> برای بررسی وجود متغیر، که با خاصیت <code>name</code> در اولین آرگومان ‍<code>set</code> مشخص شده است، در قلمرو استفاده کنید. اگر وجود داشت، آن را برابر نتیجه‌ی ارزیابی آرگومان دوم <code>set</code> قرار دهید و آن مقدار را بر‌گردانید.</p>
 
-<p><a class="p_ident" id="p_vdMHRjshzJ" href="#p_vdMHRjshzJ" tabindex="-1" role="presentation"></a>If the outermost scope is reached (<code>Object.<wbr>getPrototypeOf</code> returns null) and we haven’t found the binding yet, it doesn’t exist, and an error should be thrown.</p>
+<p><a class="p_ident" id="p_K+iMpCQsdu" href="#p_K+iMpCQsdu" tabindex="-1" role="presentation"></a>اگر به بیرونی‌ترین قلمرو برسید ( که در این صورت <bdo><code>Object.<wbr>getPrototypeOf</code></bdo> مقدار null را برمی‌گرداند) و متغیر هنوز پیدا نشده باشد، آن متغیر وجود ندارد و باید یک خطا تولید شود.</p>
 
 </div></div><nav><a href="11_async.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="13_browser.html" title="next chapter">▶</a></nav>
 </article>
