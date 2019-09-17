@@ -393,11 +393,11 @@
 
 <p><a class="p_ident" id="p_EvBRWcWEg4" href="#p_EvBRWcWEg4" tabindex="-1" role="presentation"></a>متد <code>querySelector</code> (بدون All) به شکل مشابهی عمل می کند. این متد برای زمانی که قصد دارید یک عنصر مشخص را هدف قرار دهید مناسب است. این متد فقط اولین عنصری که مطابق گزینشگر بود را برمی گرداند و در صورت پیدا نکردن هیچ عنصری مقدار null را تولید می کند.</p>
 
-<h2 id="animation"><a class="h_ident" id="h_MAsyozbjjZ" href="#h_MAsyozbjjZ" tabindex="-1" role="presentation"></a>Positioning and animating</h2>
+<h2 id="animation"><a class="h_ident" id="h_DpcLDonzDU" href="#h_DpcLDonzDU" tabindex="-1" role="presentation"></a>موقعیت دهی و متحرک‌سازی</h2>
 
-<p><a class="p_ident" id="p_6Fd+Oq3MzE" href="#p_6Fd+Oq3MzE" tabindex="-1" role="presentation"></a>The <code>position</code> style property influences layout in a powerful way. By default it has a value of <code>static</code>, meaning the element sits in its normal place in the document. When it is set to <code>relative</code>, the element still takes up space in the document, but now the <code>top</code> and <code>left</code> style properties can be used to move it relative to that normal place. When <code>position</code> is set to <code>absolute</code>, the element is removed from the normal document flow—that is, it no longer takes up space and may overlap with other elements. Also, its <code>top</code> and <code>left</code> properties can be used to absolutely position it relative to the top-left corner of the nearest enclosing element whose <code>position</code> property isn’t <code>static</code>, or relative to the document if no such enclosing element exists.</p>
+<p><a class="p_ident" id="p_o4FWKvoOFs" href="#p_o4FWKvoOFs" tabindex="-1" role="presentation"></a>خاصیت <code>position</code> در سبک‌دهی، تاثیر مهمی در در طرح‌بندی صفحه‌ می‌گذارد. به صورت پیش فرض مقدار آن برابر <code>static</code> است که یعنی عنصر مورد نظر در موقعیت نرمال خودش در سند قرار می گیرد. زمانی که این مقدار به <code>relative</code> تغییر می یابد، عنصر همچنان فضایی در سند اشغال می کند اما اکنون می توان از خاصیت‌های <code>top</code> و <code>left</code> برای تغییر مکان آن نسبت به جایگاه نرمالش استفاده کرد. زمانی که <code>position</code> برابر <code>absolute</code> قرار گیرد، عنصر مورد نظر از جریان چیدمان صفحه خارج می شود – به این معنا که دیگر فضایی را اشغال نمی کند و ممکن است روی دیگر عناصر بیفتد. همچنین در این حالت خاصیت‌های <code>top</code> و <code>left</code> را می توان برای موقعیت دهی مطلق عنصر نسبت به گوشه‌ی بالا و چپ نزدیک ترین عنصر والدش (که دارای مقدار <code>position</code> غیر از static است) استفاده کرد یا در صورت نبود آن، نسبت به کل سند موقعیت دهی می شود.</p>
 
-<p><a class="p_ident" id="p_TEJWNXCk6K" href="#p_TEJWNXCk6K" tabindex="-1" role="presentation"></a>We can use this to create an animation. The following document displays a picture of a cat that moves around in an ellipse:</p>
+<p>می توانیم از این خاصیت برای ایجاد یک پویانمایی استفاده کنیم. صفحه‌ی پیش رو تصویری از یک گربه را نشان می دهد که به دور دایره‌ای حرکت می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_SCZYa8azNm" href="#c_SCZYa8azNm" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;text-align: center&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">img</span> <span class="cm-attribute">src</span>=<span class="cm-string">&quot;img/cat.png&quot;</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;position: relative&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -416,37 +416,37 @@
   <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-variable">animate</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_1j1D9J1YQt" href="#p_1j1D9J1YQt" tabindex="-1" role="presentation"></a>Our picture is centered on the page and given a <code>position</code> of <code>relative</code>. We’ll repeatedly update that picture’s <code>top</code> and <code>left</code> styles to move it.</p>
+<p>تصویر ما در مرکز صفحه قرار گرفته است و مقدار <code>position</code> آن برابر <code>relative</code> است. ما پیوسته مقدار <code>top</code> و <code>left</code> تصویر را برای ایجاد حرکت به‌روز رسانی می کنیم.</p>
 
-<p id="animationFrame"><a class="p_ident" id="p_YWJ84IIJ5r" href="#p_YWJ84IIJ5r" tabindex="-1" role="presentation"></a>The script uses <code>requestAnimationFrame</code> to schedule the <code>animate</code> function to run whenever the browser is ready to repaint the screen. The <code>animate</code> function itself again calls <code>requestAnimationFrame</code> to schedule the next update. When the browser window (or tab) is active, this will cause updates to happen at a rate of about 60 per second, which tends to produce a good-looking animation.</p>
+<p id="animationFrame"><a class="p_ident" id="p_5sPdYwQo/V" href="#p_5sPdYwQo/V" tabindex="-1" role="presentation"></a>این اسکریپت از <code>requestAnimationFrame</code> برای زمانبندی اجرای تابع <code>animate</code> هنگامی که مرورگر آماده است تا تصویر صفحه را دوباره بکشد، استفاده می کنیم. تابع <code>animate</code> خود دوباره <code>requestAnimationFrame</code> را برای زمانبندی به‌روزرسانی بعدی فراخوانی می کند. زمانی که پنجره‌ی مرورگر (یا تب مرورگر) فعال است، این باعث می شود که به‌روز‌رسانی‌ها با نرخ 60 بار در ثانیه انجام شود که پویانمایی روانی را تولید می کند.</p>
 
-<p><a class="p_ident" id="p_V1ZyP92HDo" href="#p_V1ZyP92HDo" tabindex="-1" role="presentation"></a>If we just updated the DOM in a loop, the page would freeze, and nothing would show up on the screen. Browsers do not update their display while a JavaScript program is running, nor do they allow any interaction with the page. This is why we need <code>requestAnimationFrame</code>—it lets the browser know that we are done for now, and it can go ahead and do the things that browsers do, such as updating the screen and responding to user actions.</p>
+<p>اگر فقط DOM را در حلقه به‌روزرسانی می کردیم، صفحه ممکن بود قفل شود چیزی در تصویر نمایش داده نشود. مرورگرها صفحه‌ی نمایش خود را در هنگام اجرای یک برنامه‌ی جاوااسکریپت به‌روزرسانی نمی کنند و اجازه‌ی هیچ تعاملی با صفحه را هم فراهم نمی کنند. به همین دلیل است که به <code>requestAnimationFrame</code> نیاز داریم – این تابع به مرورگر می گوید که کار ما در این لحظه تمام است و می تواند به کارش ادامه دهد، مثل به‌روزرسانی صفحه نمایش و پاسخ به درخواست‌های کاربر.</p>
 
-<p><a class="p_ident" id="p_T1Drg7jSr7" href="#p_T1Drg7jSr7" tabindex="-1" role="presentation"></a>The animation function is passed the current time as an argument. To ensure that the motion of the cat per millisecond is stable, it bases the speed at which the angle changes on the difference between the current time and the last time the function ran. If it just moved the angle by a fixed amount per step, the motion would stutter if, for example, another heavy task running on the same computer were to prevent the function from running for a fraction of a second.</p>
+<p>تابع پویانمایی، زمان فعلی را به عنوان یک آرگومان دریافت می کند. برای کسب اطمینان از اینکه میزان حرکت￼ گربه در هزارم ثانیه مداوم و باثبات است، این تابع سرعت را در قسمت‌هایی که زاویه تغییر می کند بر اساس تفاوت بین زمان فعلی و آخرین باری که تابع اجرا شد در نظر می گیرد. اگر با هر قدم مقدار ثابتی حرکت در زاویه انجام می‌شد، ممکن بود حرکت تصویر لنگ بزند، درصورتی‌ که به عنوان مثال یک برنامه‌ی سنگین دیگر روی همان کامپیوتر اجرا می شد که تابع را برای کسری از ثانیه از حرکت می انداخت.</p>
 
-<p id="sin_cos"><a class="p_ident" id="p_C8QAvF7kWm" href="#p_C8QAvF7kWm" tabindex="-1" role="presentation"></a>Moving in circles is done using the trigonometry functions <code>Math.cos</code> and <code>Math.sin</code>. For those who aren’t familiar with these, I’ll briefly introduce them since we will occasionally use them in this book.</p>
+<p id="sin_cos">برای حرکت دایره‌ای از توابع مثلثات مثل <bdo><code>Math.cos</code></bdo> و <bdo><code>Math.sin</code></bdo> استفاده می شود. برای افرادی که با این مفاهیم آشنا نیستند، به طور خلاصه آن ها را معرفی خواهم کرد چرا که کم و بیش از آن ها در کتاب استفاده خواهیم کرد.</p>
 
-<p><a class="p_ident" id="p_fz9+cW0plg" href="#p_fz9+cW0plg" tabindex="-1" role="presentation"></a><code>Math.cos</code> and <code>Math.sin</code> are useful for finding points that lie on a circle around point (0,0) with a radius of one. Both functions interpret their argument as the position on this circle, with zero denoting the point on the far right of the circle, going clockwise until 2π (about 6.28) has taken us around the whole circle. <code>Math.cos</code> tells you the x-coordinate of the point that corresponds to the given position, and <code>Math.sin</code> yields the y-coordinate. Positions (or angles) greater than 2π or less than 0 are valid—the rotation repeats so that <em>a</em>+2π refers to the same angle as <em>a</em>.</p>
+<p><a class="p_ident" id="p_DRhHBjyVId" href="#p_DRhHBjyVId" tabindex="-1" role="presentation"></a>متدهای <bdo><code>Math.cos</code></bdo> و <bdo><code>Math.sin</code></bdo> برای پیدا کردن نقاطی که روی محیط دایره‌ای با مرکز <bdo>(0,0)</bdo> و شعاع یک استفاده می شوند. هر دوی این متدها ورودی‌هایشان را به عنوان موقعیت‌هایی روی این دایره تفسیر می کنند، که صفر به معنای نقطه‌ای است که در راست‌ترین قسمت دایره قرار گرفته است و حرکت در جهت گردش عقربه‌های ساعت تا <bdo>2π</bdo> می باشد (حدود <bdo>6.28</bdo>) که یک دور کامل دایره انجام می شود. <bdo><code>Math.cos</code></bdo> مختصات x نقطه‌ای که مربوط به موقعیت داده شده است را برمی‌گرداند در حالیکه <bdo><code>Math.sin</code></bdo> مختصات y آن را می دهد. موقعیت‌هایی (یا زاویه‌ها) که از <bdo>2π</bdo> بزرگتر باشند یا از 0 کوچکتر باشند معتبر محسوب می شوند – چرخش تکرار می شود بنابراین <bdo><em>a</em>+2π</bdo> معادل همان زاویه‌ی <em>a</em> خواهد بود.</p>
 
-<p><a class="p_ident" id="p_0LZN4Lli69" href="#p_0LZN4Lli69" tabindex="-1" role="presentation"></a>This unit for measuring angles is called radians—a full circle is 2π radians, similar to how it is 360 degrees when measuring in degrees. The constant π is available as <code>Math.PI</code> in JavaScript.</p><figure><img src="img/cos_sin.svg" alt="Using cosine and sine to compute coordinates"></figure>
+<p><a class="p_ident" id="p_iBcDofBaKA" href="#p_iBcDofBaKA" tabindex="-1" role="presentation"></a>این واحد اندازه‌گیری برای زاویه‌ها را رادیان می نامند- یک دایره‌ی کامل برابر <bdo>2π</bdo> رادیان است، مشابه 360 در واحد درجه. ثابت π در جاوااسکریپت توسط <bdo><code>Math.PI</code></bdo> در دسترس است.</p><figure><img src="img/cos_sin.svg" alt="Using cosine and sine to compute coordinates"></figure>
 
-<p><a class="p_ident" id="p_9ovGFCxRhX" href="#p_9ovGFCxRhX" tabindex="-1" role="presentation"></a>The cat animation code keeps a counter, <code>angle</code>, for the current angle of the animation and increments it every time the <code>animate</code> function is called. It can then use this angle to compute the current position of the image element. The <code>top</code> style is computed with <code>Math.sin</code> and multiplied by 20, which is the vertical radius of our ellipse. The <code>left</code> style is based on <code>Math.cos</code> and multiplied by 200 so that the ellipse is much wider than it is high.</p>
+<p><a class="p_ident" id="p_4n84s1DpT5" href="#p_4n84s1DpT5" tabindex="-1" role="presentation"></a>کد پویانمایی گربه یک شمارنده هم نگهداری می کند، <code>angle</code>، تا زاویه‌ی فعلی حرکت را داشته باشد و با هر بار فراخوانی تابع <code>animate</code> آن را افزایش می دهد. بعدا می تواند از این زاویه برای محاسبه موقعیت فعلی عنصر تصویر استفاده کند. مقدار خاصیت سبکی <code>top</code> هم به وسیله‌ی <bdo><code>Math.sin</code></bdo> و ضرب آن در 20 محاسبه می شود که نمایانگر شعاع عمودی در بیضی ما است. مقدار <code>left</code> نیز بر اساس <bdo><code>Math.cos</code></bdo> و ضرب آن در 200 است بنابراین بیضی ما دارای عرض بسیار بیشتری نسبت به طولش است.</p>
 
-<p><a class="p_ident" id="p_/Yly9Ir9QF" href="#p_/Yly9Ir9QF" tabindex="-1" role="presentation"></a>Note that styles usually need <em>units</em>. In this case, we have to append <code>&quot;px&quot;</code> to the number to tell the browser that we are counting in pixels (as opposed to centimeters, “ems”, or other units). This is easy to forget. Using numbers without units will result in your style being ignored—unless the number is 0, which always means the same thing, regardless of its unit.</p>
+<p><a class="p_ident" id="p_/aRZoq1buo" href="#p_/aRZoq1buo" tabindex="-1" role="presentation"></a>توجه داشته باشید که مقادیر مربوط به سبک‌ها معمولا به واحد نیاز دارند. در این مثال، ما باید <code>&quot;px&quot;</code> را به عدد اضافه کنیم تا به مرورگر اعلام کنیم که شمارش در واحد پیکسل می باشد (نه سانتیمتر، “em”، یا دیگر واحدها). به راحتی ممکن است این نکته فراموش شود. استفاده از اعداد بدون واحدها باعث می شود که سبک‌دهی شما اعمال نگردد- مگر اینکه آن عدد 0 باشد که همیشه معنای یکسانی دارد.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_kLcHWntN1r" href="#p_kLcHWntN1r" tabindex="-1" role="presentation"></a>JavaScript programs may inspect and interfere with the document that the browser is displaying through a data structure called the DOM. This data structure represents the browser’s model of the document, and a JavaScript program can modify it to change the visible document.</p>
+<p>برنامه‌های جاوااسکریپت می توانند در صفحه‌ای که مرورگر به نمایش می گذارد، با استفاده از یک ساختار داده به نام DOM، دخالت و دستکاری کنند. این ساختار داده نمایانگر مدل مرورگر از صفحه است و یک برنامه‌ی جاوااسکریپت می تواند آن را تغییر دهد و در سندی که به نمایش درمی آید تغییر ایجاد کند.</p>
 
-<p><a class="p_ident" id="p_7Ce58FA9bp" href="#p_7Ce58FA9bp" tabindex="-1" role="presentation"></a>The DOM is organized like a tree, in which elements are arranged hierarchically according to the structure of the document. The objects representing elements have properties such as <code>parentNode</code> and <code>childNodes</code>, which can be used to navigate through this tree.</p>
+<p>DOM به شکل یک درخت سازماندهی شده است که در آن عناصر به صورت سلسله‌مراتبی براساس ساختار سند مرتب می شوند. اشیائی که نماینده‌ی عناصر هستند دارای خاصیت‌هایی مانند <code>parentNode</code> و <code>childNodes</code> هستند که می توان از آن ها برای حرکت در این درخت استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_KUJGKqAvJC" href="#p_KUJGKqAvJC" tabindex="-1" role="presentation"></a>The way a document is displayed can be influenced by <em>styling</em>, both by attaching styles to nodes directly and by defining rules that match certain nodes. There are many different style properties, such as <code>color</code> or <code>display</code>. JavaScript code can manipulate an element’s style directly through its <code>style</code> property.</p>
+<p>نحوه‌ی نمایش یک سند را می توان با سبک‌دهی تغییر داد و این کار به دو روش چسباندن سبک‌ها به عناصر به صورت مستقیم و یا با تعریف دستوراتی که عناصر خاصی را هدف قرار می دهند صورت می‌پذیرد. خاصیت‌های سبک‌دهی زیاد و متنوعی وجود دارد مثل <code>color</code> یا <code>display</code>. کدهای جاوااسکریپت می توانند سبک یک عنصر را مستقیما از طریق خصوصیت <code>style</code> دستکاری کنند.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3 id="exercise_table"><a class="i_ident" id="i_g/5UC3zznV" href="#i_g/5UC3zznV" tabindex="-1" role="presentation"></a>Build a table</h3>
+<h3 id="exercise_table"><a class="i_ident" id="i_cG/PUQtNdg" href="#i_cG/PUQtNdg" tabindex="-1" role="presentation"></a>ساخت یک جدول</h3>
 
-<p><a class="p_ident" id="p_LuZsMlc8YJ" href="#p_LuZsMlc8YJ" tabindex="-1" role="presentation"></a>An HTML table is built with the following tag structure:</p>
+<p>یک جدول HTML به وسیله‌ی ساختار برچسب‌های زیر ساخته می شود:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_MudCG4cYiG" href="#c_MudCG4cYiG" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">table</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -461,15 +461,17 @@
   <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">tr</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">table</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_xvnLvuqcz5" href="#p_xvnLvuqcz5" tabindex="-1" role="presentation"></a>For each <em>row</em>, the <code>&lt;table&gt;</code> tag contains a <code>&lt;tr&gt;</code> tag. Inside of these <code>&lt;tr&gt;</code> tags, we can put cell elements: either heading cells (<code>&lt;th&gt;</code>) or regular cells (<code>&lt;td&gt;</code>).</p>
+<p>برای هر ردیف، برچسب <bdo><code>&lt;table&gt;</code></bdo> یک برچسب <bdo><code>&lt;tr&gt;</code></bdo> خواهد داشت. درون این برچسب‌های <bdo><code>&lt;tr&gt;</code></bdo> می توانیم سلول‌های جدول را قرار دهیم: سلول‌های معمولی (<bdo><code>&lt;td&gt;</code></bdo>) یا سلول‌های عنوان (<bdo><code>&lt;th&gt;</code></bdo>).</p>
 
-<p><a class="p_ident" id="p_Kz26QB0sIU" href="#p_Kz26QB0sIU" tabindex="-1" role="presentation"></a>Given a data set of mountains, an array of objects with <code>name</code>, <code>height</code>, and <code>place</code> properties, generate the DOM structure for a table that enumerates the objects. It should have one column per key and one row per object, plus a header row with <code>&lt;th&gt;</code> elements at the top, listing the column names.</p>
+<p>با در دست داشتن مجموعه اطلاعاتی در باره‌ی کوه‌ها، آرایه‌ای از اشیاء شامل <code>name</code>، <code>height</code> و <code>place</code> ، یک ساختار DOM برای جدولی که این اشیاء را می شمارد ایجاد کنید. این جدول باید یک ستون برای هر کلید و یک ردیف برای هر شیء داشته باشد، مازاد بر آن یک ردیف عنوان به وسیله‌ی عنصرهای <bdo><code>&lt;th&gt;</code></bdo> در قسمت بالا که نام ستون‌ها را لیست کند.</p>
 
-<p><a class="p_ident" id="p_mmjekKHDOX" href="#p_mmjekKHDOX" tabindex="-1" role="presentation"></a>Write this so that the columns are automatically derived from the objects, by taking the property names of the first object in the data.</p>
+<p>این برنامه را به صورتی بنویسید که در آن ستون‌ها به طور خودکار از اشیاء گرفته می می‌شوند و این کار با گرفتن نام‌های خاصیت‌های اولین شیء در مجموعه‌ی داده‌ها رخ می دهد.</p>
 
-<p><a class="p_ident" id="p_EvtDcsiT4c" href="#p_EvtDcsiT4c" tabindex="-1" role="presentation"></a>Add the resulting table to the element with an <code>id</code> attribute of <code>&quot;mountains&quot;</code> so that it becomes visible in the document.</p>
+<p>به این صورت بنویسید که ستون‌ها به صورت خودکار با گرفتن نام‌ خاصیت‌های اولین شیء در مجموعه‌ی داده‌ها ایجاد شوند.</p>
 
-<p><a class="p_ident" id="p_Ve9FRgVfit" href="#p_Ve9FRgVfit" tabindex="-1" role="presentation"></a>Once you have this working, right-align cells that contain number values by setting their <code>style.textAlign</code> property to <code>&quot;right&quot;</code>.</p>
+<p>جدول نهایی را به عنصری که دارای خصوصیت <code>id</code> برابر با <code>&quot;mountains&quot;</code> می‌باشد اضافه کنید تا در صفحه نمایش داده￼ شود.</p>
+
+<p>بعد از این که این قسمت را تکمیل کردید سلول‌هایی که حاوی مقادیر عددی هستند را راست چین کنید و این کار را با تنظیم <bdo><code>style.textAlign</code></bdo> برابر با <code>&quot;right&quot;</code> انجام دهید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_SaASguUQJh" href="#c_SaASguUQJh" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>Mountains<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -491,11 +493,13 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_2Q6e2rAy5t" href="#p_2Q6e2rAy5t" tabindex="-1" role="presentation"></a>You can use <code>document.<wbr>createElement</code> to create new element nodes, <code>document.<wbr>createTextNode</code> to create text nodes, and the <code>appendChild</code> method to put nodes into other nodes.</p>
+<p>می توانید از <bdo><code>document.<wbr>createElement</code></bdo> برای ایجاد گره‌های جدید استفاده کنید، همچنین از <bdo><code>document.<wbr>createTextNode</code></bdo> برای ایجاد گره‌های متنی و از <bdo><code>appendChild</code></bdo> نیز برای قرار دادن گره‌ها در دیگر گره‌ها.</p>
 
-<p><a class="p_ident" id="p_BD8axR6MPn" href="#p_BD8axR6MPn" tabindex="-1" role="presentation"></a>You’ll want to loop over the key names once to fill in the top row and then again for each object in the array to construct the data rows. To get an array of key names from the first object, <code>Object.keys</code> will be useful.</p>
+<p>لازم خواهد شد تا نام‌ کلید‌های شیء را یک بار پیمایش کرده تا ردیف بالایی را پر کنید و بعد دوباره برای هر شیء</p>
 
-<p><a class="p_ident" id="p_f4AX6Lsiww" href="#p_f4AX6Lsiww" tabindex="-1" role="presentation"></a>To add the table to the correct parent node, you can use <code>document.<wbr>getElementById</code> or <code>document.<wbr>querySelector</code> to find the node with the proper <code>id</code> attribute.</p>
+<p>در ادامه لازم دارید تا نام کلید‌ها را پیمایش کنید؛ یک بار برای پر کردن ردیف بالایی و بعد دوباره برای هر همه‌ی اشیاء موجود در آرایه تا بتوانید ردیف‌های داده را بسازید. برای بدست آوردن یک آرایه از نام کلید‌ها از شیء اول، <bdo><code>Object.keys</code></bdo> به دردتان خواهد خورد.</p>
+
+<p>برای اضافه کردن جدول به گره‌ی والد فعلی، می توانید از <bdo><code>document.<wbr>getElementById</code></bdo> یا <bdo><code>document.<wbr>querySelector</code></bdo> برای پیدا کردن گره‌ای با خاصیت <code>id</code> مورد نظر استفاده کنید.</p>
 
 </div></div>
 
@@ -534,7 +538,7 @@ function once from the outer function to start the process.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_b/LAqZUqyo" href="#i_b/LAqZUqyo" tabindex="-1" role="presentation"></a>The cat’s hat</h3>
+<h3><a class="i_ident" id="i_6HcsNCNcZW" href="#i_6HcsNCNcZW" tabindex="-1" role="presentation"></a>کلاه گربه</h3>
 
 <p><a class="p_ident" id="p_6r1baDVOSE" href="#p_6r1baDVOSE" tabindex="-1" role="presentation"></a>Extend the cat animation defined <a href="14_dom.html#animation">earlier</a> so that both the cat and his hat (<code>&lt;img src=&quot;img/<wbr>hat.<wbr>png&quot;&gt;</code>) orbit at opposite sides of the ellipse.</p>
 
