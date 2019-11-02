@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Functions :: Eloquent JavaScript</title>
+  <title>توابع :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
@@ -15,7 +15,7 @@
 <article>
 <nav><a href="02_program_structure.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="04_data.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 3</span>Functions</h1>
+<h1><span class=chap_num>Chapter 3</span>توابع</h1>
 
 <blockquote>
 
@@ -68,9 +68,9 @@
 
 <p>پارامترها در توابع درست شبیه متغیرهای عادی رفتار می کنند اما مقدار اولیه آن ها توسط <em>فراخواننده</em> تابع مقداردهی می شود نه کدی که در بدنه تابع نوشته می شود.</p>
 
-<h2><a class="h_ident" id="h_jswzJS0iuC" href="#h_jswzJS0iuC" tabindex="-1" role="presentation"></a>متغیرها و قلمرو‌ی آن</h2>
+<h2><a class="h_ident" id="h_vMmbes/Jc3" href="#h_vMmbes/Jc3" tabindex="-1" role="presentation"></a>متغیرها و قلمرو‌ی آن - Scope</h2>
 
-<p>هر متغیری دارای یک <em>قلمروی</em> دسترسی است که عبارت است از بخشی از برنامه که در آن، متغیر قابل دسترس و مشاهده است. برای متغیرهایی که بیرون از یک تابع یا یک بلاک تعریف شده اند، این حوزه شامل کل برنامه می شود – می توانید به این متغیرها در هرجای برنامه دسترسی داشته باشید. به این متغیرها متغیرهای <em>سراسری</em> گفته می شود.</p>
+<p><a class="p_ident" id="p_qs0xA/Px/K" href="#p_qs0xA/Px/K" tabindex="-1" role="presentation"></a>هر متغیری دارای یک <em>قلمروی</em> (scope) دسترسی است که عبارت است از بخشی از برنامه که در آن، متغیر قابل دسترس و مشاهده است. برای متغیرهایی که بیرون از یک تابع یا یک بلاک تعریف شده اند، این حوزه شامل کل برنامه می شود – می توانید به این متغیرها در هرجای برنامه دسترسی داشته باشید. به این متغیرها متغیرهای <em>سراسری</em> گفته می شود.</p>
 
 <p>اما متغیرهایی که برای پارامترهای توابع ایجاد می شوند یا آن هایی که درون یک تابع تعریف می شوند، فقط در درون همان تابع قابل ارجاع می باشند، به همین علت به آن ها متغیرهای <em>محلی</em> گفته می شود. هر بار که تابعی فراخوانی می شود، یک نمونه از این متغیرها ایجاد می شود. این کار باعث می شود که توابع به نوعی نسبت به هم مجزا (‌ایزوله) شوند - هر فراخوانی تابع در فضای اختصاصی خودش عمل می کند (محیط محلی خودش) و معمولا می توان این نحوه‌ی عملکرد را از برنامه متوجه شد بدون اینکه بخواهیم جزئیات مرتبط با‌ آن را در محیط اجرایی بدانیم.</p>
 
