@@ -2,59 +2,62 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project: A Platform Game :: Eloquent JavaScript</title>
+  <title>پروژه: یک بازی پرشی :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 16;var sandboxLoadFiles = ["code/chapter/16_game.js","code/levels.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 16;var sandboxLoadFiles = ["code/chapter/16_game.js","code/levels.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="15_event.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="17_canvas.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 16</span>Project: A Platform Game</h1>
+<h1><span class=chap_num>Chapter 16</span>پروژه: یک بازی پرشی</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_kUA7+lr6ay" href="#p_kUA7+lr6ay" tabindex="-1" role="presentation"></a>All reality is a game.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>تمام واقعیت یک بازی است.</p>
 
 <footer>Iain Banks, <cite>The Player of Games</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_16.jpg" alt="Picture of a game character jumping over lava"></figure>
 
-<p><a class="p_ident" id="p_OqEjiDXza0" href="#p_OqEjiDXza0" tabindex="-1" role="presentation"></a>Much of my initial fascination with computers, like that of many nerdy kids, had to do with computer games. I was drawn into the tiny simulated worlds that I could manipulate and in which stories (sort of) unfolded—more, I suppose, because of the way I projected my imagination into them than because of the possibilities they actually offered.</p>
+<p>بیشتر شیفتگی اولیه من نسبت به کامپیوترها، مثل خیلی از بچه‌های دیگر، از بازی‌های کامپیوتری شروع شد. من جذب دنیاهای شبیه‌سازی شده‌ی کوچکی شدم که می توانستم آن‌ها را اداره کنم و در آن‌ها داستان‌هایی گشوده می‌شد – گمان می کنم بیشتر به خاطر گسترش تخیلاتم به درون بازی‌ها بود تا امکانات و قابلیت‌های خود بازی ها.</p>
 
-<p><a class="p_ident" id="p_hkas9mExVc" href="#p_hkas9mExVc" tabindex="-1" role="presentation"></a>I don’t wish a career in game programming on anyone. Much like the music industry, the discrepancy between the number of eager young people wanting to work in it and the actual demand for such people creates a rather unhealthy environment. But writing games for fun is amusing.</p>
+<p>من برای هیچ کس حرفه‌ی برنامه نویسی بازی‌های کامپیوتر را آرزو نمی کنم. بسیار شبیه به صنعت موسیقی، تفاوت فاحش بین تعداد زیاد افرادی که دوست دارند در آن کار کنند و تقاضای واقعی برای آن‌ها، باعث ایجاد محیط نسبتا نامناسبی شده است. اما نوشتن بازی‌ها برای تفریح کاری دلچسب است.</p>
 
-<p><a class="p_ident" id="p_U1BQ0KJdvV" href="#p_U1BQ0KJdvV" tabindex="-1" role="presentation"></a>This chapter will walk through the implementation of a small platform game. Platform games (or “jump and run” games) are games that expect the player to move a figure through a world, which is usually two-dimensional and viewed from the side, while jumping over and onto things.</p>
+<p>در این فصل به سراغ پیاده‌سازی یک بازی پرشی (سکوبازی) کوچک می رویم. سکوبازی‌ها (یا بازی‌های حرکت و پرش)، بازی‌هایی هستند که بازیکن باید یک شخصیت را در جهان بازی حرکت دهد که معمولا این جهان دو بعدی است و از کنار نمایش داده می‌شود و شخصیت از روی (و درون) چیزها می تواند بپرد.</p>
 
-<h2><a class="h_ident" id="h_lMtTRzata0" href="#h_lMtTRzata0" tabindex="-1" role="presentation"></a>The game</h2>
+<h2><a class="h_ident" id="h_kgCxP1w88K" href="#h_kgCxP1w88K" tabindex="-1" role="presentation"></a>بازی</h2>
 
-<p><a class="p_ident" id="p_C38xTPlNF8" href="#p_C38xTPlNF8" tabindex="-1" role="presentation"></a>Our game will be roughly based on <a href="http://www.lessmilk.com/games/10">Dark Blue</a> by Thomas Palef. I chose that game because it is both entertaining and minimalist and because it can be built without too much code. It looks like this:</p><figure><img src="img/darkblue.png" alt="The game Dark Blue"></figure>
+<p><a class="p_ident" id="p_wJHyJzEw4V" href="#p_wJHyJzEw4V" tabindex="-1" role="presentation"></a>بازی ما به طور کلی بر پایه‌ی بازی <a href="http://www.lessmilk.com/games/10">Dark Blue</a> که توسط توماس پالف ساخته شده خواهد بود. من این بازی را انتخاب کردم به دلیل اینکه هم سرگرم‌کننده و هم ساده است، و نیازی نیست برای نوشتن آن کدنویسی خیلی زیادی انجام شود. بازی به شکل زیر خواهد بود.</p><figure><img src="img/darkblue.png" alt="The game Dark Blue"></figure>
 
-<p><a class="p_ident" id="p_mIXBfsCnQQ" href="#p_mIXBfsCnQQ" tabindex="-1" role="presentation"></a>The dark box represents the player, whose task is to collect the yellow boxes (coins) while avoiding the red stuff (lava). A level is completed when all coins have been collected.</p>
+<p>مستطیل تیره رنگ نمایانگر شخصیت بازی است که وظیفه‌اش جمع آوری مستطیل های زرد (سکه‌ها) بدون برخورد با چیزهای قرمز رنگ (گدازه‌ها) است. یک مرحله بازی زمانی کامل می‌شود که تمامی سکه‌ها جمع آوری شده باشند.</p>
 
-<p><a class="p_ident" id="p_Y1K6GO/tu5" href="#p_Y1K6GO/tu5" tabindex="-1" role="presentation"></a>The player can walk around with the left and right arrow keys and can jump with the up arrow. Jumping is a specialty of this game character. It can reach several times its own height and can change direction in midair. This may not be entirely realistic, but it helps give the player the feeling of being in direct control of the on-screen avatar.</p>
+<p>بازیکن می تواند به وسیله‌ی کلیدهای چپ و راست صفحه‌کلید جابجا شود و با فشردن کلید بالا، بپرد. پریدن توانایی خاص این کاراکتر است. می تواند چندین برابر قد خودش بپرد و در هوا جهتش را عوض کند. بازی به طور کامل واقع‌گرایانه نیست اما به بازیکن این حس را القا می کند که کاملا شخصیت بازی تحت کنترلش حرکت می کند.</p>
 
-<p><a class="p_ident" id="p_or+OtPnSO1" href="#p_or+OtPnSO1" tabindex="-1" role="presentation"></a>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background. Each field on the grid is either empty, solid, or lava. The moving elements are the player, coins, and certain pieces of lava. The positions of these elements are not constrained to the grid—their coordinates may be fractional, allowing smooth motion.</p>
+<p><a class="p_ident" id="p_cbjuaNmwBW" href="#p_cbjuaNmwBW" tabindex="-1" role="presentation"></a>این بازی از یک پس‌زمینه‌ی ثابت تشکیل شده است که مثل یک grid طرح بندی شده است همراه با عناصر متحرکی که روی پس‌زمینه قرار گرفته اند. هر فیلد از grid یا خالی، یا رنگ‌شده یا یک گدازه است. عناصر متحرک شامل بازیکنان، سکه‌ها و بعضی از گدازه‌ها می شوند. موقعیت این عناصر محدود به grid نیست. – ممکن است مختصاتشان اعشاری باشد که باعث حرکت نرم‌تر آن‌ها خواهد شد.</p>
 
-<h2><a class="h_ident" id="h_hLFu/U4fE5" href="#h_hLFu/U4fE5" tabindex="-1" role="presentation"></a>The technology</h2>
+<h2><a class="h_ident" id="h_zw8jHMjSeF" href="#h_zw8jHMjSeF" tabindex="-1" role="presentation"></a>تکنولوژی مورد استفاده</h2>
 
-<p><a class="p_ident" id="p_w6B1L26QOc" href="#p_w6B1L26QOc" tabindex="-1" role="presentation"></a>We will use the browser DOM to display the game, and we’ll read user input by handling key events.</p>
+<p><a class="p_ident" id="p_Yfb0Ie8yZw" href="#p_Yfb0Ie8yZw" tabindex="-1" role="presentation"></a>ما از DOM مرورگر برای نمایش بازی استفاده می کنیم و ورودی کاربر را با مدیریت رخدادهای کلیدها، خواهیم خواند.</p>
 
-<p><a class="p_ident" id="p_wha4Kv9EnE" href="#p_wha4Kv9EnE" tabindex="-1" role="presentation"></a>The screen- and keyboard-related code is only a small part of the work we need to do to build this game. Since everything looks like colored boxes, drawing is uncomplicated: we create DOM elements and use styling to give them a background color, size, and position.</p>
+<p>کدهای مربوط به صفحه‌ی نمایش و صفحه‌کلید فقط بخشی کوچکی از کاری که برای ساخت این بازی لازم است را شامل می شوند. به دلیل این که همه چیز شبیه به مستطیل‌های رنگی است، مشکل طراحی نداریم: عناصر DOM را ایجاد کرده و با استفاده از سبک‌دهی به آن‌ها رنگ پس‌زمینه ،اندازه و موقعیت می دهیم.</p>
 
-<p><a class="p_ident" id="p_iXpeeK1cBS" href="#p_iXpeeK1cBS" tabindex="-1" role="presentation"></a>We can represent the background as a table since it is an unchanging grid of squares. The free-moving elements can be overlaid using absolutely positioned elements.</p>
+<p><a class="p_ident" id="p_88VDrV/p1p" href="#p_88VDrV/p1p" tabindex="-1" role="presentation"></a>می توانیم پس‌زمینه را به شکل یک جدول نمایش دهیم چرا که این gridای ثابت از چهارگوش‌ها است. عناصری که آزادانه حرکت می کنند را می توان با موقعیت‌دهی مطلق روی طرح قرار داد.</p>
 
-<p><a class="p_ident" id="p_uCQz+7JTon" href="#p_uCQz+7JTon" tabindex="-1" role="presentation"></a>In games and other programs that should animate graphics and respond to user input without noticeable delay, efficiency is important. Although the DOM was not originally designed for high-performance graphics, it is actually better at this than you would expect. You saw some animations in <a href="14_dom.html#animation">Chapter 14</a>. On a modern machine, a simple game like this performs well, even if we don’t worry about optimization very much.</p>
+<p>در بازی‌ها و دیگر برنامه‌هایی که در آن‌ها باید تصاویر به حرکت درآیند و به ورودی کاربر بدون تاخیر پاسخ دهند، کارایی خیلی مهم است. اگرچه DOM اساسا برای انجام کارهای گرافیکی سطح بالا طراحی نشده است، اما در عمل از چیزی که انتظارش را داشتید بهتر کار می کند. در <a href="14_dom.html#animation">فصل 14</a> چند متحرک‌سازی مشاهده نمودید. در یک کامپیوتر مدرن، یک بازی ساده مثل این بازی به خوبی اجرا می‌شود، حتی اگر به بهینه‌سازی آن زیاد فکر نکنیم.</p>
 
-<p><a class="p_ident" id="p_fFvps6KPyM" href="#p_fFvps6KPyM" tabindex="-1" role="presentation"></a>In the <a href="17_canvas.html">next chapter</a>, we will explore another browser technology, the <code>&lt;canvas&gt;</code> tag, which provides a more traditional way to draw graphics, working in terms of shapes and pixels rather than DOM elements.</p>
+<p>در <a href="17_canvas.html">فصل بعدی</a> به سراغ تکنولوژی دیگری در مرورگر خواهیم رفت، برچسب <bdo><code>&lt;canvas&gt;</code></bdo> که روش ریشه‌دارتری برای کشیدن تصاویر فراهم می سازد؛ کار با اشکال و پیکسل‌ها به جای استفاده از عناصر DOM.</p>
 
-<h2><a class="h_ident" id="h_7UfwmBGLOk" href="#h_7UfwmBGLOk" tabindex="-1" role="presentation"></a>Levels</h2>
+<h2><a class="h_ident" id="h_/+PLvgEsJy" href="#h_/+PLvgEsJy" tabindex="-1" role="presentation"></a>مراحل بازی</h2>
 
-<p><a class="p_ident" id="p_abOzbCGnYG" href="#p_abOzbCGnYG" tabindex="-1" role="presentation"></a>We’ll want a human-readable, human-editable way to specify levels. Since it is okay for everything to start out on a grid, we could use big strings in which each character represents an element—either a part of the background grid or a moving element.</p>
+<p><a class="p_ident" id="p_I5MwxFq9eA" href="#p_I5MwxFq9eA" tabindex="-1" role="presentation"></a>ما به روشی خوانا و قابل ویرایش برای انسان نیاز داریم تا به وسیله‌ی آن مراحل بازی را مشخص کنیم. چون می توان همه چیز را روی grid شروع کرد، می‌توانیم از رشته‌های بلند که در آن هر کاراکتر نماینده‌ی یک عنصر است استفاده کنیم –چه بخشی از grid پس‌زمینه یا یک عنصر در حال حرکت.</p>
 
-<p><a class="p_ident" id="p_On1HrmEvoL" href="#p_On1HrmEvoL" tabindex="-1" role="presentation"></a>The plan for a small level might look like this:</p>
+<p>طرح مورد نظر برای یک مرحله‌ی کوچک ممکن است شبیه زیر باشد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_txvY7tsNJp" href="#c_txvY7tsNJp" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">simpleLevelPlan</span> <span class="cm-operator">=</span> <span class="cm-string-2">`</span>
 <span class="cm-string-2">......................</span>
@@ -67,15 +70,15 @@
 <span class="cm-string-2">......##############..</span>
 <span class="cm-string-2">......................`</span>;</pre>
 
-<p><a class="p_ident" id="p_9xefWk13KJ" href="#p_9xefWk13KJ" tabindex="-1" role="presentation"></a>Periods are empty space, hash (<code>#</code>) characters are walls, and plus signs are lava. The player’s starting position is the at sign (<code>@</code>). Every O character is a coin, and the equal sign (<code>=</code>) at the top is a block of lava that moves back and forth horizontally.</p>
+<p><a class="p_ident" id="p_CKkUzeBQOW" href="#p_CKkUzeBQOW" tabindex="-1" role="presentation"></a>نقطه‌ها نماینده‌ی فضاهای خالی، کاراکترهای هش (<code>#</code>) معرف دیوارها و علامتهای مثبت نماینده‌ی گدازه‌ها می باشند. نقطه شروع بازیکن با علامت <code>@</code> مشخص شده است. هر کاراکتر O نماینده‌ی یک سکه است و علامت مساوی (<code>=</code>) در بالا یک بلاک از گدازه است که به صورت افقی جلوعقب می رود.</p>
 
-<p><a class="p_ident" id="p_0EQudcPkjK" href="#p_0EQudcPkjK" tabindex="-1" role="presentation"></a>We’ll support two additional kinds of moving lava: the pipe character (<code>|</code>) creates vertically moving blobs, and <code>v</code> indicates <em>dripping</em> lava—vertically moving lava that doesn’t bounce back and forth but only moves down, jumping back to its start position when it hits the floor.</p>
+<p>دو نوع دیگر از گدازه‌های متحرک را پشتیبانی خواهیم کرد: یک کاراکتر پایپ (<code>|</code>) گلوله‌های متحرک عمودی ایجاد می کند و <code>v</code> نشان‌دهنده گدازه‌هایی است که چکیده می شوند – گدازه‌های متحرک عمودی که بالا پایین نمی روند بلکه فقط به سمت پایین حرکت می کنند و وقتی به زمین رسیدند به نقطه‌ی اولشان بر می گردند.</p>
 
-<p><a class="p_ident" id="p_JSlRu3lL/0" href="#p_JSlRu3lL/0" tabindex="-1" role="presentation"></a>A whole game consists of multiple levels that the player must complete. A level is completed when all coins have been collected. If the player touches lava, the current level is restored to its starting position, and the player may try again.</p>
+<p>کل بازی شامل چندین مرحله می‌شود که بازیکن باید به اتمام برساند. وقتی همه‌ی سکه‌ها جمع‌آوری شد یک مرحله به اتمام می رسد. اگر بازیکن با گدازه برخورد کند ، مرحله‌ی کنونی به ابتدا برخواهد گشت و بازیکن می تواند دوباره تلاش کند.</p>
 
-<h2 id="level"><a class="h_ident" id="h_DeVC1tufta" href="#h_DeVC1tufta" tabindex="-1" role="presentation"></a>Reading a level</h2>
+<h2 id="level"><a class="h_ident" id="h_ZEM+UZSmxy" href="#h_ZEM+UZSmxy" tabindex="-1" role="presentation"></a>خواندن یک مرحله</h2>
 
-<p><a class="p_ident" id="p_YiuShyNEuf" href="#p_YiuShyNEuf" tabindex="-1" role="presentation"></a>The following class stores a level object. Its argument should be the string that defines the level.</p>
+<p>کلاس پیشرو یک شیء مرحله را ذخیره می کند. آرگومان آن باید رشته‌ای باشد که مرحله را تعریف می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ObYKMNTKci" href="#c_ObYKMNTKci" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Level</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">plan</span>) {
@@ -96,17 +99,17 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_JIksXnWVuw" href="#p_JIksXnWVuw" tabindex="-1" role="presentation"></a>The <code>trim</code> method is used to remove whitespace at the start and end of the plan string. This allows our example plan to start with a newline so that all the lines are directly below each other. The remaining string is split on newline characters, and each line is spread into an array, producing arrays of characters.</p>
+<p>متد <code>trim</code> در اینجا برای حذف فضاهای خالی شروع و پایان رشته‌ی طرح استفاده می‌شود. این به طرح مثال ما این امکان را می دهد که در یک خط جدید شروع شود تا همه‌ی خطوط مستقیما زیر یکدیگر قرار بگیرند. رشته‌ی باقیمانده براساس کاراکترهای خط جدید تقسیم می‌شود و هر خط درون یک آرایه پخش می‌شود و آرایه‌ای از کاراکترها تولید می‌شود.</p>
 
-<p><a class="p_ident" id="p_LoAi+0JNfy" href="#p_LoAi+0JNfy" tabindex="-1" role="presentation"></a>So <code>rows</code> holds an array of arrays of characters, the rows of the plan. We can derive the level’s width and height from these. But we must still separate the moving elements from the background grid. We’ll call moving elements <em>actors</em>. They’ll be stored in an array of objects. The background will be an array of arrays of strings, holding field types such as <code>&quot;empty&quot;</code>, <code>&quot;wall&quot;</code>, or <code>&quot;lava&quot;</code>.</p>
+<p>بنابراین <code>rows</code>، آرایه‌ای از آرایه‌های کاراکترها را نگه‌داری می کند، همان ردیف‌های طرح. می توانیم طول و عرض هر مرحله را از این ها بدست بیاوریم. اما هنوز لازم است که عناصر متحرک را از grid پس‌زمینه جدا کنیم. عناصر متحرک را بازیگران می نامیم. آن را در آرایه‌ای از اشیاء ذخیره می کنیم. پس‌زمینه، آرایه‌ای از آرایه‌های رشته‌ها خواهد بود که نوع فیلدهایی مثل <code>&quot;empty&quot;</code>، <code>&quot;wall&quot;</code>، یا <code>&quot;lava&quot;</code> را نگه‌داری می کند.</p>
 
-<p><a class="p_ident" id="p_rJcldM+jM6" href="#p_rJcldM+jM6" tabindex="-1" role="presentation"></a>To create these arrays, we map over the rows and then over their content. Remember that <code>map</code> passes the array index as a second argument to the mapping function, which tells us the x- and y-coordinates of a given character. Positions in the game will be stored as pairs of coordinates, with the top left being 0,0 and each background square being 1 unit high and wide.</p>
+<p><a class="p_ident" id="p_DXF16Sx+Gq" href="#p_DXF16Sx+Gq" tabindex="-1" role="presentation"></a>برای ایجاد این آرایه‌ها به سراغ تک تک ردیف ها و بعد محتوای آن‌ها می رویم. به خاطر داشته باشید که متد <code>map</code> اندیس آرایه را به عنوان آرگومان دوم به تابع ارسال می کند که به ما مختصات x و y کاراکتر داده‌شده را می دهد. موقعیت ها در این بازی به صورت جفت‌هایی از مختصات با مبدا بالا و چپ <bdo>0,0</bdo> ذخیره می شوند و هر مربع پس‌زمینه دارای 1 واحد طول و عرض می باشد.</p>
 
-<p><a class="p_ident" id="p_MMksR1/9C2" href="#p_MMksR1/9C2" tabindex="-1" role="presentation"></a>To interpret the characters in the plan, the <code>Level</code> constructor uses the <code>levelChars</code> object, which maps background elements to strings and actor characters to classes. When <code>type</code> is an actor class, its static <code>create</code> method is used to create an object, which is added to <code>startActors</code>, and the mapping function returns <code>&quot;empty&quot;</code> for this background square.</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>برای تفسیر کاراکترهای موجود در طرح، تابع سازنده‌ی <code>Level</code> از شیء <code>levelChars</code> استفاده می کند که عناصر پس‌زمینه را به رشته‌ها و بازیگران را به کلاس‌ها نگاشت می کند. زمانی که <code>type</code> یک کلاس بازیگر است، متد استاتیک <code>create</code> آن برای ایجاد یک شیء استفاده می شود که به <code>startActors</code> افزوده می‌شود و تابع map مقدار <code>&quot;empty&quot;</code> را برای این مربع پس‌زمینه برمی گرداند.</p>
 
-<p><a class="p_ident" id="p_XPViP3s8zO" href="#p_XPViP3s8zO" tabindex="-1" role="presentation"></a>The position of the actor is stored as a <code>Vec</code> object. This is a two-dimensional vector, an object with <code>x</code> and <code>y</code> properties, as seen in the exercises of <a href="06_object.html#exercise_vector">Chapter 6</a>.</p>
+<p>موقعیت بازیگر به عنوان یک شیء <code>Vec</code> ذخیره می‌شود که یک بردار دوبعدی است، شیءای با خاصیت‌های <code>x</code> و <code>y</code>، همانطور که در قسمت تمرین‌ها <a href="06_object.html#exercise_vector">فصل 6</a> مشاهده شد.</p>
 
-<p><a class="p_ident" id="p_nuR5OrGgSy" href="#p_nuR5OrGgSy" tabindex="-1" role="presentation"></a>As the game runs, actors will end up in different places or even disappear entirely (as coins do when collected). We’ll use a <code>State</code> class to track the state of a running game.</p>
+<p>با اجرای بازی، بازیگران در مکان‌های متفاوتی قرار می گیرند یا حتی به طور کامل ناپدید می شوند (همانطور که سکه‌ها در صورت جمع‌آوری ناپدید می شوند). ما از یک کلاس <code>State</code> برای رصد وضعیت بازی در حال اجرا استفاده می کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_8mXPZZkFTr" href="#c_8mXPZZkFTr" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">State</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">level</span>, <span class="cm-def">actors</span>, <span class="cm-def">status</span>) {
@@ -124,21 +127,21 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_ykNWl1yVwU" href="#p_ykNWl1yVwU" tabindex="-1" role="presentation"></a>The <code>status</code> property will switch to <code>&quot;lost&quot;</code> or <code>&quot;won&quot;</code> when the game has ended.</p>
+<p>زمانی که بازی به اتمام می رسد، خاصیت <code>status</code> به <code>&quot;lost&quot;</code> یا <code>&quot;won&quot;</code> تغییر می کند .</p>
 
-<p><a class="p_ident" id="p_HXx6FQb6dD" href="#p_HXx6FQb6dD" tabindex="-1" role="presentation"></a>This is again a persistent data structure—updating the game state creates a new state and leaves the old one intact.</p>
+<p>این دوباره یک ساختار داده‌ی مانا محسوب می‌شود – به روز رسانی وضعیت بازی باعث ایجاد وضعیت جدیدی می‌شود و وضعیت قبلی را دست‌نخورده باقی می گذارد.</p>
 
-<h2><a class="h_ident" id="h_pw0251T7gn" href="#h_pw0251T7gn" tabindex="-1" role="presentation"></a>Actors</h2>
+<h2><a class="h_ident" id="h_/6w3TfyWe1" href="#h_/6w3TfyWe1" tabindex="-1" role="presentation"></a>بازیگران</h2>
 
-<p><a class="p_ident" id="p_JlMpFXE8o0" href="#p_JlMpFXE8o0" tabindex="-1" role="presentation"></a>Actor objects represent the current position and state of a given moving element in our game. All actor objects conform to the same interface. Their <code>pos</code> property holds the coordinates of the element’s top-left corner, and their <code>size</code> property holds its size.</p>
+<p>اشیاء بازیگر نمایانگر موقعیت و وضعیت یک عنصر متحرک در بازی ما می‌باشند. تمامی اشیاء بازیگر از رابط یکسانی پیروی می کنند. خاصیت <code>pos</code> آن‌ها، مختصات گوشه‌ی بالا-چپ عنصر را نگه‌داری کرده و خاصیت <code>size</code> آن‌ها اندازه‌شان را نگه‌داری می کند.</p>
 
-<p><a class="p_ident" id="p_zAiZFPI5Yc" href="#p_zAiZFPI5Yc" tabindex="-1" role="presentation"></a>Then they have an <code>update</code> method, which is used to compute their new state and position after a given time step. It simulates the thing the actor does—moving in response to the arrow keys for the player and bouncing back and forth for the lava—and returns a new, updated actor object.</p>
+<p>آن‌ها نیز دارای یک متد <code>update</code> می باشند که برای محاسبه‌ی وضعیت و موقعیت جدیدشان بعد از یک گام زمانی داده شده است. این متد، کاری که یک بازیگر انجام می دهد را شبیه‌سازی می کند- حرکت در پاسخ به کلیدهای جهت دار برای بازیکن، حرکت جلو و عقب برای گدازه‌ها – و یک شیء بازیگر جدید و به‌روز بر می گرداند.</p>
 
-<p><a class="p_ident" id="p_yHrnzwQ8R4" href="#p_yHrnzwQ8R4" tabindex="-1" role="presentation"></a>A <code>type</code> property contains a string that identifies the type of the actor—<code>&quot;player&quot;</code>, <code>&quot;coin&quot;</code>, or <code>&quot;lava&quot;</code>. This is useful when drawing the game—the look of the rectangle drawn for an actor is based on its type.</p>
+<p>یک خاصیت <code>type</code> حاوی رشته‌ای است که نوع بازیگر را مشخص می کند – <code>“player”،</code> <code>“coin”</code> یا <code>“lava”</code>. در هنگام کشیدن طرح بازی این خاصیت مفید خواهد بود. – شکل مستطیلی که برای یک بازیگر کشیده می‌شود بر اساس نوعش می باشد.</p>
 
-<p><a class="p_ident" id="p_vyajSMujgl" href="#p_vyajSMujgl" tabindex="-1" role="presentation"></a>Actor classes have a static <code>create</code> method that is used by the <code>Level</code> constructor to create an actor from a character in the level plan. It is given the coordinates of the character and the character itself, which is needed because the <code>Lava</code> class handles several different characters.</p>
+<p>کلاس‌های بازیگر دارای یک متد استاتیک به نام <code>create</code> هستند که به وسیله‌ی سازنده‌ی <code>Level</code> برای ایجاد یک بازیگر از یک کاراکتر موجود در طرح مرحله استفاده می‌شود. به آن، مختصات کاراکتر و خود کاراکتر داده می‌شود، که ضروری است زیرا کلاس <code>Lava</code> کاراکترهای متعددی را رسیدگی می کند.</p>
 
-<p id="vector"><a class="p_ident" id="p_lWgsae+2Q1" href="#p_lWgsae+2Q1" tabindex="-1" role="presentation"></a>This is the <code>Vec</code> class that we’ll use for our two-dimensional values, such as the position and size of actors.</p>
+<p id="vector">برای مقادیر دوبعدی از کلاس <code>Vec</code> استفاده می کنیم مثل موقعیت و اندازه‌ی بازیگران.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Hb9lakixOM" href="#c_Hb9lakixOM" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Vec</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">x</span>, <span class="cm-def">y</span>) {
@@ -152,11 +155,11 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_gWWk7Ulj1q" href="#p_gWWk7Ulj1q" tabindex="-1" role="presentation"></a>The <code>times</code> method scales a vector by a given number. It will be useful when we need to multiply a speed vector by a time interval to get the distance traveled during that time.</p>
+<p><a class="p_ident" id="p_AnwRRrG4+S" href="#p_AnwRRrG4+S" tabindex="-1" role="presentation"></a>متد <code>times</code> با توجه به عدد دریافتی اندازه‌ی یک بردار (vector) را تغییر می دهد. زمانی که لازم است تا یک بردار سرعت‌ را در یک وقفه‌ی زمان ضرب کنیم تا فاصله‌ی پیموده شده را در طول آن زمان به دست بیاوریم، مفید خواهد بود.</p>
 
-<p><a class="p_ident" id="p_AGmjtw30RN" href="#p_AGmjtw30RN" tabindex="-1" role="presentation"></a>The different types of actors get their own classes since their behavior is very different. Let’s define these classes. We’ll get to their <code>update</code> methods later.</p>
+<p>انواع مختلف بازیگران دارای کلاس‌های خودشان می باشند، به دلیل اینکه رفتارهایشان خیلی متفاوت است. اجازه بدهید این کلاس ها را تعریف کنیم. بعدا به متدهای <code>update</code> شان خواهیم پرداخت.</p>
 
-<p><a class="p_ident" id="p_qFX0r+uydc" href="#p_qFX0r+uydc" tabindex="-1" role="presentation"></a>The player class has a property <code>speed</code> that stores its current speed to simulate momentum and gravity.</p>
+<p><a class="p_ident" id="p_UDxK95A8q+" href="#p_UDxK95A8q+" tabindex="-1" role="presentation"></a>کلاس <code>Player</code> دارای خاصیتی به نام <code>speed</code> است که سرعت فعلی اش را ذخیره می کند تا جاذبه و تکانه (momentum) را شبیه‌سازی کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_+Zda+gD/W/" href="#c_+Zda+gD/W/" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Player</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">pos</span>, <span class="cm-def">speed</span>) {
@@ -174,13 +177,13 @@
 
 <span class="cm-variable">Player</span>.<span class="cm-property">prototype</span>.<span class="cm-property">size</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Vec</span>(<span class="cm-number">0.8</span>, <span class="cm-number">1.5</span>);</pre>
 
-<p><a class="p_ident" id="p_pJwDuA/gUR" href="#p_pJwDuA/gUR" tabindex="-1" role="presentation"></a>Because a player is one-and-a-half squares high, its initial position is set to be half a square above the position where the <code>@</code> character appeared. This way, its bottom aligns with the bottom of the square it appeared in.</p>
+<p>چون یک بازیکن یک و نیم برابر یک مربع ارتفاع دارد، موقعیت اولیه‌ی آن برابر با نصف مربع بالای موقعیتی که کاراکتر <code>@</code> ظاهر می‌شود تنظیم می‌شود. با این کار، قسمت پایین آن با قسمت پایین مربعی که در آن ظاهر می‌شود تراز خواهد شد.</p>
 
-<p><a class="p_ident" id="p_X3b7n+ph7P" href="#p_X3b7n+ph7P" tabindex="-1" role="presentation"></a>The <code>size</code> property is the same for all instances of <code>Player</code>, so we store it on the prototype rather than on the instances themselves. We could have used a getter like <code>type</code>, but that would create and return a new <code>Vec</code> object every time the property is read, which would be wasteful. (Strings, being immutable, don’t have to be re-created every time they are evaluated.)</p>
+<p><a class="p_ident" id="p_68YDtd2GEB" href="#p_68YDtd2GEB" tabindex="-1" role="presentation"></a>خاصیت <code>size</code> برای همه‌ی نمونه‌های گرفته شده از <code>Player</code> یکسان است پس می توان آن را به جای ذخیره در نمونه‌ها در prototype ذخیره کرد. می توانستیم از یک getter مثل <code>type</code> استفاده کنیم اما در این صورت یک شیء <code>Vec</code> جدید هر بار که خاصیت خوانده می شد ایجاد و برگردانده می شد که کاری بیهوده است. (رشته‌ها با توجه به غیرقابل تغییر بودن، نیازی ندارند با هر بار ارزیابی از نو ایجاد شوند).</p>
 
-<p><a class="p_ident" id="p_CZIhBrKg4H" href="#p_CZIhBrKg4H" tabindex="-1" role="presentation"></a>When constructing a <code>Lava</code> actor, we need to initialize the object differently depending on the character it is based on. Dynamic lava moves along at its current speed until it hits an obstacle. At that point, if it has a <code>reset</code> property, it will jump back to its start position (dripping). If it does not, it will invert its speed and continue in the other direction (bouncing).</p>
+<p><a class="p_ident" id="p_NPCV7d07RH" href="#p_NPCV7d07RH" tabindex="-1" role="presentation"></a>زمانی که یک بازیگر <code>Lava</code> را می سازیم، لازم است که شیء با توجه با کاراکتری که بر پایه‌ی آن است مقداردهی متفاوتی شود. گدازه‌ی پویا با سرعت فعلی‌اش حرکت می کند تا زمانی که به یک مانع بخورد. در این نقطه، اگر دارای خاصیت <code>reset</code> باشد، به موقعیت اولیه‌اش برمی‌گردد (dripping). اگر نداشت، سرعتش معکوس شده و درجهت مخالف به حرکت ادامه می دهد (bouncing).</p>
 
-<p><a class="p_ident" id="p_0NJ2jc8Gmf" href="#p_0NJ2jc8Gmf" tabindex="-1" role="presentation"></a>The <code>create</code> method looks at the character that the <code>Level</code> constructor passes and creates the appropriate lava actor.</p>
+<p>متد <code>create</code> به کاراکترهایی که سازنده‌ی <code>Level</code> ارسال می کند نگاه کرده و بازیگران گدازه‌ی مناسب ایجاد می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_OquWedN4L5" href="#c_OquWedN4L5" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Lava</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">pos</span>, <span class="cm-def">speed</span>, <span class="cm-def">reset</span>) {
@@ -204,7 +207,7 @@
 
 <span class="cm-variable">Lava</span>.<span class="cm-property">prototype</span>.<span class="cm-property">size</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Vec</span>(<span class="cm-number">1</span>, <span class="cm-number">1</span>);</pre>
 
-<p><a class="p_ident" id="p_fqdOUTLAz4" href="#p_fqdOUTLAz4" tabindex="-1" role="presentation"></a><code>Coin</code> actors are relatively simple. They mostly just sit in their place. But to liven up the game a little, they are given a “wobble”, a slight vertical back-and-forth motion. To track this, a coin object stores a base position as well as a <code>wobble</code> property that tracks the phase of the bouncing motion. Together, these determine the coin’s actual position (stored in the <code>pos</code> property).</p>
+<p>بازیگران <code>Coin</code> نسبتا ساده هستند. بیشترشان فقط در جای خود ثابت هستند. اما برای اینکه کمی به بازی پویایی اضافه کنیم، آن‌ها را در جا حرکت می دهیم. برای انجام این کار، یک شیء سکه موقعیت پایه‌ای را به همراه یک خاصیت <code>wobble</code> که حرکت درجا را رصد می کند ذخیره می کند. این دو با هم موقعیت واقعی سکه را مشخص می کنند (که در خاصیت <code>pos</code> حفظ می شوند).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_f2L1vFl5w5" href="#c_f2L1vFl5w5" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Coin</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">pos</span>, <span class="cm-def">basePos</span>, <span class="cm-def">wobble</span>) {
@@ -224,11 +227,11 @@
 
 <span class="cm-variable">Coin</span>.<span class="cm-property">prototype</span>.<span class="cm-property">size</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Vec</span>(<span class="cm-number">0.6</span>, <span class="cm-number">0.6</span>);</pre>
 
-<p><a class="p_ident" id="p_C16pTz7oRy" href="#p_C16pTz7oRy" tabindex="-1" role="presentation"></a>In <a href="14_dom.html#sin_cos">Chapter 14</a>, we saw that <code>Math.sin</code> gives us the y-coordinate of a point on a circle. That coordinate goes back and forth in a smooth waveform as we move along the circle, which makes the sine function useful for modeling a wavy motion.</p>
+<p>در <a href="14_dom.html#sin_cos">فصل 14</a>، دیدیم که متد <bdo><code>Math.sin</code></bdo> مختصات عرضی نقطه‌ای روی دایره را به ما می دهد. مقدار این مختصات با حرکت در محیط دایره به صورت موجی در یک بازه بالا و پایین می رود که موجب می‌شود تابع سینوس گزینه‌ی خوبی برای مدلسازی حرکت موجی برای ما باشد.</p>
 
-<p><a class="p_ident" id="p_gQCua74XOk" href="#p_gQCua74XOk" tabindex="-1" role="presentation"></a>To avoid a situation where all coins move up and down synchronously, the starting phase of each coin is randomized. The <em>phase</em> of <code>Math.sin</code>’s wave, the width of a wave it produces, is 2π. We multiply the value returned by <code>Math.random</code> by that number to give the coin a random starting position on the wave.</p>
+<p><a class="p_ident" id="p_2kuSN7rMzf" href="#p_2kuSN7rMzf" tabindex="-1" role="presentation"></a>برای جلوگیری از حالتی که همه‌ی سکه‌ها همزمان بالا و پایین بروند، فاز شروع هر سکه به صورت تصادفی تعیین می‌شود. فاز موج <bdo><code>Math.sin</code></bdo> همان عرض موجی است که تولید می کند و برابر با 2π می باشد. مقدار بازگشتی از <bdo><code>Math.random</code></bdo> را در آن عدد ضرب کرده تا موقعیت شروع تصادفی ای به سکه روی موج بدهیم.</p>
 
-<p><a class="p_ident" id="p_0wsl0zoIAL" href="#p_0wsl0zoIAL" tabindex="-1" role="presentation"></a>We can now define the <code>levelChars</code> object that maps plan characters to either background grid types or actor classes.</p>
+<p>اکنون می توانیم شیء <code>levelChars</code> را تعریف کنیم که کاراکترهای طرح را روی انواع grid پس‌زمینه یا کلاس‌های بازیگر نگاشت کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_VxaicldIYi" href="#c_VxaicldIYi" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">levelChars</span> <span class="cm-operator">=</span> {
   <span class="cm-string cm-property">&quot;.&quot;</span>: <span class="cm-string">&quot;empty&quot;</span>, <span class="cm-string cm-property">&quot;#&quot;</span>: <span class="cm-string">&quot;wall&quot;</span>, <span class="cm-string cm-property">&quot;+&quot;</span>: <span class="cm-string">&quot;lava&quot;</span>,
@@ -236,31 +239,31 @@
   <span class="cm-string cm-property">&quot;=&quot;</span>: <span class="cm-variable">Lava</span>, <span class="cm-string cm-property">&quot;|&quot;</span>: <span class="cm-variable">Lava</span>, <span class="cm-string cm-property">&quot;v&quot;</span>: <span class="cm-variable">Lava</span>
 };</pre>
 
-<p><a class="p_ident" id="p_DkV+hEDKE5" href="#p_DkV+hEDKE5" tabindex="-1" role="presentation"></a>That gives us all the parts needed to create a <code>Level</code> instance.</p>
+<p>این به ما تمامی بخش‌های لازم برای ایجاد نمونه‌ی <code>Level</code> را می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CDJvcZL+0x" href="#c_CDJvcZL+0x" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">simpleLevel</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Level</span>(<span class="cm-variable">simpleLevelPlan</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`${</span><span class="cm-variable">simpleLevel</span>.<span class="cm-property">width</span><span class="cm-string-2">}</span> <span class="cm-string-2">by ${</span><span class="cm-variable">simpleLevel</span>.<span class="cm-property">height</span><span class="cm-string-2">}</span><span class="cm-string-2">`</span>);
 <span class="cm-comment">// → 22 by 9</span></pre>
 
-<p><a class="p_ident" id="p_lCdOTin0mI" href="#p_lCdOTin0mI" tabindex="-1" role="presentation"></a>The task ahead is to display such levels on the screen and to model time and motion inside them.</p>
+<p>کار باقی مانده این است که این مرحله‌ها را روی صفحه‌ی نمایش نشان دهیم و زمان و حرکت را درون آن مدلسازی کنیم.</p>
 
-<h2><a class="h_ident" id="h_uCRd57RG2L" href="#h_uCRd57RG2L" tabindex="-1" role="presentation"></a>Encapsulation as a burden</h2>
+<h2><a class="h_ident" id="h_WXKm2heBeA" href="#h_WXKm2heBeA" tabindex="-1" role="presentation"></a>کپسوله‌سازی به عنوان یک بار</h2>
 
-<p><a class="p_ident" id="p_M65QHGE4qM" href="#p_M65QHGE4qM" tabindex="-1" role="presentation"></a>Most of the code in this chapter does not worry about encapsulation very much for two reasons. First, encapsulation takes extra effort. It makes programs bigger and requires additional concepts and interfaces to be introduced. Since there is only so much code you can throw at a reader before their eyes glaze over, I’ve made an effort to keep the program small.</p>
+<p>بیشتر کدهای این فصل بدون در نظر گرفته کپسوله سازی نوشته شده اند و این کار دو دلیل دارد. اول اینکه کپسوله‌سازی کار بیشتری از ما می گیرد. باعث بزرگتر شدن برنامه می‌شود و نیاز به طرح مفاهیم و رابط های بیشتری دارد. به دلیل این که نمی توان در اینجا کد زیادی به نمایش گذاشت و برای خواننده کسل کننده خواهد شد، من تلاش کردم که که برنامه را کوچک نگه دارم.</p>
 
-<p><a class="p_ident" id="p_21KwkzRO2L" href="#p_21KwkzRO2L" tabindex="-1" role="presentation"></a>Second, the various elements in this game are so closely tied together that if the behavior of one of them changed, it is unlikely that any of the others would be able to stay the same. Interfaces between the elements would end up encoding a lot of assumptions about the way the game works. This makes them a lot less effective—whenever you change one part of the system, you still have to worry about the way it impacts the other parts because their interfaces wouldn’t cover the new situation.</p>
+<p>دوما، عناصر متنوع درون این بازی با هم ارتباط تنگاتنگی دارند و اگر رفتار یکی از آن ها تغییر کند، بعید است که دیگر عناصر بتوانند به همان صورت قبلی بمانند. رابط‌های بین این عناصر ممکن است به اینجا ختم شود که فرض‌های زیادی درباره‌ی نحوه‌ی عملکرد بازی در نظر بگیرند. این باعث می‌شود که اثرگذاری این رابط‌ها بسیار کاهش یابد- هربار که بخشی از سیستم را تغییر می دهید، همچنان بایستی نگران نحوه‌ی اثر آن روی دیگر قسمت‌ها باشید چراکه رابط‌های آن ها شرایط جدید را پوشش نداده اند.</p>
 
-<p><a class="p_ident" id="p_0qau17Yus5" href="#p_0qau17Yus5" tabindex="-1" role="presentation"></a>Some <em>cutting points</em> in a system lend themselves well to separation through rigorous interfaces, but others don’t. Trying to encapsulate something that isn’t a suitable boundary is a sure way to waste a lot of energy. When you are making this mistake, you’ll usually notice that your interfaces are getting awkwardly large and detailed and that they need to be changed often, as the program evolves.</p>
+<p><a class="p_ident" id="p_bOHMEF1lEF" href="#p_bOHMEF1lEF" tabindex="-1" role="presentation"></a>بعضی نقاط قابل برش در سیستم (<em>cutting points</em>)، خودشان مناسب قرارگرفتن به عنوان قسمت‌های مجزا توسط رابط‌های دقیق می‌باشند، اما دیگر قسمت‌ها این طور نیستند. تلاش در جهت کپسوله‌سازی چیزی که کرانه‌ی مناسبی محسوب نمی‌شود، روش مطمئنی برای تلف کردن زیاد انرژی است. زمانی که مرتکب این اشتباه می شوید معمولا متوجه می شوید که رابط شما به شکل نامناسبی بزرگ و دارای جزئیات می‌شود و اغلب با تکامل برنامه، لازم است تغییر کند.</p>
 
-<p><a class="p_ident" id="p_zVT1v9P1c6" href="#p_zVT1v9P1c6" tabindex="-1" role="presentation"></a>There is one thing that we <em>will</em> encapsulate, and that is the drawing subsystem. The reason for this is that we’ll display the same game in a different way in the <a href="17_canvas.html#canvasdisplay">next chapter</a>. By putting the drawing behind an interface, we can load the same game program there and plug in a new display module.</p>
+<p>یک چیز هست که قصد داریم تا کپسوله‌سازی کنیم و آن طراحی زیرسیستم است. دلیل این کار این است که ما بازی را به روش متفاوتی در فصل آینده قرار است نمایش دهیم. با قرار دادن عمل طراحی پشت یک رابط، می توانیم همین برنامه‌ی بازی را آنجا بارگیری کرده و ماژول نمایش جدیدی را به خدمت بگیریم.</p>
 
-<h2 id="domdisplay"><a class="h_ident" id="h_neNgUMdlHQ" href="#h_neNgUMdlHQ" tabindex="-1" role="presentation"></a>Drawing</h2>
+<h2 id="domdisplay"><a class="h_ident" id="h_oIC/o2KMUA" href="#h_oIC/o2KMUA" tabindex="-1" role="presentation"></a>رسم</h2>
 
-<p><a class="p_ident" id="p_bjlUPfTgQP" href="#p_bjlUPfTgQP" tabindex="-1" role="presentation"></a>The encapsulation of the drawing code is done by defining a <em>display</em> object, which displays a given level and state. The display type we define in this chapter is called <code>DOMDisplay</code> because it uses DOM elements to show the level.</p>
+<p><a class="p_ident" id="p_x/xsZs25go" href="#p_x/xsZs25go" tabindex="-1" role="presentation"></a>عمل کپسوله کردن کد رسم اشکال با تعریف یک شیء <em>display</em> انجام می‌شود که وضعیت و مرحله‌ی داده شده را نمایش می دهد. نوع displayای که در این فصل تعریف می کنیم <code>DOMDisplay</code> خوانده می‌شود به دلیل این که از عناصر DOM برای نمایش مرحله استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_8XJ1fe7OPg" href="#p_8XJ1fe7OPg" tabindex="-1" role="presentation"></a>We’ll be using a style sheet to set the actual colors and other fixed properties of the elements that make up the game. It would also be possible to directly assign to the elements’ <code>style</code> property when we create them, but that would produce more verbose programs.</p>
+<p><a class="p_ident" id="p_L4RBep5zzq" href="#p_L4RBep5zzq" tabindex="-1" role="presentation"></a>ما از یک برگه‌ی سبک‌دهی (css) برای تنظیم رنگ‌های واقعی و دیگر خاصیت‌های ثابت عناصر سازنده‌ی بازی استفاده می کنیم. همچنین می توان مستقیما خاصیت <code>style</code> عناصر را بعد از ایجادشان مقداردهی کرد اما این کار برنامه‌ها را بی‌نظم و شلوغ می‌کند.</p>
 
-<p><a class="p_ident" id="p_nm5ENHsGf9" href="#p_nm5ENHsGf9" tabindex="-1" role="presentation"></a>The following helper function provides a succinct way to create an element and give it some attributes and child nodes:</p>
+<p>تابع کمکی زیر روشی مختصر برای ایجاد یک عنصر و اختصاص چند خصیصه و گره‌ی فرزند فراهم می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_IslrNCPEgI" href="#c_IslrNCPEgI" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">elt</span>(<span class="cm-def">name</span>, <span class="cm-def">attrs</span>, <span class="cm-meta">...</span><span class="cm-def">children</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">dom</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-variable-2">name</span>);
@@ -273,7 +276,7 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">dom</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_Xjpq/reXQf" href="#p_Xjpq/reXQf" tabindex="-1" role="presentation"></a>A display is created by giving it a parent element to which it should append itself and a level object.</p>
+<p><a class="p_ident" id="p_WbGJBwr3Ud" href="#p_WbGJBwr3Ud" tabindex="-1" role="presentation"></a>یک display به این صورت ایجاد می‌شود که به آن عنصر والدی اختصاص داده می‌شود که باید خودش و یک شیء مرحله را به آن اضافه کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_YPdTKEt761" href="#c_YPdTKEt761" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">DOMDisplay</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">parent</span>, <span class="cm-def">level</span>) {
@@ -285,9 +288,9 @@
   <span class="cm-property">clear</span>() { <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">remove</span>(); }
 }</pre>
 
-<p><a class="p_ident" id="p_mbvJm4+nKS" href="#p_mbvJm4+nKS" tabindex="-1" role="presentation"></a>The level’s background grid, which never changes, is drawn once. Actors are redrawn every time the display is updated with a given state. The <code>actorLayer</code> property will be used to track the element that holds the actors so that they can be easily removed and replaced.</p>
+<p>grid پس‌زمینه‌ی مرحله، که همیشه ثابت است، فقط یک بار رسم می‌شود. بازیگران اما با هر بار تغییر صفحه نمایش توسط یک وضعیت جدید از نو رسم می شوند. خاصیت <code>actorLayer</code> برای رصد عنصری که بازیگران را نگه‌داری می کند استفاده می‌شود تا آن ها بتوانند به آسانی تغییر و حذف شوند.</p>
 
-<p><a class="p_ident" id="p_si3+n3Lijy" href="#p_si3+n3Lijy" tabindex="-1" role="presentation"></a>Our coordinates and sizes are tracked in grid units, where a size or distance of 1 means one grid block. When setting pixel sizes, we will have to scale these coordinates up—everything in the game would be ridiculously small at a single pixel per square. The <code>scale</code> constant gives the number of pixels that a single unit takes up on the screen.</p>
+<p><a class="p_ident" id="p_PmKGGVH0OG" href="#p_PmKGGVH0OG" tabindex="-1" role="presentation"></a>مختصات و اندازه‌های ما در واحدهای grid اندازه‌گیری می شوند، برای اندازه یا فاصله، 1 به معنای یک بلاک grid است. زمانی که اندازه‌های پیکسلی را تنظیم می کنیم، می بایست مقیاس این مختصات را افزایش دهیم – اگر برای هر مربع یک پیکسل در نظر بگیریم همه‌ی عناصر بازی به شدت کوچک می شوند. ثابت <code>scale</code> تعداد پیکسل معادل یک واحد در صفحه‌ی نمایش را تعیین می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LrmszCVXMZ" href="#c_LrmszCVXMZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">scale</span> <span class="cm-operator">=</span> <span class="cm-number">20</span>;
 
@@ -301,9 +304,9 @@
   ));
 }</pre>
 
-<p><a class="p_ident" id="p_cGH93DulN/" href="#p_cGH93DulN/" tabindex="-1" role="presentation"></a>As mentioned, the background is drawn as a <code>&lt;table&gt;</code> element. This nicely corresponds to the structure of the <code>rows</code> property of the level—each row of the grid is turned into a table row (<code>&lt;tr&gt;</code> element). The strings in the grid are used as class names for the table cell (<code>&lt;td&gt;</code>) elements. The spread (triple dot) operator is used to pass arrays of child nodes to <code>elt</code> as separate arguments.</p>
+<p>همانطور که قبلا ذکر شد، پس‌زمینه به عنوان یک عنصر <bdo><code>&lt;table&gt;</code></bdo> رسم می‌شود. این عنصر با ساختار خاصیت <code>rows</code> مربوط به مرحله به خوبی هماهنگی دارد – هر ردیف از grid به یک ردیف جدول (<bdo><code>&lt;tr&gt;</code></bdo>) تبدیل می‌شود. رشته‌های موجود در گرید به عنوان نام‌های کلاس برای سلول‌های جدول (<bdo><code>&lt;td&gt;</code></bdo>) استفاده می شوند. عملگر توزیع (سه‌نقطه) برای ارسال آرایه‌ی گره‌های فرزند به <code>elt</code> به عنوان آرگومان‌های مجزا استفاده می‌شود.</p>
 
-<p id="game_css"><a class="p_ident" id="p_rtSatvHAOz" href="#p_rtSatvHAOz" tabindex="-1" role="presentation"></a>The following CSS makes the table look like the background we want:</p>
+<p id="game_css"><a class="p_ident" id="p_GU4T2nIKHw" href="#p_GU4T2nIKHw" tabindex="-1" role="presentation"></a>کد CSS زیر موجب می‌شود که جدول شبیه پس‌زمینه‌ای که دوست داریم بشود:</p>
 
 <pre class="snippet cm-s-default" data-language="text/css" ><a class="c_ident" id="c_wOP5LzF6Sp" href="#c_wOP5LzF6Sp" tabindex="-1" role="presentation"></a><span class="cm-qualifier">.background</span>    { <span class="cm-property">background</span>: <span class="cm-atom">rgb</span>(<span class="cm-number">52</span>, <span class="cm-number">166</span>, <span class="cm-number">251</span>);
                  <span class="cm-property">table-layout</span>: <span class="cm-atom">fixed</span>;
@@ -312,11 +315,11 @@
 <span class="cm-qualifier">.lava</span>          { <span class="cm-property">background</span>: <span class="cm-atom">rgb</span>(<span class="cm-number">255</span>, <span class="cm-number">100</span>, <span class="cm-number">100</span>); }
 <span class="cm-qualifier">.wall</span>          { <span class="cm-property">background</span>: <span class="cm-keyword">white</span>;              }</pre>
 
-<p><a class="p_ident" id="p_Fm4CLmRVL5" href="#p_Fm4CLmRVL5" tabindex="-1" role="presentation"></a>Some of these (<code>table-layout</code>, <code>border-spacing</code>, and <code>padding</code>) are used to suppress unwanted default behavior. We don’t want the layout of the table to depend upon the contents of its cells, and we don’t want space between the table cells or padding inside them.</p>
+<p><a class="p_ident" id="p_3UNV2daimV" href="#p_3UNV2daimV" tabindex="-1" role="presentation"></a>بعضی از این خاصیت‌ها (<bdo><code>table-layout</code></bdo>،<bdo><code>border-spacing</code></bdo> و <code>padding</code>) برای تغییر رفتارهای پیشفرض ناخواسته است. ما نمی خواهیم که قالب جدول وابسته به محتوای خانه‌هایش باشد و دوست نداریم بین خانه‌های جدول فاصله باشد یا درونشان padding داشته باشند.</p>
 
-<p><a class="p_ident" id="p_SjTsFY8eD3" href="#p_SjTsFY8eD3" tabindex="-1" role="presentation"></a>The <code>background</code> rule sets the background color. CSS allows colors to be specified both as words (<code>white</code>) or with a format such as <code>rgb(R, G, B)</code>, where the red, green, and blue components of the color are separated into three numbers from 0 to 255. So, in <code>rgb(52, 166, 251)</code>, the red component is 52, green is 166, and blue is 251. Since the blue component is the largest, the resulting color will be bluish. You can see that in the <code>.lava</code> rule, the first number (red) is the largest.</p>
+<p><a class="p_ident" id="p_F+bpiTczTx" href="#p_F+bpiTczTx" tabindex="-1" role="presentation"></a>دستور <code>background</code> رنگ پس‌زمینه را تنظیم می کند. در CSS می توان رنگ را هم با نامشان (white) و هم با فرمت‌های مثل <bdo><code>rgb(R, G, B)</code></bdo> که سه رنگ اصلی قرمز، سبز و آبی که تشکیل دهنده رنگ هستند با اعدادی بین 0 تا 255 مشخص می شوند. براین اساس، در <bdo><code>rgb(52, 166, 251)</code></bdo> قرمز برابر 52، سبز 166 و آبی 251 می باشد. چون قسمت آبی بیشترین عدد را دارد نتیجه رنگی متمایل به آبی خواهد بود. می توانید آن را در دستور <bdo><code>.lava</code></bdo> مشاهده کنید، که در آنجا اولین عدد (قرمز) بزرگترین عدد است.</p>
 
-<p><a class="p_ident" id="p_EGE24ax3xh" href="#p_EGE24ax3xh" tabindex="-1" role="presentation"></a>We draw each actor by creating a DOM element for it and setting that element’s position and size based on the actor’s properties. The values have to be multiplied by <code>scale</code> to go from game units to pixels.</p>
+<p>ما هر بازیگر را با ایجاد یک عنصر DOM برای آن رسم کردیم و موقعیت و اندازه‌ی آن عنصر را بر اساس خاصیت‌های بازیگر مورد نظر تنظیم کردیم. مقادیر باید در <code>scale</code> ضرب شوند تا از واحدهای بازی به پیکسل تبدیل شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SJNWL3kOZh" href="#c_SJNWL3kOZh" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">drawActors</span>(<span class="cm-def">actors</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable">elt</span>(<span class="cm-string">&quot;div&quot;</span>, {}, <span class="cm-meta">...</span><span class="cm-variable-2">actors</span>.<span class="cm-property">map</span>(<span class="cm-def">actor</span> <span class="cm-operator">=&gt;</span> {
@@ -329,13 +332,13 @@
   }));
 }</pre>
 
-<p><a class="p_ident" id="p_mTuOphlRZ6" href="#p_mTuOphlRZ6" tabindex="-1" role="presentation"></a>To give an element more than one class, we separate the class names by spaces. In the CSS code shown next, the <code>actor</code> class gives the actors their absolute position. Their type name is used as an extra class to give them a color. We don’t have to define the <code>lava</code> class again because we’re reusing the class for the lava grid squares we defined earlier.</p>
+<p><a class="p_ident" id="p_F/4rlB4nhn" href="#p_F/4rlB4nhn" tabindex="-1" role="presentation"></a>برای اینکه به یک عنصر بیش از یک کلاس اختصاص بدهیم، نام کلاس‌ها را با فضای خالی از هم جدا می کنیم. در کد CSSای که در ادامه نمایش داده می‌شود، کلاس <code>actor</code> به همه‌ی عناصر بازیگر موقعیتی مطلقشان را تخصیص می دهد. نام نوع بازیگران به عنوان کلاسی اضافی استفاده می‌شود تا به هر کدام یک رنگ اختصاص یابد. نیازی نیست که کلاس <code>lava</code> را دوباره تعریف کنیم چون از همان کلاس <code>lava</code> که برای مربع‌های grid تعریف کرده بودیم در قبل استفاده خواهیم کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/css" ><a class="c_ident" id="c_ksr13Gc65g" href="#c_ksr13Gc65g" tabindex="-1" role="presentation"></a><span class="cm-qualifier">.actor</span>  { <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>;            }
 <span class="cm-qualifier">.coin</span>   { <span class="cm-property">background</span>: <span class="cm-atom">rgb</span>(<span class="cm-number">241</span>, <span class="cm-number">229</span>, <span class="cm-number">89</span>); }
 <span class="cm-qualifier">.player</span> { <span class="cm-property">background</span>: <span class="cm-atom">rgb</span>(<span class="cm-number">64</span>, <span class="cm-number">64</span>, <span class="cm-number">64</span>);   }</pre>
 
-<p><a class="p_ident" id="p_4qUaGsKUgq" href="#p_4qUaGsKUgq" tabindex="-1" role="presentation"></a>The <code>syncState</code> method is used to make the display show a given state. It first removes the old actor graphics, if any, and then redraws the actors in their new positions. It may be tempting to try to reuse the DOM elements for actors, but to make that work, we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure we remove elements when their actors vanish. Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.</p>
+<p><a class="p_ident" id="p_AEaGKg4haX" href="#p_AEaGKg4haX" tabindex="-1" role="presentation"></a>متد <code>syncState</code> برای نمایش دادن یک وضعیت داده شده استفاده می‌شود. ابتدا تصاویر گرافیکی قدیمی بازیگران را حذف می کند، در صورت وجود، و سپس بازیگران را در موقعیت جدیدشان از نو ترسیم می کند. ممکن‌ است وسوسه‌انگیز باشد که از عناصر DOM برای بازیگران دوباره استفاده کنیم، اما برای این کار، لازم است تا کلی حساب و کتاب اضافی برای انتساب بازیگران به عناصر DOM انجام دهیم و باز مطمئن شویم با ناپدید شدن هر بازیگر آن عناصر مرتبط را نیز حذف کنیم. به دلیل اینکه تعداد انگشت‌شماری بازیگر در این بازی وجود دارد، از نو ترسیم کردن همه‌ی آنها کار هزینه‌بردازی محسوب نمی‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/bAFVECbGl" href="#c_/bAFVECbGl" tabindex="-1" role="presentation"></a><span class="cm-variable">DOMDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">syncState</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">state</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-keyword">this</span>.<span class="cm-property">actorLayer</span>) <span class="cm-keyword">this</span>.<span class="cm-property">actorLayer</span>.<span class="cm-property">remove</span>();
@@ -345,7 +348,7 @@
   <span class="cm-keyword">this</span>.<span class="cm-property">scrollPlayerIntoView</span>(<span class="cm-variable-2">state</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_sZEoSNaFbo" href="#p_sZEoSNaFbo" tabindex="-1" role="presentation"></a>By adding the level’s current status as a class name to the wrapper, we can style the player actor slightly differently when the game is won or lost by adding a CSS rule that takes effect only when the player has an ancestor element with a given class.</p>
+<p><a class="p_ident" id="p_iTOE9haLUy" href="#p_iTOE9haLUy" tabindex="-1" role="presentation"></a>با افزودن وضعیت فعلی مرحله به عنوان یک نام کلاس به wrapper، می توانیم شخصیت بازی را در زمان برنده شدن یا باختن بازی سبک‌دهی متفاوتی بکنیم و این کار با افزودن یک دستور CSS که زمانی اعمال می‌شود که بازیکن عنصر والدش دارای کلاس داده شده باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/css" ><a class="c_ident" id="c_6QpUiIcdtL" href="#c_6QpUiIcdtL" tabindex="-1" role="presentation"></a><span class="cm-qualifier">.lost</span> <span class="cm-qualifier">.player</span> {
   <span class="cm-property">background</span>: <span class="cm-atom">rgb</span>(<span class="cm-number">160</span>, <span class="cm-number">64</span>, <span class="cm-number">64</span>);
@@ -354,9 +357,9 @@
   <span class="cm-property">box-shadow</span>: <span class="cm-number">-4px</span> <span class="cm-number">-7px</span> <span class="cm-number">8px</span> <span class="cm-keyword">white</span>, <span class="cm-number">4px</span> <span class="cm-number">-7px</span> <span class="cm-number">8px</span> <span class="cm-keyword">white</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_RiEBu6FHP5" href="#p_RiEBu6FHP5" tabindex="-1" role="presentation"></a>After touching lava, the player’s color turns dark red, suggesting scorching. When the last coin has been collected, we add two blurred white shadows—one to the top left and one to the top right—to create a white halo effect.</p>
+<p>بعد از برخورد با گدازه، رنگ بازیکن به قرمز تیره تغییر می کند که سوختن را نمایش دهد. زمانی که آخرین سکه هم جمع شد دو سایه‌ی سفید تار- یکی به بالا-چپ و دیگری به بالا-راست اضافه می کنیم- تا جلوه‌ی هاله‌ی روشن را ایجاد کنیم.</p>
 
-<p id="viewport"><a class="p_ident" id="p_3Lai0THCj4" href="#p_3Lai0THCj4" tabindex="-1" role="presentation"></a>We can’t assume that the level always fits in the <em>viewport</em>—the element into which we draw the game. That is why the <code>scrollPlayerIntoView</code> call is needed. It ensures that if the level is protruding outside the viewport, we scroll that viewport to make sure the player is near its center. The following CSS gives the game’s wrapping DOM element a maximum size and ensures that anything that sticks out of the element’s box is not visible. We also give it a relative position so that the actors inside it are positioned relative to the level’s top-left corner.</p>
+<p id="viewport"><a class="p_ident" id="p_ZgqzD/QamT" href="#p_ZgqzD/QamT" tabindex="-1" role="presentation"></a>نمی توانیم فرض بگیریم که مرحله‌ی بازی همیشه در میدان دید (viewport) باشد – منظور عنصری است که در آن بازی را ترسیم می کنیم. به همین دلیل است که فراخوانی <code>scrollPlayerIntoView</code> لازم است – این تابع باعث می‌شود تا در صورتی که مرحله‌ی بازی از اندازه‌ی میدان دید فراتر رفت، آن عنصر میدان دید اسکرول شود و شخصیت بازی نزدیک وسط تصویر آن قرار گیرد. دستورات ‌CSS پیش رو به عنصر wrapper بازی بیشینه‌ی اندازه را اختصاص داده و اطمینان حاصل می کند که هر چیزی که بیرون از محدوده‌ی این عنصر قرار بگیرد قابل مشاهده نخواهد بود. همچنین به عنصر بیرونی یک موقعیت نسبی تخصیص دادیم که باعث می شود بازیگران درون آن نسبت به گوشه‌ی چپ-بالای مرحله موقعیت دهی شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/css" ><a class="c_ident" id="c_cxq+gtsZuW" href="#c_cxq+gtsZuW" tabindex="-1" role="presentation"></a><span class="cm-qualifier">.game</span> {
   <span class="cm-property">overflow</span>: <span class="cm-atom">hidden</span>;
@@ -365,7 +368,7 @@
   <span class="cm-property">position</span>: <span class="cm-atom">relative</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_IgYwZuZ1Co" href="#p_IgYwZuZ1Co" tabindex="-1" role="presentation"></a>In the <code>scrollPlayerIntoView</code> method, we find the player’s position and update the wrapping element’s scroll position. We change the scroll position by manipulating that element’s <code>scrollLeft</code> and <code>scrollTop</code> properties when the player is too close to the edge.</p>
+<p>در متد <code>scrollPlayerIntoView</code> ما موقعیت بازیکن را پیدا می کنیم و موقعیت اسکرول عنصر پوشاننده‌ی آن را به‌روز می کنیم. موقعیت اسکرول را با دستکاری خاصیت‌های <code>scollLeft</code> و <code>scrollTop</code> وقتی که بازیکن خیلی به کناره‌ها نزیک می‌شود تغییر می دهیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Of96qEfT96" href="#c_Of96qEfT96" tabindex="-1" role="presentation"></a><span class="cm-variable">DOMDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">scrollPlayerIntoView</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">state</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">width</span> <span class="cm-operator">=</span> <span class="cm-keyword">this</span>.<span class="cm-property">dom</span>.<span class="cm-property">clientWidth</span>;
@@ -392,13 +395,13 @@
   }
 };</pre>
 
-<p><a class="p_ident" id="p_3qHzB4KoD+" href="#p_3qHzB4KoD+" tabindex="-1" role="presentation"></a>The way the player’s center is found shows how the methods on our <code>Vec</code> type allow computations with objects to be written in a relatively readable way. To find the actor’s center, we add its position (its top-left corner) and half its size. That is the center in level coordinates, but we need it in pixel coordinates, so we then multiply the resulting vector by our display scale.</p>
+<p>روشی که در آن مرکز بازیکن را پیدا کردیم نشان می دهد چگونه متدهای موجود در نوع <code>Vec</code> امکان محاسبات روی اشیاء را به شکلی نسبتا خوانا فراهم می کنند. برای پیدا کردن مرکز بازیگر، موقعیت آن را (گوشه‌ی بالا-چپ) به نیمی از اندازه‌اش اضافه می کنیم. در مختصات مرحله آن مرکز محسوب می‌شود اما ما نیاز به مختصات در واحد پیکس داریم که بتوانیم بردار نتیجه را در مقیاس نمایش مان ضرب کنیم.</p>
 
-<p><a class="p_ident" id="p_nyYhuiyn32" href="#p_nyYhuiyn32" tabindex="-1" role="presentation"></a>Next, a series of checks verifies that the player position isn’t outside of the allowed range. Note that sometimes this will set nonsense scroll coordinates that are below zero or beyond the element’s scrollable area. This is okay—the DOM will constrain them to acceptable values. Setting <code>scrollLeft</code> to -10 will cause it to become 0.</p>
+<p><a class="p_ident" id="p_hiaAA8CMxS" href="#p_hiaAA8CMxS" tabindex="-1" role="presentation"></a>در ادامه مجموعه‌ای از بررسی‌ها را داریم که اطمینان حاصل شود که موقعیت بازیکن بیرون از بازه‌ی مجاز قرار نگیرد. توجه داشته باشید که گاهی اوقات مختصات اسکرول تولیدی نادرست می‌شود، عددی منفی یا بیشتر از محدوده‌ی قابل اسکرول. این مشکلی پیش نخواهد آورد – DOM آن ها را به مقدارهای قابل قبول محدود می کند. اگر مقدار <code>scrollLeft</code> را برابر <bdo>-10</bdo> تنظیم کنید به صورت خودکار 0 خواهد شد.</p>
 
-<p><a class="p_ident" id="p_MFibm1pU7d" href="#p_MFibm1pU7d" tabindex="-1" role="presentation"></a>It would have been slightly simpler to always try to scroll the player to the center of the viewport. But this creates a rather jarring effect. As you are jumping, the view will constantly shift up and down. It is more pleasant to have a “neutral” area in the middle of the screen where you can move around without causing any scrolling.</p>
+<p><a class="p_ident" id="p_wp2sWlqMYv" href="#p_wp2sWlqMYv" tabindex="-1" role="presentation"></a>کمی کار راحت تر می شد اگر همیشه بازیکن در مرکز میدان دید scroll می شد. اما این باعث نسبتا حالت لرزش ایجاد می کرد. در هنگام پرش، تصویر مداوم به سمت بالا و پایین حرکت می کند. بهتر است که یک ناحیه بیطرف در مرکز صفحه‌ی نمایش داشته باشیم که بتوان در آن بدون ایجاد اسکرول به حرکت پرداخت.</p>
 
-<p><a class="p_ident" id="p_LSD2j1d23Y" href="#p_LSD2j1d23Y" tabindex="-1" role="presentation"></a>We are now able to display our tiny level.</p>
+<p>اکنون می توانیم مرحله را به نشان دهیم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_LDPexlnWt1" href="#c_LDPexlnWt1" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">&quot;stylesheet&quot;</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;css/game.css&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -408,21 +411,21 @@
   <span class="cm-variable">display</span>.<span class="cm-property">syncState</span>(<span class="cm-variable">State</span>.<span class="cm-property">start</span>(<span class="cm-variable">simpleLevel</span>));
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_WeN+Ro9UkI" href="#p_WeN+Ro9UkI" tabindex="-1" role="presentation"></a>The <code>&lt;link&gt;</code> tag, when used with <code>rel=&quot;stylesheet&quot;</code>, is a way to load a CSS file into a page. The file <code>game.css</code> contains the styles necessary for our game.</p>
+<p>برچسب <bdo><code>&lt;link&gt;</code></bdo> زمانی که با <bdo><code>rel=&quot;stylesheet&quot;</code></bdo> استفاده می شود ، باعث بارگیری یک فایل CSS درون صفحه می‌شود. فایل <bdo><code>game.css</code></bdo> سبک‌های مورد نیاز بازی را در بر دارد.</p>
 
-<h2><a class="h_ident" id="h_zX4xC7JBQU" href="#h_zX4xC7JBQU" tabindex="-1" role="presentation"></a>Motion and collision</h2>
+<h2><a class="h_ident" id="h_p1c0/oaShN" href="#h_p1c0/oaShN" tabindex="-1" role="presentation"></a>حرکت و برخورد</h2>
 
-<p><a class="p_ident" id="p_Ans+nACOmo" href="#p_Ans+nACOmo" tabindex="-1" role="presentation"></a>Now we’re at the point where we can start adding motion—the most interesting aspect of the game. The basic approach, taken by most games like this, is to split time into small steps and, for each step, move the actors by a distance corresponding to their speed multiplied by the size of the time step. We’ll measure time in seconds, so speeds are expressed in units per second.</p>
+<p><a class="p_ident" id="p_DfnuoLrVpV" href="#p_DfnuoLrVpV" tabindex="-1" role="presentation"></a>اکنون در نقطه‌ای قرار داریم که می توانیم حرکت را به بازی اضافه کنیم – جالب ترین قسمت بازی. روش اصلی که اکثر بازی‌های مشابه استفاده می‌کنند این است که زمان را به گام‌های کوچک تقسیم کنیم و هر گام، بازیگران را مسافتی معادل ضرب سرعتشان در اندازه گام زمانی، جابجا کنیم. ما زمان را با ثانیه اندازه‌گیری می کنیم؛ بنابراین سرعت‌ها به صورت واحد (unit) بر ثانیه بیان می شوند.</p>
 
-<p><a class="p_ident" id="p_AMJvAGiWYs" href="#p_AMJvAGiWYs" tabindex="-1" role="presentation"></a>Moving things is easy. The difficult part is dealing with the interactions between the elements. When the player hits a wall or floor, they should not simply move through it. The game must notice when a given motion causes an object to hit another object and respond accordingly. For walls, the motion must be stopped. When hitting a coin, it must be collected. When touching lava, the game should be lost.</p>
+<p>حرکت دادن عناصر ساده است. قسمت مشکل مدیریت تعاملات بین عنصرها است. زمانی که بازیکن به دیوار یا زمین برخورد می کند، نباید وارد آن بشود. بازی باید متوجه برخورد یک شیء با شیء دیگر بشود و واکنش مناسبی نشان دهد. برای دیوارها، حرکت بایستی متوقف شود. زمانی که به سکه‌ها برخورد می‌شود، باید جمع‌آوری شوند. زمانی که گدازه‌ها لمس می شوند، بازی باید با شکست پایان یابد.</p>
 
-<p><a class="p_ident" id="p_0knqUiUFMu" href="#p_0knqUiUFMu" tabindex="-1" role="presentation"></a>Solving this for the general case is a big task. You can find libraries, usually called <em>physics engines</em>, that simulate interaction between physical objects in two or three dimensions. We’ll take a more modest approach in this chapter, handling only collisions between rectangular objects and handling them in a rather simplistic way.</p>
+<p><a class="p_ident" id="p_tRptEEG0ga" href="#p_tRptEEG0ga" tabindex="-1" role="presentation"></a>به طور کلی حل این مشکل کار زیادی می‌طلبد. می توانید از کتابخانه‌هایی که معمولا موتورهای فیزیک (<em>physics engines</em>) نامیده می شوند استفاده کنید که این تعاملات فیزیکی بین اشیاء را در دو یا سه بعد شبیه‌سازی می کنند. ما از روش ساده‌تری در این فصل استفاده خواهیم کرد و فقط برخورد بین مستطیل‌ها را به شکلی خیلی ساده و ابتدایی پوشش می دهیم.</p>
 
-<p><a class="p_ident" id="p_siPXpdT6C4" href="#p_siPXpdT6C4" tabindex="-1" role="presentation"></a>Before moving the player or a block of lava, we test whether the motion would take it inside of a wall. If it does, we simply cancel the motion altogether. The response to such a collision depends on the type of actor—the player will stop, whereas a lava block will bounce back.</p>
+<p>قبل از حرکت دادن یک بازیکن یا یک گدازه، بررسی می کنیم که آیا این حرکت باعث می شود که شیء به درون دیوار برود. اگر این طور بود، حرکت را لغو می کنیم. پاسخ به این گونه برخورد بستگی به نوع بازیگر دارد – اگر بازیکن بود که از حرکت می ایستد درحالیکه بلاک گدازه هم در جهت عکس برخواهد گشت.</p>
 
-<p><a class="p_ident" id="p_SnXtyooCGY" href="#p_SnXtyooCGY" tabindex="-1" role="presentation"></a>This approach requires our time steps to be rather small since it will cause motion to stop before the objects actually touch. If the time steps (and thus the motion steps) are too big, the player would end up hovering a noticeable distance above the ground. Another approach, arguably better but more complicated, would be to find the exact collision spot and move there. We will take the simple approach and hide its problems by ensuring the animation proceeds in small steps.</p>
+<p>در این روش لازم است که گام‌های زمانی ما کوتاه باشند تا بتوان قبل از لمس شیء از حرکت ایستاد. اگر گام‌های زمانی (و در نتیجه گام‌های حرکتی) خیلی بلند باشند، منجر می‌شود که بازیکن با فاصله‌ی محسوسی روی زمین شناور بماند. روشی دیگر، که احتمالا بهتر اما پیچیده‌تر است این است که دقیقا نقطه‌ی برخورد را پیدا کنیم و به سمت آن حرکت انجام شود. ما از روش ساده تر استفاده خواهیم کرد و مشکلاتش را با کوتاهتر کردن گام‌های زمانی حل می کنیم.</p>
 
-<p id="touches"><a class="p_ident" id="p_3qnJ7o6jgV" href="#p_3qnJ7o6jgV" tabindex="-1" role="presentation"></a>This method tells us whether a rectangle (specified by a position and a size) touches a grid element of the given type.</p>
+<p id="touches">متد پیش رو به ما نشان می دهد که یک مستطیل (که با موقعیت و اندازه مشخص می‌شود) با یک عنصر grid داده شده تماس دارد یا خیر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EY7I5wl4Zy" href="#c_EY7I5wl4Zy" tabindex="-1" role="presentation"></a><span class="cm-variable">Level</span>.<span class="cm-property">prototype</span>.<span class="cm-property">touches</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">pos</span>, <span class="cm-def">size</span>, <span class="cm-def">type</span>) {
   <span class="cm-keyword">var</span> <span class="cm-def">xStart</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">floor</span>(<span class="cm-variable-2">pos</span>.<span class="cm-property">x</span>);
@@ -441,11 +444,11 @@
   <span class="cm-keyword">return</span> <span class="cm-atom">false</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_4FaUFI2Ppt" href="#p_4FaUFI2Ppt" tabindex="-1" role="presentation"></a>The method computes the set of grid squares that the body overlaps with by using <code>Math.floor</code> and <code>Math.ceil</code> on its coordinates. Remember that grid squares are 1 by 1 units in size. By rounding the sides of a box up and down, we get the range of background squares that the box touches.</p><figure><img src="img/game-grid.svg" alt="Finding collisions on a grid"></figure>
+<p><a class="p_ident" id="p_Jba2DLTEbb" href="#p_Jba2DLTEbb" tabindex="-1" role="presentation"></a>متد بالا مجموعه‌ای از مربع‌های grid که body با آن‌ها همپوشانی دارد را با استفاده از <bdo><code>Math.floor</code></bdo> و <bdo><code>Math.ceil</code></bdo> روی مختصاتش محاسبه می کند. به خاطر داشته باشید که مربع‌های grid دارای اندازه‌ی 1 در 1 واحد می‌باشند. با رند کردن کناره‌های مستطیل به بالا و پایین، بازه‌ای از مربع‌های پس‌زمینه را در اختیار خواهیم داشت که مستطیل آن ها را لمس می کند.</p><figure><img src="img/game-grid.svg" alt="Finding collisions on a grid"></figure>
 
-<p><a class="p_ident" id="p_y0L2VEuDgy" href="#p_y0L2VEuDgy" tabindex="-1" role="presentation"></a>We loop over the block of grid squares found by rounding the coordinates and return <code>true</code> when a matching square is found. Squares outside of the level are always treated as <code>&quot;wall&quot;</code> to ensure that the player can’t leave the world and that we won’t accidentally try to read outside of the bounds of our <code>rows</code> array.</p>
+<p>ما مربع‌های grid به دست آمده از رندسازی مختصات را یک به یک پیمایش می کنیم و زمانی که یک مربع مورد نظر پیدا شود مقدار <code>true</code> را بر می‌گردانیم. مربع‌های بیرون از مرحله معمولا به عنوان <code>&quot;wall&quot;</code> (دیوار) در نظر گرفته می شوند تا اطمینان حاصل شود که بازیکن نتواند از جهان تعریف شده بیرون برود و ما هم به صورت تصادفی ورای مرزهای آرایه‌ی <code>rows</code> را در نظر نگیریم.</p>
 
-<p><a class="p_ident" id="p_VPBaabj50T" href="#p_VPBaabj50T" tabindex="-1" role="presentation"></a>The state <code>update</code> method uses <code>touches</code> to figure out whether the player is touching lava.</p>
+<p>متد <code>update</code> وضعیت، از <code>touches</code> برای تشخیص برخورد بازیکن با گدازه استفاده می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_af6Xo1AsIn" href="#c_af6Xo1AsIn" tabindex="-1" role="presentation"></a><span class="cm-variable">State</span>.<span class="cm-property">prototype</span>.<span class="cm-property">update</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">time</span>, <span class="cm-def">keys</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">actors</span> <span class="cm-operator">=</span> <span class="cm-keyword">this</span>.<span class="cm-property">actors</span>
@@ -467,11 +470,11 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">newState</span>;
 };</pre>
 
-<p><a class="p_ident" id="p_i/qab4417U" href="#p_i/qab4417U" tabindex="-1" role="presentation"></a>The method is passed a time step and a data structure that tells it which keys are being held down. The first thing it does is call the <code>update</code> method on all actors, producing an array of updated actors. The actors also get the time step, the keys, and the state, so that they can base their update on those. Only the player will actually read keys, since that’s the only actor that’s controlled by the keyboard.</p>
+<p>به این متد یک گام زمانی و یک ساختار داده که مشخص می کند کدام کلیدها نگه‌داشته می شوند، ارسال می‌شود. اولین کاری که انجام می دهد این است که متد <code>update</code> را روی همه‌ی بازیگران فراخوانی می کند که منجر به تولید آرایه‌ای از بازیگران به‌روز می‌شود. بازیگران نیز گام زمانی، کلیدها و وضعیت را دریافت می کنند که بتوانند به‌روز رسانیشان را بر اساس آن ها انجام دهند. فقط بازیکن است که در واقع کلیدها را می خواند. به دلیل این که تنها بازیگری است که توسط صفحه‌کلید کنترل می‌شود.</p>
 
-<p><a class="p_ident" id="p_CTpNIbtVGd" href="#p_CTpNIbtVGd" tabindex="-1" role="presentation"></a>If the game is already over, no further processing has to be done (the game can’t be won after being lost, or vice versa). Otherwise, the method tests whether the player is touching background lava. If so, the game is lost, and we’re done. Finally, if the game really is still going on, it sees whether any other actors overlap the player.</p>
+<p>اگر بازی به اتمام رسیده شده باشد، دیگر نباید پردازشی انجام شود (بعد از باختن دیگر نمی توان بازی را برد یا برعکس). در غیر این صورت، متد بررسی می کند که بازیکن با گدازه‌ی پس‌زمینه برخورد دارد یا خیر. در صورت برخورد، بازیکن می بازد و کار تمام است. سرانجام، اگر بازی هنوز در حال اجرا است، همپوشانی دیگر بازیگران را با بازیکن بررسی می نماید.</p>
 
-<p><a class="p_ident" id="p_JshvA9JB7k" href="#p_JshvA9JB7k" tabindex="-1" role="presentation"></a>Overlap between actors is detected with the <code>overlap</code> function. It takes two actor objects and returns true when they touch—which is the case when they overlap both along the x-axis and along the y-axis.</p>
+<p><a class="p_ident" id="p_TX7+4hfhb8" href="#p_TX7+4hfhb8" tabindex="-1" role="presentation"></a>همپوشانی بین بازیگران توسط تابع <code>overlap</code> تشخیص داده می‌شود. این تابع دو بازیگر را دریافت کرده و در صورت تماس آن ها، مقدار true را تولید می کند- که در این جا زمانی رخ می دهد که همپوشانی در جهت محور x و محور y رخ داده باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Z19icVgfA7" href="#c_Z19icVgfA7" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">overlap</span>(<span class="cm-def">actor1</span>, <span class="cm-def">actor2</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">actor1</span>.<span class="cm-property">pos</span>.<span class="cm-property">x</span> <span class="cm-operator">+</span> <span class="cm-variable-2">actor1</span>.<span class="cm-property">size</span>.<span class="cm-property">x</span> <span class="cm-operator">&gt;</span> <span class="cm-variable-2">actor2</span>.<span class="cm-property">pos</span>.<span class="cm-property">x</span> <span class="cm-operator">&amp;</span><span class="cm-operator">&amp;</span>
@@ -480,7 +483,7 @@
          <span class="cm-variable-2">actor1</span>.<span class="cm-property">pos</span>.<span class="cm-property">y</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">actor2</span>.<span class="cm-property">pos</span>.<span class="cm-property">y</span> <span class="cm-operator">+</span> <span class="cm-variable-2">actor2</span>.<span class="cm-property">size</span>.<span class="cm-property">y</span>;
 }</pre>
 
-<p><a class="p_ident" id="p_EMdttGHwtg" href="#p_EMdttGHwtg" tabindex="-1" role="presentation"></a>If any actor does overlap, its <code>collide</code> method gets a chance to update the state. Touching a lava actor sets the game status to <code>&quot;lost&quot;</code>. Coins vanish when you touch them and set the status to <code>&quot;won&quot;</code> when they are the last coin of the level.</p>
+<p>اگر هرکدام از بازیگران همپوشانی داشته باشند، متد <code>collide</code> این شانس را دارد که وضعیت را به‌روز رسانی کند. تماس با یک بازیگر گدازه موجب باختن در بازی و تغییر وضعیت به <code>&quot;lost&quot;</code> می‌شود. سکه‌ها در صورت تماس با آن ها ناپدید می شوند و اگر آن تماس با آخرین سکه رخ داده باشد وضعیت برابر با <code>&quot;won&quot;</code> قرار می گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_jNqQLSOJRn" href="#c_jNqQLSOJRn" tabindex="-1" role="presentation"></a><span class="cm-variable">Lava</span>.<span class="cm-property">prototype</span>.<span class="cm-property">collide</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">state</span>) {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">State</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">level</span>, <span class="cm-variable-2">state</span>.<span class="cm-property">actors</span>, <span class="cm-string">&quot;lost&quot;</span>);
@@ -493,9 +496,9 @@
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">State</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">level</span>, <span class="cm-variable-2">filtered</span>, <span class="cm-variable-2">status</span>);
 };</pre>
 
-<h2 id="actors"><a class="h_ident" id="h_GaxRpVIsuF" href="#h_GaxRpVIsuF" tabindex="-1" role="presentation"></a>Actor updates</h2>
+<h2 id="actors"><a class="h_ident" id="h_iPxcecKbn5" href="#h_iPxcecKbn5" tabindex="-1" role="presentation"></a>به‌روز‌رسانی‌های بازیگر</h2>
 
-<p><a class="p_ident" id="p_fbEQ61HTVq" href="#p_fbEQ61HTVq" tabindex="-1" role="presentation"></a>Actor objects’ <code>update</code> methods take as arguments the time step, the state object, and a <code>keys</code> object. The one for the <code>Lava</code> actor type ignores the <code>keys</code> object.</p>
+<p>اشیاء بازیگر دارای متدی به نام <code>update</code> می باشند که به عنوان ورودی، گام زمان، شیء وضعیت و یک شیء <code>keys</code> دریافت می کند. متد <code>update</code> مربوط به نوع <code>Lava</code> شیء <code>keys</code> را در نظر نمی گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vuIaAGYDTl" href="#c_vuIaAGYDTl" tabindex="-1" role="presentation"></a><span class="cm-variable">Lava</span>.<span class="cm-property">prototype</span>.<span class="cm-property">update</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">time</span>, <span class="cm-def">state</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">newPos</span> <span class="cm-operator">=</span> <span class="cm-keyword">this</span>.<span class="cm-property">pos</span>.<span class="cm-property">plus</span>(<span class="cm-keyword">this</span>.<span class="cm-property">speed</span>.<span class="cm-property">times</span>(<span class="cm-variable-2">time</span>));
@@ -508,9 +511,9 @@
   }
 };</pre>
 
-<p><a class="p_ident" id="p_NnAl39AH58" href="#p_NnAl39AH58" tabindex="-1" role="presentation"></a>This <code>update</code> method computes a new position by adding the product of the time step and the current speed to its old position. If no obstacle blocks that new position, it moves there. If there is an obstacle, the behavior depends on the type of the lava block—dripping lava has a <code>reset</code> position, to which it jumps back when it hits something. Bouncing lava inverts its speed by multiplying it by -1 so that it starts moving in the opposite direction.</p>
+<p><a class="p_ident" id="p_UoWb/jdcGq" href="#p_UoWb/jdcGq" tabindex="-1" role="presentation"></a>این متد یک موقعیت جدید را با افزودن نتیجه‌ی گام زمانی و سرعت فعلی به موقعیت قبلی اش، محاسبه می کند. اگر مانعی برای موقعیت جدید وجود نداشته باشد، به آنجا حرکت می کند. اگر مانعی موجود باشد ، رفتار متناسب با نوع بلاک گدازه خواهد بود – گدازه‌ی dripping دارای یک موقعیت <code>reset</code> می باشد که وقتی به شیءای برخود می‌کند به آن می بپرد. گدازه‌ای که بالاپایین می رود، سرعتش را ضرب در <bdo>-1</bdo> منفی می کند در نتیجه با رسیدن به مانع، جهت حرکت معکوس می‌شود.</p>
 
-<p><a class="p_ident" id="p_AsHqJXqhZP" href="#p_AsHqJXqhZP" tabindex="-1" role="presentation"></a>Coins use their <code>update</code> method to wobble. They ignore collisions with the grid since they are simply wobbling around inside of their own square.</p>
+<p>سکه‌ها از متد <code>update</code> شان استفاده می کنند تا جنب و جوش داشته باشند. سکه‌ها برخورد با grid را در نظر نمی گیرند چرا که آن ها فقط درون مربع خودشان جنب و جوش دارند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_+DC3G3xD19" href="#c_+DC3G3xD19" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">wobbleSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">8</span>, <span class="cm-def">wobbleDist</span> <span class="cm-operator">=</span> <span class="cm-number">0.07</span>;
 
@@ -521,9 +524,9 @@
                   <span class="cm-keyword">this</span>.<span class="cm-property">basePos</span>, <span class="cm-variable-2">wobble</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_SYkdq1IZii" href="#p_SYkdq1IZii" tabindex="-1" role="presentation"></a>The <code>wobble</code> property is incremented to track time and then used as an argument to <code>Math.sin</code> to find the new position on the wave. The coin’s current position is then computed from its base position and an offset based on this wave.</p>
+<p>خاصیت <code>wobble</code> برای رصد زمان افزایش داده می‌شود و بعد به عنوان آرگومان <bdo><code>Math.sin</code></bdo> برای پیدا کردن موقعیت جدیدی روی موج استفاده می‌شود. موقعیت فعلی سکه، سپس به وسیله‌ی موقعیت پایه آن و جایگاهی که روی این موج دارد محاسبه می‌شود.</p>
 
-<p><a class="p_ident" id="p_SuUDJCzjex" href="#p_SuUDJCzjex" tabindex="-1" role="presentation"></a>That leaves the player itself. Player motion is handled separately per axis because hitting the floor should not prevent horizontal motion, and hitting a wall should not stop falling or jumping motion.</p>
+<p>این یعنی نیازی به درنظر گرفتن بازیکن نیست. حرکت بازیکن به صورت جداگانه با توجه به محور حرکت مدیریت می‌شود؛ به این دلیل که برخورد با زمین نباید مانع از حرکت افقی بشود. و برخورد با دیوار نباید مانع از پریدن یا افتادن بشود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cBJRAPnr2+" href="#c_cBJRAPnr2+" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">playerXSpeed</span> <span class="cm-operator">=</span> <span class="cm-number">7</span>;
 <span class="cm-keyword">const</span> <span class="cm-def">gravity</span> <span class="cm-operator">=</span> <span class="cm-number">30</span>;
@@ -551,21 +554,21 @@
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Player</span>(<span class="cm-variable-2">pos</span>, <span class="cm-keyword">new</span> <span class="cm-variable">Vec</span>(<span class="cm-variable-2">xSpeed</span>, <span class="cm-variable-2">ySpeed</span>));
 };</pre>
 
-<p><a class="p_ident" id="p_rmP4WNaYTL" href="#p_rmP4WNaYTL" tabindex="-1" role="presentation"></a>The horizontal motion is computed based on the state of the left and right arrow keys. When there’s no wall blocking the new position created by this motion, it is used. Otherwise, the old position is kept.</p>
+<p>حرکت افقی بر اساس وضعیت چپ و راست کلیدهای جهتدار محاسبه می شوند. وقتی دیواری وجود ندارد که مانع از ایجاد موقعیت جدید توسط این حرکت بشود، از آن استفاده می‌شود در غیر این صورت موقعیت قبلی حفظ می گردد.</p>
 
-<p><a class="p_ident" id="p_BP0T8XR1kg" href="#p_BP0T8XR1kg" tabindex="-1" role="presentation"></a>Vertical motion works in a similar way but has to simulate jumping and gravity. The player’s vertical speed (<code>ySpeed</code>) is first accelerated to account for gravity.</p>
+<p>حرکت عمودی به همان صورت کار می کند اما باید پریدن و گرانش زمین را شبیه سازی کند. سرعت عمودی بازیکن (<code>ySpeed</code>) در ابتدا شتاب می گیرد به خاطر وجود گرانش زمین.</p>
 
-<p><a class="p_ident" id="p_3H8Calt+MC" href="#p_3H8Calt+MC" tabindex="-1" role="presentation"></a>We check for walls again. If we don’t hit any, the new position is used. If there <em>is</em> a wall, there are two possible outcomes. When the up arrow is pressed <em>and</em> we are moving down (meaning the thing we hit is below us), the speed is set to a relatively large, negative value. This causes the player to jump. If that is not the case, the player simply bumped into something, and the speed is set to zero.</p>
+<p>دوباره وجود دیوارها را بررسی می کنیم. اگر به هیچ دیواری برخورد نکردیم، موقعیت جدید استفاده می‌شود. اگر دیواری وجود داشت دو حالت ممکن است پیش بیاید. زمانی که کلید بالا فشار داده شده است و در حال حرکت به پایین هستیم ( به این معنا که چیزی که به آن برخورد می کنیم پایین ما قرار دارد) سرعت به مقدار نسبتا زیادی تنظیم می شود با عدد منفی. این باعث پرش بازیکن می‌شود.اگر این حالت به وجود نیامد، بازیکن به چیزی برخورد کرده و سرعت صفر می‌شود.</p>
 
-<p><a class="p_ident" id="p_HeVD7be3z6" href="#p_HeVD7be3z6" tabindex="-1" role="presentation"></a>The gravity strength, jumping speed, and pretty much all other constants in this game have been set by trial and error. I tested values until I found a combination I liked.</p>
+<p>میزان گرانش ، سرعت پرش، و ثابت‌های دیگر در بازی با تست و خطا تنظیم می شوند. من مقدارهای متفاوتی را آزمایش کردم تا به ترکیبی که دوست داشتم رسیدم.</p>
 
-<h2><a class="h_ident" id="h_zKch6Si/SS" href="#h_zKch6Si/SS" tabindex="-1" role="presentation"></a>Tracking keys</h2>
+<h2><a class="h_ident" id="h_AIg8nkyNcm" href="#h_AIg8nkyNcm" tabindex="-1" role="presentation"></a>رصد کلیدها</h2>
 
-<p><a class="p_ident" id="p_NBxmiqrPk8" href="#p_NBxmiqrPk8" tabindex="-1" role="presentation"></a>For a game like this, we do not want keys to take effect once per keypress. Rather, we want their effect (moving the player figure) to stay active as long as they are held.</p>
+<p>برای یک بازی شبیه به این، قصد نداریم تا اثر فشردن کلید با هر بار فشار دادن آن ظاهر شود. بلکه می‌خواهیم اثر کلید‌ها (حرکت دادن شخصیت بازی) تا زمانی که کلید فشرده نگه داشته می‌شود باقی بماند.</p>
 
-<p><a class="p_ident" id="p_AHo2Emv/R2" href="#p_AHo2Emv/R2" tabindex="-1" role="presentation"></a>We need to set up a key handler that stores the current state of the left, right, and up arrow keys. We will also want to call <code>preventDefault</code> for those keys so that they don’t end up scrolling the page.</p>
+<p>باید یک گرداننده‌ی کلید تعریف کنیم که وضعیت فعلی کلید‌های جهت‌دار چپ، راست و بالا را نگه‌داری کند. همچنین لازم است که از فراخوانی <code>preventDefault</code> برای این کلیدها استفاده کنیم تا از اسکرول صفحه جلوگیری کنیم.</p>
 
-<p><a class="p_ident" id="p_oH4kiTyM1E" href="#p_oH4kiTyM1E" tabindex="-1" role="presentation"></a>The following function, when given an array of key names, will return an object that tracks the current position of those keys. It registers event handlers for <code>&quot;keydown&quot;</code> and <code>&quot;keyup&quot;</code> events and, when the key code in the event is present in the set of codes that it is tracking, updates the object.</p>
+<p>تابع پیش رو، اگر آرایه‌ای از نام کلیدها دریافت کند، شیءای را برمی گرداند که موقعیت فعلی آن کلیدها را رصد می کند. این تابع گرداننده‌ی رخدادی برای <code>&quot;keydown&quot;</code> و <code>&quot;keyup&quot;</code> ثبت می کند و زمانی که کد کلید در رخداد در مجموعه‌ی کدهای کلیدی که رصد می‌شود وجود داشت، شیء را به روز می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HHYPd26+il" href="#c_HHYPd26+il" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">trackKeys</span>(<span class="cm-def">keys</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">down</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>);
@@ -583,13 +586,13 @@
 <span class="cm-keyword">const</span> <span class="cm-def">arrowKeys</span> <span class="cm-operator">=</span>
   <span class="cm-variable">trackKeys</span>([<span class="cm-string">&quot;ArrowLeft&quot;</span>, <span class="cm-string">&quot;ArrowRight&quot;</span>, <span class="cm-string">&quot;ArrowUp&quot;</span>]);</pre>
 
-<p><a class="p_ident" id="p_/Gh0/QdYTL" href="#p_/Gh0/QdYTL" tabindex="-1" role="presentation"></a>The same handler function is used for both event types. It looks at the event object’s <code>type</code> property to determine whether the key state should be updated to true (<code>&quot;keydown&quot;</code>) or false (<code>&quot;keyup&quot;</code>).</p>
+<p><a class="p_ident" id="p_k/l4Io+JM0" href="#p_k/l4Io+JM0" tabindex="-1" role="presentation"></a>تابع گرداننده‌ی مشابهی، برای هر دو نوع رخداد استفاده می‌شود. خاصیت <code>type</code> شیء رخداد بررسی شده تا مشخص شود که آیا وضعیت کلید باید به true (معادل <code>&quot;keydown&quot;</code>) یا false (معادل <code>&quot;keyup&quot;</code>) به‌روز شود.</p>
 
-<h2 id="runAnimation"><a class="h_ident" id="h_/jwYTlYjAy" href="#h_/jwYTlYjAy" tabindex="-1" role="presentation"></a>Running the game</h2>
+<h2 id="runAnimation"><a class="h_ident" id="h_gNXPVkXRfH" href="#h_gNXPVkXRfH" tabindex="-1" role="presentation"></a>اجرای بازی</h2>
 
-<p><a class="p_ident" id="p_h0hF0+vYTt" href="#p_h0hF0+vYTt" tabindex="-1" role="presentation"></a>The <code>requestAnimationFrame</code> function, which we saw in <a href="14_dom.html#animationFrame">Chapter 14</a>, provides a good way to animate a game. But its interface is quite primitive—using it requires us to track the time at which our function was called the last time around and call <code>requestAnimationFrame</code> again after every frame.</p>
+<p>تابع <code>requestAnimationFrame</code>، که در <a href="14_dom.html#animationFrame">فصل 14</a> با آن آشنا شدیم، راه خوبی برای متحرک‌سازی بازی فراهم می نماید. اما رابط آن بسیار ابتدایی است- برای استفاده از آن باید زمانی که در آن تابع ما، آخرین بار فراخوانی شده را رصد کنیم و تابع <code>requestAnimationFrame</code> را بعد از هر فریم دوباره فراخوانی کنیم.</p>
 
-<p><a class="p_ident" id="p_YcIf88ICqS" href="#p_YcIf88ICqS" tabindex="-1" role="presentation"></a>Let’s define a helper function that wraps those boring parts in a convenient interface and allows us to simply call <code>runAnimation</code>, giving it a function that expects a time difference as an argument and draws a single frame. When the frame function returns the value <code>false</code>, the animation stops.</p>
+<p>اجازه بدهید تا یک تابع کمکی تعریف کنیم که آن قسمت‌های کسل‌کننده را توسط رابطی مناسب پوشش دهد و این امکان را فراهم کند که فقط <code>runAnimation</code> را با ارسال تابعی که یک تفاوت زمان را به عنوان آرگومان می گیرد و یک فریم واحد را ترسیم می کند، فراخوانی کنیم. زمانی که تابع فریم مقدار <code>false</code> را برگرداند، انیمیشن متوقف می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AVT0noPnDW" href="#c_AVT0noPnDW" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">runAnimation</span>(<span class="cm-def">frameFunc</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">lastTime</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>;
@@ -604,11 +607,11 @@
   <span class="cm-variable">requestAnimationFrame</span>(<span class="cm-variable-2">frame</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_2lfHQQNum5" href="#p_2lfHQQNum5" tabindex="-1" role="presentation"></a>I have set a maximum frame step of 100 milliseconds (one-tenth of a second). When the browser tab or window with our page is hidden, <code>requestAnimationFrame</code> calls will be suspended until the tab or window is shown again. In this case, the difference between <code>lastTime</code> and <code>time</code> will be the entire time in which the page was hidden. Advancing the game by that much in a single step would look silly and might cause weird side effects, such as the player falling through the floor.</p>
+<p><a class="p_ident" id="p_MQuG4LYrgo" href="#p_MQuG4LYrgo" tabindex="-1" role="presentation"></a>من بیشینه‌ی گام هر فریم رو معادل 100 هزارم ثانیه قرار دادم (یک دهم یک ثانیه). زمانی که برگه یا پنجره‌ی مرورگر حاوی صفحه‌ی ما فعال نیست، فراخوانی‌های <code>requestAnimationFrame</code> تا زمان فعال شدن دوباره‌ی برگه مرورگر به تعلیق در می‌آیند. در این مثال، تفاوت بین <code>lastTime</code> و <code>time</code> برابر با کل زمانی می‌شود که صفحه مخفی (غیرفعال) بوده است. این همه پیشروی با هرگام در بازی احمقانه به نظر می رسد و ممکن است اثرات جانبی عجیب غریبی داشته باشد، مثلا بازیکن در زمین فرو برود.</p>
 
-<p><a class="p_ident" id="p_jKakPLUmwL" href="#p_jKakPLUmwL" tabindex="-1" role="presentation"></a>The function also converts the time steps to seconds, which are an easier quantity to think about than milliseconds.</p>
+<p>تابع همچنین گام‌های زمانی را به ثانیه تبدیل می کند که کمیت ساده‌تری نسبت به هزارم ثانیه محسوب می‌شود.</p>
 
-<p><a class="p_ident" id="p_kwKnkc4FM+" href="#p_kwKnkc4FM+" tabindex="-1" role="presentation"></a>The <code>runLevel</code> function takes a <code>Level</code> object and a display constructor and returns a promise. It displays the level (in <code>document.body</code>) and lets the user play through it. When the level is finished (lost or won), <code>runLevel</code> waits one more second (to let the user see what happens) and then clears the display, stops the animation, and resolves the promise to the game’s end status.</p>
+<p><a class="p_ident" id="p_FykHZel6vX" href="#p_FykHZel6vX" tabindex="-1" role="presentation"></a>تابع <code>runLevel</code> یک شیء <code>Level</code> را گرفته و یک سازنده نمایش می دهد و یک خروجی از نوع promise تولید می کند. این تابع مرحله (در <bdo><code>document.body</code></bdo>) را نمایش می دهد و امکان بازی را برای بازیکن فراهم می کند. زمانی که مرحله به پایان رسید (برنده یا بازنده)، <code>runLevel</code> یک ثانیه‌ی دیگر منتظر می ماند (برای اینکه به کاربر نشان دهد چه اتفاقی می افتد) و بعد صفحه را پاک کرده، انیمیشن را متوقف کرده و promise را برای وضعیت نهایی بازی رسیدگی می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HTrHnVaIWA" href="#c_HTrHnVaIWA" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">runLevel</span>(<span class="cm-def">level</span>, <span class="cm-def">Display</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">display</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable-2">Display</span>(<span class="cm-variable">document</span>.<span class="cm-property">body</span>, <span class="cm-variable-2">level</span>);
@@ -632,7 +635,7 @@
   });
 }</pre>
 
-<p><a class="p_ident" id="p_eyKzVe0sIB" href="#p_eyKzVe0sIB" tabindex="-1" role="presentation"></a>A game is a sequence of levels. Whenever the player dies, the current level is restarted. When a level is completed, we move on to the next level. This can be expressed by the following function, which takes an array of level plans (strings) and a display constructor:</p>
+<p><a class="p_ident" id="p_V0/5sMSc3r" href="#p_V0/5sMSc3r" tabindex="-1" role="presentation"></a>یک بازی شامل چندین مرحله می‌شود. زمانی که بازیکن در بازی می‌میرد مرحله‌ی فعلی از نو شروع می‌شود. زمانی که یک مرحله به اتمام می رسد، به مرحله‌ی بعدی منتقل می شویم. این کار را می توان با تابع پیش رو نمایش داد که آرایه‌ای از طرح‌های مراحل (رشته‌ای) و یک سازندهی Display را دریافت می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_SyT3weqmk4" href="#c_SyT3weqmk4" tabindex="-1" role="presentation"></a><span class="cm-keyword">async</span> <span class="cm-keyword">function</span> <span class="cm-def">runGame</span>(<span class="cm-def">plans</span>, <span class="cm-def">Display</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">level</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">level</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">plans</span>.<span class="cm-property">length</span>;) {
@@ -643,9 +646,9 @@
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;You've won!&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_ibGanBtTKe" href="#p_ibGanBtTKe" tabindex="-1" role="presentation"></a>Because we made <code>runLevel</code> return a promise, <code>runGame</code> can be written using an <code>async</code> function, as shown in <a href="11_async.html">Chapter 11</a>. It returns another promise, which resolves when the player finishes the game.</p>
+<p><a class="p_ident" id="p_jC/YRC/GWd" href="#p_jC/YRC/GWd" tabindex="-1" role="presentation"></a>به دلیل اینکه تابع <code>runLevel</code> یک promise بر می گرداند، <code>runGame</code> را می توان با یک تابع <code>async</code> نوشت، همانطور که در <a href="11_async.html">فصل 11</a> شرح داده شد. این تابع یک <code>promise</code> دیگر برمی گرداند که وقتی بازیکن بازی را تمام می کند رسیدگی می‌شود.</p>
 
-<p><a class="p_ident" id="p_/6dLhjN2fB" href="#p_/6dLhjN2fB" tabindex="-1" role="presentation"></a>There is a set of level plans available in the <code>GAME_LEVELS</code> binding in <a href="https://eloquentjavascript.net/code#16">this chapter’s sandbox</a>. This page feeds them to <code>runGame</code>, starting an actual game.</p>
+<p><a class="p_ident" id="p_FeTYo+vIeI" href="#p_FeTYo+vIeI" tabindex="-1" role="presentation"></a>مجموعه‌ای از طرح‌های مراحل در متغیر <code>GAME_LEVELS</code> در قسمت کدهای مربوط به این فصل <a href="https://eloquentjavascript.net/code#16">قسمت کدهای مربوط به این فصل موجود است</a>. این صفحه این مراحل را به تابع <code>runGame</code> ارسال می کند تا بازی شروع شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true" data-sandbox="null"><a class="c_ident" id="c_ftVm34P6My" href="#c_ftVm34P6My" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">&quot;stylesheet&quot;</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;css/game.css&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -655,15 +658,15 @@
   <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_MkrZ67rFcA" href="#p_MkrZ67rFcA" tabindex="-1" role="presentation"></a>See if you can beat those. I had quite a lot of fun building them.</p>
+<p>ببینید می توانید آن‌ها را شکست دهید. من از ساختنشان لذت زیادی بردم.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_tFsh86eaJC" href="#i_tFsh86eaJC" tabindex="-1" role="presentation"></a>Game over</h3>
+<h3><a class="i_ident" id="i_H3Mx+/rC/i" href="#i_H3Mx+/rC/i" tabindex="-1" role="presentation"></a>پایان بازی</h3>
 
-<p><a class="p_ident" id="p_Qg9LKDI5Td" href="#p_Qg9LKDI5Td" tabindex="-1" role="presentation"></a>It’s traditional for platform games to have the player start with a limited number of <em>lives</em> and subtract one life each time they die. When the player is out of lives, the game restarts from the beginning.</p>
+<p>یکی از سنت‌های سکوبازی‌ها این است که بازیکن با تعداد محدودی “جان” شروع می کند و با هر بار مردن در بازی یک واحد از آن‌ها کاسته می‌شود. زمانی‌که این تعداد تمام شود، بازی از ابتدا شروع می‌شود.</p>
 
-<p><a class="p_ident" id="p_cg64RJFkZh" href="#p_cg64RJFkZh" tabindex="-1" role="presentation"></a>Adjust <code>runGame</code> to implement lives. Have the player start with three. Output the current number of lives (using <code>console.log</code>) every time a level starts.</p>
+<p><code>runGame</code> را بهبود ببخشید و “جان‌ها” را هم به آن اضافه کنید. هر بازیکن با سه جان شروع کند. با هر بار شروع یک مرحله‌، تعداد جان باقی مانده را توسط <bdo><code>console.log</code></bdo> چاپ کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_/XVg6hHOl5" href="#c_/XVg6hHOl5" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">&quot;stylesheet&quot;</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;css/game.css&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -682,15 +685,15 @@
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<h3><a class="i_ident" id="i_cNfzuXtVqI" href="#i_cNfzuXtVqI" tabindex="-1" role="presentation"></a>Pausing the game</h3>
+<h3><a class="i_ident" id="i_XO65bb5+SE" href="#i_XO65bb5+SE" tabindex="-1" role="presentation"></a>متوقف کردن بازی</h3>
 
-<p><a class="p_ident" id="p_a/Q1DcuFrC" href="#p_a/Q1DcuFrC" tabindex="-1" role="presentation"></a>Make it possible to pause (suspend) and unpause the game by pressing the Esc key.</p>
+<p><a class="p_ident" id="p_H3pPni9w0L" href="#p_H3pPni9w0L" tabindex="-1" role="presentation"></a>کاری کنید که در بازی بتوان با فشردن کلید Esc روی صفحه‌کلید بازی را متوقف کرده یا از حالت توقف خارج کرد.</p>
 
-<p><a class="p_ident" id="p_FpramcVlTZ" href="#p_FpramcVlTZ" tabindex="-1" role="presentation"></a>This can be done by changing the <code>runLevel</code> function to use another keyboard event handler and interrupting or resuming the animation whenever the Esc key is hit.</p>
+<p>این کار را می توان با تغییر تابع <code>runLevel</code> انجام داد که از یک گرداننده‌ی رخداد کلید دیگر استفاده کند و انیمیشن را فشردن Esc متوقف یا به حرکت بیاندازد.</p>
 
-<p><a class="p_ident" id="p_QBqhApUa2T" href="#p_QBqhApUa2T" tabindex="-1" role="presentation"></a>The <code>runAnimation</code> interface may not look like it is suitable for this at first glance, but it is if you rearrange the way <code>runLevel</code> calls it.</p>
+<p>رابط <code>runAnimation</code> ممکن است در ابتدا مناسب این تغییر به نظر نرسد اما اگر ترتیبی که <code>runLevel</code> آن را فراخوانی می کند را  تغییر دهید، مناسب خواهد بود.</p>
 
-<p><a class="p_ident" id="p_WJUxvtDgig" href="#p_WJUxvtDgig" tabindex="-1" role="presentation"></a>When you have that working, there is something else you could try. The way we have been registering keyboard event handlers is somewhat problematic. The <code>arrows</code> object is currently a global binding, and its event handlers are kept around even when no game is running. You could say they <em>leak</em> out of our system. Extend <code>trackKeys</code> to provide a way to unregister its handlers and then change <code>runLevel</code> to register its handlers when it starts and unregister them again when it is finished.</p>
+<p>بعد از انجام قسمت بالا، چیزی دیگری هست که می توانید انجام دهید. روشی که برای ثبت گرداننده‌های کلید استفاده می کردیم مقداری مشکل‌زا است. شیء <code>arrows</code> در فضای سراسری در دسترس است و گرداننده‌ی رخدادش نیز حتی زمانی که بازی اجرا نمی‌شود در دسترس است. می توان گفت که این دو از سیستم نشت کرده‌اند. <code>trackKeys</code> را توسعه داده تا راهی برای لغو ثبت گرداننده‌هایش فراهم شود و بعد <code>runLevel</code> را تغییر دهید تا گرداننده‌هایش را در زمانی که شروع می‌شود ثبت کند و با پایان کارش آن ها را لغو ثبت نمایند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_ybbf+T2p9b" href="#c_ybbf+T2p9b" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">&quot;stylesheet&quot;</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;css/game.css&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -724,23 +727,21 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_dyqugB1j6F" href="#p_dyqugB1j6F" tabindex="-1" role="presentation"></a>An animation can be interrupted by returning <code>false</code> from the function given to <code>runAnimation</code>. It can be continued by calling <code>runAnimation</code> again.</p>
+<p>برای توقف یک تصویر متحرک می توان مقدار <code>false</code> را از تابعی که به <code>runAnimation</code> داده می‌شود برگرداند می توان دوباره آن را با فراخوانی دوباره‌ی <code>runAnimation</code> به حرکت درآورد.</p>
 
-<p><a class="p_ident" id="p_ymajy5Ud0Z" href="#p_ymajy5Ud0Z" tabindex="-1" role="presentation"></a>So we need to communicate the fact that we are pausing the game to the function given to <code>runAnimation</code>. For that, you can use a binding that both the event handler and that function have access to.</p>
+<p>خوب ما باید توسط تابعی که به <code>runAnimation</code> داده می‌شود، توقف بازی را اعلام کنیم. برای این‌کار، می توانید از متغیری که هر دوی گرداننده‌ی رخداد و آن تابع به آن دسترسی دارند استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_adK1uPfN73" href="#p_adK1uPfN73" tabindex="-1" role="presentation"></a>When finding a way to unregister the handlers registered by <code>trackKeys</code>, remember that the <em>exact</em> same function value that was passed to <code>addEventListener</code> must be passed to <code>removeEventListener</code> to successfully remove a handler. Thus, the <code>handler</code> function value created in <code>trackKeys</code> must be available to the code that unregisters the handlers.</p>
-
-<p><a class="p_ident" id="p_n0zT7gRNWv" href="#p_n0zT7gRNWv" tabindex="-1" role="presentation"></a>You can add a property to the object returned by <code>trackKeys</code>, containing either that function value or a method that handles the unregistering directly.</p>
+<p>زمانی که به دنبال راهی برای لغو ثبت گرداننده‌هایی که توسط <code>trackKeys</code> ثبت شده اند هستید،‌به خاطر داشته باشید که دقیقا باید همان مقدار تابعی که به <code>addEventListener</code> ارسال شده است، به <code>removeEventListenre</code> ارسال شود تا آن گرداننده حذف شود. بنابراین، مقدار تابع <code>handler</code> که در ‍<code>trackKeys</code> ایجاد شده، باید در دسترس کدی که عمل لغو ثبت را انجام می دهد باشد.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_tKK8cGG5os" href="#i_tKK8cGG5os" tabindex="-1" role="presentation"></a>A monster</h3>
+<h3><a class="i_ident" id="i_0ZNPZSYsZ+" href="#i_0ZNPZSYsZ+" tabindex="-1" role="presentation"></a>یک هیولا</h3>
 
-<p><a class="p_ident" id="p_RtEFEXlrkS" href="#p_RtEFEXlrkS" tabindex="-1" role="presentation"></a>It is traditional for platform games to have enemies that you can jump on top of to defeat. This exercise asks you to add such an actor type to the game.</p>
+<p>یکی از چیزهای رایج در سکوبازی‌ها داشتن دشمنانی است که بتوان روی آن ها پرید. این تمرین از شما می خواهد که این شخصیت بازیگر را به بازی اضافه کنید.</p>
 
-<p><a class="p_ident" id="p_Mhy2ENHlzV" href="#p_Mhy2ENHlzV" tabindex="-1" role="presentation"></a>We’ll call it a monster. Monsters move only horizontally. You can make them move in the direction of the player, bounce back and forth like horizontal lava, or have any movement pattern you want. The class doesn’t have to handle falling, but it should make sure the monster doesn’t walk through walls.</p>
+<p>ما آن را هیولا می نامیم. هیولاها به صورت افقی حرکت می کنند. می توانید طوری آن ها را بسازید که به طرف بازیکن حرکت کنند یا مثل گدازه‌های متحرک حرکت عقب و جلو داشته باشند یا هر الگوی حرکتی که شما دوست دارید. نیازی نیست افتادن را پیاده سازی کنید اما باید مطمئن شود که هیولا درون دیوار ها نرود.</p>
 
-<p><a class="p_ident" id="p_kN0Yd5LQRq" href="#p_kN0Yd5LQRq" tabindex="-1" role="presentation"></a>When a monster touches the player, the effect depends on whether the player is jumping on top of them or not. You can approximate this by checking whether the player’s bottom is near the monster’s top. If this is the case, the monster disappears. If not, the game is lost.</p>
+<p>زمانی که یک هیولا با یک بازیکن برخورد می کند بسته به اینکه بازیکن روی آن پریده باشد یا خیر واکنش متفاوت خواهد بود. می توانیم این را با بررسی تطابق پایین بازیکن با بالای هیولا متوجه شویم. در این صورت هیولا باید ناپدید شود. در غیر این صورت بازیکن می بازد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_rthUoERAau" href="#c_rthUoERAau" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">link</span> <span class="cm-attribute">rel</span>=<span class="cm-string">&quot;stylesheet&quot;</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;css/game.css&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-qualifier">.monster</span> { <span class="cm-property">background</span>: <span class="cm-keyword">purple</span> }<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -785,11 +786,11 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_aiYWebohij" href="#p_aiYWebohij" tabindex="-1" role="presentation"></a>If you want to implement a type of motion that is stateful, such as bouncing, make sure you store the necessary state in the actor object—include it as constructor argument and add it as a property.</p>
+<p>اگر قصد پیاده‌سازی حرکتی را دارید که دارای وضعیت داخلی می باشد، مانند حرکت رفت و برگشت به یک نقطه، اطمینان حاصل کنید که وضعیت مورد نیاز را در شیء بازیگر ذخیره کنید - به عنوان ورودی سازنده و یک خاصیت.</p>
 
-<p><a class="p_ident" id="p_bCqQqL9ccE" href="#p_bCqQqL9ccE" tabindex="-1" role="presentation"></a>Remember that <code>update</code> returns a <em>new</em> object, rather than changing the old one.</p>
+<p>به یاد داشته باشید که <code>update</code> یک شیء جدید را برمی‌گرداند و شیء قبلی را تغییر نمی دهد.</p>
 
-<p><a class="p_ident" id="p_tKPg/OUkNV" href="#p_tKPg/OUkNV" tabindex="-1" role="presentation"></a>When handling collision, find the player in <code>state.actors</code> and compare its position to the monster’s position. To get the <em>bottom</em> of the player, you have to add its vertical size to its vertical position. The creation of an updated state will resemble either <code>Coin</code>’s <code>collide</code> method (removing the actor) or <code>Lava</code>’s (changing the status to <code>&quot;lost&quot;</code>), depending on the player position.</p>
+<p>زمانی که قسمت برخورد کردن اشیاء را پیاده‌سازی می کنید، بازیکن موجود در <bdo><code>state.actors</code></bdo> را پیدا کنید و موقعیت آن را با موقعیت هیولا مقایسه نمایید. برای بدست آوردن مختصات پایین بازیکن، باید اندازه‌ی عمودی آن را به موقعیت عمودیش اضافه نمایید. بسته به موقعیت مکانی بازیکن، ایجاد یک وضعیت به‌روز، موجب بروز برخورد مربوط به سکه (حذف آن) یا گدازه (تغییر وضعیت به <code>&quot;lost&quot;</code>) می‌شود.</p>
 
 </div></div><nav><a href="15_event.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="17_canvas.html" title="next chapter">▶</a></nav>
 </article>
