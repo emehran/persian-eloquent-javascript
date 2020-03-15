@@ -2,39 +2,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Drawing on Canvas :: Eloquent JavaScript</title>
+  <title>ترسیم روی Canvas :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 17;var sandboxLoadFiles = ["code/chapter/16_game.js","code/levels.js","code/chapter/17_canvas.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 17;var sandboxLoadFiles = ["code/chapter/16_game.js","code/levels.js","code/chapter/17_canvas.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="16_game.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="18_http.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 17</span>Drawing on Canvas</h1>
+<h1><span class=chap_num>Chapter 17</span>ترسیم روی Canvas</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_ubdp8gf0Gn" href="#p_ubdp8gf0Gn" tabindex="-1" role="presentation"></a>Drawing is deception.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>نقاشی فریب است.</p>
 
 <footer>M.C. Escher, <cite>cited by Bruno Ernst in The Magic Mirror of M.C. Escher</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_17.jpg" alt="Picture of a robot arm drawing on paper"></figure>
 
-<p><a class="p_ident" id="p_gaEEPgv4jz" href="#p_gaEEPgv4jz" tabindex="-1" role="presentation"></a>Browsers give us several ways to display graphics. The simplest way is to use styles to position and color regular DOM elements. This can get you quite far, as the game in the <a href="16_game.html">previous chapter</a> showed. By adding partially transparent background images to the nodes, we can make them look exactly the way we want. It is even possible to rotate or skew nodes with the <code>transform</code> style.</p>
+<p><a class="p_ident" id="p_h9MOz99e99" href="#p_h9MOz99e99" tabindex="-1" role="presentation"></a>مرورگرها روش‌های متعددی برای نمایش عناصر گرافیکی را در اختیار ما می گذارند. ساده‌ترین راه استفاده از سبک‌های CSS برای رنگ‌دهی و موقعیت‌دهی عناصر معمول DOM می‌باشد. این روش می تواند شما را از مسیر نسبتا دور کند، همانطور که بازی ساخته شده در <a href="16_game.html">فصل قبل</a> نشان داد. با افزودن تصاویر پس‌زمینه نیمه شفاف به گره‌ها، می توانیم گره‌ها را دقیقا تبدیل به چیزی کنیم که لازم داریم. حتی می شود که عناصر را با استفاده از دستور <code>transform</code> در CSS بچرخانیم یا تغییر شکل دهیم.</p>
 
-<p><a class="p_ident" id="p_hA8BzwgjYT" href="#p_hA8BzwgjYT" tabindex="-1" role="presentation"></a>But we’d be using the DOM for something that it wasn’t originally designed for. Some tasks, such as drawing a line between arbitrary points, are extremely awkward to do with regular HTML elements.</p>
+<p><a class="p_ident" id="p_BPT5caOywU" href="#p_BPT5caOywU" tabindex="-1" role="presentation"></a>اما به هر حال ما از DOM برای کاری استفاده می کنیم که برای آن طراحی نشده است. بعضی کارها مثل ترسیم یک خط بین دو نقطه‌ی دلخواه، کاری به شدت ناهمگون با ماهیت عناصر HTML معمولی است.</p>
 
-<p><a class="p_ident" id="p_vZ4w2z/4jM" href="#p_vZ4w2z/4jM" tabindex="-1" role="presentation"></a>There are two alternatives. The first is DOM-based but utilizes <em>Scalable Vector Graphics</em> (SVG), rather than HTML. Think of SVG as a document-markup dialect that focuses on shapes rather than text. You can embed an SVG document directly in an HTML document or include it with an <code>&lt;img&gt;</code> tag.</p>
+<p><a class="p_ident" id="p_Tn/Y7Gs7p5" href="#p_Tn/Y7Gs7p5" tabindex="-1" role="presentation"></a>دو گزینه‌ی دیگر پیش روی ما قرار داد. روش اول استفاده از DOM اما با بکارگیری تصاویر برداری مقیاس‌پذیر (SVG) نسبت به HTML است. می توانید SVG را به عنوان گویشی برای نشانه‌گذاری سند اما با تمرکز بر اشکال به جای متون در نظر گرفت. می توانید یک سند SVG را مستقیما درونی یک سند HTML قرار دهید یا آن را در یک برچسب <bdo><code>&lt;img&gt;</code></bdo> قرار دهید.</p>
 
-<p><a class="p_ident" id="p_wU9UQEILbC" href="#p_wU9UQEILbC" tabindex="-1" role="presentation"></a>The second alternative is called a <em>canvas</em>. A canvas is a single DOM element that encapsulates a picture. It provides a programming interface for drawing shapes onto the space taken up by the node. The main difference between a canvas and an SVG picture is that in SVG the original description of the shapes is preserved so that they can be moved or resized at any time. A canvas, on the other hand, converts the shapes to pixels (colored dots on a raster) as soon as they are drawn and does not remember what these pixels represent. The only way to move a shape on a canvas is to clear the canvas (or the part of the canvas around the shape) and redraw it with the shape in a new position.</p>
+<p><a class="p_ident" id="p_3/aLzLBdyy" href="#p_3/aLzLBdyy" tabindex="-1" role="presentation"></a>گزینه‌ی دوم استفاده از <em>canvas</em> است. یک canvas یک عنصر ‌DOM است که یک تصویر را کپسوله سازی می کند. این عنصر یک رابط برنامه نویسی برای ترسیم اشکال در فضای اشغال شده توسط آن را فراهم می سازد. تفاوت اصلی بین یک canvas و یک تصویر SVG این است که در SVG تعریف اصلی اشکال حفظ می شود در نتیجه می توان آن ها را در هر زمان حرکت یا تغییر اندازه داد. یک canvas، در سوی دیگر، اشکال را به‌محض اینکه ترسیم شدند، به پیکسل‌ها (نقطه‌های رنگی روی یک محل تصویر)  تبدیل می کند و چیزی که این پیکسل‌ها نمایندگی می کنند را جایی نگه‌داری نمی‌کند. تنها راهی که برای حرکت دادن یک شکل درون یک canvas وجود دارد پاک کردن آن (پاک کردن قسمتی از canvas که شکل آنجا وجود دارد) و ترسیم دوباره‌ی شکل در جایگاه جدید است.</p>
 
 <h2><a class="h_ident" id="h_UPzm0CiZhQ" href="#h_UPzm0CiZhQ" tabindex="-1" role="presentation"></a>SVG</h2>
 
-<p><a class="p_ident" id="p_gCxXcLPC1N" href="#p_gCxXcLPC1N" tabindex="-1" role="presentation"></a>This book will not go into SVG in detail, but I will briefly explain how it works. At the <a href="17_canvas.html#graphics_tradeoffs">end of the chapter</a>, I’ll come back to the trade-offs that you must consider when deciding which drawing mechanism is appropriate for a given application.</p>
+<p><a class="p_ident" id="p_UPzm0CiZhQ" href="#p_UPzm0CiZhQ" tabindex="-1" role="presentation"></a>این کتاب به جزئیات کار با SVG نمی پردازد، اما به طور مختصر با نحوه‌ی عملکرد آن آشنا می شویم. <a href="17_canvas.html#graphics_tradeoffs">در پایان این فصل</a>، به ملاحظاتی خواهیم پرداخت که در هنگام انتخاب مکانیزم ترسیم برای اپلیکیشن نیاز است در نظر گرفته شود.</p>
 
-<p><a class="p_ident" id="p_aF1bihN0fO" href="#p_aF1bihN0fO" tabindex="-1" role="presentation"></a>This is an HTML document with a simple SVG picture in it:</p>
+<p><a class="p_ident" id="p_Q4EhoqfXYQ" href="#p_Q4EhoqfXYQ" tabindex="-1" role="presentation"></a>این یک سند HTML است که حاوی یک تصویر SVG ساده می باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-sandbox="svg"><a class="c_ident" id="c_AkjyzdSyFr" href="#c_AkjyzdSyFr" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Normal HTML here.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">svg</span> <span class="cm-attribute">xmlns</span>=<span class="cm-string">&quot;http://www.w3.org/2000/svg&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -43,24 +46,24 @@
         <span class="cm-attribute">stroke</span>=<span class="cm-string">&quot;blue&quot;</span> <span class="cm-attribute">fill</span>=<span class="cm-string">&quot;none&quot;</span><span class="cm-tag cm-bracket">/&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">svg</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_wavG4kxHm7" href="#p_wavG4kxHm7" tabindex="-1" role="presentation"></a>The <code>xmlns</code> attribute changes an element (and its children) to a different <em>XML namespace</em>. This namespace, identified by a URL, specifies the dialect that we are currently speaking. The <code>&lt;circle&gt;</code> and <code>&lt;rect&gt;</code> tags, which do not exist in HTML, do have a meaning in SVG—they draw shapes using the style and position specified by their attributes.</p>
+<p><a class="p_ident" id="p_t22Lilqrqk" href="#p_t22Lilqrqk" tabindex="-1" role="presentation"></a>خصیصه‌ی <code>xmlns</code> باعث می شود که یک عنصر (به همراه عناصر فرزندش) به &quot;فضای نام XML” متفاوتی تغییر کند. این فضای نام، که توسط یک URL شناسایی می شود، گویشی که در سند با آن صحبت می کنیم را مشخص می کند. برچسب‌های <bdo><code>&lt;circle&gt;</code></bdo> و <bdo><code>&lt;rect&gt;</code></bdo> که در HTML وجود ندارند، در SVG معنای خاصی دارند – این برچسب‌ها با استفاده از سبک و موقعیتی که در خصیصه‌هایشان مشخص می شود اشکالی را ترسیم می کنند.</p>
 
-<p><a class="p_ident" id="p_DcMLpWRkj0" href="#p_DcMLpWRkj0" tabindex="-1" role="presentation"></a>These tags create DOM elements, just like HTML tags, that scripts can interact with. For example, this changes the <code>&lt;circle&gt;</code> element to be colored cyan instead:</p>
+<p>این برچسب‌ها عناصر DOM را ایجاد می کنند، درست مثل برچسب های HTML که اسکریپت‌ها می توانند با آن‌ها کار کنند. به عنوان مثال، این کد عنصر <bdo><code>&lt;circle&gt;</code></bdo> را تغییر می دهد تا رنگش خاکستری شود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="svg"><a class="c_ident" id="c_jx+UOHRvDL" href="#c_jx+UOHRvDL" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">circle</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">querySelector</span>(<span class="cm-string">&quot;circle&quot;</span>);
 <span class="cm-variable">circle</span>.<span class="cm-property">setAttribute</span>(<span class="cm-string">&quot;fill&quot;</span>, <span class="cm-string">&quot;cyan&quot;</span>);</pre>
 
-<h2><a class="h_ident" id="h_QXPPgw0nn4" href="#h_QXPPgw0nn4" tabindex="-1" role="presentation"></a>The canvas element</h2>
+<h2><a class="h_ident" id="h_+AGHBXc3eK" href="#h_+AGHBXc3eK" tabindex="-1" role="presentation"></a>عنصر Canvas</h2>
 
-<p><a class="p_ident" id="p_BtCv9cvTMv" href="#p_BtCv9cvTMv" tabindex="-1" role="presentation"></a>Canvas graphics can be drawn onto a <code>&lt;canvas&gt;</code> element. You can give such an element <code>width</code> and <code>height</code> attributes to determine its size in pixels.</p>
+<p><a class="p_ident" id="p_eqFYNfD7Zh" href="#p_eqFYNfD7Zh" tabindex="-1" role="presentation"></a>عناصر گرافیکی canvas را می‌توان درون یک عنصر <bdo><code>&lt;canvas&gt;</code></bdo> ترسیم کرد. می توانید به این عنصر خصیصه‌های <code>width</code> و <code>height</code> را اضافه کنید تا اندازه‌ی آن به پیکسل تعیین شود.</p>
 
-<p><a class="p_ident" id="p_oQeTfkBH6v" href="#p_oQeTfkBH6v" tabindex="-1" role="presentation"></a>A new canvas is empty, meaning it is entirely transparent and thus shows up as empty space in the document.</p>
+<p>یک canvas جدید، تهی است به این معنا که یک فضای خالی را در سند نشان می دهد و کاملا شفاف است.</p>
 
-<p><a class="p_ident" id="p_DmgNYj7JwC" href="#p_DmgNYj7JwC" tabindex="-1" role="presentation"></a>The <code>&lt;canvas&gt;</code> tag is intended to allow different styles of drawing. To get access to an actual drawing interface, we first need to create a <em>context</em>, an object whose methods provide the drawing interface. There are currently two widely supported drawing styles: <code>&quot;2d&quot;</code> for two-dimensional graphics and <code>&quot;webgl&quot;</code> for three-dimensional graphics through the OpenGL interface.</p>
+<p><a class="p_ident" id="p_nm7N9cw7XK" href="#p_nm7N9cw7XK" tabindex="-1" role="presentation"></a>برچسب <bdo><code>&lt;canvas&gt;</code></bdo> برای این منظور تعریف شده است که سبک‌های مختلف ترسیم را پشتیبانی کند. برای اینکه به یک محیط ترسیم واقعی دسترسی داشته باشیم ، ابتدا نیاز داریم تا یک بستر (<em>context</em>) تعریف کنیم، شیئی که متدهایش رابط ترسیم را فراهم می سازند. در حال حاضر دو سبک رایج ترسیم پشتیبانی می شود: <bdo><code>&quot;2d&quot;</code></bdo> برای گرافیک‌های دوبعدی و “webgl” برای گرافیک‌های سه بعدی با رابط OpenGL.</p>
 
-<p><a class="p_ident" id="p_jwj+O0MSuO" href="#p_jwj+O0MSuO" tabindex="-1" role="presentation"></a>This book won’t discuss WebGL—we’ll stick to two dimensions. But if you are interested in three-dimensional graphics, I do encourage you to look into WebGL. It provides a direct interface to graphics hardware and allows you to render even complicated scenes efficiently, using JavaScript.</p>
+<p><a class="p_ident" id="p_nD+3WfVRHJ" href="#p_nD+3WfVRHJ" tabindex="-1" role="presentation"></a>این کتاب WebGL را پوشش نمی دهد – فقط به دوبعدی خواهیم پرداخت. اما اگر به گرافیک سه بعدی علاقه دارید پیشنهاد می کنم که WebGL را بررسی کنید. در WebGL رابط مستقیمی به سخت‌افزار گرافیکی وجود دارد که به شما امکان می دهد که حتی صحنه‌های پیچیده را با استفاده از جاوااسکریپت به خوبی رندر یا تولید کنید.</p>
 
-<p><a class="p_ident" id="p_vlW/Yl/xfo" href="#p_vlW/Yl/xfo" tabindex="-1" role="presentation"></a>You create a context with the <code>getContext</code> method on the <code>&lt;canvas&gt;</code> DOM element.</p>
+<p><a class="p_ident" id="p_3tmKGT9to5" href="#p_3tmKGT9to5" tabindex="-1" role="presentation"></a>برای ایجاد یک بستر (context) از متد <code>getContext</code> مربوط به <bdo><code>&lt;canvas&gt;</code></bdo> در DOM استفاده می کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_A0Bt33IRVE" href="#c_A0Bt33IRVE" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Before canvas.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;120&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;60&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -72,21 +75,21 @@
   <span class="cm-variable">context</span>.<span class="cm-property">fillRect</span>(<span class="cm-number">10</span>, <span class="cm-number">10</span>, <span class="cm-number">100</span>, <span class="cm-number">50</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_fv4PQSHT32" href="#p_fv4PQSHT32" tabindex="-1" role="presentation"></a>After creating the context object, the example draws a red rectangle 100 pixels wide and 50 pixels high, with its top-left corner at coordinates (10,10).</p>
+<p><a class="p_ident" id="p_kkW7XWMuex" href="#p_kkW7XWMuex" tabindex="-1" role="presentation"></a>بعد از ایجاد شیء context، در مثال، یک چهارضلعی صد پیکسل در پنجاه پیکسل رسم می‌شود که مختصات گوشه‌ی بالا-چپ آن برابر <bdo>(10,10)</bdo> است.</p>
 
-<p><a class="p_ident" id="p_e1SRsTstnD" href="#p_e1SRsTstnD" tabindex="-1" role="presentation"></a>Just like in HTML (and SVG), the coordinate system that the canvas uses puts (0,0) at the top-left corner, and the positive y-axis goes down from there. So (10,10) is 10 pixels below and to the right of the top-left corner.</p>
+<p><a class="p_ident" id="p_nVWZDrvIyF" href="#p_nVWZDrvIyF" tabindex="-1" role="presentation"></a>درست مثل HTML (و SVG)، سیستم مختصاتی که canvas استفاده می کند (0,0) را در گوشه‌ی بالا-چپ قرار می دهد و محور عمودی مثبت، پایین تر از آن در نظر گرفته می شود. بنابراین (10,10) می شود 10 پیکسل به سمت پایین و راست گوشه‌ی بالا-چپ.</p>
 
-<h2 id="fill_stroke"><a class="h_ident" id="h_Dtw0KBlBdA" href="#h_Dtw0KBlBdA" tabindex="-1" role="presentation"></a>Lines and surfaces</h2>
+<h2 id="fill_stroke"><a class="h_ident" id="h_aZWfSnzHCx" href="#h_aZWfSnzHCx" tabindex="-1" role="presentation"></a>خطوط و سطوح</h2>
 
-<p><a class="p_ident" id="p_AjXIvEAE7u" href="#p_AjXIvEAE7u" tabindex="-1" role="presentation"></a>In the canvas interface, a shape can be <em>filled</em>, meaning its area is given a certain color or pattern, or it can be <em>stroked</em>, which means a line is drawn along its edge. The same terminology is used by SVG.</p>
+<p><a class="p_ident" id="p_nas4S1pI4/" href="#p_nas4S1pI4/" tabindex="-1" role="presentation"></a>در رابط canvas، شکل را می توان پر (fill) کرد، یعنی به مساحتش رنگ یا الگو اختصاص داد، یا می توان دور آن خط کشید (stroke). همین اصطلاحات در SVG هم استفاده می شوند.</p>
 
-<p><a class="p_ident" id="p_ju8WCrIWOz" href="#p_ju8WCrIWOz" tabindex="-1" role="presentation"></a>The <code>fillRect</code> method fills a rectangle. It takes first the x- and y-coordinates of the rectangle’s top-left corner, then its width, and then its height. A similar method, <code>strokeRect</code>, draws the outline of a rectangle.</p>
+<p>متد <code>fillRect</code> یک چهارضلعی را با رنگ پر می کند. این متد ابتدا مختصات طولی و عرضی گوشه‌ی بالا-چپ چهارضلعی را می‌گیرد، بعد طول و ارتفاع آن را دریافت می کند. یک متد مشابه دیگر به نام <code>strokeRect</code> برای کشیدن خط دور چهارضلعی استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_a+mohoFrQD" href="#p_a+mohoFrQD" tabindex="-1" role="presentation"></a>Neither method takes any further parameters. The color of the fill, thickness of the stroke, and so on, are not determined by an argument to the method (as you might reasonably expect) but rather by properties of the context object.</p>
+<p><a class="p_ident" id="p_7Ccns7cfB2" href="#p_7Ccns7cfB2" tabindex="-1" role="presentation"></a>هیچکدام از دو متد پارامتر دیگری دریافت نمی کنند. رنگ مورد نظر و ضخامت خط و مواردی از این دست توسط آرگومان مشخص نمی شوند (که منطقا می بایست انجام می شد) اما در عوض توسط خاصیت‌های شیء بستر (context) تعیین می شوند.</p>
 
-<p><a class="p_ident" id="p_efeWG2le//" href="#p_efeWG2le//" tabindex="-1" role="presentation"></a>The <code>fillStyle</code> property controls the way shapes are filled. It can be set to a string that specifies a color, using the color notation used by CSS.</p>
+<p><a class="p_ident" id="p_GU4T2nIKHw" href="#p_GU4T2nIKHw" tabindex="-1" role="presentation"></a>خاصیت <code>fillStyle</code> سبک پرشدن اشکال را کنترل می کند. می توان آن را با یک رشته که نمایانگر یک رنگ خاص است با استفاده از روش مشخص کردن رنگ‌ها در CSS تنظیم کرد.</p>
 
-<p><a class="p_ident" id="p_nE1twk7mw2" href="#p_nE1twk7mw2" tabindex="-1" role="presentation"></a>The <code>strokeStyle</code> property works similarly but determines the color used for a stroked line. The width of that line is determined by the <code>lineWidth</code> property, which may contain any positive number.</p>
+<p>خاصیت <code>strokeStyle</code> به طور مشابهی کار می کند اما رنگ مشخص شده، برای خط دور شکل استفاده می شود. عرض این خط توسط خاصیت <code>lineWidth</code> مشخص می شود که می تواند شامل هر عدد مثبتی باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_RXlmHDTr07" href="#c_RXlmHDTr07" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -97,11 +100,11 @@
   <span class="cm-variable">cx</span>.<span class="cm-property">strokeRect</span>(<span class="cm-number">135</span>, <span class="cm-number">5</span>, <span class="cm-number">50</span>, <span class="cm-number">50</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_T9fZ1fWNcX" href="#p_T9fZ1fWNcX" tabindex="-1" role="presentation"></a>When no <code>width</code> or <code>height</code> attribute is specified, as in the example, a canvas element gets a default width of 300 pixels and height of 150 pixels.</p>
+<p><a class="p_ident" id="p_KA/8xZgyQw" href="#p_KA/8xZgyQw" tabindex="-1" role="presentation"></a>زمانی که <code>with</code> و <code>height</code> مشخص نمی شوند، مثل مثال بالا، عنصر canvas طول پیش‌فرض 300 پیکسل و ارتفاع 150 پیکسل را خواهد گرفت.</p>
 
-<h2><a class="h_ident" id="h_E+fhFyL32D" href="#h_E+fhFyL32D" tabindex="-1" role="presentation"></a>Paths</h2>
+<h2><a class="h_ident" id="h_zk6lIPDD3L" href="#h_zk6lIPDD3L" tabindex="-1" role="presentation"></a>مسیرها</h2>
 
-<p><a class="p_ident" id="p_EjhhpUs4B/" href="#p_EjhhpUs4B/" tabindex="-1" role="presentation"></a>A path is a sequence of lines. The 2D canvas interface takes a peculiar approach to describing such a path. It is done entirely through side effects. Paths are not values that can be stored and passed around. Instead, if you want to do something with a path, you make a sequence of method calls to describe its shape.</p>
+<p>یک مسیر، امتدادی از خطوط است. رابط دوبعد canvas از روش ویژه ای برای توصیف مسیرها استفاده می کند. این کار به طور کامل توسط اثرات جانبی صورت می گیرد. مسیرها مقادیری نیستند که بتوان آن ها را ذخیره کرد یا ارسال نمود. در عوض، اگر می خواهید با مسیرها کار کنید، باید دنباله‌ای از فراخوانی‌ها را برای توصیف شکل آن داشته باشید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_q5tyCN7mU3" href="#c_q5tyCN7mU3" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -114,9 +117,9 @@
   <span class="cm-variable">cx</span>.<span class="cm-property">stroke</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_CDApJpctJH" href="#p_CDApJpctJH" tabindex="-1" role="presentation"></a>This example creates a path with a number of horizontal line segments and then strokes it using the <code>stroke</code> method. Each segment created with <code>lineTo</code> starts at the path’s <em>current</em> position. That position is usually the end of the last segment, unless <code>moveTo</code> was called. In that case, the next segment would start at the position passed to <code>moveTo</code>.</p>
+<p>در مثال بالا مسیری را توسط چند خط افقی ایجاد کرده و با استفاده از متد <code>stroke</code> دور آن خط می‌کشد. هر قسمتی که با <code>lineTo</code> ایجاد شده است از موقعیت فعلی مسیر شروع می شود. موقعیت مورد نظر معمولا در انتهای قسمت قبلی قرار دارد مگر اینکه <code>moveTo</code> فراخوانی شده باشد. در آن صورت، بخش بعدی از موقعیتی که به <code>moveTo</code> داده شده است شروع می شود.</p>
 
-<p><a class="p_ident" id="p_/C3/H/w2FX" href="#p_/C3/H/w2FX" tabindex="-1" role="presentation"></a>When filling a path (using the <code>fill</code> method), each shape is filled separately. A path can contain multiple shapes—each <code>moveTo</code> motion starts a new one. But the path needs to be <em>closed</em> (meaning its start and end are in the same position) before it can be filled. If the path is not already closed, a line is added from its end to its start, and the shape enclosed by the completed path is filled.</p>
+<p>زمانی که یک مسیر (با متد <code>fill</code>) پر می شود، هر شکل به صورت مجزا پر می شود. یک مسیر می تواند حاوی اشکال متعددی باشد – هر حرکت <code>moveTo</code> یک شکل جدید شروع می کند. اما لازم است که مسیر بسته باشد ) به این معنا که نقطه‌ی شروع و پایانش یکسان باشد( تا بتوان آن را پر کرد. اگر مسیر هنوز بسته نشده است خطی از از نقطه‌ی پایان به نقطه‌ی آغاز وصل می شود و شکلی که توسط یک مسیر بسته ایجاد می شود پر می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_dKfK5v1gw2" href="#c_dKfK5v1gw2" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -128,16 +131,15 @@
   <span class="cm-variable">cx</span>.<span class="cm-property">fill</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_9unYw61//h" href="#p_9unYw61//h" tabindex="-1" role="presentation"></a>This example draws a filled triangle. Note that only two of the triangle’s sides are explicitly drawn. The third, from the bottom-right corner back to the top, is implied and wouldn’t be there when you stroke the path.</p>
+<p><a class="p_ident" id="p_+ipP1GR/rY" href="#p_+ipP1GR/rY" tabindex="-1" role="presentation"></a>در مثال بالا یک مثلث توپر کشیده می شود. توجه داشته باشید که فقط دو ضلع از مثلث صراحتا ترسیم شده اند. ضلع سوم، از گوشه‌ی پایین-راست تا بالا، به صورت ضمنی است و اگر به مسیر، خطر مرزی (stroke) اختصاص داده می شد، آن‌جا دیده نمی‌شد.</p>
 
-<p><a class="p_ident" id="p_6TyHPpw704" href="#p_6TyHPpw704" tabindex="-1" role="presentation"></a>You could also use the <code>closePath</code> method to explicitly close a path by adding an actual line segment back to the path’s start. This segment <em>is</em> drawn when stroking the path.</p>
+<p>شما می توانید متد <code>closePath</code> را نیز استفاده کنید تا صراحتا یک مسیر را ببندید و ضلعی واقعی را به نقطه‌ی شروع رسم کنید. این ضلع در هنگام اختصاص خط مرزی به مسیر رسم می شود.</p>
 
-<h2><a class="h_ident" id="h_B8g7k6vws+" href="#h_B8g7k6vws+" tabindex="-1" role="presentation"></a>Curves</h2>
+<h2><a class="h_ident" id="h_4HEJGDEysm" href="#h_4HEJGDEysm" tabindex="-1" role="presentation"></a>خطوط منحنی</h2>
 
-<p><a class="p_ident" id="p_4/5JyRbnoi" href="#p_4/5JyRbnoi" tabindex="-1" role="presentation"></a>A path may also contain curved lines. These are unfortunately a bit more involved to draw.</p>
+<p>یک مسیر می تواند شامل خطوط منحنی باشد. رسم این خطوط متاسفانه کمی بیشتر کار می برد.</p>
 
-<p><a class="p_ident" id="p_aIjUSaPbwv" href="#p_aIjUSaPbwv" tabindex="-1" role="presentation"></a>The <code>quadraticCurveTo</code> method draws a curve to a given point. To determine the curvature of the line, the method is given a control
-point as well as a destination point. Imagine this control point as <em>attracting</em> the line, giving it its curve. The line won’t go through the control point, but its direction at the start and end points will be such that a straight line in that direction would point toward the control point. The following example illustrates this:</p>
+<p>متد <code>quadraticCurveTo</code> یک منحنی را از نقطه‌ی داده شده ترسیم می نماید. برای تعیین میزان انحنای خط، این متد یک نقطه‌ی کنترل و یک نقطه‌ی مقصد را دریافت می کند. این نقطه‌ی کنترل را می توان به عنوان یک خط جذب‌کننده در نظر گرفت که به خط انحنا می بخشد. خط از میان نقطه‌ی کنترل نخواهد گذشت اما اگر خط مستقیمی بین نقاط ابتدایی و انتهایی رسم شود به سمت نقطه‌ی کنترل انحنا خواهد داشد. مثال زیر این مفهوم را به تصویر می کشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Jq9+Wmbm3J" href="#c_Jq9+Wmbm3J" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -151,9 +153,9 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">cx</span>.<span class="cm-property">stroke</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_4JGuRcCqes" href="#p_4JGuRcCqes" tabindex="-1" role="presentation"></a>We draw a quadratic curve from the left to the right, with (60,10) as control point, and then draw two line segments going through that control point and back to the start of the line. The result somewhat resembles a <em>Star Trek</em> insignia. You can see the effect of the control point: the lines leaving the lower corners start off in the direction of the control point and then curve toward their target.</p>
+<p><a class="p_ident" id="p_HtMprCoCcX" href="#p_HtMprCoCcX" tabindex="-1" role="presentation"></a>یک منحنی درجه دوم از چپ به راست با مرکز کنترل (60,10) رسم می کنیم و سپس دو خط ضلعی که به سمت آن نقطه‌ی کنترل رسم می شوند و به شروع خط بر‌می‌گردند. شکل نتیجه، کمی شبیه به نماد Star Trek (مجموعه‌ی پیشتازان فضا) می شود. می توانید اثر این نقطه‌ی کنترل را مشاهده کنید: خطوط از گوشه‌های پایینی جدا می شوند و به سمت نقطه‌ی کنترل جهت می گیرند و به سمت نقطه‌ی هدفشان انحنا می یابند.</p>
 
-<p><a class="p_ident" id="p_W0g7mQl1YV" href="#p_W0g7mQl1YV" tabindex="-1" role="presentation"></a>The <code>bezierCurveTo</code> method draws a similar kind of curve. Instead of a single control point, this one has two—one for each of the line’s endpoints. Here is a similar sketch to illustrate the behavior of such a curve:</p>
+<p>متد <code>bezierCurveTo</code> منحنی مشابهی را رسم می کند. به جای یک نقطه‌ی کنترل، این متد دارای دو نقطه می باشد – برای هر نقطه‌ی پایانی، یک نقطه‌ی کنترل. در اینجا با طرح مشابهی که عملکرد این نوع منحنی را نشان می دهد آشنا می شویم:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_88jydjz4KB" href="#c_88jydjz4KB" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -168,13 +170,13 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">cx</span>.<span class="cm-property">stroke</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_UVt0ID9CaV" href="#p_UVt0ID9CaV" tabindex="-1" role="presentation"></a>The two control points specify the direction at both ends of the curve. The farther they are away from their corresponding point, the more the curve will “bulge” in that direction.</p>
+<p>دو نقطه‌ی کنترل در اینجا جهت دو قسمت انتهایی منحنی را مشخص می کنند. هر چه بیشتر از نقاط کنترل دور می شویم، درجه‌ی انحنا در آن جهت بیشتر می شود.</p>
 
-<p><a class="p_ident" id="p_tMRY3uv3sU" href="#p_tMRY3uv3sU" tabindex="-1" role="presentation"></a>Such curves can be hard to work with—it’s not always clear how to find the control points that provide the shape you are looking for. Sometimes you can compute them, and sometimes you’ll just have to find a suitable value by trial and error.</p>
+<p>کار کردن با این گونه منحنی ها می تواند سخت باشد – همیشه نمی توان به روشنی نقاط کنترل شیئی که قصد رسم آن را دارید پیدا نمود. گاهی اوقات می توان آن ها را محاسبه کرد و گاهی هم باید فقط با آزمایش و خطا آن ها را یافت.</p>
 
-<p><a class="p_ident" id="p_AattY0V1YG" href="#p_AattY0V1YG" tabindex="-1" role="presentation"></a>The <code>arc</code> method is a way to draw a line that curves along the edge of a circle. It takes a pair of coordinates for the arc’s center, a radius, and then a start angle and end angle.</p>
+<p>متد <code>arc</code> روشی است برای ترسیم خطی که روی محیط دایره‌ای شکل انحنا می یابد. این متد یک جفت مختصات برای مرکز قوس، یک شعاع و زوایای شروع و پایان را دریافت می کند.</p>
 
-<p><a class="p_ident" id="p_1in45pESGP" href="#p_1in45pESGP" tabindex="-1" role="presentation"></a>Those last two parameters make it possible to draw only part of the circle. The angles are measured in radians, not degrees. This means a full circle has an angle of 2π, or <code>2 * Math.PI</code>, which is about 6.28. The angle starts counting at the point to the right of the circle’s center and goes clockwise from there. You can use a start of 0 and an end bigger than 2π (say, 7) to draw a full circle.</p>
+<p><a class="p_ident" id="p_AAqyKSUJxt" href="#p_AAqyKSUJxt" tabindex="-1" role="presentation"></a>دو پارامتر آخر این امکان را فراهم می سازند که فقط بخشی از دایره را بتوانیم رسم کنیم. زوایا در واحد رادیان اندازه‌گیری می شوند نه واحد درجه. این یعنی یک دایره‌ی کامل دارای زاویه‌ی <bdo>2π</bdo> یا <bdo><code>2 * Math.PI</code></bdo> می باشد که تقریبا برابر <bdo>6.28</bdo> است. زاویه از نقطه‌ی سمت راست مرکز دایره شروع به افزایش می یابد و در جهت خلاف عقربه‌های ساعت حرکت می کند. می توانید از عدد 0 شروع کرده و با عددی بزرگتر از <bdo>2π</bdo> (مثلا 7) رسم یک دایره‌ی کامل را تکمیل کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_LopNVujEda" href="#c_LopNVujEda" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -187,13 +189,13 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">cx</span>.<span class="cm-property">stroke</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_NhI3gukqbY" href="#p_NhI3gukqbY" tabindex="-1" role="presentation"></a>The resulting picture contains a line from the right of the full circle (first call to <code>arc</code>) to the right of the quarter-circle (second call). Like other path-drawing methods, a line drawn with <code>arc</code> is connected to the previous path segment. You can call <code>moveTo</code> or start a new path to avoid this.</p>
+<p>تصویر تولید شده شامل خطی است که از سمت راست یک دایره‌ی کامل (اولین فراخوانی به <code>arc</code>) به سمت راست تصویر یک چهارم دایره (فراخوانی دوم) کشیده شده است. شبیه دیگر متدهای رسم مسیر، خطی که توسط <code>arc</code> ترسیم می شود به قسمت قبلی مسیر متصل می شود. برای جلوگیری از این کار می توانید از <code>moveTo</code> استفاده کنید یا مسیر جدیدی را ترسیم کنید.</p>
 
-<h2 id="pie_chart"><a class="h_ident" id="h_9yOdkmATfT" href="#h_9yOdkmATfT" tabindex="-1" role="presentation"></a>Drawing a pie chart</h2>
+<h2 id="pie_chart"><a class="h_ident" id="h_OtyzJdxjCB" href="#h_OtyzJdxjCB" tabindex="-1" role="presentation"></a>رسم یک نمودار کیکی (pie chart)</h2>
 
-<p><a class="p_ident" id="p_CLqO4FJN98" href="#p_CLqO4FJN98" tabindex="-1" role="presentation"></a>Imagine you’ve just taken a job at EconomiCorp, Inc., and your first assignment is to draw a pie chart of its customer satisfaction survey results.</p>
+<p><a class="p_ident" id="p_zSVzE2WLJi" href="#p_zSVzE2WLJi" tabindex="-1" role="presentation"></a>تصور کنید که به تازگی شغلی در شرکت EconomiCorp Ince پیدا کرده اید و اولین کاری که به شما سپرده می شود این باشد که یک نمودار کیکی برای نتایج رضایت‌سنجی مشتریان رسم کنید.</p>
 
-<p><a class="p_ident" id="p_aCOos0ELv4" href="#p_aCOos0ELv4" tabindex="-1" role="presentation"></a>The <code>results</code> binding contains an array of objects that represent the survey responses.</p>
+<p>متغیر <code>result</code> حاوی آرایه‌ای از اشیاء است که نتایج نظرسنجی را نشان می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="pie"><a class="c_ident" id="c_evimv7LBgO" href="#c_evimv7LBgO" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">results</span> <span class="cm-operator">=</span> [
   {<span class="cm-property">name</span>: <span class="cm-string">&quot;Satisfied&quot;</span>, <span class="cm-property">count</span>: <span class="cm-number">1043</span>, <span class="cm-property">color</span>: <span class="cm-string">&quot;lightblue&quot;</span>},
@@ -202,7 +204,7 @@ point as well as a destination point. Imagine this control point as <em>attracti
   {<span class="cm-property">name</span>: <span class="cm-string">&quot;No comment&quot;</span>, <span class="cm-property">count</span>: <span class="cm-number">175</span>, <span class="cm-property">color</span>: <span class="cm-string">&quot;silver&quot;</span>}
 ];</pre>
 
-<p><a class="p_ident" id="p_O7+fKanTNh" href="#p_O7+fKanTNh" tabindex="-1" role="presentation"></a>To draw a pie chart, we draw a number of pie slices, each made up of an arc and a pair of lines to the center of that arc. We can compute the angle taken up by each arc by dividing a full circle (2π) by the total number of responses and then multiplying that number (the angle per response) by the number of people who picked a given choice.</p>
+<p><a class="p_ident" id="p_2kuSN7rMzf" href="#p_2kuSN7rMzf" tabindex="-1" role="presentation"></a>برای رسم یک نمودار کیکی باید تعدادی برش کیک که هر کدام از یک قوس و دو خط از مرکز آن قوس تشکیل شده اند رسم کنیم. می توانیم زاویه‌ای که توسط هر قوس اشغال می شود را با تقسیم کل دایره (2π) بر مجموع تعداد پاسخ‌ها و ضرب آن عدد ( زاویه مربوط به هر پاسخ) در تعداد افرادی که یک گزینه‌ی مشخص را انتخاب کرده اند بدست بیاوریم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-sandbox="pie"><a class="c_ident" id="c_j6Un5vCZUN" href="#c_j6Un5vCZUN" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;200&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;200&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -225,11 +227,11 @@ point as well as a destination point. Imagine this control point as <em>attracti
   }
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_e5+MpAPZp1" href="#p_e5+MpAPZp1" tabindex="-1" role="presentation"></a>But a chart that doesn’t tell us what the slices mean isn’t very helpful. We need a way to draw text to the canvas.</p>
+<p>اما نموداری که اطلاعاتی در مورد هر برش نمایش نمی دهد زیاد کاربردی نیست. لازم است راهی برای رسم متن روی canvas پیدا کنیم.</p>
 
-<h2><a class="h_ident" id="h_wzKMObDin3" href="#h_wzKMObDin3" tabindex="-1" role="presentation"></a>Text</h2>
+<h2><a class="h_ident" id="h_QLMSFWXLRO" href="#h_QLMSFWXLRO" tabindex="-1" role="presentation"></a>متن</h2>
 
-<p><a class="p_ident" id="p_gXYVsxy73+" href="#p_gXYVsxy73+" tabindex="-1" role="presentation"></a>A 2D canvas drawing context provides the methods <code>fillText</code> and <code>strokeText</code>. The latter can be useful for outlining letters, but usually <code>fillText</code> is what you need. It will fill the outline of the given text with the current <code>fillStyle</code>.</p>
+<p>در یک بستر (context) ترسیم دو بعدی، متدی به نام <code>fillText</code> و <code>strokeText</code> در دسترس است. متد دوم برای رسم خط مرزی برای حروف می تواند کاربرد داشته باشد اما معمولا متدی که استفاده می شود <code>fillText</code> است. این متد فضای حروف را با سبکی که توسط <code>fillStyle</code> کنونی مشخص می شود، پر می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_I5eI8lFy8O" href="#c_I5eI8lFy8O" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -239,17 +241,17 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">cx</span>.<span class="cm-property">fillText</span>(<span class="cm-string">&quot;I can draw text, too!&quot;</span>, <span class="cm-number">10</span>, <span class="cm-number">50</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_n79D894g2i" href="#p_n79D894g2i" tabindex="-1" role="presentation"></a>You can specify the size, style, and font of the text with the <code>font</code> property. This example just gives a font size and family name. It is also possible to add <code>italic</code> or <code>bold</code> to the start of the string to select a style.</p>
+<p><a class="p_ident" id="p_RkJXbYQyuH" href="#p_RkJXbYQyuH" tabindex="-1" role="presentation"></a>می توانید اندازه، سبک و قلم متن را با خاصیت font مشخص نمایید. در این مثال فقط اندازه‌ی قلم و نام خانواده‌ی آن مشخص می شود. همچنین برای انتخاب یک سبک می توانید به ابتدای این رشته مقدار <code>italic</code> یا <code>bold</code> را اضافه نمایید.</p>
 
-<p><a class="p_ident" id="p_Zc9FEe8Zce" href="#p_Zc9FEe8Zce" tabindex="-1" role="presentation"></a>The last two arguments to <code>fillText</code> and <code>strokeText</code> provide the position at which the font is drawn. By default, they indicate the position of the start of the text’s alphabetic baseline, which is the line that letters “stand” on, not counting hanging parts in letters such as <em>j</em> or <em>p</em>. You can change the horizontal position by setting the <code>textAlign</code> property to <code>&quot;end&quot;</code> or <code>&quot;center&quot;</code> and the vertical position by setting <code>textBaseline</code> to <code>&quot;top&quot;</code>, <code>&quot;middle&quot;</code>, or <code>&quot;bottom&quot;</code>.</p>
+<p><a class="p_ident" id="p_/7vtAp3Cdi" href="#p_/7vtAp3Cdi" tabindex="-1" role="presentation"></a>دو آرگومان آخر <code>fillText</code> و <code>strokeText</code>، موقعیتی که در آن نوشته ترسیم می شود را مشخص می کنند. به صورت پیش‌فرض این دو آرگومان موقعیت شروع خط زمینه متن را مشخص می کنند که خطی است که حروف روی آن می ایستند البته بدون در نظر گرفتن قسمت‌های بیرون‌زده در حروفی مثل j یا p. می توانید موقعیت افقی را با تنظیم خاصیت <code>textAlign</code> به <code>&quot;end&quot;</code> یا <code>&quot;center&quot;</code> و موقعیت عمودی را با تنظیم <code>textBaseline</code> به <code>&quot;top&quot;</code> ، ‍<code>&quot;middle&quot;</code> یا <code>&quot;bottom&quot;</code> تغییر دهید.</p>
 
-<p><a class="p_ident" id="p_rCl4tZtQnM" href="#p_rCl4tZtQnM" tabindex="-1" role="presentation"></a>We’ll come back to our pie chart, and the problem of labeling the slices, in the <a href="17_canvas.html#exercise_pie_chart">exercises</a> at the end of the chapter.</p>
+<p>در قسمت <a href="17_canvas.html#exercise_pie_chart">تمرین‌ها</a> به مشکل افزودن متن به نمودار کیکی باز خواهیم گشت.</p>
 
-<h2><a class="h_ident" id="h_CehxyY/vO5" href="#h_CehxyY/vO5" tabindex="-1" role="presentation"></a>Images</h2>
+<h2><a class="h_ident" id="h_LKMZYi6+po" href="#h_LKMZYi6+po" tabindex="-1" role="presentation"></a>تصاویر</h2>
 
-<p><a class="p_ident" id="p_ZAeqrSN31t" href="#p_ZAeqrSN31t" tabindex="-1" role="presentation"></a>In computer graphics, a distinction is often made between <em>vector</em> graphics and <em>bitmap</em> graphics. The first is what we have been doing so far in this chapter—specifying a picture by giving a logical description of shapes. Bitmap graphics, on the other hand, don’t specify actual shapes but rather work with pixel data (rasters of colored dots).</p>
+<p><a class="p_ident" id="p_ytamWk+t5x" href="#p_ytamWk+t5x" tabindex="-1" role="presentation"></a>در گرافیک کامپیوتری بین تصاویر برداری (vector) و تصاویر نقشه‌بیتی (bitmap) تفاوت قائل می شوند. تصاویر برداری همان‌هایی هستند که در این فصل به رسم آن‌ها می پرداختیم – یک تصویر را با توصیف اشکالی به شکلی منطقی مشخص می کردیم. تصاویر گرافیکی بیتی، از سوی دیگر، اشکال واقعی را مشخص نمی کنند بلکه با اطلاعات پیکسل‌ها کار می کنند ( ناحیه‌هایی از نقاط رنگ شده).</p>
 
-<p><a class="p_ident" id="p_a/eD/4ve/R" href="#p_a/eD/4ve/R" tabindex="-1" role="presentation"></a>The <code>drawImage</code> method allows us to draw pixel data onto a canvas. This pixel data can originate from an <code>&lt;img&gt;</code> element or from another canvas. The following example creates a detached <code>&lt;img&gt;</code> element and loads an image file into it. But it cannot immediately start drawing from this picture because the browser may not have loaded it yet. To deal with this, we register a <code>&quot;load&quot;</code> event handler and do the drawing after the image has loaded.</p>
+<p><a class="p_ident" id="p_gNP+fW7luS" href="#p_gNP+fW7luS" tabindex="-1" role="presentation"></a>متد <code>drawImage</code> این امکان را به ما می دهد تا داده‌های پیکسلی را روی canvas ترسیم کنیم. این داده‌های پیکسلی می توانند ریشه در یک عنصر <bdo><code>&lt;img&gt;</code></bdo> داشته باشند یا متعلق به canvas دیگری باشند. مثال پیش رو یک عنصر آزاد <bdo><code>&lt;img&gt;</code></bdo> را ایجاد کرده و یک فایل عکس را درون آن بارگیری می کند. اما نمی تواند عکس مورد مورد نظر را شروع به ترسیم کند چرا که مرورگر ممکن است هنوز آن را بارگیری نکرده باشد. برای حل این مشکل، یک گرداننده برای رخداد <code>&quot;load&quot;</code> ثبت می کنیم تا بعد از بارگیری عکس آن را رسم کند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Uzn6msw1dJ" href="#c_Uzn6msw1dJ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -263,17 +265,17 @@ point as well as a destination point. Imagine this control point as <em>attracti
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_wjCzpIEigd" href="#p_wjCzpIEigd" tabindex="-1" role="presentation"></a>By default, <code>drawImage</code> will draw the image at its original size. You can also give it two additional arguments to set a different width and height.</p>
+<p>به صورت پیشفرض، <code>drawImage</code> تصویر را در اندازه‌ی اصلی‌اش رسم می کند. همچنین می توانید به آن دو آرگومان اضافی ارسال کنید تا طول و عرض متفاوتی داشته باشد.</p>
 
-<p><a class="p_ident" id="p_9rhUti7aj6" href="#p_9rhUti7aj6" tabindex="-1" role="presentation"></a>When <code>drawImage</code> is given <em>nine</em> arguments, it can be used to draw only a fragment of an image. The second through fifth arguments indicate the rectangle (x, y, width, and height) in the source image that should be copied, and the sixth to ninth arguments give the rectangle (on the canvas) into which it should be copied.</p>
+<p><a class="p_ident" id="p_h+H4z6hrEN" href="#p_h+H4z6hrEN" tabindex="-1" role="presentation"></a>زمانی که به تابع <code>drawImage</code> <em>نه</em> (9) آرگومان ارسال شود، می توان از آن برای ترسیم بخش خاصی از یک عکس استفاده کرد. آرگومان های دوم تا پنجم ناحیه‌ای چهارضلعی شکلی از عکس منبع که باید کپی بشود را مشخص می کنند (x،y،width و height) و آرگومان‌های ششم تا نهم ناحیه‌ای (روی canvas) که چهارضلعی مشخص شده قرار است قرار بگیرد را مشخص می کنند.</p>
 
-<p><a class="p_ident" id="p_qMrOddcbqu" href="#p_qMrOddcbqu" tabindex="-1" role="presentation"></a>This can be used to pack multiple <em>sprites</em> (image elements) into a single image file and then draw only the part you need. For example, we have this picture containing a game character in multiple poses:</p><figure><img src="img/player_big.png" alt="Various poses of a game character"></figure>
+<p><a class="p_ident" id="p_7mOoCVYaLW" href="#p_7mOoCVYaLW" tabindex="-1" role="presentation"></a>می توان از این متد برای قرار دادن عناصر تصویری متعدد درون یک فایل تصویر (sprite) و ترسیم بخشی مورد نیاز استفاده کرد. به عنوان مثال، تصویر زیر را در اختیار داریم که که شخصیت یک بازی را در حالت های مختلف نشان می دهد.</p><figure><img src="img/player_big.png" alt="Various poses of a game character"></figure>
 
-<p><a class="p_ident" id="p_u8W4Vqh39a" href="#p_u8W4Vqh39a" tabindex="-1" role="presentation"></a>By alternating which pose we draw, we can show an animation that looks like a walking character.</p>
+<p>با ترسیم متوالی حالت شخصیت، می توانیم یک پویانمایی از راه رفتن را به نمایش بگذاریم.</p>
 
-<p><a class="p_ident" id="p_hMTZfb/U5N" href="#p_hMTZfb/U5N" tabindex="-1" role="presentation"></a>To animate a picture on a canvas, the <code>clearRect</code> method is useful. It resembles <code>fillRect</code>, but instead of coloring the rectangle, it makes it transparent, removing the previously drawn pixels.</p>
+<p>برای متحرک‌سازی یک تصویر روی یک canvas متد <code>clearRect</code> مفید است. این متد مشابه <code>fillRect</code> عمل می کند با این تفاوت که به جای رنگ‌کردن یک ناحیه با حذف پیکسل‌های رسم شده‌ی قبلی باعث می شود که آن ناحیه شفاف شود.</p>
 
-<p><a class="p_ident" id="p_VcrdBA3T8z" href="#p_VcrdBA3T8z" tabindex="-1" role="presentation"></a>We know that each <em>sprite</em>, each subpicture, is 24 pixels wide and 30 pixels high. The following code loads the image and then sets up an interval (repeated timer) to draw the next frame:</p>
+<p><a class="p_ident" id="p_Vd+DRl/TAz" href="#p_Vd+DRl/TAz" tabindex="-1" role="presentation"></a>می دانیم که در sprite، هر زیرتصویر، دارای 24 پیکسل طول و 30 پیکسل ارتفاع می باشد. کد زیر تصاویر را بارگیری کرده و یک وقفه‌ی زمانی برای رسم فریم بعدی تنظیم می کند:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_fHdIKXnjfm" href="#c_fHdIKXnjfm" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -295,13 +297,13 @@ point as well as a destination point. Imagine this control point as <em>attracti
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_2nOz9fW7vW" href="#p_2nOz9fW7vW" tabindex="-1" role="presentation"></a>The <code>cycle</code> binding tracks our position in the animation. For each frame, it is incremented and then clipped back to the 0 to 7 range by using the remainder operator. This binding is then used to compute the x-coordinate that the sprite for the current pose has in the picture.</p>
+<p><a class="p_ident" id="p_44wLnJbEIx" href="#p_44wLnJbEIx" tabindex="-1" role="presentation"></a>متغیر <code>cycle</code> موقعیت ما را در پویانمایی رصد می کند. در هر فریم، این متغیر افزایش می یابد بعد به بازهی 0 تا 7 دوباره به وسیله‌ی عملگر باقیمانده بر می گردد . این متغیر بعد برای محاسبه مختصات طولی آن sprite برای حالت فعلی شخصیت در تصویر استفاده می شود.</p>
 
-<h2><a class="h_ident" id="h_3BwjEnWhbh" href="#h_3BwjEnWhbh" tabindex="-1" role="presentation"></a>Transformation</h2>
+<h2><a class="h_ident" id="h_y/cuVJheCA" href="#h_y/cuVJheCA" tabindex="-1" role="presentation"></a>تغییر شکل</h2>
 
-<p><a class="p_ident" id="p_b00lbwHiev" href="#p_b00lbwHiev" tabindex="-1" role="presentation"></a>But what if we want our character to walk to the left instead of to the right? We could draw another set of sprites, of course. But we can also instruct the canvas to draw the picture the other way round.</p>
+<p>چه می شود اگر بخواهیم که شخصیت ما به جای حرکت به راست به سمت چپ حرکت کند؟ البته مجموعه‌ی دیگری از تصاویر را رسم کنیم. اما می توان همچنین canvas را طوری تنظیم کرد که تصاویر را به سمت دیگر رسم کند.</p>
 
-<p><a class="p_ident" id="p_9UTg0pE0zY" href="#p_9UTg0pE0zY" tabindex="-1" role="presentation"></a>Calling the <code>scale</code> method will cause anything drawn after it to be scaled. This method takes two parameters, one to set a horizontal scale and one to set a vertical scale.</p>
+<p>فراخوانی متد <code>scale</code> موجب می شود که هرچیزی که بعد از آن رسم شود تغییر اندازه دهد. این متد دو پارامتر را دریافت می کند، یک پارامتر برای اندازه‌ی افقی و دیگری برای تغییر عمودی.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Ih3Ewav/dQ" href="#c_Ih3Ewav/dQ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -313,17 +315,17 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">cx</span>.<span class="cm-property">stroke</span>();
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_bJBFw4CZDS" href="#p_bJBFw4CZDS" tabindex="-1" role="presentation"></a>Scaling will cause everything about the drawn image, including the line width, to be stretched out or squeezed together as specified. Scaling by a negative amount will flip the picture around. The flipping happens around point (0,0), which means it will also flip the direction of the coordinate system. When a horizontal scaling of -1 is applied, a shape drawn at x position 100 will end up at what used to be position -100.</p>
+<p><a class="p_ident" id="p_I0z4jz5vHW" href="#p_I0z4jz5vHW" tabindex="-1" role="presentation"></a>تغییر اندازه در همه‌ی قسمت‌های تصویر رسم شده اعمال می شود شامل ضخامت خط که با توجه به اعداد مشخص شده کشیده یا فشرده می شود. اگر این تغییر با عددی منفی انجام شود باعث می شود که تصویر وارونه شود. این وارونگی نسبت به نقطه‌ی <bdo>(0,0)</bdo> رخ می دهد که به این معنا است که جهت سیستم مختصات نیز وارونه می شود. با اعمال تغییر اندازه‌ی <bdo>-1</bdo>، شکلی در موقعیت طولی 100 رسم شده در جایی قرار می گیرد که سابقا <bdo>-100</bdo> بوده است.</p>
 
-<p><a class="p_ident" id="p_56HfLRRJhP" href="#p_56HfLRRJhP" tabindex="-1" role="presentation"></a>So to turn a picture around, we can’t simply add <code>cx.scale(-1, 1)</code> before the call to <code>drawImage</code> because that would move our picture outside of the canvas, where it won’t be visible. You could adjust the coordinates given to <code>drawImage</code> to compensate for this by drawing the image at x position -50 instead of 0. Another solution, which doesn’t require the code that does the drawing to know about the scale change, is to adjust the axis around which the scaling happens.</p>
+<p><a class="p_ident" id="p_bOFj0o5apk" href="#p_bOFj0o5apk" tabindex="-1" role="presentation"></a>بنابراین برای اینکه یک تصویر را وارونه کنیم، نمی توان فقط <bdo><code>cx.scale(-1,1)</code></bdo> را قبل از فراخوانی <code>drawImage</code> اضافه کرد چرا که این کار باعث می شود که تصویر بیرون از ناحیه canvas قرار گیرد، جایی که دیگر قابل مشاهده نخواهد بود. برای رفع این مشکل می توانید مختصات داده شده به <code>drawImage</code> را تغییر دهید و تصویر را در موقعیت طولی <bdo>-50</bdo> به جای 0 رسم کنید. یک راه حل دیگر هم، که در آن نیازی نیست تغییر در کد ترسیم برای تغییر اندازه اعمال شود، این است که محوری که تغییر اندازه در آن رخ می دهد را تغییر دهیم.</p>
 
-<p><a class="p_ident" id="p_dhSHDIZrz3" href="#p_dhSHDIZrz3" tabindex="-1" role="presentation"></a>There are several other methods besides <code>scale</code> that influence the coordinate system for a canvas. You can rotate subsequently drawn shapes with the <code>rotate</code> method and move them with the <code>translate</code> method. The interesting—and confusing—thing is that these transformations <em>stack</em>, meaning that each one happens relative to the previous transformations.</p>
+<p>متدهای دیگری در کنار <code>scale</code> وجود دارند که روی سیستم مختصات در canvas اثر می گذارند. می توانید متعاقبا تصاویر رسم شده را به وسیله‌ی متد <code>rotate</code> بچرخانید یا به وسیله متد <code>translate</code> حرکت دهید. نکته‌ی جالب – و گیج کننده – این است که این تغییرشکل‌دادن‌ها انباشته می شوند به این معنا که هر کدام متناسب و با توجه به تغییر شکل قبلی صورت می‌گیرد.</p>
 
-<p><a class="p_ident" id="p_mkNUtuNxcG" href="#p_mkNUtuNxcG" tabindex="-1" role="presentation"></a>So if we translate by 10 horizontal pixels twice, everything will be drawn 20 pixels to the right. If we first move the center of the coordinate system to (50,50) and then rotate by 20 degrees (about 0.1π radians), that rotation will happen <em>around</em> point (50,50).</p><figure><img src="img/transform.svg" alt="Stacking transformations"></figure>
+<p><a class="p_ident" id="p_fH4LcSPvAz" href="#p_fH4LcSPvAz" tabindex="-1" role="presentation"></a>بنابراین اگر دوبار و هر بار به اندازه‌ی 10 پیکسل به صورت افقی تصویر را جابجا کنیم (با translate)، همه چیز 20 پیکسل در سمت راست رسم می شوند. اگر ابتدا مرکز سیستم مختصات را به نقطه‌ی <bdo>(50,50)</bdo> منتقل کنیم سپس 20 درجه (حدود <bdo>0.1π</bdo> رادیان) بچرخانیم، آن چرخش حول نقطه‌ی <bdo>(50,50)</bdo> رخ خواهد داد.</p><figure><img src="img/transform.svg" alt="Stacking transformations"></figure>
 
-<p><a class="p_ident" id="p_TGBwm05/cn" href="#p_TGBwm05/cn" tabindex="-1" role="presentation"></a>But if we <em>first</em> rotate by 20 degrees and <em>then</em> translate by (50,50), the translation will happen in the rotated coordinate system and thus produce a different orientation. The order in which transformations are applied matters.</p>
+<p><a class="p_ident" id="p_7Yqjs/UZb+" href="#p_7Yqjs/UZb+" tabindex="-1" role="presentation"></a>اما اگر <em>ابتداد</em> 20 درجه چرخش ایجاد کنیم سپس به انتقال به مقدار <bdo>(50, 50)</bdo> بپردازیم، انتقال در سیستم مختصات چرخانده شده اعمال می شود و درنتیجه جهت متفاوت می شود. ترتیبی که تغییرشکل‌ها در آن اعمال می شوند مهم هستند.</p>
 
-<p><a class="p_ident" id="p_9a1O8aEtUA" href="#p_9a1O8aEtUA" tabindex="-1" role="presentation"></a>To flip a picture around the vertical line at a given x position, we can do the following:</p>
+<p><a class="p_ident" id="p_EfatjsUqKY" href="#p_EfatjsUqKY" tabindex="-1" role="presentation"></a>برای وارونه کردن یک تصویر حول خط عمودی در یک نقطه‌ی طولی داده شده (x)، می توان به صورت زیر عمل کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_gPWtMqSBLU" href="#c_gPWtMqSBLU" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">flipHorizontally</span>(<span class="cm-def">context</span>, <span class="cm-def">around</span>) {
   <span class="cm-variable-2">context</span>.<span class="cm-property">translate</span>(<span class="cm-variable-2">around</span>, <span class="cm-number">0</span>);
@@ -331,11 +333,11 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable-2">context</span>.<span class="cm-property">translate</span>(<span class="cm-operator">-</span><span class="cm-variable-2">around</span>, <span class="cm-number">0</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_qob4Y7lZ5I" href="#p_qob4Y7lZ5I" tabindex="-1" role="presentation"></a>We move the y-axis to where we want our mirror to be, apply the mirroring, and finally move the y-axis back to its proper place in the mirrored universe. The following picture explains why this works:</p><figure><img src="img/mirror.svg" alt="Mirroring around a vertical line"></figure>
+<p><a class="p_ident" id="p_ncCglwrZ1o" href="#p_ncCglwrZ1o" tabindex="-1" role="presentation"></a>ما محور y را به جایی که قصد داریم انعکاس آنجا رخ دهد منتقل می کنیم، تصویر را وارونه می کنیم، و در نهایت محور y را به جای مناسب خودش در فضای وارونه‌شده برمی گردانیم. تصویر زیر مشخص می کند چرا این روش درست کار می کند:</p><figure><img src="img/mirror.svg" alt="Mirroring around a vertical line"></figure>
 
-<p><a class="p_ident" id="p_AGahdKv9Zv" href="#p_AGahdKv9Zv" tabindex="-1" role="presentation"></a>This shows the coordinate systems before and after mirroring across the central line. The triangles are numbered to illustrate each step. If we draw a triangle at a positive x position, it would, by default, be in the place where triangle 1 is. A call to <code>flipHorizontally</code> first does a translation to the right, which gets us to triangle 2. It then scales, flipping the triangle over to position 3. This is not where it should be, if it were mirrored in the given line. The second <code>translate</code> call fixes this—it “cancels” the initial translation and makes triangle 4 appear exactly where it should.</p>
+<p><a class="p_ident" id="p_L7QmOMMI3n" href="#p_L7QmOMMI3n" tabindex="-1" role="presentation"></a>این تصویر سیستم های مختصات را قبل و بعد از انجام وارونگی نسبت به خط مرکزی نشان می دهد. مثلث‌ها عددگذاری شده اند تا هر گام را نشان دهند. اگر یک مثلث را در موقعیت طولی مثبتی رسم می کردیم، به صورت پیش فرض در جایی قرار می گرفت که مثلث شماره 1 قرار دارد. فراخوانی ابتدایی <code>flipHorizontally</code> موجب انتقال به سمت راست می شود، که ما را به مثلث شماره 2 می رساند. بعد با تغییر اندازه و وارونه‌کردن مثلث به موقعیت 3 می رسد. این جایی نیست که با وارونه شدن نسبت به خط داده شده می بایست قرار می گرفت. فراخوانی دوم به تابع <code>translate</code> مشکل را حل می کند – این متد جابجایی اولیه را لغو کرده و موجب می شود مثلث 4 درست جایی که باید ظاهر شود.</p>
 
-<p><a class="p_ident" id="p_VQO441ijr7" href="#p_VQO441ijr7" tabindex="-1" role="presentation"></a>We can now draw a mirrored character at position (100,0) by flipping the world around the character’s vertical center.</p>
+<p><a class="p_ident" id="p_hRoUnX6zLl" href="#p_hRoUnX6zLl" tabindex="-1" role="presentation"></a>اکنون می توانیم یک کاراکتر وارونه را در موقعیت <bdo>(100,0)</bdo> به وسیله‌ی وارونه‌کردن محیط نسبت به مرکز عمودی کاراکتر رسم کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_dmV/R5ifO7" href="#c_dmV/R5ifO7" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -350,17 +352,17 @@ point as well as a destination point. Imagine this control point as <em>attracti
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<h2><a class="h_ident" id="h_Z+iS7LhRr9" href="#h_Z+iS7LhRr9" tabindex="-1" role="presentation"></a>Storing and clearing transformations</h2>
+<h2><a class="h_ident" id="h_wpD82DhfXE" href="#h_wpD82DhfXE" tabindex="-1" role="presentation"></a>ذخیره و حذف تغییر شکل‌ها</h2>
 
-<p><a class="p_ident" id="p_clafKRR66N" href="#p_clafKRR66N" tabindex="-1" role="presentation"></a>Transformations stick around. Everything else we draw after drawing that mirrored character would also be mirrored. That might be inconvenient.</p>
+<p>دگرگونی‌ها یا تغییر شکل‌های ایجاد شده باقی می مانند. هرچیزی که بعد از شخصیت وارونه‌شده رسم می کنیم نیز وارونه می شود. ممکن است این خواسته‌ی ما نباشد.</p>
 
-<p><a class="p_ident" id="p_4R4LetOdqr" href="#p_4R4LetOdqr" tabindex="-1" role="presentation"></a>It is possible to save the current transformation, do some drawing and transforming, and then restore the old transformation. This is usually the proper thing to do for a function that needs to temporarily transform the coordinate system. First, we save whatever transformation the code that called the function was using. Then the function does its thing, adding more transformations on top of the current transformation. Finally, we revert to the transformation we started with.</p>
+<p>می توان دگرگونی فعلی را ذخیره کرد، به چندین ترسیم و دگرگونی دیگر پرداخت و سپس دگرگونی ذخیره شده را بازگرداند. این کار معمولا برای تابعی که به صورت موقت مختصات سیستم را تغییر می دهد مناسب است. ابتدا، هر تغییر شکلی که کد فراخواننده تابع استفاده می کرد را ذخیره می کنیم. بعد تابع کارش را انجام می دهد (در وضعیت دگرگونی موجود)، احتمالا دگرگونی‌های بیشتری اعمال می کند. و در نهایت، به دگرگونی‌ای که با آن شروع کردیم باز می گردیم.</p>
 
-<p><a class="p_ident" id="p_8jvKrlVpL2" href="#p_8jvKrlVpL2" tabindex="-1" role="presentation"></a>The <code>save</code> and <code>restore</code> methods on the 2D canvas context do this transformation management. They conceptually keep a stack of transformation states. When you call <code>save</code>, the current state is pushed onto the stack, and when you call <code>restore</code>, the state on top of the stack is taken off and used as the context’s current transformation. You can also call <code>resetTransform</code> to fully reset the transformation.</p>
+<p>متدهای <code>save</code> و <code>restore</code> روی بستر canvas دوبعدی مدیریت این دگرگونی را به عهده می گیرند. از نظر مفهومی این متدها یک پشته از حالت های دگرگونی را نگه می دارند. زمانی که <code>save</code> را فراخوانی می کنید، حالت فعلی درون پشته <code>push</code> می شود و زمانی که <code>restore</code> را فراخوانی می کنید، وضعیت بالای پشته برداشته شده و به عنوان بستر دگرگونی فعلی استفاده می شود. می توانید همچنین <code>resetTransform</code> را فراخوانی کنید تا کل دگرگونی را بازنشانی کنید.</p>
 
-<p><a class="p_ident" id="p_igm6QMJNrx" href="#p_igm6QMJNrx" tabindex="-1" role="presentation"></a>The <code>branch</code> function in the following example illustrates what you can do with a function that changes the transformation and then calls a function (in this case itself), which continues drawing with the given transformation.</p>
+<p>تابع <code>branch</code> در مثال پیش رو به شما نشان می دهد که چه کاری می توانید با یک تابع که دگرگونی را تغییر داده و بعد یک تابع دیگر (در اینجا خودش) را فراخوانی می کند بکنید، که به ترسیم با دگرگونی داده‌شده ادامه می دهد.</p>
 
-<p><a class="p_ident" id="p_2U+6WbJ0Or" href="#p_2U+6WbJ0Or" tabindex="-1" role="presentation"></a>This function draws a treelike shape by drawing a line, moving the center of the coordinate system to the end of the line, and calling itself twice—first rotated to the left and then rotated to the right. Every call reduces the length of the branch drawn, and the recursion stops when the length drops below 8.</p>
+<p><a class="p_ident" id="p_/l27zqXOfi" href="#p_/l27zqXOfi" tabindex="-1" role="presentation"></a>این تابع یک شکل درخت‌گونه با یک خط رسم می کند و مرکز دستگاه مختصات را به پایان خط منتقل می کند و خودش را دو مرتبه فراخوانی می کند- اول به سمت چپ می چرخد و بعد به راست. با هر بار فراخوانی طول شاخه‌ی کشیده شده کوتاه می شود و فراخوانی بازگشتی زمانی که طول به زیر 8 برسد متوقف می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_TvoVOvq541" href="#c_TvoVOvq541" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;600&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;300&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -380,15 +382,15 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-variable">branch</span>(<span class="cm-number">60</span>, <span class="cm-number">0.5</span>, <span class="cm-number">0.8</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_Fr9r9ZmPHu" href="#p_Fr9r9ZmPHu" tabindex="-1" role="presentation"></a>If the calls to <code>save</code> and <code>restore</code> were not there, the second recursive call to <code>branch</code> would end up with the position and rotation created by the first call. It wouldn’t be connected to the current branch but rather to the innermost, rightmost branch drawn by the first call. The resulting shape might also be interesting, but it is definitely not a tree.</p>
+<p>اگر فراخوانی‌های <code>save</code> و <code>restore</code> نمی بودند، فراخوانی بازگشتی دوم به <code>branch</code> موجب می شد که موقعیت و چرخش معادل خروجی اولی فراخوانی بشود. نتیجه به شاخه‌ی فعلی متصل نمی شد اما به جای اتصال به درونی ترین شاخه، راست ترین شاخه که با اولین فراخوانی رسم شده بود متصل می شد. شکل نتیجه ممکن بود جالب شود ولی قطعا یک درخت نمی شود.</p>
 
-<h2 id="canvasdisplay"><a class="h_ident" id="h_TOqgrv5vzl" href="#h_TOqgrv5vzl" tabindex="-1" role="presentation"></a>Back to the game</h2>
+<h2 id="canvasdisplay"><a class="h_ident" id="h_XpWM2uKPG8" href="#h_XpWM2uKPG8" tabindex="-1" role="presentation"></a>بازگشت به بازی</h2>
 
-<p><a class="p_ident" id="p_fFHVQgHfYf" href="#p_fFHVQgHfYf" tabindex="-1" role="presentation"></a>We now know enough about canvas drawing to start working on a canvas-based display system for the game from the <a href="16_game.html">previous chapter</a>. The new display will no longer be showing just colored boxes. Instead, we’ll use <code>drawImage</code> to draw pictures that represent the game’s elements.</p>
+<p>اکنون به اندازه‌ی کافی در مورد رسم روی canvas می دانیم تا بتوانیم روی سیستم نمایش مبتنی بر canvas برای بازی <a href="16_game.html">فصل قبل</a> کار کنیم. سیستم نمایش جدید فقط شامل مستطیل های رنگی نخواهد بود. بلکه با استفاده از <code>drawImage</code> تصاویری را رسم می کنیم که عناصر بازی را به تصویر بکشند.</p>
 
-<p><a class="p_ident" id="p_vvKD3AqcET" href="#p_vvKD3AqcET" tabindex="-1" role="presentation"></a>We define another display object type called <code>CanvasDisplay</code>, supporting the same interface as <code>DOMDisplay</code> from <a href="16_game.html#domdisplay">Chapter 16</a>, namely, the methods <code>syncState</code> and <code>clear</code>.</p>
+<p>یک شیء نمایش دیگری به نام <code>CanvasDisplay</code> تعریف می کنیم، که رابطه‌ای مثل <code>DOMDisplay</code> را از <a href="16_game.html#domdisplay">فصل 16</a> مثل متدهای <code>syncState</code> و <code>clear</code> را پشتیبانی می کند.</p>
 
-<p><a class="p_ident" id="p_ZRJ0+ZCajp" href="#p_ZRJ0+ZCajp" tabindex="-1" role="presentation"></a>This object keeps a little more information than <code>DOMDisplay</code>. Rather than using the scroll position of its DOM element, it tracks its own viewport, which tells us what part of the level we are currently looking at. Finally, it keeps a <code>flipPlayer</code> property so that even when the player is standing still, it keeps facing the direction it last moved in.</p>
+<p><a class="p_ident" id="p_UDTiKJBEvt" href="#p_UDTiKJBEvt" tabindex="-1" role="presentation"></a>شیء ما اطلاعات بیشتری را نسبت به <code>DOMDisplay</code> دریافت می کند . به جای استفاده از موقعیت scroll مربوط به عنصر DOM، میدان دید (viewport) خودش را مدیریت می کند که قسمتی از مرحله که دیده می شود را مشخص می کند. و در آخر، یک خاصیت <code>flipPlayer</code> خواهد داشت تا حتی زمانی‌که بازیکن ایستاده است، جهت صورتش بر اساس آخرین حرکت تنظیم شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_0YCIeiiRNE" href="#c_0YCIeiiRNE" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">CanvasDisplay</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">parent</span>, <span class="cm-def">level</span>) {
@@ -413,7 +415,7 @@ point as well as a destination point. Imagine this control point as <em>attracti
   }
 }</pre>
 
-<p><a class="p_ident" id="p_9ZmfX+wrVh" href="#p_9ZmfX+wrVh" tabindex="-1" role="presentation"></a>The <code>syncState</code> method first computes a new viewport and then draws the game scene at the appropriate position.</p>
+<p>متد <code>syncState</code> ابتدا یک میدان‌دید جدید را محاسبه می کند و سپس صحنه‌ی بازی را در موقعیت مناسب رسم می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_cERhn3J5yx" href="#c_cERhn3J5yx" tabindex="-1" role="presentation"></a><span class="cm-variable">CanvasDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">syncState</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">state</span>) {
   <span class="cm-keyword">this</span>.<span class="cm-property">updateViewport</span>(<span class="cm-variable-2">state</span>);
@@ -422,9 +424,9 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-keyword">this</span>.<span class="cm-property">drawActors</span>(<span class="cm-variable-2">state</span>.<span class="cm-property">actors</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_7nZQ2uq044" href="#p_7nZQ2uq044" tabindex="-1" role="presentation"></a>Contrary to <code>DOMDisplay</code>, this display style <em>does</em> have to redraw the background on every update. Because shapes on a canvas are just pixels, after we draw them there is no good way to move them (or remove them). The only way to update the canvas display is to clear it and redraw the scene. We may also have scrolled, which requires the background to be in a different position.</p>
+<p><a class="p_ident" id="p_a4ZjSo5zki" href="#p_a4ZjSo5zki" tabindex="-1" role="presentation"></a>برخلاف <code>DOMDisplay</code> ، در این سبک نیازی نیست که پس‌زمینه با هر بار به روز رسانی از نو ترسیم شود. به دلیل اینکه اشکال روی بوم(canvas) همان پیکسل‌ها هستند، بعد از این که آن ها را ترسیم کردیم، راه خوبی برای حرکت دادن (یا حذفشان) وجود ندارد. تنها راه به روز رسانی canvas نمایش، پاک کردن و از نو رسم کردن صحنه است. ممکن است scroll کرده باشیم، که موجب می شود پس‌زمینه در موقعیت متفاوتی قرار بگیرد.</p>
 
-<p><a class="p_ident" id="p_jQtp2ESEAw" href="#p_jQtp2ESEAw" tabindex="-1" role="presentation"></a>The <code>updateViewport</code> method is similar to <code>DOMDisplay</code>’s <code>scrollPlayerIntoView</code> method. It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.</p>
+<p><a class="p_ident" id="p_3sB2GRI6F/" href="#p_3sB2GRI6F/" tabindex="-1" role="presentation"></a>متد <code>updateViewport</code> شبیه به متد <code>scrollPlayerIntoView</code> مربوط به شیء <code>DOMDisplay</code> می باشد. این متد بررسی می کند که بازیکن به لبه‌ی صفحه نزدیک شده باشد که در آن صورت میدان‌دید (viewport) را حرکت می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_OjMIL2K7Ii" href="#c_OjMIL2K7Ii" tabindex="-1" role="presentation"></a><span class="cm-variable">CanvasDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">updateViewport</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">state</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">view</span> <span class="cm-operator">=</span> <span class="cm-keyword">this</span>.<span class="cm-property">viewport</span>, <span class="cm-def">margin</span> <span class="cm-operator">=</span> <span class="cm-variable-2">view</span>.<span class="cm-property">width</span> <span class="cm-operator">/</span> <span class="cm-number">3</span>;
@@ -445,9 +447,9 @@ point as well as a destination point. Imagine this control point as <em>attracti
   }
 };</pre>
 
-<p><a class="p_ident" id="p_qSUMwlAFeW" href="#p_qSUMwlAFeW" tabindex="-1" role="presentation"></a>The calls to <code>Math.max</code> and <code>Math.min</code> ensure that the viewport does not end up showing space outside of the level. <code>Math.max(x, 0)</code> makes sure the resulting number is not less than zero. <code>Math.min</code> similarly guarantees that a value stays below a given bound.</p>
+<p>فراخوانی متدهای <bdo><code>Math.max</code></bdo> و <bdo><code>Math.min</code></bdo> موجب می شود اطمینان کنیم که فضای خالی خارج از طرح مرحله به وجود نیاید. <bdo><code>Math.max(x, 0)</code></bdo> باعث می شود که عدد تولیدی کمتر از صفر نباشد. <bdo><code>Math.min</code></bdo> به طور مشابه گارانتی می کند که یک مقدار کمتر از مرز مشخصی بماند.</p>
 
-<p><a class="p_ident" id="p_uxQ4EAtiQh" href="#p_uxQ4EAtiQh" tabindex="-1" role="presentation"></a>When clearing the display, we’ll use a slightly different color depending on whether the game is won (brighter) or lost (darker).</p>
+<p>در زمان پاک کردن صفحه، از رنگ متفاوتی بسته به اینکه بازی را برنده شده باشیم ( رنگی روشن تر) یا باخته باشیم (تاریک‌تر) استفاده می کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_P43rIXnt0B" href="#c_P43rIXnt0B" tabindex="-1" role="presentation"></a><span class="cm-variable">CanvasDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">clearDisplay</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">status</span>) {
   <span class="cm-keyword">if</span> (<span class="cm-variable-2">status</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;won&quot;</span>) {
@@ -461,7 +463,7 @@ point as well as a destination point. Imagine this control point as <em>attracti
                    <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">width</span>, <span class="cm-keyword">this</span>.<span class="cm-property">canvas</span>.<span class="cm-property">height</span>);
 };</pre>
 
-<p><a class="p_ident" id="p_TjOnlogmqf" href="#p_TjOnlogmqf" tabindex="-1" role="presentation"></a>To draw the background, we run through the tiles that are visible in the current viewport, using the same trick used in the <code>touches</code> method from the <a href="16_game.html#touches">previous chapter</a>.</p>
+<p>برای رسم یک پس‌زمینه با استفاده از همان ترفندی که در متد <code>touches</code> در <a href="16_game.html#touches">فصل قبل</a> استفاده کردیم به سراغ قطعات مربعی که در میدان‌دید فعلی قرار می گیرند می رویم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_UYqDAMiEp6" href="#c_UYqDAMiEp6" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">otherSprites</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">&quot;img&quot;</span>);
 <span class="cm-variable">otherSprites</span>.<span class="cm-property">src</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;img/sprites.png&quot;</span>;
@@ -487,15 +489,15 @@ point as well as a destination point. Imagine this control point as <em>attracti
   }
 };</pre>
 
-<p><a class="p_ident" id="p_exCLyNQQL6" href="#p_exCLyNQQL6" tabindex="-1" role="presentation"></a>Tiles that are not empty are drawn with <code>drawImage</code>. The <code>otherSprites</code> image contains the pictures used for elements other than the player. It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.</p><figure><img src="img/sprites_big.png" alt="Sprites for our game"></figure>
+<p>قطعاتی غیر تهی توسط <code>drawImage</code> رسم شده اند. تصویر <code>otherSprites</code> حاوی عکس‌های عناصر بازی به جز شخصیت اصلی می باشد. شامل از چپ به راست کاشی دیوار، کاشی گدازه، و sprite یک سکه.</p><figure><img src="img/sprites_big.png" alt="Sprites for our game"></figure>
 
-<p><a class="p_ident" id="p_1R4HdSFR8E" href="#p_1R4HdSFR8E" tabindex="-1" role="presentation"></a>Background tiles are 20 by 20 pixels since we will use the same scale that we used in <code>DOMDisplay</code>. Thus, the offset for lava tiles is 20 (the value of the <code>scale</code> binding), and the offset for walls is 0.</p>
+<p><a class="p_ident" id="p_tLSMzjY7gw" href="#p_tLSMzjY7gw" tabindex="-1" role="presentation"></a>ابعداد کاشی‌های پس‌زمینه 20 در 20 می باشد به دلیل اینکه در <code>DOMDisplay</code> از همین ابعاد استفاده کرده ایم. بنابراین میزان جابجایی (offset) برای کاشی‌های گدازه 20 است (مقدار متغیر <code>scale</code>) و این مقدار برای کاشی‌های دیوار 0 خواهد بود.</p>
 
-<p><a class="p_ident" id="p_LOS6wlGop3" href="#p_LOS6wlGop3" tabindex="-1" role="presentation"></a>We don’t bother waiting for the sprite image to load. Calling <code>drawImage</code> with an image that hasn’t been loaded yet will simply do nothing. Thus, we might fail to draw the game properly for the first few frames, while the image is still loading, but that is not a serious problem. Since we keep updating the screen, the correct scene will appear as soon as the loading finishes.</p>
+<p>نیازی نیست که برای بارگیری sprite تصویر زمانی منتظر بمانیم. فراخوانی <code>drawImage</code> با تصویری که هنوز بارگیری نشده نتیجه‌ای نخواهد داشت. بنابراین وقتی در حال بارگیری تصاویر هستیم، ممکن است برای رسم چند فریم ابتدایی در بازی با مشکل روبرو شویم؛ اما این مشکل جدی نیست زیرا تصویر آن به آن به روز می شود و به محض اینکه بارگیری تمام شود صحنه‌ی بازی تکمیل می شود.</p>
 
-<p><a class="p_ident" id="p_/1DXjZpAsq" href="#p_/1DXjZpAsq" tabindex="-1" role="presentation"></a>The walking character shown earlier will be used to represent the player. The code that draws it needs to pick the right sprite and direction based on the player’s current motion. The first eight sprites contain a walking animation. When the player is moving along a floor, we cycle through them based on the current time. We want to switch frames every 60 milliseconds, so the time is divided by 60 first. When the player is standing still, we draw the ninth sprite. During jumps, which are recognized by the fact that the vertical speed is not zero, we use the tenth, rightmost sprite.</p>
+<p><a class="p_ident" id="p_m+SIeYCK3k" href="#p_m+SIeYCK3k" tabindex="-1" role="presentation"></a>تصویر آدمکی که پیش‌تر نمایش داده شد را برای نمایش بازیکن استفاده خواهیم کرد. کدی که وظیفه‌ی رسم آن را دارد باید sprite و جهت صورت مناسبی را با توجه به حرکت فعلی بازیکن انتخاب کند. هشت sprite اول نمایانگر راه‌رفتن شخصیت هستند. زمانی که بازیگر روی زمین راه می رود، با توجه به زمان، بین این تصاویر انتخاب می کنیم. قصد داریم هر 60 هزارم ثانیه فریم را تغییر دهیم در نتیجه زمان در ابتدا بر 60 تقسیم می گردد. در زمانی که بازیکن در حالت ایستاده است، نهمین sprite را رسم می کنیم. در زمان انجام پرش، که وقتی سرعت عمودی صفر نباشد تشخیص داده می شود، از دهمین، راست‌ترین تصویر sprite استفاده می کنیم.</p>
 
-<p><a class="p_ident" id="p_NKcG+qZfSz" href="#p_NKcG+qZfSz" tabindex="-1" role="presentation"></a>Because the sprites are slightly wider than the player object—24 instead of 16 pixels to allow some space for feet and arms—the method has to adjust the x-coordinate and width by a given amount (<code>playerXOverlap</code>).</p>
+<p><a class="p_ident" id="p_UB/PvjBjwT" href="#p_UB/PvjBjwT" tabindex="-1" role="presentation"></a>به دلیل این که spriteها اندکی عریض تر از شیء بازیکن هستند (24 به جای 16) ، -که برای افزودن کمی فضا برای پاها و دستان شخصیت می باشد — متد باید مختصات طولی و طول (width) را با مقدار داده شده (<code>playerXOverlap</code>) تنظیم کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_T61uCWX04T" href="#c_T61uCWX04T" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">playerSprites</span> <span class="cm-operator">=</span> <span class="cm-variable">document</span>.<span class="cm-property">createElement</span>(<span class="cm-string">&quot;img&quot;</span>);
 <span class="cm-variable">playerSprites</span>.<span class="cm-property">src</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;img/player.png&quot;</span>;
@@ -526,7 +528,7 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-keyword">this</span>.<span class="cm-property">cx</span>.<span class="cm-property">restore</span>();
 };</pre>
 
-<p><a class="p_ident" id="p_S52Euszs4f" href="#p_S52Euszs4f" tabindex="-1" role="presentation"></a>The <code>drawPlayer</code> method is called by <code>drawActors</code>, which is responsible for drawing all the actors in the game.</p>
+<p>متد <code>drawPlayer</code> توسط <code>drawActors</code> فراخوانی می شود که مسئول ترسیم تمامی بازیگران در بازی می باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c_XwZEfLqKhO" href="#c_XwZEfLqKhO" tabindex="-1" role="presentation"></a><span class="cm-variable">CanvasDisplay</span>.<span class="cm-property">prototype</span>.<span class="cm-property">drawActors</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">actors</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">actor</span> <span class="cm-keyword">of</span> <span class="cm-variable-2">actors</span>) {
@@ -545,11 +547,11 @@ point as well as a destination point. Imagine this control point as <em>attracti
   }
 };</pre>
 
-<p><a class="p_ident" id="p_eKrbbTbFOt" href="#p_eKrbbTbFOt" tabindex="-1" role="presentation"></a>When drawing something that is not the player, we look at its type to find the offset of the correct sprite. The lava tile is found at offset 20, and the coin sprite is found at 40 (two times <code>scale</code>).</p>
+<p><a class="p_ident" id="p_qpj1V19q0c" href="#p_qpj1V19q0c" tabindex="-1" role="presentation"></a>در هنگام رسم چیزی به جز بازیکن اصلی، به نوع آن نگاه می کنیم تا میزان جابجایی لازم برای پیدا کردن sprite مورد نظر را پیدا کنیم. کاشی گدازه با 20 و سکه با در 40 ( دو برابر <code>scale</code>) پیدا می شوند.</p>
 
-<p><a class="p_ident" id="p_e6Z9O4bib+" href="#p_e6Z9O4bib+" tabindex="-1" role="presentation"></a>We have to subtract the viewport’s position when computing the actor’s position since (0,0) on our canvas corresponds to the top left of the viewport, not the top left of the level. We could also have used <code>translate</code> for this. Either way works.</p>
+<p><a class="p_ident" id="p_jbr14RuCIg" href="#p_jbr14RuCIg" tabindex="-1" role="presentation"></a>لازم است تا موقعیت میدان‌دید را در هنگام محاسبه‌ی موقعیت بازیگر کم کنیم به این دلیل که موقعیت <bdo>(0,0)</bdo> روی canvas ما به گوشه‌ی بالاچپ میدان دید ارتباط دارد، نه گوشه‌ی بالاچپ مرحله. همچنین می‌توانستیم از <code>translate</code> برای این کار استفاده کنیم. هر دو روش صحیح است.</p>
 
-<p><a class="p_ident" id="p_L/8CF09Vt1" href="#p_L/8CF09Vt1" tabindex="-1" role="presentation"></a>This document plugs the new display into <code>runGame</code>:</p>
+<p>این کار، سیستم نمایش جدید را به <code>runGame</code> متصل می کند:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true" data-sandbox="game"><a class="c_ident" id="c_TSR2vcnWZv" href="#c_TSR2vcnWZv" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -557,75 +559,75 @@ point as well as a destination point. Imagine this control point as <em>attracti
   <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">body</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<h2 id="graphics_tradeoffs"><a class="h_ident" id="h_T6CfghQSfx" href="#h_T6CfghQSfx" tabindex="-1" role="presentation"></a>Choosing a graphics interface</h2>
+<h2 id="graphics_tradeoffs"><a class="h_ident" id="h_KoLjuW5hXv" href="#h_KoLjuW5hXv" tabindex="-1" role="presentation"></a>انتخاب یک رابط گرافیکی</h2>
 
-<p><a class="p_ident" id="p_kvbiwTrmDd" href="#p_kvbiwTrmDd" tabindex="-1" role="presentation"></a>So when you need to generate graphics in the browser, you can choose between plain HTML, SVG, and canvas. There is no single <em>best</em> approach that works in all situations. Each option has strengths and weaknesses.</p>
+<p><a class="p_ident" id="p_HFb3dBFu4W" href="#p_HFb3dBFu4W" tabindex="-1" role="presentation"></a>زمانی که لازم است عناصر گرافیکی در مرورگر ایجاد شوند، می توانید بین HTML، SVG و استفاده از canvas انتخاب کنید. روش واحدی که به بهترین شکل در همه‌ی شرایط مناسب باشد وجود ندارد. هر گزینه‌ای نقاط قوت و ضعفی دارد.</p>
 
-<p><a class="p_ident" id="p_NcvTZB76Ji" href="#p_NcvTZB76Ji" tabindex="-1" role="presentation"></a>Plain HTML has the advantage of being simple. It also integrates well with text. Both SVG and canvas allow you to draw text, but they won’t help you position that text or wrap it when it takes up more than one line. In an HTML-based picture, it is much easier to include blocks of text.</p>
+<p><a class="p_ident" id="p_Xhe5zodJFB" href="#p_Xhe5zodJFB" tabindex="-1" role="presentation"></a>استفاده از HTML ساده، مزیت سادگی را به همراه دارد. همچنین این گزینه با متن‌ها به خوبی یکپارچه می شود. هر دوی SVG و Canvas به شما امکان رسم متن را می دهند اما برای موقعیت دهی متن یا شکست آن به خطوط جدید در صورت جا نشدن در یک خط کمکی نمی کنند. در یک تصویر مبتنی بر HTML خیلی آسان تر می توان بلوک‌های متنی را قرار داد.</p>
 
-<p><a class="p_ident" id="p_hvYGIoy7o5" href="#p_hvYGIoy7o5" tabindex="-1" role="presentation"></a>SVG can be used to produce crisp graphics that look good at any zoom level. Unlike HTML, it is designed for drawing and is thus more suitable for that purpose.</p>
+<p><a class="p_ident" id="p_D1ZRiAtR4F" href="#p_D1ZRiAtR4F" tabindex="-1" role="presentation"></a>از SVG می توان برای تولید گرافیک‌هایی با وضوح بالا که در هر سطحی از بزرگ‌نمایی خوب به نظر می رسند استفاده کرد. برخلاف HTML، در واقع SVG برای ترسیم طراحی شده است بنابراین گزینه‌ی مناسبتری برای این کار است.</p>
 
-<p><a class="p_ident" id="p_kMuMzGC6aO" href="#p_kMuMzGC6aO" tabindex="-1" role="presentation"></a>Both SVG and HTML build up a data structure (the DOM) that represents your picture. This makes it possible to modify elements after they are drawn. If you need to repeatedly change a small part of a big picture in response to what the user is doing or as part of an animation, doing it in a canvas can be needlessly expensive. The DOM also allows us to register mouse event handlers on every element in the picture (even on shapes drawn with SVG). You can’t do that with canvas.</p>
+<p><a class="p_ident" id="p_iA8Puv51bw" href="#p_iA8Puv51bw" tabindex="-1" role="presentation"></a>هر دوی SVG و HTML ساختار داده‌ای را فراهم می سازند (DOM) که نمایانگر تصویر شما خواهد بود. این باعث می‌شود که بتوان عناصر را پس از ترسیم تغییر داد. اگر نیاز دارید که به طور مداوم بخش کوچکی از یک تصویر بزرگ را در پاسخ به فعالیت کاربر یا به دلیل متحرک‌سازی تغییر دهید، استفاده از canvas بدون اینکه کمک شایانی بکند هزینه‌ی زیادی خواهد داشت. DOM نیز به ما این امکان را می دهد که گرداننده‌های رخداد موس را روی هر عنصر در تصویر (حتی اشکالی که با SVG رسم شده اند) ثبت کنیم. این کار با canvas شدنی نیست.</p>
 
-<p><a class="p_ident" id="p_7N4OSlG5eS" href="#p_7N4OSlG5eS" tabindex="-1" role="presentation"></a>But canvas’s pixel-oriented approach can be an advantage when drawing a huge number of tiny elements. The fact that it does not build up a data structure but only repeatedly draws onto the same pixel surface gives canvas a lower cost per shape.</p>
+<p><a class="p_ident" id="p_L2YySodyCS" href="#p_L2YySodyCS" tabindex="-1" role="presentation"></a>اما روش مبتنی بر پیکسل canvas در مواقعی که تعداد زیادی عناصر کوچک رسم می کنیم مزیت محسوب می شود. این واقعیت که canvas یک ساختار داده تشکیل نمی دهد بلکه فقط به طور مداوم در همان سطح پیکسل به ترسیم می پردازد هزینه‌ی کمتری برای هر شکل در canvas ایجاد می شود.</p>
 
-<p><a class="p_ident" id="p_Iw4jOsF/cL" href="#p_Iw4jOsF/cL" tabindex="-1" role="presentation"></a>There are also effects, such as rendering a scene one pixel at a time (for example, using a ray tracer) or postprocessing an image with JavaScript (blurring or distorting it), that can be realistically handled only by a pixel-based approach.</p>
+<p><a class="p_ident" id="p_r/Ew7drQvE" href="#p_r/Ew7drQvE" tabindex="-1" role="presentation"></a>همچنین جلوه‌هایی وجود دارند که فقط زمانی قابل اعمال هستند که از روشی مبتنی بر پیکسل استفاده شده باشد؛ مانند رندر یک صحنه به صورت یک پیکسل در آن واحد (مثلا با استفاده از روش رهگیری نور (ray tracer)) یا پس‌پردازش یک تصویر با جاوااسکریپت ( مثل تار کردن یا distort).</p>
 
-<p><a class="p_ident" id="p_g3j5b50ElK" href="#p_g3j5b50ElK" tabindex="-1" role="presentation"></a>In some cases, you may want to combine several of these techniques. For example, you might draw a graph with SVG or canvas but show textual information by positioning an HTML element on top of the picture.</p>
+<p><a class="p_ident" id="p_FnDdSs5gmN" href="#p_FnDdSs5gmN" tabindex="-1" role="presentation"></a>در بعضی موارد، ممکن است بخواهید چندتا از این تکنیک‌ها را باهم ترکیب کنید. مثلا ممکن است یک گراف را با SVG یا canvas ترسیم کنید اما اطلاعات متنی را با استفاده از یک عنصر HTML که روی تصویر موقعیت دهی می‌شود نشان دهید.</p>
 
-<p><a class="p_ident" id="p_e5OZ223Ss6" href="#p_e5OZ223Ss6" tabindex="-1" role="presentation"></a>For nondemanding applications, it really doesn’t matter much which interface you choose. The display we built for our game in this chapter could have been implemented using any of these three graphics technologies since it does not need to draw text, handle mouse interaction, or work with an extraordinarily large number of elements.</p>
+<p>برای برنامه‌هایی که تعداد کاربران زیادی ندارند، زیاد مهم نیست از کدام رابط استفاده می کنید. صفحه‌ی نمایشی که ما برای بازی‌مان در این فصل ساختیم می توانست با هر کدام از این سه تکنولوژی گرافیکی پیاده سازی شود چرا که نه نیاز به ترسیم متن است نه تعاملات با موس یا کار با تعداد بیش از اندازه از عناصر.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_gRVlk0yedA" href="#p_gRVlk0yedA" tabindex="-1" role="presentation"></a>In this chapter we discussed techniques for drawing graphics in the browser, focusing on the <code>&lt;canvas&gt;</code> element.</p>
+<p>در این فصل به بحث درباره‌ی تکنیک‌های ترسیم گرافیک در مرورگر پرداختیم و تمرکز ما روی عنصر <bdo><code>&lt;canvas&gt;</code></bdo> ‌بود.</p>
 
-<p><a class="p_ident" id="p_5VXwNvtdy0" href="#p_5VXwNvtdy0" tabindex="-1" role="presentation"></a>A canvas node represents an area in a document that our program may draw on. This drawing is done through a drawing context object, created with the <code>getContext</code> method.</p>
+<p><a class="p_ident" id="p_dBxM5IdGaK" href="#p_dBxM5IdGaK" tabindex="-1" role="presentation"></a>یک گره‌ی canvas نمایانگر ناحیه‌ای است در سند که برنامه‌ی ما در آن قسمت به ترسیم خواهد پرداخت. این ترسیم توسط یک شیء بستر (context) ترسیم انجام می شود که توسط متد <code>getContext</code> ایجاد می گردد.</p>
 
-<p><a class="p_ident" id="p_cXrF5QAxvf" href="#p_cXrF5QAxvf" tabindex="-1" role="presentation"></a>The 2D drawing interface allows us to fill and stroke various shapes. The context’s <code>fillStyle</code> property determines how shapes are filled. The <code>strokeStyle</code> and <code>lineWidth</code> properties control the way lines are drawn.</p>
+<p><a class="p_ident" id="p_3w9NaMq92y" href="#p_3w9NaMq92y" tabindex="-1" role="presentation"></a>رابط ترسیم دوبعدی (2D) این امکان را به ما می دهد تا اشکال متنوعی را رنگ‌ کرده یا خط مرزی بدهیم. خاصیت <code>fillStyle</code> این بستر (context) نحوه‌ی رنگ‌آمیزی اشکال را مشخص می کند. خاصیت‌های <code>strokeStyle</code> و <code>lineWidth</code> نحوه‌ی ترسیم خطوط را کنترل می کنند.</p>
 
-<p><a class="p_ident" id="p_p9lwBrZeDB" href="#p_p9lwBrZeDB" tabindex="-1" role="presentation"></a>Rectangles and pieces of text can be drawn with a single method call. The <code>fillRect</code> and <code>strokeRect</code> methods draw rectangles, and the <code>fillText</code> and <code>strokeText</code> methods draw text. To create custom shapes, we must first build up a path.</p>
+<p>چهارضلعی ها و بخش‌های متنی را می توان با یک فراخوانی متد ترسیم کرد. دو متد <code>fillRect</code> و <code>strokeRect</code> برای ترسیم چهارضلعی و متدهای <code>fillText</code> و <code>strokeText</code> برای رسم متن استفاده می شوند. برای ترسیم اشکال دلخواه، ابتدا باید یک مسیر ایجاد کنید.</p>
 
-<p><a class="p_ident" id="p_fJAAnWmzV7" href="#p_fJAAnWmzV7" tabindex="-1" role="presentation"></a>Calling <code>beginPath</code> starts a new path. A number of other methods add lines and curves to the current path. For example, <code>lineTo</code> can add a straight line. When a path is finished, it can be filled with the <code>fill</code> method or stroked with the <code>stroke</code> method.</p>
+<p>فراخوانی متد <code>beginPath</code> باعث ایجاد یک مسیر جدید می شود. چند متد دیگر برای افزودن خطوط و منحنی‌ها به همین مسیر فراخوانی می شوند. به عنوان مثال، <code>lineTo</code> یک خط مستقیم اضافه می کند. زمانی که یک مسیر به پایان رسید، می توان با متد <code>fill</code> آن را پر (رنگ) کرد یا با استفاده از متد <code>stroke</code> دور آن خط مرزی رسم کرد.</p>
 
-<p><a class="p_ident" id="p_OAUDZ4R8yK" href="#p_OAUDZ4R8yK" tabindex="-1" role="presentation"></a>Moving pixels from an image or another canvas onto our canvas is done with the <code>drawImage</code> method. By default, this method draws the whole source image, but by giving it more parameters, you can copy a specific area of the image. We used this for our game by copying individual poses of the game character out of an image that contained many such poses.</p>
+<p>حرکت دادن پیکسل‌ها از یک تصویر یا یک canvas دیگر به canvas ما توسط متد <code>drawImage</code> انجام می پذیرد. به صورت پیش‌فرض، این متد کل تصویر مبدا را رسم می کند، اما با مشخص کردن پارامترهای بیشتر می توانی یک ناحیه‌ی خاص از تصویر را کپی کرد. ما از این روش برای بازی خودمان و کپی کردن حالت‌های کاراکتر بازی از یک تصویر که شامل همه‌ی حالت ها بود استفاده کردیم.</p>
 
-<p><a class="p_ident" id="p_g8a+OHsvlL" href="#p_g8a+OHsvlL" tabindex="-1" role="presentation"></a>Transformations allow you to draw a shape in multiple orientations. A 2D drawing context has a current transformation that can be changed with the <code>translate</code>, <code>scale</code>, and <code>rotate</code> methods. These will affect all subsequent drawing operations. A transformation state can be saved with the <code>save</code> method and restored with the <code>restore</code> method.</p>
+<p><a class="p_ident" id="p_GzrQKcovuP" href="#p_GzrQKcovuP" tabindex="-1" role="presentation"></a>دگرگون‌سازی (transformation) این امکان را به شما می دهد که یک شکل را به صورت‌های متعدد ترسیم کنید. یک بستر ترسیم دوبعدی، دارای شکلی است که می‌توان آن را با استفاده از <code>translate</code>، <code>scale</code> و <code>rotate</code> تغییر داد. این تغییرات روی تمامی ترسیم‌های بعدی تاثیر می گذارد. یک حالت دگرگون‌سازی را می توان با استفاده از متد <code>save</code> ذخیره کرد و با متد <code>restore</code> بازگردانی کرد.</p>
 
-<p><a class="p_ident" id="p_Cp6Llruuba" href="#p_Cp6Llruuba" tabindex="-1" role="presentation"></a>When showing an animation on a canvas, the <code>clearRect</code> method can be used to clear part of the canvas before redrawing it.</p>
+<p>زمانی که یک تصویر متحرک را روی یک canvas نمایش می دهیم، متد <code>clearRect</code> را می توان برای پاک‌سازی یک قسمت از canvas قبل از ترسیم دوباره استفاده کرد.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_sZheOHQF5N" href="#i_sZheOHQF5N" tabindex="-1" role="presentation"></a>Shapes</h3>
+<h3><a class="i_ident" id="i_3Wy7uJ2wGq" href="#i_3Wy7uJ2wGq" tabindex="-1" role="presentation"></a>شکل‌ها</h3>
 
-<p><a class="p_ident" id="p_ML2Sk/PrfT" href="#p_ML2Sk/PrfT" tabindex="-1" role="presentation"></a>Write a program that draws the following shapes on a canvas:</p>
+<p>برنامه‌ای بنویسید که اشکال زیر را روی یک canvas رسم نماید:</p>
 
 <ol>
 
 <li>
 
-<p><a class="p_ident" id="p_jg9BlkxnI6" href="#p_jg9BlkxnI6" tabindex="-1" role="presentation"></a>A trapezoid (a rectangle that is wider on one side)</p></li>
+<p>یک ذوزنقه (یک چهارضلعی که یک طرف آن پهن‌تر است)</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_TsmIPWkWaZ" href="#p_TsmIPWkWaZ" tabindex="-1" role="presentation"></a>A red diamond (a rectangle rotated 45 degrees or ¼π radians)</p></li>
+<p><a class="p_ident" id="p_+2RDUVYNgp" href="#p_+2RDUVYNgp" tabindex="-1" role="presentation"></a>یک لوزی قرمز (یک چهارگوش که 45 درجه یا <bdo>¼π</bdo> رادیان چرخانده شده است)</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_rB8lM2f3nJ" href="#p_rB8lM2f3nJ" tabindex="-1" role="presentation"></a>A zigzagging line</p></li>
+<p>یک خط زیگزاگی</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_giU72/tC1m" href="#p_giU72/tC1m" tabindex="-1" role="presentation"></a>A spiral made up of 100 straight line segments</p></li>
+<p><a class="p_ident" id="p_MQuG4LYrgo" href="#p_MQuG4LYrgo" tabindex="-1" role="presentation"></a>یک مارپیچ که از 100 قسمت خط مستقیم تشکیل شده است</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_BaFPNufkG9" href="#p_BaFPNufkG9" tabindex="-1" role="presentation"></a>A yellow star</p></li>
+<p>یک ستاره‌ی زرد</p></li>
 
 </ol><figure><img src="img/exercise_shapes.png" alt="The shapes to draw"></figure>
 
-<p><a class="p_ident" id="p_rGwDFrV/8d" href="#p_rGwDFrV/8d" tabindex="-1" role="presentation"></a>When drawing the last two, you may want to refer to the explanation of <code>Math.cos</code> and <code>Math.sin</code> in <a href="14_dom.html#sin_cos">Chapter 14</a>, which describes how to get coordinates on a circle using these functions.</p>
+<p>زمانی که دو شکل آخر را رسم می کنید ممکن است لازم باشد به توضیحات مربوط به <bdo><code>Math.cos</code></bdo> و <bdo><code>Math.sin</code></bdo> در <a href="14_dom.html#sin_cos">فصل 14</a> رجوع کنید که توضیح می دهد چگونه مختصات روی یک دایره را به وسیله‌ی این توابع به‌دست بیاورید.</p>
 
-<p><a class="p_ident" id="p_8n4Hu9tdGs" href="#p_8n4Hu9tdGs" tabindex="-1" role="presentation"></a>I recommend creating a function for each shape. Pass the position, and optionally other properties such as the size or the number of points, as parameters. The alternative, which is to hard-code numbers all over your code, tends to make the code needlessly hard to read and modify.</p>
+<p>پیشنهاد من این است که برای هر شکل یک تابع بنویسید. موقعیت را به آن به همراه دیگر خاصیت‌های اختیاری مثل اندازه یا تعداد نقاط به عنوان پارامتر ارسال کنید. روش دیگر که نوشتن اعداد به طور مستقیم در بدنه کد است باعث می شود که تغییر دادن و خوانایی کد سخت شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_kWm/btAd42" href="#c_kWm/btAd42" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;600&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;200&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -636,25 +638,25 @@ point as well as a destination point. Imagine this control point as <em>attracti
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_usKt8VipYH" href="#p_usKt8VipYH" tabindex="-1" role="presentation"></a>The trapezoid (1) is easiest to draw using a path. Pick suitable center coordinates and add each of the four corners around the center.</p>
+<p><a class="p_ident" id="p_LBxrDOE/wA" href="#p_LBxrDOE/wA" tabindex="-1" role="presentation"></a>آسان ترین روش ترسیم ذوزنقه (1) استفاده از یک مسیر (path) است. مختصات مرکزی مناسبی را انتخاب کنید و هر یک از چهار گوشه‌ را اطراف آن اضافه نمایید.</p>
 
-<p><a class="p_ident" id="p_BsQmhM5bK3" href="#p_BsQmhM5bK3" tabindex="-1" role="presentation"></a>The diamond (2) can be drawn the straightforward way, with a path, or the interesting way, with a <code>rotate</code> transformation. To use rotation, you will have to apply a trick similar to what we did in the <code>flipHorizontally</code> function. Because you want to rotate around the center of your rectangle and not around the point (0,0), you must first <code>translate</code> to there, then rotate, and then translate back.</p>
+<p><a class="p_ident" id="p_Jaie/CPcb3" href="#p_Jaie/CPcb3" tabindex="-1" role="presentation"></a>برای ترسیم لوزی (2)، می توان از راه سرراست استفاده از مسیر یا روش جالب اسفاده از یک <code>rotate</code> (دگرگونی) استفاده نمود. برای استفاده از چرخش، باید از یک ترفند مانند کاری که در تابع <code>flipHorizontally</code> انجام دادیم،‌استفاده کنید. به دلیل اینکه می خواهیم حول مرکز چهارضلعی چرخش صورت گیرد نه پیرامون نقطه‌ی <bdo>(0,0)</bdo>، ابتدا باید به آن نقطه <code>translate</code> کنید، سپس چرخش، و دوباره بازگشت به وسیله‌ی translate.</p>
 
-<p><a class="p_ident" id="p_1qE89Gryai" href="#p_1qE89Gryai" tabindex="-1" role="presentation"></a>Make sure you reset the transformation after drawing any shape that creates one.</p>
+<p><a class="p_ident" id="p_ke8MFgiyDJ" href="#p_ke8MFgiyDJ" tabindex="-1" role="presentation"></a>اطمینان حاصل کنید که دگرگونی انجام شده را پس از ترسیم هر شکل بازنشانی (reset) کنید.</p>
 
-<p><a class="p_ident" id="p_br/BxkXFdB" href="#p_br/BxkXFdB" tabindex="-1" role="presentation"></a>For the zigzag (3) it becomes impractical to write a new call to <code>lineTo</code> for each line segment. Instead, you should use a loop. You can have each iteration draw either two line segments (right and then left again) or one, in which case you must use the evenness (<code>% 2</code>) of the loop index to determine whether to go left or right.</p>
+<p><a class="p_ident" id="p_d95o2uzYI7" href="#p_d95o2uzYI7" tabindex="-1" role="presentation"></a>برای شماره‌ی (3)، زیگزاگ، استفاده مکرر از فراخوانی‌های <code>lineTo</code> برای هر قسمت خط ، مناسب نیست؛ بلکه باید از یک حلقه استفاده کنید. در هر گام تکرار، می توانید یک یا دو قسمت خط (راست و سپس چپ) را ترسیم کنید، که در این صورت باید از (<bdo><code>% 2</code></bdo>) برای تشخیص زوج بودن شاخص حلقه استفاده کنید تا راست و چپ را مشخص نمایید.</p>
 
-<p><a class="p_ident" id="p_R9r4fGqnsR" href="#p_R9r4fGqnsR" tabindex="-1" role="presentation"></a>You’ll also need a loop for the spiral (4). If you draw a series of points, with each point moving further along a circle around the spiral’s center, you get a circle. If, during the loop, you vary the radius of the circle on which you are putting the current point and go around more than once, the result is a spiral.</p>
+<p><a class="p_ident" id="p_G2RTiSRzpG" href="#p_G2RTiSRzpG" tabindex="-1" role="presentation"></a>همچنین برای رسم مارپیچ (4) نیز به حلقه نیاز دارید. اگر مجموعه‌ای از نقاط که هر نقطه پیرامون دایره‌ای به مرکزیت مارپیچ حرکت می‌کنند، رسم کنید، به دایره خواهید رسید. اگر در طول حلقه، شعاع دایره‌ای که در حال حاضر روی نقطه‌ی فعلی را قرار می دهید تغییر دهید و بیش از یک مرتبه حرکت کنید، نتیجه‌ی کار یک مارپیچ خواهد شد.</p>
 
-<p><a class="p_ident" id="p_jjKOhwPqFp" href="#p_jjKOhwPqFp" tabindex="-1" role="presentation"></a>The star (5) depicted is built out of <code>quadraticCurveTo</code> lines. You could also draw one with straight lines. Divide a circle into eight pieces for a star with eight points, or however many pieces you want. Draw lines between these points, making them curve toward the center of the star. With <code>quadraticCurveTo</code>, you can use the center as the control point.</p>
+<p><a class="p_ident" id="p_rDR41po8gf" href="#p_rDR41po8gf" tabindex="-1" role="presentation"></a>ستاره (5) به وسیله‌ی خطوط <code>quadraticCurveTo</code> ترسیم می‌شود. همچنین می توانید آن را به وسیله‌ی خطوط مستقیم رسم کنید. یک دایره را به هشت قسمت برای ستاره‌ای با هشت نقطه تقسیم کنید یا به هر تعدادی که مایل هستید. بین این نقاط خط رسم کنید، انحنا را به سمت مرکز ستاره مشخص کنید. با استفاده از <code>quadraticCurveTo</code>، می توانید از مرکز به عنوان نقطه‌ی کنترل استفاده کنید.</p>
 
 </div></div>
 
-<h3 id="exercise_pie_chart"><a class="i_ident" id="i_bJrtZj5liF" href="#i_bJrtZj5liF" tabindex="-1" role="presentation"></a>The pie chart</h3>
+<h3 id="exercise_pie_chart"><a class="i_ident" id="i_cEvuoBMPSL" href="#i_cEvuoBMPSL" tabindex="-1" role="presentation"></a>نمودار کیکی</h3>
 
-<p><a class="p_ident" id="p_JDTyZfhjjQ" href="#p_JDTyZfhjjQ" tabindex="-1" role="presentation"></a><a href="17_canvas.html#pie_chart">Earlier</a> in the chapter, we saw an example program that drew a pie chart. Modify this program so that the name of each category is shown next to the slice that represents it. Try to find a pleasing-looking way to automatically position this text that would work for other data sets as well. You may assume that categories are big enough to leave ample room for their labels.</p>
+<p><a href="17_canvas.html#pie_chart">پیش‌تر</a> در این فصل مثالی از یک برنامه را مشاهده کردیم که یک نمودار کیکی رسم می کرد. این برنامه را تغییر داده تا نام هر دسته کنار برش مربوطه در نمودار پدیدار شود. سعی کنید تا روشی پیدا کنید که متن‌ها را به گونه‌ای مرتب و خودکار موقعیت دهی کند که برای مجموعه‌ی داده‌های دیگر نیز کار کند. می توانید فرض کنید که دسته‌ها دارای فروانی زیاد و کافی هستند که فضا برای نوشتن برچسب‌هایشان فراهم باشد.</p>
 
-<p><a class="p_ident" id="p_ZngEKqI20b" href="#p_ZngEKqI20b" tabindex="-1" role="presentation"></a>You might need <code>Math.sin</code> and <code>Math.cos</code> again, which are described in <a href="14_dom.html#sin_cos">Chapter 14</a>.</p>
+<p>ممکن است دوباره به توابع <bdo><code>Math.sin</code></bdo> و <bdo><code>Math.cos</code></bdo> که در <a href="14_dom.html#sin_cos">فصل 14</a> توضیح داده شده نیاز داشته باشید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_DTliIvEhY1" href="#c_DTliIvEhY1" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;600&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;300&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -679,25 +681,27 @@ point as well as a destination point. Imagine this control point as <em>attracti
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_kA52wMKZ1N" href="#p_kA52wMKZ1N" tabindex="-1" role="presentation"></a>You will need to call <code>fillText</code> and set the context’s <code>textAlign</code> and <code>textBaseline</code> properties in such a way that the text ends up where you want it.</p>
+<p>لازم است تا <code>fillText</code> را فراخوانی نموده و خاصیت‌های ‍<code>textAlign</code> و <code>textBaseline</code> مرتبط با context آن را طوری تنظیم کنید که متن جایی که می خواهید ظاهر شود.</p>
 
-<p><a class="p_ident" id="p_/ajw2XzQ17" href="#p_/ajw2XzQ17" tabindex="-1" role="presentation"></a>A sensible way to position the labels would be to put the text on the line going from the center of the pie through the middle of the slice. You don’t want to put the text directly against the side of the pie but rather move the text out to the side of the pie by a given number of pixels.</p>
+<p>یک روش روشن برای موقعیت‌دادن برچسب‌ها این است که متن را روی خطی قرار دهید که از مرکز نمودار به سمت میانه‌ی برش می‌رود.</p>
 
-<p><a class="p_ident" id="p_E+JItTGzSC" href="#p_E+JItTGzSC" tabindex="-1" role="presentation"></a>The angle of this line is <code>currentAngle + 0.<wbr>5 * sliceAngle</code>. The following code finds a position on this line 120 pixels from the center:</p>
+<p>قطعا نمی‌خواهید که متن را مستقیما کنار برش قرار دهید بلکه با چندین پیکسل فاصله کنار نمودار باید نمایش داده شود.</p>
+
+<p><a class="p_ident" id="p_d1vFww4n8O" href="#p_d1vFww4n8O" tabindex="-1" role="presentation"></a>زاویه‌ی این خط برابر است با <bdo><code>currentAngle + 0.<wbr>5 * sliceAngle</code></bdo>. کد پیش رو، جایی روی این خط با فاصله‌ی 120 پیکسل از مرکز می یابد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7kVY28rLLf" href="#c_7kVY28rLLf" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">middleAngle</span> <span class="cm-operator">=</span> <span class="cm-variable">currentAngle</span> <span class="cm-operator">+</span> <span class="cm-number">0.5</span> <span class="cm-operator">*</span> <span class="cm-variable">sliceAngle</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">textX</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">cos</span>(<span class="cm-variable">middleAngle</span>) <span class="cm-operator">*</span> <span class="cm-number">120</span> <span class="cm-operator">+</span> <span class="cm-variable">centerX</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">textY</span> <span class="cm-operator">=</span> <span class="cm-variable">Math</span>.<span class="cm-property">sin</span>(<span class="cm-variable">middleAngle</span>) <span class="cm-operator">*</span> <span class="cm-number">120</span> <span class="cm-operator">+</span> <span class="cm-variable">centerY</span>;</pre>
 
-<p><a class="p_ident" id="p_yLOG7kgUDH" href="#p_yLOG7kgUDH" tabindex="-1" role="presentation"></a>For <code>textBaseline</code>, the value <code>&quot;middle&quot;</code> is probably appropriate when using this approach. What to use for <code>textAlign</code> depends on which side of the circle we are on. On the left, it should be <code>&quot;right&quot;</code>, and on the right, it should be <code>&quot;left&quot;</code>, so that the text is positioned away from the pie.</p>
+<p>برای <code>textBaseLine</code>، مقدار <code>&quot;middle&quot;</code> احتمالا با این روش مناسب باشد. مقدار <code>textAlign</code> بستگی دارد که در حال حاضر در کدام سمت دایره قرار داریم. سمت چپ، باید مقدار آن <code>&quot;right&quot;</code> باشد و سمت راست نیز مقدار <code>&quot;left&quot;</code> مناسب است که باعث می شود متن از کیک فاصله بگیرد.</p>
 
-<p><a class="p_ident" id="p_BmCLUHGaC3" href="#p_BmCLUHGaC3" tabindex="-1" role="presentation"></a>If you are not sure how to find out which side of the circle a given angle is on, look to the explanation of <code>Math.cos</code> in <a href="14_dom.html#sin_cos">Chapter 14</a>. The cosine of an angle tells us which x-coordinate it corresponds to, which in turn tells us exactly which side of the circle we are on.</p>
+<p>اگر در به دست آوردن سمت دایره با توجه با زاویه‌ی در دسترس دچار مشکل شدید، به توضیحات مربوط به ‍<bdo><code>Math.cos</code></bdo> در <a href="14_dom.html#sin_cos">فصل 14</a> رجوع کنید. کسینوس یک زاویه، متختصات x مرتبط با آن را مشخص می کند که سمتی از دایره‌ که در آن قرار داریم را روشن می کند.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_IoBBN8CiQ5" href="#i_IoBBN8CiQ5" tabindex="-1" role="presentation"></a>A bouncing ball</h3>
+<h3><a class="i_ident" id="i_yrw/70gHLZ" href="#i_yrw/70gHLZ" tabindex="-1" role="presentation"></a>جست و خیز توپ</h3>
 
-<p><a class="p_ident" id="p_0Oga5tkIVF" href="#p_0Oga5tkIVF" tabindex="-1" role="presentation"></a>Use the <code>requestAnimationFrame</code> technique that we saw in <a href="14_dom.html#animationFrame">Chapter 14</a> and <a href="16_game.html#runAnimation">Chapter 16</a> to draw a box with a bouncing ball in it. The ball moves at a constant speed and bounces off the box’s sides when it hits them.</p>
+<p>با استفاده از تکنیک <code>requestAnimationFrame</code> که در <a href="14_dom.html#animationFrame">فصل 14</a> و <a href="16_game.html#runAnimation">فصل 16</a> مشاهده کردیم مستطیلی رسم کنید که یک توپ متحرک درون آن باشد. توپ با سرعتی ثابت حرکت می کند و با برخورد به دیوارهای مستطیل برگشته و جهت حرکتش عوض می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_9Io71wlUw7" href="#c_9Io71wlUw7" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">canvas</span> <span class="cm-attribute">width</span>=<span class="cm-string">&quot;400&quot;</span> <span class="cm-attribute">height</span>=<span class="cm-string">&quot;400&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">canvas</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -720,27 +724,27 @@ point as well as a destination point. Imagine this control point as <em>attracti
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_zF6HVUUkCO" href="#p_zF6HVUUkCO" tabindex="-1" role="presentation"></a>A box is easy to draw with <code>strokeRect</code>. Define a binding that holds its size or define two bindings if your box’s width and height differ. To create a round ball, start a path and call <code>arc(x, y, radius, 0, 7)</code>, which creates an arc going from zero to more than a whole circle. Then fill the path.</p>
+<p>رسم یک مستطیل با استفاده از <code>strokeRect</code> کاری آسان است.  یک متغیر برای نگه‌داری اندازه‌ی چهارضلعی یا دو متغیر اگر طول و عرض چهارضلعی شما متفاوت است، تعریف کنید. برای ایجاد یک توپ، از یک مسیر و یک فراخوانی <bdo><code>arc(x, y, radius, 0, 7)</code></bdo> استفاده کنید که کمانی رسم می کند که از صفر تا بیش از یک دایره‌ی کامل ادامه خواهد داشت. سپس مسیر را پر کنید.</p>
 
-<p><a class="p_ident" id="p_wlBTN9ml9f" href="#p_wlBTN9ml9f" tabindex="-1" role="presentation"></a>To model the ball’s position and speed, you can use the <code>Vec</code> class from <a href="16_game.html#vector">Chapter 16</a> (which is available on this page). Give it a starting speed, preferably one that is not purely vertical or horizontal, and for every frame multiply that speed by the amount of time that elapsed. When the ball gets too close to a vertical wall, invert the x component in its speed. Likewise, invert the y component when it hits a horizontal wall.</p>
+<p><a class="p_ident" id="p_c97Fk0rcGV" href="#p_c97Fk0rcGV" tabindex="-1" role="presentation"></a>برای مدل‌سازی موقعیت و سرعت توپ، می توانید از کلاس <code>Vec</code> متعلق به <a href="16_game.html#vector">فصل 16</a> (که در این صفحه موجود است‌) استفاده کنید. به این کلاس یک سرعت اولیه که ترجیحا کاملا عمودی یا افقی نباشد، و برای هر فریم آن سرعت را در زمان سپری شده ضرب کنید. زمانی که توپ خیلی به دیوار عمودی نزدیک شد، مولفه‌ی x سرعت آن را معکوس کنید. همین کار را برای مولفه‌ی y آن در هنگام برخورد به دیوار افقی انجام دهید.</p>
 
-<p><a class="p_ident" id="p_1wITPL6e42" href="#p_1wITPL6e42" tabindex="-1" role="presentation"></a>After finding the ball’s new position and speed, use <code>clearRect</code> to delete the scene and redraw it using the new position.</p>
+<p>پس از پیداکردن موقعیت و سرعت جدید توپ، از <code>clearRect</code> برای پاک کردن صحنه و بازترسیم آن به وسیله‌ی موقعیت جدید استفاده کنید.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_3ePcd0S4v0" href="#i_3ePcd0S4v0" tabindex="-1" role="presentation"></a>Precomputed mirroring</h3>
+<h3><a class="i_ident" id="i_2RRWJwLorO" href="#i_2RRWJwLorO" tabindex="-1" role="presentation"></a>پیش‌محاسبه وارونه‌سازی</h3>
 
-<p><a class="p_ident" id="p_onlMAFaFji" href="#p_onlMAFaFji" tabindex="-1" role="presentation"></a>One unfortunate thing about transformations is that they slow down the drawing of bitmaps. The position and size of each pixel has to be transformed, and though it is possible that browsers will get cleverer about transformation in the future, they currently cause a measurable increase in the time it takes to draw a bitmap.</p>
+<p>یک اشکال که در دگرگون‌سازی (transformation) وجود دارد این است که استفاده از آن باعث می شود رسم تصاویر بیتی کند شود. موقعیت و اندازه هر پیکسل باید تغییر داده شود و اگرچه محتمل است که مرورگرها در این مساله بهتر و باهوش تر در آینده عمل کنند، در حال حاضر این امر باعث می شود که زمان ترسیم یک نقشه‌ی بیتی به شکل محسوسی زیاد شود.</p>
 
-<p><a class="p_ident" id="p_b50ouk4znE" href="#p_b50ouk4znE" tabindex="-1" role="presentation"></a>In a game like ours, where we are drawing only a single transformed sprite, this is a nonissue. But imagine that we need to draw hundreds of characters or thousands of rotating particles from an explosion.</p>
+<p>در یک بازی مثل بازی ما، که فقط یک sprite تغییر شکل داده رسم می کنیم، مشکلی به وجود نمی آورد. اما تصور کنید که لازم باشد صدها کاراکتر یا هزاران ذره‌ی چرخان برای یک انفجار رسم کنیم.</p>
 
-<p><a class="p_ident" id="p_WgNsgEoaNe" href="#p_WgNsgEoaNe" tabindex="-1" role="presentation"></a>Think of a way to allow us to draw an inverted character without loading additional image files and without having to make transformed <code>drawImage</code> calls every frame.</p>
+<p>به دنبال راه حلی بگردید که به ما این امکان را بدهد که یک کارکتر برعکس را بتوانیم بدون بارگیری فایل‌های تصویری اضافی و بدون فراخوانی <code>drawImage</code> برای هر فریم رسم کنیم.</p>
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_NmNTuxj7Ml" href="#p_NmNTuxj7Ml" tabindex="-1" role="presentation"></a>The key to the solution is the fact that we can use a canvas element as a source image when using <code>drawImage</code>. It is possible to create an extra <code>&lt;canvas&gt;</code> element, without adding it to the document, and draw our inverted sprites to it, once. When drawing an actual frame, we just copy the already inverted sprites to the main canvas.</p>
+<p><a class="p_ident" id="p_kYxE6Xaitv" href="#p_kYxE6Xaitv" tabindex="-1" role="presentation"></a>نکته‌ی کلیدی به راه حل این است که ما می توانیم از یک عنصر canvas به عنوان منبع یک تصویر در هنگام استفاده از <code>drawImage</code> استفاده کنیم. می توان یک <bdo><code>&lt;canvas&gt;</code></bdo> اضافه بدون اضافه کردن آن به سند، ایجاد کرد و sprite های وارونه‌شده مان را یک بار در آن رسم نمود. در هنگام رسم یک فریم، کافی است تنها sprite‌های وارونه‌شده را به canvas اصلی کپی کنیم.</p>
 
-<p><a class="p_ident" id="p_MbtRzmupcp" href="#p_MbtRzmupcp" tabindex="-1" role="presentation"></a>Some care would be required because images do not load instantly. We do the inverted drawing only once, and if we do it before the image loads, it won’t draw anything. A <code>&quot;load&quot;</code> handler on the image can be used to draw the inverted images to the extra canvas. This canvas can be used as a drawing source immediately (it’ll simply be blank until we draw the character onto it).</p>
+<p>با توجه نمود که تصاویر بلافاصله بارگیری نمی‌شوند. ما عمل وارونه‌سازی را یک بار انجام می دهیم و اگر این کار قبل از بارگیری تصاویر صورت گیرد، چیزی رسم نخواهد شد. یک گرداننده‌ی <code>&quot;load&quot;</code> روی تصویر در اینجا می‌تواند برای ترسیم تصاویر وارونه روی canvas اضافه استفاده شود. این canvas را می توان به عنوان منبع ترسیم بلافاصله استفاده نمود (تا زمانی که ما کاراکتر را روی آن رسم کنیم خالی خواهد بود).</p>
 
 </div></div><nav><a href="16_game.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="18_http.html" title="next chapter">▶</a></nav>
 </article>
