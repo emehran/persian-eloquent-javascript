@@ -2,37 +2,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTTP and Forms :: Eloquent JavaScript</title>
+  <title>HTTP و فرم‌ها :: Eloquent JavaScript</title>
   <link rel=stylesheet href="js/node_modules/codemirror/lib/codemirror.css">
   <script src="js/acorn_codemirror.js"></script>
   <link rel=stylesheet href="css/ejs.css">
   <script src="js/sandbox.js"></script>
-  <script src="js/ejs.js"></script><script>var chapNum = 18;var sandboxLoadFiles = ["code/chapter/18_http.js"];</script></head>
+  <script src="js/ejs.js"></script><script>var chapNum = 18;var sandboxLoadFiles = ["code/chapter/18_http.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
+  <script async src="//static.getclicky.com/js"></script>
+
+</head>
 
 <article>
 <nav><a href="17_canvas.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="19_paint.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 18</span>HTTP and Forms</h1>
+<h1><span class=chap_num>Chapter 18</span>HTTP و فرم‌ها</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_oMpq82ALLD" href="#p_oMpq82ALLD" tabindex="-1" role="presentation"></a>Communication must be stateless in nature [...] such that each request from client to server must contain all of the information necessary to understand the request, and cannot take advantage of any stored context on the server.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>ارتباط باید مستقل از وضعیت باشد [...] این‌گونه که هر درخواست از سمت سرویس‌گیرنده به سرویس‌دهنده باید شامل تمامی اطلاعات مورد نیاز برای درک درخواست باشد، و نبایست بتوان از زمینه‌ای در ارتباط که روی سرویس‌دهنده از پیش ذخیره شده است، استفاده نمود.</p>
 
-<footer>Roy Fielding, <cite>Architectural Styles and the Design of Network-based Software Architectures</cite></footer>
+<footer>روی فیلدینگ, <cite>سبک‌های معماری و طراحی معمار‌ی‌های نرم‌افزار مبتنی بر شبکه</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_18.jpg" alt="Picture of a web form on a medieval scroll"></figure>
 
-<p><a class="p_ident" id="p_C6+RXvCvFu" href="#p_C6+RXvCvFu" tabindex="-1" role="presentation"></a>The <em>Hypertext Transfer Protocol</em>, already mentioned in <a href="13_browser.html#web">Chapter 13</a>, is the mechanism through which data is requested and provided on the World Wide Web. This chapter describes the protocol in more detail and explains the way browser JavaScript has access to it.</p>
+<p><a class="p_ident" id="p_d7X440OpD2" href="#p_d7X440OpD2" tabindex="-1" role="presentation"></a>پروتوکل انتقال ابرمتن (http) که پیش از این در <a href="13_browser.html#web">فصل 13</a> آمد، مکانیزمی است که از طریق آن داده‌ها در شبکه‌ی گسترده‌ی وب، درخواست و فراهم می شوند. این فصل به توصیف این پروتوکل با جزئیات بیشتری می پردازد و  چگونگی دسترسی جاوااسکریپت در مرورگر را به آن شرح می‌دهد.</p>
 
-<h2><a class="h_ident" id="h_vXdZCu/Tty" href="#h_vXdZCu/Tty" tabindex="-1" role="presentation"></a>The protocol</h2>
+<h2><a class="h_ident" id="h_FicebXJJuQ" href="#h_FicebXJJuQ" tabindex="-1" role="presentation"></a>پروتوکل</h2>
 
-<p><a class="p_ident" id="p_uAGANEYkBZ" href="#p_uAGANEYkBZ" tabindex="-1" role="presentation"></a>If you type <em>eloquentjavascript.net/18_http.html</em> into your browser’s address bar, the browser first looks up the address of the server associated with <em>eloquentjavascript.net</em> and tries to open a TCP connection to it on port 80, the default port for HTTP traffic. If the server exists and accepts the connection, the browser might send something like this:</p>
+<p><a class="p_ident" id="p_sDEofouzMn" href="#p_sDEofouzMn" tabindex="-1" role="presentation"></a>اگر آدرس <bdo><em>eloquentjavascript.net/18_http.html</em></bdo> را در نوار آدرس مرورگرتان تایپ کنید، مرورگر ابتدا به دنبال آدرس سرویس‌دهنده‌ی (server) مرتبط با دامنه‌ی <em>eloquentjavascript.net</em> می‌گردد و تلاش می کند تا یک ارتباط TCP روی پورت 80 ، پورت پیش‌فرض برای ترافیک HTTP، به آن بگشاید. اگر سرویس دهنده وجود داشته ‌باشد و این ارتباط را پذیرش کند، مرورگر ممکن است اطلاعاتی شبیه به زیر را به آن ارسال نماید:</p>
 
 <pre class="snippet cm-s-default" data-language="http" ><a class="c_ident" id="c_Y12YPXciUz" href="#c_Y12YPXciUz" tabindex="-1" role="presentation"></a>GET /18_http.html HTTP/1.1
 Host: eloquentjavascript.net
 User-Agent: Your browser's name</pre>
 
-<p><a class="p_ident" id="p_cpaXDnG/vq" href="#p_cpaXDnG/vq" tabindex="-1" role="presentation"></a>Then the server responds, through that same connection.</p>
+<p>سپس سرویس‌دهنده از طریق همان اتصال پاسخ می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="http" ><a class="c_ident" id="c_Y84SZaL9nl" href="#c_Y84SZaL9nl" tabindex="-1" role="presentation"></a>HTTP/1.1 200 OK
 Content-Length: 65585
@@ -42,45 +45,45 @@ Last-Modified: Mon, 08 Jan 2018 10:29:45 GMT
 &lt;!doctype html&gt;
 ... the rest of the document</pre>
 
-<p><a class="p_ident" id="p_W+0FSsrSY0" href="#p_W+0FSsrSY0" tabindex="-1" role="presentation"></a>The browser takes the part of the response after the blank line, its <em>body</em> (not to be confused with the HTML <code>&lt;body&gt;</code> tag), and displays it as an HTML document.</p>
+<p><a class="p_ident" id="p_fUuwhaGBuC" href="#p_fUuwhaGBuC" tabindex="-1" role="presentation"></a>مرورگر بخشی از پاسخ را که بعد از خط خالی می آید را می‌گیرد، بخش بدنه یا body (نباید با برچسب <bdo><code>&lt;body&gt;</code></bdo> در HTML اشتباه گرفته شود)، و آن را به عنوان یک سند HTML نشان می‌دهد.</p>
 
-<p><a class="p_ident" id="p_EF5P7+qf9n" href="#p_EF5P7+qf9n" tabindex="-1" role="presentation"></a>The information sent by the client is called the <em>request</em>. It starts with this line:</p>
+<p><a class="p_ident" id="p_CI4psKsAeV" href="#p_CI4psKsAeV" tabindex="-1" role="presentation"></a>اطلاعاتی که توسط کاربر ارسال می شود را درخواست (request) می نامند. یک درخواست با این خط شروع می شود:</p>
 
 <pre class="snippet cm-s-default" data-language="http" ><a class="c_ident" id="c_q82hekYuxl" href="#c_q82hekYuxl" tabindex="-1" role="presentation"></a>GET /18_http.html HTTP/1.1</pre>
 
-<p><a class="p_ident" id="p_RhcvCQnL7N" href="#p_RhcvCQnL7N" tabindex="-1" role="presentation"></a>The first word is the <em>method</em> of the request. <code>GET</code> means that we want to <em>get</em> the specified resource. Other common methods are <code>DELETE</code> to delete a resource, <code>PUT</code> to create or replace it, and <code>POST</code> to send information to it. Note that the server is not obliged to carry out every request it gets. If you walk up to a random website and tell it to <code>DELETE</code> its main page, it’ll probably refuse.</p>
+<p><a class="p_ident" id="p_jIdkvFXyZn" href="#p_jIdkvFXyZn" tabindex="-1" role="presentation"></a>اولین کلمه معرف روش یا متد (method) درخواست است. GET به این معناست که ما قصد گرفتن منبع مشخص شده را داریم. دیگر متدهای رایج شامل DELETE برای حذف یک منبع، PUT برای جایگزین کردن آن، و POST برای ارسال اطلاعات به آن می شوند. توجه داشته باشید که سرویس دهنده مجبور نیست هر درخواستی را که دریافت می کند اجرا کند. اگر به یک وب سایت تصادفی درخواستی از نوع DELETE برای حذف صفحه‌ی اصلی آن ارسال نمایید، احتمالا رد خواهد شد.</p>
 
-<p><a class="p_ident" id="p_dRtHLefq7L" href="#p_dRtHLefq7L" tabindex="-1" role="presentation"></a>The part after the method name is the path of the <em>resource</em> the request applies to. In the simplest case, a resource is simply a file on the server, but the protocol doesn’t require it to be. A resource may be anything that can be transferred <em>as if</em> it is a file. Many servers generate the responses they produce on the fly. For example, if you open <a href="https://github.com/marijnh"><em>https://github.com/marijnh</em></a>, the server looks in its database for a user named “marijnh”, and if it finds one, it will generate a profile page for that user.</p>
+<p><a class="p_ident" id="p_GEQgJnuvrt" href="#p_GEQgJnuvrt" tabindex="-1" role="presentation"></a>قسمت بعد از نام متد، معرف مسیر منبعی است که درخواست برای آن ارسال می شود. در ساده ترین شکل، یک منبع، فایلی روی سرویس‌دهنده می‌باشد اما اجباری برای آن در پروتوکل وجود ندارد. یک منبع می تواند هرچیزی که بتوان آن را انتقال داد باشد همان طور که یک فایل اینگونه می‌باشد. خیلی از سرویس‌دهنده‌ها پاسخ‌های تولیدی را به صورت پویا و درحین اجرا ایجاد می کنند. به عنوان مثال، اگر آدرس <a href="https://github.com/marijnh"><em>https://github.com/marijnh</em></a> را باز کنید، سرویس دهنده در بانک اطلاعاتیش به دنبال کاربری با نام “marijnh” می گردد و اگر پیدا کرد، یک صفحه‌ی پروفایل برای این کاربر ایجاد و برمی گرداند.</p>
 
-<p><a class="p_ident" id="p_P7s+ccxZW6" href="#p_P7s+ccxZW6" tabindex="-1" role="presentation"></a>After the resource path, the first line of the request mentions <code>HTTP/1.1</code> to indicate the version of the HTTP protocol it is using.</p>
+<p><a class="p_ident" id="p_WNdZyt8add" href="#p_WNdZyt8add" tabindex="-1" role="presentation"></a>بعد از مسیر منبع، اولین خط از درخواست شامل 1.1/HTTP می‌باشد که بیانگر نسخه‌ی پروتوکل HTTP در حال استفاده می‌باشد.</p>
 
-<p><a class="p_ident" id="p_mQcW6s4Mx4" href="#p_mQcW6s4Mx4" tabindex="-1" role="presentation"></a>In practice, many sites use HTTP version 2, which supports the same concepts as version 1.1 but is a lot more complicated so that it can be faster. Browsers will automatically switch to the appropriate protocol version when talking to a given server, and the outcome of a request is the same regardless of which version is used. Because version 1.1 is more straightforward and easier to play around with, we’ll focus on that.</p>
+<p><a class="p_ident" id="p_16VBe4kxbK" href="#p_16VBe4kxbK" tabindex="-1" role="presentation"></a>در عمل، خیلی از سایت‌ها از HTTP نسخه 2 استفاده می کنند که از همان مفاهیم نسخه 1.1 پشتبانی می کند اما بسیار پیش‌رفته‌تر است که در نتیجه سریع تر عمل می کند. مرورگرها در هنگام ارتباط با سرویس‌دهنده‌ی داده شده، به صورت خودکار به نسخه‌ی پروتوکل مناسب رجوع می کنند و نتیجه‌ی درخواست فارغ از نسخه‌ی پروتوکل یکسان است. به دلیل اینکه نسخه‌ی 1.1 سرراست تر و آسان تر است، ما به همان می پردازیم.</p>
 
-<p><a class="p_ident" id="p_ADqYIHJxxD" href="#p_ADqYIHJxxD" tabindex="-1" role="presentation"></a>The server’s response will start with a version as well, followed by the status of the response, first as a three-digit status code and then as a human-readable string.</p>
+<p>پاسخ سرویس‌دهنده با یک شماره‌ی نسخه شروع می شود که بعد از آن وضعیت پاسخ درج می شود. ابتدا یک عدد سه رقمی وضعیت و سپس یک رشته‌ی متنی قابل خواندن برای انسان برگردانده می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="http" ><a class="c_ident" id="c_A6dkQ5Qg2b" href="#c_A6dkQ5Qg2b" tabindex="-1" role="presentation"></a>HTTP/1.1 200 OK</pre>
 
-<p><a class="p_ident" id="p_I8BGMaErRo" href="#p_I8BGMaErRo" tabindex="-1" role="presentation"></a>Status codes starting with a 2 indicate that the request succeeded. Codes starting with 4 mean there was something wrong with the request. 404 is probably the most famous HTTP status code—it means that the resource could not be found. Codes that start with 5 mean an error happened on the server and the request is not to blame.</p>
+<p><a class="p_ident" id="p_w3a0ea+AjV" href="#p_w3a0ea+AjV" tabindex="-1" role="presentation"></a>کدهای وضعیتی که با عدد 2 شروع می شوند بیانگر موفقیت درخواست ارسال شده می باشند. کدهایی که با 4 شروع می شوند به این معنا هستند که در درخواست مشکلی وجود داشته است. 404 احتمالا معروف ترین کد وضعیت HTTP می‌باشد – به معنای این که منبع درخواستی پیدا نشد. کدهایی که با 5 شروع می شوند به معنای وجود خطا در سرویس دهنده می باشند و اشکال در درخواست نیست.</p>
 
-<p id="headers"><a class="p_ident" id="p_CA64oLhdLd" href="#p_CA64oLhdLd" tabindex="-1" role="presentation"></a>The first line of a request or response may be followed by any number of <em>headers</em>. These are lines in the form <code>name: value</code> that specify extra information about the request or response. These headers were part of the example response:</p>
+<p id="headers"><a class="p_ident" id="p_b27hDjmYXQ" href="#p_b27hDjmYXQ" tabindex="-1" role="presentation"></a>اولین خط درخواست یا پاسخ ممکن است شامل تعدادی header یا سرپیام باشد. این خطوط به شکل name: value هستند و اطلاعات بیشتری درباره‌ی درخواست یا پاسخ فراهم می نمایند. سرپیام‌های زیر بخشی از پاسخ مثال بودند:</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_1ObQMSreRj" href="#c_1ObQMSreRj" tabindex="-1" role="presentation"></a>Content-Length: 65585
 Content-Type: text/html
 Last-Modified: Thu, 04 Jan 2018 14:05:30 GMT</pre>
 
-<p><a class="p_ident" id="p_04zcUGZ8sT" href="#p_04zcUGZ8sT" tabindex="-1" role="presentation"></a>This tells us the size and type of the response document. In this case, it is an HTML document of 65,585 bytes. It also tells us when that document was last modified.</p>
+<p><a class="p_ident" id="p_VGkIah1M2O" href="#p_VGkIah1M2O" tabindex="-1" role="presentation"></a>این پیام اندازه و نوع سند پاسخ را مشخص می کند. در این مثال، این پاسخ، سندی HTML به اندازه‌ی 65585 بایت می‌باشد. همچنین زمان آخرین تغییر ایجاد شده در سند نیز آمده است.</p>
 
-<p><a class="p_ident" id="p_CoUIJDjIMb" href="#p_CoUIJDjIMb" tabindex="-1" role="presentation"></a>For most headers, the client and server are free to decide whether to include them in a request or response. But a few are required. For example, the <code>Host</code> header, which specifies the hostname, should be included in a request because a server might be serving multiple hostnames on a single IP address, and without that header, the server won’t know which hostname the client is trying to talk to.</p>
+<p><a class="p_ident" id="p_Q6uXkh/zT4" href="#p_Q6uXkh/zT4" tabindex="-1" role="presentation"></a>استفاده از بیشتر این سرپیام‌ها برای سرویس‌دهنده و سرویس‌گیرنده اختیاری است. اما تعداد کمی از آن ها اجباری می باشند. به عنوان مثال، سرپیام Host که بیانگر نام میزبان (hostname) است باید در درخواست وجود داشته باشد چرا که یک سرویس دهنده ممکن است به چندین نام میزبان رو یک آدرس IP سرویس‌دهی کند، که در صورت مشخص نبودن آن سرپیام، سرویس‌دهنده نمی تواند تشخیص دهد که درخواست سرویس‌گیرنده مربوط به کدام نام میزبان می‌باشد.</p>
 
-<p><a class="p_ident" id="p_DeF17lBSIn" href="#p_DeF17lBSIn" tabindex="-1" role="presentation"></a>After the headers, both requests and responses may include a blank line followed by a body, which contains the data being sent. <code>GET</code> and <code>DELETE</code> requests don’t send along any data, but <code>PUT</code> and <code>POST</code> requests do. Similarly, some response types, such as error responses, do not require a body.</p>
+<p><a class="p_ident" id="p_SaNq0C7YhV" href="#p_SaNq0C7YhV" tabindex="-1" role="presentation"></a>بعد از قسمت سرپیام‌ها، در هر دوی درخواست و پاسخ، یک خط خالی قرار می گیرد که بعد از آن بدنه خواهد آمد که حاوی داده‌هایی است که ارسال می شوند. در درخواست‌های GET و DELETE هیچ دادهای ارسال نمی شود اما در PUT و POST این گونه نیست. به طور مشابه، بعضی از انواع پاسخ، مثل پاسخ‌های خطا، دارای قسمت بدنه نمی باشند.</p>
 
-<h2><a class="h_ident" id="h_G1xxLfiYeu" href="#h_G1xxLfiYeu" tabindex="-1" role="presentation"></a>Browsers and HTTP</h2>
+<h2><a class="h_ident" id="h_bornDKgqvX" href="#h_bornDKgqvX" tabindex="-1" role="presentation"></a>مرورگرها و HTTP</h2>
 
-<p><a class="p_ident" id="p_di/c79dO8s" href="#p_di/c79dO8s" tabindex="-1" role="presentation"></a>As we saw in the example, a browser will make a request when we enter a URL in its address bar. When the resulting HTML page references other files, such as images and JavaScript files, those are also retrieved.</p>
+<p><a class="p_ident" id="p_Ibq9sGXG9B" href="#p_Ibq9sGXG9B" tabindex="-1" role="presentation"></a>همانطور که در مثال دیدیم، یک مرورگر وقتی که ما یک URL را در نوار آدرسش وارد می کنیم، یک درخواست می سازد. زمانی که صفحه‌ی HTML دریافتی، به فایل‌های دیگری ارجاع دارد مثل تصاویر و فایل‌های جاوااسکریپت ، آن فایل‌ها نیز بازیابی می شوند.</p>
 
-<p><a class="p_ident" id="p_H5hfE5XTVU" href="#p_H5hfE5XTVU" tabindex="-1" role="presentation"></a>A moderately complicated website can easily include anywhere from 10 to 200 resources. To be able to fetch those quickly, browsers will make several <code>GET</code> requests simultaneously, rather than waiting for the responses one at a time.</p>
+<p><a class="p_ident" id="p_/YhsCWaJRs" href="#p_/YhsCWaJRs" tabindex="-1" role="presentation"></a>یک وب‌سایت نسبتا بزرگ به آسانی می تواند دارای چیزی بین 10 تا 200 منبع باشد. برای اینکه بتوان این منابع را به سرعت بارگیری کرد، مرورگر چندین درخواست GET را همزمان ارسال می کند به جای اینکه برای تک تک پاسخ‌ها منتظر بماند.</p>
 
-<p><a class="p_ident" id="p_Aub9jfdnAA" href="#p_Aub9jfdnAA" tabindex="-1" role="presentation"></a>HTML pages may include <em>forms</em>, which allow the user to fill out information and send it to the server. This is an example of a form:</p>
+<p><a class="p_ident" id="p_n3OM6EV/KR" href="#p_n3OM6EV/KR" tabindex="-1" role="presentation"></a>صفحات HTML ممکن است حاوی فرم‌ها باشند که این امکان را به کاربر می دهند تا اطلاعاتی را در آن ها نوشته و به سرویس‌دهنده ارسال کنند. اینجا مثالی از یک فرم را مشاهده می کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_feixSy0wew" href="#c_feixSy0wew" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">method</span>=<span class="cm-string">&quot;GET&quot;</span> <span class="cm-attribute">action</span>=<span class="cm-string">&quot;example/message.html&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Name: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">name</span>=<span class="cm-string">&quot;name&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -88,22 +91,22 @@ Last-Modified: Thu, 04 Jan 2018 14:05:30 GMT</pre>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;submit&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Send<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">form</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_wzIYNG3lpP" href="#p_wzIYNG3lpP" tabindex="-1" role="presentation"></a>This code describes a form with two fields: a small one asking for a name and a larger one to write a message in. When you click the Send button, the form is <em>submitted</em>, meaning that the content of its field is packed into an HTTP request and the browser navigates to the result of that request.</p>
+<p><a class="p_ident" id="p_PlDa3N681D" href="#p_PlDa3N681D" tabindex="-1" role="presentation"></a>این کد فرمی با دو فیلد را تولید می کند: یک فیلد کوچک که نام را درخواست می کند و فیلدی بزرگتر که امکان نوشتن پیام را فراهم می‌سازد. زمانی که روی دکمه‌ی Send کلیک می کنید، فرم ثبت می شود (submit) به این معنا که محتوای فیلدهای آن به صورت یک درخواست HTTP در آمده و ارسال می شود و مرورگر به محل نتیجه‌ی درخواست منتقل می شود.</p>
 
-<p><a class="p_ident" id="p_vktFCcfPRa" href="#p_vktFCcfPRa" tabindex="-1" role="presentation"></a>When the <code>&lt;form&gt;</code> element’s <code>method</code> attribute is <code>GET</code> (or is omitted), the information in the form is added to the end of the <code>action</code> URL as a <em>query string</em>. The browser might make a request to this URL:</p>
+<p><a class="p_ident" id="p_2w2cGAh/+O" href="#p_2w2cGAh/+O" tabindex="-1" role="presentation"></a>زمانی که خاصیت <code>method</code> مربوط به عنصر <code>&lt;form&gt;</code> برابر با <code>GET</code> باشد ( یا اینکه اصلا ذکر نشود)، اطلاعات فرم به انتهای URL مشخص شده در خاصیت <code>action</code> به عنوان یک رشته‌ی پرس‌جو (query string) اضافه می شود. مرورگر ممکن است درخواستی به این URL به شکل زیر ایجاد کند:</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_1RUljJwVrY" href="#c_1RUljJwVrY" tabindex="-1" role="presentation"></a>GET /example/message.html?name=Jean&amp;message=Yes%3F HTTP/1.1</pre>
 
-<p><a class="p_ident" id="p_T5aHHLPL5V" href="#p_T5aHHLPL5V" tabindex="-1" role="presentation"></a>The question mark indicates the end of the path part of the URL and the start of the query. It is followed by pairs of names and values, corresponding to the <code>name</code> attribute on the form field elements and the content of those elements, respectively. An ampersand character (<code>&amp;</code>) is used to separate the pairs.</p>
+<p><a class="p_ident" id="p_JKhrBKn1DF" href="#p_JKhrBKn1DF" tabindex="-1" role="presentation"></a>علامت سوال بیانگر انتهای قسمت مسیر مربوط به URL و شروع رشته‌ی پرس و جو می‌باشد. بعد از آن جفت‌های نام و مقدار که متناظر با خاصیت name در فیلدهای فرم و محتوای آن عناصر می‌باشند به ترتیب می آیند. کاراکتر آمپرسند(<code>&amp;</code>) برای جداسازی جفت‌ها استفاده می شود.</p>
 
-<p><a class="p_ident" id="p_4Eo/x5v9Qy" href="#p_4Eo/x5v9Qy" tabindex="-1" role="presentation"></a>The actual message encoded in the URL is “Yes?”, but the question mark is replaced by a strange code. Some characters in query strings must be escaped. The question mark, represented as <code>%3F</code>, is one of those. There seems to be an unwritten rule that every format needs its own way of escaping characters. This one, called <em>URL encoding</em>, uses a percent sign followed by two hexadecimal (base 16) digits that encode the character code. In this case, 3F, which is 63 in decimal notation, is the code of a question mark character. JavaScript provides the <code>encodeURIComponent</code> and <code>decodeURIComponent</code> functions to encode and decode this format.</p>
+<p><a class="p_ident" id="p_SKRHIAvgrL" href="#p_SKRHIAvgrL" tabindex="-1" role="presentation"></a>پیام اصلی که در URL منتقل می شود “?Yes” است اما علامت سوال با یک کد رمزی جایگزین شده است. بعضی از کاراکترهای موجود در رشته‌های پرس و جو باید گریز داده شوند. علامت سوال که به صورت <bdo><code>%3F</code></bdo> در آمده است یکی از آن ها است. به نظر یک قانون نانوشته وجود دارد که هر فرمتی روش گریزدهی کاراکتر مخصوص به خود را لازم دارد. در این مورد، که کدگذاری URL نامیده می شود (URL Encoding) از یک علامت درصد و دو رقم هگزادسیمال (مبنای 16) برای کدگذاری کد کاراکتر استفاده می شود. در این مورد، 3F که در سیستم دهدهی معادل 63 می‌باشد، کد کاراکتر علامت سوال است. جاوااسکریپت دو تابع <code>encodeURIComponent</code> و <code>decodeURIComponent</code> را برای کدگذاری و کدگشایی از این فرمت فراهم نموده است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_v2cBL8Tnwf" href="#c_v2cBL8Tnwf" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">encodeURIComponent</span>(<span class="cm-string">&quot;Yes?&quot;</span>));
 <span class="cm-comment">// → Yes%3F</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">decodeURIComponent</span>(<span class="cm-string">&quot;Yes%3F&quot;</span>));
 <span class="cm-comment">// → Yes?</span></pre>
 
-<p><a class="p_ident" id="p_l15d9HkVlZ" href="#p_l15d9HkVlZ" tabindex="-1" role="presentation"></a>If we change the <code>method</code> attribute of the HTML form in the example we saw earlier to <code>POST</code>, the HTTP request made to submit the form will use the <code>POST</code> method and put the query string in the body of the request, rather than adding it to the URL.</p>
+<p><a class="p_ident" id="p_DKHvG3G6b/" href="#p_DKHvG3G6b/" tabindex="-1" role="presentation"></a>اگر خاصیت <code>method</code> را در فرم HTML مثالی که دیدیم به <code>POST</code> تغییر دهیم، درخواست HTTP ساخته شده از روش <code>POST</code> استفاده می کند و رشته‌ی پرس‌وجو را در قسمت بدنه‌ی درخواست قرار می دهد تا اینکه در URL اضافه کند.</p>
 
 <pre class="snippet cm-s-default" data-language="http" ><a class="c_ident" id="c_5Xyh6tIq0d" href="#c_5Xyh6tIq0d" tabindex="-1" role="presentation"></a>POST /example/message.html HTTP/1.1
 Content-length: 24
@@ -111,14 +114,13 @@ Content-type: application/x-www-form-urlencoded
 
 name=Jean&amp;message=Yes%3F</pre>
 
-<p><a class="p_ident" id="p_DK/cEfFOLx" href="#p_DK/cEfFOLx" tabindex="-1" role="presentation"></a><code>GET</code> requests should be used for requests that do not have side
-effects but simply ask for information. Requests that change something on the server, for example creating a new account or posting a message, should be expressed with other methods, such as <code>POST</code>. Client-side software such as a browser knows that it shouldn’t blindly make <code>POST</code> requests but will often implicitly make <code>GET</code> requests—for example to prefetch a resource it believes the user will soon need.</p>
+<p><a class="p_ident" id="p_GWayBsLrL+" href="#p_GWayBsLrL+" tabindex="-1" role="presentation"></a>درخواست‌های GET بهتر است برای درخواست‌هایی استفاده شوند که اثرات جانبی ندارند و فقط برای درخواست اطلاعات استفاده می شوند. درخواست‌هایی که قرار است چیزی را روی سرویس دهنده تغییر دهند ، مثلا حساب کاربری جدیدی ایجاد کنند یا پیامی را ارسال کنند، باید با دیگر روش ها مثل <code>POST</code> ارسال شوند. یک نرم افزار سمت کاربر (client-side) مثل مرورگر می داند که نباید به صورت کورکورانه درخواست‌های <code>POST</code> ارسال می کند اما به صورت ضمنی درخواست‌های <code>GET</code> ایجاد کند – به عنوان مثال برای پیش‌واکشی یک منبع که کاربر به زودی به آن نیاز خواهد داشت.</p>
 
-<p><a class="p_ident" id="p_DhsgH7HhV5" href="#p_DhsgH7HhV5" tabindex="-1" role="presentation"></a>We’ll come back to forms and how to interact with them from JavaScript <a href="18_http.html#forms">later in the chapter</a>.</p>
+<p>به فرم‌ها و نحوه‌ی تعامل با آن ها به وسیله‌ی جاوااسکریپت <a href="18_http.html#forms">در همین فصل</a> باز خواهیم گشت.</p>
 
 <h2 id="fetch"><a class="h_ident" id="h_1Iqv5okrKE" href="#h_1Iqv5okrKE" tabindex="-1" role="presentation"></a>Fetch</h2>
 
-<p><a class="p_ident" id="p_N4uvmrpYsh" href="#p_N4uvmrpYsh" tabindex="-1" role="presentation"></a>The interface through which browser JavaScript can make HTTP requests is called <code>fetch</code>. Since it is relatively new, it conveniently uses promises (which is rare for browser interfaces).</p>
+<p><a class="p_ident" id="p_SoLS1byDyt" href="#p_SoLS1byDyt" tabindex="-1" role="presentation"></a>رابطی‌ را که از طریق آن، جاوااسکریپت مرورگر می تواند درخواست‌های HTTP  بسازد،  <code>fetch</code> می نامند. به دلیل اینکه این رابط نسبتا جدید است، به خوبی از promise ها استفاده می کند ( که در رابط های مرورگر چیز نادری است).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RHiMHW5ptB" href="#c_RHiMHW5ptB" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;example/data.txt&quot;</span>).<span class="cm-property">then</span>(<span class="cm-def">response</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">response</span>.<span class="cm-property">status</span>);
@@ -127,106 +129,106 @@ effects but simply ask for information. Requests that change something on the se
   <span class="cm-comment">// → text/plain</span>
 });</pre>
 
-<p><a class="p_ident" id="p_nEI47jB1j7" href="#p_nEI47jB1j7" tabindex="-1" role="presentation"></a>Calling <code>fetch</code> returns a promise that resolves to a <code>Response</code> object holding information about the server’s response, such as its status code and its headers. The headers are wrapped in a <code>Map</code>-like object that treats its keys (the header names) as case insensitive because header names are not supposed to be case sensitive. This means <code>headers.<wbr>get(&quot;Content-Type&quot;)</code> and <code>headers.<wbr>get(&quot;content-TYPE&quot;)</code> will return the same value.</p>
+<p><a class="p_ident" id="p_jC/YRC/GWd" href="#p_jC/YRC/GWd" tabindex="-1" role="presentation"></a>فراخوانی <code>fetch</code> یک promise را برمی گرداند که به یک شیء <code>Response</code> منجر می شود که حاوی اطلاعاتی درباره‌ی پاسخ سرویس‌دهنده است، مثل کد وضعیت آن و سرپیام‌هایش. سرپیام‌ها درون یک شیء شبیه <code>Map</code> قرار می گیرند که نسبت به بزرگی و کوچکی حروف کلیدهایش (نام سرپیام‌ها) حساس نیست چرا که نام سرپیام ها لزومی ندارد به حروف حساس باشد. به این معنا که <bdo><code>headers.<wbr>get(&quot;Content-Type&quot;)</code></bdo> و <bdo><code>headers.<wbr>get(&quot;content-TYPE&quot;)</code></bdo> مقدار مشابهی را برمی گردانند.</p>
 
-<p><a class="p_ident" id="p_9+aWsoAyy9" href="#p_9+aWsoAyy9" tabindex="-1" role="presentation"></a>Note that the promise returned by <code>fetch</code> resolves successfully even if the server responded with an error code. It <em>might</em> also be rejected if there is a network error or if the server that the request is addressed to can’t be found.</p>
+<p>توجه داشته باشید که promise برگشتی از <code>fetch</code> به صورت موفقیت‌آمیز حل‌وفصل می‌شود حتی اگر سرویس دهنده با کد خطا پاسخ داده باشد. همچنین ممکن است لغو شود، اگر خطایی در شبکه رخ بدهد یا سرویس‌دهنده‌ای که درخواست به آن ارسال می شود پیدا نشود.</p>
 
-<p><a class="p_ident" id="p_5r0Wgj3ZeL" href="#p_5r0Wgj3ZeL" tabindex="-1" role="presentation"></a>The first argument to <code>fetch</code> is the URL that should be requested. When that URL doesn’t start with a protocol name (such as <em>http:</em>), it is treated as <em>relative</em>, which means it is interpreted relative to the current document. When it starts with a slash (/), it replaces the current path, which is the part after the server name. When it does not, the part of the current path up to and including its last slash character is put in front of the relative URL.</p>
+<p><a class="p_ident" id="p_cd+18kup26" href="#p_cd+18kup26" tabindex="-1" role="presentation"></a>اولین آرگومانی که fetch دریافت می کند URLای است که مورد درخواست است. زمانی که این URL با نام یک پروتوکل شروع نمی شود (مثل <bdo><em>http:</em></bdo>)، به صورت نسبی در نظر گرفته می شود، به این معنا که آدرس نسبت به موقعیت سند فعلی تفسیر می شود. اگر این URL با یک کاراکتر اسلش (/) شروع شود، جایگزین مسیر فعلی خواهد شد منظور بخشی است که پس از نام سرویس‌دهنده در URL می‌آید. در صورت نبود اسلش در ابتدا، مسیر فعلی تا آخرین کاراکتر اسلش، پیش از URL نسبی داده شده قرار خواهد گرفت.</p>
 
-<p><a class="p_ident" id="p_I7dcmG9O8z" href="#p_I7dcmG9O8z" tabindex="-1" role="presentation"></a>To get at the actual content of a response, you can use its <code>text</code> method. Because the initial promise is resolved as soon as the response’s headers have been received and because reading the response body might take a while longer, this again returns a promise.</p>
+<p><a class="p_ident" id="p_FykHZel6vX" href="#p_FykHZel6vX" tabindex="-1" role="presentation"></a>برای دریافت محتوای اصلی یک پاسخ، می توانید از متد <code>text</code> آن استفاده کنید. به دلیل اینکه promise اولیه، به محض اینکه سرپیام‌های پاسخ دریافت شوند، حل و فصل می شود، و خواندن بدنه‌ی پاسخ ممکن است زمان بیشتری بطلبد، دوباره به شکل یک promise برگردانده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_p/pN7BXNbA" href="#c_p/pN7BXNbA" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;example/data.txt&quot;</span>)
   .<span class="cm-property">then</span>(<span class="cm-def">resp</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">resp</span>.<span class="cm-property">text</span>())
   .<span class="cm-property">then</span>(<span class="cm-def">text</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">text</span>));
 <span class="cm-comment">// → This is the content of data.txt</span></pre>
 
-<p><a class="p_ident" id="p_yKDs0M+BWY" href="#p_yKDs0M+BWY" tabindex="-1" role="presentation"></a>A similar method, called <code>json</code>, returns a promise that resolves to the value you get when parsing the body as JSON or rejects if it’s not valid JSON.</p>
+<p><a class="p_ident" id="p_ExyQ+tHsTb" href="#p_ExyQ+tHsTb" tabindex="-1" role="presentation"></a>متد مشابهی به نام <code>json</code> وجود دارد که promiseای برمی گرداند که زمانی موفق به تولید مقدار می شود که بدنه را بتوان به عنوان JSON تفسیر کرد، و اگر محتوای بدنه یک JSON معتبر نباشد، promise لغو می شود.</p>
 
-<p><a class="p_ident" id="p_zqk7Gjqi6s" href="#p_zqk7Gjqi6s" tabindex="-1" role="presentation"></a>By default, <code>fetch</code> uses the <code>GET</code> method to make its request and does not include a request body. You can configure it differently by passing an object with extra options as a second argument. For example, this request tries to delete <code>example/data.txt</code>:</p>
+<p>به صورت پیش‌فرض، <code>fetch</code> از روش <code>GET</code> برای ساختن درخواست‌هایش استفاده می کند و بدنه‌ای برای درخواست درنظر نمی گیرد. می توانید به صورت دیگری آن را تنظیم کنید؛ به وسیله‌ی ارسال آرگومان دوم که حاوی شیء گزینه‌های بیشتر می‌باشد. به عنوان مثال، این درخواست تلاش می کند تا <code>example/data.txt</code> را حذف کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_hrJqISfbr3" href="#c_hrJqISfbr3" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;example/data.txt&quot;</span>, {<span class="cm-property">method</span>: <span class="cm-string">&quot;DELETE&quot;</span>}).<span class="cm-property">then</span>(<span class="cm-def">resp</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">resp</span>.<span class="cm-property">status</span>);
   <span class="cm-comment">// → 405</span>
 });</pre>
 
-<p><a class="p_ident" id="p_NyyktLENAG" href="#p_NyyktLENAG" tabindex="-1" role="presentation"></a>The 405 status code means “method not allowed”, an HTTP server’s way of saying “I can’t do that”.</p>
+<p><a class="p_ident" id="p_XXnkmdrWGa" href="#p_XXnkmdrWGa" tabindex="-1" role="presentation"></a>کد وضعیت 405 به این معنا است که “این متد مجاز نیست”. روش یک سرویس‌دهنده‌ی HTTP برای گفتن “من نمی توانم این کار رو بکنم” است.</p>
 
-<p><a class="p_ident" id="p_60thNhmBur" href="#p_60thNhmBur" tabindex="-1" role="presentation"></a>To add a request body, you can include a <code>body</code> option. To set headers, there’s the <code>headers</code> option. For example, this request includes a <code>Range</code> header, which instructs the server to return only part of a response.</p>
+<p>برای افزودن یک بدنه‌ی درخواست، می توانید گزینه‌ی <code>body</code> را بیفزایید. برای تنظیم سرپیام‌ها، گزینه‌ای به نام <code>headers</code> وجود دارد. به عنوان مثال، این درخواست یک سرپیام <code>Range</code> را اضافه می‌کند که به سرویس‌دهنده دستور می دهد که فقط بخشی از پاسخ را برگرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ayu6SNFLBc" href="#c_ayu6SNFLBc" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;example/data.txt&quot;</span>, {<span class="cm-property">headers</span>: {<span class="cm-property">Range</span>: <span class="cm-string">&quot;bytes=8-19&quot;</span>}})
   .<span class="cm-property">then</span>(<span class="cm-def">resp</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">resp</span>.<span class="cm-property">text</span>())
   .<span class="cm-property">then</span>(<span class="cm-variable">console</span>.<span class="cm-property">log</span>);
 <span class="cm-comment">// → the content</span></pre>
 
-<p><a class="p_ident" id="p_bD3Fa3HIuA" href="#p_bD3Fa3HIuA" tabindex="-1" role="presentation"></a>The browser will automatically add some request headers, such as “Host” and those needed for the server to figure out the size of the body. But adding your own headers is often useful to include things such as authentication information or to tell the server which file format you’d like to receive.</p>
+<p><a class="p_ident" id="p_OWDsTKX7Xl" href="#p_OWDsTKX7Xl" tabindex="-1" role="presentation"></a>مرورگر به صورت خودکار چند سرپیام به درخواست اضافه می کند مثل “Host” و آن دسته از سرپیام‌ها که برای سرویس‌دهنده لازم هستند تا بتواند اندازه‌ی بدنه را بداند. اما اضافه کردن سرپیام‌های خودتان معمولا برای افزودن چیزهایی مثل اطلاعات هویت‌سنجی یا اعلام نوع فرمت فایل درخواستی به سرویس‌دهنده، استفاده می شود.</p>
 
-<h2 id="http_sandbox"><a class="h_ident" id="h_4h3DL+zoLY" href="#h_4h3DL+zoLY" tabindex="-1" role="presentation"></a>HTTP sandboxing</h2>
+<h2 id="http_sandbox"><a class="h_ident" id="h_QsDQKHf27s" href="#h_QsDQKHf27s" tabindex="-1" role="presentation"></a>سازوکار حفاظتی - HTTP sandboxing</h2>
 
-<p><a class="p_ident" id="p_JiU9W0PiCv" href="#p_JiU9W0PiCv" tabindex="-1" role="presentation"></a>Making HTTP requests in web page scripts once again raises concerns about security. The person who controls the script might not have the same interests as the person on whose computer it is running. More specifically, if I visit <em>themafia.org</em>, I do not want its scripts to be able to make a request to <em>mybank.com</em>, using identifying information from my browser, with instructions to transfer all my money to some random account.</p>
+<p><a class="p_ident" id="p_Jck+pdr3C3" href="#p_Jck+pdr3C3" tabindex="-1" role="presentation"></a>ساختن درخواست‌های HTTP درون اسکریپت‌های صفحه‌ی وب، نگرانی‌هایی در مورد امنیت  به وجود می‌آورد. فردی که اسکریپت را کنترل می کند ممکن است نیتی مشابه کسی که اسکریپت در کامپیوترش اجرا می شود، نداشته باشد. به صورت واضح‌تر، اگر من از سایت themafia.org بازدید کنم دوست ندارم که اسکریپت‌های این سایت بتوانند درخواستی به سایت بانک من (mybank.com) ارسال کنند و از اطلاعات شناسایی من در مرورگرم استفاده کنند و دستوراتی برای انتقال پول‌های من به حساب‌های ناشناس اجرا کنند.</p>
 
-<p><a class="p_ident" id="p_XbYnzVu8E9" href="#p_XbYnzVu8E9" tabindex="-1" role="presentation"></a>For this reason, browsers protect us by disallowing scripts to make HTTP requests to other domains (names such as <em>themafia.org</em> and <em>mybank.com</em>).</p>
+<p><a class="p_ident" id="p_ZWtOUecxc0" href="#p_ZWtOUecxc0" tabindex="-1" role="presentation"></a>به همین دلیل، مرورگرها با غیرفعال کردن اجازه‌ی ارسال درخواست HTTP از درون اسکریپت‌ها به دیگر دامنه‌ها( نام هایی مثل themefia.org یا mybank.com) از ما محافظت می کنند.</p>
 
-<p><a class="p_ident" id="p_g7fM23J7Wi" href="#p_g7fM23J7Wi" tabindex="-1" role="presentation"></a>This can be an annoying problem when building systems that want to access several domains for legitimate reasons. Fortunately, servers can include a header like this in their response to explicitly indicate to the browser that it is okay for the request to come from another domain:</p>
+<p>ممکن است این محدودیت در زمان ساختن سیستم‌هایی که لازم است برای اهداف قانونی به چند دامنه دسترسی داشته باشد آزار دهنده باشد. خوشبختانه، سرویس‌دهنده‌ها می توانند یک سرپیام شبیه مثال زیر را در پاسخ خودشان قرار دهند تا صراحتا به مرورگر اعلام کنند که مشکلی نیست که درخواست از دامنه‌ی دیگری بیاید.</p>
 
 <pre class="snippet cm-s-default" data-language="null" ><a class="c_ident" id="c_kNUaXkbMWE" href="#c_kNUaXkbMWE" tabindex="-1" role="presentation"></a>Access-Control-Allow-Origin: *</pre>
 
-<h2><a class="h_ident" id="h_OJmHENDG5y" href="#h_OJmHENDG5y" tabindex="-1" role="presentation"></a>Appreciating HTTP</h2>
+<h2><a class="h_ident" id="h_IVuV9VrdGl" href="#h_IVuV9VrdGl" tabindex="-1" role="presentation"></a>بهره‌مندی از HTTP</h2>
 
-<p><a class="p_ident" id="p_dVrq2xCOfJ" href="#p_dVrq2xCOfJ" tabindex="-1" role="presentation"></a>When building a system that requires communication between a JavaScript program running in the browser (client-side) and a program on a server (server-side), there are several different ways to model this communication.</p>
+<p>در زمان ساخت سیستمی که لازم است در آن بین یک برنامه‌ی جاوااسکریپت که در مرورگر اجرا می شود (سمت کاربر) و برنامه‌ای که روی سرویس‌دهنده است (سمت سرور) ارتباط برقرار شود، می توان از روش‌های متفاوتی برای مدلسازی این ارتباط استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_xJpo9CMhYT" href="#p_xJpo9CMhYT" tabindex="-1" role="presentation"></a>A commonly used model is that of <em>remote procedure calls</em>. In this model, communication follows the patterns of normal function calls, except that the function is actually running on another machine. Calling it involves making a request to the server that includes the function’s name and arguments. The response to that request contains the returned value.</p>
+<p><a class="p_ident" id="p_WdFFV8wu3m" href="#p_WdFFV8wu3m" tabindex="-1" role="presentation"></a>یکی از مدل‌های رایج، استفاده از فراخوانی‌های رویه از راه دور (<em>remote procedure calls</em>) است. دراین مدل، ارتباط از الگوی فراخوانی نرمال توابع پیروی می کند با این استثناء که تابع در واقع روی کامپیوتر دیگر اجرا می شود. فراخوانی آن شامل ساخت یک درخواست به سرویس‌دهنده و مشخص کردن نام تابع و آرگومان‌های آن می‌باشد. پاسخ به آن درخواست حاوی مقدار بازگشتی است.</p>
 
-<p><a class="p_ident" id="p_7z+OqsDVUu" href="#p_7z+OqsDVUu" tabindex="-1" role="presentation"></a>When thinking in terms of remote procedure calls, HTTP is just a vehicle for communication, and you will most likely write an abstraction layer that hides it entirely.</p>
+<p><a class="p_ident" id="p_9Asn1ri5pP" href="#p_9Asn1ri5pP" tabindex="-1" role="presentation"></a>در مدل فراخوانی از راه دور، HTTP فقط نقش یک وسیله ارتباطی را بازی می کند و شما به احتمال زیاد آن را با یک لایه‌ی تجرید مخفی می کنید.</p>
 
-<p><a class="p_ident" id="p_dOvEvBngFh" href="#p_dOvEvBngFh" tabindex="-1" role="presentation"></a>Another approach is to build your communication around the concept of resources and HTTP methods. Instead of a remote procedure called <code>addUser</code>, you use a <code>PUT</code> request to <code>/users/larry</code>. Instead of encoding that user’s properties in function arguments, you define a JSON document format (or use an existing format) that represents a user. The body of the <code>PUT</code> request to create a new resource is then such a document. A resource is fetched by making a <code>GET</code> request to the resource’s URL (for example, <code>/user/larry</code>), which again returns the document representing the resource.</p>
+<p><a class="p_ident" id="p_xW3ivXdHO0" href="#p_xW3ivXdHO0" tabindex="-1" role="presentation"></a>روشی دیگر ساختن سیستم ارتباط برپایه مفهوم منابع و متد‌های HTTP است. به جای اینکه یک رویه‌ی از راه دور به نام <code>addUser</code> فراخوانی شود، از درخواست <code>PUT</code> به <bdo><code>/users/larry</code></bdo> استفاده می کنید. به جای قرار دادن مشخصات آن کاربر در آرگومان‌های تابع، یک فرمت سند JSON تعریف می کنید ( یا از فرمتی موجود استفاده می کنید) که نمایانگر یک کاربر باشد. بدنه‌ی درخواست <code>PUT</code> برای ایجاد یک منبع جدید، سندی به این شکل خواهد بود. یک منبع را می توان با ساختن یک درخواست <code>GET</code> به URL منبع (به عنوان مثال <bdo><code>/users/larry</code></bdo>) واکشی کرد که دوباره سندی که نمایانگر منبع مورد نظر است را بر‌می‌گرداند.</p>
 
-<p><a class="p_ident" id="p_YwC80f9YNp" href="#p_YwC80f9YNp" tabindex="-1" role="presentation"></a>This second approach makes it easier to use some of the features that HTTP provides, such as support for caching resources (keeping a copy on the client for fast access). The concepts used in HTTP, which are well designed, can provide a helpful set of principles to design your server interface around.</p>
+<p><a class="p_ident" id="p_byYn9eS4lD" href="#p_byYn9eS4lD" tabindex="-1" role="presentation"></a>استفاده از روش دوم باعث می شود بتوان از بعضی امکاناتی که HTTP فراهم می کند  آسان تر استفاده کرد مثل پشتیبانی از کش کردن منابع (نگه داری یک کپی روی سیستم کاربر برای دسترسی سریع). مفاهیم استفاده شده در HTTP که  خوبی طراحی شده اند، می توانند مجموعه‌ی مفیدی از قواعد را برای طراحی رابط سرویس‌دهنده فراهم نمایند.</p>
 
-<h2><a class="h_ident" id="h_oDqIFugKX4" href="#h_oDqIFugKX4" tabindex="-1" role="presentation"></a>Security and HTTPS</h2>
+<h2><a class="h_ident" id="h_+vvooX5LK4" href="#h_+vvooX5LK4" tabindex="-1" role="presentation"></a>امنیت و HTTPS</h2>
 
-<p><a class="p_ident" id="p_VAyObUfHZm" href="#p_VAyObUfHZm" tabindex="-1" role="presentation"></a>Data traveling over the Internet tends to follow a long, dangerous road. To get to its destination, it must hop through anything from coffee shop Wi-Fi hotspots to networks controlled by various companies and states. At any point along its route it may be inspected or even modified.</p>
+<p><a class="p_ident" id="p_PUNRHDDS1x" href="#p_PUNRHDDS1x" tabindex="-1" role="presentation"></a>سفر داده‌ها در اینترنت معمولا در مسیری بلند و پرمخاطره رخ می دهد. برای اینکه داده‌ها به مقصدشان برسند، باید از چیزهای مختلفی مثل Wifi یک کافی شاپ تا شبکه‌هایی که توسط شرکت‌های متنوع و دولت‌ها کنترل می شوند عبور کنند. در هر نقطه‌ای در طول مسیرش می توانند مورد بازرسی یا حتی دستکاری قرار بگیرند.</p>
 
-<p><a class="p_ident" id="p_FkVKmUiG/R" href="#p_FkVKmUiG/R" tabindex="-1" role="presentation"></a>If it is important that something remain secret, such as the password to your email account, or that it arrive at its destination unmodified, such as the account number you transfer money to via your bank’s website, plain HTTP is not good enough.</p>
+<p>بعضی اطلاعات باید مخفی بمانند مانند رمز عبور حساب ایمیلتان، یا اطلاعاتی هستند که باید هنگامی که به مقصد می‌رسند دستکاری نشده باشند مانند شماره‌ی حسابی که در سایت بانکتان به آن پول واریز می کنید. HTTP ساده زیاد مناسب این این موارد نیست.</p>
 
-<p><a class="p_ident" id="p_s1KEZa2j+E" href="#p_s1KEZa2j+E" tabindex="-1" role="presentation"></a>The secure HTTP protocol, used for URLs starting with <em>https://</em>, wraps HTTP traffic in a way that makes it harder to read and tamper with. Before exchanging data, the client verifies that the server is who it claims to be by asking it to prove that it has a cryptographic certificate issued by a certificate authority that the browser recognizes. Next, all data going over the connection is encrypted in a way that should prevent eavesdropping and tampering.</p>
+<p><a class="p_ident" id="p_2Y+SgAx83I" href="#p_2Y+SgAx83I" tabindex="-1" role="presentation"></a>پروتوکل امن HTTP که URLها در آن با <bdo><em>https://</em></bdo> شروع می شوند، ترافیک HTTP را به شکلی محافظت می کند که ساختن و دستکاری آن خیلی سخت بشود. قبل از تبادل داده‌ها ، سرویس‌گیرنده تحقیق می کند که سرویس‌دهنده همانی باشد که ادعا می کند و این کار با درخواست از سرور برای فراهم ساختن گواهینامه‌ی رمزی که توسط یک مرجع معتبر صدور گواهینامه صادر شده است و مورد شناسایی مرورگر می‌باشد، انجام می شود. بعد تمامی داده‌هایی که از طریق این ارتباط جابجا می شوند به رمز در می آیند به شکلی که از استراق سمع و مداخله ایمن بمانند.</p>
 
-<p><a class="p_ident" id="p_e4DTn5YT85" href="#p_e4DTn5YT85" tabindex="-1" role="presentation"></a>Thus, when it works right, HTTPS prevents other people from impersonating the website you are trying to talk to and from snooping on your communication. It is not perfect, and there have been various incidents where HTTPS failed because of forged or stolen certificates and broken software, but it is a <em>lot</em> safer than plain HTTP.</p>
+<p><a class="p_ident" id="p_sxM+GsByWh" href="#p_sxM+GsByWh" tabindex="-1" role="presentation"></a>بنابراین، وقتی این پروتوکل به درستی کار می کند، HTTPS از جعل وب سایت مورد ارتباط توسط شخص ثالث و جاسوسی در ارتباطات شما جلوگیری می‌کند. این پروتوکل کامل و بی نقص نیست، و موارد متنوعی وجود داشته که HTTPS موفقیت آمیز نبوده‌است؛ به دلیل لو رفتن گواهینامه یا دزدیده شدن آن یا نرم‌افزار معیوب، اما به هر حال این پروتوکل بسیار از HTTP ساده امن تر می‌باشد.</p>
 
-<h2 id="forms"><a class="h_ident" id="h_H222GOgM6T" href="#h_H222GOgM6T" tabindex="-1" role="presentation"></a>Form fields</h2>
+<h2 id="forms"><a class="h_ident" id="h_uDdj+746uZ" href="#h_uDdj+746uZ" tabindex="-1" role="presentation"></a>فیلدهای فرم</h2>
 
-<p><a class="p_ident" id="p_TyplG8H3xg" href="#p_TyplG8H3xg" tabindex="-1" role="presentation"></a>Forms were originally designed for the pre-JavaScript Web to allow web sites to send user-submitted information in an HTTP request. This design assumes that interaction with the server always happens by navigating to a new page.</p>
+<p>فرم ها اساسا برای وب قبل از جاوااسکریپت طراحی شده بوند، تا به وب‌سایت‌ها امکان ارسال اطلاعات ثبت شده توسط کاربر را به صورت یک درخواست HTTP بدهند. این طراحی فرض را بر این می گذارد که تعامل با سرویس‌دهنده همیشه با انتقال به یک صفحه‌ی دیگر رخ می دهد.</p>
 
-<p><a class="p_ident" id="p_fnL4EDXYjc" href="#p_fnL4EDXYjc" tabindex="-1" role="presentation"></a>But their elements are part of the DOM like the rest of the page, and the DOM elements that represent form fields support a number of properties and events that are not present on other elements. These make it possible to inspect and control such input fields with JavaScript programs and do things such as adding new functionality to a form or using forms and fields as building blocks in a JavaScript application.</p>
+<p><a class="p_ident" id="p_AEaGKg4haX" href="#p_AEaGKg4haX" tabindex="-1" role="presentation"></a>اما عناصر فرم هم شبیه به دیگر قسمت‌های صفحه، بخشی از DOM محسوب می شوند و عناصر DOM که فیلدهای فرم را نشان می دهند دارای تعدادی خاصیت و رخداد هستند که در دیگر عناصر موجود نیست. این باعث می شود که بتوان با برنامه‌های جاوااسکریپت این گونه فیلدها را کنترل و رسیدگی کرد و بتوان کارهایی مثل اضافه کردن کارکرد‌های جدید به یک فرم یا استفاده از فرم‌ها و فیلدها به عنوان بلاک‌های سازنده در اپلیکیشن‌های جاوااسکریپت استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_pfSLM800x5" href="#p_pfSLM800x5" tabindex="-1" role="presentation"></a>A web form consists of any number of input fields grouped in a <code>&lt;form&gt;</code> tag. HTML allows several different styles of fields, ranging from simple on/off checkboxes to drop-down menus and fields for text input. This book won’t try to comprehensively discuss all field types, but we’ll start with a rough overview.</p>
+<p><a class="p_ident" id="p_KOo7sblIFS" href="#p_KOo7sblIFS" tabindex="-1" role="presentation"></a>یک فرم وب شامل هر تعداد از فیلدهای ورودی که توسط برچسب <code>&lt;form&gt;</code> محصور می شوند است. HTML امکان داشتن سبک‌های متفاوت و متعددی از فیلدها را فراهم می سازد، از چک‌باکس‌های on/off تا منوهای بازشدنی و فیلدهایی برای ورودی متنی. این کتاب به صورت جامع در مورد همه‌ی انواع فیلدها صحبت نمی کند، اما به صورت کلی نگاهی به آن ها می اندازیم.</p>
 
-<p><a class="p_ident" id="p_Rhphckn33e" href="#p_Rhphckn33e" tabindex="-1" role="presentation"></a>A lot of field types use the <code>&lt;input&gt;</code> tag. This tag’s <code>type</code> attribute is used to select the field’s style. These are some commonly used <code>&lt;input&gt;</code> types:</p>
+<p>خیلی از انواع فیلدها از برچسب <code>&lt;input&gt;</code> استفاده می کنند. خصوصیت <code>type</code> این برچسب برای انتخاب سبک فیلد استفاده می شود. اینجا بعضی از انواع <code>&lt;input&gt;</code> رایج آورده شده است:</p>
 
 <table>
 
-<tr><td><code>text</code></td><td>A single-line text field</td>
+<tr><td><code>text</code></td><td>یک فیلد یک خطی برای دریافت متن</td>
 
 </tr>
 
-<tr><td><code>password</code></td><td>Same as <code>text</code> but hides the text that is typed</td>
+<tr><td><code>password</code></td><td>فیلدی شبیه به text با این تفاوت که متن تایپ‌شده قابل شناسایی نیست</td>
 
 </tr>
 
-<tr><td><code>checkbox</code></td><td>An on/off switch</td>
+<tr><td><code>checkbox</code></td><td>فیلدی دارای دو حالت فعال و غیرفعال</td>
 
 </tr>
 
-<tr><td><code>radio</code></td><td>(Part of) a multiple-choice field</td>
+<tr><td><code>radio</code></td><td>بخشی از یک فیلد چند گزینه‌ای</td>
 
 </tr>
 
-<tr><td><code>file</code></td><td>Allows the user to choose a file from their computer</td>
+<tr><td><code>file</code></td><td>این فیلد به کاربر اجازه‌ی انتخاب یک فایل از کامپیوترش را می دهد</td>
 
 </tr>
 
 </table>
 
-<p><a class="p_ident" id="p_wq9TjeOZyz" href="#p_wq9TjeOZyz" tabindex="-1" role="presentation"></a>Form fields do not necessarily have to appear in a <code>&lt;form&gt;</code> tag. You can put them anywhere in a page. Such form-less fields cannot be submitted (only a form as a whole can), but when responding to input with JavaScript, we often don’t want to submit our fields normally anyway.</p>
+<p><a class="p_ident" id="p_0As5gVwYfY" href="#p_0As5gVwYfY" tabindex="-1" role="presentation"></a>فیلدهای فرم نیازی نیست حتما درون یک برچسب <code>&lt;form&gt;</code> قرار گیرند. می توانید آن ها در هر جای صفحه استفاده کنید. استفاده بدون برچسب form از فیلدها باعث می شود که نتوان آن ها را به صورت نرمال ثبت کرد ( فقط یک فرم به شکل کامل قابلیت ثبت را دارد)، اما در مواقع کار با فیلدهای ورودی در جاوااسکریپت ، اغلب قصد ثبت فیلدهایمان به صورت نرمال نداریم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_BwDEUfcPYP" href="#c_BwDEUfcPYP" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">value</span>=<span class="cm-string">&quot;abc&quot;</span><span class="cm-tag cm-bracket">&gt;</span> (text)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;password&quot;</span> <span class="cm-attribute">value</span>=<span class="cm-string">&quot;abc&quot;</span><span class="cm-tag cm-bracket">&gt;</span> (password)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -236,9 +238,9 @@ effects but simply ask for information. Requests that change something on the se
    <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;radio&quot;</span> <span class="cm-attribute">value</span>=<span class="cm-string">&quot;C&quot;</span> <span class="cm-attribute">name</span>=<span class="cm-string">&quot;choice&quot;</span><span class="cm-tag cm-bracket">&gt;</span> (radio)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;file&quot;</span><span class="cm-tag cm-bracket">&gt;</span> (file)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_EMkwu3giRV" href="#p_EMkwu3giRV" tabindex="-1" role="presentation"></a>The JavaScript interface for such elements differs with the type of the element.</p>
+<p>رابط جاوااسکریپت برای این گونه عناصر بسته به نوع عنصر متفاوت است.</p>
 
-<p><a class="p_ident" id="p_dU8xgBYYQy" href="#p_dU8xgBYYQy" tabindex="-1" role="presentation"></a>Multiline text fields have their own tag, <code>&lt;textarea&gt;</code>, mostly because using an attribute to specify a multiline starting value would be awkward. The <code>&lt;textarea&gt;</code> tag requires a matching <code>&lt;/<wbr>textarea&gt;</code> closing tag and uses the text between those two, instead of the <code>value</code> attribute, as starting text.</p>
+<p><a class="p_ident" id="p_LDF80HNdkE" href="#p_LDF80HNdkE" tabindex="-1" role="presentation"></a>فیلدهای متنی چند خطی برچسب مخصوص خودشان را دارند، <code>&lt;textarea&gt;</code>، بیشتر به دلیل اینکه قرار دادن یک مقدار چند خطی در قسمت خصوصیت‌ها (attribute) مناسب نیست. برچسب <code>&lt;textarea&gt;</code> نیاز به برچسب پایانی <bdo><code>&lt;/<wbr>textarea&gt;</code></bdo> دارد و از متن بین این دو برچسب به جای خاصیت <code>value</code> استفاده می کند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_ta2qUMw3tQ" href="#c_ta2qUMw3tQ" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
 one
@@ -246,7 +248,7 @@ two
 three
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_ZYw2re7bQY" href="#p_ZYw2re7bQY" tabindex="-1" role="presentation"></a>Finally, the <code>&lt;select&gt;</code> tag is used to create a field that allows the user to select from a number of predefined options.</p>
+<p>و در نهایت، برچسب <code>&lt;select&gt;</code> برای ایجاد فیلدی که امکان انتخاب از بین تعدادی گزینه‌ی از پیش تعریف شده را به کاربر می دهد استفاده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_ZxJgtmof49" href="#c_ZxJgtmof49" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">select</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">option</span><span class="cm-tag cm-bracket">&gt;</span>Pancakes<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">option</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -254,15 +256,15 @@ three
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">option</span><span class="cm-tag cm-bracket">&gt;</span>Ice cream<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">option</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">select</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_RNW9gGQ0uZ" href="#p_RNW9gGQ0uZ" tabindex="-1" role="presentation"></a>Whenever the value of a form field changes, it will fire a <code>&quot;change&quot;</code> event.</p>
+<p>هر زمان که مقدار یک فیلد فرم تغییر کند، یک رخداد <code>&quot;change&quot;</code> ایجاد می شود.</p>
 
 <h2><a class="h_ident" id="h_/n9VuL9o/U" href="#h_/n9VuL9o/U" tabindex="-1" role="presentation"></a>Focus</h2>
 
-<p><a class="p_ident" id="p_sv9Kp9pqvi" href="#p_sv9Kp9pqvi" tabindex="-1" role="presentation"></a>Unlike most elements in HTML documents, form fields can get <em>keyboard focus</em>. When clicked or activated in some other way, they become the currently active element and the recipient of keyboard input.</p>
+<p><a class="p_ident" id="p_9EKJCnmjJs" href="#p_9EKJCnmjJs" tabindex="-1" role="presentation"></a>برخلاف بیشتر عناصر موجود در اسناد HTML، فیلدهای فرم را می توان با <em>صفحه‌ی کلید</em> <em>فعال</em> (focus) کرد. زمانی که با کلیک موس یا روشی دیگر این عناصر فعال می شوند در دسترس ورودی صفحه‌ی کلید قرار می گیرند.</p>
 
-<p><a class="p_ident" id="p_Hyh25uQbKJ" href="#p_Hyh25uQbKJ" tabindex="-1" role="presentation"></a>Thus, you can type into a text field only when it is focused. Other fields respond differently to keyboard events. For example, a <code>&lt;select&gt;</code> menu tries to move to the option that contains the text the user typed and responds to the arrow keys by moving its selection up and down.</p>
+<p>بنابراین زمانی می توانید درون یک فیلد متنی چیزی تایپ کنید که در مرورگر فعال (مورد تمرکز) باشد. دیگر فیلدها به رخدادهای صفحه‌کلید به شکلی متفاوت پاسخ می دهند. به عنوان مثال در <code>&lt;select&gt;</code> با تایپ متن توسط کاربر این فیلد تلاش می کند تا گزینه‌ای که محتوای تایپ شده را دارد انتخاب شود و با کلیدهای جهت دار می توان گزینه‌ی انتخابی را تغییر داد.</p>
 
-<p><a class="p_ident" id="p_bTNSIbb+d4" href="#p_bTNSIbb+d4" tabindex="-1" role="presentation"></a>We can control focus from JavaScript with the <code>focus</code> and <code>blur</code> methods. The first moves focus to the DOM element it is called on, and the second removes focus. The value in <code>document.<wbr>activeElement</code> corresponds to the currently focused element.</p>
+<p>می توانیم فعال بودن یک فیلد را با جاوااسکریپت به وسیله‌ی متدهای <code>focus</code> و <code>blur</code> کنترل کنیم. اولین متد عنصری که روی آن فراخوانی شده را فعال می کند و دومی از حالت فعال آن را خارج می کند. مقداری که در <bdo><code>document.<wbr>activeElement</code></bdo> قرار دارد متناظر با عنصری است که در حال حاضر فعال می‌باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_QrBgwnycJO" href="#c_QrBgwnycJO" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -274,31 +276,31 @@ three
   <span class="cm-comment">// → BODY</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_ymv/ML6eGQ" href="#p_ymv/ML6eGQ" tabindex="-1" role="presentation"></a>For some pages, the user is expected to want to interact with a form field immediately. JavaScript can be used to focus this field when the document is loaded, but HTML also provides the <code>autofocus</code> attribute, which produces the same effect while letting the browser know what we are trying to achieve. This gives the browser the option to disable the behavior when it is not appropriate, such as when the user has put the focus on something else.</p>
+<p>برای بعضی صفحات، انتظار می رود که کاربر بلافاصله به سراغ یک فیلد فرم برود. جاوااسکریپت می تواند برای فعال سازی این فیلد بعد از بارگیری سند استفاده شود، HTML نیز خاصیتی به نام <code>autofocus</code> فراهم می کند که همین اثر را دارد و به مرورگر اعلام می کند که قصد داریم کدام فیلد فعال باشد. این گزینه این امکان را برای مرورگر فراهم می سازد که این رفتار را در مواقعی که مناسب نیست غیرفعال کند، مثل زمانی که کاربر به سراغ فیلد دیگری رفته است.</p>
 
-<p><a class="p_ident" id="p_IgspvfRub5" href="#p_IgspvfRub5" tabindex="-1" role="presentation"></a>Browsers traditionally also allow the user to move the focus through the document by pressing the <span class="keyname">tab</span> key. We can influence the order in which elements receive focus with the <code>tabindex</code> attribute. The following example document will let the focus jump from the text input to the OK button, rather than going through the help link first:</p>
+<p><a class="p_ident" id="p_LXkxKSpOsu" href="#p_LXkxKSpOsu" tabindex="-1" role="presentation"></a>مرورگرها به شکلی سنتی به کاربر اجازه می دهند تا فیلدهای دیگر را با استفاده از کلید <span class="keyname">tab</span> فعال کند. می توانیم با استفاده از خاصیت <code>tabindex</code>، به ترتیب این فعال‌سازی اثر بگذاریم . در مثال پیش رو، در سند مشخص می شود که حالت فعال فیلد بعد از فیلد متنی به جای لینک help، به دکمه‌ی OK منتقل شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_DXorT/vrbR" href="#c_DXorT/vrbR" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">tabindex</span>=<span class="cm-string">1</span><span class="cm-tag cm-bracket">&gt;</span> <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;.&quot;</span><span class="cm-tag cm-bracket">&gt;</span>(help)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">onclick</span>=<span class="cm-string">&quot;console.log('ok')&quot;</span> <span class="cm-attribute">tabindex</span>=<span class="cm-string">2</span><span class="cm-tag cm-bracket">&gt;</span>OK<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_F/Js9FpFgt" href="#p_F/Js9FpFgt" tabindex="-1" role="presentation"></a>By default, most types of HTML elements cannot be focused. But you can add a <code>tabindex</code> attribute to any element that will make it focusable. A <code>tabindex</code> of -1 makes tabbing skip over an element, even if it is normally focusable.</p>
+<p><a class="p_ident" id="p_pbEhhfuWTq" href="#p_pbEhhfuWTq" tabindex="-1" role="presentation"></a>به صورت پیش‌فرض، بیشتر انواع عناصر HTML نمی توانند فعال شوند (focus). اما می توانید از <code>tabindex</code> در همه‌ی عناصر استفاده کنید که باعث می شود بتوان به آن ها قابلیت فعال بودن داد.  قرار دادن <bdo>-1</bdo> برای <code>tabindex</code> باعث می شود که از آن عنصر صرف نظر شود حتی اگر به صورت نرمال امکان فعال بودن داشته باشد.</p>
 
-<h2><a class="h_ident" id="h_l2z9T1FDym" href="#h_l2z9T1FDym" tabindex="-1" role="presentation"></a>Disabled fields</h2>
+<h2><a class="h_ident" id="h_FAsijz7Oq/" href="#h_FAsijz7Oq/" tabindex="-1" role="presentation"></a>فیلد‌های خاموش (disabled)</h2>
 
-<p><a class="p_ident" id="p_avmCql+rjT" href="#p_avmCql+rjT" tabindex="-1" role="presentation"></a>All form fields can be <em>disabled</em> through their <code>disabled</code> attribute. It is an attribute that can be specified without value—the fact that it is present at all disables the element.</p>
+<p>می توان تمامی فیلدهای فرم را به وسیله‌ی خاصیت <code>disabled</code> خاموش کرد. این خاصیت را می توان بدون مشخص کردن مقدار به کار برد- همین که وجود داشته باشد باعث خاموش شدن فیلد می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_f++NW8087u" href="#c_f++NW8087u" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>I'm all right<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">disabled</span><span class="cm-tag cm-bracket">&gt;</span>I'm out<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_GR2MtLESGu" href="#p_GR2MtLESGu" tabindex="-1" role="presentation"></a>Disabled fields cannot be focused or changed, and browsers make them look gray and faded.</p>
+<p><a class="p_ident" id="p_eJGNyvIsBI" href="#p_eJGNyvIsBI" tabindex="-1" role="presentation"></a>فیلدهای خاموش را نمی توان تغییر داد یا مورد تمرکز (focus) قرار داد. همچنین مرورگرها ظاهر آن ها خاکستری و کم رنگ می کنند.</p>
 
-<p><a class="p_ident" id="p_Q2URIcrW6H" href="#p_Q2URIcrW6H" tabindex="-1" role="presentation"></a>When a program is in the process of handling an action caused by some button or other control that might require communication with the server and thus take a while, it can be a good idea to disable the control until the action finishes. That way, when the user gets impatient and clicks it again, they don’t accidentally repeat their action.</p>
+<p>زمانی که یک برنامه در حال رسیدگی به کاری است که از فشردن یک دکمه یا یک فیلد کنترلی دیگر ایجاد شده، و این‌کار نیازمند ارتباط با سرویس‌دهنده است که در نتیجه نیاز به کمی زمان دارد، بهتر است تا پایان انجام آن کار، فیلد مورد نظر را خاموش کنیم. با این کار ، اگر کاربر صبر نکند و دوباره روی دکمه کلیک کند، به صورت ناخواسته آن کار تکرار نمی شود.</p>
 
-<h2><a class="h_ident" id="h_R8SZxHmDt0" href="#h_R8SZxHmDt0" tabindex="-1" role="presentation"></a>The form as a whole</h2>
+<h2><a class="h_ident" id="h_9IANWQvc7u" href="#h_9IANWQvc7u" tabindex="-1" role="presentation"></a>فرم به عنوان یک کل</h2>
 
-<p><a class="p_ident" id="p_G8aitsjxoL" href="#p_G8aitsjxoL" tabindex="-1" role="presentation"></a>When a field is contained in a <code>&lt;form&gt;</code> element, its DOM element will have a <code>form</code> property linking back to the form’s DOM element. The <code>&lt;form&gt;</code> element, in turn, has a property called <code>elements</code> that contains an array-like collection of the fields inside it.</p>
+<p>زمانی که یک فیلد درون عنصر <code>&lt;form&gt;</code> قرار می گیرد، عنصر DOM آن خاصیتی به نام <code>form</code> خواهد داشت که به عنصر DOM فرم اشاره می کند. عنصر <code>&lt;form&gt;</code> در عوض، خاصیتی به نام <code>elements</code> دارد که حاوی یک مجموعه‌ی آرایه‌شکل از فیلدهای قرار گرفته در آن می‌باشد.</p>
 
-<p><a class="p_ident" id="p_unq0zWRWC6" href="#p_unq0zWRWC6" tabindex="-1" role="presentation"></a>The <code>name</code> attribute of a form field determines the way its value will be identified when the form is submitted. It can also be used as a property name when accessing the form’s <code>elements</code> property, which acts both as an array-like object (accessible by number) and a map (accessible by name).</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>خاصیت <code>name</code> یک فیلد در فرم، راه شناسایی مقدار آن در زمان ثبت فرم می‌باشد. این خاصیت را همچنین می توان به عنوان نام  در زمان دسترسی به خاصیت <code>elements</code> مربوط به فرم استفاده کرد که هم به صورت شیء آرایه‌شکل ( قابل دسترسی با عدد) و هم به صورت یک map (دسترسی با نام).</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_2pmbvR5Jhe" href="#c_2pmbvR5Jhe" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">action</span>=<span class="cm-string">&quot;example/submit.html&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
   Name: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">name</span>=<span class="cm-string">&quot;name&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">br</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -315,9 +317,9 @@ three
   <span class="cm-comment">// → true</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_DOQDGp4ZWr" href="#p_DOQDGp4ZWr" tabindex="-1" role="presentation"></a>A button with a <code>type</code> attribute of <code>submit</code> will, when pressed, cause the form to be submitted. Pressing <span class="keyname">enter</span> when a form field is focused has the same effect.</p>
+<p><a class="p_ident" id="p_NnSVHsJkpy" href="#p_NnSVHsJkpy" tabindex="-1" role="presentation"></a>یک دکمه که خاصیت <code>type</code> آن  که برابر با <code>submit</code> تنظیم شده، در هنگام فشرده شدن، باعث می شود که فرم ثبت شود. فشردن کلید <span class="keyname">enter</span> روی صفحه کلید وقتی که یک فیلد فرم فعال است نیز همین اثر را به دنبال خواهد داشت.</p>
 
-<p><a class="p_ident" id="p_MVbboPCoBM" href="#p_MVbboPCoBM" tabindex="-1" role="presentation"></a>Submitting a form normally means that the browser navigates to the page indicated by the form’s <code>action</code> attribute, using either a <code>GET</code> or a <code>POST</code> request. But before that happens, a <code>&quot;submit&quot;</code> event is fired. You can handle this event with JavaScript and prevent this default behavior by calling <code>preventDefault</code> on the event object.</p>
+<p>ثبت یک فرم به صورت نرمال به این صورت است که مرورگر کاربر را به صفحه‌ای که در خاصیت <code>action</code> فرم مشخص شده است، منتقل می‌کند چه درخواست به روش <code>GET</code> باشد چه <code>POST</code>. اما قبل از این اتفاق، یک رخداد <code>&quot;submit&quot;</code> ایجاد می شود. این رخداد را می توان با جاوااسکریپت مدیریت کرد و گرداننده می تواند با فراخوانی <code>preventDefault</code> روی شی رخداد مانع از این رفتار پیش‌فرض شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Zv/K0ruWJS" href="#c_Zv/K0ruWJS" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">action</span>=<span class="cm-string">&quot;example/submit.html&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
   Value: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">name</span>=<span class="cm-string">&quot;value&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -331,15 +333,15 @@ three
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_wqAnsOYW3V" href="#p_wqAnsOYW3V" tabindex="-1" role="presentation"></a>Intercepting <code>&quot;submit&quot;</code> events in JavaScript has various uses. We can write code to verify that the values the user entered make sense and immediately show an error message instead of submitting the form. Or we can disable the regular way of submitting the form entirely, as in the example, and have our program handle the input, possibly using <code>fetch</code> to send it to a server without reloading the page.</p>
+<p>متوقف کردن رخدادهای <code>&quot;submit&quot;</code> در جاوااسکریپت کاربردهای متنوعی دارد. می توانیم کدی بنویسیم که صحت مقادیری که کاربر وارد می کند را بررسی کند و در صورت وجود اشتباه به جای ثبت فرم بلافاصله خطایی نشان دهد. یا می توانیم روش معمول ثبت کردن فرم را غیرفعال کنیم ، به عنوان مثال، و بدون نیاز به بارگیری مجدد صفحه، اطلاعات ورودی را با استفاده از <code>fetch</code> به سرویس‌دهنده ارسال کنیم.</p>
 
-<h2><a class="h_ident" id="h_+RaBROT23F" href="#h_+RaBROT23F" tabindex="-1" role="presentation"></a>Text fields</h2>
+<h2><a class="h_ident" id="h_4N0cfq236H" href="#h_4N0cfq236H" tabindex="-1" role="presentation"></a>فیلدهای متنی</h2>
 
-<p><a class="p_ident" id="p_NENXbP9XTb" href="#p_NENXbP9XTb" tabindex="-1" role="presentation"></a>Fields created by <code>&lt;textarea&gt;</code> tags, or <code>&lt;input&gt;</code> tags with a type of <code>text</code> or <code>password</code>, share a common interface. Their DOM elements have a <code>value</code> property that holds their current content as a string value. Setting this property to another string changes the field’s content.</p>
+<p><a class="p_ident" id="p_Yfb0Ie8yZw" href="#p_Yfb0Ie8yZw" tabindex="-1" role="presentation"></a>فیلدهایی که به وسیله‌ی برچسب‌های <code>&lt;input&gt;</code> ایجاد می شوند و نوع <code>text</code> یا <code>password</code> را دارند به همراه برچسب‌های <code>&lt;textarea&gt;</code>، از رابط یکسانی استفاده می کنند. عناصر متناظرشان در DOM دارای خاصیتی به نام <code>value</code> می‌باشد که محتوای کنونی آن ها را به شکل رشته‌ای نگهداری می کند. تغییر این خاصیت و استفاده از رشته‌ای دیگر برای آن محتوای فیلد را تغییر می دهد.</p>
 
-<p><a class="p_ident" id="p_xQSknx93fe" href="#p_xQSknx93fe" tabindex="-1" role="presentation"></a>The <code>selectionStart</code> and <code>selectionEnd</code> properties of text fields give us information about the cursor and selection in the text. When nothing is selected, these two properties hold the same number, indicating the position of the cursor. For example, 0 indicates the start of the text, and 10 indicates the cursor is after the 10<sup>th</sup> character. When part of the field is selected, the two properties will differ, giving us the start and end of the selected text. Like <code>value</code>, these properties may also be written to.</p>
+<p><a class="p_ident" id="p_B/+3D1I4tf" href="#p_B/+3D1I4tf" tabindex="-1" role="presentation"></a>دو خاصیت <code>selectionStart</code> و <code>selectionEnd</code> مربوط به فیلدهای متنی اطلاعاتی در رابطه با مکان‌نما و ناحیه‌ی انتخاب شده در متن فراهم می سازند. زمانی که چیزی انتخاب نشده است، این دو خاصیت مقدار عددی یکسانی را نگهداری می کنند که موقعیت مکان نما می باشد. به عنوان مثال، 0 به معنای شروع متن و 10 بیانگر این است که مکان‌نما بعد از کاراکتر دهم همین کاراکتر قرار دارد. زمانی که بخشی از فیلد انتخاب شده باشد، این دو خاصیت مقدار متفاوتی خواهند داشت و بیانگر شروع و پایان متن انتخاب شده می باشند. مثل <code>value</code> این خاصیت‌ها را نیز می توان تغییر داد.</p>
 
-<p><a class="p_ident" id="p_VlvYL2VLoi" href="#p_VlvYL2VLoi" tabindex="-1" role="presentation"></a>Imagine you are writing an article about Khasekhemwy but have some trouble spelling his name. The following code wires up a <code>&lt;textarea&gt;</code> tag with an event handler that, when you press F2, inserts the string “Khasekhemwy” for you.</p>
+<p><a class="p_ident" id="p_Nf4mxrUK0o" href="#p_Nf4mxrUK0o" tabindex="-1" role="presentation"></a>فرض کنید که در حال نوشتن مقاله‌ای در مورد Khasekhemwy  (پادشاهی در مصر باستان) می باشید و در نوشتن نام او دچار مشکل هستید. در کد پیش رو یک برچسب <code>&lt;textarea&gt;</code> و یک گرداننده‌ی رخداد با هم ترکیب می شوند و با فشردن کلید F2 کلمه‌ی “Khasekhemwy” برای شما در فیلد وارد می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_bpWFxEi3zn" href="#c_bpWFxEi3zn" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -361,12 +363,11 @@ three
   }
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_XRaVO9Iigu" href="#p_XRaVO9Iigu" tabindex="-1" role="presentation"></a>The <code>replaceSelection</code> function replaces the currently selected part of a text field’s content with the given word and then moves the cursor after that word so that the user can continue typing.</p>
+<p>تابع <code>replaceSelection</code> بخش انتخاب شده در فیلد متنی را با کلمه‌ی داده شده جایگزین می نماید و بعد مکان‌نما را به بعد از آن کلمه منتقل می کند تا کاربر بتواند به تایپ خود ادامه دهد.</p>
 
-<p><a class="p_ident" id="p_7ehU5cu5aF" href="#p_7ehU5cu5aF" tabindex="-1" role="presentation"></a>The <code>&quot;change&quot;</code> event for a text
-field does not fire every time something is typed. Rather, it fires when the field loses focus after its content was changed. To respond immediately to changes in a text field, you should register a handler for the <code>&quot;input&quot;</code> event instead, which fires for every time the user types a character, deletes text, or otherwise manipulates the field’s content.</p>
+<p>رخداد <code>&quot;change&quot;</code> برای یک فیلد متنی با هر بار نوشتن چیزی ایجاد نمی شود. بلکه زمانی ایجاد می شود که فیلد مذکور بعد از اینکه محتوایش تغییر کرد از حالت focus خارج می شود. برای اینکه بتوان به سرعت به تغییرات در یک فیلد متنی پاسخ داد، باید یک گرداننده برای رخداد <code>&quot;input&quot;</code> ثبت کنید که با تایپ هر کاراکتر توسط کاربر یا حذف آن یا ایجاد هر تغییری در محتوای فیلد ایجاد می شود.</p>
 
-<p><a class="p_ident" id="p_rladqIVDE4" href="#p_rladqIVDE4" tabindex="-1" role="presentation"></a>The following example shows a text field and a counter displaying the current length of the text in the field:</p>
+<p>در مثال پیش رو یک فیلد متنی نشان داده می شود و یک شمارنده که طول متن موجود در فیلد را نشان می دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_FW2nBbCoKe" href="#c_FW2nBbCoKe" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span><span class="cm-tag cm-bracket">&gt;</span> length: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">span</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;length&quot;</span><span class="cm-tag cm-bracket">&gt;</span>0<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">span</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -377,9 +378,9 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<h2><a class="h_ident" id="h_axUK+XNvTN" href="#h_axUK+XNvTN" tabindex="-1" role="presentation"></a>Checkboxes and radio buttons</h2>
+<h2><a class="h_ident" id="h_UZtbnKGvfT" href="#h_UZtbnKGvfT" tabindex="-1" role="presentation"></a>فیلد بررسی (checkbox) و دکمه‌های رادیویی</h2>
 
-<p><a class="p_ident" id="p_DFZwKUx9E+" href="#p_DFZwKUx9E+" tabindex="-1" role="presentation"></a>A checkbox field is a binary toggle. Its value can be extracted or changed through its <code>checked</code> property, which holds a Boolean value.</p>
+<p>یک فیلد چک‌باکس، یک فیلد دو حالته است. مقدار آن را می توان به وسیله‌ی خاصیت <code>checked</code> آن تغییر داد یا به‌دست آورد که مقداری بولی می‌باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_QDNdcETI4b" href="#c_QDNdcETI4b" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">label</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;checkbox&quot;</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;purple&quot;</span><span class="cm-tag cm-bracket">&gt;</span> Make this page purple
@@ -392,9 +393,9 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_kQbNxPLuR2" href="#p_kQbNxPLuR2" tabindex="-1" role="presentation"></a>The <code>&lt;label&gt;</code> tag associates a piece of document with an input field. Clicking anywhere on the label will activate the field, which focuses it and toggles its value when it is a checkbox or radio button.</p>
+<p><a class="p_ident" id="p_ZMZTdNurb+" href="#p_ZMZTdNurb+" tabindex="-1" role="presentation"></a>برچسب <code>&lt;label&gt;</code> یک بخش از سند را به یک فیلد ورودی مرتبط می‌سازد. با کلیک روی label، فیلد مرتبط با آن فعال می شود که باعث می شود مورد تمرکز مرورگر قرار بگیرد یا در مواقعی که یک چک‌باکس یا دکمه‌ی رادیویی باشد مقدارش را تغییر دهد (انتخاب یا از حالت انتخاب خارج می کند)</p>
 
-<p><a class="p_ident" id="p_vNsiBxZlre" href="#p_vNsiBxZlre" tabindex="-1" role="presentation"></a>A radio button is similar to a checkbox, but it’s implicitly linked to other radio buttons with the same <code>name</code> attribute so that only one of them can be active at any time.</p>
+<p>یک دکمه‌ی رادیویی شبیه به یک چک‌باکس است با این تفاوت که به صورت ضمنی و به وسیله‌ی خاصیت <code>name</code> مشترک به دیگر دکمه‌های رادیویی پیوند می خورد در نتیجه فقط یکی از این دکمه‌ها را می توان در آن واحد فعال داشت.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_tM2CEiReVh" href="#c_tM2CEiReVh" tabindex="-1" role="presentation"></a>Color:
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">label</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -415,19 +416,19 @@ field does not fire every time something is typed. Rather, it fires when the fie
   }
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_OM3AMgKt0y" href="#p_OM3AMgKt0y" tabindex="-1" role="presentation"></a>The square brackets in the CSS query given to <code>querySelectorAll</code> are used to match attributes. It selects elements whose <code>name</code> attribute is <code>&quot;color&quot;</code>.</p>
+<p><a class="p_ident" id="p_vLPB+DaD5C" href="#p_vLPB+DaD5C" tabindex="-1" role="presentation"></a>در مثال بالا، استفاده از براکت‌ها در پرس و جوی CSS که به متد <code>querySelectorAll</code> ارسال می شوند برای انتخاب و نشانه‌گرفتن خصوصیت‌های عناصر (attributes)،  استفاده می شوند. این پرس و جو عناصری را نتخاب می کند که مقدار خاصیت <code>name</code> شان برابر با <code>“color”</code> باشد.</p>
 
-<h2><a class="h_ident" id="h_eaB6RprDK3" href="#h_eaB6RprDK3" tabindex="-1" role="presentation"></a>Select fields</h2>
+<h2><a class="h_ident" id="h_vjp2YfTPbr" href="#h_vjp2YfTPbr" tabindex="-1" role="presentation"></a>فیلدهای select (انتخاب گزینه)</h2>
 
-<p><a class="p_ident" id="p_C43QMBKrcK" href="#p_C43QMBKrcK" tabindex="-1" role="presentation"></a>Select fields are conceptually similar to radio buttons—they also allow the user to choose from a set of options. But where a radio button puts the layout of the options under our control, the appearance of a <code>&lt;select&gt;</code> tag is determined by the browser.</p>
+<p><a class="p_ident" id="p_gUSP4nMke1" href="#p_gUSP4nMke1" tabindex="-1" role="presentation"></a>فیلدهای select به طور مفهومی مشابه دکمه‌های رادیویی هستند- این فیلدها هم به کاربر، امکان انتخاب از یک مجموعه گزینه‌ها را می دهند. در حالیکه در یک دکمه‌ی رادیویی چیدمان گزینه‌ها تحت کنترل ما می‌باشد، ظاهر یک برچسب <code>&lt;select&gt;</code> توسط مرورگر تعیین می شود.</p>
 
-<p><a class="p_ident" id="p_cSTgnCzv3c" href="#p_cSTgnCzv3c" tabindex="-1" role="presentation"></a>Select fields also have a variant that is more akin to a list of checkboxes, rather than radio boxes. When given the <code>multiple</code> attribute, a <code>&lt;select&gt;</code> tag will allow the user to select any number of options, rather than just a single option. This will, in most browsers, show up differently than a normal select field, which is typically drawn as a <em>drop-down</em> control that shows the options only when you open it.</p>
+<p><a class="p_ident" id="p_xLZH/q2jWp" href="#p_xLZH/q2jWp" tabindex="-1" role="presentation"></a>فیلدهای select همچنین در یک حالت خاص، بیشتر شبیه لیستی از checkboxها می‌باشد تا دکمه‌های رادیویی. اگر خاصیت <code>multiple</code> را به یک برچسب <code>&lt;select&gt;</code> اضافه کنیم، کاربر این امکان را خواهد داشت که به جای یک گزینه بتواند چندین گزینه انتخاب نماید. این شکل از فیلد در بیشتر مرورگرها به صورت متفاوتی نسبت به حالت نرمال یک گزینه‌ای نشان داده می شود. در حالت عادی، این فیلد به صورت یک منوی کشویی (بازشونده) نمایش داده می شود که گزینه‌هایش زمانی دیده می‌شوند که آن را باز نمایید.</p>
 
-<p><a class="p_ident" id="p_D7R79xBFg4" href="#p_D7R79xBFg4" tabindex="-1" role="presentation"></a>Each <code>&lt;option&gt;</code> tag has a value. This value can be defined with a <code>value</code> attribute. When that is not given, the text inside the option will count as its value. The <code>value</code> property of a <code>&lt;select&gt;</code> element reflects the currently selected option. For a <code>multiple</code> field, though, this property doesn’t mean much since it will give the value of only <em>one</em> of the currently selected options.</p>
+<p><a class="p_ident" id="p_iPx3549I/J" href="#p_iPx3549I/J" tabindex="-1" role="presentation"></a>هر برچسب <code>&lt;option&gt;</code> دارای یک مقدار می‌باشد. این مقدار را می توان با خاصیت <code>value</code> تعریف کرد. اگر این خاصیت را مشخص نکنید، متن درون گزینه به عنوان مقدار در نظر گرفته می‌شود. خاصیت <code>value</code> متعلق به عنصر <code>&lt;select&gt;</code> نشان‌دهنده‌ی گزینه‌ی انتخاب شده می‌باشد. برای یک فیلد چند‌گزینه‌ای (multiple) این خاصیت معنای خاصی نخواهد داشت چرا که فقط به <em>یک</em> مقدار از مقادیر انتخاب شده اشاره می کند.</p>
 
-<p><a class="p_ident" id="p_cuEVUjcKsy" href="#p_cuEVUjcKsy" tabindex="-1" role="presentation"></a>The <code>&lt;option&gt;</code> tags for a <code>&lt;select&gt;</code> field can be accessed as an array-like object through the field’s <code>options</code> property. Each option has a property called <code>selected</code>, which indicates whether that option is currently selected. The property can also be written to select or deselect an option.</p>
+<p>برچسب‌های <code>&lt;option&gt;</code> متعلق به فیلد <code>&lt;select&gt;</code> را می توان از طریق یک شیء آرایه‌گونه و به وسیله‌ی خاصیت <code>options</code> فیلد مورد دسترسی قرار داد. هر گزینه دارای یک خاصیت به نام <code>selected</code> می‌باشد که بیانگر این است که آیا انتخاب شده است یا خیر. این خاصیت را همچنین می توان برای انتخاب کردن یا از انتخاب خارج نمودن یک گزینه‌ نیز استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_MaAZPlhgSY" href="#p_MaAZPlhgSY" tabindex="-1" role="presentation"></a>This example extracts the selected values from a <code>multiple</code> select field and uses them to compose a binary number from individual bits. Hold <span class="keyname">control</span> (or <span class="keyname">command</span> on a Mac) to select multiple options.</p>
+<p><a class="p_ident" id="p_rGo2bPn+iH" href="#p_rGo2bPn+iH" tabindex="-1" role="presentation"></a>این مثال مقادیر انتخاب شده را از یک فیلد انتخاب چند‌گزینه‌ای (<code>multiple</code>) استخراج می کند و از آن ها برای نوشتن یک عدد دودویی از بیت‌های جداگانه استفاده می کند. برای انتخاب چندین گزینه کلید <span class="keyname">control</span> (یا <span class="keyname">command</span> در مک) را نگه دارید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Jh/nb6UYLR" href="#c_Jh/nb6UYLR" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">select</span> <span class="cm-attribute">multiple</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">option</span> <span class="cm-attribute">value</span>=<span class="cm-string">&quot;1&quot;</span><span class="cm-tag cm-bracket">&gt;</span>0001<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">option</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -449,11 +450,11 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<h2><a class="h_ident" id="h_tK84z183/8" href="#h_tK84z183/8" tabindex="-1" role="presentation"></a>File fields</h2>
+<h2><a class="h_ident" id="h_xi8DW4dd/S" href="#h_xi8DW4dd/S" tabindex="-1" role="presentation"></a>فیلدهای انتخاب فایل</h2>
 
-<p><a class="p_ident" id="p_12DuX873Jk" href="#p_12DuX873Jk" tabindex="-1" role="presentation"></a>File fields were originally designed as a way to upload files from the user’s machine through a form. In modern browsers, they also provide a way to read such files from JavaScript programs. The field acts as a kind of gatekeeper. The script cannot simply start reading private files from the user’s computer, but if the user selects a file in such a field, the browser interprets that action to mean that the script may read the file.</p>
+<p>فیلدهای فایل در ابتدا به عنوان راهی برای بارگذاری فایل‌ها از کامپیوتر کاربر به وسیله‌ی یک فرم طراحی شدند. در مرورگرهای مدرن، همچنین این فیلدها راهی برای خواندن این فایل‌ها به وسیله‌ی برنامه‌های جاوااسکریپت فراهم می‌کنند. فیلد انتخاب فایل به عنوان نوعی دربان عمل می کند؛ اسکریپت نمی تواند فایل‌های خصوصی را از کامپیوتر کاربر بخواند، اما اگر کاربر فایلی را به وسیله‌ی این فیلد انتخاب کند، تفسیر مرورگر این خواهد بود که اسکریپت ممکن است فایل انتخاب شده را بخواند.</p>
 
-<p><a class="p_ident" id="p_nfUpEs7Vxe" href="#p_nfUpEs7Vxe" tabindex="-1" role="presentation"></a>A file field usually looks like a button labeled with something like “choose file” or “browse”, with information about the chosen file next to it.</p>
+<p><a class="p_ident" id="p_H7M9nsZADl" href="#p_H7M9nsZADl" tabindex="-1" role="presentation"></a>ظاهر یک فیلد فایل معمولا شبیه به یک دکمه که عنوانی شبیه به “choose a file” یا “browse” را دارد می‌باشد و معمولا اطلاعاتی در باره‌ی فایل انتخاب شده در کنار آن نمایش داده می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Gg47yko2dF" href="#c_Gg47yko2dF" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;file&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -467,11 +468,11 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_9WVMeVLeav" href="#p_9WVMeVLeav" tabindex="-1" role="presentation"></a>The <code>files</code> property of a file field element is an array-like object (again, not a real array) containing the files chosen in the field. It is initially empty. The reason there isn’t simply a <code>file</code> property is that file fields also support a <code>multiple</code> attribute, which makes it possible to select multiple files at the same time.</p>
+<p>خاصیت <code>files</code> مربوط به عنصر فیلد فایل، یک شیء آرایه‌گونه است ( نه یک آرایه‌ی واقعی) که حاوی فایل‌هایی است که در فیلد انتخاب شده اند. در ابتدا این خاصیت خالی است. علت اینکه نام آن <code>file</code>  نیست این است که خصوصیتی(attribute) در فیلد فایل وجود دارد به نام <code>multiple</code> که باعث می شود بتوان چندین فایل را به صورت همزمان انتخاب کرد.</p>
 
-<p><a class="p_ident" id="p_yUTGY9XA00" href="#p_yUTGY9XA00" tabindex="-1" role="presentation"></a>Objects in the <code>files</code> object have properties such as <code>name</code> (the filename), <code>size</code> (the file’s size in bytes, which are chunks of 8 bits), and <code>type</code> (the media type of the file, such as <code>text/plain</code> or <code>image/jpeg</code>).</p>
+<p><a class="p_ident" id="p_/l27zqXOfi" href="#p_/l27zqXOfi" tabindex="-1" role="presentation"></a>اشیائی که در شیء <code>files</code> قرار دارند دارای خاصیت‌هایی مثل <code>name</code> (نام فایل)، <code>size</code> (اندازه فایل به بایت که معادل 8 بیت است) و <code>type</code> (نوع فایل مثل <code>text/plain</code> یا <code>image/jpeg</code>) می باشند.</p>
 
-<p id="filereader"><a class="p_ident" id="p_BUCcjCybzf" href="#p_BUCcjCybzf" tabindex="-1" role="presentation"></a>What it does not have is a property that contains the content of the file. Getting at that is a little more involved. Since reading a file from disk can take time, the interface must be asynchronous to avoid freezing the document.</p>
+<p id="filereader"><a class="p_ident" id="p_fXUvLF6VBD" href="#p_fXUvLF6VBD" tabindex="-1" role="presentation"></a>چیزی که در آن وجود ندارد خاصیتی است که محتوای فایل را نگهداری کند. بدست آوردن محتوای فایل کمی پیچیده تر است. به دلیل اینکه خواندن فایل از روی دیسک سخت ممکن است طول بکشد، رابط آن باید به صورت ناهمگام (asynchronous) باشد تا موجب قفل شدن شدن صفحه نشود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_NWBXf4dpgg" href="#c_NWBXf4dpgg" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;file&quot;</span> <span class="cm-attribute">multiple</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -488,9 +489,9 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_WTVG7dhgkK" href="#p_WTVG7dhgkK" tabindex="-1" role="presentation"></a>Reading a file is done by creating a <code>FileReader</code> object, registering a <code>&quot;load&quot;</code> event handler for it, and calling its <code>readAsText</code> method, giving it the file we want to read. Once loading finishes, the reader’s <code>result</code> property contains the file’s content.</p>
+<p><a class="p_ident" id="p_JLVf6B6eex" href="#p_JLVf6B6eex" tabindex="-1" role="presentation"></a>خواندن یک فایل به وسیله‌ی ایجاد شیئی به نام <code>FileReader</code> انجام می شود، که گرداننده‌ی رخداد <code>load</code> برای آن ثبت می شود و متد <code>readAsText</code> آن فراخوانی می شود و فایلی که قصد خواندن آن را داریم به آن داده شود. به محض اینکه بارگیری فایل به اتمام برسد، خاصیت <code>result</code> شیء reader فایل، حاوی محتوای فایل خواهد بود.</p>
 
-<p><a class="p_ident" id="p_K4QhByVIWK" href="#p_K4QhByVIWK" tabindex="-1" role="presentation"></a><code>FileReader</code>s also fire an <code>&quot;error&quot;</code> event when reading the file fails for any reason. The error object itself will end up in the reader’s <code>error</code> property. This interface was designed before promises became part of the language. You could wrap it in a promise like this:</p>
+<p><a class="p_ident" id="p_FMKuNI/4s+" href="#p_FMKuNI/4s+" tabindex="-1" role="presentation"></a>اشیاء <code>FileReader</code> زمانی که به هر دلیل خواندن فایل با مشکل روبرو شود، یک رخداد <code>“error”</code> ایجاد می کنند . شیء خطا در نهایت در خاصیت <code>error</code> شیء reader قرار می گیرد. این رابط قبل از اضافه شدن promiseها به زبان جاوااسکریپت طراحی شده است .می توانید این کار را در قالب promise به صورت زیر انجام دهید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Kr3V9NFjD7" href="#c_Kr3V9NFjD7" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">readFileText</span>(<span class="cm-def">file</span>) {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Promise</span>((<span class="cm-def">resolve</span>, <span class="cm-def">reject</span>) <span class="cm-operator">=&gt;</span> {
@@ -503,26 +504,26 @@ field does not fire every time something is typed. Rather, it fires when the fie
   });
 }</pre>
 
-<h2><a class="h_ident" id="h_xMhbz7W4BY" href="#h_xMhbz7W4BY" tabindex="-1" role="presentation"></a>Storing data client-side</h2>
+<h2><a class="h_ident" id="h_TuYSra01bs" href="#h_TuYSra01bs" tabindex="-1" role="presentation"></a>ذخیره‌ی داده‌ها در سمت کاربر (سرویس‌گیرنده)</h2>
 
-<p><a class="p_ident" id="p_JABB1DfeON" href="#p_JABB1DfeON" tabindex="-1" role="presentation"></a>Simple HTML pages with a bit of JavaScript can be a great format for “mini applications”—small helper programs that automate basic tasks. By connecting a few form fields with event handlers, you can do anything from converting between centimeters and inches to computing passwords from a master password and a website name.</p>
+<p>صفحات ساده‌ی HTML با کمی جاوااسکریپت می توانند فرمت خوبی برای اپلیکیشن‌های کوچک باشند – برنامه‌های کمکی کوچکی که بعضی کارها را خودکار می کنند. با ترکیب چند فیلد فرم با گرداننده‌های رخداد، می توانید هر کاری از تبدیل سانتی متر به اینچ گرفته تا محاسبه‌ی رمز‌های عبور از روی یک رمزعبور مادر و نام یک وب‌سایت را انجام دهید.</p>
 
-<p><a class="p_ident" id="p_ZDof7+yfRJ" href="#p_ZDof7+yfRJ" tabindex="-1" role="presentation"></a>When such an application needs to remember something between sessions, you cannot use JavaScript bindings—those are thrown away every time the page is closed. You could set up a server, connect it to the Internet, and have your application store something there. We will see how to do that in <a href="20_node.html">Chapter 20</a>. But that’s a lot of extra work and complexity. Sometimes it is enough to just keep the data in the browser.</p>
+<p>زمانی که این گونه اپلیکیشن‌ها نیاز به ذخیره و به خاطرسپاری چیزی  به صورت پایدار دارند، نمی توانید از متغیرهای جاوااسکریپت استفاده کنید- متغیرها با بسته شدن صفحه‌ی مرورگر از بین می روند. می توانید یک سرویس‌دهنده راه اندازی کنید، آن‌را به اینترنت متصل کنید و اطلاعات اپلیکیشن تان را در آنجا ذخیره کنید. در <a href="20_node.html">فصل 20</a> به چگونگی این کار می پردازیم. اما این روش، کار و پیچیدگی زیادتری می طلبد. گاهی اوقات نگه‌داشتن داده‌ها در خود مرورگر برای کار ما کافی است.</p>
 
-<p><a class="p_ident" id="p_tijRqdmE+T" href="#p_tijRqdmE+T" tabindex="-1" role="presentation"></a>The <code>localStorage</code> object can be used to store data in a way that survives page reloads. This object allows you to file string values under names.</p>
+<p>شیء <code>localStorage</code> را می توان برای ذخیره‌ی داده‌ها به صورتی که با بارگیری مجدد صفحه حفظ شوند استفاده کرد. این شیء به شما این امکان را می دهد که مقادیر رشته‌ای را تحت نام‌هایی دسته بندی و ذخیره کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_zS9vKuxYED" href="#c_zS9vKuxYED" tabindex="-1" role="presentation"></a><span class="cm-variable">localStorage</span>.<span class="cm-property">setItem</span>(<span class="cm-string">&quot;username&quot;</span>, <span class="cm-string">&quot;marijn&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">localStorage</span>.<span class="cm-property">getItem</span>(<span class="cm-string">&quot;username&quot;</span>));
 <span class="cm-comment">// → marijn</span>
 <span class="cm-variable">localStorage</span>.<span class="cm-property">removeItem</span>(<span class="cm-string">&quot;username&quot;</span>);</pre>
 
-<p><a class="p_ident" id="p_6Jr54na1O5" href="#p_6Jr54na1O5" tabindex="-1" role="presentation"></a>A value in <code>localStorage</code> sticks around until it is overwritten, it is removed with <code>removeItem</code>, or the user clears their local data.</p>
+<p>یک مقدار در <code>localStorage</code> تا زمانی که دوباره بازنویسی شود باقی می ماند، می توان آن را با <code>removeItem</code> حذف کرد ؛ همچنین کاربر می‌تواند داده‌های محلی مرورگر خود را به صورت دستی حذف کند.</p>
 
-<p><a class="p_ident" id="p_rQBn/5RRw1" href="#p_rQBn/5RRw1" tabindex="-1" role="presentation"></a>Sites from different domains get different storage compartments. That means data stored in <code>localStorage</code> by a given website can, in principle, be read (and overwritten) only by scripts on that same site.</p>
+<p>سایت‌هایی که از دامنه‌های متفاوتی هستند ناحیه‌های ذخیره‌ی مجزایی دریافت می کنند. این یعنی داده‌هایی که در <code>localStorage</code> توسط یک وب‌سایت داده شده ذخیره می شوند، علی القاعده، فقط توسط اسکریپت‌هایی که روی همان سایت قرار دارند قابل خواندن و بازنویسی می باشند.</p>
 
-<p><a class="p_ident" id="p_QOv0pecyix" href="#p_QOv0pecyix" tabindex="-1" role="presentation"></a>Browsers do enforce a limit on the size of the data a site can store in <code>localStorage</code>. That restriction, along with the fact that filling up people’s hard drives with junk is not really profitable, prevents the feature from eating up too much space.</p>
+<p>مرورگرها محدودیتی در رابطه با اندازه‌ی داده‌هایی که یک وب سایت می تواند در <code>localStorage</code> ذخیره کند اعمال می کنند. این محدودیت، در کنار این واقعیت که پر کردن دیسک سخت کاربر با اطلاعات به‌درد‌نخور فایده‌ای ندارد، باعث می شود که این ویژگی موجب گرفته شدن فضای زیادی نشود.</p>
 
-<p><a class="p_ident" id="p_nOUdqdshUV" href="#p_nOUdqdshUV" tabindex="-1" role="presentation"></a>The following code implements a crude note-taking application. It keeps a set of named notes and allows the user to edit notes and create new ones.</p>
+<p>در کد پیش رو یک اپلیکیشن ابتدایی برای یادداشت برداری پیاده سازی شده است. این برنامه مجموعه‌ای از یادداشت ها دارای نام را نگهداری می کند و به کاربر این امکان را می دهد که این یادداشت‌ها را ویرایش کرده و موارد جدید را نیز بتواند اضافه کند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_7EHyh6Vlvw" href="#c_7EHyh6Vlvw" tabindex="-1" role="presentation"></a>Notes: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">select</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">select</span><span class="cm-tag cm-bracket">&gt;</span> <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>Add<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">br</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;width: 100%&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -570,64 +571,63 @@ field does not fire every time something is typed. Rather, it fires when the fie
     });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_KKRjPQnlpK" href="#p_KKRjPQnlpK" tabindex="-1" role="presentation"></a>The script gets its starting state from the <code>&quot;Notes&quot;</code> value stored in <code>localStorage</code> or, if that is missing, creates an example state that has only a shopping list in it. Reading a field that does not exist from <code>localStorage</code> will yield <code>null</code>. Passing <code>null</code> to <code>JSON.parse</code> will make it parse the string <code>&quot;null&quot;</code> and return <code>null</code>. Thus, the <code>||</code> operator can be used to provide a default value in a situation like this.</p>
+<p>اسکریپت بالا وضعیت ابتدایی خودش را از مقدار <code>&quot;Notes&quot;</code> که در <code>localStorage</code> ذخیره شده است می‌گیرد یا در صورت نبود آن، یک وضعیت نمونه که یک لیست خرید فرضی در آن قرار دارد را ایجاد می کند. خواندن یک فیلد که وجود خارجی ندارد از <code>localStorage</code> موجب می شود تا مقدار <code>null</code> برگردانده شود. ارسال <code>null</code> به <bdo><code>JSON.parse</code></bdo> موجب می شود که رشته‌ی <code>&quot;null&quot;</code> به وجود بیاید و درنتیجه خروجی <code>null</code> تولید شود. بنابراین، عملگر <code>||</code> را می توان برای در نظر گرفتن مقدار پیش‌فرض در شرایطی مثل این استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_vsgpRLsWlg" href="#p_vsgpRLsWlg" tabindex="-1" role="presentation"></a>The <code>setState</code> method makes sure the DOM is showing a given state and stores the new state to <code>localStorage</code>. Event handlers call this function to move to a new state.</p>
+<p>متد <code>setState</code> موجب می شود اطمینان حاصل کنیم که DOM وضعیت مشخصی را نمایش می دهد و وضعیت جدید را در <code>localStorage</code> ذخیره می کند. گرداننده‌های رخداد این تابع را برای انتقال به یک وضعیت جدید فراخوانی می کنند.</p>
 
-<p><a class="p_ident" id="p_KLQOhbE5S6" href="#p_KLQOhbE5S6" tabindex="-1" role="presentation"></a>The use of <code>Object.assign</code> in the example is intended to create a new object that is a clone of the old <code>state.notes</code>, but with one property added or overwritten. <code>Object.assign</code> takes its first argument and adds all properties from any further arguments to it. Thus, giving it an empty object will cause it to fill a fresh object. The square
-brackets notation in the third argument is used to create a property whose name is based on some dynamic value.</p>
+<p>استفاده از <bdo><code>Object.assign</code></bdo> در مثال بالا به این خاطر بود که یک کپی از شیء <bdo><code>state.notes</code></bdo> قدیمی ایجاد شود که حاوی خاصیتی باشد که اضافه یا بازنویسی شده است. <bdo><code>Object.assign</code></bdo> اولین آرگومانش را گرفته و تمامی خاصیت‌هایی که در آرگومان‌های بعدی می آید را به آن اضافه می کند. بنابراین، روش استفاده از براکت‌ها در آرگومان سوم برای ایجاد یک خاصیت که نام آن بر اساس یک مقدار پویا مشخص می شود استفاده شده است.</p>
 
-<p><a class="p_ident" id="p_McB+3/vKwy" href="#p_McB+3/vKwy" tabindex="-1" role="presentation"></a>There is another object, similar to <code>localStorage</code>, called <code>sessionStorage</code>. The difference between the two is that the content of <code>sessionStorage</code> is forgotten at the end of each <em>session</em>, which for most browsers means whenever the browser is closed.</p>
+<p><a class="p_ident" id="p_/L3EwnHIiY" href="#p_/L3EwnHIiY" tabindex="-1" role="presentation"></a>شیء دیگری وجود دارد شبیه به <code>localStorage</code> به نام <code>sessionStorage</code>. تفاوت بین این دو این است که محتوای <code>sessionStorage</code> با به پایان رسیدن هر جلسه (session) فراموش می شود که در بیشتر مرورگرها با بستن مرورگر این اتفاق می افتد.</p>
 
-<h2><a class="h_ident" id="h_ErccPg/l98" href="#h_ErccPg/l98" tabindex="-1" role="presentation"></a>Summary</h2>
+<h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p><a class="p_ident" id="p_1249Ox6nXm" href="#p_1249Ox6nXm" tabindex="-1" role="presentation"></a>In this chapter, we discussed how the HTTP protocol works. A <em>client</em> sends a request, which contains a method (usually <code>GET</code>) and a path that identifies a resource. The <em>server</em> then decides what to do with the request and responds with a status code and a response body. Both requests and responses may contain headers that provide additional information.</p>
+<p><a class="p_ident" id="p_LuU8lbHUay" href="#p_LuU8lbHUay" tabindex="-1" role="presentation"></a>در این فصل به نحوه‌ی عملکرد پروتوکل HTTP پرداختیم. یک کلاینت درخواستی را ارسال می کند که حاوی یک متد (معمولا <code>GET</code>) و یک مسیر که معرف یک منبع است می‌باشد. سرویس دهنده سپس تصمیم می گیرد که با این درخواست چه کند و با یک کد وضعیت و یک بدنه‌ی پاسخ، به درخواست جواب می دهد. هر دوی درخواست و پاسخ می توانند حاوی سرپیام‌ها (headers) باشند که اطلاعات بیشتری را فراهم می کنند.</p>
 
-<p><a class="p_ident" id="p_taYkCAtnud" href="#p_taYkCAtnud" tabindex="-1" role="presentation"></a>The interface through which browser JavaScript can make HTTP requests is called <code>fetch</code>. Making a request looks like this:</p>
+<p>رابطی که از طریق آن جاوااسکریپت مرورگر می تواند درخواست‌های HTTP را بسازد <code>fetch</code> نامیده می شود. ساخت یک درخواست به شکل زیر می ماند:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I5lSLBiG+b" href="#c_I5lSLBiG+b" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;/18_http.html&quot;</span>).<span class="cm-property">then</span>(<span class="cm-def">r</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">r</span>.<span class="cm-property">text</span>()).<span class="cm-property">then</span>(<span class="cm-def">text</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`The page starts with ${</span><span class="cm-variable-2">text</span>.<span class="cm-property">slice</span>(<span class="cm-number">0</span>, <span class="cm-number">15</span>)<span class="cm-string-2">}</span><span class="cm-string-2">`</span>);
 });</pre>
 
-<p><a class="p_ident" id="p_V30s3OVzdK" href="#p_V30s3OVzdK" tabindex="-1" role="presentation"></a>Browsers make <code>GET</code> requests to fetch the resources needed to display a web page. A page may also contain forms, which allow information entered by the user to be sent as a request for a new page when the form is submitted.</p>
+<p>مرورگرها از درخواست‌های نوع <code>GET</code> برای بازیابی منابع مورد نیاز جهت نمایش یک صفحه‌ی وب استفاده می کنند. یک صفحه وب ممکن است حاوی فرم‌ها نیز باشد که این امکان را فراهم می کنند که با ثبت فرم، اطلاعات ورودی کاربر برای ارسال درخواست برای یک صفحه‌ی جدید ارسال شود.</p>
 
-<p><a class="p_ident" id="p_QjxVhJesQe" href="#p_QjxVhJesQe" tabindex="-1" role="presentation"></a>HTML can represent various types of form fields, such as text fields, checkboxes, multiple-choice fields, and file pickers.</p>
+<p>HTML اشکال متنوعی از فیلدهای فرم را پشتیبانی می کند مانند فیلدهای متنی، چک‌باکس‌ها یا، فیلد‌های چند‌گزینه‌ای و فیلدهای انتخاب فایل.</p>
 
-<p><a class="p_ident" id="p_RrO1r6Pyin" href="#p_RrO1r6Pyin" tabindex="-1" role="presentation"></a>Such fields can be inspected and manipulated with JavaScript. They fire the <code>&quot;change&quot;</code> event when changed, fire the <code>&quot;input&quot;</code> event when text is typed, and receive keyboard events when they have keyboard focus. Properties like <code>value</code> (for text and select fields) or <code>checked</code> (for checkboxes and radio buttons) are used to read or set the field’s content.</p>
+<p><a class="p_ident" id="p_5/3fb3Spy+" href="#p_5/3fb3Spy+" tabindex="-1" role="presentation"></a>این فیلدها را می تواند توسط جاوااسکریپت کنترل و تغییر داد. رخداد <code>&quot;change&quot;</code> با ایجاد تغییر در یک فیلد تولید می شود، رخداد <code>&quot;input&quot;</code> زمانی ایجاد می شود که متنی در فیلد تایپ شود و رخدادهای مربوط به صفحه‌کلید هنگامی که فیلد توسط صفحه‌کلید در دسترس و فعال است دریافت می شوند. خاصیت‌هایی مثل <code>value</code> (در فیلدهای text و select) یا <code>checked</code> (در چک‌باکس‌ها و دکمه‌های رادیویی) برای خواندن یا تنظیم محتوای فیلد استفاده می شوند.</p>
 
-<p><a class="p_ident" id="p_SD8tK1CyB9" href="#p_SD8tK1CyB9" tabindex="-1" role="presentation"></a>When a form is submitted, a <code>&quot;submit&quot;</code> event is fired on it. A JavaScript handler can call <code>preventDefault</code> on that event to disable the browser’s default behavior. Form field elements may also occur outside of a form tag.</p>
+<p>زمانی که یک فرم ثبت می شود، یک رخداد <code>&quot;submit&quot;</code> روی آن ایجاد می شود. یک گرداننده‌ی جاوااسکریپت می تواند با فراخوانی <code>preventDefault</code> مانع از ثبت فرم شود. فیلدهای فرم را نیز می تواند بیرون از برچسب form استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_4GN43j/R8o" href="#p_4GN43j/R8o" tabindex="-1" role="presentation"></a>When the user has selected a file from their local file system in a file picker field, the <code>FileReader</code> interface can be used to access the content of this file from a JavaScript program.</p>
+<p>زمانی که کاربر فایلی را از سیستم محلی فایل خود به وسیله‌ی فیلد انتخاب فایل گزینش می کند، رابط <code>FileReader</code> را می تواند برای دسترسی به محتوای آن فایل از درون یک برنامه جاوااسکریپت استفاده کرد.</p>
 
-<p><a class="p_ident" id="p_UfsY7mgHDE" href="#p_UfsY7mgHDE" tabindex="-1" role="presentation"></a>The <code>localStorage</code> and <code>sessionStorage</code> objects can be used to save information in a way that survives page reloads. The first object saves the data forever (or until the user decides to clear it), and the second saves it until the browser is closed.</p>
+<p>اشیاء <code>localStorage</code> و <code>sessionStorage</code> را می توان برای ذخیره اطلاعات به صورت مانا که علی رغم بارگیری مجدد صفحه باقی می‌مانند استفاده کرد. اولین شیء، داده‌ها را به صورت همیشگی ذخیره می کند( یا تا هنگامی که کاربر تصمیم به حذف آنها بگیرد) و دومی تا زمانی که مرورگر بسته نشده داده ها را نگه می دارد.</p>
 
-<h2><a class="h_ident" id="h_TcUD2vzyMe" href="#h_TcUD2vzyMe" tabindex="-1" role="presentation"></a>Exercises</h2>
+<h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
-<h3><a class="i_ident" id="i_uaWwL8WGXf" href="#i_uaWwL8WGXf" tabindex="-1" role="presentation"></a>Content negotiation</h3>
+<h3><a class="i_ident" id="i_don85W0fD5" href="#i_don85W0fD5" tabindex="-1" role="presentation"></a>مذاکره محتوا</h3>
 
-<p><a class="p_ident" id="p_4RSIQjkFSG" href="#p_4RSIQjkFSG" tabindex="-1" role="presentation"></a>One of the things HTTP can do is called <em>content negotiation</em>. The <code>Accept</code> request header is used to tell the server what type of document the client would like to get. Many servers ignore this header, but when a server knows of various ways to encode a resource, it can look at this header and send the one that the client prefers.</p>
+<p><a class="p_ident" id="p_/VqqTlzuCT" href="#p_/VqqTlzuCT" tabindex="-1" role="presentation"></a>یکی از کارهایی که HTTP می تواند انجام دهد اصطلاحا مذاکره‌ی محتوا – content negotiation خوانده می شود. از سرپیام درخواست <code>Accept</code> برای اعلام نوع سندی که سرویس‌گیرنده درخواست دارد به سرویس‌دهنده استفاده می شود.خیلی از سرویس‌دهنده‌ها این سرپیام را نادیده می گیرند، اما زمانی که یک سرویس‌دهنده از راه‌های متنوع کدگذاری  یک منبع آگاه است، می تواند به این سرپیام نگاه کرده و چیزی که سرویس‌گیرنده ترجیح می دهد را برایش ارسال کند.</p>
 
-<p><a class="p_ident" id="p_cYtib3gEMB" href="#p_cYtib3gEMB" tabindex="-1" role="presentation"></a>The URL <a href="https://eloquentjavascript.net/author"><em>https://eloquentjavascript.net/author</em></a> is configured to respond with either plaintext, HTML, or JSON, depending on what the client asks for. These formats are identified by the standardized <em>media types</em> <code>text/plain</code>, <code>text/html</code>, and <code>application/json</code>.</p>
+<p><a class="p_ident" id="p_MsN895Vk8m" href="#p_MsN895Vk8m" tabindex="-1" role="presentation"></a>آدرس <a href="https://eloquentjavascript.net/author"><em>https://eloquentjavascript.net/author</em></a> تنظیم شده است که بسته به درخواست سرویس‌گیرنده با متن عادی، HTML یا JSON پاسخ می‌دهد. این فرمت‌ها توسط انواع استاندارد شده‌ی رسانه، <code>application/json</code> و <code>text/plain</code>، <code>text/html</code> شناسایی می‌شود.</p>
 
-<p><a class="p_ident" id="p_8+gmMBG1zE" href="#p_8+gmMBG1zE" tabindex="-1" role="presentation"></a>Send requests to fetch all three formats of this resource. Use the <code>headers</code> property in the options object passed to <code>fetch</code> to set the header named <code>Accept</code> to the desired media type.</p>
+<p>درخواست‌هایی برای بازیابی هر سه نوع فرمت گفته شده را به منبع ارسال کنید. از خاصیت <code>headers</code> در شیء مربوط به گزینه‌های که به <code>fetch</code> داده می شود برای تنظیم سرپیام <code>Accept</code> به نوع رسانه‌ی مورد نظر استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_DGQ35JK0dT" href="#p_DGQ35JK0dT" tabindex="-1" role="presentation"></a>Finally, try asking for the media type <code>application/<wbr>rainbows+unicorns</code> and see which status code that produces.</p>
+<p>درآخر، تلاش کنید که نوع رسانه‌ی <code>application/<wbr>rainbows+unicorns</code> را درخواست کنید و ببینید چه اتفاقی خواهد افتاد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_HRKSrZS1tJ" href="#c_HRKSrZS1tJ" tabindex="-1" role="presentation"></a><span class="cm-comment">// Your code here.</span></pre>
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_QQMLShvZ/N" href="#p_QQMLShvZ/N" tabindex="-1" role="presentation"></a>Base your code on the <code>fetch</code> examples <a href="18_http.html#fetch">earlier in the chapter</a>.</p>
+<p>کد خود را بر اساس مثال‌های مربوط به <code>fetch</code> بنویسید <a href="18_http.html#fetch"> که پیش‌تر در این فصل آمد</a>.</p>
 
-<p><a class="p_ident" id="p_U/l3HWMtEN" href="#p_U/l3HWMtEN" tabindex="-1" role="presentation"></a>Asking for a bogus media type will return a response with code 406, “Not acceptable”, which is the code a server should return when it can’t fulfill the <code>Accept</code> header.</p>
+<p><a class="p_ident" id="p_tnLKJups2q" href="#p_tnLKJups2q" tabindex="-1" role="presentation"></a>درخواست برای یک نوع رسانه‌ی نامعتبر موجب می‌شود که پاسخی با کد 406 برگردانده شود، “Not acceptable”، که کدی است که سرویس‌دهنده باید در زمانی که قادر نیست به سرپیام <code>Accept</code> پاسخ معتبری بدهد، ارسال کند.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_wTXvIH5Wds" href="#i_wTXvIH5Wds" tabindex="-1" role="presentation"></a>A JavaScript workbench</h3>
+<h3><a class="i_ident" id="i_+jAwEuzqG0" href="#i_+jAwEuzqG0" tabindex="-1" role="presentation"></a>یک میز کار جاوااسکریپت</h3>
 
-<p><a class="p_ident" id="p_b4iA8hbDyH" href="#p_b4iA8hbDyH" tabindex="-1" role="presentation"></a>Build an interface that allows people to type and run pieces of JavaScript code.</p>
+<p>رابطی بسازید که به کاربران این امکان را بدهد که بتوانند کدهای جاوااسکریپت بنویسند و آن‌ها را اجرا کنند.</p>
 
-<p><a class="p_ident" id="p_5ABzoaFbF8" href="#p_5ABzoaFbF8" tabindex="-1" role="presentation"></a>Put a button next to a <code>&lt;textarea&gt;</code> field that, when pressed, uses the <code>Function</code> constructor we saw in <a href="10_modules.html#eval">Chapter 10</a> to wrap the text in a function and call it. Convert the return value of the function, or any error it raises, to a string and display it below the text field.</p>
+<p>یک دکمه‌ی کنار فیلد <code>&lt;textarea&gt;</code> قرار دهید که در صورت فشرده شدن ، از سازنده‌ی <code>Function</code> که در <a href="10_modules.html#eval">فصل 10</a> دیدیم استفاده کند تا محتوای فیلد را درون یک تابع قرار داده و فراخوانی کند. مقدار بازگشتی از تابع را ، یا هر خطایی که به وجود می آید، به یک رشته تبدیل کنید و آن را پایین فیلد متنی نمایش دهید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_zdElSW9Q47" href="#c_zdElSW9Q47" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;code&quot;</span><span class="cm-tag cm-bracket">&gt;</span>return &quot;hi&quot;;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;button&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Run<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -639,37 +639,37 @@ brackets notation in the third argument is used to create a property whose name 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_FntbF4i9OW" href="#p_FntbF4i9OW" tabindex="-1" role="presentation"></a>Use <code>document.<wbr>querySelector</code> or <code>document.<wbr>getElementById</code> to get access to the elements defined in your HTML. An event handler for <code>&quot;click&quot;</code> or <code>&quot;mousedown&quot;</code> events on the button can get the <code>value</code> property of the text field and call <code>Function</code> on it.</p>
+<p>از <code>document.<wbr>querySelector</code> یا <code>document.<wbr>getElementById</code> برای دسترسی به عناصر موجود در صفحه‌ی HTMLتان استفاده کنید. یک گرداننده‌ی رخداد برای <code>&quot;click&quot;</code> یا <code>&quot;mousedown&quot;</code> روی دکمه می می تواند خاصیت <code>value</code> مربوط به فیلد متنی را گرفته و <code>Function</code> را روی آن فراخوانی کند.</p>
 
-<p><a class="p_ident" id="p_uLWfzgaSrI" href="#p_uLWfzgaSrI" tabindex="-1" role="presentation"></a>Make sure you wrap both the call to <code>Function</code> and the call to its result in a <code>try</code> block so you can catch the exceptions it produces. In this case, we really don’t know what type of exception we are looking for, so catch everything.</p>
+<p>اطمینان حاصل کنید که هم فراخوانی به <code>Function</code> و هم فراخوانی نتیجه‌ی آن را در یک بلاک <code>try</code> محصور کنید تا بتوانید استثناء‌هایی که تولید می شود را پوشش دهید. در این مورد، واقعا نمی‌دانیم که چه نوع استثنائی را باید انتظار داشته باشیم، پس همه را پوشش می دهیم.</p>
 
-<p><a class="p_ident" id="p_J8bbt63whH" href="#p_J8bbt63whH" tabindex="-1" role="presentation"></a>The <code>textContent</code> property of the output element can be used to fill it with a string message. Or, if you want to keep the old content around, create a new text node using <code>document.<wbr>createTextNode</code> and append it to the element. Remember to add a newline character to the end so that not all output appears on a single line.</p>
+<p>خاصیت <code>textContent</code> مربوط به عنصر محل نمایش را می توان برای قرار دادن متن رشته‌ای در آن استفاده کرد. یا، اگر قصد دارید که محتوای قبلی آن را نگه‌دارید، یک گره‌ی متنی جدید با استفاده از <code>document.<wbr>createTextNode</code> بسازید و آن را به عنصر مورد نظر الحاق کنید. به خاطر داشته باشید که به پایان آن یک کاراکتر خط جدید اضافه کنید تا از ظاهر شدن تمام خروجی در یک خط جلوگیری کنید.</p>
 
 </div></div>
 
-<h3><a class="i_ident" id="i_XyKQVmCbTN" href="#i_XyKQVmCbTN" tabindex="-1" role="presentation"></a>Conway’s Game of Life</h3>
+<h3><a class="i_ident" id="i_t+Iyz61oYS" href="#i_t+Iyz61oYS" tabindex="-1" role="presentation"></a>بازی زندگی کانوی  ( Conway’s Game of Life)</h3>
 
-<p><a class="p_ident" id="p_5s3eB2ZhzK" href="#p_5s3eB2ZhzK" tabindex="-1" role="presentation"></a>Conway’s Game of Life is a simple simulation that creates artificial “life” on a grid, each cell of which is either alive or not. Each generation (turn), the following rules are applied:</p>
+<p>بازی زندگی کانوی یک تشبیه ساده است که یک “زندگی” مصنوعی را روی یک جدول ایجاد می کند. هر خانه جدول می تواند زنده یا مرده باشد. در هر نسل(دوره) قوانین زیر اعمال می شوند:</p>
 
 <ul>
 
 <li>
 
-<p><a class="p_ident" id="p_D7IMqD7kgE" href="#p_D7IMqD7kgE" tabindex="-1" role="presentation"></a>Any live cell with fewer than two or more than three live neighbors dies.</p></li>
+<p>هر خانه(سلول) زنده ای که کمتر از دو یا بیشتر از سه همسایه‌ی زنده داشته باشد می‌میرد.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_ztkCIOYDVq" href="#p_ztkCIOYDVq" tabindex="-1" role="presentation"></a>Any live cell with two or three live neighbors lives on to the next generation.</p></li>
+<p>هر سلول زنده که دو یا سه همسایه‌ی زنده داشته باشد به زندگی تا دوره‌ی بعد ادامه خواهد داد.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p_y/DnAd+/CJ" href="#p_y/DnAd+/CJ" tabindex="-1" role="presentation"></a>Any dead cell with exactly three live neighbors becomes a live cell.</p></li></ul>
+<p>هر سلول مرده که دقیقا سه همسایه‌ی زنده داشته باشد به یک سلول زنده تبدیل می شود.</p></li></ul>
 
-<p><a class="p_ident" id="p_iUPnWf2p1M" href="#p_iUPnWf2p1M" tabindex="-1" role="presentation"></a>A <em>neighbor</em> is defined as any adjacent cell, including diagonally adjacent ones.</p>
+<p>هر خانه‌ای که مجاور محسوب شود به عنوان همسایه در نظر گرفته می شود حتی خانه‌هایی که به صورت قطری مجاور هستند.</p>
 
-<p><a class="p_ident" id="p_9dLS2RK5SZ" href="#p_9dLS2RK5SZ" tabindex="-1" role="presentation"></a>Note that these rules are applied to the whole grid at once, not one square at a time. That means the counting of neighbors is based on the situation at the start of the generation, and changes happening to neighbor cells during this generation should not influence the new state of a given cell.</p>
+<p><a class="p_ident" id="p_88VDrV/p1p" href="#p_88VDrV/p1p" tabindex="-1" role="presentation"></a>توجه داشته باشید که این قوانین به کل جدول (grid) اعمال می شوند نه به یک چهار ضلعی محدود. به این معنا که شمارش همسایه‌ها بر اساس وضعیتی خواهد بود که ابتدای هر نسل وجود دارد و تغییرات اعمالی به همسایه‌ها در طول این نسل نباید به وضعیت جدید یک سلول مشخص اثر بگذارد.</p>
 
-<p><a class="p_ident" id="p_W0m8oVpi7M" href="#p_W0m8oVpi7M" tabindex="-1" role="presentation"></a>Implement this game using whichever data structure you find appropriate. Use <code>Math.random</code> to populate the grid with a random pattern initially. Display it as a grid of checkbox fields, with a button next to it to advance to the next generation. When the user checks or unchecks the checkboxes, their changes should be included when computing the next generation.</p>
+<p><a class="p_ident" id="p_oNcQqh8J65" href="#p_oNcQqh8J65" tabindex="-1" role="presentation"></a>این بازی را به وسیله‌ی جاوااسکریپت و با استفاده هر ساختار داده‌ای که مناسب می دانید پیاده سازی کنید. از <code>Math.random</code> برای پر کردن جدول با الگوی تصادفی برای شروع استفاده کنید. از فیلدهای checkbox به همراه دکمه‌ای در کنارشان برای انتقال به نسل بعد در جدول استفاده کنید. زمانی که کاربر checkbox را فعال یا غیر فعال می کند تغییرات آن ها باید در هنگام محاسبه‌ی نسل بعد اعمال شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_xF6LIoITNO" href="#c_xF6LIoITNO" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;grid&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">id</span>=<span class="cm-string">&quot;next&quot;</span><span class="cm-tag cm-bracket">&gt;</span>Next generation<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -680,16 +680,15 @@ brackets notation in the third argument is used to create a property whose name 
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_Aww6OjjuYz" href="#p_Aww6OjjuYz" tabindex="-1" role="presentation"></a>To solve the problem of having the changes conceptually happen at the same time, try to see the computation of a generation as a pure
-function, which takes one grid and produces a new grid that represents the next turn.</p>
+<p><a class="p_ident" id="p_jtl8YFzgA4" href="#p_jtl8YFzgA4" tabindex="-1" role="presentation"></a>برای حل مساله‌ی اتفاق افتادن تغییرات در یک زمان واحد به صورت مفهومی، سعی کنید که محاسبه‌ی یک نسل را به صورت یک تابع ناب (pure) ببینید، که یک grid را گرفته و یک grid جدید تولید می کند که نماینده‌ی دوره‌ی بعد می‌باشد.</p>
 
-<p><a class="p_ident" id="p_DBZ6s168gb" href="#p_DBZ6s168gb" tabindex="-1" role="presentation"></a>Representing the matrix can be done in the way shown in <a href="06_object.html#matrix">Chapter 6</a>. You can count live neighbors with two nested loops, looping over adjacent coordinates in both dimensions. Take care not to count cells outside of the field and to ignore the cell in the center, whose neighbors we are counting.</p>
+<p>نمایش ماتریکس را می‌توان از راهی که در <a href="06_object.html#matrix">فصل 6</a> نشان داده شد، میسر کرد. می‌توانید تعداد همسایه‌های زنده را به وسیله‌ی دو حلقه‌ی تودرتو بشمارید، با پیمایش مختصات مجاور در هر دو بعد. مواظب باشید که سلول‌های خارج از فیلد را نشمارید و سلول مرکز را هم به حساب نیاورید، سلولی که همسایه‌هایش را قصد داریم بشماریم.</p>
 
-<p><a class="p_ident" id="p_Jyqyj//gTI" href="#p_Jyqyj//gTI" tabindex="-1" role="presentation"></a>Ensuring that changes to checkboxes take effect on the next generation can be done in two ways. An event handler could notice these changes and update the current grid to reflect them, or you could generate a fresh grid from the values in the checkboxes before computing the next turn.</p>
+<p><a class="p_ident" id="p_6vQ2u8HBDB" href="#p_6vQ2u8HBDB" tabindex="-1" role="presentation"></a>از دو راه می توان اطمینان حاصل کرد که تغییر checkbox ها روی نسل بعد تاثیر می‌گذارد. یک گرداننده‌ی رخداد می تواند این تغییرات را متوجه شود و grid فعلی را برای بازتاب آن به‌روز کند، یا می توانید یک grid تازه از مقادیر موجود در checkbox ها قبل از محاسبه‌ی نسل بعد برای تولید یک grid تازه استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_wu3Ty9I4d4" href="#p_wu3Ty9I4d4" tabindex="-1" role="presentation"></a>If you choose to go with event handlers, you might want to attach attributes that identify the position that each checkbox corresponds to so that it is easy to find out which cell to change.</p>
+<p><a class="p_ident" id="p_VwGIkAKaXK" href="#p_VwGIkAKaXK" tabindex="-1" role="presentation"></a>اگر انتخاب شما استفاده از گرداننده‌های رخداد باشد، ممکن است بخواهید که خاصیت‌هایی برای  مشخص نمودن موقعیت هر checkbox الحاق کنید تا بتوان به آسانی سلولی که باید تغییر کند را پیدا کنید.</p>
 
-<p><a class="p_ident" id="p_XFp+gOIONt" href="#p_XFp+gOIONt" tabindex="-1" role="presentation"></a>To draw the grid of checkboxes, you can either use a <code>&lt;table&gt;</code> element (see <a href="14_dom.html#exercise_table">Chapter 14</a>) or simply put them all in the same element and put <code>&lt;br&gt;</code> (line break) elements between the rows.</p>
+<p><a class="p_ident" id="p_Q40e1Ef4in" href="#p_Q40e1Ef4in" tabindex="-1" role="presentation"></a>برای رسم جدول checkbox ها، می‌توانید  یا از یک <code>&lt;table&gt;</code> ( به <a href="14_dom.html#exercise_table">Chapter 14</a> رجوع کنید ) استفاده کنید یا به سادگی همه‌ی آن ها را در یک عنصر قرار داده و از <code>&lt;br&gt;</code> بین ردیف‌ها استفاده کنید.</p>
 
 </div></div><nav><a href="17_canvas.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="19_paint.html" title="next chapter">▶</a></nav>
 </article>

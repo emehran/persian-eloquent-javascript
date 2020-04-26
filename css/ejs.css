@@ -480,7 +480,7 @@ td + td {
 
 table {
   margin-right: 15px;
-  direction:ltr;
+  direction:rtl;
 }
 
 sub, sup {
