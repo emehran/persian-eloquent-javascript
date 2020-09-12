@@ -15,17 +15,17 @@
 <article>
 <nav><a href="17_canvas.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="19_paint.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 18</span>HTTP و فرم‌ها</h1>
+<h1><span class=chap_num>فصل 18</span>HTTP و فرم‌ها</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>ارتباط باید مستقل از وضعیت باشد [...] این‌گونه که هر درخواست از سمت سرویس‌گیرنده به سرویس‌دهنده باید شامل تمامی اطلاعات مورد نیاز برای درک درخواست باشد، و نبایست بتوان از زمینه‌ای در ارتباط که روی سرویس‌دهنده از پیش ذخیره شده است، استفاده نمود.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>ارتباط باید مستقل از وضعیت باشد [...] این‌گونه که هر درخواست از سمت سرویس‌گیرنده به سرویس‌دهنده باید شامل تمامی اطلاعات مورد نیاز برای درک درخواست باشد، و نباید بتوان از زمینه‌ای در ارتباط که روی سرویس‌دهنده از پیش ذخیره شده است، استفاده نمود.</p>
 
 <footer>روی فیلدینگ, <cite>سبک‌های معماری و طراحی معمار‌ی‌های نرم‌افزار مبتنی بر شبکه</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_18.jpg" alt="Picture of a web form on a medieval scroll"></figure>
 
-<p><a class="p_ident" id="p_d7X440OpD2" href="#p_d7X440OpD2" tabindex="-1" role="presentation"></a>پروتوکل انتقال ابرمتن (http) که پیش از این در <a href="13_browser.html#web">فصل 13</a> آمد، مکانیزمی است که از طریق آن داده‌ها در شبکه‌ی گسترده‌ی وب، درخواست و فراهم می شوند. این فصل به توصیف این پروتوکل با جزئیات بیشتری می پردازد و  چگونگی دسترسی جاوااسکریپت در مرورگر را به آن شرح می‌دهد.</p>
+<p><a class="p_ident" id="p_d7X440OpD2" href="#p_d7X440OpD2" tabindex="-1" role="presentation"></a>پروتوکل انتقال ابرمتن (http) که پیش از این در <a href="13_browser.html#web">فصل 13</a> آمد، مکانیزمی است که از طریق آن داده‌ها در شبکه‌ی گسترده‌ی وب، درخواست و فراهم می شوند. این فصل به توصیف این پروتوکل با جزئیات بیشتری می پردازد و چگونگی دسترسی جاوااسکریپت در مرورگر را به آن شرح می‌دهد.</p>
 
 <h2><a class="h_ident" id="h_FicebXJJuQ" href="#h_FicebXJJuQ" tabindex="-1" role="presentation"></a>پروتوکل</h2>
 
@@ -120,7 +120,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <h2 id="fetch"><a class="h_ident" id="h_1Iqv5okrKE" href="#h_1Iqv5okrKE" tabindex="-1" role="presentation"></a>Fetch</h2>
 
-<p><a class="p_ident" id="p_SoLS1byDyt" href="#p_SoLS1byDyt" tabindex="-1" role="presentation"></a>رابطی‌ را که از طریق آن، جاوااسکریپت مرورگر می تواند درخواست‌های HTTP  بسازد،  <code>fetch</code> می نامند. به دلیل اینکه این رابط نسبتا جدید است، به خوبی از promise ها استفاده می کند ( که در رابط های مرورگر چیز نادری است).</p>
+<p><a class="p_ident" id="p_SoLS1byDyt" href="#p_SoLS1byDyt" tabindex="-1" role="presentation"></a>رابطی‌ را که از طریق آن، جاوااسکریپت مرورگر می تواند درخواست‌های HTTP بسازد، <code>fetch</code> می نامند. به دلیل اینکه این رابط نسبتا جدید است، به خوبی از promise ها استفاده می کند ( که در رابط های مرورگر چیز نادری است).</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_RHiMHW5ptB" href="#c_RHiMHW5ptB" tabindex="-1" role="presentation"></a><span class="cm-variable">fetch</span>(<span class="cm-string">&quot;example/data.txt&quot;</span>).<span class="cm-property">then</span>(<span class="cm-def">response</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">response</span>.<span class="cm-property">status</span>);
@@ -164,7 +164,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <h2 id="http_sandbox"><a class="h_ident" id="h_QsDQKHf27s" href="#h_QsDQKHf27s" tabindex="-1" role="presentation"></a>سازوکار حفاظتی - HTTP sandboxing</h2>
 
-<p><a class="p_ident" id="p_Jck+pdr3C3" href="#p_Jck+pdr3C3" tabindex="-1" role="presentation"></a>ساختن درخواست‌های HTTP درون اسکریپت‌های صفحه‌ی وب، نگرانی‌هایی در مورد امنیت  به وجود می‌آورد. فردی که اسکریپت را کنترل می کند ممکن است نیتی مشابه کسی که اسکریپت در کامپیوترش اجرا می شود، نداشته باشد. به صورت واضح‌تر، اگر من از سایت themafia.org بازدید کنم دوست ندارم که اسکریپت‌های این سایت بتوانند درخواستی به سایت بانک من (mybank.com) ارسال کنند و از اطلاعات شناسایی من در مرورگرم استفاده کنند و دستوراتی برای انتقال پول‌های من به حساب‌های ناشناس اجرا کنند.</p>
+<p><a class="p_ident" id="p_Jck+pdr3C3" href="#p_Jck+pdr3C3" tabindex="-1" role="presentation"></a>ساختن درخواست‌های HTTP درون اسکریپت‌های صفحه‌ی وب، نگرانی‌هایی در مورد امنیت به وجود می‌آورد. فردی که اسکریپت را کنترل می کند ممکن است نیتی مشابه کسی که اسکریپت در کامپیوترش اجرا می شود، نداشته باشد. به صورت واضح‌تر، اگر من از سایت themafia.org بازدید کنم دوست ندارم که اسکریپت‌های این سایت بتوانند درخواستی به سایت بانک من (mybank.com) ارسال کنند و از اطلاعات شناسایی من در مرورگرم استفاده کنند و دستوراتی برای انتقال پول‌های من به حساب‌های ناشناس اجرا کنند.</p>
 
 <p><a class="p_ident" id="p_ZWtOUecxc0" href="#p_ZWtOUecxc0" tabindex="-1" role="presentation"></a>به همین دلیل، مرورگرها با غیرفعال کردن اجازه‌ی ارسال درخواست HTTP از درون اسکریپت‌ها به دیگر دامنه‌ها( نام هایی مثل themefia.org یا mybank.com) از ما محافظت می کنند.</p>
 
@@ -182,7 +182,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p_xW3ivXdHO0" href="#p_xW3ivXdHO0" tabindex="-1" role="presentation"></a>روشی دیگر ساختن سیستم ارتباط برپایه مفهوم منابع و متد‌های HTTP است. به جای اینکه یک رویه‌ی از راه دور به نام <code>addUser</code> فراخوانی شود، از درخواست <code>PUT</code> به <bdo><code>/users/larry</code></bdo> استفاده می کنید. به جای قرار دادن مشخصات آن کاربر در آرگومان‌های تابع، یک فرمت سند JSON تعریف می کنید ( یا از فرمتی موجود استفاده می کنید) که نمایانگر یک کاربر باشد. بدنه‌ی درخواست <code>PUT</code> برای ایجاد یک منبع جدید، سندی به این شکل خواهد بود. یک منبع را می توان با ساختن یک درخواست <code>GET</code> به URL منبع (به عنوان مثال <bdo><code>/users/larry</code></bdo>) واکشی کرد که دوباره سندی که نمایانگر منبع مورد نظر است را بر‌می‌گرداند.</p>
 
-<p><a class="p_ident" id="p_byYn9eS4lD" href="#p_byYn9eS4lD" tabindex="-1" role="presentation"></a>استفاده از روش دوم باعث می شود بتوان از بعضی امکاناتی که HTTP فراهم می کند  آسان تر استفاده کرد مثل پشتیبانی از کش کردن منابع (نگه داری یک کپی روی سیستم کاربر برای دسترسی سریع). مفاهیم استفاده شده در HTTP که  خوبی طراحی شده اند، می توانند مجموعه‌ی مفیدی از قواعد را برای طراحی رابط سرویس‌دهنده فراهم نمایند.</p>
+<p><a class="p_ident" id="p_byYn9eS4lD" href="#p_byYn9eS4lD" tabindex="-1" role="presentation"></a>استفاده از روش دوم باعث می شود بتوان از بعضی امکاناتی که HTTP فراهم می کند آسان تر استفاده کرد مثل پشتیبانی از کش کردن منابع (نگه داری یک کپی روی سیستم کاربر برای دسترسی سریع). مفاهیم استفاده شده در HTTP که خوبی طراحی شده اند، می توانند مجموعه‌ی مفیدی از قواعد را برای طراحی رابط سرویس‌دهنده فراهم نمایند.</p>
 
 <h2><a class="h_ident" id="h_+vvooX5LK4" href="#h_+vvooX5LK4" tabindex="-1" role="presentation"></a>امنیت و HTTPS</h2>
 
@@ -283,7 +283,7 @@ three
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_DXorT/vrbR" href="#c_DXorT/vrbR" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">tabindex</span>=<span class="cm-string">1</span><span class="cm-tag cm-bracket">&gt;</span> <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;.&quot;</span><span class="cm-tag cm-bracket">&gt;</span>(help)<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span> <span class="cm-attribute">onclick</span>=<span class="cm-string">&quot;console.log('ok')&quot;</span> <span class="cm-attribute">tabindex</span>=<span class="cm-string">2</span><span class="cm-tag cm-bracket">&gt;</span>OK<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_pbEhhfuWTq" href="#p_pbEhhfuWTq" tabindex="-1" role="presentation"></a>به صورت پیش‌فرض، بیشتر انواع عناصر HTML نمی توانند فعال شوند (focus). اما می توانید از <code>tabindex</code> در همه‌ی عناصر استفاده کنید که باعث می شود بتوان به آن ها قابلیت فعال بودن داد.  قرار دادن <bdo>-1</bdo> برای <code>tabindex</code> باعث می شود که از آن عنصر صرف نظر شود حتی اگر به صورت نرمال امکان فعال بودن داشته باشد.</p>
+<p><a class="p_ident" id="p_pbEhhfuWTq" href="#p_pbEhhfuWTq" tabindex="-1" role="presentation"></a>به صورت پیش‌فرض، بیشتر انواع عناصر HTML نمی توانند فعال شوند (focus). اما می توانید از <code>tabindex</code> در همه‌ی عناصر استفاده کنید که باعث می شود بتوان به آن ها قابلیت فعال بودن داد. قرار دادن <bdo>-1</bdo> برای <code>tabindex</code> باعث می شود که از آن عنصر صرف نظر شود حتی اگر به صورت نرمال امکان فعال بودن داشته باشد.</p>
 
 <h2><a class="h_ident" id="h_FAsijz7Oq/" href="#h_FAsijz7Oq/" tabindex="-1" role="presentation"></a>فیلد‌های خاموش (disabled)</h2>
 
@@ -300,7 +300,7 @@ three
 
 <p>زمانی که یک فیلد درون عنصر <code>&lt;form&gt;</code> قرار می گیرد، عنصر DOM آن خاصیتی به نام <code>form</code> خواهد داشت که به عنصر DOM فرم اشاره می کند. عنصر <code>&lt;form&gt;</code> در عوض، خاصیتی به نام <code>elements</code> دارد که حاوی یک مجموعه‌ی آرایه‌شکل از فیلدهای قرار گرفته در آن می‌باشد.</p>
 
-<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>خاصیت <code>name</code> یک فیلد در فرم، راه شناسایی مقدار آن در زمان ثبت فرم می‌باشد. این خاصیت را همچنین می توان به عنوان نام  در زمان دسترسی به خاصیت <code>elements</code> مربوط به فرم استفاده کرد که هم به صورت شیء آرایه‌شکل ( قابل دسترسی با عدد) و هم به صورت یک map (دسترسی با نام).</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>خاصیت <code>name</code> یک فیلد در فرم، راه شناسایی مقدار آن در زمان ثبت فرم می‌باشد. این خاصیت را همچنین می توان به عنوان نام در زمان دسترسی به خاصیت <code>elements</code> مربوط به فرم استفاده کرد که هم به صورت شیء آرایه‌شکل ( قابل دسترسی با عدد) و هم به صورت یک map (دسترسی با نام).</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_2pmbvR5Jhe" href="#c_2pmbvR5Jhe" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">form</span> <span class="cm-attribute">action</span>=<span class="cm-string">&quot;example/submit.html&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
   Name: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">name</span>=<span class="cm-string">&quot;name&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">br</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -317,7 +317,7 @@ three
   <span class="cm-comment">// → true</span>
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_NnSVHsJkpy" href="#p_NnSVHsJkpy" tabindex="-1" role="presentation"></a>یک دکمه که خاصیت <code>type</code> آن  که برابر با <code>submit</code> تنظیم شده، در هنگام فشرده شدن، باعث می شود که فرم ثبت شود. فشردن کلید <span class="keyname">enter</span> روی صفحه کلید وقتی که یک فیلد فرم فعال است نیز همین اثر را به دنبال خواهد داشت.</p>
+<p><a class="p_ident" id="p_NnSVHsJkpy" href="#p_NnSVHsJkpy" tabindex="-1" role="presentation"></a>یک دکمه که خاصیت <code>type</code> آن که برابر با <code>submit</code> تنظیم شده، در هنگام فشرده شدن، باعث می شود که فرم ثبت شود. فشردن کلید <span class="keyname">enter</span> روی صفحه کلید وقتی که یک فیلد فرم فعال است نیز همین اثر را به دنبال خواهد داشت.</p>
 
 <p>ثبت یک فرم به صورت نرمال به این صورت است که مرورگر کاربر را به صفحه‌ای که در خاصیت <code>action</code> فرم مشخص شده است، منتقل می‌کند چه درخواست به روش <code>GET</code> باشد چه <code>POST</code>. اما قبل از این اتفاق، یک رخداد <code>&quot;submit&quot;</code> ایجاد می شود. این رخداد را می توان با جاوااسکریپت مدیریت کرد و گرداننده می تواند با فراخوانی <code>preventDefault</code> روی شی رخداد مانع از این رفتار پیش‌فرض شود.</p>
 
@@ -341,7 +341,7 @@ three
 
 <p><a class="p_ident" id="p_B/+3D1I4tf" href="#p_B/+3D1I4tf" tabindex="-1" role="presentation"></a>دو خاصیت <code>selectionStart</code> و <code>selectionEnd</code> مربوط به فیلدهای متنی اطلاعاتی در رابطه با مکان‌نما و ناحیه‌ی انتخاب شده در متن فراهم می سازند. زمانی که چیزی انتخاب نشده است، این دو خاصیت مقدار عددی یکسانی را نگهداری می کنند که موقعیت مکان نما می باشد. به عنوان مثال، 0 به معنای شروع متن و 10 بیانگر این است که مکان‌نما بعد از کاراکتر دهم همین کاراکتر قرار دارد. زمانی که بخشی از فیلد انتخاب شده باشد، این دو خاصیت مقدار متفاوتی خواهند داشت و بیانگر شروع و پایان متن انتخاب شده می باشند. مثل <code>value</code> این خاصیت‌ها را نیز می توان تغییر داد.</p>
 
-<p><a class="p_ident" id="p_Nf4mxrUK0o" href="#p_Nf4mxrUK0o" tabindex="-1" role="presentation"></a>فرض کنید که در حال نوشتن مقاله‌ای در مورد Khasekhemwy  (پادشاهی در مصر باستان) می باشید و در نوشتن نام او دچار مشکل هستید. در کد پیش رو یک برچسب <code>&lt;textarea&gt;</code> و یک گرداننده‌ی رخداد با هم ترکیب می شوند و با فشردن کلید F2 کلمه‌ی “Khasekhemwy” برای شما در فیلد وارد می شود.</p>
+<p><a class="p_ident" id="p_Nf4mxrUK0o" href="#p_Nf4mxrUK0o" tabindex="-1" role="presentation"></a>فرض کنید که در حال نوشتن مقاله‌ای در مورد Khasekhemwy (پادشاهی در مصر باستان) می باشید و در نوشتن نام او دچار مشکل هستید. در کد پیش رو یک برچسب <code>&lt;textarea&gt;</code> و یک گرداننده‌ی رخداد با هم ترکیب می شوند و با فشردن کلید F2 کلمه‌ی “Khasekhemwy” برای شما در فیلد وارد می شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_bpWFxEi3zn" href="#c_bpWFxEi3zn" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -416,7 +416,7 @@ three
   }
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_vLPB+DaD5C" href="#p_vLPB+DaD5C" tabindex="-1" role="presentation"></a>در مثال بالا، استفاده از براکت‌ها در پرس و جوی CSS که به متد <code>querySelectorAll</code> ارسال می شوند برای انتخاب و نشانه‌گرفتن خصوصیت‌های عناصر (attributes)،  استفاده می شوند. این پرس و جو عناصری را نتخاب می کند که مقدار خاصیت <code>name</code> شان برابر با <code>“color”</code> باشد.</p>
+<p><a class="p_ident" id="p_vLPB+DaD5C" href="#p_vLPB+DaD5C" tabindex="-1" role="presentation"></a>در مثال بالا، استفاده از براکت‌ها در پرس و جوی CSS که به متد <code>querySelectorAll</code> ارسال می شوند برای انتخاب و نشانه‌گرفتن خصوصیت‌های عناصر (attributes)، استفاده می شوند. این پرس و جو عناصری را نتخاب می کند که مقدار خاصیت <code>name</code> شان برابر با <code>“color”</code> باشد.</p>
 
 <h2><a class="h_ident" id="h_vjp2YfTPbr" href="#h_vjp2YfTPbr" tabindex="-1" role="presentation"></a>فیلدهای select (انتخاب گزینه)</h2>
 
@@ -468,7 +468,7 @@ three
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>خاصیت <code>files</code> مربوط به عنصر فیلد فایل، یک شیء آرایه‌گونه است ( نه یک آرایه‌ی واقعی) که حاوی فایل‌هایی است که در فیلد انتخاب شده اند. در ابتدا این خاصیت خالی است. علت اینکه نام آن <code>file</code>  نیست این است که خصوصیتی(attribute) در فیلد فایل وجود دارد به نام <code>multiple</code> که باعث می شود بتوان چندین فایل را به صورت همزمان انتخاب کرد.</p>
+<p>خاصیت <code>files</code> مربوط به عنصر فیلد فایل، یک شیء آرایه‌گونه است ( نه یک آرایه‌ی واقعی) که حاوی فایل‌هایی است که در فیلد انتخاب شده اند. در ابتدا این خاصیت خالی است. علت اینکه نام آن <code>file</code> نیست این است که خصوصیتی(attribute) در فیلد فایل وجود دارد به نام <code>multiple</code> که باعث می شود بتوان چندین فایل را به صورت همزمان انتخاب کرد.</p>
 
 <p><a class="p_ident" id="p_/l27zqXOfi" href="#p_/l27zqXOfi" tabindex="-1" role="presentation"></a>اشیائی که در شیء <code>files</code> قرار دارند دارای خاصیت‌هایی مثل <code>name</code> (نام فایل)، <code>size</code> (اندازه فایل به بایت که معادل 8 بیت است) و <code>type</code> (نوع فایل مثل <code>text/plain</code> یا <code>image/jpeg</code>) می باشند.</p>
 
@@ -508,7 +508,7 @@ three
 
 <p>صفحات ساده‌ی HTML با کمی جاوااسکریپت می توانند فرمت خوبی برای اپلیکیشن‌های کوچک باشند – برنامه‌های کمکی کوچکی که بعضی کارها را خودکار می کنند. با ترکیب چند فیلد فرم با گرداننده‌های رخداد، می توانید هر کاری از تبدیل سانتی متر به اینچ گرفته تا محاسبه‌ی رمز‌های عبور از روی یک رمزعبور مادر و نام یک وب‌سایت را انجام دهید.</p>
 
-<p>زمانی که این گونه اپلیکیشن‌ها نیاز به ذخیره و به خاطرسپاری چیزی  به صورت پایدار دارند، نمی توانید از متغیرهای جاوااسکریپت استفاده کنید- متغیرها با بسته شدن صفحه‌ی مرورگر از بین می روند. می توانید یک سرویس‌دهنده راه اندازی کنید، آن‌را به اینترنت متصل کنید و اطلاعات اپلیکیشن تان را در آنجا ذخیره کنید. در <a href="20_node.html">فصل 20</a> به چگونگی این کار می پردازیم. اما این روش، کار و پیچیدگی زیادتری می طلبد. گاهی اوقات نگه‌داشتن داده‌ها در خود مرورگر برای کار ما کافی است.</p>
+<p>زمانی که این گونه اپلیکیشن‌ها نیاز به ذخیره و به خاطرسپاری چیزی به صورت پایدار دارند، نمی توانید از متغیرهای جاوااسکریپت استفاده کنید- متغیرها با بسته شدن صفحه‌ی مرورگر از بین می روند. می توانید یک سرویس‌دهنده راه اندازی کنید، آن‌را به اینترنت متصل کنید و اطلاعات اپلیکیشن تان را در آنجا ذخیره کنید. در <a href="20_node.html">فصل 20</a> به چگونگی این کار می پردازیم. اما این روش، کار و پیچیدگی زیادتری می طلبد. گاهی اوقات نگه‌داشتن داده‌ها در خود مرورگر برای کار ما کافی است.</p>
 
 <p>شیء <code>localStorage</code> را می توان برای ذخیره‌ی داده‌ها به صورتی که با بارگیری مجدد صفحه حفظ شوند استفاده کرد. این شیء به شما این امکان را می دهد که مقادیر رشته‌ای را تحت نام‌هایی دسته بندی و ذخیره کنید.</p>
 
@@ -605,7 +605,7 @@ three
 
 <h3><a class="i_ident" id="i_don85W0fD5" href="#i_don85W0fD5" tabindex="-1" role="presentation"></a>مذاکره محتوا</h3>
 
-<p><a class="p_ident" id="p_/VqqTlzuCT" href="#p_/VqqTlzuCT" tabindex="-1" role="presentation"></a>یکی از کارهایی که HTTP می تواند انجام دهد اصطلاحا مذاکره‌ی محتوا – content negotiation خوانده می شود. از سرپیام درخواست <code>Accept</code> برای اعلام نوع سندی که سرویس‌گیرنده درخواست دارد به سرویس‌دهنده استفاده می شود.خیلی از سرویس‌دهنده‌ها این سرپیام را نادیده می گیرند، اما زمانی که یک سرویس‌دهنده از راه‌های متنوع کدگذاری  یک منبع آگاه است، می تواند به این سرپیام نگاه کرده و چیزی که سرویس‌گیرنده ترجیح می دهد را برایش ارسال کند.</p>
+<p><a class="p_ident" id="p_/VqqTlzuCT" href="#p_/VqqTlzuCT" tabindex="-1" role="presentation"></a>یکی از کارهایی که HTTP می تواند انجام دهد اصطلاحا مذاکره‌ی محتوا – content negotiation خوانده می شود. از سرپیام درخواست <code>Accept</code> برای اعلام نوع سندی که سرویس‌گیرنده درخواست دارد به سرویس‌دهنده استفاده می شود.خیلی از سرویس‌دهنده‌ها این سرپیام را نادیده می گیرند، اما زمانی که یک سرویس‌دهنده از راه‌های متنوع کدگذاری یک منبع آگاه است، می تواند به این سرپیام نگاه کرده و چیزی که سرویس‌گیرنده ترجیح می دهد را برایش ارسال کند.</p>
 
 <p><a class="p_ident" id="p_MsN895Vk8m" href="#p_MsN895Vk8m" tabindex="-1" role="presentation"></a>آدرس <a href="https://eloquentjavascript.net/author"><em>https://eloquentjavascript.net/author</em></a> تنظیم شده است که بسته به درخواست سرویس‌گیرنده با متن عادی، HTML یا JSON پاسخ می‌دهد. این فرمت‌ها توسط انواع استاندارد شده‌ی رسانه، <code>application/json</code> و <code>text/plain</code>، <code>text/html</code> شناسایی می‌شود.</p>
 
@@ -647,7 +647,7 @@ three
 
 </div></div>
 
-<h3><a class="i_ident" id="i_t+Iyz61oYS" href="#i_t+Iyz61oYS" tabindex="-1" role="presentation"></a>بازی زندگی کانوی  ( Conway’s Game of Life)</h3>
+<h3><a class="i_ident" id="i_bGomLLD/Fk" href="#i_bGomLLD/Fk" tabindex="-1" role="presentation"></a>بازی زندگی کانوی ( Conway’s Game of Life)</h3>
 
 <p>بازی زندگی کانوی یک تشبیه ساده است که یک “زندگی” مصنوعی را روی یک جدول ایجاد می کند. هر خانه جدول می تواند زنده یا مرده باشد. در هر نسل(دوره) قوانین زیر اعمال می شوند:</p>
 
@@ -686,9 +686,9 @@ three
 
 <p><a class="p_ident" id="p_6vQ2u8HBDB" href="#p_6vQ2u8HBDB" tabindex="-1" role="presentation"></a>از دو راه می توان اطمینان حاصل کرد که تغییر checkbox ها روی نسل بعد تاثیر می‌گذارد. یک گرداننده‌ی رخداد می تواند این تغییرات را متوجه شود و grid فعلی را برای بازتاب آن به‌روز کند، یا می توانید یک grid تازه از مقادیر موجود در checkbox ها قبل از محاسبه‌ی نسل بعد برای تولید یک grid تازه استفاده کنید.</p>
 
-<p><a class="p_ident" id="p_VwGIkAKaXK" href="#p_VwGIkAKaXK" tabindex="-1" role="presentation"></a>اگر انتخاب شما استفاده از گرداننده‌های رخداد باشد، ممکن است بخواهید که خاصیت‌هایی برای  مشخص نمودن موقعیت هر checkbox الحاق کنید تا بتوان به آسانی سلولی که باید تغییر کند را پیدا کنید.</p>
+<p><a class="p_ident" id="p_VwGIkAKaXK" href="#p_VwGIkAKaXK" tabindex="-1" role="presentation"></a>اگر انتخاب شما استفاده از گرداننده‌های رخداد باشد، ممکن است بخواهید که خاصیت‌هایی برای مشخص نمودن موقعیت هر checkbox الحاق کنید تا بتوان به آسانی سلولی که باید تغییر کند را پیدا کنید.</p>
 
-<p><a class="p_ident" id="p_Q40e1Ef4in" href="#p_Q40e1Ef4in" tabindex="-1" role="presentation"></a>برای رسم جدول checkbox ها، می‌توانید  یا از یک <code>&lt;table&gt;</code> ( به <a href="14_dom.html#exercise_table">Chapter 14</a> رجوع کنید ) استفاده کنید یا به سادگی همه‌ی آن ها را در یک عنصر قرار داده و از <code>&lt;br&gt;</code> بین ردیف‌ها استفاده کنید.</p>
+<p><a class="p_ident" id="p_Q40e1Ef4in" href="#p_Q40e1Ef4in" tabindex="-1" role="presentation"></a>برای رسم جدول checkbox ها، می‌توانید یا از یک <code>&lt;table&gt;</code> ( به <a href="14_dom.html#exercise_table">Chapter 14</a> رجوع کنید ) استفاده کنید یا به سادگی همه‌ی آن ها را در یک عنصر قرار داده و از <code>&lt;br&gt;</code> بین ردیف‌ها استفاده کنید.</p>
 
 </div></div><nav><a href="17_canvas.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="19_paint.html" title="next chapter">▶</a></nav>
 </article>

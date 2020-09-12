@@ -15,25 +15,25 @@
 <article>
 <nav><a href="04_data.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="06_object.html" title="next chapter">▶</a></nav>
 
-<h1><span class=chap_num>Chapter 5</span>توابع رده‌بالا (Higher-Order)</h1>
+<h1><span class=chap_num>فصل 5</span>توابع رده‌بالا (Higher-Order)</h1>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_18CYJsdOxo" href="#p_18CYJsdOxo" tabindex="-1" role="presentation"></a>Tzu-li and Tzu-ssu were boasting about the size of their latest programs. ‘Two-hundred thousand lines,’ said Tzu-li, ‘not counting comments!’ Tzu-ssu responded, ‘Pssh, mine is almost a <em>million</em> lines already.’ Master Yuan-Ma said, ‘My best program has five hundred lines.’ Hearing this, Tzu-li and Tzu-ssu were enlightened.</p>
+<p><a class="p_ident" id="p_vFulIihdz0" href="#p_vFulIihdz0" tabindex="-1" role="presentation"></a>زو-لی و زو-سو درباره‌ی اندازه‌ی آخرین برنامه‌هایشان در حال رجز خوانی بودند. زو-لی گفت: 'دویست هزار خط کد' بدون شمردن توضیحات! زو-سو پاسخ داد، هه! برنامه‌ی من تقریبا یک میلون خط شده! استاد Yuan-Ma گفت، 'بهترین برنامه‌ای که نوشتم پانصد خط کد داشت'. با شنیدن این جمله، زو-لی و زو-سو متنبه شدند و به خود آمدند.</p>
 
-<footer>Master Yuan-Ma, <cite>The Book of Programming</cite></footer>
+<footer>استاد Yuan-Ma, <cite>کتاب برنامه‌نویسی</cite></footer>
 
 </blockquote>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_7EubtoOeCu" href="#p_7EubtoOeCu" tabindex="-1" role="presentation"></a>There are two ways of constructing a software design: One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>دو روش برای ساختاردهی در طراحی نرم‌افزار وجود دارد: یک راه این است که آن را آن‌قدر ساده بسازیم که به وضوح مشخص باشد که ایرادی وجود ندارد، و روش دیگر این است که آن‌قدر آن را پیچیده بسازیم که نتوان  ایرادات نرم‌افزار را به وضوح تشخیص داد.</p>
 
 <footer>C.A.R. Hoare, <cite>1980 ACM Turing Award Lecture</cite></footer>
 
 </blockquote><figure class="chapter true"><img src="img/chapter_picture_5.jpg" alt="Letters from different scripts"></figure>
 
-<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>یک برنامه بزرگ پرهزینه است و فقط به این خاطر نیست که زمان زیادی برای ساختن آن لازم است. اندازه‌ی برنامه همیشه شامل میزان پیچیدگی برنامه هم می شود، چیزی که برنامه نویسان را سردرگم می کند و موجب می شود اشتباه کنند و برنامه خطا (<em>باگ</em>) داشته باشد. بنابراین یک برنامه‌ی بزرگ فضای زیادی برای پنهان شدن باگ‌ها فراهم می سازد و پیدا کردن باگ‌ها را سخت می کند.</p>
+<p>یک برنامه بزرگ پرهزینه است و فقط به این خاطر نیست که زمان زیادی برای ساختن آن لازم است. اندازه‌ی برنامه همیشه شامل میزان پیچیدگی برنامه هم می شود، چیزی که برنامه نویسان را سردرگم می کند و موجب می شود اشتباه کنند و برنامه خطا (<em>باگ</em>) داشته باشد. بنابراین یک برنامه‌ی بزرگ فضای زیادی برای پنهان شدن باگ‌ها فراهم می سازد و پیدا کردن باگ‌ها را سخت می کند.</p>
 
 <p>اجازه بدهید به طور مختصر به نسخه‌ی نهایی دو برنامه‌ی نمونه برگردیم که در مقدمه کتاب آورده شده اند. برنامه‌ی اول فاقد تابع و کلا دارای شش خط کد است:</p>
 
