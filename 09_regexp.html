@@ -27,84 +27,84 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p_vFulIihdz0" href="#p_vFulIihdz0" tabindex="-1" role="presentation"></a>Yuan-Ma گفت،  'وقتی چوب را برخلاف جهت الیافش برش می‌دهید, نیروی  بیشتری نیاز دارید. و هنگامی‌که بر خلاف روش صحیح حل مسئله، برنامه‌نویسی می‌کنید، به کد بیشتری نیاز دارید.’</p>
+<p><a class="p_ident" id="p_vFulIihdz0" href="#p_vFulIihdz0" tabindex="-1" role="presentation"></a>Yuan-Ma گفت، 'وقتی چوب را برخلاف جهت الیافش برش می‌دهید, نیروی بیشتری نیاز دارید. و هنگامی‌که بر خلاف روش صحیح حل مسئله، برنامه‌نویسی می‌کنید، به کد بیشتری نیاز دارید.’</p>
 
 <footer>استاد Yuan-Ma, <cite>کتاب برنامه‌نویسی</cite></footer>
 
 </blockquote><figure class="chapter square-framed"><img src="img/chapter_picture_9.jpg" alt="A railroad diagram"></figure>
 
-<p>ابزارها و تکنیک‌های برنامه نویسی در طول زمان به شکلی نامنظم و تکاملی حفظ می‌شوند و گسترش می یابند. این‌طور نیست که همیشه آن‌هایی که درخشان یا  خوب هستند برنده شوند؛ بلکه تکنیک‌ها و ابزارهایی باقی‌ می‌مانند که در یک حوزه‌ی مناسب به اندازه‌ی کافی خوب عمل می کنند یا این ویژگی را دارند که با تکنولوژی موفق دیگری به خوبی یکپارچه و تلفیق می شوند.</p>
+<p>ابزارها و تکنیک‌های برنامه‌نویسی در طول زمان به شکلی نامنظم و تکاملی حفظ می‌شوند و گسترش می یابند. این‌طور نیست که همیشه آن‌هایی که درخشان یا خوب هستند برنده شوند؛ بلکه تکنیک‌ها و ابزارهایی باقی‌ می‌مانند که در یک حوزه‌ی مناسب به اندازه‌ی کافی خوب عمل می‌کنند یا این ویژگی را دارند که با تکنولوژی موفق دیگری به خوبی یکپارچه و تلفیق می‌شوند.</p>
 
-<p>در این فصل، در باره‌ی یکی از این ابزارهای موفق، <em>عبارات باقاعده</em>، صحبت خواهم کرد. عبارات باقاعده روشی برای توصیف <em>الگوها</em> در داده‌های متنی (رشته‌ای) می‌باشند. این عبارات، زبانی کوچک و مجزا را تشکیل می دهند که بخشی از زبان جاوااسکریپت و خیلی زبان‌ها و سیستم های دیگر محسوب می شوند.</p>
+<p>در این فصل، درباره‌ی یکی از این ابزارهای موفق، <em>عبارات باقاعده</em>، صحبت خواهم کرد. عبارات باقاعده روشی برای توصیف <em>الگوها</em> در داده‌های متنی (رشته‌ای) می‌باشند. این عبارات، زبانی کوچک و مجزا را تشکیل می‌دهند که بخشی از زبان جاوااسکریپت و خیلی زبان‌ها و سیستم های دیگر محسوب می‌شوند.</p>
 
-<p>عبارات باقاعده، به طور همزمان هم خیلی بی‌قواره و هم فوق‌العاده کاربردی هستند. قواعد دستوری آن‌ها رمزگونه و رابط برنامه‌نویسی آن ها در جاوااسکریپت کمی نچسب است. اما ابزار بسیار قدرتمندی برای پردازش و وارسی رشته‌ها محسوب می شوند. درک صحیح عبارات باقاعده، شما را به برنامه‌نویس موثر‌تری تبدیل می کند.</p>
+<p>عبارات باقاعده، به طور همزمان هم خیلی بی‌قواره و هم فوق‌العاده کاربردی هستند. قواعد دستوری آن‌ها رمزگونه و رابط برنامه‌نویسی آن‌ها در جاوااسکریپت کمی نچسب است. اما ابزار بسیار قدرتمندی برای پردازش و وارسی رشته‌ها محسوب می‌شوند. درک صحیح عبارات باقاعده، شما را به برنامه‌نویس بهتری تبدیل می‌کند.</p>
 
 <h2><a class="h_ident" id="h_QWP+tWudUY" href="#h_QWP+tWudUY" tabindex="-1" role="presentation"></a>ایجاد عبارات باقاعده</h2>
 
-<p>یک عبارت باقاعده یک نوع شیء است. می توان آن را هم با سازنده‌ی <code>RegExp</code> و هم به طور مستقیم با قرار دادن یک الگو بین دو کاراکتر اسلش (<code>/</code>) ایجاد نمود.</p>
+<p>یک عبارت باقاعده یک نوع شیء است. می‌توان آن را هم با سازنده‌ی <code>RegExp</code> و هم به طور مستقیم با قرار دادن یک الگو بین دو کاراکتر اسلش (<code>/</code>) ایجاد نمود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_O1I2rl+HTy" href="#c_O1I2rl+HTy" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">re1</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">RegExp</span>(<span class="cm-string">&quot;abc&quot;</span>);
 <span class="cm-keyword">let</span> <span class="cm-def">re2</span> <span class="cm-operator">=</span> <span class="cm-string-2">/abc/</span>;</pre>
 
-<p><a class="p_ident" id="p_az8znGe7A9" href="#p_az8znGe7A9" tabindex="-1" role="presentation"></a>هر دوی عبارت‌های باقاعده‌ی بالا نمایانگر یک الگو می باشند: کاراکتر <em>a</em> که بعد از آن <em>b</em> و بعد <em>c</em>  می آید.</p>
+<p><a class="p_ident" id="p_az8znGe7A9" href="#p_az8znGe7A9" tabindex="-1" role="presentation"></a>هر دوی عبارت‌های باقاعده‌ی بالا نمایانگر یک الگو می‌باشند: کاراکتر <em>a</em> که بعد از آن <em>b</em> و بعد <em>c</em> می آید.</p>
 
-<p>زمانی که از سازنده‌ی <code>RegExp</code> استفاده می شود، الگو به صورت رشته‌ی معمولی نوشته می شود؛ بنابراین قوانین معمول برای کاراکتر بک‌اسلش برقرار است.</p>
+<p>زمانی که از سازنده‌ی <code>RegExp</code> استفاده می‌شود، الگو به صورت رشته‌ی معمولی نوشته می‌شود؛ بنابراین قوانین معمول برای کاراکتر بک‌اسلش برقرار است.</p>
 
-<p>در روش دوم که در آن الگو بین دو کاراکتر اسلش ظاهر می شود، تفسیر بک اسلش کمی متفاوت است. اول اینکه، به دلیل اینکه کاراکتر اسلش نشان دهنده پایان الگو است، بایستی یک بک اسلش را قبل از اسلشی که می خواهیم به عنوان بخشی از الگو تفسیر شود قرار دهیم. افزون بر آن، بک اسلش‌هایی که بخشی از کدکاراکترهای خاص (مانند <bdo><code>\n</code></bdo>) محسوب نمی شوند، بر خلاف حالت رشته‌ای، حفظ شده و باعث تغییر در معنای الگو خواهند شد. بعضی کاراکترها مثل علامت سوال یا مثبت، معانی خاصی در عبارات باقاعده دارند و اگر قرار است نمایانگر کاراکتر خودشان باشند، باید قبلشان یک بک اسلش قرار داده شود.</p>
+<p>در روش دوم که در آن الگو بین دو کاراکتر اسلش ظاهر می‌شود، تفسیر بک اسلش کمی متفاوت است. اول اینکه، به دلیل اینکه کاراکتر اسلش نشان دهنده پایان الگو است، باید یک بک اسلش را قبل از اسلشی که می خواهیم به عنوان بخشی از الگو تفسیر شود قرار دهیم. افزون بر آن، بک اسلش‌هایی که بخشی از کدکاراکترهای خاص (مانند <bdo><code>\n</code></bdo>) محسوب نمی‌شوند، بر خلاف حالت رشته‌ای، حفظ شده و باعث تغییر در معنای الگو خواهند شد. بعضی کاراکترها مثل علامت سوال یا مثبت، معانی خاصی در عبارات باقاعده دارند و اگر قرار است نمایانگر کاراکتر خودشان باشند، باید قبلشان یک بک اسلش قرار داده شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uRzUiBSrul" href="#c_uRzUiBSrul" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">eighteenPlus</span> <span class="cm-operator">=</span> <span class="cm-string-2">/eighteen\+/</span>;</pre>
 
 <h2><a class="h_ident" id="h_Ybl25j760a" href="#h_Ybl25j760a" tabindex="-1" role="presentation"></a>آزمایش تطبیق الگو</h2>
 
-<p>اشیاء عبارات باقاعده دارای تعدادی متد می باشند. ساده‌ترین آن ها متد <code>test</code> است. اگر به این متد یک رشته ارسال کنید، با برگرداندن یک مقدار بولی، به شما خواهد گفت که آیا در رشته‌ی داده شده نمونه‌ای مطابق الگوی عبارت باقاعده، وجود دارد یا خیر.</p>
+<p>اشیاء عبارات باقاعده دارای تعدادی متد می‌باشند. ساده‌ترین آن‌ها متد <code>test</code> است. اگر به این متد یک رشته ارسال کنید، با برگرداندن یک مقدار بولی، به شما خواهد گفت که آیا در رشته‌ی داده شده نمونه‌ای مطابق الگوی عبارت باقاعده، وجود دارد یا خیر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Szn1CmrIV5" href="#c_Szn1CmrIV5" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/abc/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;abcde&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/abc/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;abxde&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p_qZk+NkcGgW" href="#p_qZk+NkcGgW" tabindex="-1" role="presentation"></a>اگر در عبارات باقاعده هیچ کاراکتر خاصی استفاده نشود، آن عبارت معادل همان دنباله‌ی کاراکترها می باشد. اگر <em>abc</em> در هر جای رشته‌ای که مورد آزمایش قرار داده ایم قرار گرفته باشد ( نه فقط در شروع رشته)، متد <code>test</code> مقدار <code>true</code> را تولید می کند.</p>
+<p><a class="p_ident" id="p_qZk+NkcGgW" href="#p_qZk+NkcGgW" tabindex="-1" role="presentation"></a>اگر در عبارات باقاعده هیچ کاراکتر خاصی استفاده نشود، آن عبارت معادل همان دنباله‌ی کاراکترها می‌باشد. اگر <em>abc</em> در هر جای رشته‌ای که مورد آزمایش قرار داده ایم قرار گرفته باشد ( نه فقط در شروع رشته)، متد <code>test</code> مقدار <code>true</code> را تولید می‌کند.</p>
 
 <h2><a class="h_ident" id="h_y7YICXLgJL" href="#h_y7YICXLgJL" tabindex="-1" role="presentation"></a>مجموعه‌های کاراکتر</h2>
 
-<p>فهمیدن اینکه آیا یک رشته حاوی <em>abc</em> هست یا خیر را می توان به خوبی با متد  <code>indexOf</code>  نیز انجام داد. عبارات باقاعده به ما امکان تولید الگوهای پیچیده‌تری را می دهند.</p>
+<p>فهمیدن اینکه آیا یک رشته حاوی <em>abc</em> هست یا خیر را می‌توان به خوبی با متد <code>indexOf</code> نیز انجام داد. عبارات باقاعده به ما امکان تولید الگوهای پیچیده‌تری را می‌دهند.</p>
 
-<p>فرض کنید قصد داریم همه‌ اعداد را شناسایی کنیم. در یک عبارت باقاعده، قرار دادن یک مجموعه‌ کاراکتر درون براکت باعث می شود که آن بخش از عبارت با هر کاراکتری که بین براکت‌ها آمده است تطبیق یابد.</p>
+<p>فرض کنید قصد داریم همه‌ اعداد را شناسایی کنیم. در یک عبارت باقاعده، قرار دادن یک مجموعه‌ کاراکتر درون براکت باعث می‌شود که آن بخش از عبارت با هر کاراکتری که بین براکت‌ها آمده است تطبیق یابد.</p>
 
-<p>هر دوی عبارت‌های زیر همه‌ی رشته‌هایی که دارای رقم هستند را شامل می شود:</p>
+<p>هر دوی عبارت‌های زیر همه‌ی رشته‌هایی که دارای رقم هستند را شامل می‌شود:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Z3UJdL//cY" href="#c_Z3UJdL//cY" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/[0123456789]/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;in 1992&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/[0-9]/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;in 1992&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_BOftwrLn6b" href="#p_BOftwrLn6b" tabindex="-1" role="presentation"></a>برای مشخص کرد یک بازه از کاراکترها می توان درون براکت‌ها از یک کاراکتر (‍<code>-</code>) بین دو کاراکتر استفاده کرد که ترتیب کاراکترها توسط کد یونیکد آن‌ها مشخص می شود. کاراکترهای ۰ تا ۹ کنار هم و در بازه‌ی یونیکد (کدهای 48 تا 57) قرار دارند بنابراین <bdo><code>[0-9]</code></bdo> همه‌ی آن ها را پوشش داده و هر رقمی را شامل می شود.</p>
+<p><a class="p_ident" id="p_BOftwrLn6b" href="#p_BOftwrLn6b" tabindex="-1" role="presentation"></a>برای مشخص کرد یک بازه از کاراکترها می‌توان درون براکت‌ها از یک کاراکتر (‍<code>-</code>) بین دو کاراکتر استفاده کرد که ترتیب کاراکترها توسط کد یونیکد آن‌ها مشخص می‌شود. کاراکترهای ۰ تا ۹ کنار هم و در بازه‌ی یونیکد (کدهای 48 تا 57) قرار دارند بنابراین <bdo><code>[0-9]</code></bdo> همه‌ی آن‌ها را پوشش داده و هر رقمی را شامل می‌شود.</p>
 
-<p>برای بعضی از گروه‌های کاراکتری روش کوتاه‌تری هم از پیش تعریف شده است. اعداد یکی از آن ها هستند: مثلا <bdo><code>\d</code></bdo> معنایی مشابه <bdo><code>[0-9]</code></bdo> دارد.</p>
+<p>برای بعضی از گروه‌های کاراکتری روش کوتاه‌تری هم از پیش تعریف شده است. اعداد یکی از آن‌ها هستند: مثلا <bdo><code>\d</code></bdo> معنایی مشابه <bdo><code>[0-9]</code></bdo> دارد.</p>
 
 <table>
 
-<tr><td><code>\d</code></td><td>هر کاراکتر عددی</td>
+<tr><td><bdo><code>\d</code></bdo></td><td>هر کاراکتر عددی</td>
 
 </tr>
 
-<tr><td><code>\w</code></td><td>یک کاراکتر از نوع عدد یا حرف الفبا (“کاراکتر کلمه”)</td>
+<tr><td><bdo><code>\w</code></bdo></td><td>یک کاراکتر از نوع عدد یا حرف الفبا (“کاراکتر کلمه”)</td>
 
 </tr>
 
-<tr><td><code>\s</code></td><td>همه‌ی کاراکترهای فضای‌خالی ( فاصله، تب، خط جدید، و مشابه آن ها)</td>
+<tr><td><bdo><code>\s</code></bdo></td><td>همه‌ی کاراکترهای فضای‌خالی ( فاصله، تب، خط جدید، و مشابه آن‌ها)</td>
 
 </tr>
 
-<tr><td><code>\D</code></td><td>کاراکتری که از نوع عدد <em>نباشد</em></td>
+<tr><td><bdo><code>\D</code></bdo></td><td>کاراکتری که از نوع عدد <em>نباشد</em></td>
 
 </tr>
 
-<tr><td><code>\W</code></td><td>کاراکتری که عدد و حرف الفبا نباشد</td>
+<tr><td><bdo><code>\W</code></bdo></td><td>کاراکتری که عدد و حرف الفبا نباشد</td>
 
 </tr>
 
-<tr><td><code>\S</code></td><td>کاراکتری که فضای خالی محسوب نشود</td>
+<tr><td><bdo><code>\S</code></bdo></td><td>کاراکتری که فضای خالی محسوب نشود</td>
 
 </tr>
 
@@ -114,7 +114,7 @@
 
 </table>
 
-<p><a class="p_ident" id="p_utaY+Pxc2d" href="#p_utaY+Pxc2d" tabindex="-1" role="presentation"></a>بنابراین می توانید فرمت تاریخ و زمانی شبیه <bdo>01-30-2003 15:20</bdo> را با عبارت زیر شناسایی کنید:</p>
+<p><a class="p_ident" id="p_utaY+Pxc2d" href="#p_utaY+Pxc2d" tabindex="-1" role="presentation"></a>بنابراین می‌توانید فرمت تاریخ و زمانی شبیه <bdo>01-30-2003 15:20</bdo> را با عبارت زیر شناسایی کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Y0e7M8nAL0" href="#c_Y0e7M8nAL0" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">dateTime</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d\d-\d\d-\d\d\d\d \d\d:\d\d/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">dateTime</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;01-30-2003 15:20&quot;</span>));
@@ -124,9 +124,9 @@
 
 <p>ظاهر عبارت بالا خیلی بی‌قواره است، درست است؟ نیمی از آن بک‌اسلش است که الگو را بیش از حد شلوغ کرده و تشخیص معنای آن را سخت نموده‌ است. در <a href="09_regexp.html#date_regexp_counted">ادامه</a> با نسخه‌ای از آن که کمی بهبود یافته است آشنا خواهیم شد.</p>
 
-<p>این کدهای بک‌اسلش را همچنین می توان درون براکت استفاده کرد. به عنوان مثال، <bdo><code>[\d.]</code></bdo> به معنای یک رقم یا یک کاراکتر نقطه است. اما خود نقطه وقتی داخل براکت قرار می گیرد معنای خاصش را از دست می دهد. این قضیه برای دیگر کاراکتر های خاص مثل <code>+</code> هم برقرار است.</p>
+<p>این کدهای بک‌اسلش را همچنین می‌توان درون براکت استفاده کرد. به عنوان مثال، <bdo><code>[\d.]</code></bdo> به معنای یک رقم یا یک کاراکتر نقطه است. اما خود نقطه وقتی داخل براکت قرار می‌گیرد معنای خاصش را از دست می دهد. این قضیه برای دیگر کاراکتر های خاص مثل <code>+</code> هم برقرار است.</p>
 
-<p>برای <em>معکوس</em> کردن یک مجموعه‌ی کاراکتر – به این معنا که شما قصد دارید هر کاراکتری <em>بجز</em> آنهایی که در مجموعه مشخص شده اند را بیان کنید – می توانید از یک کاراکتر (<code>^</code>) بعد از براکت شروع بازه استفاده کنید.</p>
+<p>برای <em>معکوس</em> کردن یک مجموعه‌ی کاراکتر – به این معنا که شما قصد دارید هر کاراکتری <em>بجز</em> آنهایی که در مجموعه مشخص شده اند را بیان کنید – می‌توانید از یک کاراکتر (<code>^</code>) بعد از براکت شروع بازه استفاده کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_XH8deAcckk" href="#c_XH8deAcckk" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">notBinary</span> <span class="cm-operator">=</span> <span class="cm-string-2">/[^01]/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">notBinary</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;1100100010100110&quot;</span>));
@@ -136,9 +136,9 @@
 
 <h2><a class="h_ident" id="h_eRhbDjdfBc" href="#h_eRhbDjdfBc" tabindex="-1" role="presentation"></a>تکرار بخش‌هایی از یک الگو</h2>
 
-<p>می دانیم که چگونه یک عدد یا رقم را شناسایی کنیم.  چه باید کرد اگر بخواهیم که یک عدد کامل – دنباله‌ای از یک یا بیشتر رقم - را هدف قرار بدهیم؟</p>
+<p>می دانیم که چگونه یک عدد یا رقم را شناسایی کنیم. چه باید کرد اگر بخواهیم که یک عدد کامل – دنباله‌ای از یک یا بیشتر رقم - را هدف قرار بدهیم؟</p>
 
-<p>زمانی که از یک علامت مثبت (<code>+</code>) را بعد از چیزی در یک عبارت باقاعده قرار می‌دهید، این علامت نشان می دهد که آن عنصر ممکن است یک بار یا بیشتر تکرار شود. بنابراین ، <bdo> <code>/\d+/</code></bdo> به معنای مطابقت عبارت با تعداد یک یا بیشتر از کاراکترهای عددی خواهد بود.</p>
+<p>زمانی که یک علامت مثبت (<code>+</code>) را بعد از چیزی در یک عبارت باقاعده قرار می‌دهید، این علامت نشان می دهد که آن عنصر ممکن است یک بار یا بیشتر تکرار شود. بنابراین ، <bdo> <code>/\d+/</code></bdo> به معنای مطابقت عبارت با تعداد یک یا بیشتر از کاراکترهای عددی خواهد بود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9/5mFF4Ih4" href="#c_9/5mFF4Ih4" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/'\d+'/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;'123'&quot;</span>));
 <span class="cm-comment">// → true</span>
@@ -149,9 +149,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/'\d*'/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;''&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p>کاراکتر ستاره (<code>*</code>) معنای مشابهی دارد با این تفاوت که به الگو اجازه می دهد تا صفر بار تکرار (نبودن کاراکتر) را هم شامل شود. اگر بعد از چیزی کاراکتر ستاره قرار گیرد باعث می شود که الگو همیشه چیزی برای مطابقت پیدا کند - در صورتی که نتواند متنی برای مطابقت پیدا کند، با نبود آن عنصر مطابقت خواهد داد.</p>
+<p>کاراکتر ستاره (<code>*</code>) معنای مشابهی دارد با این تفاوت که به الگو اجازه می دهد تا صفر بار تکرار (نبودن کاراکتر) را هم شامل شود. اگر بعد از چیزی کاراکتر ستاره قرار گیرد، باعث می‌شود که الگو همیشه چیزی برای مطابقت پیدا کند - در صورتی که نتواند متنی برای مطابقت پیدا کند، با نبود آن عنصر مطابقت خواهد داد.</p>
 
-<p><a class="p_ident" id="p_UeaYkqtJ34" href="#p_UeaYkqtJ34" tabindex="-1" role="presentation"></a>استفاده از علامت سوال (?) در یک الگو به معنای <em>اختیاری</em> بودن است، یعنی ممکن است که آن عنصر نباشد یا یک بار حاضر باشد. در مثال پیش رو، کاراکتر <em>u</em> اختیاری است و می تواند باشد و در صورت نبودن هم الگو صدق خواهد کرد.</p>
+<p><a class="p_ident" id="p_UeaYkqtJ34" href="#p_UeaYkqtJ34" tabindex="-1" role="presentation"></a>استفاده از علامت سوال (?) در یک الگو به معنای <em>اختیاری</em> بودن است، یعنی ممکن است که آن عنصر نباشد یا یک بار حاضر باشد. در مثال پیش رو، کاراکتر <em>u</em> اختیاری است و می‌تواند باشد و در صورت نبودن هم الگو صدق خواهد کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EiCIowdq+d" href="#c_EiCIowdq+d" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">neighbor</span> <span class="cm-operator">=</span> <span class="cm-string-2">/neighbou?r/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">neighbor</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;neighbour&quot;</span>));
@@ -159,7 +159,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">neighbor</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;neighbor&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_G2RTiSRzpG" href="#p_G2RTiSRzpG" tabindex="-1" role="presentation"></a>برای مشخص کردن این موضوع که یک الگو باید به تعداد دقیقی رخ دهد، می توانید از کروشه استفاده کنید؛ به عنوان مثال، قرار دادن <code>{4}</code> بعد از یک عنصر، باعث می‌شود که الگو انتظار داشته باشد آن عنصر دقیقا 4 مرتبه رخ داده باشد. همچنین می توان یک بازه را نیز مشخص نمود:‌ <bdo><code>{2,4}</code></bdo> به این معنا است که این عنصر باید حداقل دو مرتبه و حداکثر چهار مرتبه رخ دهد.</p>
+<p><a class="p_ident" id="p_G2RTiSRzpG" href="#p_G2RTiSRzpG" tabindex="-1" role="presentation"></a>برای مشخص کردن این موضوع که یک الگو باید به تعداد دقیقی رخ دهد، می‌توانید از کروشه استفاده کنید؛ به عنوان مثال، قرار دادن <code>{4}</code> بعد از یک عنصر، باعث می‌شود که الگو انتظار داشته باشد آن عنصر دقیقا 4 مرتبه رخ داده باشد. همچنین می‌توان یک بازه را نیز مشخص نمود:‌ <bdo><code>{2,4}</code></bdo> به این معنا است که این عنصر باید حداقل دو مرتبه و حداکثر چهار مرتبه رخ دهد.</p>
 
 <p id="date_regexp_counted">اینجا نسخه‌ی دیگر از الگوی تشخیص تاریخ و زمان را داریم که امکان تشخیص روز، ماه و ساعت به هر دو فرمت تک رقمی و دو رقمی را دارد. همچنین درک این الگو کمی راحت‌تر از الگوی پیشین است.</p>
 
@@ -167,23 +167,23 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">dateTime</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;1-30-2003 8:45&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p>همچنین می توانید بازه‌هایی که انتهایی باز دارند را نیز مشخص کنید. این کار با حذف رقم پس از ویرگول انجام می شود. بنابراین، <bdo><code>{5,}</code></bdo> به معنای پنج یا بیشتر می باشد.</p>
+<p>همچنین می‌توانید بازه‌هایی که انتهایی باز دارند را نیز مشخص کنید. این کار با حذف رقم پس از ویرگول انجام می‌شود. بنابراین، <bdo><code>{5,}</code></bdo> به معنای پنج یا بیشتر می‌باشد.</p>
 
 <h2><a class="h_ident" id="h_FixWcalhE0" href="#h_FixWcalhE0" tabindex="-1" role="presentation"></a>دسته‌بندی زیرعبارات</h2>
 
-<p>برای استفاده از یک عملگر مانند <code>*</code> یا <code>+</code> روی بیش از یک عنصر در آنِ واحد، باید از پرانتز استفاده کنید. از دید عملگرهایی که بعد از عبارت‌های داخل پرانتز قرار می‌گیرند، هر عبارت محصور بین پرانتز به عنوان یک عنصر در نظر گرفته می شود.</p>
+<p>برای استفاده از یک عملگر مانند <code>*</code> یا <code>+</code> روی بیش از یک عنصر در آنِ واحد، باید از پرانتز استفاده کنید. از دید عملگرهایی که بعد از عبارت‌های داخل پرانتز قرار می‌گیرند، هر عبارت محصور بین پرانتز به عنوان یک عنصر در نظر گرفته می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_P/f6a65XwI" href="#c_P/f6a65XwI" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">cartoonCrying</span> <span class="cm-operator">=</span> <span class="cm-string-2">/boo+(hoo+)+/i</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">cartoonCrying</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;Boohoooohoohooo&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p_WI3aP26c24" href="#p_WI3aP26c24" tabindex="-1" role="presentation"></a>کاراکترهای <code>+</code> اول و دوم فقط به <em>o</em> دوم از <em>boo</em> و <em>hoo</em> اعمال می شوند. کاراکتر <code>+</code> سوم به کل گروه <bdo><code>(hoo+)</code></bdo> اعمال می شود و یک یا بیش از یک بار تکرار آن الگو را شامل می‌شود.</p>
+<p><a class="p_ident" id="p_WI3aP26c24" href="#p_WI3aP26c24" tabindex="-1" role="presentation"></a>کاراکترهای <code>+</code> اول و دوم فقط به <em>o</em> دوم از <em>boo</em> و <em>hoo</em> اعمال می‌شوند. کاراکتر <code>+</code> سوم به کل گروه <bdo><code>(hoo+)</code></bdo> اعمال می‌شود و یک یا بیش از یک بار تکرار آن الگو را شامل می‌شود.</p>
 
-<p><a class="p_ident" id="p_rk8oHfWl0P" href="#p_rk8oHfWl0P" tabindex="-1" role="presentation"></a>کاراکتر <code>i</code> که در انتهای عبارت مثال آمده است باعث می شود که عبارت باقاعده به بزرگی و کوچکی حروف حساس نباشد، یعنی کاراکتر <em>B</em> بزرگ هم در رشته‌ی ورودی تطبیق خواهد خورد، با وجود اینکه الگو خودش به حروف کوچک نوشته شده است.</p>
+<p><a class="p_ident" id="p_rk8oHfWl0P" href="#p_rk8oHfWl0P" tabindex="-1" role="presentation"></a>کاراکتر <code>i</code> که در انتهای عبارت مثال آمده است باعث می‌شود که عبارت باقاعده به بزرگی و کوچکی حروف حساس نباشد، یعنی کاراکتر <em>B</em> بزرگ هم در رشته‌ی ورودی تطبیق خواهد خورد، با وجود اینکه الگو خودش به حروف کوچک نوشته شده است.</p>
 
 <h2><a class="h_ident" id="h_XX70toH0eo" href="#h_XX70toH0eo" tabindex="-1" role="presentation"></a>تطبیق‌ها و گروه‌ها</h2>
 
-<p>متد <code>test</code> ساده ترین راهی است که برای تطبیق یک عبارت باقاعده استفاده می شود. این متد فقط تطبیق و عدم تطبیق عبارت را مشخص می کند و دیگر هیچ. عبارات باقاعده همچنین متدی به نام <code>exec</code> (به معنای اجرا) دارند که در صورت نبود تطبیق، مقدار <code>null</code> را بر‌می گرداند و در صورت وجود تطبیق، شیئی شامل اطلاعاتی راجع به آن تولید می کند.</p>
+<p>متد <code>test</code> ساده ترین راهی است که برای تطبیق یک عبارت باقاعده استفاده می‌شود. این متد فقط تطبیق و عدم تطبیق عبارت را مشخص می‌کند و دیگر هیچ. عبارات باقاعده همچنین متدی به نام <code>exec</code> (به معنای اجرا) دارند که در صورت نبود تطبیق، مقدار <code>null</code> را بر‌می گرداند و در صورت وجود تطبیق، شیئی شامل اطلاعاتی راجع به آن تولید می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_JJMWZpk0iD" href="#c_JJMWZpk0iD" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">match</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d+/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;one two 100&quot;</span>);
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">match</span>);
@@ -191,60 +191,60 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">match</span>.<span class="cm-property">index</span>);
 <span class="cm-comment">// → 8</span></pre>
 
-<p>شیءای که از یک متد <code>exec</code> برگردانده می شود خاصیتی به نام <code>index</code> دارد که نقطه شروع تطبیق پیدا شده را در رشته به ما می نشان می دهد. علاوه بر آن، این شیء شبیه به ( و در واقع یک ) آرایه‌ای از رشته‌ها است، که عنصر اولش رشته‌ای است که با الگو مطابقت داشته است – در مثال قبل ، دنباله‌ای از اعداد که به دنبال آن بودیم.</p>
+<p>شیءای که از یک متد <code>exec</code> برگردانده می‌شود خاصیتی به نام <code>index</code> دارد که نقطه شروع تطبیق پیدا شده را در رشته به ما می نشان می دهد. علاوه بر آن، این شیء شبیه به ( و در واقع یک ) آرایه‌ای از رشته‌ها است، که عنصر اولش رشته‌ای است که با الگو مطابقت داشته است – در مثال قبل ، دنباله‌ای از اعداد که به دنبال آن بودیم.</p>
 
-<p>مقدارهای رشته‌ای متدی به نام <code>match</code> دارند که به شکل مشابهی عمل می کند.</p>
+<p>مقدارهای رشته‌ای متدی به نام <code>match</code> دارند که به شکل مشابهی عمل می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uAkAqNYx+q" href="#c_uAkAqNYx+q" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;one two 100&quot;</span>.<span class="cm-property">match</span>(<span class="cm-string-2">/\d+/</span>));
 <span class="cm-comment">// → [&quot;100&quot;]</span></pre>
 
-<p>زمانی که یک عبارت باقاعده شامل زیرعبارتهایی باشد که با پرانتز گروه‌بندی شده اند، متن‌هایی که با آن گروه‌ها مطابقت دارند نیز درون یک آرایه نمایش داده خواهد شد. تطبیق کامل همیشه در همان عنصر اول است. عنصر بعدی آرایه متعلق به بخشی است که توسط اولین گروه تطبیق یافته است (گروهی که پرانتز شروعش در عبارت اول آمده است)، سپس گروه دوم و الی آخر.</p>
+<p>زمانی که یک عبارت باقاعده شامل زیرعبارت‌هایی باشد که با پرانتز گروه‌بندی شده اند، متن‌هایی که با آن گروه‌ها مطابقت دارند نیز درون یک آرایه نمایش داده خواهد شد. تطبیق کامل همیشه در همان عنصر اول است. عنصر بعدی آرایه متعلق به بخشی است که توسط اولین گروه تطبیق یافته است (گروهی که پرانتز شروعش در عبارت اول آمده است)، سپس گروه دوم و الی آخر.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5E2M1BBsUm" href="#c_5E2M1BBsUm" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">quotedText</span> <span class="cm-operator">=</span> <span class="cm-string-2">/'([^']*)'/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">quotedText</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;she said 'hello'&quot;</span>));
 <span class="cm-comment">// → [&quot;'hello'&quot;, &quot;hello&quot;]</span></pre>
 
-<p>زمانی که برای یک گروه تطبیقی در رشته پیدا نمی شود (به عنوان مثال، زمانی که بعد از گروه علامت سوال قرار گرفته باشد) موقعیت آن در آرایه‌ی خروجی به صورت <code>undefined</code> خواهد بود. به طور مشابه، اگر یک گروه چندین تطبیق داشته باشد، فقط آخرین آن‌ها در آرایه قرار خواهد گرفت.</p>
+<p>زمانی که برای یک گروه تطبیقی در رشته پیدا نمی‌شود (به عنوان مثال، زمانی که بعد از گروه علامت سوال قرار گرفته باشد) موقعیت آن در آرایه‌ی خروجی به صورت <code>undefined</code> خواهد بود. به طور مشابه، اگر یک گروه چندین تطبیق داشته باشد، فقط آخرین آن‌ها در آرایه قرار خواهد گرفت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_j9t+gn+1eT" href="#c_j9t+gn+1eT" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/bad(ly)?/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;bad&quot;</span>));
 <span class="cm-comment">// → [&quot;bad&quot;, undefined]</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/(\d)+/</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;123&quot;</span>));
 <span class="cm-comment">// → [&quot;123&quot;, &quot;3&quot;]</span></pre>
 
-<p>از قابلیت گروه‌ها می توان برای استخراج قسمت‌های یک رشته استفاده کرد. به عنوان مثال، زمانی که فقط بودن یک تاریخ در یک رشته برای ما مهم نیست و قصد داریم تا آن را از دل آن استخراج کرده و شیئی حاوی آن بسازیم، می توانیم با استفاده از پرانتز در الگوی ارقام، به طور مستقیم آن را در نتیجه‌ی <code>exec</code> مجزا کنیم.</p>
+<p>از قابلیت گروه‌ها می‌توان برای استخراج قسمت‌های یک رشته استفاده کرد. به عنوان مثال، زمانی که فقط بودن یک تاریخ در یک رشته برای ما مهم نیست و قصد داریم تا آن را از دل آن استخراج کرده و شیئی حاوی آن بسازیم، می توانیم با استفاده از پرانتز در الگوی ارقام، به طور مستقیم آن را در نتیجه‌ی <code>exec</code> مجزا کنیم.</p>
 
-<p>اما ابتدا، یک فاصله‌ی کوتاه بگیریم و کمی در رابطه‌با راه از پیش تعریف شده برای نمایش مقادیر زمان و تاریخ در جاوااسکریپت صحبت کنیم.</p>
+<p>اما ابتدا، یک فاصله‌ی کوتاه بگیریم و کمی در رابطه با روش از پیش تعریف شده برای نمایش مقادیر زمان و تاریخ در جاوااسکریپت صحبت کنیم.</p>
 
 <h2><a class="h_ident" id="h_blRb/5zgjW" href="#h_blRb/5zgjW" tabindex="-1" role="presentation"></a>کلاس Date</h2>
 
-<p>جاوااسکریپت کلاس استانداردی برای نمایش تاریخ‌ها – یا به عبارتی نقاطی در زمان – دارد. این کلاس <code>Date</code> نامیده می شود. اگر با <code>new</code> یک کلاس تاریخ ایجاد کنید، زمان و تاریخ فعلی را خواهید گرفت.</p>
+<p>جاوااسکریپت کلاس استانداردی برای نمایش تاریخ‌ها – یا به عبارتی نقاطی در زمان – دارد. این کلاس <code>Date</code> نامیده می‌شود. اگر با <code>new</code> یک کلاس تاریخ ایجاد کنید، زمان و تاریخ فعلی را خواهید گرفت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AjgqFetryg" href="#c_AjgqFetryg" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>());
 <span class="cm-comment">// → Mon Nov 13 2017 16:19:11 GMT+0100 (CET)</span></pre>
 
-<p>همچنین می توانید یک شیء برای یک تاریخ مشخص ایجاد کنید.</p>
+<p>همچنین می‌توانید یک شیء برای یک تاریخ مشخص ایجاد کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_2VCU0f4HsQ" href="#c_2VCU0f4HsQ" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2009</span>, <span class="cm-number">11</span>, <span class="cm-number">9</span>));
 <span class="cm-comment">// → Wed Dec 09 2009 00:00:00 GMT+0100 (CET)</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2009</span>, <span class="cm-number">11</span>, <span class="cm-number">9</span>, <span class="cm-number">12</span>, <span class="cm-number">59</span>, <span class="cm-number">59</span>, <span class="cm-number">999</span>));
 <span class="cm-comment">// → Wed Dec 09 2009 12:59:59 GMT+0100 (CET)</span></pre>
 
-<p><a class="p_ident" id="p_F7oHkUmduQ" href="#p_F7oHkUmduQ" tabindex="-1" role="presentation"></a>جاوااسکریپت از قراردادی استفاده می کند که در آن ماه‌ها از صفر شروع می شوند (بنابراین ماه دسامبر برابر 11 خواهد شد)، اما روزها از یک شروع می شوند. این به نظر گیج کننده و احمقانه می‌رسد. پس دقت داشته باشید.</p>
+<p><a class="p_ident" id="p_F7oHkUmduQ" href="#p_F7oHkUmduQ" tabindex="-1" role="presentation"></a>جاوااسکریپت از قراردادی استفاده می‌کند که در آن ماه‌ها از صفر شروع می‌شوند (بنابراین ماه دسامبر برابر 11 خواهد شد)، اما روزها از یک شروع می‌شوند. این به نظر گیج کننده و احمقانه می‌رسد. پس دقت داشته باشید.</p>
 
-<p><a class="p_ident" id="p_78ZbbZFvoy" href="#p_78ZbbZFvoy" tabindex="-1" role="presentation"></a>چهار آرگومان آخر (hours, minutes, seconds و milliseconds) اختیاری هستند و اگر مشخص نشوند با صفر مقداردهی می شوند.</p>
+<p><a class="p_ident" id="p_78ZbbZFvoy" href="#p_78ZbbZFvoy" tabindex="-1" role="presentation"></a>چهار آرگومان آخر (hours, minutes, seconds و milliseconds) اختیاری هستند و اگر مشخص نشوند با صفر مقداردهی می‌شوند.</p>
 
-<p><a class="p_ident" id="p_1/gBKgrdK7" href="#p_1/gBKgrdK7" tabindex="-1" role="presentation"></a>برچسب‌های ثبت زمان (timestamp) به عنوان تعداد هزارم ثانیه‌هایی ذخیره‌ می شوند که از شروع سال 1970 میلادی در ناحیه زمانی UTC می گذرد. این روش بر اساس “Unix time” است که خود حدود همان سال اختراع شد. می توانید برای زمان‌های قبل از 1970 از اعداد منفی استفاده کنید. متد <code>getTime</code> روی یک شیء Date این عدد را￼ تولید می کند. این عدد همانطور که می توانید حدس بزنید رقم بزرگی است.</p>
+<p><a class="p_ident" id="p_1/gBKgrdK7" href="#p_1/gBKgrdK7" tabindex="-1" role="presentation"></a>برچسب‌های ثبت زمان (timestamp) به عنوان تعداد هزارم ثانیه‌هایی ذخیره‌ می‌شوند که از شروع سال 1970 میلادی در ناحیه زمانی UTC می گذرد. این روش بر اساس “Unix time” است که خود حدود همان سال اختراع شد. می‌توانید برای زمان‌های قبل از 1970 از اعداد منفی استفاده کنید. متد <code>getTime</code> روی یک شیء Date این عدد را￼ تولید می‌کند. این عدد همانطور که می‌توانید حدس بزنید رقم بزرگی است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_lMlCuckMIc" href="#c_lMlCuckMIc" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">2013</span>, <span class="cm-number">11</span>, <span class="cm-number">19</span>).<span class="cm-property">getTime</span>());
 <span class="cm-comment">// → 1387407600000</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Date</span>(<span class="cm-number">1387407600000</span>));
 <span class="cm-comment">// → Thu Dec 19 2013 00:00:00 GMT+0100 (CET)</span></pre>
 
-<p>اگر به تابع سازنده‌ی <code>Date</code> یک آرگومان ارسال نمایید، این آرگومان به عنوان همان شمارش هزارم‌ ثانیه‌ها تفسیر می شود. می توانید تعداد هزام‌ثانیه‌های لحظه‌ی کنونی را با ایجاد یک شیء جدید <code>Date</code> و فراخوانی متد <code>getTime</code> روی آن یا با فراخوانی تابع <bdo><code>Date.now</code></bdo> بدست بیاورید.</p>
+<p>اگر به تابع سازنده‌ی <code>Date</code> یک آرگومان ارسال نمایید، این آرگومان به عنوان همان شمارش هزارم‌ ثانیه‌ها تفسیر می‌شود. می‌توانید تعداد هزام‌ثانیه‌های لحظه‌ی کنونی را با ایجاد یک شیء جدید <code>Date</code> و فراخوانی متد <code>getTime</code> روی آن یا با فراخوانی تابع <bdo><code>Date.now</code></bdo> بدست بیاورید.</p>
 
-<p><a class="p_ident" id="p_uWWNdbwVF7" href="#p_uWWNdbwVF7" tabindex="-1" role="presentation"></a>اشیاء Date متدهایی مانند <code>getFullYear،</code> <code>getMonth،</code> <code>getDate،</code> <code>getHours</code>، <code>getMinutes</code>، و <code>getSeconds</code> را فراهم می کنند که بتوان اجزای یک تاریخ را به وسیله‌ی آن‌ها استخراج کرد. در کنار متد <code>getFullYear،</code> متدی به نام <code>getYear</code> وجود دارد، که سال را با کسر از 1900 تولید می کند (مثل <code>98</code> یا <code>119</code> ) که تقریبا کاربردی ندارد.</p>
+<p><a class="p_ident" id="p_uWWNdbwVF7" href="#p_uWWNdbwVF7" tabindex="-1" role="presentation"></a>اشیاء Date متدهایی مانند <code>getFullYear،</code> <code>getMonth،</code> <code>getDate،</code> <code>getHours</code>، <code>getMinutes</code>، و <code>getSeconds</code> را فراهم می‌کنند که بتوان اجزای یک تاریخ را به وسیله‌ی آن‌ها استخراج کرد. در کنار متد <code>getFullYear،</code> متدی به نام <code>getYear</code> وجود دارد، که سال را با کسر از 1900 تولید می‌کند (مثل <code>98</code> یا <code>119</code> ) که تقریبا کاربردی ندارد.</p>
 
-<p>با قراردادن پرانتز دور بخش‌های عبارتی که به آن نیاز داریم، می توانیم شیء تاریخ را از یک رشته ایجاد کنیم.</p>
+<p>با قراردادن پرانتز دور بخش‌های عبارتی که به آن نیاز داریم، می‌توانیم شیء تاریخ را از یک رشته ایجاد کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_xW0xfMnpiZ" href="#c_xW0xfMnpiZ" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">getDate</span>(<span class="cm-def">string</span>) {
   <span class="cm-keyword">let</span> [<span class="cm-def">_</span>, <span class="cm-def">month</span>, <span class="cm-def">day</span>, <span class="cm-def">year</span>] <span class="cm-operator">=</span>
@@ -258,24 +258,24 @@
 
 <h2><a class="h_ident" id="h_ZXV7mPWekf" href="#h_ZXV7mPWekf" tabindex="-1" role="presentation"></a>مرز‌های واژه و رشته</h2>
 
-<p><a class="p_ident" id="p_P7OhqghsID" href="#p_P7OhqghsID" tabindex="-1" role="presentation"></a>متاسفانه، متد <code>getDate</code> همچنین تاریخ‌های غلطی مانند <bdo>00-1-3000</bdo> را از رشته‌ی <bdo><code>&quot;100-1-30000&quot;</code></bdo> استخراج می کند. یک تطبیق ممکن است در هرجای رشته رخ بدهد، بنابراین در این مورد، از کاراکتر دوم این رشته شروع می شود و در کاراکتر یکی مانده به پایان، تمام می شود.</p>
+<p><a class="p_ident" id="p_P7OhqghsID" href="#p_P7OhqghsID" tabindex="-1" role="presentation"></a>متاسفانه، متد <code>getDate</code> همچنین تاریخ‌های غلطی مانند <bdo>00-1-3000</bdo> را از رشته‌ی <bdo><code>&quot;100-1-30000&quot;</code></bdo> استخراج می‌کند. یک تطبیق ممکن است در هرجای رشته رخ بدهد، بنابراین در این مورد، از کاراکتر دوم این رشته شروع می‌شود و در کاراکتر یکی مانده به پایان، تمام می‌شود.</p>
 
-<p><a class="p_ident" id="p_EfatjsUqKY" href="#p_EfatjsUqKY" tabindex="-1" role="presentation"></a>اگر بخواهیم تطبیق شامل کل رشته باشد، باید بااستفاده از نشانگرهای <code>^</code> و <code>$</code> این کار را انجام دهیم. کاراکتر <code>^</code>، شروع رشته‌ی ورودی را مشخص می کند، در حالیکه کاراکتر <code>$</code>، این کار را برای پایان انجام می‌دهد. بنابراین <bdo><code>/^\d+$/</code></bdo> رشته‌ای را تطبیق خواهد داد که کلا دارای یک یا بیش از یک رقم باشد،<bdo><code>/^!/</code></bdo> شامل همه‌ی رشته‌هایی می شود که با یک علامت تعجب شروع شده باشند، و <bdo><code>/x^/</code></bdo> هیچ رشته‌ای را شامل نخواهد شد (نمی توان یک کاراکتر <em>x</em> را قبل از کاراکتر شروع یک رشته تصور کرد).</p>
+<p><a class="p_ident" id="p_EfatjsUqKY" href="#p_EfatjsUqKY" tabindex="-1" role="presentation"></a>اگر بخواهیم تطبیق شامل کل رشته باشد، باید بااستفاده از نشانگرهای <code>^</code> و <code>$</code> این کار را انجام دهیم. کاراکتر <code>^</code>، شروع رشته‌ی ورودی را مشخص می‌کند، در حالیکه کاراکتر <code>$</code>، این کار را برای پایان انجام می‌دهد. بنابراین <bdo><code>/^\d+$/</code></bdo> رشته‌ای را تطبیق خواهد داد که کلا دارای یک یا بیش از یک رقم باشد،<bdo><code>/^!/</code></bdo> شامل همه‌ی رشته‌هایی می‌شود که با یک علامت تعجب شروع شده باشند، و <bdo><code>/x^/</code></bdo> هیچ رشته‌ای را شامل نخواهد شد (نمی‌توان یک کاراکتر <em>x</em> را قبل از کاراکتر شروع یک رشته تصور کرد).</p>
 
-<p>اگر، از سوی دیگر، بخواهیم مطمئن شویم که تاریخ مورد نظر در مرزهای یک کلمه شروع و پایان می‌یابد، می توانیم از نشانگر <bdo><code>\b</code></bdo> استفاده کنیم. یک مرز کلمه می تواند شروع یا پایان یک رشته یا هر نقطه‌ای در رشته باشد که یک کارکتر از نوع کلمه ( حرف الفبا یا رقم مثل <bdo><code>\w</code></bdo>) در یک سمت داشته باشد و یک کاراکتر غیر‌کلمه‌ای در سمت دیگر￼ داشته باشد.</p>
+<p>اگر، از سوی دیگر، بخواهیم مطمئن شویم که تاریخ مورد نظر در مرزهای یک کلمه شروع و پایان می‌یابد، می‌توانیم از نشانگر <bdo><code>\b</code></bdo> استفاده کنیم. یک مرز کلمه می‌تواند شروع یا پایان یک رشته یا هر نقطه‌ای در رشته باشد که یک کارکتر از نوع کلمه ( حرف الفبا یا رقم مثل <bdo><code>\w</code></bdo>) در یک سمت داشته باشد و یک کاراکتر غیر‌کلمه‌ای در سمت دیگر￼ داشته باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_6U0b866tUk" href="#c_6U0b866tUk" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/cat/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;concatenate&quot;</span>));
 <span class="cm-comment">// → true</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\bcat\b/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;concatenate&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p>توجه داشته باشید که یک نشانگر تعیین مرز (حدود) خود کاراکتری را تطبیق نمی دهد. این نشانگر فقط باعث می شود که عبارت باقاعده فقط زمانی تطبیق بخورد که یک شرط مشخص در نقطه‌ای که نشانگر در الگو قرار گرفته برقرار باشد.</p>
+<p>توجه داشته باشید که یک نشانگر تعیین مرز (حدود) خود کاراکتری را تطبیق نمی دهد. این نشانگر فقط باعث می‌شود که عبارت باقاعده فقط زمانی تطبیق بخورد که یک شرط مشخص در نقطه‌ای که نشانگر در الگو قرار گرفته برقرار باشد.</p>
 
 <h2><a class="h_ident" id="h_WidEO7HCmM" href="#h_WidEO7HCmM" tabindex="-1" role="presentation"></a>الگوهای انتخاب</h2>
 
 <p><a class="p_ident" id="p_RPL9YC3XKT" href="#p_RPL9YC3XKT" tabindex="-1" role="presentation"></a>فرض کنید بخواهیم بدانیم که در یک رشته‌ی متنی عددی وجود دارد که بعد از آن یکی از کلمه‌های <em>pig</em>, <em>cow</em>, یا <em>chicken</em> به صورت مفرد یا جمع آمده باشد.</p>
 
-<p>می توانیم سه عبارت باقاعده‌ی مجزا نوشته و هر کدام را به نوبت روی نوشته آزمایش کنیم. اما یک راه بهتر نیز وجود دارد. کاراکتر پایپ (|) امکان انتخاب بین الگوی سمت راست و چپش را فراهم می کند. بنابراین می توانیم بنویسیم:</p>
+<p>می‌توانیم سه عبارت باقاعده‌ی مجزا نوشته و هر کدام را به نوبت روی نوشته آزمایش کنیم. اما یک راه بهتر نیز وجود دارد. کاراکتر پایپ (|) امکان انتخاب بین الگوی سمت راست و چپش را فراهم می‌کند. بنابراین می‌توانیم بنویسیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_z0soEIN8RB" href="#c_z0soEIN8RB" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">animalCount</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\b\d+ (pig|cow|chicken)s?\b/</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">animalCount</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;15 pigs&quot;</span>));
@@ -283,17 +283,17 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">animalCount</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;15 pigchickens&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p>می توان با استفاده از پرانتز بخش‌هایی از الگو که عملگر پایپ روی آنها اعمال می شود را محدود کرد، و نیز می توان چندین عملگر پایپ را کنار هم قرار داد تا امکان انتخاب بین بیش از دو جایگزین را فراهم نمود.</p>
+<p>می‌توان با استفاده از پرانتز بخش‌هایی از الگو که عملگر پایپ روی آنها اعمال می‌شود را محدود کرد، و نیز می‌توان چندین عملگر پایپ را کنار هم قرار داد تا امکان انتخاب بین بیش از دو جایگزین را فراهم نمود.</p>
 
-<h2><a class="h_ident" id="h_q8R9oxL94f" href="#h_q8R9oxL94f" tabindex="-1" role="presentation"></a>مکانیک تطبیق‌دهی</h2>
+<h2><a class="h_ident" id="h_+IQq5RjxIb" href="#h_+IQq5RjxIb" tabindex="-1" role="presentation"></a>مکانیزم تطبیق‌دهی</h2>
 
-<p>از نظر مفهومی، زمانی که از متد <code>exec</code> یا <code>test</code> استفاده می کنید، موتور عبارت باقاعده به دنبال تطبیقی در رشته‌ی شما می گردد و سعی دارد این کار را با تطبیق دادن عبارت از ابتدای رشته انجام دهد، سپس از کاراکتر دوم، و همین طور ادامه می دهد تا اینکه تطبیقی پیدا کند یا به انتهای رشته داده شده برسد. در پایان رشته، یا اولین تطبیق ممکن را برمی‌گرداند یا جستجو با شکست روبرو می شود.</p>
+<p>از نظر مفهومی، زمانی که از متد <code>exec</code> یا <code>test</code> استفاده می‌کنید، موتور عبارت باقاعده به دنبال تطبیقی در رشته‌ی شما می گردد و سعی دارد این کار را با تطبیق دادن عبارت از ابتدای رشته انجام دهد، سپس از کاراکتر دوم، و همین طور ادامه می دهد تا اینکه تطبیقی پیدا کند یا به انتهای رشته داده شده برسد. در پایان رشته، یا اولین تطبیق ممکن را برمی‌گرداند یا جستجو با شکست روبرو می‌شود.</p>
 
-<p>موتور جاوااسکریپت برای انجام تطبیق، با عبارت باقاعده مانند یک نمودار جریان برخورد می کند. نمودار پایین برای عبارت مربوط به مثال حیوانات است:</p><figure><img src="img/re_pigchickens.svg" alt="Visualization of /\b\d+ (pig|cow|chicken)s?\b/"></figure>
+<p>موتور جاوااسکریپت برای انجام تطبیق، با عبارت باقاعده مانند یک نمودار جریان برخورد می‌کند. نمودار پایین برای عبارت مربوط به مثال حیوانات است:</p><figure><img src="img/re_pigchickens.svg" alt="Visualization of /\b\d+ (pig|cow|chicken)s?\b/"></figure>
 
 <p>عبارت ما موفق به تطبیق خواهد شد اگر بتوانیم مسیری از سمت چپ نمودار به سمت راست آن بیابیم. موقعیت￼ فعلی را در رشته حفظ می کنیم، و هر بار که به سمت یک مستطیل حرکت می کنیم، مطمئن می شویم که بخشی از رشته که بعد از موقعیت فعلی ما قرار دارد با آن مستطیل تطبیق دارد.</p>
 
-<p>بنابراین اگر سعی کنیم که رشته‌ی <code>&quot;the 3 pigs&quot;</code> را از موقعیت 4 تطبیق دهیم، پیشروی ما در نمودار چیزی شبیه به زیر می شود:</p>
+<p>بنابراین اگر سعی کنیم که رشته‌ی <code>&quot;the 3 pigs&quot;</code> را از موقعیت 4 تطبیق دهیم، پیشروی ما در نمودار چیزی شبیه به زیر می‌شود:</p>
 
 <ul>
 
@@ -303,7 +303,7 @@
 
 <li>
 
-<p>هنوز در موقعیت 4 هستیم، یک عدد می بینیم، پس می توان از مستطیل بعدی نیز عبور کرد.</p></li>
+<p>هنوز در موقعیت 4 هستیم، یک عدد می بینیم، پس می‌توان از مستطیل بعدی نیز عبور کرد.</p></li>
 
 <li>
 
@@ -311,7 +311,7 @@
 
 <li>
 
-<p><a class="p_ident" id="p_C2QVX7oEpp" href="#p_C2QVX7oEpp" tabindex="-1" role="presentation"></a>اکنون در موقعیت 6 (شروع رشته‌ی pigs) قرار داریم و در شاخه‌ی سه‌راهی نمودار.  <em>cow</em> و <em>chiken</em> را اینجا نمی بینیم اما <em>pig</em> را می بینیم پس به سراغ آن شاخه می رویم.</p></li>
+<p><a class="p_ident" id="p_C2QVX7oEpp" href="#p_C2QVX7oEpp" tabindex="-1" role="presentation"></a>اکنون در موقعیت 6 (شروع رشته‌ی pigs) قرار داریم و در شاخه‌ی سه‌راهی نمودار. <em>cow</em> و <em>chiken</em> را اینجا نمی بینیم اما <em>pig</em> را می بینیم پس به سراغ آن شاخه می رویم.</p></li>
 
 <li>
 
@@ -319,41 +319,41 @@
 
 <li>
 
-<p><a class="p_ident" id="p_sdV4ERHYT3" href="#p_sdV4ERHYT3" tabindex="-1" role="presentation"></a>در موقعیت 10 (پایان رشته) قرار گرفته ایم و تنها می توانیم یک مرز کلمه را تطبیق دهیم. پایان رشته به معنای یک مرز کلمه است؛ پس به سراغ آخرین مستطیل می رویم و با موفقیت این رشته را تطبیق می دهیم.</p></li></ul>
+<p><a class="p_ident" id="p_sdV4ERHYT3" href="#p_sdV4ERHYT3" tabindex="-1" role="presentation"></a>در موقعیت 10 (پایان رشته) قرار گرفته ایم و تنها می‌توانیم یک مرز کلمه را تطبیق دهیم. پایان رشته به معنای یک مرز کلمه است؛ پس به سراغ آخرین مستطیل می رویم و با موفقیت این رشته را تطبیق می دهیم.</p></li></ul>
 
 <h2 id="backtracking"><a class="h_ident" id="h_QAgvSTG0xW" href="#h_QAgvSTG0xW" tabindex="-1" role="presentation"></a>عقب‌گرد</h2>
 
-<p><a class="p_ident" id="p_ac6u+t1n2x" href="#p_ac6u+t1n2x" tabindex="-1" role="presentation"></a>عبارت باقاعده‌ی <bdo><code>/<wbr>\b([01]+b|[\da-f]+h|\d+)\b/<wbr></code></bdo> یکی از اعداد زیر را تطبیق می دهد: یک عدد دودویی که بعد از آن یک <em>b</em> آمده باشد، یک عدد هگزادسیمال ( عددی در مبنای 16 که دارای حروف <em>a</em> تا <em>f</em> است که برای اعداد 10 تا 15 استفاده می شوند) که بعد از آن یک <em>h</em> قرار گرفته، یا یک عدد ده‌دهی معمولی که هیچ پسوندی ندارد. نمودار زیر مربوط به این عبارت است:</p><figure><img src="img/re_number.svg" alt="Visualization of /\b([01]+b|\d+|[\da-f]+h)\b/"></figure>
+<p><a class="p_ident" id="p_ac6u+t1n2x" href="#p_ac6u+t1n2x" tabindex="-1" role="presentation"></a>عبارت باقاعده‌ی <bdo><code>/<wbr>\b([01]+b|[\da-f]+h|\d+)\b/<wbr></code></bdo> یکی از اعداد زیر را تطبیق می دهد: یک عدد دودویی که بعد از آن یک <em>b</em> آمده باشد، یک عدد هگزادسیمال ( عددی در مبنای 16 که دارای حروف <em>a</em> تا <em>f</em> است که برای اعداد 10 تا 15 استفاده می‌شوند) که بعد از آن یک <em>h</em> قرار گرفته، یا یک عدد ده‌دهی معمولی که هیچ پسوندی ندارد. نمودار زیر مربوط به این عبارت است:</p><figure><img src="img/re_number.svg" alt="Visualization of /\b([01]+b|\d+|[\da-f]+h)\b/"></figure>
 
-<p><a class="p_ident" id="p_d95o2uzYI7" href="#p_d95o2uzYI7" tabindex="-1" role="presentation"></a>در زمان تطبیق این عبارت، اغلب اینگونه می شود که علی رغم اینکه ممکن است ورودی دارای عدد دودویی نباشد، اما شاخه‌ی بالایی (دودویی) انتخاب می شود. در زمان تطبیق رشته‌ی <code>&quot;103&quot;</code> به عنوان مثال، فقط زمانی متوجه می شویم که در شاخه‌ی اشتباهی قرار داریم که به کاراکتر 3 برسیم. رشته با عبارت تطبیق دارد اما نه لزوما با شاخه‌ای که در حال حاضر در آن قرار گرفته ایم.</p>
+<p><a class="p_ident" id="p_d95o2uzYI7" href="#p_d95o2uzYI7" tabindex="-1" role="presentation"></a>در زمان تطبیق این عبارت، اغلب اینگونه می‌شود که علی رغم اینکه ممکن است ورودی دارای عدد دودویی نباشد، اما شاخه‌ی بالایی (دودویی) انتخاب می‌شود. در زمان تطبیق رشته‌ی <code>&quot;103&quot;</code> به عنوان مثال، فقط زمانی متوجه می شویم که در شاخه‌ی اشتباهی قرار داریم که به کاراکتر 3 برسیم. رشته با عبارت تطبیق دارد اما نه لزوما با شاخه‌ای که در حال حاضر در آن قرار گرفته ایم.</p>
 
-<p><a class="p_ident" id="p_QTFUBgLx6+" href="#p_QTFUBgLx6+" tabindex="-1" role="presentation"></a>بنابراین تطبیق‌دهنده عقب‌گرد انجام می ‌دهد. هنگام ورود به یک شاخه، موقعیت کنونی خودش را به￼ خاطر می سپارد (در اینجا، در ابتدای رشته، درست قبل از اولین مستطیل مرز (محدوده) در نمودار) با این کار می تواند به عقب برگردد و اگر شاخه‌ی فعلی جواب نداد به سراغ شاخه‌ی دیگری برود. برای رشته‌ی <code>&quot;103&quot;</code> بعد از مواجه با کاراکتر 3، به سراغ شاخه‌ی اعداد هگزادسیمال می رود، که نتیجه‌‌ای نخواهد داشت به این دلیل که بعد از عدد، هیج کاراکتر <em>h</em> ای وجود ندارد. بنابراین به سراغ شاخه‌ی عدد ده‌دهی می رود. این شاخه انتخاب درستی است و یک تطبیق در پایان گزارش داده می شود.</p>
+<p><a class="p_ident" id="p_QTFUBgLx6+" href="#p_QTFUBgLx6+" tabindex="-1" role="presentation"></a>بنابراین تطبیق‌دهنده عقب‌گرد انجام می ‌دهد. هنگام ورود به یک شاخه، موقعیت کنونی خودش را به￼ خاطر می سپارد (در اینجا، در ابتدای رشته، درست قبل از اولین مستطیل مرز (محدوده) در نمودار) با این کار می‌تواند به عقب برگردد و اگر شاخه‌ی فعلی جواب نداد به سراغ شاخه‌ی دیگری برود. برای رشته‌ی <code>&quot;103&quot;</code> بعد از مواجه با کاراکتر 3، به سراغ شاخه‌ی اعداد هگزادسیمال می رود، که نتیجه‌‌ای نخواهد داشت به این دلیل که بعد از عدد، هیج کاراکتر <em>h</em> ای وجود ندارد. بنابراین به سراغ شاخه‌ی عدد ده‌دهی می رود. این شاخه انتخاب درستی است و یک تطبیق در پایان گزارش داده می‌شود.</p>
 
-<p>تطبیق‌گر به محض اینکه یک تطبیق کامل پیدا می‌کند متوقف می شود. معنای این کار این است که اگر چندین شاخه‌ی بالقوه برای تطبیق یک رشته موجود باشد، فقط اولین شاخه (به ترتیبی که شاخه در عبارت منظم قرار گرفته است) استفاده می شود.</p>
+<p>تطبیق‌گر به محض اینکه یک تطبیق کامل پیدا می‌کند متوقف می‌شود. معنای این کار این است که اگر چندین شاخه‌ی بالقوه برای تطبیق یک رشته موجود باشد، فقط اولین شاخه (به ترتیبی که شاخه در عبارت منظم قرار گرفته است) استفاده می‌شود.</p>
 
-<p><a class="p_ident" id="p_VuhgpgUJq6" href="#p_VuhgpgUJq6" tabindex="-1" role="presentation"></a>عقب‌گرد همچنین برای عملگرهای تکرار مثل <code>+</code> و <code>*</code> نیز اتفاق می افتد. اگر الگوی <bdo><code>/^.*x/</code></bdo> را روی رشته‌ی <code>&quot;abcxe&quot;</code> تطبیق دهید، قسمت <bdo><code>.*</code></bdo>، ابتدا سعی می کند که تمام رشته را مصرف کند. موتور سپس متوجه می شود که نیاز به یک <em>x</em> دارد تا بتواند الگو را تطبیق دهد. چون هیچ <em>x</em> ای قبل از پایان رشته وجود ندارد، عملگر <code>*</code> سعی می کند تا یک کاراکتر کمتر را تطبیق دهد. اما تطبیق‌گر، <em>x</em> را بعد از <code>abcx</code> نیز پیدا نمی کند بنابراین عقب‌گرد دوباره اتفاق می افتد که موجب می شود عملگر ستاره فقط <code>abc</code> را تطبیق دهد. <em>اکنون</em> یک <em>x</em> درست جایی که لازمش دارد پیدا می کند و آن را به عنوان یک تطبیق موفق از موقعیت 0 تا 4 گزارش می دهد.</p>
+<p><a class="p_ident" id="p_VuhgpgUJq6" href="#p_VuhgpgUJq6" tabindex="-1" role="presentation"></a>عقب‌گرد همچنین برای عملگرهای تکرار مثل <code>+</code> و <code>*</code> نیز اتفاق می افتد. اگر الگوی <bdo><code>/^.*x/</code></bdo> را روی رشته‌ی <code>&quot;abcxe&quot;</code> تطبیق دهید، قسمت <bdo><code>.*</code></bdo>، ابتدا سعی می‌کند که تمام رشته را مصرف کند. موتور سپس متوجه می‌شود که نیاز به یک <em>x</em> دارد تا بتواند الگو را تطبیق دهد. چون هیچ <em>x</em> ای قبل از پایان رشته وجود ندارد، عملگر <code>*</code> سعی می‌کند تا یک کاراکتر کمتر را تطبیق دهد. اما تطبیق‌گر، <em>x</em> را بعد از <code>abcx</code> نیز پیدا نمی‌کند بنابراین عقب‌گرد دوباره اتفاق می افتد که موجب می‌شود عملگر ستاره فقط <code>abc</code> را تطبیق دهد. <em>اکنون</em> یک <em>x</em> درست جایی که لازمش دارد پیدا می‌کند و آن را به عنوان یک تطبیق موفق از موقعیت 0 تا 4 گزارش می دهد.</p>
 
-<p>می توان عبارات باقاعده‌ای نوشت که در آن‌ها تعداد <em>زیادی</em> عقب‌گرد انجام شود. این مشکل زمانی رخ می دهد که یک الگو می تواند یک ورودی را به شیوه‌های زیاد و متفاوتی تطبیق دهد. به عنوان مثال، اگر هنگام نوشتن یک عبارت باقاعده برای یک عدد دودویی حواسمان نباشد، ممکن است تصادفا چیزی شبیه <bdo><code>/([01]+)+b/</code></bdo> بنویسیم.</p><figure><img src="img/re_slow.svg" alt="Visualization of /([01]+)+b/"></figure>
+<p>می‌توان عبارات باقاعده‌ای نوشت که در آن‌ها تعداد <em>زیادی</em> عقب‌گرد انجام شود. این مشکل زمانی رخ می دهد که یک الگو می‌تواند یک ورودی را به شیوه‌های زیاد و متفاوتی تطبیق دهد. به عنوان مثال، اگر هنگام نوشتن یک عبارت باقاعده برای یک عدد دودویی حواسمان نباشد، ممکن است تصادفا چیزی شبیه <bdo><code>/([01]+)+b/</code></bdo> بنویسیم.</p><figure><img src="img/re_slow.svg" alt="Visualization of /([01]+)+b/"></figure>
 
-<p><a class="p_ident" id="p_dCURq8BxyO" href="#p_dCURq8BxyO" tabindex="-1" role="presentation"></a>اگر این الگو سعی کند که سری‌های بلندی از صفر و یک‌ها را بدون کاراکتر پایانی <em>b</em> تطبیق دهد، تطبیق‌گر ابتدا سراغ حلقه‌ی درونی می رود تا اینکه تمامی اعداد تمام شوند. سپس متوجه می شود که کاراکتر <em>b</em> وجود ندارد، بنابراین یک مکان (موقعیت) عقب‌گردد می کند، یک بار به سراغ حلقه‌ی بیرونی می رود و نتیجه‌ای نمی گیرد، دوباره برای خروج از حلقه‌ی درونی عقب‌گرد انجام می دهد. یعنی مقدار کار انجام شده به ازای هر کاراکتر دو برابر می شود. حتی برای چند دوجین کاراکتر، عمل تطبیق در واقع برای همیشه طول خواهد کشید.</p>
+<p><a class="p_ident" id="p_dCURq8BxyO" href="#p_dCURq8BxyO" tabindex="-1" role="presentation"></a>اگر این الگو سعی کند که سری‌های بلندی از صفر و یک‌ها را بدون کاراکتر پایانی <em>b</em> تطبیق دهد، تطبیق‌گر ابتدا سراغ حلقه‌ی درونی می رود تا اینکه تمامی اعداد تمام شوند. سپس متوجه می‌شود که کاراکتر <em>b</em> وجود ندارد، بنابراین یک مکان (موقعیت) عقب‌گرد می‌کند، یک بار به سراغ حلقه‌ی بیرونی می رود و نتیجه‌ای نمی‌گیرد، دوباره برای خروج از حلقه‌ی درونی عقب‌گرد انجام می دهد. یعنی مقدار کار انجام شده به ازای هر کاراکتر دو برابر می‌شود. حتی برای چند دوجین کاراکتر، عمل تطبیق در واقع برای همیشه طول خواهد کشید.</p>
 
 <h2><a class="h_ident" id="h_ZLM3tPslu1" href="#h_ZLM3tPslu1" tabindex="-1" role="presentation"></a>متد replace</h2>
 
-<p>مقادیر رشته‌ای دارای متدی به نام <code>replace</code> هستند که می توان از آن برای جایگزینی بخشی از رشته با رشته‌ای دیگر استفاده کرد.</p>
+<p>مقادیر رشته‌ای دارای متدی به نام <code>replace</code> هستند که می‌توان از آن برای جایگزینی بخشی از رشته با رشته‌ای دیگر استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dPdIdK/Wyi" href="#c_dPdIdK/Wyi" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;papa&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string">&quot;p&quot;</span>, <span class="cm-string">&quot;m&quot;</span>));
 <span class="cm-comment">// → mapa</span></pre>
 
-<p>آرگومان اول این متد همچنین می تواند یک عبارت باقاعده باشد، که در این صورت، اولین تطبیق پیدا شده توسط عبارت باقاعده، با رشته‌ی مورد نظر جایگزین می شود. زمانی که گزینه‌ی <code>g</code> (سراسری)  به عبارت باقاعده اضافه شود، به جای جایگزینی اولین مورد، تمامی تطبیق‌های پیداشده در رشته، جایگزین خواهند شد.</p>
+<p>آرگومان اول این متد همچنین می‌تواند یک عبارت باقاعده باشد، که در این صورت، اولین تطبیق پیدا شده توسط عبارت باقاعده، با رشته‌ی مورد نظر جایگزین می‌شود. زمانی که گزینه‌ی <code>g</code> (سراسری) به عبارت باقاعده اضافه شود، به جای جایگزینی اولین مورد، تمامی تطبیق‌های پیداشده در رشته، جایگزین خواهند شد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_ztGnSKyKy1" href="#c_ztGnSKyKy1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Borobudur&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/[ou]/</span>, <span class="cm-string">&quot;a&quot;</span>));
 <span class="cm-comment">// → Barobudur</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Borobudur&quot;</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/[ou]/g</span>, <span class="cm-string">&quot;a&quot;</span>));
 <span class="cm-comment">// → Barabadar</span></pre>
 
-<p>بهتر به نظر می رسید اگر گزینه‌ی  انتخاب بین جایگزینی همه‌ی تطبیق‌ها یا یک تطبیق، به شکل یک آرگومان مجزا برای متد <code>replace</code> تعریف می شد یا اینکه متدی متفاوت برای آن در نظر گرفته می شد؛ مانند <code>replaceAll</code>. اما از بد روزگار، این گزینه وابسته به خاصیتی در عبارت باقاعده می باشد.</p>
+<p>بهتر به نظر می رسید اگر گزینه‌ی انتخاب بین جایگزینی همه‌ی تطبیق‌ها یا یک تطبیق، به شکل یک آرگومان مجزا برای متد <code>replace</code> تعریف می شد یا اینکه متدی متفاوت برای آن در نظر گرفته می شد؛ مانند <code>replaceAll</code>. اما از بد روزگار، این گزینه وابسته به خاصیتی در عبارت باقاعده می‌باشد.</p>
 
-<p>قدرت اصلی استفاده از عبارات باقاعده به وسیله‌ی متد <code>replace</code> اینجا است که می‌توانیم به گروه‌های تطبیق خورده در رشته‌ی جایگزین رجوع کنیم. به عنوان مثال، فرض کنید که یک رشته‌ی بزرگ که حاوی نام افراد است در اختیار داریم، در هر خط یک نام وجود دارد و فرمت آن به شکل <bdo><code>Lastname, Firstname</code></bdo> می‌باشد. اگر بخواهیم ترتیب قرار گیری نام‌ها را عوض کرده و ویرگول بین آن را حذف کنیم، می توانیم از کد زیر استفاده کنیم:</p>
+<p>قدرت اصلی استفاده از عبارات باقاعده به وسیله‌ی متد <code>replace</code> اینجا است که می‌توانیم به گروه‌های تطبیق خورده در رشته‌ی جایگزین رجوع کنیم. به عنوان مثال، فرض کنید که یک رشته‌ی بزرگ که حاوی نام افراد است در اختیار داریم، در هر خط یک نام وجود دارد و فرمت آن به شکل <bdo><code>Lastname, Firstname</code></bdo> می‌باشد. اگر بخواهیم ترتیب قرار گیری نام‌ها را عوض کرده و ویرگول بین آن را حذف کنیم، می‌توانیم از کد زیر استفاده کنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_5P5aZAbVLL" href="#c_5P5aZAbVLL" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(
   <span class="cm-string">&quot;Liskov, Barbara\nMcCarthy, John\nWadler, Philip&quot;</span>
@@ -362,9 +362,9 @@
 <span class="cm-comment">//   John McCarthy</span>
 <span class="cm-comment">//   Philip Wadler</span></pre>
 
-<p><bdo><code>$1</code></bdo> و <bdo><code>$2</code></bdo> در رشته‌ی جایگزین به گروه‌هایی که با پرانتز در الگو مشخص شده اند اشاره می‌کنند. <bdo><code>$1</code></bdo> توسط متنی که با اولین گروه تطبیق یافته جایگزین می شود، <bdo><code>$2</code></bdo> نیز با دومین گروه و الی آخر تا <bdo><code>$9</code></bdo>. تطبیق کلی را می توان با <bdo><code>$&amp;</code></bdo> مورد ارجاع قرار داد.</p>
+<p><bdo><code>$1</code></bdo> و <bdo><code>$2</code></bdo> در رشته‌ی جایگزین به گروه‌هایی که با پرانتز در الگو مشخص شده اند اشاره می‌کنند. <bdo><code>$1</code></bdo> توسط متنی که با اولین گروه تطبیق یافته جایگزین می‌شود، <bdo><code>$2</code></bdo> نیز با دومین گروه و الی آخر تا <bdo><code>$9</code></bdo>. تطبیق کلی را می‌توان با <bdo><code>$&amp;</code></bdo> مورد ارجاع قرار داد.</p>
 
-<p>می توان یک تابع را به جای رشته به عنوان آرگومان دوم متد <code>replace</code> ارسال کرد. برای هر جایگزینی، این تابع فراخوانی می شود درحالیکه دسته‌ی تطبیق خورده (همچنین تطبیق کامل) به عنوان آرگومان به آن ارسال می شود و مقداری که برمی گرداند در رشته‌ی جدید قرار می گیرد.</p>
+<p>می‌توان یک تابع را به جای رشته به عنوان آرگومان دوم متد <code>replace</code> ارسال کرد. برای هر جایگزینی، این تابع فراخوانی می‌شود درحالیکه دسته‌ی تطبیق خورده (همچنین تطبیق کامل) به عنوان آرگومان به آن ارسال می‌شود و مقداری که برمی گرداند در رشته‌ی جدید قرار می‌گیرد.</p>
 
 <p>به مثال کوچک زیر توجه نمایید:</p>
 
@@ -388,13 +388,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stock</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/(\d+) (\w+)/g</span>, <span class="cm-variable">minusOne</span>));
 <span class="cm-comment">// → no lemon, 1 cabbage, and 100 eggs</span></pre>
 
-<p>این مثال رشته‌ای را می گیرد، تمامی دفعات تکرار یک عدد که بعد از آن یک کاراکتر کلمه (منظور کاراکتری از جنس حرف و عدد است) آمده باشد را پیدا می کند و رشته‌ای برمی گرداند که در آن هر تطبیق پیدا شده یک واحد کاهش یافته است.</p>
+<p>این مثال رشته‌ای را می‌گیرد، تمامی دفعات تکرار یک عدد که بعد از آن یک کاراکتر کلمه (منظور کاراکتری از جنس حرف و عدد است) آمده باشد را پیدا می‌کند و رشته‌ای برمی گرداند که در آن هر تطبیق پیدا شده یک واحد کاهش یافته است.</p>
 
-<p>گروه <bdo><code>(\d+)</code></bdo> به عنوان آرگومان <code>amount</code> در تابع استفاده شده است، و گروه <bdo><code>(\w+)</code></bdo> به <code>unit</code> اختصاص یافته است. این تابع <code>amount</code> را به یک عدد تبدیل می کند – این عمل همیشه درست کار خواهد کرد چرا که توسط <bdo><code>\d+</code></bdo> تطبیق خورده است – و آن را در صورتی که فقط یک و صفر باقی مانده باشد، تغییراتی می دهد.</p>
+<p>گروه <bdo><code>(\d+)</code></bdo> به عنوان آرگومان <code>amount</code> در تابع استفاده شده است، و گروه <bdo><code>(\w+)</code></bdo> به <code>unit</code> اختصاص یافته است. این تابع <code>amount</code> را به یک عدد تبدیل می‌کند – این عمل همیشه درست کار خواهد کرد چرا که توسط <bdo><code>\d+</code></bdo> تطبیق خورده است – و آن را در صورتی که فقط یک و صفر باقی مانده باشد، تغییراتی می دهد.</p>
 
 <h2><a class="h_ident" id="h_BWZtpPcYWn" href="#h_BWZtpPcYWn" tabindex="-1" role="presentation"></a>عملگر‌های حریصانه</h2>
 
-<p>می توان از متد <code>replace</code> برای نوشتن تابعی که همه‌ی توضیحات را از قطعه کدی جاوااسکریپت حذف کند استفاده نمود. اولین تلاش ما برای این کار به شکل زیر است:</p>
+<p>می‌توان از متد <code>replace</code> برای نوشتن تابعی که همه‌ی توضیحات را از یک قطعه کد جاوااسکریپت حذف کند استفاده نمود. اولین تلاش ما برای این کار به شکل زیر است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_u0oKSJTOA2" href="#c_u0oKSJTOA2" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">stripComments</span>(<span class="cm-def">code</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">code</span>.<span class="cm-property">replace</span>(<span class="cm-string-2">/\/\/.*|\/\*[^]*\*\//g</span>, <span class="cm-string">&quot;&quot;</span>);
@@ -406,13 +406,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">stripComments</span>(<span class="cm-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
 <span class="cm-comment">// → 1  1</span></pre>
 
-<p><a class="p_ident" id="p_F1g1bbIXWf" href="#p_F1g1bbIXWf" tabindex="-1" role="presentation"></a>قسمتی که قبل از عملگر &quot;یا&quot; (or) آمده است مطابق با دو کاراکتر <em>اسلشی</em> خواهد بود که می تواند بعد از آن ها هر کاراکتری غیر از کاراکترهای خط جدید بیاید. بخشی که مربوط به توضیحات چندخطه می باشد کمی پیچیده تر است. ما از <bdo><code>[^]</code></bdo> (به معنای هر کاراکتر که در یک مجموعه‌ی تهی از کاراکترها جا نمی گیرد) به عنوان روشی برای تطبیق همه‌ی کاراکترها استفاده کرده ایم. نمی توانیم فقط از یک نقطه (.) برای این منظور در اینجا استفاده کنیم چراکه بلاکهای کامنت را می توان در چند خط نوشت و کاراکتر نقطه کاراکترهای خطوط جدید را تطبیق نمی دهد.</p>
+<p><a class="p_ident" id="p_F1g1bbIXWf" href="#p_F1g1bbIXWf" tabindex="-1" role="presentation"></a>قسمتی که قبل از عملگر &quot;یا&quot; (or) آمده است مطابق با دو کاراکتر <em>اسلشی</em> خواهد بود که می‌تواند بعد از آن ها هر کاراکتری غیر از کاراکترهای خط جدید بیاید. بخشی که مربوط به توضیحات چندخطه می‌باشد کمی پیچیده تر است. ما از <bdo><code>[^]</code></bdo> (به معنای هر کاراکتر که در یک مجموعه‌ی تهی از کاراکترها جا نمی‌گیرد) به عنوان روشی برای تطبیق همه‌ی کاراکترها استفاده کرده ایم. نمی‌توانیم فقط از یک نقطه (.) برای این منظور در اینجا استفاده کنیم چراکه بلاکهای کامنت را می‌توان در چند خط نوشت و کاراکتر نقطه کاراکترهای خطوط جدید را تطبیق نمی دهد.</p>
 
-<p>اما خروجی خط آخر به نظر می رسد که دارای اشتباه باشد. چرا؟</p>
+<p>اما خروجی خط آخر به نظر می‌رسد که دارای اشتباه باشد. چرا؟</p>
 
-<p>قسمت <bdo><code>[^]*</code></bdo> عبارت، همانطور که در قسمت عقب‌گرد توضیح دادم، در ابتدا تا آنجایی که می تواند تطبیق می‌دهد. اگر این کار منجر به این شود که بخش بعدی الگو شکست بخورد، تطبیق‌گر یک کاراکتر به عقب برگشته و از آن نقطه دوباره تلاش می کند. در مثال بالا، تطبیق‌گر ابتدا تلاش می کند تا کل رشته‌ی باقیمانده را تطبیق دهد سپس از آنجا به عقب برگردد. این موجب خواهد شد که یک نمونه از <bdo><code>*/</code></bdo> را بعد از اینکه چهار کاراکتر به عقب برمی گردد تطبیق دهد. این چیزی نیست که به دنبال آن بودیم- قصد ما این بود که یک توضیح را تطبیق دهیم، نه اینکه تا انتهای کدهای برنامه را برای پیدا کردن پایان￼ آخرین بلاک توضیحات پیمایش کنیم.</p>
+<p>قسمت <bdo><code>[^]*</code></bdo> عبارت، همانطور که در قسمت عقب‌گرد توضیح دادم، در ابتدا تا آنجایی که می‌تواند تطبیق می‌دهد. اگر این کار منجر به این شود که بخش بعدی الگو شکست بخورد، تطبیق‌گر یک کاراکتر به عقب برگشته و از آن نقطه دوباره تلاش می‌کند. در مثال بالا، تطبیق‌گر ابتدا تلاش می‌کند تا کل رشته‌ی باقیمانده را تطبیق دهد سپس از آنجا به عقب برگردد. این موجب خواهد شد که یک نمونه از <bdo><code>*/</code></bdo> را بعد از اینکه چهار کاراکتر به عقب برمی گردد تطبیق دهد. این چیزی نیست که به دنبال آن بودیم- قصد ما این بود که یک توضیح را تطبیق دهیم، نه اینکه تا انتهای کدهای برنامه را برای پیدا کردن پایان￼ آخرین بلاک توضیحات پیمایش کنیم.</p>
 
-<p>به خاطر این عملکرد، به عملگرهای تکرار <bdo>(<code>+</code>, <code>*</code>, <code>?</code>, و <code>{}</code>)</bdo> عملگرهای <em>حریصانه</em> می گوییم، به این معنا که تا جای که می توانند تطبیق می دهند بعد به عقب برمی گردنند. اگر بعد از آن ها یک علامت سوال قرار دهید <bdo> (<code>+?</code>, <code>*?</code>, <code>??</code>, <code>{}?</code>)</bdo>، دیگر حریص نخواهند بود و با حداقل تطبیق شروع می کنند ، زمانی به تطبیق بیشتر می پردازند که الگوی باقیمانده با تطبیقی کوچکتر مطابقت نداشته باشد.</p>
+<p>به خاطر این عملکرد، به عملگرهای تکرار <bdo>(<code>+</code>, <code>*</code>, <code>?</code>, و <code>{}</code>)</bdo> عملگرهای <em>حریصانه</em> می گوییم، به این معنا که تا جای که می‌توانند تطبیق می‌دهند بعد به عقب برمی گردنند. اگر بعد از آن ها یک علامت سوال قرار دهید <bdo> (<code>+?</code>, <code>*?</code>, <code>??</code>, <code>{}?</code>)</bdo>، دیگر حریص نخواهند بود و با حداقل تطبیق شروع می‌کنند ، زمانی به تطبیق بیشتر می پردازند که الگوی باقیمانده با تطبیقی کوچکتر مطابقت نداشته باشد.</p>
 
 <p>و این دقیقا آن چیزی است که در این مورد آن را می خواهیم. با تطبیق کوچکترین بازه‌هایی از کاراکترها به وسیله‌ی ستاره که مارا به یک <bdo><code>*/</code></bdo> برساند، ما فقط یک بلاک توضیحات را انتخاب کردیم و نه چیز بیشتری را.</p>
 
@@ -426,9 +426,9 @@
 
 <h2><a class="h_ident" id="h_8lIV0MSfPq" href="#h_8lIV0MSfPq" tabindex="-1" role="presentation"></a>ساخت اشیاء RegExp به صورت پویا</h2>
 
-<p>در بعضی مواقع، ممکن است هنگام کدنویسی، الگوی مورد نیاز جهت تطبیق مشخص نباشد. فرض کنید که می‌خواهید به دنبال نام کاربر در یک متن بگردید و آن را توسط یک جفت کاراکتر خط زیرین محصور کنید تا بتوان آن‌را شناسایی کرد. به دلیل اینکه فقط در هنگام اجرای برنامه نام مورد نظر مشخص می شود، نمی توان از روش استفاده از اسلش بهره برد.</p>
+<p>در بعضی مواقع، ممکن است هنگام کدنویسی، الگوی مورد نیاز جهت تطبیق مشخص نباشد. فرض کنید که می‌خواهید به دنبال نام کاربر در یک متن بگردید و آن را توسط یک جفت کاراکتر خط زیرین محصور کنید تا بتوان آن‌را شناسایی کرد. به دلیل اینکه فقط در هنگام اجرای برنامه نام مورد نظر مشخص می‌شود، نمی‌توان از روش استفاده از اسلش بهره برد.</p>
 
-<p>اما می توانید یک رشته تولید کنید و از سازنده‌ی <code>RegExp</code> روی آن استفاده کنید. به مثال توجه کنید:</p>
+<p>اما می‌توانید یک رشته تولید کنید و از سازنده‌ی <code>RegExp</code> روی آن استفاده کنید. به مثال توجه کنید:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_3yQimfD35d" href="#c_3yQimfD35d" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">name</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;harry&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">text</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;Harry is a suspicious character.&quot;</span>;
@@ -438,7 +438,7 @@
 
 <p>هنگام نوشتن نشان‌گرهای محدوده‌ی (مرز) <bdo><code>\b</code></bdo> ، باید از دو بک‌اسلش استفاده کنیم به این علت که آن ها را در یک رشته‌ی نرمال می نویسیم نه یک عبارت باقاعده که توسط اسلش محصور شده است. آرگومان دوم سازنده‌ی <code>RegExp</code> مربوط به گزینه‌های مربوط به عبارت باقاعده است – در این مثال، <code>&quot;gi&quot;</code> برای مشخص کردن سراسری بودن و غیرحساس بودن به حروف بزرگ و کوچک است.</p>
 
-<p>اما چه می شود اگر نام کاربر مورد نظر  <bdo><code>&quot;dea+hl[]rd&quot;</code></bdo> باشد که متعلق یک نوجوان خوره‌ی کامپیوتر است؟ این نام باعث می شود که یک عبارت باقاعده‌ی بی معنا تولید شود که منجر به تطبیق نام کاربر نمی شود.</p>
+<p>اما چه می‌شود اگر نام کاربر مورد نظر <bdo><code>&quot;dea+hl[]rd&quot;</code></bdo> باشد که متعلق یک نوجوان خوره‌ی کامپیوتر است؟ این نام باعث می‌شود که یک عبارت باقاعده‌ی بی معنا تولید شود که منجر به تطبیق نام کاربر نمی‌شود.</p>
 
 <p>راه حل این مشکل، اضافه کردن بک‌اسلش قبل از هر کاراکتری که معنای خاصی دارد است.</p>
 
@@ -451,22 +451,22 @@
 
 <h2><a class="h_ident" id="h_6SlL1IdtMU" href="#h_6SlL1IdtMU" tabindex="-1" role="presentation"></a>متد search</h2>
 
-<p><a class="p_ident" id="p_NWoZK3kTsE" href="#p_NWoZK3kTsE" tabindex="-1" role="presentation"></a>متد <code>indexOf</code> که روی رشته ها کار می کرد را نمی توان با یک عبارت باقاعده فراخواند. اما متد دیگری به نام <code>search</code> وجود دارد که یک عبارت باقاعده را دریافت می کند. درست مانند <code>indexOf</code>، این متد نیز اولین خانه‌ی خروجی را به عبارتی که پیدا شد اختصاص می دهد و یا در صورت پیدا نکردن نتیجه،  <bdo>-1</bdo> را بر می گرداند.</p>
+<p><a class="p_ident" id="p_NWoZK3kTsE" href="#p_NWoZK3kTsE" tabindex="-1" role="presentation"></a>متد <code>indexOf</code> که روی رشته ها کار می کرد را نمی‌توان با یک عبارت باقاعده فراخواند. اما متد دیگری به نام <code>search</code> وجود دارد که یک عبارت باقاعده را دریافت می‌کند. درست مانند <code>indexOf</code>، این متد نیز اولین خانه‌ی خروجی را به عبارتی که پیدا شد اختصاص می دهد و یا در صورت پیدا نکردن نتیجه، <bdo>-1</bdo> را بر می گرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_diUfxE6ifs" href="#c_diUfxE6ifs" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;  word&quot;</span>.<span class="cm-property">search</span>(<span class="cm-string-2">/\S/</span>));
 <span class="cm-comment">// → 2</span>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;    &quot;</span>.<span class="cm-property">search</span>(<span class="cm-string-2">/\S/</span>));
 <span class="cm-comment">// → -1</span></pre>
 
-<p>متاسفانه، راهی برای مشخص کردن نقطه‌ی شروع برای تطبیق وجود ندارد (شبیه کاری که می توانیم با آرگومان دوم <code>indexOf</code> انجام دهیم) که در صورت وجود کاربرد داشت.</p>
+<p>متاسفانه، راهی برای مشخص کردن نقطه‌ی شروع برای تطبیق وجود ندارد (شبیه کاری که می‌توانیم با آرگومان دوم <code>indexOf</code> انجام دهیم) که در صورت وجود کاربرد داشت.</p>
 
 <h2><a class="h_ident" id="h_EzWBx9Vn7i" href="#h_EzWBx9Vn7i" tabindex="-1" role="presentation"></a>خاصیت lastIndex</h2>
 
-<p>متد <code>exec</code> نیز راهی مناسب برای شروع جستجو از یک موقعیت داده شده در یک رشته را پشتیبانی نمی کند. اما یک راه غیر سرراست برای این کار وجود دارد.</p>
+<p>متد <code>exec</code> نیز راهی مناسب برای شروع جستجو از یک موقعیت داده شده در یک رشته را پشتیبانی نمی‌کند. اما یک راه غیر سرراست برای این کار وجود دارد.</p>
 
-<p>اشیائی که از نوع عبارت باقاعده هستند دارای خاصیت‌هایی هستند. یکی از این خاصیت‌ها <code>source</code> است، که رشته‌ای که عبارت از آن تولید شده است را نگهداری می کند. یک خاصیت دیگر ، <code>lastIndex</code> است که در شرایط محدودی کنترل می کند که تطبیق بعدی از کجا شروع خواهد شد.</p>
+<p>اشیائی که از نوع عبارت باقاعده هستند دارای یک سری خاصیت می‌باشند. یکی از این خاصیت‌ها <code>source</code> است، که رشته‌ای که عبارت از آن تولید شده است را نگهداری می‌کند. یک خاصیت دیگر ، <code>lastIndex</code> است که در شرایط محدودی کنترل می‌کند که تطبیق بعدی از کجا شروع خواهد شد.</p>
 
-<p>این شرایط این است که عبارت باقاعده باید گزینه‌های سراسری (<code>g</code>) یا چسبنده (<code>y</code>) را فعال داشته باشد و تطبیق باید با متد <code>‌exec</code> صورت پذیرد. دوباره، یک راه حل کمتر گیج کننده می توانست این باشد که اجازه داده شود که یک آرگومان اضافی برای این کار به متد <code>exec</code> فرستاده می شود، اما گیج کنندگی یکی از ویژگی‌های اساسی رابط عبارت باقاعده در جاوااسکریپت است.</p>
+<p>آن شرایط این است که عبارت باقاعده باید گزینه‌های سراسری (<code>g</code>) یا چسبنده (<code>y</code>) را فعال داشته باشد و تطبیق باید با متد <code>‌exec</code> صورت پذیرد. دوباره، یک راه حل کمتر گیج کننده می‌توانست این باشد که اجازه داده شود که یک آرگومان اضافی برای این کار به متد <code>exec</code> فرستاده می‌شود، اما گیج کنندگی، یکی از ویژگی‌های اساسی رابط عبارات باقاعده در جاوااسکریپت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_nXsHtqIJdF" href="#c_nXsHtqIJdF" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">pattern</span> <span class="cm-operator">=</span> <span class="cm-string-2">/y/g</span>;
 <span class="cm-variable">pattern</span>.<span class="cm-property">lastIndex</span> <span class="cm-operator">=</span> <span class="cm-number">3</span>;
@@ -476,7 +476,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">pattern</span>.<span class="cm-property">lastIndex</span>);
 <span class="cm-comment">// → 5</span></pre>
 
-<p>اگر تطبیق با موفقیت انجام شد،فراخوانی <code>exec</code> به طور خودکار خاصیت <code>lastIndex</code> را به روز رسانی کرده تا به نقطه‌ی بعد از تطبیق اشاره کند. اگر تطبیقی پیدا نشود، <code>lastIndex</code> مقدار صفر را خواهد گرفت، که مقداری است که شیء در هنگام ایجاد یک عبارات باقاعده جدید نگه‌داری می کند.</p>
+<p>اگر تطبیق با موفقیت انجام شد،فراخوانی <code>exec</code> به طور خودکار خاصیت <code>lastIndex</code> را به روز رسانی کرده تا به نقطه‌ی بعد از تطبیق اشاره کند. اگر تطبیقی پیدا نشود، <code>lastIndex</code> مقدار صفر را خواهد گرفت، که مقداری است که شیء در هنگام ایجاد یک عبارات باقاعده جدید نگه‌داری می‌کند.</p>
 
 <p>تفاوت بین گزینه‌ی سراسری و چسبنده این است که در حالت فعال بودن گزینه‌ی چسبنده، زمانی تطبیق موفق خواهد بود که مستقیما از نقطه‌ی <code>lastIndex</code> شروع شود درحالیکه در حالت سراسری، جستجو رو به جلو انجام خواهد شد تا به موقعیتی برسد که یک تطبیق بتواند شروع شود.</p>
 
@@ -487,7 +487,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">sticky</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;xyz abc&quot;</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p>اگر از یک عبارت باقاعده‌ی مشترک برای چندین فراخوانی <code>exec</code> استفاده کنیم این به‌روز‌رسانی های خودکار خاصیت <code>lastIndex</code> می تواند مشکل‌ساز باشد. عبارت باقاعده‌ی شما ممکن است تصادفا از اندیسی شروع شود که از فراخوانی قبلی به جا مانده باشد.</p>
+<p>اگر از یک عبارت باقاعده‌ی مشترک برای چندین فراخوانی <code>exec</code> استفاده کنیم این به‌روز‌رسانی های خودکار خاصیت <code>lastIndex</code> می‌تواند مشکل‌ساز باشد. عبارت باقاعده‌ی شما ممکن است تصادفا از اندیسی شروع شود که از فراخوانی قبلی به جا مانده باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wrx2wO0P8M" href="#c_wrx2wO0P8M" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">digit</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\d/g</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">digit</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;here it is: 1&quot;</span>));
@@ -495,7 +495,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">digit</span>.<span class="cm-property">exec</span>(<span class="cm-string">&quot;and now: 1&quot;</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p>یک اثر جالب توجه دیگر در صورت استفاده از گزینه‌ی سراسری این است که باعث می شود کارکرد متد <code>match</code> روی رشته‌ها، متفاوت باشد. زمانی که این متد با عبارتی سراسری فراخوانی شود، به جای اینکه آرایه‌ای شبیه چیزی که از <code>exec</code> برگردانده می شد تولید کند، متد <code>match</code> تمامی تطبیق‌های الگوی درون رشته را پیدا می کند و آرایه‌ای حاوی تمام رشته‌های تطبیق خورده تولید می کند.</p>
+<p>یک اثر جالب توجه دیگر در صورت استفاده از گزینه‌ی سراسری این است که باعث می‌شود کارکرد متد <code>match</code> روی رشته‌ها، متفاوت باشد. زمانی که این متد با عبارتی سراسری فراخوانی شود، به جای اینکه آرایه‌ای شبیه چیزی که از <code>exec</code> برگردانده می شد تولید کند، متد <code>match</code> تمامی تطبیق‌های الگوی درون رشته را پیدا می‌کند و آرایه‌ای حاوی تمام رشته‌های تطبیق خورده تولید می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_weT/d5+8vE" href="#c_weT/d5+8vE" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Banana&quot;</span>.<span class="cm-property">match</span>(<span class="cm-string-2">/an/g</span>));
 <span class="cm-comment">// → [&quot;an&quot;, &quot;an&quot;]</span></pre>
@@ -504,7 +504,7 @@
 
 <h3><a class="i_ident" id="i_pR8PYScPxZ" href="#i_pR8PYScPxZ" tabindex="-1" role="presentation"></a>پیمایش تطبیق‌ها</h3>
 
-<p>یکی از کارهای رایج این است که تمامی موارد رخ‌داد یک الگو در رشته را در بدنه‌ی حلقه پیمایش کنیم به شکلی که شیء تطبیق شده در دسترس ما باشد. برای این‌کار می توانیم از متدهای <code>lastIndex</code> و <code>exec</code> استفاده کنیم.</p>
+<p>یکی از کارهای رایج این است که تمامی موارد رخ‌داد یک الگو در رشته را در بدنه‌ی حلقه پیمایش کنیم به شکلی که شیء تطبیق داده شده در دسترس ما باشد. برای این‌کار می توانیم از متدهای <code>lastIndex</code> و <code>exec</code> استفاده کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rSzEnbVHja" href="#c_rSzEnbVHja" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">input</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;A string with 3 numbers in it... 42 and 88.&quot;</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-string-2">/\b\d+\b/g</span>;
@@ -516,11 +516,11 @@
 <span class="cm-comment">//   Found 42 at 33</span>
 <span class="cm-comment">//   Found 88 at 40</span></pre>
 
-<p>این مثال از این واقعیت استفاده می کند که مقدار یک عبارت تخصیص (<code>=</code>)، مقدار انتساب داده شده است. بنابراین با استفاده از <bdo><code>match = number.<wbr>exec(input)</code></bdo> به عنوان قسمت شرط دستور <code>while،</code> تطبیق را در شروع هر تکرار￼ حلقه اجرا می کنیم و نتیجه‌ی آن را در یک متغیر ذخیره می کنیم، و هنگامی پیمایش حلقه را متوقف می کنیم که تطبیقی پیدا نشود.</p>
+<p>این مثال از این واقعیت استفاده می‌کند که مقدار یک عبارت تخصیص (<code>=</code>)، مقدار انتساب داده شده است. بنابراین با استفاده از <bdo><code>match = number.<wbr>exec(input)</code></bdo> به عنوان قسمت شرط دستور <code>while،</code> تطبیق را در شروع هر تکرار￼ حلقه اجرا می کنیم و نتیجه‌ی آن را در یک متغیر ذخیره می کنیم، و هنگامی پیمایش حلقه را متوقف می کنیم که تطبیقی پیدا نشود.</p>
 
 <h2 id="ini"><a class="h_ident" id="h_KEUpkgIz70" href="#h_KEUpkgIz70" tabindex="-1" role="presentation"></a>تجزیه‌ی یک فایل ini</h2>
 
-<p>برای به پایان رساندن این فصل، به سراغ مسئله‌ای می رویم که به دست عبارات باقاعده حل می شود. فرض کنید که در حال نوشتن برنامه‌ای هستیم که به طور خودکار اطلاعاتی درباره‌ی دشمنانمان از سطح اینترنت جمع آوری می کند. (واقعا قرار نیست این برنامه‌ را در اینجا بنویسیم، فقط بخشی را می نویسیم که فایل حاوی تنظیمات را می خواند. از این بابت متاسفم.) فایل تنظیمات به این شکل است:</p>
+<p>برای به پایان رساندن این فصل، به سراغ مسئله‌ای می رویم که به دست عبارات باقاعده حل می‌شود. فرض کنید که در حال نوشتن برنامه‌ای هستیم که به طور خودکار اطلاعاتی درباره‌ی دشمنانمان از سطح اینترنت جمع آوری می‌کند. (واقعا قرار نیست این برنامه‌ را در اینجا بنویسیم، فقط بخشی را می نویسیم که فایل حاوی تنظیمات را می خواند. از این بابت متاسفم.) فایل تنظیمات به این شکل است:</p>
 
 <pre class="snippet cm-s-default" data-language="text/plain" ><a class="c_ident" id="c_RV3f5fiptq" href="#c_RV3f5fiptq" tabindex="-1" role="presentation"></a>searchengine=https://duckduckgo.com/?q=$1
 spitefulness=9.7
@@ -543,23 +543,23 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <li>
 
-<p>خطوط خالی و خط‌هایی که با نقطه‌ویرگول شروع می شوند صرف نظر می شوند.</p></li>
+<p>خطوط خالی و خط‌هایی که با نقطه‌ویرگول شروع می‌شوند صرف نظر می‌شوند.</p></li>
 
 <li>
 
-<p>خطوطی که بین <bdo><code>[</code></bdo> و <bdo><code>]</code></bdo> محصور هستند یک بخش جدید را شروع می کنند.</p></li>
+<p>خطوطی که بین <bdo><code>[</code></bdo> و <bdo><code>]</code></bdo> محصور هستند یک بخش جدید را شروع می‌کنند.</p></li>
 
 <li>
 
-<p>خطوطی که حاوی یک شناسه‌ی عددی-حرفی هستند که بعد از آن کاراکتر <code>=</code> می آید، یک گزینه به تنظیمات بخش فعلی اضافه می کنند.</p></li>
+<p>خطوطی که حاوی یک شناسه‌ی عددی-حرفی هستند که بعد از آن کاراکتر <code>=</code> می آید، یک گزینه به تنظیمات بخش فعلی اضافه می‌کنند.</p></li>
 
 <li>
 
-<p>هر چیز دیگری غیر از موارد بالا نامعتبر شناخته می شود.</p></li></ul>
+<p>هر چیز دیگری غیر از موارد بالا نامعتبر شناخته می‌شود.</p></li></ul>
 
-<p>وظیفه‌ی ما این است که رشته‌ای شبیه این را به یک شیء تبدیل کنیم که خاصیت‌هایش رشته‌های تنظیمات نوشته شده قبل از اولین بخش را نگه‌داری می کنند و زیر‌شیءهایش به بخش‌ها تعلق دارند که هر زیر‌شیء تنظیمات یک بخش را در خود دارد.</p>
+<p>وظیفه‌ی ما این است که رشته‌ای شبیه این را به یک شیء تبدیل کنیم که خاصیت‌هایش رشته‌های تنظیمات نوشته شده قبل از اولین بخش را نگه‌داری می‌کنند و زیر‌شیءهایش به بخش‌هایی تعلق دارند که هر زیر‌شیء تنظیمات یک بخش را در خود دارد.</p>
 
-<p>به دلیل اینکه این فرمت باید خط به خط پردازش شود، تقسیم فایل به خطوط مجزا شروع خوبی به نظر می رسد. ما متد <code>split</code> را در <a href="04_data.html#split">فصل 4</a> دیدیم. بعضی سیستم عامل‌ها، به هر دلیلی، فقط از کاراکتر خط جدید برای جداسازی خطوط استفاده نمی کنند بلکه از یک کاراکتر بازگشت به ابتدای خط و بعد از آن کاراکتر خط جدید برای این کار استفاده می کنند <bdo>(<code>&quot;\r\n&quot;</code>)</bdo>. با درنظر گرفتن اینکه می دانیم می‌توان به متد <code>split</code>، یک عبارات باقاعده ارسال کرد می توانیم جداسازی خطوط را با عبارت باقاعده ای شبیه <bdo><code>/\r?\n/</code></bdo> انجام دهیم که باعث می شود هم <bdo><code>&quot;\n&quot;</code></bdo> و هم <bdo><code>&quot;\r\n&quot;</code></bdo> در نظر گرفته شود.</p>
+<p>به دلیل اینکه این فرمت باید خط به خط پردازش شود، تقسیم فایل به خطوط مجزا شروع خوبی به نظر می‌رسد. ما متد <code>split</code> را در <a href="04_data.html#split">فصل 4</a> دیدیم. بعضی سیستم عامل‌ها، به هر دلیلی، فقط از کاراکتر خط جدید برای جداسازی خطوط استفاده نمی‌کنند بلکه از یک کاراکتر بازگشت به ابتدای خط و بعد از آن کاراکتر خط جدید برای این کار استفاده می‌کنند <bdo>(<code>&quot;\r\n&quot;</code>)</bdo>. با درنظر گرفتن اینکه می دانیم می‌توان به متد <code>split</code>، یک عبارات باقاعده ارسال کرد می‌توانیم جداسازی خطوط را با عبارت باقاعده ای شبیه <bdo><code>/\r?\n/</code></bdo> انجام دهیم که باعث می‌شود هم <bdo><code>&quot;\n&quot;</code></bdo> و هم <bdo><code>&quot;\r\n&quot;</code></bdo> در نظر گرفته شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_neI86/XXg2" href="#c_neI86/XXg2" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">parseINI</span>(<span class="cm-def">string</span>) {
   <span class="cm-comment">// Start with an object to hold the top-level fields</span>
@@ -584,23 +584,23 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 <span class="cm-string-2">city=Tessaloniki`</span>));
 <span class="cm-comment">// → {name: &quot;Vasilis&quot;, address: {city: &quot;Tessaloniki&quot;}}</span></pre>
 
-<p>کد بالا به این صورت عمل می کند که خط به خط فایل را پردازش کرده و یک شیء می سازد. خاصیت‌های قسمت بالایی مستقیما درون شیء ذخیره می شوند، درحالیکه خاصیت‌هایی که در بخش‌ها قرار دارند به صورت جداگانه در￼ شیئی  مختص هر بخش قرار می گیرند. متغیر <code>section</code> به شیء بخش کنونی اشاره می کند.</p>
+<p>کد بالا به این صورت عمل می‌کند که خط به خط فایل را پردازش کرده و یک شیء می سازد. خاصیت‌های قسمت بالایی مستقیما درون شیء ذخیره می‌شوند، درحالیکه خاصیت‌هایی که در بخش‌ها قرار دارند به صورت جداگانه در￼ شیئی مختص هر بخش قرار می گیرند. متغیر <code>section</code> به شیء بخش کنونی اشاره می‌کند.</p>
 
-<p>دو نوع قابل توجه خط وجود دارد – سرتیترهای بخش یا خطوط خاصیت ها. زمانی که یک خط معرف یک خاصیت معمولی است، در بخش فعلی ذخیره می شود. زمانی که معرف یک سرتیتر بخش است، یک شیء جدید برای بخش مورد نظر ایجاد می شود و <code>section</code> به آن تخصیص می یابد.</p>
+<p>دو نوع قابل توجه خط وجود دارد – سرتیترهای بخش یا خطوط خاصیت ها. زمانی که یک خط معرف یک خاصیت معمولی است، در بخش فعلی ذخیره می‌شود. زمانی که معرف یک سرتیتر بخش است، یک شیء جدید برای بخش مورد نظر ایجاد می‌شود و <code>section</code> به آن تخصیص می یابد.</p>
 
 <p>توجه داشته باشید که استفاده‌ی مکرر از <code>^</code> و <code>$</code> برای این است که مطمئن شویم عبارت تمام خط را تطبیق می دهد نه فقط بخشی از آن را. اگر از آن ها استفاده نشود، کد در اکثر مواقع کار می‌کند اما برای بعضی ورودی ها رفتار عجیبی از خود نشان دهد که ممکن است اشکال زدایی آن سخت باشد.</p>
 
-<p>الگوی <bdo><code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code></bdo> شبیه به ترفندی است که از عبارت تخصیص به عنوان شرط <code>while</code> استفاده کردیم. اغلب اطمینان ندارید که فراخوانی <code>match</code> موفق خواهد شد، بنابراین می توانید فقط درون یک دستور <code>if</code> که آن را آزمایش می کند به نتیجه‌ی آن دسترسی داشته باشید. برای جلوگیری از شکستن زنجیره‌ی <bdo><code>else if</code></bdo>،  نتیجه‌ی تطبیق را به متغیری اختصاص دادیم و بلافاصله آن تخصیص را به عنوان شرط دستور <code>if</code> استفاده کرده ایم.</p>
+<p>الگوی <bdo><code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code></bdo> شبیه به ترفندی است که از عبارت تخصیص به عنوان شرط <code>while</code> استفاده کردیم. اغلب اطمینان ندارید که فراخوانی <code>match</code> موفق خواهد شد، بنابراین می‌توانید فقط درون یک دستور <code>if</code> که آن را آزمایش می‌کند به نتیجه‌ی آن دسترسی داشته باشید. برای جلوگیری از شکستن زنجیره‌ی <bdo><code>else if</code></bdo>، نتیجه‌ی تطبیق را به متغیری اختصاص دادیم و بلافاصله آن تخصیص را به عنوان شرط دستور <code>if</code> استفاده کرده ایم.</p>
 
-<p>اگر یک خط، سرتیتر بخش یا یک خاصیت نباشد، تابع با استفاده از عبارت <bdo><code>/^\s*(;.*)?$/</code></bdo> بررسی می کند که آیا این خط توضیح است یا خطی خالی. متوجه نحوه‌ی کارکرد آن شدید؟ قسمتی که داخل پرانتز است توضیحات را تطبیق می دهد و علامت سوال <code>?</code> اطمینان حاصل می کند که خطوطی که فقط فضای خالی هستند شناسایی شوند. اگر خطی با هیچکدام از اشکال قابل انتظار تطبیق نخورد، تابع یک استثنا تولید (رها) می کند.</p>
+<p>اگر یک خط، سرتیتر بخش یا یک خاصیت نباشد، تابع با استفاده از عبارت <bdo><code>/^\s*(;.*)?$/</code></bdo> بررسی می‌کند که آیا این خط توضیح است یا خطی خالی. متوجه نحوه‌ی کارکرد آن شدید؟ قسمتی که داخل پرانتز است توضیحات را تطبیق می دهد و علامت سوال <code>?</code> اطمینان حاصل می‌کند که خطوطی که فقط فضای خالی هستند شناسایی شوند. اگر خطی با هیچکدام از اشکال قابل انتظار تطبیق نخورد، تابع یک استثنا تولید (رها) می‌کند.</p>
 
 <h2><a class="h_ident" id="h_TW2GNFCWIU" href="#h_TW2GNFCWIU" tabindex="-1" role="presentation"></a>کاراکترهای بین‌المللی</h2>
 
-<p><a class="p_ident" id="p_iHMJ0Ei+74" href="#p_iHMJ0Ei+74" tabindex="-1" role="presentation"></a>به دلیل اینکه پیاده‌سازی اولیه جاوااسکریپت بسیار ساده بوده است و این واقعیت که این شیوه‌ی ساده محور بعدها به عنوان یک استاندارد رفتاری در نظر گرفته شد، عبارات باقاعده در جاوااسکریپت نسبتا برای کاراکترهای غیر انگلیسی، حرفی برای گفتن ندارند. به عنوان مثال، در عبارات باقاعده جاوااسکریپت، یک “کاراکتر کلمه” فقط شامل 26 حرف لاتین (حروف بزرگ و کوچک)، اعداد ده‌دهی، و به دلایلی کاراکتر خط زیرین می شود. چیزهایی مثل <em>é</em> یا <em>β</em> که قطعا کاراکتر کلمه محسوب می شوند توسط <bdo><code>\w</code></bdo> تطبیق نمی خورند ( و با <bdo><code>\W</code></bdo> تطبیق می خورند، دسته‌ی کاراکترهای غیر کلمه).</p>
+<p><a class="p_ident" id="p_iHMJ0Ei+74" href="#p_iHMJ0Ei+74" tabindex="-1" role="presentation"></a>به دلیل اینکه پیاده‌سازی اولیه جاوااسکریپت بسیار ساده بوده است و این واقعیت که این شیوه‌ی ساده محور بعدها به عنوان یک استاندارد رفتاری در نظر گرفته شد، عبارات باقاعده در جاوااسکریپت نسبتا برای کاراکترهای غیر انگلیسی، حرفی برای گفتن ندارند. به عنوان مثال، در عبارات باقاعده جاوااسکریپت، یک “کاراکتر کلمه” فقط شامل 26 حرف لاتین (حروف بزرگ و کوچک)، اعداد ده‌دهی، و به دلایلی کاراکتر خط زیرین می‌شود. چیزهایی مثل <em>é</em> یا <em>β</em> که قطعا کاراکتر کلمه محسوب می‌شوند توسط <bdo><code>\w</code></bdo> تطبیق نمی خورند ( و با <bdo><code>\W</code></bdo> تطبیق می خورند، دسته‌ی کاراکترهای غیر کلمه).</p>
 
-<p>به خاطر یک اتفاق نامعلوم در گذشته، <bdo><code>\s</code></bdo> (فضای خالی) این مشکل را ندارد و همه‌ی کاراکترهایی که استاندارد یونیکد به عنوان فضای خالی درنظر می گیرد را شامل می شود، مثل کاراکترهایی از قبیل نیم‌فاصله و جداکننده حروف صدادار در زبان مغولی.</p>
+<p>به خاطر یک اتفاق نامعلوم در گذشته، <bdo><code>\s</code></bdo> (فضای خالی) این مشکل را ندارد و همه‌ی کاراکترهایی که استاندارد یونیکد به عنوان فضای خالی درنظر می‌گیرد را شامل می‌شود، مثل کاراکترهایی از قبیل نیم‌فاصله و جداکننده حروف صدادار در زبان مغولی.</p>
 
-<p>مشکل دیگر این است که به طور پیش فرض عبارات باقاعده روی واحدهای کد عمل می‌کنند؛ نه روی کاراکترهای واقعی؛ همانطور که در <a href="05_higher_order.html#code_units">فصل 5</a> بحث شد. معنای آن این است که با کاراکترهایی که از دو واحد کد تشکیل شده اند به شکل نامشخصی رفتار می شود.</p>
+<p>مشکل دیگر این است که به طور پیش فرض عبارات باقاعده روی واحدهای کد عمل می‌کنند؛ نه روی کاراکترهای واقعی؛ همانطور که در <a href="05_higher_order.html#code_units">فصل 5</a> بحث شد. معنای آن این است که با کاراکترهایی که از دو واحد کد تشکیل شده اند به شکل نامشخصی رفتار می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CfMTYxun8D" href="#c_CfMTYxun8D" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/🍎{3}/</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;🍎🍎🍎&quot;</span>));
 <span class="cm-comment">// → false</span>
@@ -609,11 +609,11 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/&lt;.&gt;/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;&lt;🌹&gt;&quot;</span>));
 <span class="cm-comment">// → true</span></pre>
 
-<p>مشکل اینجاست که 🍎 در خط اول به عنوان دو واحد کد شناخته می شود، و <bdo><code>{3}</code></bdo> فقط به واحد دوم اعمال می شود. به طور مشابه، عملگر نقطه فقط یک واحد کد را می شناسد نه دو واحدی که ایموجی گل رز را می سازند.</p>
+<p>مشکل اینجاست که 🍎 در خط اول به عنوان دو واحد کد شناخته می‌شود، و <bdo><code>{3}</code></bdo> فقط به واحد دوم اعمال می‌شود. به طور مشابه، عملگر نقطه فقط یک واحد کد را می شناسد نه دو واحدی که ایموجی گل رز را می سازند.</p>
 
 <p>برای اینکه عبارت باقاعده این گونه کاراکترها را در نظر بگیرد باید گزینه‌ی <code>u</code> (یونیکد) را استفاده کنید. متاسفانه به صورت پیش‌فرض این اشکال وجود خواهد داشت چون تغییر آن ممکن است مشکلاتی را برای کدهای نوشته شده از قبل که به این رفتار وابستگی دارند به وجود بیاورد.</p>
 
-<p>اگرچه این قضیه به تازگی استاندارد شده است، و در هنگام نوشتن این کتاب، هنوز به طور گسترده از آن پشتیبانی نمی شود، می توان از <bdo><code>\p</code></bdo> در یک عبارت باقاعده ( عبارتی که باید گزینه‌ی یونیکد را فعال داشته باشد) برای تطبیق همه‌ی کاراکترهایی که استاندارد یونیکد برای آن‌ها خاصیتی در نظر گرفته است، استفاده کرد.</p>
+<p>اگرچه این قضیه به تازگی استاندارد شده است، و در هنگام نوشتن این کتاب، هنوز به طور گسترده از آن پشتیبانی نمی‌شود، می‌توان از <bdo><code>\p</code></bdo> در یک عبارت باقاعده ( عبارتی که باید گزینه‌ی یونیکد را فعال داشته باشد) برای تطبیق همه‌ی کاراکترهایی که استاندارد یونیکد برای آن‌ها خاصیتی در نظر گرفته است، استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_+jV1oln0sr" href="#c_+jV1oln0sr" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\p{Script=Greek}/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;α&quot;</span>));
 <span class="cm-comment">// → true</span>
@@ -624,95 +624,95 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">/\p{Alphabetic}/u</span>.<span class="cm-property">test</span>(<span class="cm-string">&quot;!&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p>یونیکد تعدادی خاصیت مفید تعریف می کند، اگرچه پیدا کردن خاصیتی که نیاز شما باشد ممکن است که همیشه ساده نباشد. می توانید از دستور <bdo><code>\p{Property=Value}</code></bdo> برای تطبیق هر کاراکتری که مقدار داده شده را برای آن خاصیت داشته باشد استفاده کنید. اگر نام خاصیت را همانطور که در <bdo><code>\p{Name}</code></bdo> می بینید حذف کنیم، نام آن یا به عنوان یک خاصیت دودویی مثل <code>Alphabetic</code> در نظر گرفته می شود یا یک دسته مثل <code>Number</code>.</p>
+<p>یونیکد تعدادی خاصیت مفید تعریف می‌کند، اگرچه پیدا کردن خاصیتی که نیاز شما باشد ممکن است که همیشه ساده نباشد. می‌توانید از دستور <bdo><code>\p{Property=Value}</code></bdo> برای تطبیق هر کاراکتری که مقدار داده شده را برای آن خاصیت داشته باشد استفاده کنید. اگر نام خاصیت را همانطور که در <bdo><code>\p{Name}</code></bdo> می بینید حذف کنیم، نام آن یا به عنوان یک خاصیت دودویی مثل <code>Alphabetic</code> در نظر گرفته می‌شود یا یک دسته مثل <code>Number</code>.</p>
 
 <h2 id="summary_regexp"><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p>عبارات باقاعده اشیائی هستند که الگوها را در رشته‌ها نشان می دهند. این عبارات از زبانی مخصوص به خود برای بیان این الگوها استفاده می کنند.</p>
+<p>عبارات باقاعده اشیائی هستند که الگوها را در رشته‌ها نشان می‌دهند. این عبارات از زبانی مخصوص به خود برای بیان این الگوها استفاده می‌کنند.</p>
 
 <table>
 
-<tr><td><code>/abc/</code></td><td>یک دنباله از کاراکترها</td>
+<tr><td><bdo><code>/abc/</code></bdo></td><td>یک دنباله از کاراکترها</td>
 
 </tr>
 
-<tr><td><code>/[abc]/</code></td><td>یک کاراکتر از یک مجموعه کاراکتر</td>
+<tr><td><bdo><code>/[abc]/</code></bdo></td><td>یک کاراکتر از یک مجموعه کاراکتر</td>
 
 </tr>
 
-<tr><td><code>/[^abc]/</code></td><td>یک کاراکتر که در مجموعه‌ی مشخص شده نباشد</td>
+<tr><td><bdo><code>/[^abc]/</code></bdo></td><td>یک کاراکتر که در مجموعه‌ی مشخص شده نباشد</td>
 
 </tr>
 
-<tr><td><code>/[0-9]/</code></td><td>یک کاراکتر که در یک بازه از کاراکترها قرار دارد</td>
+<tr><td><bdo><code>/[0-9]/</code></bdo></td><td>یک کاراکتر که در یک بازه از کاراکترها قرار دارد</td>
 
 </tr>
 
-<tr><td><code>/x+/</code></td><td>یک یا بیش از یک بار وقوع الگوی <code>x</code></td>
+<tr><td><bdo><code>/x+/</code></bdo></td><td>یک یا بیش از یک بار وقوع الگوی <code>x</code></td>
 
 </tr>
 
-<tr><td><code>/x+?/</code></td><td>یک یا بیش از یک بار وقوع به صورت غیر حریصانه</td>
+<tr><td><bdo><code>/x+?/</code></bdo></td><td>یک یا بیش از یک بار وقوع به صورت غیر حریصانه</td>
 
 </tr>
 
-<tr><td><code>/x*/</code></td><td>صفر یا بیش از صفر بار وقوع الگوی <code>x</code></td>
+<tr><td><bdo><code>/x*/</code></bdo></td><td>صفر یا بیش از صفر بار وقوع الگوی <code>x</code></td>
 
 </tr>
 
-<tr><td><code>/x?/</code></td><td>صفر یا یک بار وقوع</td>
+<tr><td><bdo><code>/x?/</code></bdo></td><td>صفر یا یک بار وقوع</td>
 
 </tr>
 
-<tr><td><code>/x{2,4}/</code></td><td>دو تا چهار بار وقوع</td>
+<tr><td><bdo><code>/x{2,4}/</code></bdo></td><td>دو تا چهار بار وقوع</td>
 
 </tr>
 
-<tr><td><code>/(abc)/</code></td><td>یک دسته یا گروه</td>
+<tr><td><bdo><code>/(abc)/</code></bdo></td><td>یک دسته یا گروه</td>
 
 </tr>
 
-<tr><td><code>/a|b|c/</code></td><td>یکی از الگوهای متعدد</td>
+<tr><td><bdo><code>/a|b|c/</code></bdo></td><td>یکی از الگوهای متعدد</td>
 
 </tr>
 
-<tr><td><code>/\d/</code></td><td>یک کاراکتر رقمی (عدد)</td>
+<tr><td><bdo><code>/\d/</code></bdo></td><td>یک کاراکتر رقمی (عدد)</td>
 
 </tr>
 
-<tr><td><code>/\w/</code></td><td>یک کاراکتر حرف-عددی (یک کاراکتر کلمه)</td>
+<tr><td><bdo><code>/\w/</code></bdo></td><td>یک کاراکتر حرف-عددی (یک کاراکتر کلمه)</td>
 
 </tr>
 
-<tr><td><code>/\s/</code></td><td>یک کاراکتر فضای خالی (هر نوعی)</td>
+<tr><td><bdo><code>/\s/</code></bdo></td><td>یک کاراکتر فضای خالی (هر نوعی)</td>
 
 </tr>
 
-<tr><td><code>/./</code></td><td>هر کاراکتری به جز کاراکتر خط جدید</td>
+<tr><td><bdo><code>/./</code></bdo></td><td>هر کاراکتری به جز کاراکتر خط جدید</td>
 
 </tr>
 
-<tr><td><code>/\b/</code></td><td>یک مرز کلمه</td>
+<tr><td><bdo><code>/\b/</code></bdo></td><td>یک مرز کلمه</td>
 
 </tr>
 
-<tr><td><code>/^/</code></td><td>شروع ورودی</td>
+<tr><td><bdo><code>/^/</code></bdo></td><td>شروع ورودی</td>
 
 </tr>
 
-<tr><td><code>/$/</code></td><td>پایان ورودی</td>
+<tr><td><bdo><code>/$/</code></bdo></td><td>پایان ورودی</td>
 
 </tr>
 
 </table>
 
-<p>یک عبارت باقاعده دارای متدی به نام <code>test</code> است که رشته‌ی داده شده را جهت تطبیق با عبارت بررسی می کند. همچنین متدی به نام <code>exec</code> دارد که در صورت پیدا کردن تطبیق، آرایه‌ای تولید می کند که همه‌ی گروه‌های تطبیق خورده را دربر دارد. این آرایه دارای خاصیتی به نام <code>index</code> است که نقطه‌ی شروع تطبیق را مشخص می کند.</p>
+<p>یک عبارت باقاعده دارای متدی به نام <code>test</code> است که رشته‌ی داده شده را جهت تطبیق با عبارت بررسی می‌کند. همچنین متدی به نام <code>exec</code> دارد که در صورت پیدا کردن تطبیق، آرایه‌ای تولید می‌کند که همه‌ی گروه‌های تطبیق خورده را دربر دارد. این آرایه دارای خاصیتی به نام <code>index</code> است که نقطه‌ی شروع تطبیق را مشخص می‌کند.</p>
 
-<p>رشته‌ها دارای متدی به نام <code>match</code> می‌باشند که برای تطبیق آن ها با یک عبارات باقاعده استفاده می شود. متدی به نام <code>search</code> دارند که برای جستجوی یک عبارت استفاده می شود که تنها موقعیت شروع تطبیق یافته شده را برمی‌گرداند. متد <code>replace</code> رشته‌ها می تواند تطبیق‌های پیدا شده برای یک الگو را با یک رشته یا تابع جایگزین کند.</p>
+<p>رشته‌ها دارای متدی به نام <code>match</code> می‌باشند که برای تطبیق آن ها با یک عبارات باقاعده استفاده می‌شود. متدی به نام <code>search</code> دارند که برای جستجوی یک عبارت استفاده می‌شود که تنها موقعیت شروع تطبیق یافته شده را برمی‌گرداند. متد  <code>replace</code> متعلق به رشته‌ها می‌تواند تطبیق‌های پیدا شده برای یک الگو را با یک رشته یا تابع جایگزین کند.</p>
 
-<p>عبارات باقاعده می توانند گزینه‌هایی هم داشته باشند که بعد از اسلش پایانی نوشته می شوند. گزینه‌ی <code>i</code> باعث می شود که تطبیق به بزرگی و کوچکی حروف حساس نباشد. گزینه‌ی <code>g</code> عبارت را <em>سراسری</em> می کند که علاوه بر نتایج دیگر، در متد <code>replace</code> باعث می شود که همه‌ی نمونه‌ها جایگزین شوند نه فقط اولین مورد. گزینه‌ی <code>y</code> باعث می شود که عبارت چسبنده شود، که معنای آن این است که به سمت جلو جستجو نخواهد کرد و بخشی از رشته را در هنگام جستجو برای تطبیق در نظر نمی گیرد. گزینه‌ی <code>u</code> حالت یونیکد را فعال می کند که مشکلات مربوط به کاراکترهایی که دو واحد کد اشغال می کنند را برطرف می کند.</p>
+<p>عبارات باقاعده می‌توانند گزینه‌هایی هم داشته باشند که بعد از اسلش پایانی نوشته می‌شوند. گزینه‌ی <code>i</code> باعث می‌شود که تطبیق به بزرگی و کوچکی حروف حساس نباشد. گزینه‌ی <code>g</code> عبارت را <em>سراسری</em> می‌کند که علاوه بر نتایج دیگر، در متد <code>replace</code> باعث می‌شود که همه‌ی نمونه‌ها جایگزین شوند نه فقط اولین مورد. گزینه‌ی <code>y</code> باعث می‌شود که عبارت چسبنده شود، که معنای آن این است که به سمت جلو جستجو نخواهد کرد و بخشی از رشته را در هنگام جستجو برای تطبیق در نظر نمی‌گیرد. گزینه‌ی <code>u</code> حالت یونیکد را فعال می کند که مشکلات مربوط به کاراکترهایی که دو واحد کد اشغال می‌کنند را برطرف می‌کند.</p>
 
-<p>عبارت‌های باقاعده مانند چاقوی تیزی هستند که دسته‌ی نامناسبی دارند. بعضی از کارها را به شدت ساده می کنند اما زمانی که به مسائل پیچیده اعمال می شوند می توانند به سرعت غیر قابل کنترل شوند. بخشی از فرهنگ صحیح استفاده از عبارات باقاعده  این است که برای چیزهایی که به روشنی به وسیله‌ی آن‌ها قابل بیان نیستند به سراغشان نرویم.</p>
+<p>عبارت‌های باقاعده مانند چاقوی تیزی هستند که دسته‌ی نامناسبی دارند. بعضی از کارها را به شدت ساده می‌کنند اما زمانی که به مسائل پیچیده اعمال می‌شوند می‌توانند به سرعت غیر قابل کنترل شوند. بخشی از فرهنگ صحیح استفاده از عبارات باقاعده این است که برای چیزهایی که به روشنی به وسیله‌ی آن‌ها قابل بیان نیستند به سراغشان نرویم.</p>
 
 <h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
@@ -720,7 +720,7 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <h3><a class="i_ident" id="i_mjMEG+9L3E" href="#i_mjMEG+9L3E" tabindex="-1" role="presentation"></a>گلف Regexp</h3>
 
-<p><a class="p_ident" id="p_modNywux3k" href="#p_modNywux3k" tabindex="-1" role="presentation"></a><em>گلف کد</em> اصطلاحی است که برای تلاش نوشتن برنامه‌ای با حداقل کاراکتر به کار می‌رود. به طور مشابه <em>regexp golf</em>، تمرین نوشتن کوتاه‌ترین عبارت باقاعده‌ای است که برای تطبیق یک الگوی داده شده می توان نوشت و <em>فقط</em> همان الگو باید تطبیق بخورد.</p>
+<p><a class="p_ident" id="p_modNywux3k" href="#p_modNywux3k" tabindex="-1" role="presentation"></a><em>گلف کد</em> اصطلاحی است که برای تلاش نوشتن برنامه‌ای با حداقل کاراکتر به کار می‌رود. به طور مشابه <em>regexp golf</em>، تمرین نوشتن کوتاه‌ترین عبارت باقاعده‌ای است که برای تطبیق یک الگوی داده شده می‌توان نوشت و <em>فقط</em> همان الگو باید تطبیق بخورد.</p>
 
 <p>برای هر یک از آیتم‌های زیر، عبارت باقاعده‌ای بنویسید و تست کنید هر کدام از زیررشته‌های داده شده در یک رشته موجود هستند یا خیر. عبارت باقاعده‌ای که می نویسید باید فقط رشته‌هایی را تطبیق دهد که یکی از زیر رشته‌های داده شده را داشته باشند. نیازی نیست نگران مرزهای کلمات باشید مگر اینکه به طور صریح ذکر شده باشد. وقتی عبارت باقاعده‌ی شما به طور صحیح کار کرد، ببینید توانید آن را کوتاه تر بنویسید؟</p>
 
@@ -815,13 +815,13 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <p>روشن‌ترین راه حل برای این مسئله این است که فقط نقل‌قول‌هایی را جایگزین کنید که حداقل در یک سمت آن یک غیرکلمه قرار داشته باشد مثل <bdo><code>/\W'|'\W/</code></bdo>. اما همچنین لازم است تا شروع و پایان خط را هم در نظر داشته باشید.</p>
 
-<p>علاوه بر این، باید اطمینان حاصل کنید که جایگزینی شامل کاراکترهایی که توسط <bdo><code>\W</code></bdo> تطبیق می خورند هم باشد تا از قلم نیفتند. این کار را می توان با قرار دادن آن‌ها درون پرانتز و استفاده از گروه‌هایشان در رشته‌ی جایگزینی <bdo>(<code>$1</code>, <code>$2</code>)</bdo> انجام داد. گروه‌هایی که تطبیق نمی خورند با چیزی جایگزین نمی شوند.</p>
+<p>علاوه بر این، باید اطمینان حاصل کنید که جایگزینی شامل کاراکترهایی که توسط <bdo><code>\W</code></bdo> تطبیق می خورند هم باشد تا از قلم نیفتند. این کار را می‌توان با قرار دادن آن‌ها درون پرانتز و استفاده از گروه‌هایشان در رشته‌ی جایگزینی <bdo>(<code>$1</code>, <code>$2</code>)</bdo> انجام داد. گروه‌هایی که تطبیق نمی خورند با چیزی جایگزین نمی‌شوند.</p>
 
 </div></div>
 
 <h3><a class="i_ident" id="i_pjHcFZTbkd" href="#i_pjHcFZTbkd" tabindex="-1" role="presentation"></a>دوباره اعداد</h3>
 
-<p>عبارتی بنویسید که فقط اعداد سبک جاوااسکریپت را تطبیق دهد. عبارت باید علامت منفی یا مثبت را در جلوی عدد به صورت اختیاری پشتیبانی کند، همچنین نقطه‌ی ممیز و نماد توان – <bdo><code>5e-3</code></bdo> یا <bdo><code>1E10</code></bdo> – را دوباره با علامت اختیاری جلوی توان پشتیبانی کند. همچنین توجه داشته باشید که لازم نیست که بعد از نقطه‌ی ممیز حتما رقم بیابد اما نباید عدد  فقط شامل یک نقطه‌ی تنها باشد. بنابراین <bdo><code>.5</code></bdo>٫ و  <bdo><code>5.</code></bdo> اعدادی معتبر در جاوااسکریپت محسوب می شوند اما یک نقطه‌ی تنها <em>این طور نیست</em>.</p>
+<p>عبارتی بنویسید که فقط اعداد سبک جاوااسکریپت را تطبیق دهد. عبارت باید علامت منفی یا مثبت را در جلوی عدد به صورت اختیاری پشتیبانی کند، همچنین نقطه‌ی ممیز و نماد توان – <bdo><code>5e-3</code></bdo> یا <bdo><code>1E10</code></bdo> – را دوباره با علامت اختیاری جلوی توان پشتیبانی کند. همچنین توجه داشته باشید که لازم نیست که بعد از نقطه‌ی ممیز حتما رقم بیاید اما نباید عدد فقط شامل یک نقطه‌ی تنها باشد. بنابراین <bdo><code>.5</code></bdo> و <bdo><code>5.</code></bdo> اعدادی معتبر در جاوااسکریپت محسوب می‌شوند اما یک نقطه‌ی تنها <em>این طور نیست</em>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aHAzeMYYGe" href="#c_aHAzeMYYGe" tabindex="-1" role="presentation"></a><span class="cm-comment">// Fill in this regular expression.</span>
 <span class="cm-keyword">let</span> <span class="cm-def">number</span> <span class="cm-operator">=</span> <span class="cm-string-2">/^...$/</span>;
@@ -844,7 +844,7 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <p>ابتدا، فراموش نکنید که بک‌اسلش را در جلوی نقطه قرار دهید.</p>
 
-<p>تطبیق علامت اختیاری در جلوی یک عدد، همچنین جلوی یک توان، را می توان با استفاده از <bdo><code>[+\-]?</code></bdo> یا <bdo><code>(\+|-|)</code></bdo> انجام داد. (مثبت، منفی یا هیچی)</p>
+<p>تطبیق علامت اختیاری در جلوی یک عدد، همچنین جلوی یک توان، را می‌توان با استفاده از <bdo><code>[+\-]?</code></bdo> یا <bdo><code>(\+|-|)</code></bdo> انجام داد. (مثبت، منفی یا هیچی)</p>
 
 <p>بخش پیچیده‌تر این تمرین این است که چه‌طور هر دوی <bdo><code>&quot;5.&quot;</code></bdo> و <bdo><code>&quot;.5&quot;</code></bdo> را بدون تطبیق خوردن <code>&quot;.&quot;</code> تطبیق بزنید. برای این‌کار، یک راه خوب این است که از <code>|</code> برای جداسازی دو حالت استفاده شود - یک یا دو رقم که ممکن است با یک نقطه و صفر یا ارقام بیشتر ادامه یابد یا نقطه‌ای که به همراه یک را چندین رقم بیاید.</p>
 
