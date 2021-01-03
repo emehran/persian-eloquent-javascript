@@ -25,17 +25,17 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_15.jpg" alt="Picture a Rube Goldberg machine"></figure>
 
-<p>بعضی برنامه‌ها با ورودی‌ کاربر سر و کار دارند؛ مانند کارهایی که توسط موس و صفحه‌کلید انجام می شود. این نوع ورودی‌ به صورت یک ساختار داده‌ی سازمان‌یافته و مرتب در دسترس قرار نمی گیرد – بلکه به صورت تدریجی و با اجرای برنامه دریافت می شود و برنامه می‌بایست همزمان با دریافت آن، واکنش نشان دهد.</p>
+<p>بعضی برنامه‌ها با ورودی‌ کاربر سر و کار دارند؛ مانند کارهایی که توسط موس و صفحه‌کلید انجام می‌شود. این نوع ورودی‌ به صورت یک ساختار داده‌ی سازمان‌یافته و مرتب در دسترس قرار نمی‌گیرد –  بلکه به صورت تدریجی و با اجرای برنامه دریافت می‌شود و برنامه می‌بایست همزمان با دریافت آن، واکنش نشان دهد.</p>
 
-<h2><a class="h_ident" id="h_uDlBjvCaGT" href="#h_uDlBjvCaGT" tabindex="-1" role="presentation"></a>گرداننده‌های رخداد</h2>
+<h2><a class="h_ident" id="h_TJlsA2ojWE" href="#h_TJlsA2ojWE" tabindex="-1" role="presentation"></a>گرداننده‌های رخداد (Event Handlers)</h2>
 
-<p>رابطی‌ را تصور کنید که در آن تنها راه دانستن اینکه کلیدی در صفحه کلید فشرده می‌شود این است که حالت فعلی آن کلید را بخوانیم. برای این که بتوانیم به فشردن کلید واکنش نشان دهیم، باید به طور مداوم حالت کلید را بخوانیم تا قبل از اینکه دوباره کلید رها شود آن را بدست آوریم. در این حین اگر به انجام محاسبه‌ی زمان‌گیر دیگری بپردازیم، این خطر وجود دارد که یک فشردن کلید را از دست بدهیم.</p>
+<p>رابطی‌ را تصور کنید که در آن تنها راه دانستن اینکه کلیدی در صفحه کلید فشرده می‌شود این است که حالت فعلی آن کلید را بخوانیم. برای این که بتوانیم به فشردن کلید واکنش نشان دهیم، باید به طور مداوم حالت کلید را بخوانیم تا قبل از اینکه دوباره کلید رها شود آن را بدست آوریم.  در این حین اگر به انجام محاسبه‌ی زمان‌گیر دیگری بپردازیم، این خطر وجود دارد که یک فشردن کلید را از دست بدهیم.</p>
 
-<p>بعضی کامپیوترهای اولیه، ورودی ها را به همین شکل مدیریت می کردند. یک گام فراتر از این روش این است که سخت‌افزار یا سیستم‌عامل متوجه این فشار کلید شوند و آن را در یک صف قرار دهند. بعد یک برنامه‌ می تواند به صورت دوره‌ای این صف را برای رخداد‌های جدید بررسی کند و به چیزی که می بیند واکنش نشان دهد.</p>
+<p>بعضی کامپیوترهای اولیه، ورودی ها را به همین شکل مدیریت می‌کردند. یک گام فراتر از این روش این است که سخت‌افزار یا سیستم‌عامل متوجه این فشار کلید بشوند و آن را در یک صف قرار دهند. بعد یک برنامه‌ می‌تواند به صورت دوره‌ای این صف را برای رخداد‌های جدید بررسی کند و به چیزی که می‌بیند واکنش نشان دهد.</p>
 
-<p><a class="p_ident" id="p_3m76tM9MvE" href="#p_3m76tM9MvE" tabindex="-1" role="presentation"></a>البته برنامه باید به خاطر داشته باشد که به سراغ صف برود و این کار را مدوام انجام دهد چرا که وجود فاصله‌ی زمانی بین فشردن کلید و باخبر شدن برنامه از رخداد، باعث می شود که نرم‌افزار روان کار نکند و مشکل‌دار به‌نظر برسد. این رویکرد را <em>polling</em> (سرکشی‌کردن) می نامند. بیشتر برنامه نویسان ترجیح می دهند که از آن اجتناب کنند.</p>
+<p><a class="p_ident" id="p_3m76tM9MvE" href="#p_3m76tM9MvE" tabindex="-1" role="presentation"></a>البته برنامه باید به خاطر داشته باشد که به سراغ صف برود و این کار را مدوام انجام دهد چرا که وجود فاصله‌ی زمانی بین فشردن کلید و باخبر شدن برنامه از رخداد، باعث می‌شود که نرم‌افزار روان کار نکند و مشکل‌دار به‌نظر برسد.  این رویکرد را <em>polling</em> (سرکشی‌کردن) می‌نامند. بیشتر برنامه‌نویسان ترجیح می‌دهند که از آن اجتناب کنند.</p>
 
-<p>یک مکانیزم بهتر برای سیستم این است که به طور پویا برنامه‌مان را از وجود یک رخداد باخبر کنیم. مرورگرها این کار را با فراهم کردن امکان ثبت توابعی به عنوان <em>گرداننده</em> برای رخدادهای خاص انجام می دهند.</p>
+<p>یک مکانیزم بهتر برای سیستم این است که به طور پویا برنامه‌مان را از وجود یک رخداد باخبر کنیم. مرورگرها این کار را با فراهم کردن امکان ثبت توابعی به عنوان <em>گرداننده</em> برای رخدادهای خاص انجام می‌دهند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_z0Q59PvLev" href="#c_z0Q59PvLev" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Click this document to activate the handler.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -44,11 +44,11 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>متغیر <code>window</code> به یک شیء درونی که توسط مرورگر فراهم شده اشاره می کند. این شیء نمایانگر پنجره‌ی مرورگر است که حاوی صفحه سند می‌باشد. فراخوانی متد <code>addEventListener</code> آن، آرگومان دوم را به عنوان تابعی ثبت می کند که در صورت بروز رخدادی که در آرگومان اول مشخص می شود، فراخوانی می شود.</p>
+<p>متغیر <code>window</code> به یک شیء درونی که توسط مرورگر فراهم شده اشاره می‌کند. این شیء نمایانگر پنجره‌ی مرورگر است که حاوی صفحه سند می‌باشد. فراخوانی متد <code>addEventListener</code> متعلق به آن، آرگومان دوم را به عنوان تابعی ثبت می‌کند که در صورت بروز رخدادی که در آرگومان اول مشخص می‌شود، فراخوانی خواهد شد.</p>
 
 <h2><a class="h_ident" id="h_uQphaSspIs" href="#h_uQphaSspIs" tabindex="-1" role="presentation"></a>رخداد‌ها و گره‌های DOM</h2>
 
-<p><a class="p_ident" id="p_3tmKGT9to5" href="#p_3tmKGT9to5" tabindex="-1" role="presentation"></a>هر گرداننده‌ی رخداد مرورگر در یک بستر (context) ثبت می شود. ما <code>addEventListener</code> را روی شیء <code>window</code> پیش‌تر برای ثبت یک گرداننده برای کل پنجره فراخوانی کردیم. این متد همچنین روی عناصر DOM و بعضی دیگر از انواع اشیاء موجود است. شنونده‌های رخداد فقط زمانی فراخوانی می شوند که رخداد در بستر شیئی که در آن ثبت شده اند رخ داده باشد.</p>
+<p><a class="p_ident" id="p_3tmKGT9to5" href="#p_3tmKGT9to5" tabindex="-1" role="presentation"></a>هر گرداننده‌ی رخداد مرورگر در یک بستر (context) ثبت می‌شود. ما <code>addEventListener</code> را روی شیء <code>window</code> پیش‌تر برای ثبت یک گرداننده برای کل پنجره فراخوانی کردیم. این متد همچنین روی عناصر DOM و بعضی دیگر از انواع اشیاء موجود است. شنونده‌های رخداد فقط زمانی فراخوانی می‌شوند که رخداد در بستر شیئی که در آن ثبت شده اند رخ داده باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_srTkrKlkl+" href="#c_srTkrKlkl+" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>Click me<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>No handler here.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -59,13 +59,13 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>در مثال بالا یک گرداننده به گره‌ی دکمه منتسب می شود. کلیک روی آن دکمه باعث می شود که گرداننده‌ی آن اجرا شود، اما کلیک روی دیگر قسمت‌های سند باعث اتفاقی نمی شود.</p>
+<p>در مثال بالا یک گرداننده به گره‌ی دکمه منتسب می‌شود. کلیک روی آن دکمه باعث می‌شود که گرداننده‌ی آن اجرا شود، اما کلیک روی دیگر قسمت‌های سند باعث اتفاقی نمی‌شود.</p>
 
-<p>اضافه کردن خصوصیت <code>onclick</code> به یک گره نیز اثر مشابهی ایجاد می کند. این روش برای بیشتر رخداد‌ها کار می‌کند - می‌توانید یک گرداننده توسط این خصوصیت ثبت کنید که نام آن برای نام رخداد به همراه <code>on</code> در جلوی آن خواهد بود.</p>
+<p>اضافه کردن خصوصیت <code>onclick</code> به یک گره نیز اثر مشابهی ایجاد می‌کند. این روش برای بیشتر رخداد‌ها کار می‌کند - می‌توانید یک گرداننده توسط این خصوصیت ثبت کنید که نام آن برای نام رخداد به همراه <code>on</code> در جلوی آن خواهد بود.</p>
 
-<p>اما یک گره، تنها می‌تواند یک خصوصیت <code>onclick</code> داشته باشد، بنابراین در این روش برای هر گره، تنها می‌توانید یک گرداننده ثبت نمایید. متد <code>addEventListener</code> به شما این امکان را می دهد تا هر تعداد گرداننده که بخواهید اضافه کنید که به این معنا است که افزودن گرداننده‌ها حتی زمانی که پیش‌تر گرداننده‌ای روی عنصر اضافه‌ شده است، معتبر است.</p>
+<p>اما یک گره، تنها می‌تواند یک خصوصیت <code>onclick</code> داشته باشد، بنابراین در این روش برای هر گره، تنها می‌توانید یک گرداننده ثبت نمایید. متد <code>addEventListener</code> به شما این امکان را می‌دهد تا هر تعداد گرداننده که بخواهید اضافه کنید که به این معنا است که افزودن گرداننده‌ها حتی زمانی که پیش‌تر گرداننده‌ای روی عنصر اضافه‌ شده است، معتبر است.</p>
 
-<p>متد <code>removeEventListener</code> اگر با آرگومان‌هایی شبیه به <code>addEventListener</code> فراخوانی شود، باعث حذف یک گرداننده می شود.</p>
+<p>متد <code>removeEventListener</code> اگر با آرگومان‌هایی شبیه به <code>addEventListener</code> فراخوانی شود، باعث حذف یک گرداننده می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_nMrNUG0bzK" href="#c_nMrNUG0bzK" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>Act-once button<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -77,11 +77,11 @@
   <span class="cm-variable">button</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;click&quot;</span>, <span class="cm-variable">once</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>تابعی که به <code>removeEventListener</code> داده می شود باید دقیقا همان مقدار تابعی باشد که به <code>addEventListener</code> داده شده است. بنابراین برای حذف یک گرداننده، باید به تابع مورد نظر یک نام اختصاص داد (<code>once</code> در مثال) تا بتوان همان تابع را در هردو متد‌ها استفاده کرد.</p>
+<p>تابعی که به <code>removeEventListener</code> داده می‌شود باید دقیقا همان مقدار تابعی باشد که به <code>addEventListener</code> داده شده است. بنابراین برای حذف یک گرداننده، باید به تابع مورد نظر یک نام اختصاص داد (<code>once</code> در مثال) تا بتوان همان تابع را در هردو متد‌ها استفاده کرد.</p>
 
 <h2><a class="h_ident" id="h_VK8MfwmyA2" href="#h_VK8MfwmyA2" tabindex="-1" role="presentation"></a>اشیاء رخداد</h2>
 
-<p><a class="p_ident" id="p_uS9mtVtf78" href="#p_uS9mtVtf78" tabindex="-1" role="presentation"></a>با اینکه تا کنون به آن نپرداخته ایم، توابع گرداننده رخداد، آرگومانی دریافت می‌کنند که شیء رخداد نام دارد (event object). این شیء اطلاعات بیشتری درباره‌ی رخداد مورد نظر نگه‌داری می کند. به عنوان مثال، اگر بخواهیم بدانیم کدام دکمه‌ی موس کلیک شده است،‌ می توانیم به خاصیت <code>button</code> شیء رخداد مراجعه کنیم.</p>
+<p><a class="p_ident" id="p_uS9mtVtf78" href="#p_uS9mtVtf78" tabindex="-1" role="presentation"></a>با اینکه تاکنون به آن نپرداخته‌ایم، توابع گرداننده‌ی رخداد، آرگومانی دریافت می‌کنند که شیء رخداد نام دارد (event object). این شیء اطلاعات بیشتری درباره‌ی رخداد مورد نظر نگه‌داری می‌کند. به عنوان مثال، اگر بخواهیم بدانیم کدام دکمه‌ی موس کلیک شده است،‌ می‌توانیم به خاصیت <code>button</code> شیء رخداد مراجعه کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_ogCz14mujk" href="#c_ogCz14mujk" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>Click me any way you want<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -97,17 +97,17 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>اطلاعاتی که در یک شیء رخداد ذخیره می شود با توجه به نوع رخداد متفاوت خواهد بود. در ادامه فصل انواع مختلف آن را بحث خواهیم کرد. خاصیت‌ <code>type</code> این شیء همیشه رشته‌ای را نگه‌داری می کند که برای شناسایی رخداد استفاده می شود ( مثل <code>&quot;click&quot;</code> یا <code>&quot;mousedown&quot;</code>).</p>
+<p>اطلاعاتی که در یک شیء رخداد ذخیره می‌شود با توجه به نوع رخداد متفاوت خواهد بود. در ادامه فصل، انواع مختلف آن را بحث خواهیم کرد. خاصیت‌ <code>type</code> این شیء همیشه رشته‌ای را نگه‌داری می‌کند که برای شناسایی رخداد استفاده می‌شود ( مثل <code>&quot;click&quot;</code> یا <code>&quot;mousedown&quot;</code>).</p>
 
 <h2><a class="h_ident" id="h_No7cebyJF9" href="#h_No7cebyJF9" tabindex="-1" role="presentation"></a>پخش (propagation)</h2>
 
-<p>در بیشتر انواع رخدادها، گرداننده‌هایی که روی گره‌های دارای فرزند، ثبت شده اند، رخدادهایی که روی فرزندان آن‌ها رخ می دهد را نیز دریافت می کنند. اگر روی دکمه‌ای که درون یک پاراگراف قرار گرفته است کلیک شود، گرداننده‌های رخداد روی پاراگراف نیز این رخداد کلیک را می بینند.</p>
+<p>در بیشتر انواع رخدادها، گرداننده‌هایی که روی گره‌های دارای فرزند، ثبت شده اند، رخدادهایی که روی فرزندان آن‌ها رخ می‌دهد را نیز دریافت می‌کنند. اگر روی دکمه‌ای که درون یک پاراگراف قرار گرفته است کلیک شود، گرداننده‌های رخداد روی پاراگراف نیز این رخداد کلیک را می‌بینند.</p>
 
-<p><a class="p_ident" id="p_dPgrmS+Kkr" href="#p_dPgrmS+Kkr" tabindex="-1" role="presentation"></a>اما اگر هر دوی دکمه و پاراگراف دارای گرداننده باشند، گرداننده صریح تر – در اینجا دکمه – زودتر اجرا می شود. در این حالت گفته می شود که رخداد به سمت بیرون پخش یا propagate شده است، از گره‌ای که در آن رخ داده است تا گره‌ی والدش تا گره‌ی ریشه در سند. در نهایت بعد از اینکه همه‌ی گرداننده‌های ثبت شده روی گره‌های مشخص به نوبت فراخوانی شدند، گرداننده‌هایی که روی کل پنجره ثبت شده اند فرصت این را خواهند داشت که به رخداد پاسخ دهند.</p>
+<p><a class="p_ident" id="p_dPgrmS+Kkr" href="#p_dPgrmS+Kkr" tabindex="-1" role="presentation"></a>اما اگر هر دوی دکمه و پاراگراف دارای گرداننده باشند، گرداننده صریح تر – در اینجا دکمه – زودتر اجرا می‌شود. در این حالت گفته می‌شود که رخداد به سمت بیرون پخش یا propagate شده است، از گره‌ای که در آن رخ داده است تا گره‌ی والدش تا گره‌ی ریشه در سند. در نهایت بعد از اینکه همه‌ی گرداننده‌های ثبت شده روی گره‌های مشخص به نوبت فراخوانی شدند، گرداننده‌هایی که روی کل پنجره ثبت شده اند فرصت این را خواهند داشت که به رخداد پاسخ دهند.</p>
 
-<p>در هر نقطه‌ای ، یک گرداننده‌ی رخداد می تواند متد <code>stopPropagation</code> را روی شیء رخداد فراخوانی کند تا مانع از دریافت رخداد توسط گره‌های بالاتر شود. این می تواند به عنوان مثال در مواقعی که یک دکمه درون یک عنصر قابل کلیک دیگر دارید و نمی خواهید که کلیک روی آن دکمه باعث فعال شدن رفتار کلیک عنصر دیگر بشود کاربرد دارد.</p>
+<p>در هر نقطه‌ای ، یک گرداننده‌ی رخداد می‌تواند متد <code>stopPropagation</code> را روی شیء رخداد فراخوانی کند تا مانع از دریافت رخداد توسط گره‌های بالاتر شود. این می‌تواند به عنوان مثال در مواقعی که یک دکمه درون یک عنصر قابل کلیک دیگر دارید و نمی خواهید که کلیک روی آن دکمه باعث فعال شدن رفتار کلیک عنصر دیگر بشود کاربرد دارد.</p>
 
-<p>در مثال پیش رو، گرداننده‌ی <code>&quot;mousedown&quot;</code> روی دکمه و پاراگراف پیرامونش ثبت می شود. با کلیک دکمه‌ی راست موس ، گرداننده مربوط به دکمه متد <code>stopPropagation</code> را فراخوانی می کند که باعث می شود که گرداننده‌ی روی پاراگراف متوقف شود. وقتی با دکمه‌ی دیگر موس روی دکمه کلیک می شود، هر دوی گرداننده‌ها اجرا می شوند.</p>
+<p>در مثال پیش رو، گرداننده‌ی <code>&quot;mousedown&quot;</code> روی دکمه و پاراگراف پیرامونش ثبت می‌شود. با کلیک دکمه‌ی راست موس ، گرداننده‌ی مربوط به دکمه متد <code>stopPropagation</code> را فراخوانی می‌کند که باعث می‌شود که گرداننده‌ی روی پاراگراف متوقف شود. وقتی با دکمه‌ی دیگر موس روی دکمه کلیک می‌شود، هر دوی گرداننده‌ها اجرا می‌شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_ApZbQ8dI12" href="#c_ApZbQ8dI12" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>A paragraph with a <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>button<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -124,7 +124,7 @@
 
 <p>بیشتر اشیاء رخداد، دارای خاصیتی به نام <code>target</code> می‌باشند که به گره‌ای اشاره می کند که به آن تعلق دارند. برای اطمینان از اینکه به صورت تصادفی گره‌ی دیگری را رسیدگی نکنید، می‌توانید از این خاصیت بهره ببرید.</p>
 
-<p>همچنین این امکان وجود دارد که از <code>target</code> برای پهن کردن یک تور گسترده برای یک نوع خاص از رخداد استفاده کنید. به عنوان مثال، اگر گره‌ای دارید که حاوی لیست بلندی از دکمه‌هاست، ممکن است مناسب باشد که یک گرداننده‌ی کلیک روی گره‌ی بیرونی ثبت شود و از خاصیت <code>target</code> برای بررسی کلیک شدن یک دکمه استفاده شود تا اینکه برای تک تک دکمه‌ها گرداننده‌ای مجزا ثبت شود.</p>
+<p>همچنین این امکان وجود دارد که از <code>target</code> برای پهن کردن یک تور گسترده برای یک نوع خاص از رخداد استفاده کنید. به عنوان مثال،  اگر گره‌ای دارید که حاوی لیست بلندی از دکمه‌هاست، ممکن است مناسب باشد که یک گرداننده‌ی کلیک روی گره‌ی بیرونی ثبت شود و از خاصیت <code>target</code> برای بررسی کلیک شدن یک دکمه استفاده شود تا اینکه برای تک تک دکمه‌ها گرداننده‌ای مجزا ثبت شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_dpl2XD58ol" href="#c_dpl2XD58ol" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>A<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>B<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">button</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -139,11 +139,11 @@
 
 <h2><a class="h_ident" id="h_dzRxGqiZUx" href="#h_dzRxGqiZUx" tabindex="-1" role="presentation"></a>کارکردهای پیش‌فرض</h2>
 
-<p>به خیلی از رخداد‌ها یک کارکرد پیش‌فرض اختصاص داده شده است. اگر روی یک پیوند کلیک کنید، به صفحه‌ی هدف پیوند منتقل خواهید شد. اگر کلید پایین را روی صفحه‌ی کلید فشار دهید، مرورگر صفحه‌ را به سمت پایین اسکرول می کند. اگر با موس کلیک راست کنید، به شما یک منوی زمینه، نمایش داده خواهد شد. و از این قبیل موارد.</p>
+<p>به خیلی از رخداد‌ها یک کارکرد پیش‌فرض اختصاص داده شده است. اگر روی یک پیوند کلیک کنید، به صفحه‌ی هدف پیوند منتقل خواهید شد. اگر کلید پایین را روی صفحه‌ی کلید فشار دهید، مرورگر صفحه‌ را به سمت پایین اسکرول می‌کند. اگر با موس کلیک راست کنید، به شما یک منوی زمینه، نمایش داده خواهد شد و از این قبیل موارد.</p>
 
-<p>گرداننده‌های رخداد در جاوااسکریپت، در بیشتر انواع رخداد‌ها، <em>پیش</em> از اینکه رفتار پیش‌فرض اتفاق بیفتد فراخوانی می می‌شوند. اگر گرداننده‌ی مورد نظر مایل نباشد که رفتار پیش‌فرض رخ بدهد، معمولا به این دلیل که کنترل آن رخداد را خود به دست گرفته است، می تواند متد <code>preventDefault</code> را روی شیء رخداد فراخوانی کند.</p>
+<p>گرداننده‌های رخداد در جاوااسکریپت، در بیشتر انواع رخداد‌ها، <em>پیش</em> از اینکه رفتار پیش‌فرض اتفاق بیفتد فراخوانی می‌شوند. اگر گرداننده‌ی مورد نظر مایل نباشد که رفتار پیش‌فرض رخ بدهد، معمولا به این دلیل که کنترل آن رخداد را خود به دست گرفته است، می‌تواند متد <code>preventDefault</code> را روی شیء رخداد فراخوانی کند.</p>
 
-<p>می توان از این روش برای پیاده‌سازی کلید‌های میانبر خودتان یا منوی زمینه استفاده کرد. همچنین می توان رفتاری که کاربر از یک رخداد انتظار دارد را کاملا خنثی نمود. به عنوان مثال، اینجا پیوندی وجود دارد که نمی شود آن را دنبال کرد.</p>
+<p>می‌توان از این روش برای پیاده‌سازی کلید‌های میانبر خودتان یا منوی زمینه استفاده کرد. همچنین می‌توان رفتاری که کاربر از یک رخداد انتظار دارد را کاملا خنثی نمود. به عنوان مثال، اینجا پیوندی وجود دارد که نمی‌شود آن را دنبال کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_0/0kxevSeD" href="#c_0/0kxevSeD" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">href</span>=<span class="cm-string">&quot;https://developer.mozilla.org/&quot;</span><span class="cm-tag cm-bracket">&gt;</span>MDN<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -154,13 +154,13 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>سعی کنید به سراغ این گونه کارها نروید مگر اینکه دلیل محکمه‌پسندی برای آن داشته باشید. کاربرانی که از صفحه‌ی وب شما استفاده می کنند، زمانی که رفتار مورد انتظارشان از کار افتاده باشد، احساس خوبی نخواهند داشت.</p>
+<p>سعی کنید به سراغ این گونه کارها نروید مگر اینکه دلیل محکمه‌پسندی برای آن داشته باشید. کاربرانی که از صفحه‌ی وب شما استفاده می‌کنند، زمانی که رفتار مورد انتظارشان از کار افتاده باشد، احساس خوبی نخواهند داشت.</p>
 
-<p><a class="p_ident" id="p_wGusVl4yGd" href="#p_wGusVl4yGd" tabindex="-1" role="presentation"></a>بسته به مرورگر مورد استفاده، بعضی از رخدادها را نمی توان به هیچ وجه متوقف کرد. به عنوان مثال در گوگل کروم، کلید میانبری که برای بستن تب فعلی استفاده می شود (<span class="keyname">control</span>-W یا <span class="keyname">command</span>-W) را نمی توان توسط جاوااسکریپت مدیریت کرد.</p>
+<p><a class="p_ident" id="p_wGusVl4yGd" href="#p_wGusVl4yGd" tabindex="-1" role="presentation"></a>بسته به مرورگر مورد استفاده، بعضی از رخدادها را نمی‌توان به هیچ وجه متوقف کرد. به عنوان مثال در گوگل کروم، کلید میانبری که برای بستن تب فعلی استفاده می‌شود (<span class="keyname">control</span>-W یا <span class="keyname">command</span>-W) را نمی‌توان توسط جاوااسکریپت مدیریت کرد.</p>
 
 <h2><a class="h_ident" id="h_7Zx/Icr0OI" href="#h_7Zx/Icr0OI" tabindex="-1" role="presentation"></a>رخد‌ادهای مربوط به کلید‌ها</h2>
 
-<p>زمانی که یک کلید در صفحه‌کلید فشرده می شود، مرورگر شما یک رخداد <code>&quot;keydown&quot;</code> را ارسال می‌کند. وقتی کلید رها می‌شود، یک رخداد <code>&quot;keyup&quot;</code> به وجود می آید.</p>
+<p>زمانی که یک کلید در صفحه‌کلید فشرده می‌شود، مرورگر شما یک رخداد <code>&quot;keydown&quot;</code> را ارسال می‌کند. وقتی کلید رها می‌شود، یک رخداد <code>&quot;keyup&quot;</code> به وجود می آید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_KkYEaH5/cU" href="#c_KkYEaH5/cU" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>This page turns violet when you hold the V key.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -176,11 +176,11 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_Yfb0Ie8yZw" href="#p_Yfb0Ie8yZw" tabindex="-1" role="presentation"></a>برخلاف نامش، <code>&quot;keydown&quot;</code> فقط در زمانی که کلید به پایین فشرده می شود به‌وجود نمی‌آید. زمانی که یک کلید فشرده می شود و در همان حالت نگه‌داشته می شود، این رخداد با هر بار تکرار آن کلید دوباره ارسال‌ می شود. گاهی اوقات باید حواستان به این رفتار باشد. به عنوان مثال اگر بخواهید دکمه‌ای را با فشردن یک کلید به DOM اضافه کنید و با رها کردن کلید حذف کنید، ممکن است تصادفی صدها دکمه اضافه شود زیرا ممکن است که کلید مورد نظر، زمان بیشتری در حالت فشرده نگه داشته شود.</p>
+<p><a class="p_ident" id="p_Yfb0Ie8yZw" href="#p_Yfb0Ie8yZw" tabindex="-1" role="presentation"></a>برخلاف نامش، <code>&quot;keydown&quot;</code> فقط در زمانی که کلید به پایین فشرده می‌شود به‌وجود نمی‌آید. زمانی که یک کلید فشرده می‌شود و در همان حالت نگه‌داشته می‌شود، این رخداد با هر بار تکرار آن کلید دوباره ارسال‌ می‌شود. گاهی اوقات باید حواستان به این رفتار باشد. به عنوان مثال اگر بخواهید دکمه‌ای را با فشردن یک کلید به DOM اضافه کنید و با رها کردن کلید حذف کنید، ممکن است تصادفی صدها دکمه اضافه شود زیرا ممکن است که کلید مورد نظر، زمان بیشتری در حالت فشرده نگه داشته شود.</p>
 
-<p><a class="p_ident" id="p_W+SX0ymK6K" href="#p_W+SX0ymK6K" tabindex="-1" role="presentation"></a>در مثال، خاصیت <code>key</code> از شیء رخداد بررسی شد تا مشخص شود که رخداد به کدام کلید مربوط است. این خاصیت یک مقدار رشته ای را نگه می دارد که برای بیشتر کلید‌ها معادل چیزی است که با فشردن آن کلید تایپ می شود. برای کلید‌های خاص مثل <span class="keyname">enter</span>، نام آن به صورت رشته‌ نگه‌‌داری می‌شود (<code>&quot;Enter&quot;</code> در این مورد). اگر کلید <span class="keyname">shift</span> راه هم در زمان فشردن کلیدی نگه‌ دارید، این کار ممکن است که روی نام کلید تاثیر بگذارد – <code>&quot;v&quot;</code> به <code>&quot;V&quot;</code> تبدیل می شود، <code>&quot;1&quot;</code> به <code>&quot;!&quot;</code> تبدیل می شود، البته اگر این چیزی است که در صورت فشردن <span class="keyname">shift</span>-1 در صفحه‌کلید شما تولید می شود.</p>
+<p><a class="p_ident" id="p_W+SX0ymK6K" href="#p_W+SX0ymK6K" tabindex="-1" role="presentation"></a>در مثال، خاصیت <code>key</code> از شیء رخداد بررسی شد تا مشخص شود که رخداد به کدام کلید مربوط است. این خاصیت یک مقدار رشته ای را نگه می‌دارد که برای بیشتر کلید‌ها معادل چیزی است که با فشردن آن کلید تایپ می‌شود. برای کلید‌های خاص مثل <span class="keyname">enter</span>، نام آن به صورت رشته‌ نگه‌‌داری می‌شود (<code>&quot;Enter&quot;</code> در این مورد). اگر کلید <span class="keyname">shift</span> راه هم در زمان فشردن کلیدی نگه‌ دارید، این کار ممکن است که روی نام کلید تاثیر بگذارد – <code>&quot;v&quot;</code> به <code>&quot;V&quot;</code> تبدیل می‌شود، <code>&quot;1&quot;</code> به <code>&quot;!&quot;</code> تبدیل می‌شود، البته اگر این چیزی است که در صورت فشردن <span class="keyname">shift</span>-1 در صفحه‌کلید شما تولید می‌شود.</p>
 
-<p><a class="p_ident" id="p_qhSyC+YLva" href="#p_qhSyC+YLva" tabindex="-1" role="presentation"></a>کلید‌های اصلاح‌گر مثل <span class="keyname">shift</span>، <span class="keyname">control</span>، <span class="keyname">alt</span> و <span class="keyname">meta</span> (کلید <span class="keyname">command</span> در Mac) شبیه به کلید‌های معمولی رخدادی را ایجاد می کنند. اما وقتی که ترکیب کلید‌ها را بررسی می کنید، می توانید ببینید که این کلید‌ها هم پایین نگه‌داشته شده اند یا خیر. این کار با نگاه کردن به خاصیت‌های <code>shiftKey</code>، <code>ctrlKey</code>، <code>altKey</code> و <code>metaKey</code> مربوط به رخدادهای موس و صفحه کلید قابل انجام است.</p>
+<p><a class="p_ident" id="p_qhSyC+YLva" href="#p_qhSyC+YLva" tabindex="-1" role="presentation"></a>کلید‌های اصلاح‌گر مثل <span class="keyname">shift</span>، <span class="keyname">control</span>، <span class="keyname">alt</span> و <span class="keyname">meta</span> (کلید <span class="keyname">command</span> در Mac) شبیه به کلید‌های معمولی رخدادی را ایجاد می‌کنند. اما وقتی که ترکیب کلید‌ها را بررسی می‌کنید، می‌توانید ببینید که این کلید‌ها هم پایین نگه‌داشته شده اند یا خیر. این کار با نگاه کردن به خاصیت‌های <code>shiftKey</code>، <code>ctrlKey</code>، <code>altKey</code> و <code>metaKey</code> مربوط به رخدادهای موس و صفحه کلید قابل انجام است.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_aHmyG7GoKB" href="#c_aHmyG7GoKB" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Press Control-Space to continue.<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -191,27 +191,27 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_XgAiQiwF+K" href="#p_XgAiQiwF+K" tabindex="-1" role="presentation"></a>گره‌ای در DOM، که در آن یک رخداد کلید آغاز می شود، به عنصری که در زمان فشردن کلید فعال (حالت focus) بوده است بستگی دارد. بیشتر گره‌ها نمی توانند درحالت focus قرار گیرند مگر اینکه به آن‌ها خصوصیت <code>tabindex</code> را اختصاص دهید، اما چیزهایی مثل پیوند‌ها، دکمه‌ها، و فیلد‌های فرم این امکان را به صورت پیش‌فرض دارند. در <a href="18_http.html#forms">فصل 18</a> به بحث فیلد‌های فرم خواهیم پرداخت. وقتی عنصر خاصی در صفحه مورد تمرکز یا توجه نیست، <bdo><code>document.body</code></bdo> به عنوان گره‌ی هدف رخداد‌های کلید، در نظر گرفته می شود.</p>
+<p><a class="p_ident" id="p_XgAiQiwF+K" href="#p_XgAiQiwF+K" tabindex="-1" role="presentation"></a>گره‌ای در DOM، که در آن یک رخداد کلید آغاز می‌شود، به عنصری که در زمان فشردن کلید، فعال (حالت focus) بوده است بستگی دارد. بیشتر گره‌ها نمی‌توانند درحالت focus قرار گیرند مگر اینکه به آن‌ها خصوصیت <code>tabindex</code> را اختصاص دهید، اما چیزهایی مثل پیوند‌ها، دکمه‌ها، و فیلد‌های فرم این امکان را به صورت پیش‌فرض دارند. در <a href="18_http.html#forms">فصل 18</a> به بحث فیلد‌های فرم خواهیم پرداخت. وقتی عنصر خاصی در صفحه، مورد تمرکز یا توجه نیست، <bdo><code>document.body</code></bdo> به عنوان گره‌ی هدف رخداد‌های کلید، در نظر گرفته می‌شود.</p>
 
-<p><a class="p_ident" id="p_0Pmdx/Ivn9" href="#p_0Pmdx/Ivn9" tabindex="-1" role="presentation"></a>زمانی که کاربر در حال تایپ یک متن است، استفاده از رخداد‌های کلید برای تشخیص چیزی که در حال تایپ شدن است با مشکلاتی روبرو می‌باشد. بعضی پلتفرم‌ها، مخصوصا صفحه‌کلید مجازی موجود در گوشی‌های اندروید، هیچ رخداد کلیدی را ارسال نمی کنند. حتی زمانی که از یک صفحه‌کلید قدیمی و از مد افتاده استفاده می کنید ، بعضی از انواع ورودی متن با کلیدی که فشرده می شود تطابق ندارند، مثل یک نرم افزار IME (“ویرایشگر روش ورود”) که توسط افرادی استفاده می‌شود که الفبای زبانشان در صفحه‌کلید معمولی قابل پیاده‌سازی نیست، جایی که ترکیب فشردن چند کلید برای ایجاد کاراکترها استفاده می شود.</p>
+<p><a class="p_ident" id="p_0Pmdx/Ivn9" href="#p_0Pmdx/Ivn9" tabindex="-1" role="presentation"></a>زمانی که کاربر در حال تایپ یک متن است، استفاده از رخداد‌های کلید برای تشخیص چیزی که در حال تایپ شدن است با مشکلاتی روبرو می‌باشد. بعضی پلتفرم‌ها، مخصوصا صفحه‌کلید مجازی موجود در گوشی‌های اندروید، هیچ رخداد کلیدی را ارسال نمی‌کنند. حتی زمانی که از یک صفحه‌کلید قدیمی و از مد افتاده استفاده می‌کنید ، بعضی از انواع ورودی متن با کلیدی که فشرده می‌شود تطابق ندارند، مثل یک نرم افزار IME (“ویرایشگر روش ورود”) که توسط افرادی استفاده می‌شود که الفبای زبانشان در صفحه‌کلید معمولی قابل پیاده‌سازی نیست، جایی که ترکیب فشردن چند کلید برای ایجاد کاراکترها استفاده می‌شود.</p>
 
-<p>برای اینکه متوجه شویم که چیزی تایپ شده است، عناصری که می توان در آن‌ها چیزی را تایپ‌ کرد مثل <bdo><code>&lt;input&gt;</code></bdo> و <bdo><code>&lt;textarea&gt;</code></bdo>، با هر بار تغییر محتوایشان توسط کاربر، رخداد “<code>&quot;input&quot;</code> را ایجاد می کنند. برای گرفتن محتوایی که تایپ شده است، بهترین کار این است که آن را مستقیما از فیلدی که مورد تمرکز است بخوانیم. <a href="18_http.html#forms">فصل 18</a> چگونی آن را نشان می دهد.</p>
+<p>برای اینکه متوجه شویم که چیزی تایپ شده است، عناصری که می‌توان در آن‌ها چیزی را تایپ‌ کرد مثل <bdo><code>&lt;input&gt;</code></bdo>  و <bdo><code>&lt;textarea&gt;</code></bdo>، با هر بار تغییر محتوایشان توسط کاربر، رخداد “<code>&quot;input&quot;</code> را ایجاد می‌کنند. برای گرفتن محتوایی که تایپ شده است، بهترین کار این است که آن را مستقیما از فیلدی که مورد تمرکز است بخوانیم. <a href="18_http.html#forms">فصل 18</a> چگونی آن را نشان می‌دهد.</p>
 
-<h2><a class="h_ident" id="h_MyTQpIWSmM" href="#h_MyTQpIWSmM" tabindex="-1" role="presentation"></a>رخداد‌های مربوط به مکان‌نما</h2>
+<h2><a class="h_ident" id="h_RQvyS8rzv5" href="#h_RQvyS8rzv5" tabindex="-1" role="presentation"></a>رخداد‌های مربوط به مکان‌نما‌</h2>
 
-<p><a class="p_ident" id="p_7ez8+LHmSt" href="#p_7ez8+LHmSt" tabindex="-1" role="presentation"></a>در حال حاضر، دو روش به طور گسترده برای اشاره به قسمت‌های روی یک صفحه‌ نمایش استفاده می شود :‌ استفاده از موس ( شامل دیگر ابزار که شبیه به موس عمل می کنند مثل پدلمسی (touchpad) و گوی کنترلی (trackball) ) و صفحات لمسی. این دو روش رخدادهای متنوعی ایجاد می کنند.</p>
+<p><a class="p_ident" id="p_7ez8+LHmSt" href="#p_7ez8+LHmSt" tabindex="-1" role="presentation"></a>در حال حاضر، دو روش به طور گسترده برای اشاره به قسمت‌های روی یک صفحه‌ نمایش استفاده می‌شود :‌ استفاده از موس ( شامل دیگر ابزار که شبیه به موس عمل می‌کنند مثل پدلمسی (touchpad) و گوی کنترلی (trackball) )  و صفحات لمسی. این دو روش رخدادهای متنوعی را ایجاد می‌کنند.</p>
 
 <h3><a class="i_ident" id="i_VHP28DrCIw" href="#i_VHP28DrCIw" tabindex="-1" role="presentation"></a>کلیک‌های موس</h3>
 
-<p>فشردن یک دکمه‌ی موس موجب ایجاد چندین رخداد می گردد. رخدادهای <code>&quot;mousedown&quot;</code> و <code>&quot;mouseup&quot;</code> مشابه <code>&quot;keydown&quot;</code> و <code>&quot;keyup&quot;</code> هستند و وقتی که دکمه‌ی موس فشرده و رها می شود، ایجاد می گردند. این اتفاق روی گره‌هایی از DOM می افتد که در هنگام فشردن کلید زیر مکان‌نمای موس قرار دارند.</p>
+<p>فشردن یک دکمه‌ی موس موجب ایجاد چندین رخداد می گردد.  رخدادهای <code>&quot;mousedown&quot;</code> و <code>&quot;mouseup&quot;</code> مشابه <code>&quot;keydown&quot;</code> و <code>&quot;keyup&quot;</code> هستند و وقتی که دکمه‌ی موس فشرده و رها می‌شود، ایجاد می گردند. این اتفاق روی گره‌هایی از DOM می‌افتد که در هنگام فشردن کلید زیر مکان‌نمای موس قرار دارند.</p>
 
-<p>بعد از رخداد <code>&quot;mouseup&quot;</code>، یک رخداد <code>&quot;click&quot;</code> روی صریح ترین گره‌ای که هر دوی فشردن و رهاشدن کلید را در بر بگیرد، به وجود می‌آید. به عنوان مثال، اگر دکمه‌ی موس را روی یک پاراگراف به پایین فشار دهیم و مکان‌نما را روی یک پاراگراف دیگر ببریم و دکمه‌ را رها کنیم، رخداد <code>&quot;click&quot;</code> روی عنصری رخ می دهد که هر دوی پاراگراف‌ها را در بر داشته باشد.</p>
+<p>بعد از رخداد <code>&quot;mouseup&quot;</code>، یک رخداد <code>&quot;click&quot;</code> روی صریح ترین گره‌ای که هر دوی فشردن و رهاشدن کلید را در بر بگیرد، به وجود می‌آید. به عنوان مثال، اگر دکمه‌ی موس را روی یک پاراگراف به پایین فشار دهیم و مکان‌نما را روی یک پاراگراف دیگر ببریم و دکمه‌ را رها کنیم، رخداد <code>&quot;click&quot;</code> روی عنصری رخ می‌دهد که هر دوی پاراگراف‌ها را در بر داشته باشد.</p>
 
-<p>اگر دو کلیک نزدیک هم اتفاق بیفتد، همچنین یک رخداد <code>&quot;dblclick&quot;</code> (جفت کلیک) بعد از رخداد کلیک دوم، ایجاد می شود.</p>
+<p>اگر دو کلیک نزدیک هم اتفاق بیفتد، همچنین یک رخداد <code>&quot;dblclick&quot;</code>  (جفت کلیک) بعد از رخداد کلیک دوم، ایجاد می‌شود.</p>
 
-<p>برای بدست آوردن اطلاعات دقیق جایی که رخداد موس در آنجا اتفاق افتاده است، می توانید به خاصیت‌های <code>clientX</code> و <code>clientY</code> رجوع کنید، که مختصات رخداد را (به پیکسل) نسبت به گوشه‌ی بالا و چپ پنجره، نگه‌داری می کنند یا <code>pageX</code> و <code>pageY</code> که نسبت به گوشه‌ی بالا و چپ کل سند این کار را انجام می‌دهند (که ممکن است در صورت اسکرول صفحه متفاوت باشد).</p>
+<p>برای بدست آوردن اطلاعات دقیق جایی که رخداد موس در آنجا اتفاق افتاده است، می‌توانید به خاصیت‌های <code>clientX</code> و <code>clientY</code> رجوع کنید، که مختصات رخداد را (به پیکسل) نسبت به گوشه‌ی بالا و چپ پنجره، نگه‌داری می‌کنند یا <code>pageX</code> و <code>pageY</code> که نسبت به گوشه‌ی بالا و چپ کل سند این کار را انجام می‌دهند (که ممکن است در صورت اسکرول صفحه متفاوت باشد).</p>
 
-<p id="mouse_drawing">در مثال پیش رو یک برنامه‌ی طراحی ابتدایی ایجاد می کنیم. هر بار که روی سند کلیک می کنید، برنامه یک نقطه زیر مکان کلیک شما اضافه می کند. برای دیدن مثالی کمتر ابتدایی از یک برنامه‌ی طراحی، به <a href="19_paint.html">فصل 19</a> مراجعه کنید.</p>
+<p id="mouse_drawing">در مثال پیش رو یک برنامه‌ی طراحی ابتدایی ایجاد می‌کنیم. هر بار که روی سند کلیک می‌کنید، برنامه یک نقطه زیر مکان کلیک شما اضافه می‌کند. برای دیدن مثالی کمتر ابتدایی از یک برنامه‌ی طراحی، به <a href="19_paint.html">فصل 19</a> مراجعه کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_2eo6Jw+49U" href="#c_2eo6Jw+49U" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag">body</span> {
@@ -237,9 +237,9 @@
 
 <h3><a class="i_ident" id="i_lc4ukUc6Ch" href="#i_lc4ukUc6Ch" tabindex="-1" role="presentation"></a>حرکت موس</h3>
 
-<p>هر بار که مکان‌نمای موس حرکت می کند، یک رخداد <code>&quot;mousemove&quot;</code> ایجاد می شود. این رخداد را می توان برای رصد موقعیت موس استفاده نمود. یک موقعیت رایج که این رخداد مفید خواهد بود زمانی است که شکلی از قابلیت کشیدن عناصر با موس را پیاده‌سازی می کنیم.</p>
+<p>هر بار که مکان‌نمای موس حرکت می‌کند، یک رخداد <code>&quot;mousemove&quot;</code> ایجاد می‌شود. این رخداد را می‌توان برای رصد موقعیت موس استفاده نمود. یک موقعیت رایج که این رخداد مفید خواهد بود زمانی است که شکلی از قابلیت کشیدن عناصر با موس را پیاده‌سازی می‌کنیم.</p>
 
-<p>به عنوان یک مثال، برنامه‌ی پیش رو یک میله را نمایش می دهد و گرداننده‌های رخدادی را تنظیم می کند که باعث می شوند که کشیدن به سمت چپ یا راست میله، موجب باریکتر یا ضخیم تر شدن آن بشود.</p>
+<p>به عنوان یک مثال، برنامه‌ی پیش رو یک میله را نمایش می‌دهد و گرداننده‌های رخدادی را تنظیم می‌کند که باعث می‌شوند که کشیدن به سمت چپ یا راست میله، موجب باریکتر یا ضخیم تر شدن آن بشود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_+CX2XtmsmE" href="#c_+CX2XtmsmE" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Drag the bar to change its width:<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">style</span>=<span class="cm-string">&quot;background: orange; width: 60px; height: 20px&quot;</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -269,23 +269,23 @@
 
 <p>توجه داشته باشید که گرداننده‌ی <code>&quot;mousemove&quot;</code> برای کل پنجره ثبت شده است. حتی اگر موس از محیط میله در حین تغییر اندازه، بیرون برود، تا زمانی که دکمه‌ی موس پایین نگه‌داشته شود، هنوز قصد داریم تا اندازه‌ی آن را تغییر دهیم.</p>
 
-<p><a class="p_ident" id="p_F+MkBRuGbJ" href="#p_F+MkBRuGbJ" tabindex="-1" role="presentation"></a>با رها شدن دکمه‌ی موس باید تغییر اندازه را متوقف کنیم. برای این کار، می توانیم از خاصیت <code>buttons</code> ( به s انتهای آن توجه داشته باشید)، که اطلاعاتی درباره‌ی دکمه‌هایی که در حال حاضر فشرده نگه‌داشته شده اند می دهد، استفاده کنیم. زمانی که این خاصیت صفر است، هیچ دکمه‌ای در حالت فشرده نمانده است. زمانی که دکمه‌هایی فشرده مانده باشند، مقدار این خاصیت برابر با جمع کدهای هریک از دکمه ها خواهد بود – دکمه‌ی چپ موس دارای کد ‍‍1، دکمه‌ی راست 2 و دکمه‌ی وسط دارای کد 4 است. با این کار می توانید بررسی کنید که آیا دکمه‌ی داده شده در حالت فشرده قرار دارد یا خیر. این کار با گرفتن باقیمانده‌ی مقدار <code>buttons</code> و کد آن بدست می آید.</p>
+<p><a class="p_ident" id="p_F+MkBRuGbJ" href="#p_F+MkBRuGbJ" tabindex="-1" role="presentation"></a>با رها شدن دکمه‌ی موس باید تغییر اندازه را متوقف کنیم. برای این کار، می‌توانیم از خاصیت <code>buttons</code> ( به s انتهای آن توجه داشته باشید) استفاده کنیم، که اطلاعاتی درباره‌ی دکمه‌هایی که در حال حاضر فشرده نگه‌داشته شده‌اند را فراهم می‌نماید. زمانی که این خاصیت صفر است، هیچ دکمه‌ای در حالت فشرده نمانده است. زمانی که دکمه‌هایی فشرده مانده باشند، مقدار این خاصیت برابر با جمع کدهای هریک از دکمه ها خواهد بود – دکمه‌ی چپ موس دارای کد ‍‍1، دکمه‌ی راست 2  و دکمه‌ی وسط دارای کد 4 است. با این کار می‌توانید بررسی کنید که آیا دکمه‌ی داده شده در حالت فشرده قرار دارد یا خیر. این کار با گرفتن باقیمانده‌ی مقدار <code>buttons</code> و کد آن بدست می آید.</p>
 
-<p>توجه داشته باشید که ترتیب این کدها با ترتیبی که توسط <code>button</code> استفاده می شد متفاوت است، دکمه‌ی وسط قبل از دکمه‌ی راست می آید. همانطور که ذکر شد، ثبات چیزی نیست که واقعا به عنوان یک نقطه‌ی قوت برای رابط برنامه‌نویسی در مرورگرها بتوان در نظر گرفت.</p>
+<p>توجه داشته باشید که ترتیب این کدها با ترتیبی که توسط <code>button</code> استفاده می‌شد متفاوت است، دکمه‌ی وسط قبل از دکمه‌ی راست می آید. همانطور که ذکر شد، ثبات چیزی نیست که واقعا به عنوان یک نقطه‌ی قوت برای رابط برنامه‌نویسی در مرورگرها بتوان در نظر گرفت.</p>
 
 <h3><a class="i_ident" id="i_8eiIlOUBYA" href="#i_8eiIlOUBYA" tabindex="-1" role="presentation"></a>رخداد‌های لمسی</h3>
 
-<p>سبک مرورگرهای گرافیکی‌ای که ما استفاده می کنیم برای کار با موس‌ طراحی شده اند، در زمانی که صفحات لمسی بسیار نادر بودند. برای اینکه وب روی گوشی‌های اولیه‌ی لمسی “کار” بکند، در مرورگرهایی که برای آن گوشی‌ها ساخته می شد، تا حدی رخدادهای لمسی همان رخداد‌های موس بودند. اگر روی صفحه ضربه بزنید، رخدادهای <code>&quot;mousedown&quot;</code> ، <code>&quot;mouseup&quot;</code> و <code>&quot;click&quot;</code> ایجاد خواهند شد.</p>
+<p>با توجه به زمانی که صفحات لمسی بسیار نادر بودند، سبک مرورگرهای گرافیکی‌ای که ما استفاده می‌کنیم برای کار با موس‌ طراحی شده‌اند. برای اینکه وب روی گوشی‌های اولیه‌ی لمسی “کار” بکند، در مرورگرهایی که برای آن گوشی‌ها ساخته می‌شد، تا حدی رخدادهای لمسی همان رخداد‌های موس بودند.  اگر روی صفحه ضربه بزنید، رخدادهای <code>&quot;mousedown&quot;</code> ، <code>&quot;mouseup&quot;</code> و <code>&quot;click&quot;</code> ایجاد خواهند شد.</p>
 
-<p>اما این ترفند زیاد قدرتمند نیست. روش کار یک صفحه‌ی لمسی کاملا با موس متفاوت است: یک صفحه‌ی لمسی کلید‌های متعدد ندارد، نمی توان انگشت را زمانی که روی صفحه قرار ندارد، رصد کرد ( تا <code>&quot;mousemove&quot;</code> را شبیه سازی کنید) و می توان در آن چندین انگشت را همزمان روی صفحه نمایش داشت.</p>
+<p>اما این ترفند زیاد قدرتمند نیست. روش کار یک صفحه‌ی لمسی کاملا با موس متفاوت است: یک صفحه‌ی لمسی کلید‌های متعدد ندارد، نمی‌توان انگشت را زمانی که روی صفحه قرار ندارد، رصد کرد ( تا <code>&quot;mousemove&quot;</code> را شبیه سازی کنید) و می‌توان در آن چندین انگشت را همزمان روی صفحه نمایش داشت.</p>
 
-<p>رخدادهای موس فقط مواردی از تعاملات لمسی با صفحه را پوشش می دهند که ساده و سرراست هستند – اگر به یک دکمه یک گرداننده‌ی <code>&quot;click&quot;</code> اضافه کنید، کاربران صفحات لمسی نیز می توانند از آن استفاده کنند. اما چیزی مثل یک میله‌ با اندازه‌ی قابل تغییر که در مثال قبل آمد روی صفحات لمسی کار نمی کند.</p>
+<p>رخدادهای موس فقط مواردی از تعاملات لمسی با صفحه را پوشش می‌دهند که ساده و سرراست هستند – اگر به یک دکمه یک گرداننده‌ی <code>&quot;click&quot;</code> اضافه کنید، کاربران صفحات لمسی نیز می‌توانند از آن استفاده کنند. اما چیزی مثل یک میله‌ با اندازه‌ی قابل تغییر که در مثال قبل آمد روی صفحات لمسی کار نمی‌کند.</p>
 
-<p>رخداد‌های به خصوصی برای کارهای لمسی وجود دارد. زمانی که انگشت شروع به لمس صفحه می کند، شما یک رخداد <code>&quot;touchstart&quot;</code> دریافت می کنید. زمانی که انگشت خود را مماس با صفحه حرکت می دهید، رخداد <code>&quot;touchmove&quot;</code> ایجاد می شود. و در نهایت زمانی که لمس صفحه‌ پایان می یابد شما یک رخداد <code>&quot;touchend&quot;</code> دریافت می کنید.</p>
+<p>رخداد‌های بخصوصی برای کارهای لمسی وجود دارند. زمانی که انگشت شروع به لمس صفحه می‌کند، شما یک رخداد <code>&quot;touchstart&quot;</code> دریافت می‌کنید. زمانی که انگشت خود را مماس با صفحه حرکت می‌دهید، رخداد <code>&quot;touchmove&quot;</code> ایجاد می‌شود. و در نهایت زمانی که لمس صفحه‌ پایان می یابد شما یک رخداد <code>&quot;touchend&quot;</code> دریافت می‌کنید.</p>
 
-<p>به دلیل اینکه خیلی از صفحات لمسی می توانند چند انگشت را همزمان شناسایی کنند، این رخداد‌ها یک مجموعه‌ی واحدی از مختصات مربوط به نقاط را ندارند. به جای آن، اشیاء این رخداد‌ها دارای خاصیتی به نام <code>touches</code> می باشند که شیءای آرایه‌گونه از نقاط را نگه‌داری می کند که هر کدامشان دارای خاصیت‌های <code>clientX</code>، <code>clientY</code>، <code>pageX</code> و <code>pageY</code> مربوط به خود می باشند.</p>
+<p>به دلیل اینکه خیلی از صفحات لمسی می‌توانند چند انگشت را همزمان شناسایی کنند، این رخداد‌ها یک مجموعه‌ی واحدی از مختصات مربوط به نقاط را ندارند. به جای آن، اشیاء این رخداد‌ها دارای خاصیتی به نام <code>touches</code> می‌باشند که شیءای آرایه‌گونه از نقاط را نگه‌داری می‌کند که هر کدامشان دارای خاصیت‌های <code>clientX</code>، <code>clientY</code>، <code>pageX</code> و <code>pageY</code> مربوط به خود می‌باشند.</p>
 
-<p>می توانید با استفاده از کدی شبیه زیر دور قسمت‌هایی که با انگشت لمس شده اند دایره‌ای قرمز رنگ بکشید.</p>
+<p>می‌توانید با استفاده از کدی شبیه زیر دور قسمت‌هایی که با انگشت لمس شده اند دایره‌ای قرمز رنگ بکشید.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_TpxWIP8ylU" href="#c_TpxWIP8ylU" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-tag">dot</span> { <span class="cm-property">position</span>: <span class="cm-atom">absolute</span>; <span class="cm-property">display</span>: <span class="cm-atom">block</span>;
@@ -311,13 +311,13 @@
   <span class="cm-variable">window</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;touchend&quot;</span>, <span class="cm-variable">update</span>);
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>گاهی لازم می شود که <code>preventDefault</code> را در گرداننده‌های رخداد لمسی فراخوانی کنید تا رفتار پیش‌فرض مرورگر را تغییر دهید ( که ممکن است شامل اسکرول‌شدن صفحه در صورت کشیدن انگشت به اطراف باشد) و از به‌وجود آمدن رخدادهای موس جلوگیری کنید، که ممکن است برای آن رخداد‌ها، گرداننده‌ی مجزایی در نظر گرفته‌ باشید.</p>
+<p>گاهی لازم می‌شود که <code>preventDefault</code> را در گرداننده‌های رخداد لمسی فراخوانی کنید تا رفتار پیش‌فرض مرورگر را تغییر دهید ( که ممکن است شامل اسکرول‌شدن صفحه در صورت کشیدن انگشت به اطراف باشد) و از به‌وجود آمدن رخدادهای موس جلوگیری کنید، که ممکن است برای آن رخداد‌ها، گرداننده‌ی مجزایی در نظر گرفته‌ باشید.</p>
 
 <h2><a class="h_ident" id="h_Ez/OlF8n/h" href="#h_Ez/OlF8n/h" tabindex="-1" role="presentation"></a>رخداد‌های scroll</h2>
 
-<p>هر بار که عنصری اسکرول می شود، یک رخداد <code>&quot;scroll&quot;</code> روی آن اجرا می شود. این موضوع کاربردهای متنوعی دارد؛ مثلا برای دانستن چیزی که کاربر در حال مشاهده است ( برای غیرفعال‌سازی جلوه‌های متحرکی که خارج از قسمت قابل مشاهده قرار می گیرند یا ارسال گزارشاتی شیطانی برای دفتر مرکزی شرکتتان) یا نمایش نمادهایی از میزان پیشرفت کاربر ( با برجسته‌ سازی بخش‌های فهرست محتوا یا شماره صفحات).</p>
+<p>هر بار که عنصری اسکرول می‌شود، یک رخداد <code>&quot;scroll&quot;</code> روی آن اجرا می‌شود. این موضوع کاربردهای متنوعی دارد؛ مثلا برای دانستن چیزی که کاربر در حال مشاهده است ( برای غیرفعال‌سازی جلوه‌های متحرکی که خارج از قسمت قابل مشاهده قرار می گیرند یا ارسال گزارشاتی شیطانی برای دفتر مرکزی شرکتتان) یا نمایش نمادهایی از میزان پیشرفت کاربر ( با برجسته‌ سازی بخش‌های فهرست محتوا یا شماره صفحات).</p>
 
-<p>مثال پیش رو یک نوار پیشرفت را در قسمت بالای صفحه ایجاد می کند و با میزان اسکرول صفحه این نوار تکمیل می شود.</p>
+<p>مثال پیش رو یک نوار پیشرفت را در قسمت بالای صفحه ایجاد می‌کند  و با میزان اسکرول صفحه این نوار تکمیل می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_7tyBZD/B1O" href="#c_7tyBZD/B1O" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-builtin">#progress</span> {
@@ -340,19 +340,19 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p>اگر <code>position</code> یک عنصر را <code>fixed</code> قرار بدهیم نتیجه شبیه به استفاده از موقعیت دهی <code>absolute</code> می شود اما در این حالت عنصر دیگر همراه با صفحه اسکرول نمی شود. این کار برای این است که نوار پیشرفت ما در بالای صفحه باقی بماند. تغییر عرض این نوار نمایانگر میزان پیشرفت خواهد بود. ما از <code>%</code> به جای <code>px</code> به عنوان واحد برای تنظیم عرض نوار استفاده می کنیم تا عنصر با توجه و نسبت به طول صفحه تغییر اندازه دهد.</p>
+<p>اگر <code>position</code> یک عنصر را <code>fixed</code> قرار بدهیم نتیجه شبیه به استفاده از موقعیت دهی <code>absolute</code> می‌شود اما در این حالت عنصر دیگر همراه با صفحه اسکرول نمی‌شود. این کار برای این است که نوار پیشرفت ما در بالای صفحه باقی بماند. تغییر عرض این نوار نمایانگر میزان پیشرفت خواهد بود. ما از <code>%</code> به جای <code>px</code> به عنوان واحد برای تنظیم عرض نوار استفاده می‌کنیم تا عنصر با توجه و نسبت به طول صفحه تغییر اندازه دهد.</p>
 
-<p><a class="p_ident" id="p_MQuG4LYrgo" href="#p_MQuG4LYrgo" tabindex="-1" role="presentation"></a>متغیر سراسری <code>innerHieght</code> به ما ارتفاع صفحه را می دهد که باید آن را از کل ارتفاع قابل اسکرول کم کنید – زمانی که به انتهای سند می‌رسید، نمی توانید به اسکرول ادامه دهید. همچنین <code>innerWidth</code> برای عرض صفحه‌ وجود دارد. با تقسیم <code>pageYOffset</code>، موقعیت اسکرول فعلی، بر موقعیت بیشینه‌ی اسکرول و ضرب آن در 100، درصد پیشرفت را برای نوار پیشرفت بدست می آوریم.</p>
+<p><a class="p_ident" id="p_MQuG4LYrgo" href="#p_MQuG4LYrgo" tabindex="-1" role="presentation"></a>متغیر سراسری <code>innerHieght</code> به ما ارتفاع صفحه را می‌دهد که باید آن را از کل ارتفاع قابل اسکرول کم کنید – زمانی که به انتهای سند می‌رسید، نمی‌توانید به اسکرول ادامه دهید. همچنین <code>innerWidth</code> برای عرض صفحه‌ وجود دارد. با تقسیم <code>pageYOffset</code>، موقعیت اسکرول فعلی، بر موقعیت بیشینه‌ی اسکرول و ضرب آن در 100، درصد پیشرفت را برای نوار پیشرفت بدست می آوریم.</p>
 
-<p><a class="p_ident" id="p_wp2sWlqMYv" href="#p_wp2sWlqMYv" tabindex="-1" role="presentation"></a>فراخوانی <code>preventDefault</code> روی یک رخداد scroll مانع از انجام اسکرول صفحه نمی شود. در واقع، گرداننده‌ی رخداد فقط <em>بعد</em> از اینکه اسکرول صفحه‌ اتفاق می افتد فراخوانی می شود.</p>
+<p><a class="p_ident" id="p_wp2sWlqMYv" href="#p_wp2sWlqMYv" tabindex="-1" role="presentation"></a>فراخوانی <code>preventDefault</code> روی یک رخداد scroll  مانع از انجام اسکرول صفحه نمی‌شود. در واقع، گرداننده‌ی رخداد فقط <em>بعد</em> از اینکه اسکرول صفحه‌ اتفاق می‌افتد فراخوانی می‌شود.</p>
 
 <h2><a class="h_ident" id="h_AucUGM9XSJ" href="#h_AucUGM9XSJ" tabindex="-1" role="presentation"></a>رخداد‌های Focus</h2>
 
-<p>زمانی که یک عنصر در صفحه فعال می شود، مرورگر یک رخداد <code>&quot;focus&quot;</code> را روی آن ایجاد می کند. زمانی که عنصر، دیگر فعال نیست، یک رخداد <code>&quot;blur&quot;</code> دریافت می کند.</p>
+<p>زمانی که یک عنصر در صفحه فعال می‌شود، مرورگر یک رخداد <code>&quot;focus&quot;</code> را روی آن ایجاد می کند. زمانی که عنصر، دیگر فعال نیست، یک رخداد <code>&quot;blur&quot;</code> دریافت می‌کند.</p>
 
-<p>برخلاف رخداد‌هایی که پیش‌تر بحث شد، این دو رخداد پخش نمی شوند (propagate). گرداننده‌ای که در عنصر والد قرار دارد متوجه فعال شدن یا از دست دادن توجه کاربر از عنصر فرزندش نمی شود.</p>
+<p>برخلاف رخداد‌هایی که پیش‌تر بحث شد، این دو رخداد پخش نمی‌شوند (propagate). گرداننده‌ای که در عنصر والد قرار دارد متوجه فعال شدن یا از دست دادن توجه کاربر از عنصر فرزندش نمی‌شود.</p>
 
-<p>در مثال پیش رو یک متن راهنما برای فیلد متنی که در حال حاضر فعال است نشان داده می شود:</p>
+<p>در مثال پیش رو یک متن راهنما برای فیلد متنی که در حال حاضر فعال است نشان داده می‌شود:</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_0ajEiAUCqr" href="#c_0ajEiAUCqr" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Name: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">data-help</span>=<span class="cm-string">&quot;Your full name&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>Age: <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">input</span> <span class="cm-attribute">type</span>=<span class="cm-string">&quot;text&quot;</span> <span class="cm-attribute">data-help</span>=<span class="cm-string">&quot;Your age in years&quot;</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -372,33 +372,33 @@
   }
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_MgrSZ9jZaf" href="#p_MgrSZ9jZaf" tabindex="-1" role="presentation"></a>شیء window دو رخداد <code>&quot;focus&quot;</code> و <code>&quot;blur&quot;</code> را زمانی دریافت می‌کند که کاربر از/یا به تب مرورگر یا پنجره‌ای که سند در آن نمایش داده می شود برود.</p>
+<p><a class="p_ident" id="p_MgrSZ9jZaf" href="#p_MgrSZ9jZaf" tabindex="-1" role="presentation"></a>شیء window  دو رخداد <code>&quot;focus&quot;</code>  و <code>&quot;blur&quot;</code> را زمانی دریافت می‌کند که کاربر از/یا به تب مرورگر یا پنجره‌ای که سند در آن نمایش داده می‌شود برود.</p>
 
-<h2><a class="h_ident" id="h_HfRVRFRNLt" href="#h_HfRVRFRNLt" tabindex="-1" role="presentation"></a>رخداد بارگیری - load</h2>
+<h2><a class="h_ident" id="h_nYPNlN4iM8" href="#h_nYPNlN4iM8" tabindex="-1" role="presentation"></a>رخداد بارگیری  - load</h2>
 
-<p><a class="p_ident" id="p_Zu6lzsTlJw" href="#p_Zu6lzsTlJw" tabindex="-1" role="presentation"></a>زمانی که بارگیری یک صفحه تمام می شود، رخداد <code>&quot;load&quot;</code> روی شیء window و body سند ایجاد می شود. این رخداد معمولا برای زمانبندی کارهای آغازینی که برای کارکرد نیاز دارند که کل سند بارگیری شده باشد استفاده می شود. به خاطر داشته باشید که محتوای برچسب <code>&lt;script&gt;</code> بلافاصله بعد از اینکه این برچسب مشاهده می شود اجرا می شود. ممکن است این اتفاق خیلی زودتر از موعد رخ بدهد، برای مثال، زمانی که اسکریپت لازم است با با بخش‌هایی از سند که بعد از برچسب <code>&lt;script&gt;</code>‌ می آیند کار کند.</p>
+<p><a class="p_ident" id="p_Zu6lzsTlJw" href="#p_Zu6lzsTlJw" tabindex="-1" role="presentation"></a>زمانی که بارگیری یک صفحه تمام می‌شود، رخداد <code>&quot;load&quot;</code> روی شیء window و body سند ایجاد می‌شود. این رخداد معمولا برای زمانبندی کارهای آغازینی که برای کارکرد نیاز دارند که کل سند بارگیری شده باشد استفاده می‌شود. به خاطر داشته باشید که محتوای برچسب <code>&lt;script&gt;</code> بلافاصله بعد از اینکه این برچسب مشاهده می‌شود اجرا می‌شود. ممکن است این اتفاق خیلی زودتر از موعد رخ بدهد، برای مثال، زمانی که اسکریپت لازم است با با بخش‌هایی از سند که بعد از برچسب <code>&lt;script&gt;</code>‌ می آیند کار کند.</p>
 
-<p><a class="p_ident" id="p_y1NGoIHc9l" href="#p_y1NGoIHc9l" tabindex="-1" role="presentation"></a>عناصری مثل تصاویر و برچسب‌های script که یک فایل بیرونی را بارگیری می کنند نیز یک رخداد <code>&quot;load&quot;</code> دارند که نشان می دهد که فایلی که به آن ارجاع داده اند بارگیری شده است. شبیه رخداد‌های مربوط به <code>focus</code>، رخدادهای مربوط به بارگیری نیز “پخش” نمی شوند.</p>
+<p><a class="p_ident" id="p_y1NGoIHc9l" href="#p_y1NGoIHc9l" tabindex="-1" role="presentation"></a>عناصری مثل تصاویر و برچسب‌های script که یک فایل بیرونی را بارگیری می‌کنند نیز یک رخداد <code>&quot;load&quot;</code> دارند که نشان می‌دهد که فایلی که به آن ارجاع داده اند بارگیری شده است. شبیه رخداد‌های مربوط به <code>focus</code>، رخدادهای مربوط به بارگیری نیز “پخش” نمی شوند.</p>
 
-<p><a class="p_ident" id="p_K+iMpCQsdu" href="#p_K+iMpCQsdu" tabindex="-1" role="presentation"></a>زمانی که یک صفحه بسته شود یا کاربر از آن خارج گردد (مثلا با رفتن به یک صفحه‌ی دیگر)، یک رخداد <code>&quot;beforeunload&quot;</code> اجرا می شود. کاربرد اصلی این رخداد برای جلوگیری از خروج تصادفی کاربر از صفحه و از دست دادن کارهایی است که در صورت خروج از صفحه، رخ می دهد. جلوگیری از خروج از صفحه همان طور که ممکن است حدس زده باشید، نمی تواند با متد <code>preventDefault</code> انجام شود. در عوض، می توان این کار را با برگرداندن یک مقدار غیر null از گرداننده میسر ساخت. زمانی که این کار را انجام می دهید، مرورگر یک پنجره‌ی تعاملی به کاربر نشان می دهد که از او بپرسد آیا مطمئن است که قصد خروج از صفحه را دارد. این مکانیزم اطمینان حاصل می کند که کاربر همیشه قادر باشد که صفحه را ترک کند حتی در صفحات مخربی که ترجیح می دهند کاربران را برای همیشه در صفحه حبس کرده و مجبورشان کنند که تبلیغات مسخره کاهش وزن را نگاه کنند.</p>
+<p><a class="p_ident" id="p_K+iMpCQsdu" href="#p_K+iMpCQsdu" tabindex="-1" role="presentation"></a>زمانی که یک صفحه بسته شود یا کاربر از آن خارج گردد (مثلا با رفتن به یک صفحه‌ی دیگر)، یک رخداد <code>&quot;beforeunload&quot;</code> اجرا می‌شود. کاربرد اصلی این رخداد برای جلوگیری از خروج تصادفی کاربر از صفحه و از دست دادن کارهایی است که در صورت خروج از صفحه، رخ می‌دهد. جلوگیری از خروج از صفحه همان طور که ممکن است حدس زده باشید، نمی‌تواند با متد <code>preventDefault</code> انجام شود. در عوض، می‌توان این کار را با برگرداندن یک مقدار غیر null از گرداننده میسر ساخت. زمانی که این کار را انجام می‌دهید، مرورگر یک پنجره‌ی تعاملی به کاربر نشان می‌دهد که از او بپرسد آیا مطمئن است که قصد خروج از صفحه را دارد. این مکانیزم اطمینان حاصل می‌کند که کاربر همیشه قادر باشد که صفحه را ترک کند حتی در صفحات مخربی که ترجیح می‌دهند کاربران را برای همیشه در صفحه حبس کرده و مجبورشان کنند که تبلیغات مسخره کاهش وزن را نگاه کنند.</p>
 
 <h2 id="timeline"><a class="h_ident" id="h_S7vEKJ0BUR" href="#h_S7vEKJ0BUR" tabindex="-1" role="presentation"></a>رخداد‌ها و حلقه‌ی رخداد</h2>
 
-<p>در بستر حلقه‌ی رخداد، که در <a href="11_async.html">فصل 11</a> بحث شد، گرداننده‌های رخداد مرورگر شبیه به دیگر اعلان‌های ناهمگام عمل می کنند. این گرداننده‌ها در زمان اتفاق رخدادها زمان‌بندی می شوند، اما قبل از اینکه شانس اجرا داشته باشند، باید برای دیگر اسکریپت‌ها منتظر بماند که اجرایشان پایان یابد .</p>
+<p>در بستر حلقه‌ی رخداد، که در <a href="11_async.html">فصل 11</a> بحث شد، گرداننده‌های رخداد مرورگر شبیه به دیگر اعلان‌های ناهمگام عمل می‌کنند. این گرداننده‌ها در زمان اتفاق رخدادها زمان‌بندی می‌شوند، اما قبل از اینکه شانس اجرا داشته باشند، باید برای دیگر اسکریپت‌ها منتظر بمانند که اجرایشان پایان یابد .</p>
 
-<p>این حقیقت که آن رخدادها فقط می توانند زمانی پردازش شوند که چیز دیگری در حال اجرا نباشد به این معنا است که اگر حلقه‌ی رخداد با دیگر کارها گره بخورد، هر تعامل با صفحه (که توسط رخدادها انجام می شود) تا زمانی که زمان برای پردازش آن وجود دارد به تاخیر خواهد افتاد. بنابراین اگر کار زیادی را زمانبندی کنید، چه با گرداننده‌های رخداد زمان‌گیر یا تعداد زیاد گرداننده کوچک، صفحه کند می شود و استفاده از آن سخت خواهد شد.</p>
+<p>این حقیقت که آن رخدادها فقط می‌توانند زمانی پردازش شوند که چیز دیگری در حال اجرا نباشد به این معنا است که اگر حلقه‌ی رخداد با دیگر کارها گره بخورد، هر تعامل با صفحه (که توسط رخدادها انجام می‌شود) تا زمانی که زمان برای پردازش آن وجود دارد به تاخیر خواهد افتاد. بنابراین اگر کار زیادی را زمانبندی کنید، چه با گرداننده‌های رخداد زمان‌گیر یا تعداد زیادی گرداننده‌ی کوچک، صفحه کند می‌شود و استفاده از آن سخت خواهد شد.</p>
 
-<p><a class="p_ident" id="p_e+t68y6ZcJ" href="#p_e+t68y6ZcJ" tabindex="-1" role="presentation"></a>برای مواردی که واقعا لازم است تا بعضی کارهای زمان-گیر را در پیش‌زمینه انجام دهید و صفحه از کار نیفتد ، مرورگرها چیزی به نام <em>web workers</em> (کارگزاران وب) را فراهم ساخته اند. یک کارگزار یک پردازش جاوااسکریپت است که در کنار اسکریپت اصلی اجرا می شود و خط‌ زمانی خودش را دارد.</p>
+<p><a class="p_ident" id="p_e+t68y6ZcJ" href="#p_e+t68y6ZcJ" tabindex="-1" role="presentation"></a>برای مواردی که واقعا لازم است تا بعضی کارهای زمان-گیر را در پیش‌زمینه انجام دهید و صفحه از کار نیفتد ، مرورگرها چیزی به نام <em>web workers</em> (کارگزاران وب) را فراهم ساخته‌اند. یک کارگزار یک پردازش جاوااسکریپت است که در کنار اسکریپت اصلی اجرا می‌شود و خط‌ زمانی خودش را دارد.</p>
 
-<p><a class="p_ident" id="p_woPjde2M6/" href="#p_woPjde2M6/" tabindex="-1" role="presentation"></a>فرض کنید که محاسبه‌ی مربع یک عدد کاری سنگین باشد، یک محاسبه‌ زمان‌گیر که قصد داریم آن را در thread یا نخ دیگری انجام دهیم. می توانیم فایلی به نام <bdo><code>code/<wbr>squareworker.<wbr>js</code></bdo> ایجاد کنیم که به پیام‌ها با محاسبه‌ی یک مربع پاسخ داده و پیامی را به عنوان پاسخ برگرداند.</p>
+<p><a class="p_ident" id="p_woPjde2M6/" href="#p_woPjde2M6/" tabindex="-1" role="presentation"></a>فرض کنید که محاسبه‌ی مربع یک عدد کاری سنگین باشد، یک محاسبه‌ زمان‌گیر که قصد داریم آن را در thread یا نخ دیگری انجام دهیم. می‌توانیم فایلی به نام <bdo><code>code/<wbr>squareworker.<wbr>js</code></bdo> ایجاد کنیم که به پیام‌ها با محاسبه‌ی یک مربع پاسخ داده و پیامی را به عنوان پاسخ برگرداند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_FgmodjGwd9" href="#c_FgmodjGwd9" tabindex="-1" role="presentation"></a><span class="cm-variable">addEventListener</span>(<span class="cm-string">&quot;message&quot;</span>, <span class="cm-def">event</span> <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">postMessage</span>(<span class="cm-variable-2">event</span>.<span class="cm-property">data</span> <span class="cm-operator">*</span> <span class="cm-variable-2">event</span>.<span class="cm-property">data</span>);
 });</pre>
 
-<p>برای پیشگیری از بروز مشکلات داشتن چند thread که روی یک داده کار می کنند، کارگزاران، قلمروی سراسری‌شان یا هر داده‌ی دیگری را با محیط اصلی اسکریپت به اشتراک نمی گذارند. در عوض، ایجاد ارتباط با آن‌ها باید از طریق ارسال و دریافت پیام انجام شود.</p>
+<p>برای پیشگیری از بروز مشکلات داشتن چند thread که روی یک داده کار می‌کنند، کارگزاران، قلمروی سراسری‌شان یا هر داده‌ی دیگری را با محیط اصلی اسکریپت به اشتراک نمی گذارند. در عوض، ایجاد ارتباط با آن‌ها باید از طریق ارسال و دریافت پیام انجام شود.</p>
 
-<p>کد زیر یک کارگزار که اسکریپتی را اجرا می کند، تعریف می کند؛ چندین پیام به آن ارسال کرده و پاسخ‌ها را به خروجی می فرستد.</p>
+<p>در کد زیر، کارگزاری تعریف می‌شود که یک اسکریپت را اجرا می‌کند؛ چندین پیام به آن ارسال کرده و پاسخ‌ها را به خروجی می فرستد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_43W0FL82No" href="#c_43W0FL82No" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">squareWorker</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Worker</span>(<span class="cm-string">&quot;code/squareworker.js&quot;</span>);
 <span class="cm-variable">squareWorker</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">&quot;message&quot;</span>, <span class="cm-def">event</span> <span class="cm-operator">=&gt;</span> {
@@ -407,13 +407,13 @@
 <span class="cm-variable">squareWorker</span>.<span class="cm-property">postMessage</span>(<span class="cm-number">10</span>);
 <span class="cm-variable">squareWorker</span>.<span class="cm-property">postMessage</span>(<span class="cm-number">24</span>);</pre>
 
-<p><a class="p_ident" id="p_dQKtbxHC+E" href="#p_dQKtbxHC+E" tabindex="-1" role="presentation"></a>تابع <code>postMessage</code> یک پیام ارسال می کند، که باعث می شود که یک رخداد <code>&quot;message&quot;</code> در دریافت‌کننده ایجاد گردد. اسکریپتی که کارگزار (worker) را ایجاد کرده است پیام ها را از طریق شیء <code>Worker</code> ارسال و دریافت می کند، جاییکه کارگزار با اسکریپتی که آن را ایجاد کرده است به وسیله‌ی ارسال و شنود مستقیم روی قلمروی سراسری‌اش، ارتباط برقرار می کند. فقط مقادیری که می توان آن‌ها را به صورت JSON نمایش داد می توانند به عنوان پیام‌ها ارسال شوند – سمت دیگر یک <em>کپی</em> از آن‌ها را دریافت می کند نه خودشان را.</p>
+<p><a class="p_ident" id="p_dQKtbxHC+E" href="#p_dQKtbxHC+E" tabindex="-1" role="presentation"></a>تابع <code>postMessage</code> یک پیام ارسال می‌کند، که باعث می‌شود که یک رخداد <code>&quot;message&quot;</code> در دریافت‌کننده ایجاد گردد. اسکریپتی که کارگزار (worker) را ایجاد کرده است پیام ها را از طریق شیء <code>Worker</code> ارسال و دریافت می‌کند، جایی‌که کارگزار با اسکریپتی که آن را ایجاد کرده است به وسیله‌ی ارسال و شنود مستقیم روی قلمروی سراسری‌اش، ارتباط برقرار می‌کند. فقط مقادیری که می‌توان آن‌ها را به صورت JSON نمایش داد می‌توانند به عنوان پیام‌ها ارسال شوند – سمت دیگر یک <em>کپی</em> از آن‌ها را دریافت می‌کند نه خودشان را.</p>
 
 <h2><a class="h_ident" id="h_BbAHuP8CV7" href="#h_BbAHuP8CV7" tabindex="-1" role="presentation"></a>زمان‌سنج</h2>
 
-<p>در <a href="11_async.html">فصل 11</a> با تابع <code>setTimeout</code> آشنا شدیم. این تابع، تابع دیگری را برای فراخوانی بعد از گذشت زمان داده شده به هزارم ثانیه زمان‌بندی می کند.</p>
+<p>در <a href="11_async.html">فصل 11</a> با تابع <code>setTimeout</code> آشنا شدیم. این تابع، تابع دیگری را برای فراخوانی بعد از گذشت زمان داده شده به هزارم ثانیه زمان‌بندی می‌کند.</p>
 
-<p>گاهی لازم است که اجرای تابعی را که زمان‌بندی کرده‌اید، لغو کنید. این کار با ذخیره‌ی مقداری که از تابع <code>setTimeout</code> برگردانده می شود و فراخوانی <code>clearTimeout</code> روی آن صورت می‌گیرد.</p>
+<p>گاهی لازم است که اجرای تابعی را که زمان‌بندی کرده‌اید، لغو کنید. این کار با ذخیره‌ی مقداری که از تابع <code>setTimeout</code> برگردانده می‌شود و فراخوانی <code>clearTimeout</code> روی آن صورت می‌گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EYaodyT5pj" href="#c_EYaodyT5pj" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">bombTimer</span> <span class="cm-operator">=</span> <span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;BOOM!&quot;</span>);
@@ -424,9 +424,9 @@
   <span class="cm-variable">clearTimeout</span>(<span class="cm-variable">bombTimer</span>);
 }</pre>
 
-<p>تابع <code>cancelAnimationFrame</code> به همان صورت که تابع <code>clearTimeout</code> عمل می کرد، کار می کند – فراخوانی آن روی مقدار برگشتی توسط <code>requestAnimationFrame</code> باعث می شود که آن فریم لغو شود (‌با فرض این که پیش از آن فراخوانی نشده باشد).</p>
+<p>تابع <code>cancelAnimationFrame</code> به همان صورت که تابع <code>clearTimeout</code> عمل می‌کرد، کار می‌کند – فراخوانی آن روی مقدار برگشتی توسط <code>requestAnimationFrame</code> باعث می‌شود که آن فریم لغو شود (‌با فرض این که پیش از آن فراخوانی نشده باشد).</p>
 
-<p><a class="p_ident" id="p_wDKtwf9inJ" href="#p_wDKtwf9inJ" tabindex="-1" role="presentation"></a>یک مجموعه مشابه از توابع، <code>setInterval</code> و <code>clearInterval</code> برای تنظیم زمان سنج‌هایی که باید هر <em>X</em> هزارم ثانیه <em>تکرار</em> شوند، استفاده می شود.</p>
+<p><a class="p_ident" id="p_wDKtwf9inJ" href="#p_wDKtwf9inJ" tabindex="-1" role="presentation"></a>یک مجموعه‌ی مشابه از توابع، <code>setInterval</code> و <code>clearInterval</code> برای تنظیم زمان‌سنج‌هایی که باید هر <em>X</em>  هزارم ثانیه <em>تکرار</em> شوند، استفاده می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_WmiFQBAos1" href="#c_WmiFQBAos1" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ticks</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
 <span class="cm-keyword">let</span> <span class="cm-def">clock</span> <span class="cm-operator">=</span> <span class="cm-variable">setInterval</span>(() <span class="cm-operator">=&gt;</span> {
@@ -439,11 +439,11 @@
 
 <h2><a class="h_ident" id="h_vMyrsVewtS" href="#h_vMyrsVewtS" tabindex="-1" role="presentation"></a>Debouncing (کاهش دفعات رسیدگی)</h2>
 
-<p>بعضی انواع رخداد‌ها این قابلیت را دارند که به سرعت، و به دفعات در یک ردیف اجرا شوند ( برای مثال <code>&quot;mousemove&quot;</code> و <code>&quot;scroll&quot;</code>). در هنگام رسیدگی به این رخداد‌ها، باید مواظب باشید که کاری که خیلی زمان‌گیر است را انجام ندهید که در این صورت گرداننده‌ی شما زمان زیادی می گیرد و تعامل با صفحه با مشکل کندی روبرو می شود.</p>
+<p>بعضی انواع رخداد‌ها این قابلیت را دارند که به سرعت، و به دفعات در یک ردیف اجرا شوند ( برای مثال <code>&quot;mousemove&quot;</code> و <code>&quot;scroll&quot;</code>). در هنگام رسیدگی به این رخداد‌ها، باید مواظب باشید که کاری که خیلی زمان‌گیر است را انجام ندهید که در این صورت گرداننده‌ی شما زمان زیادی می‌گیرد و تعامل با صفحه با مشکل کندی روبرو می‌شود.</p>
 
-<p><a class="p_ident" id="p_6LwELolLV+" href="#p_6LwELolLV+" tabindex="-1" role="presentation"></a>اگر لازم است که کاری جدی در این گونه گرداننده‌ها انجام دهید، می توانید با استفاده از <code>setTimeout</code> اطمینان حاصل کنید که این کار را به دفعات کمتری انجام می دهید. این کار معمولا <em>debounce</em> رخداد نامیده می شود. برای این کار روش‌های نسبتا متفاوتی وجود دارد.</p>
+<p><a class="p_ident" id="p_6LwELolLV+" href="#p_6LwELolLV+" tabindex="-1" role="presentation"></a>اگر لازم است که کاری جدی در این گونه گرداننده‌ها انجام دهید، می‌توانید با استفاده از <code>setTimeout</code> اطمینان حاصل کنید که این کار را به دفعات کمتری انجام می‌دهید. این کار معمولا <em>debounce</em> رخداد نامیده می‌شود. برای این کار روش‌های نسبتا متفاوتی وجود دارد.</p>
 
-<p><a class="p_ident" id="p_AqoXfF1OU1" href="#p_AqoXfF1OU1" tabindex="-1" role="presentation"></a>در مثلا اول، قصد داریم با تایپ چیزی توسط کاربر واکنش نشان دهیم اما نمی خواهیم این کار را برای هر رخداد ورودی انجام دهیم. در لحظاتی که کاربر به سرعت تایپ می کند، کمی صبر می کنیم تا یک وقفه در تایپ به وجود بیاید. به جای اینکه بلافاصله کاری در گرداننده رخداد انجام دهیم، یک زمان‌سنج تنظیم می کنیم. همچنین timeout قبلی را هم متوقف می کنیم (در صورت وجود) در نتیجه هنگامی که رخدادها نزدیک به هم رخ می دهند (نزدیک تر از وقفه‌ی زمان‌سنج ما) timeout متعلق به رخداد قبلی لغو می شود.</p>
+<p><a class="p_ident" id="p_AqoXfF1OU1" href="#p_AqoXfF1OU1" tabindex="-1" role="presentation"></a>در مثلا اول، قصد داریم با تایپ چیزی توسط کاربر واکنش نشان دهیم اما نمی خواهیم این کار را برای هر رخداد ورودی انجام دهیم. در لحظاتی که کاربر به سرعت تایپ می کند، کمی صبر می‌کنیم تا یک وقفه در تایپ به وجود بیاید. به جای اینکه بلافاصله کاری در گرداننده رخداد انجام دهیم، یک زمان‌سنج تنظیم می‌کنیم. همچنین timeout قبلی را هم متوقف می‌کنیم (در صورت وجود) در نتیجه هنگامی‌که رخدادها نزدیک به هم رخ می‌دهند (نزدیک تر از وقفه‌ی زمان‌سنج ما) timeout متعلق به رخداد قبلی لغو می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_amVDbwAaoI" href="#c_amVDbwAaoI" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>Type something here...<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">textarea</span><span class="cm-tag cm-bracket">&gt;</span>
 <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
@@ -455,9 +455,9 @@
   });
 <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span></pre>
 
-<p><a class="p_ident" id="p_EwnZPPhVAc" href="#p_EwnZPPhVAc" tabindex="-1" role="presentation"></a>اگر به تابع <code>clearTimeout</code> مقداری undefined بدهیم یا اینکه آن را روی یک timeout که پیش‌تر اجرا شده فراخوانی کنیم هیچ اثری تولید نخواهد کرد. بنابراین نیازی نیست که به زمان فراخوانی آن دقت کنیم و می توانیم برای همه‌ی رخداد‌ها این کار را انجام دهیم.</p>
+<p><a class="p_ident" id="p_EwnZPPhVAc" href="#p_EwnZPPhVAc" tabindex="-1" role="presentation"></a>اگر به تابع <code>clearTimeout</code> مقداری undefined بدهیم یا اینکه آن را روی یک timeout که پیش‌تر اجرا شده فراخوانی کنیم هیچ اثری تولید نخواهد کرد. بنابراین نیازی نیست که به زمان فراخوانی آن دقت کنیم و می‌توانیم برای همه‌ی رخداد‌ها این کار را انجام دهیم.</p>
 
-<p><a class="p_ident" id="p_ujD9l7QSfb" href="#p_ujD9l7QSfb" tabindex="-1" role="presentation"></a>می توانیم از الگویی کمی متفاوت استفاده کنیم اگر بخواهیم بین پاسخ ها فاصله بیاندازیم و بین آن‌ها یک حداقل زمان مشخص فاصله باشد اما باید آن‌ها را در طول یک مجموعه از رخدادها اجرا کنیم نه بعد از آن ها. به عنوان مثال، ممکن است بخواهیم به رخدادهای <code>&quot;mousemove&quot;</code> با نشان‌دادن مختصات فعلی موس پاسخ بدهیم اما بعد از هر 250 هزارم ثانیه.</p>
+<p><a class="p_ident" id="p_ujD9l7QSfb" href="#p_ujD9l7QSfb" tabindex="-1" role="presentation"></a>می‌توانیم از الگویی کمی متفاوت استفاده کنیم اگر بخواهیم بین پاسخ ها فاصله بیاندازیم و بین آن‌ها یک حداقل زمان مشخص فاصله باشد اما باید آن‌ها را در طول یک مجموعه از رخدادها اجرا کنیم نه بعد از آن‌ها. به عنوان مثال، ممکن است بخواهیم به رخدادهای <code>&quot;mousemove&quot;</code> با نشان‌دادن مختصات فعلی موس پاسخ بدهیم اما بعد از هر 250 هزارم ثانیه.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_Hx4a7naGCO" href="#c_Hx4a7naGCO" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">script</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-keyword">let</span> <span class="cm-def">scheduled</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>;
@@ -475,27 +475,27 @@
 
 <h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p>گرداننده‌های رخداد این امکان را فراهم می کنند که رخدادهایی که در صفحه‌ی وب ما اتفاق می افتند را شناسایی و به آن ها واکنش نشان دهیم. متد <code>addEventListener</code> برای ثبت گرداننده‌ها استفاده می شود.</p>
+<p>گرداننده‌های رخداد این امکان را فراهم می‌کنند که  رخدادهایی که در صفحه‌ی وب ما اتفاق می افتند را شناسایی و به آن‌ها واکنش نشان دهیم. متد <code>addEventListener</code> برای ثبت گرداننده‌ها استفاده می‌شود.</p>
 
-<p><a class="p_ident" id="p_H3a0n/Rcs4" href="#p_H3a0n/Rcs4" tabindex="-1" role="presentation"></a>هر رخداد دارای یک نوع است (<code>&quot;keydown&quot;</code> ، <code>&quot;focus&quot;</code> و از این قبیل) که برای شناسایی آن استفاده می شود. بیشتر رخدادها روی عناصر به خصوصی از DOM فراخوانی می شوند و بعد از آن به سمت عناصر والد (اجداد) آن پخش (propagate) می شوند که به گرداننده‌های ثبت شده برای آن عنصرها نیز امکان واکنش به رخداد را فراهم می کنند.</p>
+<p><a class="p_ident" id="p_H3a0n/Rcs4" href="#p_H3a0n/Rcs4" tabindex="-1" role="presentation"></a>هر رخداد دارای یک نوع است (<code>&quot;keydown&quot;</code> ، <code>&quot;focus&quot;</code> و از این قبیل) که برای شناسایی آن استفاده می‌شود. بیشتر رخدادها روی عناصر بخصوصی از DOM فراخوانی می‌شوند و بعد از آن به سمت عناصر والد (اجداد) آن پخش (propagate) می‌شوند که به گرداننده‌های ثبت شده برای آن عنصرها نیز امکان واکنش به رخداد را فراهم می‌کنند.</p>
 
-<p>زمانی که یک گرداننده‌ی رخداد فراخوانی می شود، یک شیء رخداد که حاوی اطلاعات بیشتری در باره‌ی رخداد است به آن ارسال می شود. این شیء دارای متدهایی است که می توان با آن‌ها از پخش رخداد جلوگیری کرد (<code>stopPropagation</code>) و مانع از اجرای واکنش پیش‌فرض مرورگر به رخداد شد (<code>preventDefault</code>).</p>
+<p>زمانی که یک گرداننده‌ی رخداد فراخوانی می‌شود، یک شیء رخداد که حاوی اطلاعات بیشتری درباره‌ی رخداد است به آن ارسال می‌شود. این شیء دارای متدهایی است که می‌توان با آن‌ها از پخش رخداد جلوگیری کرد (<code>stopPropagation</code>) و مانع از اجرای واکنش پیش‌فرض مرورگر به رخداد شد (<code>preventDefault</code>).</p>
 
-<p>با فشردن یک کلید دو رخداد <code>&quot;keydown&quot;</code> و <code>&quot;keyup&quot;</code> اجرا می شوند. فشردن یک کلید موس نیز سه رخداد <code>&quot;mousedown&quot;</code> ، <code>&quot;mouseup&quot;</code> و <code>&quot;click&quot;</code> را اجرا می کند. حرکت دادن موس باعث ایجاد رخداد‌های <code>&quot;mousemove&quot;</code> می شود. تعامل با صفحه‌ی لمسی باعث ایجاد رخداد‌های <code>&quot;touchstart&quot;</code>، <code>&quot;touchmove&quot;</code> و <code>&quot;touchend&quot;</code> می شود.</p>
+<p>با فشردن یک کلید دو رخداد <code>&quot;keydown&quot;</code> و <code>&quot;keyup&quot;</code> اجرا می‌شوند. فشردن یک کلید موس نیز سه رخداد <code>&quot;mousedown&quot;</code> ، <code>&quot;mouseup&quot;</code> و <code>&quot;click&quot;</code> را اجرا می‌کند. حرکت دادن موس باعث ایجاد رخداد‌های <code>&quot;mousemove&quot;</code>  می‌شود. تعامل با صفحه‌ی لمسی باعث ایجاد رخداد‌های <code>&quot;touchstart&quot;</code>، <code>&quot;touchmove&quot;</code>  و <code>&quot;touchend&quot;</code> می‌شود.</p>
 
-<p>اسکرول صفحه را می‌توان با رخداد <code>&quot;scroll&quot;</code> شناسایی کرد و فعال شدن عناصر صفحه را می توان با <code>&quot;focus&quot;</code> و <code>&quot;blur&quot;</code> تشخیص داد. زمانی که بارگیری یک سند پایان می یابد، یک رخداد <code>&quot;load&quot;</code> روی window اجرا می شود.</p>
+<p>اسکرول صفحه را می‌توان با رخداد <code>&quot;scroll&quot;</code> شناسایی کرد و فعال شدن عناصر صفحه را می‌توان با <code>&quot;focus&quot;</code> و <code>&quot;blur&quot;</code> تشخیص داد. زمانی که بارگیری یک سند پایان می‌یابد، یک رخداد <code>&quot;load&quot;</code> روی window اجرا می‌شود.</p>
 
 <h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
 <h3><a class="i_ident" id="i_P7XHhFbzWn" href="#i_P7XHhFbzWn" tabindex="-1" role="presentation"></a>بالون</h3>
 
-<p>صفحه‌ای ایجاد کنید که یک بالون را نمایش دهد ( با استفاده از ایموجی بالون 🎈). زمانی که کلید بالا را در صفحه‌کلید فشار می دهید، بالون باید ده درصد باد شود (بزرگ شود) و زمانی که کلید پایین را فشار می دهید بالون باید ده درصد کوچک شود.</p>
+<p>صفحه‌ای ایجاد کنید که یک بالون را نمایش دهد ( با استفاده از ایموجی بالون 🎈). زمانی که کلید بالا را در صفحه‌کلید فشار می‌دهید، بالون باید ده درصد باد شود (بزرگ شود) و زمانی که کلید پایین را فشار می‌دهید بالون باید ده درصد کوچک شود.</p>
 
-<p><a class="p_ident" id="p_GU4T2nIKHw" href="#p_GU4T2nIKHw" tabindex="-1" role="presentation"></a>می توانید اندازه‌ی متن (ایموجی‌ها متن محسوب می شوند) را با تنظیم خاصیت <bdo><code>font-size</code></bdo> در CSS یا (<bdo><code>style.fontSize</code></bdo>)) برای عنصر والدش کنترل کنید. به خاطر داشته باشید که یک واحد اندازه گیری در مقدار قرار دهید، برای مثال (<code>10px</code>).</p>
+<p><a class="p_ident" id="p_GU4T2nIKHw" href="#p_GU4T2nIKHw" tabindex="-1" role="presentation"></a>می‌توانید اندازه‌ی متن (ایموجی‌ها متن محسوب می‌شوند) را با تنظیم خاصیت <bdo><code>font-size</code></bdo> در CSS یا (<bdo><code>style.fontSize</code></bdo>)) برای عنصر والدش کنترل کنید. به خاطر داشته باشید که یک واحد اندازه گیری در مقدار قرار دهید، برای مثال (<code>10px</code>).</p>
 
-<p>نام کلید‌های جهت‌دار در صفحه‌کلید <code>&quot;ArrowUp&quot;</code> و <code>&quot;ArrowDown&quot;</code> است. مطمئن شوید که این کلید‌ها اندازه‌ی بالون را فقط تغییر می دهند و باعث اسکرول شدن صفحه نمی شوند.</p>
+<p>نام کلید‌های جهت‌دار در صفحه‌کلید <code>&quot;ArrowUp&quot;</code> و <code>&quot;ArrowDown&quot;</code> است. مطمئن شوید که این کلید‌ها اندازه‌ی بالون را فقط تغییر می‌دهند و باعث اسکرول شدن صفحه نمی‌شوند.</p>
 
-<p>وقتی تا اینجای کار به درستی کار کرد، امکانی اضافه کنید که در آن با بزرگتر شدن بالون از یک حد مشخص، بالون بترکد. در این جا ترکیدن را می توان با جایگزینی ایموجی بالون با یک ایموجی 💥 انجام داد و گرداننده‌ی رخداد نیز حذف شود ( تا دیگر انفجار را بزرگ یا کوچک نکند).</p>
+<p>وقتی تا اینجای کار به درستی کار کرد، امکانی اضافه کنید که در آن با بزرگتر شدن بالون از یک حد مشخص، بالون بترکد. در این جا ترکیدن را می‌توان با جایگزینی ایموجی بالون با یک ایموجی 💥 انجام داد و گرداننده‌ی رخداد نیز حذف شود ( تا دیگر انفجار را بزرگ یا کوچک نکند).</p>
 
 <pre class="snippet cm-s-default" data-language="text/html"  data-focus="true"><a class="c_ident" id="c_cG9w6ciW0L" href="#c_cG9w6ciW0L" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>🎈<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">p</span><span class="cm-tag cm-bracket">&gt;</span>
 
@@ -507,7 +507,7 @@
 
 <p>لازم خواهید داشت تا یک گرداننده برای رخداد <code>&quot;keydown&quot;</code> ثبت کنید و به سراغ <bdo><code>event.key</code></bdo> بروید تا متوجه شوید کلید بالا فشرده شده است یا کلید پایین.</p>
 
-<p>می توان اندازه‌ی کنونی را در یک متغیر نگه‌داری نمود که در این صورت می‌توانید اندازه‌ی جدید را بر مبنان آن تعریف کنید. اگر یک تابع برای تغییر اندازه - متغیر و سبک بالون در DOM - در نظر بگیرید، کار خوبی‌ است و می توانید از آن گرداننده‌ی رخدادتان استفاده کنید، و احتمالا در شروع برای تنظیم اندازه‌ی ابتدایی.</p>
+<p>می‌توان اندازه‌ی کنونی را در یک متغیر نگه‌داری نمود که در این صورت می‌توانید اندازه‌ی جدید را بر مبنان آن تعریف کنید. اگر یک تابع برای تغییر اندازه - متغیر و سبک بالون در DOM - در نظر بگیرید، کار خوبی‌ است و می‌توانید از آن گرداننده‌ی رخدادتان استفاده کنید، و احتمالا در شروع برای تنظیم اندازه‌ی ابتدایی.</p>
 
 <p>برای تغییر بالون به حالت منفجر شده می‌توانید گره‌ی متن را با ایموجی جدید (با استفاده از <code>replaceChild</code>) تغییر دهید یا خاصیت <code>textContent</code> متعلق به والدش را با یک رشته‌ی جدید مقداردهی کنید.</p>
 
@@ -517,11 +517,11 @@
 
 <p>در روزهای اولیه‌ی استفاده از جاوااسکریپت، که بورس صفحات وب جلف و پر زرق و برق و پر از عکس‌های متحرک بود، بعضی افراد روش‌های الهام‌بخشی برای استفاده از جاوااسکریپت در آن فضا پیدا کرده بودند.</p>
 
-<p>یکی از آن روش‌ها جلوه‌ی دنباله‌ی موس بود – مجموعه‌ای از عناصر که با حرکت موس در صفحه به دنبال مکان‌نمای آن حرکت می کردند.</p>
+<p>یکی از آن روش‌ها جلوه‌ی دنباله‌ی موس بود – مجموعه‌ای از عناصر که با حرکت موس در صفحه به دنبال مکان‌نمای آن حرکت می‌کردند.</p>
 
-<p><a class="p_ident" id="p_2k2/vE/cVi" href="#p_2k2/vE/cVi" tabindex="-1" role="presentation"></a>در این تمرین، از شما می خواهم که یک دنباله‌ی موس درست کنید. از عناصر <code>&lt;div&gt;</code> که به صورت مطلق (absolute) مقداردهی شده اند با اندازه‌ی ثابت و رنگ پیش‌زمینه (برای مثال به <a href="15_event.html#mouse_drawing">کدی</a> که در قسمت کلیک‌های موس وجود دارد مراجعه کنید) استفاده کنید. به تعداد کافی از این عناصر ایجاد کنید و زمانی که موس حرکت می کند آن ها را مثل ردپای مکان‌نمای موس به نمایش بگذارید.</p>
+<p><a class="p_ident" id="p_2k2/vE/cVi" href="#p_2k2/vE/cVi" tabindex="-1" role="presentation"></a>در این تمرین، از شما می خواهم که یک دنباله‌ی موس درست کنید. از عناصر <code>&lt;div&gt;</code> که به صورت مطلق (absolute) مقداردهی شده اند با اندازه‌ی ثابت و رنگ پیش‌زمینه (برای مثال به <a href="15_event.html#mouse_drawing">کدی</a> که در قسمت کلیک‌های موس وجود دارد مراجعه کنید) استفاده کنید.  به تعداد کافی از این عناصر ایجاد کنید و زمانی که موس حرکت می‌کند آن‌ها را مثل ردپای مکان‌نمای موس به نمایش بگذارید.</p>
 
-<p>روش‌های متنوعی برای پیاده‌سازی این کار وجود دارد. می توانید راه حلی پیچیده یا ساده را برگزینید. یک راه‌حل ساده برای شروع این است که تعداد ثابتی از عناصری دنباله‌رو داشته باشیم و بین آن‌ها بچرخیم و با هر بار ایجاد یک رخداد <code>&quot;mousemove&quot;</code> عنصر بعدی را به موقعیت فعلی موس منتقل کنیم.</p>
+<p>روش‌های متنوعی برای پیاده‌سازی این کار وجود دارد. می‌توانید راه حلی پیچیده یا ساده را برگزینید. یک راه‌حل ساده برای شروع این است که تعداد ثابتی از عناصری دنباله‌رو داشته باشیم و بین آن‌ها بچرخیم و با هر بار ایجاد یک رخداد <code>&quot;mousemove&quot;</code> عنصر بعدی را به موقعیت فعلی موس منتقل کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="text/html" ><a class="c_ident" id="c_I0KwYAPM1r" href="#c_I0KwYAPM1r" tabindex="-1" role="presentation"></a><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">style</span><span class="cm-tag cm-bracket">&gt;</span>
   <span class="cm-qualifier">.trail</span> { <span class="cm-comment">/* className for the trail elements */</span>
@@ -551,9 +551,9 @@
 
 <h3><a class="i_ident" id="i_JG9TAqRgno" href="#i_JG9TAqRgno" tabindex="-1" role="presentation"></a>برگه‌ها</h3>
 
-<p><a class="p_ident" id="p_B3LW8Q/0os" href="#p_B3LW8Q/0os" tabindex="-1" role="presentation"></a>پنل‌های برگه‌دار (tabbed panels) به صورت گسترده‌ای در رابط‌های کاربر استفاده می شوند. این پنل‌ها به شما امکان انتخاب پنل‌ خاصی از بین تعدادی برگه‌ی موجود فراهم می کنند که پنل منتخب به شکلی برجسته نمایش داده می شود.</p>
+<p><a class="p_ident" id="p_B3LW8Q/0os" href="#p_B3LW8Q/0os" tabindex="-1" role="presentation"></a>پنل‌های برگه‌دار (tabbed panels) به صورت گسترده‌ای در رابط‌های کاربر استفاده می‌شوند. این پنل‌ها به شما امکان انتخاب پنل‌ خاصی از بین  تعدادی برگه‌ی موجود فراهم می‌کنند که پنل منتخب به شکلی برجسته نمایش داده می‌شود.</p>
 
-<p>در این تمرین شما باید یک پنل برگه‌دار ساده را پیاده سازی کنید. تابعی به نام <code>asTabs</code> بنویسید که یک گره‌ی DOM را گرفته و یک رابط برگه‌دار را ایجاد می کند که عناصر فرزند آن گره‌ را نشان می دهد. این تابع باید لیستی از عناصر <code>&lt;button&gt;</code> را در بالای گره برای هر یک از عناصر فرزند نمایش دهد که هر دکمه عنوانش را از خصوصیت <bdo><code>data-tabname</code></bdo> عنصر فرزند دریافت می کند. همه‌ی عناصر فرزند به جز یک عنصر باید مخفی شوند ( با تنظیم خاصیت <code>display</code> با مقدار <code>none</code>). گره‌ای که در حالت فعلی قابل مشاهده است با کلیک‌ کردن روی دکمه‌ها مشخص می شود.</p>
+<p>در این تمرین شما باید یک پنل برگه‌دار ساده را پیاده سازی کنید. تابعی به نام <code>asTabs</code> بنویسید که یک گره‌ی DOM را گرفته و یک رابط برگه‌دار را ایجاد می‌کند که عناصر فرزند آن گره‌ را نشان می‌دهد. این تابع باید لیستی از عناصر <code>&lt;button&gt;</code> را در بالای گره برای هر یک از عناصر فرزند نمایش دهد که هر دکمه عنوانش را از خصوصیت <bdo><code>data-tabname</code></bdo> عنصر فرزند دریافت می‌کند. همه‌ی عناصر فرزند به جز یک عنصر باید مخفی شوند ( با تنظیم خاصیت <code>display</code> با مقدار <code>none</code>). گره‌ای که در حالت فعلی قابل مشاهده است با کلیک‌ کردن روی دکمه‌ها مشخص می‌شود.</p>
 
 <p>بعد از انجام آن، دکمه‌ای که فعال است را سبک‌دهی متفاوتی کنید که مشخص باشد کدام برگه‌ انتخاب شده است.</p>
 
@@ -571,7 +571,7 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_Izlqy2Ydwo" href="#p_Izlqy2Ydwo" tabindex="-1" role="presentation"></a>یک دام که ممکن است در آن بیفتید این است که شما نمی‌توانید مستقیما به سراغ خاصیت <code>childNodes</code> به عنوان یک مجموعه‌ از گره‌های برگه‌ بروید. اولا, وقتی دکمه‌ها (buttons) را اضافه می‌کنید ، آن‌ها نیز تبدیل به گره‌های فرزند می‌شوند و در این شیء قرار می‌گیرند زیرا این شیء یک ساختار داده‌ی زنده است. دوما, گره‌های متنی که برای فضاهای خالی بین گره‌ها ایجاد شده اند نیز در <code>childNodes</code> موجود هستند اما نباید برای آن‌ها برگه‌ در نظر گرفته شود. می توانید از <code>children</code> بجای <code>childNodes</code> برای این منظور استفاده کنید.</p>
+<p><a class="p_ident" id="p_Izlqy2Ydwo" href="#p_Izlqy2Ydwo" tabindex="-1" role="presentation"></a>یک دام که ممکن است در آن بیفتید این است که شما نمی‌توانید مستقیما  به سراغ خاصیت <code>childNodes</code> به عنوان یک مجموعه‌ از گره‌های برگه‌ بروید. اولا, وقتی دکمه‌ها (buttons) را اضافه می‌کنید ، آن‌ها نیز تبدیل به گره‌های فرزند می‌شوند و در این شیء قرار می‌گیرند زیرا این شیء یک ساختار داده‌ی زنده است. دوما, گره‌های متنی که برای فضاهای خالی بین گره‌ها ایجاد شده اند نیز در <code>childNodes</code> موجود هستند اما نباید برای آن‌ها برگه‌ در نظر گرفته شود. می‌توانید از <code>children</code> بجای <code>childNodes</code> برای این منظور استفاده کنید.</p>
 
 <p>می‌توانید با ساختن یک آرایه‌ از برگه‌ها کار را شروع کنید که در این‌ صورت به آسانی در دسترس شما خواهند بود. برای پیاده‌سازی سبک‌های دکمه‌ها، می‌توانید شیءهایی را ذخیره کنید که حاوی هم پنل برگه و هم دکمه‌ی آن باشد.</p>
 
