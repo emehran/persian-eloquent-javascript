@@ -9,7 +9,7 @@
   <script src="js/sandbox.js"></script>
   <script src="js/ejs.js"></script><script>var chapNum = 5;var sandboxLoadFiles = ["code/scripts.js","code/chapter/05_higher_order.js","code/intro.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
   <script async src="//static.getclicky.com/js"></script>
-
+  <script id='pixel-script-poptin' src='https://cdn.popt.in/pixel.js?id=ea6051b792008' async='true'></script>
 </head>
 
 <article>
@@ -19,23 +19,23 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p_vFulIihdz0" href="#p_vFulIihdz0" tabindex="-1" role="presentation"></a>زو-لی و زو-سو داشتند درباره‌ی اندازه‌ی آخرین برنامه‌‌ی خود برای هم رجز می‌خواندند. زو-لی گفت: 'دویست هزار خط کد' بدون شمردن توضیحات! زو-سو پاسخ داد، هه! برنامه‌ی من تقریبا یک میلون خط شده! استاد Yuan-Ma گفت، 'بهترین برنامه‌ای که نوشتم پانصد خط کد داشت'. با شنیدن این جمله، زو-لی و زو-سو متنبه شدند و به خود آمدند.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>زو-لی و زو-سو داشتند درباره‌ی اندازه‌ی آخرین برنامه‌‌ی خود برای هم رجز می‌خواندند. زو-لی گفت: 'دویست هزار خط کد' بدون شمردن توضیحات! زو-سو پاسخ داد، هه! برنامه‌ی من تقریبا یک میلون خط شده! استاد یوان‌ما گفت، 'بهترین برنامه‌ای که نوشتم پانصد خط کد داشت'. با شنیدن این جمله، زو-لی و زو-سو متنبه شدند و به خود آمدند.</p>
 
-<footer>استاد Yuan-Ma, <cite>کتاب برنامه‌نویسی</cite></footer>
+<footer>استاد یوان‌ما, <cite>کتاب برنامه‌نویسی</cite></footer>
 
 </blockquote>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>دو روش برای ساختاردهی در طراحی نرم‌افزار وجود دارد: یک راه این است که آن را آن‌قدر ساده بسازیم که به وضوح مشخص باشد که ایرادی وجود ندارد، و روش دیگر این است که آن‌قدر آن را پیچیده بسازیم که نتوان  ایرادات نرم‌افزار را به وضوح تشخیص داد.</p>
+<p>دو روش برای ساختاردهی در طراحی نرم‌افزار وجود دارد: یک راه این است که آن را آن‌قدر ساده بسازیم که به وضوح مشخص باشد که ایرادی وجود ندارد، و روش دیگر این است که آن‌قدر آن را پیچیده بسازیم که نتوان ایرادات نرم‌افزار را به روشنی تشخیص داد.</p>
 
-<footer>C.A.R. Hoare, <cite>1980 ACM Turing Award Lecture</cite></footer>
+<footer>آنتونی ریچارد هور, <cite>سخنرانی دریافت جایزه‌ی تورینگ ۱۹۸۰</cite></footer>
 
 </blockquote><figure class="chapter true"><img src="img/chapter_picture_5.jpg" alt="Letters from different scripts"></figure>
 
-<p>یک برنامه‌ی بزرگ پرهزینه است و این فقط به خاطر صرف زمان طولانی برای ساخت آن نیست بلکه پیچیدگی برنامه نیز همیشه بخشی از اندازه محسوب می‌شود؛ چیزی که برنامه‌نویسان را سردرگم کرده، به اشتباه‌ می‌اندازد و باعث می‌شود که برنامه خطا (<em>باگ</em>) داشته باشد. بنابراین یک برنامه‌ی بزرگ فضای زیادی برای پنهان شدن باگ‌ها فراهم می‌سازد و پیدا کردن باگ‌ها را سخت می‌کند.</p>
+<p>یک برنامه‌ی بزرگ پرهزینه است و این فقط به خاطر صرف زمان طولانی برای ساخت آن نیست بلکه پیچیدگی برنامه نیز همیشه بخشی از اندازه محسوب می‌شود؛ چیزی که برنامه‌نویسان را سردرگم کرده، به اشتباه می‌اندازد و باعث می‌شود که برنامه خطا (<em>باگ</em>) داشته باشد. بنابراین یک برنامه‌ی بزرگ فضای زیادی برای پنهان شدن باگ‌ها فراهم می‌سازد و پیدا کردن باگ‌ها را سخت می‌کند.</p>
 
-<p>بیایید نگاه کوتاهی به نسخه‌ی نهایی دو برنامه‌ی مقدمه‌ی کتاب بی‌اندازیم. برنامه‌ی اول فاقد تابع و کلا دارای شش خط کد است:</p>
+<p>بیایید نگاه کوتاهی به نسخه‌ی نهایی دو برنامه‌ی مقدمه‌ی کتاب بی‌اندازیم. برنامه‌ی اول فاقد تابع و دارای شش خط کد است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uIkg9pj99q" href="#c_uIkg9pj99q" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">total</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>, <span class="cm-def">count</span> <span class="cm-operator">=</span> <span class="cm-number">1</span>;
 <span class="cm-keyword">while</span> (<span class="cm-variable">count</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">10</span>) {
@@ -50,21 +50,21 @@
 
 <p>کدام یک بیشتر احتمال دارد باگ داشته باشد؟</p>
 
-<p>اگر اندازه‌ی تعریف توابع <code>sum</code> و <code>range</code> را هم به حساب بیاوریم، برنامه دوم نیز برنامه‌ای بزرگ محسوب می‌شود – حتی بزرگ تر از برنامه اول. اما هنوز، من ادعا می کنم که این برنامه با احتمال بیشتری درست کار خواهد کرد.</p>
+<p>اگر اندازه‌ی تعریف توابع  <code>sum</code> و <code>range</code> را هم به حساب بیاوریم، برنامه دوم نیز برنامه‌ای بزرگ محسوب می‌شود – حتی بزرگ‌تر از برنامه اول. اما هنوز، من ادعا می‌کنم که این برنامه با احتمال بیشتری درست کار خواهد کرد.</p>
 
-<p><a class="p_ident" id="p_4PtR8M5Y69" href="#p_4PtR8M5Y69" tabindex="-1" role="presentation"></a>با احتمال بیشتری درست کار خواهد کرد زیرا راه‌حل آن با واژگانی بیان شده است که با حل مسئله ارتباط معنایی دارند. جمع  بستن (sum) یک بازه‌ (range) از اعداد ربطی به حلقه‌ها و شمارنده‌ها ندارد؛ بلکه مربوط به بازه‌ها و عمل جمع می‌شود.</p>
+<p><a class="p_ident" id="p_4PtR8M5Y69" href="#p_4PtR8M5Y69" tabindex="-1" role="presentation"></a>با احتمال بیشتری درست کار خواهد کرد زیرا راه‌ حل آن با واژگانی بیان شده است که با حل مسئله ارتباط معنایی دارند. جمع بستن (sum) یک بازه (range) از اعداد، ربطی به حلقه‌ها و شمارنده‌ها ندارد؛ بلکه مربوط به بازه‌ها و عمل جمع می‌باشد.</p>
 
-<p>در تعریف این واژگان ( توابع <code>sum</code> و <code>range</code>) همچنان از حلقه‌ها، شمارنده‌ها و دیگر جزئیات فرعی استفاده خواهد شد. اما به دلیل اینکه آن‌ها به جای بیان برنامه به عنوان یک کل، مفاهیم ساده‌تری را نشان می‌دهند، آسان‌تر سامان می یابند.</p>
+<p>در تعریف این واژگان (توابع  <code>sum</code> و <code>range</code>) همچنان از حلقه‌ها، شمارنده‌ها و دیگر جزئیات فرعی استفاده خواهد شد. اما به دلیل اینکه آن‌ها به جای بیان برنامه به عنوان یک کل، مفاهیم ساده‌تری را نشان می‌دهند، آسان‌تر سامان می‌یابند.</p>
 
 <h2><a class="h_ident" id="h_dbW+UMc4df" href="#h_dbW+UMc4df" tabindex="-1" role="presentation"></a>انتزاع</h2>
 
-<p><a class="p_ident" id="p_ilqKIeyLYr" href="#p_ilqKIeyLYr" tabindex="-1" role="presentation"></a>در فضای برنامه‌نویسی، این گونه واژگان را عموما انتزاع‌ها یا <em>abstractions</em> می گویند. انتزاع‌ها جزئیات را مخفی می کنند و به ما این امکان را می‌دهند که درباره‌ی مسئله‌ها در سطح بالاتری ( انتزاع بیشتر ) گفتگو کنیم.</p>
+<p><a class="p_ident" id="p_ilqKIeyLYr" href="#p_ilqKIeyLYr" tabindex="-1" role="presentation"></a>در فضای برنامه‌نویسی، این گونه واژگان را عموما انتزاع‌ها <em>abstractions</em> می‌گویند. انتزاع‌ها جزئیات را مخفی می‌کنند و به ما این امکان را می‌دهند که درباره‌ی مسئله‌ها در سطح بالاتری (انتزاع بیشتر) گفتگو کنیم.</p>
 
 <p>به عنوان یک تشبیه، می‌توان این دو طرز تهیه‌ی سوپ نخود را با هم مقایسه کرد. اولین مورد به صورت زیر خواهد بود:</p>
 
 <blockquote>
 
-<p><a class="p_ident" id="p_EzBRXPQ20K" href="#p_EzBRXPQ20K" tabindex="-1" role="presentation"></a>یک فنجان نخود خشک برای هر نفر درون یک ظرف بریزید. به آن آب اضافه کنید تا همه‌ی نخود‌ها را در بر بگیرد. اجازه بدهید نخودها حداقل 12 ساعت در آب بمانند. بعد نخودها را از آب درآورده درون یک قابلمه قرار دهید.  برای هر نفر 4 لیوان آب اضافه کنید. روی قابلمه را پوشانده  و بگذارید برای 2 ساعت روی گاز باشد. برای هر نفر نیمی از پیاز را برداشته آن را تکه تکه کنید و به نخود‌ها اضافه نمایید. برای هر نفر یک ساقه‌ی کرفس بردارید. با چاقو قطعه قطعه کنید و به نخود ها اضافه کنید. برای هر نفر یک هویج در نظر گرفته، تکه تکه کرده با چاقو! و به نخودها اضافه کنید. بگذارید 10 دقیقه دیگر بپزد.</p>
+<p><a class="p_ident" id="p_EzBRXPQ20K" href="#p_EzBRXPQ20K" tabindex="-1" role="presentation"></a>یک فنجان نخود خشک برای هر نفر درون یک ظرف بریزید. به آن آب اضافه کنید تا همه‌ی نخود‌ها را در بر بگیرد. اجازه بدهید نخود‌ها حداقل 12 ساعت در آب بمانند. بعد نخود‌ها را از آب در آورده درون یک قابلمه قرار دهید. برای هر نفر 4 لیوان آب اضافه کنید. روی قابلمه را پوشانده و بگذارید برای 2 ساعت روی گاز باشد. برای هر نفر نیمی از پیاز را برداشته آن را تکه تکه کنید و به نخود‌ها اضافه نمایید. برای هر نفر یک ساقه‌ی کرفس بردارید. با چاقو قطعه قطعه کنید و به نخود‌ها اضافه کنید. برای هر نفر یک هویج در نظر گرفته، تکه تکه کرده با چاقو! و به نخود‌ها اضافه کنید. بگذارید 10 دقیقه دیگر بپزد.</p>
 
 </blockquote>
 
@@ -74,19 +74,19 @@
 
 <p>برای هر نفر: یک لیوان نخود خشک، نیمی از یک پیاز تکه تکه شده، یک ساقه کرفس، و یک هویج.</p>
 
-<p><a class="p_ident" id="p_LyHnQ+h/tZ" href="#p_LyHnQ+h/tZ" tabindex="-1" role="presentation"></a>نخود ها را 12 ساعت بخیسانید. 2 ساعت در 4 لیوان آب ( برای یک نفر) روی گاز آهسته بجوشانید. سبزیجات را تکه تکه کرده و اضافه کنید. برای 10 دقیقه دیگر پخته شود.</p>
+<p><a class="p_ident" id="p_LyHnQ+h/tZ" href="#p_LyHnQ+h/tZ" tabindex="-1" role="presentation"></a>نخود‌ها را 12 ساعت بخیسانید. 2 ساعت در 4 لیوان آب (برای یک نفر) روی گاز آهسته بجوشانید. سبزیجات را تکه تکه کرده و اضافه کنید. برای 10 دقیقه دیگر پخته شود.</p>
 
 </blockquote>
 
-<p>دستور دوم کوتاه تر و توضیح ساده تری داشت. اما برای فهم آن باید چند واژه‌ی مرتبط با آشپزی را یاد داشته باشید – <em>خیساندن</em>،  <em>جوشاندن،</em> <em>ریز ریز کردن</em> و فکر کنم <em>سبزیجات</em>.</p>
+<p>دستور دوم کوتاهتر و توضیح ساده‌تری داشت. اما برای فهم آن باید چند واژه‌ی مرتبط با آشپزی را یاد داشته باشید – <em>خیساندن،</em> <em>جوشاندن</em>، <em>ریز ریز کردن</em> و فکر کنم <em>سبزیجات</em>.</p>
 
-<p>هنگام برنامه‌نویسی، نمی‌توانیم فرض کنیم همه‌ی واژگانی که نیاز داریم وجود داشته و در واژه‌نامه منتظر ما باشند. بنابراین، ممکن است به دام الگوی موجود در طرز تهیه‌ی اول بیفتیم - کارکردن روی قدم‌های دقیقی که کامپیوتر باید اجرا کند، یکی پس از دیگری، بدون توجه به مفاهیم سطح بالاتری که این دستورات بیان می کنند.</p>
+<p>هنگام برنامه‌نویسی، نمی‌توانیم فرض کنیم همه‌ی واژگانی که نیاز داریم وجود داشته و در واژه‌نامه منتظر ما باشند. بنابراین، ممکن است به دام الگوی موجود در طرز تهیه‌ی اول بیفتیم – کارکردن روی قدم‌های دقیقی که کامپیوتر باید اجرا کند، یکی پس از دیگری، بدون توجه به مفاهیم سطح بالاتری که این دستورات بیان می‌کنند.</p>
 
-<p>یکی از مهارت های کاربردی در برنامه‌نویسی، این است که زمانی که در سطح بسیار پایینی از انتزاع کار می‌کنید، نسبت به آن آگاه باشید.</p>
+<p>یکی از مهارت‌های کاربردی در برنامه‌نویسی، این است که زمانی که در سطح بسیار پایینی از انتزاع کار می‌کنید، نسبت به آن آگاه باشید.</p>
 
 <h2><a class="h_ident" id="h_k5Nc/FDVtG" href="#h_k5Nc/FDVtG" tabindex="-1" role="presentation"></a>تکرار انتزاعی</h2>
 
-<p>توابع ساده، مانند مواردی که تا کنون دیده ایم، برای ایجاد انتزاع مفید هستند. اما گاهی اوقات کافی نیستند.</p>
+<p>توابع ساده، مانند مواردی که تا کنون دیده‌ایم، برای ایجاد انتزاع مفید هستند. اما گاهی اوقات کافی نیستند.</p>
 
 <p>در برنامه‌ها رایج است که کاری را به تعداد مشخصی تکرار کنیم. می‌توان از یک حلقه‌ی <code>for</code> برای این کار استفاده کرد:</p>
 
@@ -94,7 +94,7 @@
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">i</span>);
 }</pre>
 
-<p><a class="p_ident" id="p_0oZoOm1bri" href="#p_0oZoOm1bri" tabindex="-1" role="presentation"></a>آیا می‌توان “انجام یک کار به تعداد <em>N</em> بار” را با استفاده از یک تابع جدا کرد؟ خوب خیلی راحت می‌توان تابعی نوشت که <bdo><code>console.log</code></bdo> را <em>N</em>  بار فراخوانی کند.</p>
+<p><a class="p_ident" id="p_0oZoOm1bri" href="#p_0oZoOm1bri" tabindex="-1" role="presentation"></a>آیا می‌توان &quot;انجام یک کار به تعداد <em>N</em>  بار&quot; را با استفاده از یک تابع جدا کرد؟ خوب خیلی راحت می‌توان تابعی نوشت که <bdo><code>console.log</code></bdo> را  <em>N</em> بار فراخوانی کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_/gKhlra9P+" href="#c_/gKhlra9P+" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">repeatLog</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">n</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
@@ -102,7 +102,7 @@
   }
 }</pre>
 
-<p>اما اگر بخواهیم کاری به غیر از چاپ اعداد در خروجی انجام دهیم چه؟ با توجه به این که “انجام یک کار” را می‌توان به عنوان یک تابع در نظر گرفت و توابع هم در واقع مقدار هستند، می‌توانیم &quot;کار&quot;مان را به عنوان یک مقدار تابع ارسال کنیم.</p>
+<p>اما اگر بخواهیم کاری به غیر از چاپ اعداد در خروجی انجام دهیم چه؟ با توجه به این که &quot;انجام یک کار&quot; را می‌توان به عنوان یک تابع در نظر گرفت و توابع هم در واقع مقدار هستند، می‌توانیم &quot;کار&quot;مان را به عنوان یک مقدار تابع ارسال کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_p03rPqGmn9" href="#c_p03rPqGmn9" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">repeat</span>(<span class="cm-def">n</span>, <span class="cm-def">action</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable-2">i</span> <span class="cm-operator">&lt;</span> <span class="cm-variable-2">n</span>; <span class="cm-variable-2">i</span><span class="cm-operator">++</span>) {
@@ -115,7 +115,7 @@
 <span class="cm-comment">// → 1</span>
 <span class="cm-comment">// → 2</span></pre>
 
-<p>نیازی نیست که حتما یک تابع از پیش تعریف شده را به تابع <code>repeat</code>  ارسال کنید. اغلب آسان تر است که یک &quot;مقدار تابع&quot; همان موقع ایجاد کنیم.</p>
+<p>نیازی نیست که حتما یک تابع از پیش تعریف شده را به تابع <code>repeat</code> ارسال کنید. اغلب آسان‌تر است که یک &quot;مقدار تابع&quot; همان موقع ایجاد کنیم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_EiK2Y8M/Mh" href="#c_EiK2Y8M/Mh" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">labels</span> <span class="cm-operator">=</span> [];
 <span class="cm-variable">repeat</span>(<span class="cm-number">5</span>, <span class="cm-def">i</span> <span class="cm-operator">=&gt;</span> {
@@ -124,13 +124,13 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">labels</span>);
 <span class="cm-comment">// → [&quot;Unit 1&quot;, &quot;Unit 2&quot;, &quot;Unit 3&quot;, &quot;Unit 4&quot;, &quot;Unit 5&quot;]</span></pre>
 
-<p>این ساختار کمی شبیه حلقه‌ی <code>for</code> به نظر می‌رسد – ابتدا نوع حلقه را مشخص می‌کند سپس بدنه را فراهم می‌کند.  با این حال، بدنه اکنون به صورت یک مقدار تابع نوشته می‌شود، که خود درون پرانتز‌های مربوط به فراخوانی تابع <code>repeat</code> قرار گرفته است. به همین دلیل است که باید حتما به وسیله کروشه‌ی پایانی  <em>و</em> پرانتز پایانی بسته شود.  در مواردی شبیه این مثال، جایی که بدنه، یک عبارت واحد کوچک است، می‌توانید کروشه‌ها را حذف کنید و حلقه را در یک خط بنویسید.</p>
+<p>این ساختار کمی شبیه حلقه‌ی <code>for</code> به نظر می‌رسد – ابتدا نوع حلقه را مشخص می‌کند سپس بدنه را فراهم می‌سازد. با این حال، بدنه اکنون به صورت یک مقدار تابع نوشته می‌شود، که خود درون پرانتز‌های مربوط به فراخوانی تابع <code>repeat</code> قرار گرفته است. به همین دلیل است که باید حتما به وسیله کروشه‌ی پایانی <em>و</em> پرانتز پایانی بسته شود. در مواردی شبیه به این مثال، جایی که بدنه، یک عبارت واحد کوچک است، می‌توانید کروشه‌ها را حذف کنید و حلقه را در یک خط بنویسید.</p>
 
-<h2><a class="h_ident" id="h_7srMgKz0OW" href="#h_7srMgKz0OW" tabindex="-1" role="presentation"></a>توابع رده‌بالا - higher order</h2>
+<h2><a class="h_ident" id="h_5ypxZwfKtM" href="#h_5ypxZwfKtM" tabindex="-1" role="presentation"></a>توابع رده‌بالا (Higher order functions)</h2>
 
 <p><a class="p_ident" id="p_7og6VBGsqZ" href="#p_7og6VBGsqZ" tabindex="-1" role="presentation"></a>توابعی که روی توابع دیگر عمل می کنند، چه با گرفتن آن‌ها به عنوان آرگومان و چه با برگرداندن آن‌ها ، <em>توابع رده‌بالا</em> نامیده می‌شوند. با توجه به این که پیش تر دیده‌ایم که توابع در واقع یک نوع مقدار هستند، مسئله‌ی قابل توجه و به خصوصی در مورد فلسفه‌ی وجود اینگونه توابع وجود ندارد. اصطلاح رده‌بالا (higher-order) از ریاضیات گرفته شده است جایی که به تمایز بین توابع و دیگر مقادیر اهمیت بیشتری داده شده است.</p>
 
-<p>توابع رده‌بالا، به ما این امکان را می‌دهند که براساس <em>اقدام‌ها</em>، انتزاع ایجاد کنیم، نه فقط بر اساس مقدارها.  این گونه توابع با اشکال مختلفی می آیند. به عنوان نمونه‌، می‌توانید توابعی داشته باشید که خود توابعی را ایجاد می کنند.</p>
+<p>توابع رده‌بالا، به ما این امکان را می‌دهند که نه فقط بر اساس <em>مقدار‌ها</em> بلکه براساس اقدام‌ها نیز انتزاع ایجاد کنیم. این گونه توابع با شکل‌های مختلفی می‌آیند. به عنوان نمونه‌، می‌توانید توابعی داشته باشید که خود توابعی را ایجاد می‌کنند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kHXugeV8Vn" href="#c_kHXugeV8Vn" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">greaterThan</span>(<span class="cm-def">n</span>) {
   <span class="cm-keyword">return</span> <span class="cm-def">m</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">m</span> <span class="cm-operator">&gt;</span> <span class="cm-variable-2">n</span>;
@@ -167,7 +167,7 @@
 <span class="cm-comment">// → 0 is even</span>
 <span class="cm-comment">// → 2 is even</span></pre>
 
-<p>متد از پیش تعریف شده ای به نام <code>forEach</code> برای آرایه‌ها وجود دارد که کاری شبیه حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> را به عنوان یک تابع رده‌بالا انجام می دهد.</p>
+<p>متد از پیش تعریف شده‌ای به نام <code>forEach</code> برای آرایه‌ها وجود دارد که کاری شبیه حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> را به عنوان یک تابع رده‌بالا انجام می‌دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_v9jL6NafRj" href="#c_v9jL6NafRj" tabindex="-1" role="presentation"></a>[<span class="cm-string">&quot;A&quot;</span>, <span class="cm-string">&quot;B&quot;</span>].<span class="cm-property">forEach</span>(<span class="cm-def">l</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable-2">l</span>));
 <span class="cm-comment">// → A</span>
@@ -175,11 +175,11 @@
 
 <h2><a class="h_ident" id="h_NLbARNSu7u" href="#h_NLbARNSu7u" tabindex="-1" role="presentation"></a>مجموعه داده‌ی الفبا</h2>
 
-<p>یکی از جاهایی که در آن توابع رده‌بالا درخشان عمل می کنند، پردازش داده ها می‌باشد. برای پردازش داده ها، نیاز به داده‌ی واقعی داریم. در این فصل از مجموعه‌ی داده‌ای درباره‌ی حروف الفبا – سیستم های نوشتاری مانند لاتین، سیریلیک، یا عربی – استفاده می کنیم.</p>
+<p>یکی از جا‌هایی که در آن توابع رده‌بالا درخشان عمل می‌کنند، پردازش داده‌ها می‌باشد. برای پردازش داده‌ها، نیاز به داده‌ی واقعی داریم. در این فصل از مجموعه‌ی داده‌ای درباره‌ی حروف الفبا – سیستم‌های نوشتاری مانند لاتین، سیریلیک، یا عربی – استفاده می‌کنیم.</p>
 
-<p><a class="p_ident" id="p_k4cCIHQMIm" href="#p_k4cCIHQMIm" tabindex="-1" role="presentation"></a>یونیکد را از <a href="01_values.html#unicode">فصل 1</a> به خاطر بیاورید، سیستمی که برای هر کاراکتر از زبان های نوشتاری، عددی را اختصاص می داد. اکثر این کاراکترها به الفبای مشخصی تعلق دارند.  این استاندارد دارای 140 الفبای متفاوت است – از این تعداد، 81 تای آن‌ها امروزه استفاده می‌شوند و 59 مورد دیگر به تاریخ پیوسته اند.</p>
+<p><a class="p_ident" id="p_g0G6j4u5ud" href="#p_g0G6j4u5ud" tabindex="-1" role="presentation"></a>یونیکد را از [فصل ?] (values#unicode) به خاطر بیاورید، سیستمی که برای هر کاراکتر از زبان‌های نوشتاری، عددی را اختصاص می‌داد. اکثر این کاراکتر‌ها به الفبای مشخصی تعلق دارند. این استاندارد دارای 140 الفبای متفاوت است – از این تعداد، 81 تای آن‌ها امروزه استفاده می‌شوند و 59 مورد دیگر به تاریخ پیوسته‌اند.</p>
 
-<p><a class="p_ident" id="p_uIiymCa7U9" href="#p_uIiymCa7U9" tabindex="-1" role="presentation"></a>اگرچه من فقط می‌توانم کاراکترهای لاتین را به صورت روان بخوانم، اما این واقعیت که مردم جهان حداقل به 80 سیستم نوشتاری دیگر می نویسند که خیلی از آن‌ها را حتی نمی‌توانم تشخیص دهم را تحسین می کنم . به عنوان مثال، نمونه‌ی زیر دست نوشته ای از زبان تمیل است:</p><figure><img src="img/tamil.png" alt="Tamil handwriting"></figure>
+<p><a class="p_ident" id="p_uIiymCa7U9" href="#p_uIiymCa7U9" tabindex="-1" role="presentation"></a>اگرچه من فقط می‌توانم کاراکتر‌های لاتین را به صورت روان بخوانم، اما این واقعیت که مردم جهان حداقل به 80 سیستم نوشتاری دیگر می‌نویسند که خیلی از آن‌ها را حتی نمی‌توانم تشخیص دهم را تحسین می‌کنم. به عنوان مثال، نمونه‌ی زیر دست نوشته‌ای از زبان تمیل است.</p><figure><img src="img/tamil.png" alt="Tamil handwriting"></figure>
 
 <p><a class="p_ident" id="p_Ei6NLuQyZ4" href="#p_Ei6NLuQyZ4" tabindex="-1" role="presentation"></a>مجموعه‌ داده‌ی نمونه‌ی ما حاوی اطلاعاتی از حدود 140 الفبای موجود در یونیکد است. این داده‌ها در قسمت <a href="https://eloquentjavascript.net/code#5">کدهای</a> این فصل  به عنوان متغیر <code>SCRIPTS</code> قابل دانلود می‌باشند. این متغیر شامل آرایه‌ای از اشیاء است که هر کدام معرف یک الفبا می‌باشند.</p>
 
@@ -192,13 +192,13 @@
   <span class="cm-property">link</span>: <span class="cm-string">&quot;https://en.wikipedia.org/wiki/Coptic_alphabet&quot;</span>
 }</pre>
 
-<p>این اشیاء شامل نام الفبا، بازه‌ی یونیکدی که به آن اختصاص دارد،جهتی که به آن سمت نوشته می‌شود، منشاء زمانی (تقریبی)، اینکه اکنون نیز استفاده می‌شوند یا خیر، و لینکی به اطلاعات بیشتر می‌باشند. جهت نوشتن می‌تواند <code>&quot;ltr&quot;</code> برای چپ به راست، <code>&quot;rtl&quot;</code> راست به چپ (مانند عربی و عبری) یا <code>&quot;ttb&quot;</code> برای بالا به پایین (مانند زبان مغولی) باشد.</p>
+<p>این اشیاء شامل نام الفبا، بازه‌ی یونیکدی که به آن اختصاص دارد، جهتی که به آن سمت نوشته می‌شود، منشاء زمانی (تقریبی)، اینکه اکنون نیز استفاده می‌شوند یا خیر، و لینکی به اطلاعات بیشتر می‌باشند. جهت نوشتن می‌تواند <code>&quot;ltr&quot;</code> برای چپ به راست،  <code>&quot;rtl&quot;</code> راست به چپ (مانند عربی و عبری) یا <code>&quot;ttb&quot;</code> برای بالا به پایین (مانند زبان مغولی) باشد.</p>
 
-<p><a class="p_ident" id="p_kubOhWdP4W" href="#p_kubOhWdP4W" tabindex="-1" role="presentation"></a>خاصیت <code>ranges</code> شامل آرایه‌ای از بازه‌های کاراکتر یونیکد می‌باشد که هر کدام یک آرایه‌ی دو عنصری است که یک مرز پایین و بالا دارد. هر کد کاراکتری که در این بازه قرار بگیرد متعلق به الفبای مذکور است. مرز پایین، خود نیز شامل می‌شود ( کد 994 یک کاراکتر قبطی است) اما مرز بالایی، در الفبای مورد نظر قرار ندارد (کد 1008 متعلق به قبطی نیست)</p>
+<p><a class="p_ident" id="p_kubOhWdP4W" href="#p_kubOhWdP4W" tabindex="-1" role="presentation"></a>خاصیت <code>ranges</code> شامل آرایه‌ای از بازه‌های کاراکتر یونیکد می‌باشد که هر کدام یک آرایه‌ی دو عنصری است که یک مرز پایین و بالا دارد. هر کد کاراکتری که در این بازه قرار بگیرد متعلق به الفبای مذکور است. مرز پایین، خود نیز شامل می‌شود (کد 994 یک کاراکتر قبطی است) اما مرز بالایی، در الفبای مورد نظر قرار ندارد (کد 1008 متعلق به قبطی نیست(</p>
 
 <h2><a class="h_ident" id="h_kSp6ZlxcdG" href="#h_kSp6ZlxcdG" tabindex="-1" role="presentation"></a>فیلتر کردن آرایه ها</h2>
 
-<p>برای پیدا کردن‌ الفباهایی که همچنان استفاده می‌شوند، تابع پیش رو می‌تواند مفید باشد. این تابع به عنوان یک صافی عمل می‌کند و عناصری که با شرط تطبیق ندارند را در نتایج نمی آورد.</p>
+<p>برای پیدا کردن الفبا‌هایی که همچنان استفاده می‌شوند، تابع پیش رو می‌تواند مفید باشد. این تابع به عنوان یک صافی عمل می‌کند و عناصری که با شرط تطبیق ندارند را در نتایج نمی‌آورد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_POEf7pMCk0" href="#c_POEf7pMCk0" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">filter</span>(<span class="cm-def">array</span>, <span class="cm-def">test</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">passed</span> <span class="cm-operator">=</span> [];
@@ -215,18 +215,18 @@
 
 <p>تابع بالا از آرگومانی به نام <code>test</code> استفاده می‌کند، یک مقدار تابع، تا محاسبه مورد نظر را تکمیل کند – عمل انتخاب عناصری که باید به مجموعه اضافه شوند.</p>
 
-<p><a class="p_ident" id="p_r+AD8RdksC" href="#p_r+AD8RdksC" tabindex="-1" role="presentation"></a>توجه کنید که چگونه تابع <code>filter،</code> به جای اینکه عناصر را از آرایه حذف کند، آرایه‌ی جدیدی می سازد که شامل فقط عناصری است که با شرط تطبیق دارند .این تابع <em>ناب</em> (pure) است. آرایه‌ای که دریافت می‌کند را تغییر نمی دهد.</p>
+<p><a class="p_ident" id="p_r+AD8RdksC" href="#p_r+AD8RdksC" tabindex="-1" role="presentation"></a>توجه کنید که چگونه تابع <code>filter،</code>  به جای اینکه عناصر را از آرایه حذف کند، آرایه‌ی جدیدی می‌سازد که شامل فقط عناصری است که با شرط تطبیق دارند. این تابع <em>ناب</em> (pure) است. آرایه‌ای که دریافت می‌کند را تغییر نمی‌دهد.</p>
 
-<p>شبیه <code>forEach،</code> تابع <code>filter</code> نیز یک متد استاندارد آرایه است. در مثالا بالا، تابع تعریف شد تا شیوه‌ی کارکرد درون آن را نشان دهد. از حالا به بعد، به شکل زیر از آن استفاده خواهیم کرد:</p>
+<p>شبیه <code>forEach،</code> تابع <code>filter</code> نیز یک متد استاندارد آرایه است. در مثال بالا، تابع تعریف شد تا شیوه‌ی کارکرد درون آن را نشان دهد. از حالا به بعد، به شکل زیر از آن استفاده خواهیم کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_x8e0PmGGB1" href="#c_x8e0PmGGB1" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">SCRIPTS</span>.<span class="cm-property">filter</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">direction</span> <span class="cm-operator">==</span> <span class="cm-string">&quot;ttb&quot;</span>));
 <span class="cm-comment">// → [{name: &quot;Mongolian&quot;, …}, …]</span></pre>
 
 <h2 id="map"><a class="h_ident" id="h_ED83giG5cC" href="#h_ED83giG5cC" tabindex="-1" role="presentation"></a>تغییر شکل به وسیله‌ی map</h2>
 
-<p>فرض کنید آرایه ای از اشیاء در دست داریم که نمایانگر الفبایی است که پس از اعمال فیلتر به آرایه‌ی <code>SCRIPTS</code> به وجود آمده است. اما اگر آرایه‌ای از نام ها در اختیار داشتیم کارمان ساده تر می شد.</p>
+<p>فرض کنید آرایه‌ای از اشیاء در دست داریم که نمایانگر الفبایی است که پس از اعمال فیلتر به آرایه‌ی <code>SCRIPTS</code> به وجود آمده است. اما اگر آرایه‌ای از نام‌ها در اختیار داشتیم کارمان ساده‌تر می‌شد.</p>
 
-<p>متد <code>map</code> برای تغییر یک آرایه استفاده می‌شود. به این صورت که تابعی را به همه‌ی عناصر آرایه اعمال کرده و آرایه‌ی جدیدی را از مقادیر برگردانده شده می سازد. تعداد عناصر آرایه‌ی جدید با آرایه‌ی ورودی برابر است. اما محتوای آن به وسیله‌ی تابع داده شده تغییر می‌کند.</p>
+<p>متد <code>map</code> برای تغییر یک آرایه استفاده می‌شود. به این صورت که تابعی را به همه‌ی عناصر آرایه اعمال کرده و آرایه‌ی جدیدی را از مقادیر برگردانده شده می‌سازد. تعداد عناصر آرایه‌ی جدید با آرایه‌ی ورودی برابر است. اما محتوای آن به وسیله‌ی تابع داده شده تغییر می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_03caQcQElo" href="#c_03caQcQElo" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">map</span>(<span class="cm-def">array</span>, <span class="cm-def">transform</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">mapped</span> <span class="cm-operator">=</span> [];
@@ -240,15 +240,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">map</span>(<span class="cm-variable">rtlScripts</span>, <span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">name</span>));
 <span class="cm-comment">// → [&quot;Adlam&quot;, &quot;Arabic&quot;, &quot;Imperial Aramaic&quot;, …]</span></pre>
 
-<p>شبیه <code>forEach</code> و <code>filter</code> متد <code>map</code> نیز از متدهای استاندارد آرایه است.</p>
+<p>شبیه <code>forEach</code>  و <code>filter</code> متد <code>map</code> نیز از متدهای استاندارد آرایه است.</p>
 
 <h2><a class="h_ident" id="h_NCm3KSrFg3" href="#h_NCm3KSrFg3" tabindex="-1" role="presentation"></a>خلاصه‌ کردن یک آرایه به وسیله‌ی متد reduce</h2>
 
-<p>یکی دیگر از کارهای رایجی که با آرایه‌ها انجام می‌شود، محاسبه‌ی یک مقدار واحد از آن‌ها است. مثال تکراری خودمان، جمع کردن مجموعه‌ای از اعداد، نمونه‌ی از آن است. یک مثال دیگر می‌تواند پیدا کردن الفبایی با بیشترین حروف باشد.</p>
+<p>یکی دیگر از کار‌های رایجی که با آرایه‌ها انجام می‌شود، محاسبه‌ی یک مقدار واحد از آن‌ها است. مثال تکراری خودمان، جمع کردن مجموعه‌ای از اعداد، نمونه‌ی از آن است. یک مثال دیگر می‌تواند پیدا کردن الفبایی با بیشترین حروف باشد.</p>
 
-<p><a class="p_ident" id="p_SMNon23V6e" href="#p_SMNon23V6e" tabindex="-1" role="presentation"></a>عمل &quot;رده‌بالا&quot;یی که برای این الگو وجود دارد، <em>reduce</em> (کاهش) خوانده می‌شود ( گاهی اوقات هم آن‌ را <em>تاکردن</em> می نامند.) این متد به صورت مکرر عنصری از آرایه را گرفته و آن را با مقدار قبلی ترکیب کرده و در نهایت یک مقدار واحد تولید می‌کند. زمانی که اعداد را جمع می‌کنید، ابتدا با عدد صفر شروع می‌کنید و بعد یکایک عناصر را به مجموع اضافه می‌کنید.</p>
+<p><a class="p_ident" id="p_SMNon23V6e" href="#p_SMNon23V6e" tabindex="-1" role="presentation"></a>عمل &quot;رده‌بالا&quot;یی که برای این الگو وجود دارد، <em>reduce</em>)کاهش) خوانده می‌شود (گاهی اوقات هم آن را <em>تاکردن</em> می‌نامند) این متد به صورت مکرر عنصری از آرایه را گرفته و آن را با مقدار قبلی ترکیب کرده و در نهایت یک مقدار واحد تولید می‌کند. زمانی که اعداد را جمع می‌کنید، ابتدا با عدد صفر شروع می‌کنید و بعد یکایک عناصر را به مجموع اضافه می‌کنید.</p>
 
-<p>پارامترهای تابع <code>reduce،</code> بدون در نظر گرفتن خود آرایه، شامل یک تابع ترکیب و یک مقدار اولیه می‌باشند. مفهوم این تابع به سرراستی <code>filter</code> و <code>map</code> نیست، پس بیایید نگاه دقیق تری بکنیم:</p>
+<p>پارامتر‌های تابع <code>reduce</code>، بدون در نظر گرفتن خود آرایه، شامل یک تابع ترکیب و یک مقدار اولیه می‌باشند. مفهوم این تابع به سرراستی <code>filter</code> و <code>map</code> نیست، پس بیایید نگاه دقیق‌تری بکنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_k5GDHjqpSc" href="#c_k5GDHjqpSc" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">reduce</span>(<span class="cm-def">array</span>, <span class="cm-def">combine</span>, <span class="cm-def">start</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">current</span> <span class="cm-operator">=</span> <span class="cm-variable-2">start</span>;
@@ -279,13 +279,13 @@
 }));
 <span class="cm-comment">// → {name: &quot;Han&quot;, …}</span></pre>
 
-<p><a class="p_ident" id="p_IHfwEcHMPM" href="#p_IHfwEcHMPM" tabindex="-1" role="presentation"></a>تابع <code>characterCount</code> بازه‌ های  مربوط به یک الفبا را به وسیله جمع کردن اندازه‌ی آن‌ها کاهش می دهد. به استفاده از “تجزیه” (destructing) در لیست پارامتر ها در تابع کاهش دهنده توجه کنید. در فراخوانی دوم تابع <code>reduce</code>، از این نتیجه برای پیدا کردن بزرگترین الفبا استفاده می‌شود؛  دو به دو الفبا ها را مقایسه کرده و الفبای بزرگتر را بر می گرداند.</p>
+<p><a class="p_ident" id="p_IHfwEcHMPM" href="#p_IHfwEcHMPM" tabindex="-1" role="presentation"></a>تابع <code>characterCount</code> بازه‌های مربوط به یک الفبا را به وسیله‌ی جمع کردن اندازه‌ی آن‌ها کاهش می‌دهد. به استفاده از &quot;تجزیه&quot; (destructing) در لیست پارامتر‌ها در تابع کاهش دهنده توجه کنید. در فراخوانی دوم تابع <code>reduce</code>، از این نتیجه برای پیدا کردن بزرگترین الفبا استفاده می‌شود؛ دو به دو الفبا‌ها را مقایسه کرده و الفبای بزرگتر را برمی‌گرداند.</p>
 
-<p><a class="p_ident" id="p_5FQGaj5ujw" href="#p_5FQGaj5ujw" tabindex="-1" role="presentation"></a>الفبای Han (هان) دارای بیش از <bdo>89,000</bdo> کاراکتر در استاندارد یونیکد است، که باعث شده به عنوان بزرگ‌ترین سیستم نوشتاری در این مجموعه شناخته شود. هان الفبایی است که (گاهی) برای متون چینی، ژاپنی، و کره‌ای استفاده می‌شود. این زبان‌ها کاراکترهای مشترک زیادی دارند اگرچه که به شکل متفاوتی آن‌ها را می نویسند. کنسرسیوم یونیکد ( مستقر در ایالات متحده) تصمیم گرفت که آن‌ها را به عنوان یک سیستم نوشتاری واحد در نظر بگیرد تا کدهای کاراکتر کمتری استفاده شود. این کار <em>یکی سازی الفبای هان</em> خوانده می‌شود که هنوز بعضی افراد را خیلی عصبانی می‌کند.</p>
+<p><a class="p_ident" id="p_5FQGaj5ujw" href="#p_5FQGaj5ujw" tabindex="-1" role="presentation"></a>الفبای Han (هان) دارای بیش از <bdo>89,000</bdo> کاراکتر در استاندارد یونیکد است، که باعث شده به عنوان بزرگ‌ترین سیستم نوشتاری در این مجموعه شناخته شود. هان الفبایی است که (گاهی) برای متون چینی، ژاپنی، و کره‌ای استفاده می‌شود. این زبان‌ها کاراکتر‌های مشترک زیادی دارند اگرچه که به شکل متفاوتی آن‌ها را می‌نویسند. کنسرسیوم یونیکد (مستقر در ایالات متحده) تصمیم گرفت که آن‌ها را به عنوان یک سیستم نوشتاری واحد در نظر بگیرد تا کد‌های کاراکتر کمتری استفاده شود. این کار <em>یکی‌سازی الفبای هان</em> خوانده می‌شود که هنوز بعضی افراد را خیلی عصبانی می‌کند.</p>
 
 <h2><a class="h_ident" id="h_U/TVE+gCPe" href="#h_U/TVE+gCPe" tabindex="-1" role="presentation"></a>ترکیب پذیری</h2>
 
-<p>ملاحظه کنید چگونه بدون استفاده توابع‌ رده‌بالا، می‌توانستیم مثال قبل را بنویسیم ( پیدا کردن بزرگ‌ترین الفبا).  آن‌قدرها هم بد از کار در نمی آمد.</p>
+<p>ملاحظه کنید چگونه بدون استفاده توابع رده‌بالا، می‌توانستیم مثال قبل را بنویسیم (پیدا کردن بزرگ‌ترین الفبا). آن‌قدر‌ها هم بد از کار در نمی‌آمد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_1FmIKHNB24" href="#c_1FmIKHNB24" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">biggest</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -299,7 +299,7 @@
 
 <p>با چند متغیر اضافی و چهار خط کدنویسی بیشتر، همچنان برنامه خوانایی خوبی دارد.</p>
 
-<p id="average_function">توابع رده‌بالا زمانی شروع به درخشش می کنند که نیاز باشد عملیات را <em>ترکیب</em> کنید. به عنوان یک مثال، بیایید کدی بنویسیم که میانگین سال ایجاد را برای الفبا‌های زنده و از رده خارج پیدا می‌کند.</p>
+<p id="average_function">توابع رده‌بالا زمانی شروع به درخشش می‌کنند که نیاز باشد عملیات را <em>ترکیب</em> کنید. به عنوان یک مثال، بیایید کدی بنویسیم که میانگین سال ایجاد را برای الفبا‌های زنده و از رده خارج پیدا می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_rbnWPJoeJs" href="#c_rbnWPJoeJs" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">average</span>(<span class="cm-def">array</span>) {
   <span class="cm-keyword">return</span> <span class="cm-variable-2">array</span>.<span class="cm-property">reduce</span>((<span class="cm-def">a</span>, <span class="cm-def">b</span>) <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">a</span> <span class="cm-operator">+</span> <span class="cm-variable-2">b</span>) <span class="cm-operator">/</span> <span class="cm-variable-2">array</span>.<span class="cm-property">length</span>;
@@ -312,9 +312,9 @@
   <span class="cm-variable">SCRIPTS</span>.<span class="cm-property">filter</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-operator">!</span><span class="cm-variable-2">s</span>.<span class="cm-property">living</span>).<span class="cm-property">map</span>(<span class="cm-def">s</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">s</span>.<span class="cm-property">year</span>))));
 <span class="cm-comment">// → 188</span></pre>
 
-<p>بنابراین به طور میانگین الفباهای از رده خارج در یونیکد، قدیمی تر از موارد زنده هستند. این نتیجه خیلی معنای خاصی نمی دهد یا آمار شگفت انگیزی محسوب نمی‌شود. اما امیدوارم  با من هم‌نظر باشید که کدی که برای محاسبه‌ی این نتیجه استفاده شده از خوانایی خوبی برخوردار است. می‌توانید آن را به عنوان یک خط لوله در نظر بگیرید:  با همه‌ی الفباها شروع می کنیم، موارد زنده (یا از رده خارج) را فیلتر می کنیم، سال‌ها را از آن‌ها گرفته، میانگین می گیریم و نتیجه را گرد می کنیم.</p>
+<p>بنابراین به طور میانگین الفبا‌های از رده خارج در یونیکد، قدیمی‌تر از موارد زنده هستند. این نتیجه خیلی معنای خاصی نمی‌دهد یا آمار شگفت‌انگیزی محسوب نمی‌شود. اما امیدوارم با من هم‌نظر باشید که کدی که برای محاسبه‌ی این نتیجه استفاده شده از خوانایی خوبی برخوردار است. می‌توانید آن را به عنوان یک خط لوله در نظر بگیرید: با همه‌ی الفبا‌ها شروع می‌کنیم، موارد زنده (یا از رده خارج) را فیلتر می‌کنیم، سال‌ها را از آن‌ها گرفته، میانگین می‌گیریم و نتیجه را گرد می‌کنیم.</p>
 
-<p>قطعا می شد این محاسبه را به وسیله یک حلقه‌ی بزرگ پیاده‌سازی کرد.</p>
+<p>قطعا می‌شد این محاسبه را به وسیله یک حلقه‌ی بزرگ پیاده‌سازی کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_PumCVjaL6O" href="#c_PumCVjaL6O" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">total</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>, <span class="cm-def">count</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -328,13 +328,13 @@
 
 <p>اما کاری که می‌کند و چگونگی آن به راحتی قابل درک نیست. و به علت اینکه نتایج میانی به عنوان مقادیری مربوط و منسجم نشان داده نمی‌شوند، برای اینکه بتوان چیزی شبیه به <code>average</code> را به عنوان یک تابع مستقل از دل آن استخراج کرد، کار زیادی خواهد برد.</p>
 
-<p>با توجه به کاری که کامپیوتر در واقعیت انجام می دهد، این دو رهیافت نسبتا با هم متفاوت هستند. در مورد اول، یک آرایه جدید پس از اجرای <code>filter</code> و <code>map</code> ایجاد می‌شود، در حالیکه در مورد دوم فقط محاسباتی روی اعداد انجام می‌شود و کار کمتری صورت می‌گیرد. معمولا استفاده از روش خواناتر، قابل استفاده و منطقی‌ است اما اگر قصد پردازش آرایه‌های خیلی بزرگ را دارید، و این کار را به تعداد دفعات بالایی انجام می دهید، استفاده از روشی با خوانایی و انتزاع کمتر، ارزش سرعتی که دریافت می‌کنید را دارد.</p>
+<p>با توجه به کاری که کامپیوتر در واقعیت انجام می‌دهد، این دو رهیافت نسبتا با هم متفاوت هستند. در مورد اول، یک آرایه جدید پس از اجرای <code>filter</code> و <code>map</code> ایجاد می‌شود، در حالیکه در مورد دوم فقط محاسباتی روی اعداد انجام می‌شود و کار کمتری صورت می‌گیرد. معمولا استفاده از روش خواناتر، قابل استفاده و منطقی است اما اگر قصد پردازش آرایه‌های خیلی بزرگ را دارید، و این کار را به تعداد دفعات بالایی انجام می‌دهید، استفاده از روشی با خوانایی و انتزاع کمتر، ارزش سرعتی که دریافت می‌کنید را دارد.</p>
 
 <h2><a class="h_ident" id="h_RVi4WcXKWO" href="#h_RVi4WcXKWO" tabindex="-1" role="presentation"></a>رشته‌ها و کدهای کاراکتر</h2>
 
-<p>یکی از کاربرد‌هایی که می‌توان برای این مجموعه‌ی داده در نظر گرفت، استفاده از آن برای تشخیص الفبای یک متن است. بیایید به سراغ برنامه‌ای برویم که همین کار را انجام می دهد.</p>
+<p>یکی از کاربرد‌هایی که می‌توان برای این مجموعه‌ی داده در نظر گرفت، استفاده از آن برای تشخیص الفبای یک متن است. بیایید به سراغ برنامه‌ای برویم که همین کار را انجام می‌دهد.</p>
 
-<p>به خاطر دارید که هر الفبا حاوی یک آرایه از بازه‌های کد کاراکتری که به آن اختصاص داشت بود. با داشتن یک کد کاراکتر، می‌توانیم از تابعی مثل زیر برای پیدا کردن الفبای مرتبطش ( در صورت وجود )‌ استفاده کنیم:</p>
+<p>به خاطر دارید که هر الفبا حاوی یک آرایه از بازه‌های کد کاراکتری بود که به آن اختصاص داشت. با داشتن یک کد کاراکتر، می‌توانیم از تابعی مثل زیر برای پیدا کردن الفبای مرتبطش (در صورت وجود) استفاده کنیم:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Q8918ecfHn" href="#c_Q8918ecfHn" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">characterScript</span>(<span class="cm-def">code</span>) {
   <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">script</span> <span class="cm-keyword">of</span> <span class="cm-variable">SCRIPTS</span>) {
@@ -350,15 +350,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">characterScript</span>(<span class="cm-number">121</span>));
 <span class="cm-comment">// → {name: &quot;Latin&quot;, …}</span></pre>
 
-<p><a class="p_ident" id="p_viUD0tQjF6" href="#p_viUD0tQjF6" tabindex="-1" role="presentation"></a>متد <code>some</code> یکی دیگر از توابع رده‌بالا است. این متد تابعی را به عنوان شرط دریافت می‌کند. این شرط به تک تک عناصر آرایه اعمال شده و اگر حداقل برای یکی از آن‌ها صدق کند (true باشد)، تابع نیز true را بر می گرداند.</p>
+<p><a class="p_ident" id="p_viUD0tQjF6" href="#p_viUD0tQjF6" tabindex="-1" role="presentation"></a>متد <code>some</code> یکی دیگر از توابع رده‌بالا است. این متد تابعی را به عنوان شرط دریافت می‌کند. این شرط به تک تک عناصر آرایه اعمال شده و اگر حداقل برای یکی از آن‌ها صدق کند (true باشد)، تابع نیز true را برمی‌گرداند.</p>
 
-<p id="code_units">اما چگونه می‌توانیم کدهای کاراکتر یک رشته را بدست بیاوریم؟</p>
+<p id="code_units">اما چگونه می‌توانیم کد‌های کاراکتر یک رشته را بدست بیاوریم؟</p>
 
-<p><a class="p_ident" id="p_uZTbwHfeuE" href="#p_uZTbwHfeuE" tabindex="-1" role="presentation"></a>در <a href="01_values.html">فصل 1</a> اشاره کردم که در جاوااسکریپت رشته‌ها به عنوان دنباله‌ای از اعداد 16 بیتی کدگذاری می‌شوند که به آن‌ها واحد‌های کد گفته می‌شود. ابتدا قرار بود در یونیکد هر کد کاراکتر در یکی از این واحد‌ها قرار گیرد ( که چیزی بیش از <bdo>65,000</bdo> کاراکتر را در اختیار شما می گذارد).  زمانی که روشن شد این مقدار کافی نیست، خیلی ها از موضوع اختصاص حافظه‌ی بیشتر برای هر کاراکتر طفره می رفتند. برای حل این مشکل، UTF-16 اختراع شد ، فرمتی که برای رشته‌های جاوااسکریپت استفاده می‌شود.  این سیستم اکثر کاراکترهای رایج را با یک واحد کد 16 بیتی توصیف می‌کند اما برای دیگر کدها، از دو واحد استفاده می‌کند.</p>
+<p><a class="p_ident" id="p_uZTbwHfeuE" href="#p_uZTbwHfeuE" tabindex="-1" role="presentation"></a>در <a href="01_values.html">فصل 1</a> اشاره کردم که در جاوااسکریپت رشته‌ها به عنوان دنباله‌ای از اعداد 16 بیتی کدگذاری می‌شوند که به آن‌ها واحد‌های کد گفته می‌شود. ابتدا قرار بود در یونیکد هر کد کاراکتر در یکی از این واحد‌ها قرار گیرد ( که چیزی بیش از <bdo>65,000</bdo> کاراکتر را در اختیار شما می‌گذارد). زمانی که روشن شد این مقدار کافی نیست، خیلی‌ها از موضوع اختصاص حافظه‌ی بیشتر برای هر کاراکتر طفره می‌رفتند. برای حل این مشکل، UTF-16 اختراع شد، فرمتی که برای رشته‌های جاوااسکریپت استفاده می‌شود. این سیستم اکثر کاراکتر‌های رایج را با یک واحد کد 16 بیتی توصیف می‌کند اما برای دیگر کد‌ها، از دو واحد استفاده می‌کند.</p>
 
-<p><a class="p_ident" id="p_BaR3OpT/DK" href="#p_BaR3OpT/DK" tabindex="-1" role="presentation"></a>این‌ روزها UTF-16  عموما به عنوان ایده‌ی بدی شناخته می‌شود. به نظر می‌رسد که عمدا طوری طراحی شده است که اشتباه ساز باشد. به سادگی می‌توان برنامه‌هایی نوشت که در ظاهر تفاوتی بین واحدها و کاراکترهای کد قائل نمی‌شوند و بدون مشکل هم کار می کنند. اما به محض اینکه کسی سعی کند از این گونه برنامه‌ها برای نوشتن بعضی کاراکترهای چینی نامتداول استفاده کند، برنامه از کار می افتد. خوشبختانه، با ظهور ایموجی، همه به سراغ استفاده از کاراکترهای دو واحده رفته اند، و مسئولیت سروکار داشتن با این گونه مشکلات با عدالت بیشتری توزیع شده است.</p>
+<p><a class="p_ident" id="p_BaR3OpT/DK" href="#p_BaR3OpT/DK" tabindex="-1" role="presentation"></a>این روز‌ها UTF-16 عموما به عنوان ایده‌ی بدی شناخته می‌شود. به نظر می‌رسد که عمدا طوری طراحی شده است که اشتباه ساز باشد. به سادگی می‌توان برنامه‌هایی نوشت که در ظاهر تفاوتی بین واحد‌ها و کاراکتر‌های کد قائل نمی‌شوند و بدون مشکل هم کار می‌کنند. اما به محض اینکه کسی سعی کند از این گونه برنامه‌ها برای نوشتن بعضی کاراکتر‌های چینی نامتداول استفاده کند، برنامه از کار می‌افتد. خوشبختانه، با ظهور ایموجی، همه به سراغ استفاده از کاراکتر‌های دو واحده رفته‌اند، و مسئولیت سروکار داشتن با این گونه مشکلات با عدالت بیشتری توزیع شده است.</p>
 
-<p>متاسفانه، در جاوااسکریپت کارهای واضح روی رشته‌ها، مثل گرفتن طول آن‌ها به وسیله خاصیت <code>length</code> و دسترسی به محتوای آن‌ها به وسیله براکت ها، تنها از واحدهای کد پشتیبانی می‌کند.</p>
+<p>متاسفانه، در جاوااسکریپت کار‌های واضح روی رشته‌ها، مثل گرفتن طول آن‌ها به وسیله خاصیت <code>length</code> و دسترسی به محتوای آن‌ها به وسیله براکت‌ها، تنها از واحد‌های کد پشتیبانی می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_50Oes+9anA" href="#c_50Oes+9anA" tabindex="-1" role="presentation"></a><span class="cm-comment">// Two emoji characters, horse and shoe</span>
 <span class="cm-keyword">let</span> <span class="cm-def">horseShoe</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;🐴👟&quot;</span>;
@@ -371,9 +371,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">horseShoe</span>.<span class="cm-property">codePointAt</span>(<span class="cm-number">0</span>));
 <span class="cm-comment">// → 128052 (Actual code for horse emoji)</span></pre>
 
-<p>متد <code>charCodeAt</code> در جاوااسکریپت به شما یک واحد کد تحویل می دهد نه کد یک کاراکتر کامل. متد <code>codePointAt،</code> که بعدا اضافه شد، کد کامل یونیکد کاراکتر را برمی گرداند. بنابراین می‌توانیم از این متد برای گرفتن کاراکترهای یک رشته استفاده کنیم. اما آرگومانی که به متد <code>codePointAt</code> ارسال می‌شود هنوز یک اندیس گرفته‌ شده از دنباله‌ی کدهای واحد است. پس با توجه به آن، برای پیمایش همه‌ی کاراکتر‌های یک رشته، همچنان باید بدانیم که هر کاراکتر یک واحد یا دو واحد کد اشغال کرده است.</p>
+<p>متد <code>charCodeAt</code> در جاوااسکریپت به شما یک واحد کد تحویل می‌دهد نه کد یک کاراکتر کامل. متد <code>codePointAt</code>، که بعدا اضافه شد، کد کامل یونیکد کاراکتر را برمی گرداند. بنابراین می‌توانیم از این متد برای گرفتن کاراکتر‌های یک رشته استفاده کنیم. اما آرگومانی که به متد <code>codePointAt</code> ارسال می‌شود هنوز یک اندیس گرفته شده از دنباله‌ی کد‌های واحد است. پس با توجه به آن، برای پیمایش همه‌ی کاراکتر‌های یک رشته، همچنان باید بدانیم که هر کاراکتر یک واحد یا دو واحد کد اشغال کرده است.</p>
 
-<p>در <a href="04_data.html#for_of_loop">فصل پیش</a>، اشاره کردم که حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo>  را همچنین می‌توان برای رشته‌ها استفاده کرد. شبیه <code>codePointAt</code>، این نوع از حلقه نیز زمانی معرفی شد که همه از مشکلات UTF-16 آگاه بودند. با استفاده از آن برای پیمایش یک رشته، به جای کدهای واحد، کاراکترهای واقعی برگردانده می‌شوند.</p>
+<p>در <a href="04_data.html#for_of_loop">فصل پیش</a>، اشاره کردم که حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> را همچنین می‌توان برای رشته‌ها استفاده کرد. شبیه <code>codePointAt</code>، این نوع از حلقه نیز زمانی معرفی شد که همه از مشکلات UTF-16 آگاه بودند. با استفاده از آن برای پیمایش یک رشته، به جای کد‌های واحد، کاراکتر‌های واقعی برگردانده می‌شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9QIfA1qjtG" href="#c_9QIfA1qjtG" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">roseDragon</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;🌹🐉&quot;</span>;
 <span class="cm-keyword">for</span> (<span class="cm-keyword">let</span> <span class="cm-def">char</span> <span class="cm-keyword">of</span> <span class="cm-variable">roseDragon</span>) {
@@ -382,11 +382,11 @@
 <span class="cm-comment">// → 🌹</span>
 <span class="cm-comment">// → 🐉</span></pre>
 
-<p>اگر کاراکتری دارید ( که رشته‌ای از یک یا دو واحد کد است)، می‌توانید از متد <bdo><code>codePointAt(0)</code></bdo> برای گرفتن کد متناظرش استفاده کنید.</p>
+<p>اگر کاراکتری دارید (که رشته‌ای از یک یا دو واحد کد است)، می‌توانید از متد <bdo><code>codePointAt(0)</code></bdo> برای گرفتن کد متناظرش استفاده کنید.</p>
 
 <h2><a class="h_ident" id="h_dF/RGkNPy4" href="#h_dF/RGkNPy4" tabindex="-1" role="presentation"></a>تشخیص متن</h2>
 
-<p>تا اینجا یک تابع به نام <code>characterScript</code> به همراه روشی برای پیمایش کاراکترها در اختیار داریم. گام بعدی شمردن کاراکترهایی است که به هر الفبا مربوط می‌شود. می‌توان از تابع زیر برای این کار استفاده کرد:</p>
+<p>تا اینجا یک تابع به نام <code>characterScript</code> به همراه روشی برای پیمایش کاراکتر‌ها در اختیار داریم. گام بعدی شمردن کاراکتر‌هایی است که به هر الفبا مربوط می‌شود. می‌توان از تابع زیر برای این کار استفاده کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_nau/OQcf6J" href="#c_nau/OQcf6J" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">countBy</span>(<span class="cm-def">items</span>, <span class="cm-def">groupName</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">counts</span> <span class="cm-operator">=</span> [];
@@ -405,11 +405,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">countBy</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>, <span class="cm-number">4</span>, <span class="cm-number">5</span>], <span class="cm-def">n</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">n</span> <span class="cm-operator">&gt;</span> <span class="cm-number">2</span>));
 <span class="cm-comment">// → [{name: false, count: 2}, {name: true, count: 3}]</span></pre>
 
-<p>تابع <code>countBy</code> به عنوان آرگومان، یک مجموعه (هرچیزی که بتوان به وسیله‌ی <bdo><code>for</code>/<code>of</code></bdo> آن را پیمایش کرد) به همراه تابعی برای گروه‌بندی دریافت می‌کند. خروجی این تابع، آرایه‌ای از اشیاء است که هر یک معرف یک گروه است و به شما می گوید چه تعداد عنصر در آن گروه پیدا شده است.</p>
+<p>تابع <code>countBy</code> به عنوان آرگومان، یک مجموعه (هرچیزی که بتوان به وسیله‌ی <bdo><code>for</code>/<code>of</code></bdo> آن را پیمایش کرد) به همراه تابعی برای گروه‌بندی دریافت می‌کند. خروجی این تابع، آرایه‌ای از اشیاء است که هر یک معرف یک گروه است و به شما می‌گوید چه تعداد عنصر در آن گروه پیدا شده است.</p>
 
-<p><a class="p_ident" id="p_0yXQQurvWN" href="#p_0yXQQurvWN" tabindex="-1" role="presentation"></a>این تابع خود از متدی دیگر به نام <code>findIndex</code> استفاده می‌کند. این متد به شکلی شبیه به <code>indexOf</code> عمل می‌کند، اما به جای گشتن برای یک مقدار خاص، به دنبال اولین مقداری می گردد که تابع داده شده، با آن مقدار true را برمی گرداند. مانند <code>indexOf،</code> اگر عنصری با آن شرایط پیدا نشود، <bdo>-1</bdo> برگردانده می‌شود.</p>
+<p><a class="p_ident" id="p_0yXQQurvWN" href="#p_0yXQQurvWN" tabindex="-1" role="presentation"></a>این تابع خود از متدی دیگر به نام <code>findIndex</code> استفاده می‌کند. این متد به شکلی شبیه به <code>indexOf</code> عمل می‌کند، اما به جای گشتن برای یک مقدار خاص، به دنبال اولین مقداری می‌گردد که تابع داده شده، با آن مقدار true را برمی گرداند. مانند <code>indexOf،</code>  اگر عنصری با آن شرایط پیدا نشود،  <bdo>-1</bdo> برگردانده می‌شود.</p>
 
-<p><a class="p_ident" id="p_7fHPkrbqq2" href="#p_7fHPkrbqq2" tabindex="-1" role="presentation"></a>با استفاده از countBy می‌توانیم تابعی بنویسیم که الفبای یک متن را برای ما مشخص کند.</p>
+<p>با استفاده از <code>countBy</code> می‌توانیم تابعی بنویسیم که الفبای یک متن را برای ما مشخص کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_TyAeKAD0HB" href="#c_TyAeKAD0HB" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">textScripts</span>(<span class="cm-def">text</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">scripts</span> <span class="cm-operator">=</span> <span class="cm-variable">countBy</span>(<span class="cm-variable-2">text</span>, <span class="cm-def">char</span> <span class="cm-operator">=&gt;</span> {
@@ -428,21 +428,21 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">textScripts</span>(<span class="cm-string">'英国的狗说&quot;woof&quot;, 俄罗斯的狗说&quot;тяв&quot;'</span>));
 <span class="cm-comment">// → 61% Han, 22% Latin, 17% Cyrillic</span></pre>
 
-<p>تابع بالا ابتدا تعداد کاراکتر‌ها را با نام می شمارد، با استفاده از <code>characterScript</code> به آن‌ها نامی را اختصاص می دهد، و برای کاراکترهایی که جزء هیچ الفبایی محسوب نمی‌شوند، مقدار <code>“none”</code> را به رشته باز می گرداند. تابع <code>filter</code> تمامی <code>“none”</code> ها را از آرایه‌ی نتیجه حذف می‌کند، چرا که علاقه ای به این کاراکتر‌ها نداریم.</p>
+<p>تابع بالا ابتدا تعداد کاراکتر‌ها را با نام می‌شمارد، با استفاده از <code>characterScript</code> به آن‌ها نامی را اختصاص می‌دهد، و برای کاراکتر‌هایی که جزء هیچ الفبایی محسوب نمی‌شوند، مقدار <code>“none”</code> را به رشته باز می‌گرداند. تابع <code>filter</code> تمامی <code>“none”</code>‌ها را از آرایه‌ی نتیجه حذف می‌کند، چرا که علاقه‌ای به این کاراکتر‌ها نداریم.</p>
 
-<p>برای اینکه بتوانیم درصد‌ها را محاسبه کنیم، ابتدا به تعداد همه‌ی کاراکترهایی که به یک الفبا تعلق دارند نیاز داریم، که می‌توانیم این کار را با <code>reduce</code> انجام دهیم. اگر این کاراکترها پیدا نشدند، تابع، یک رشته‌ی مشخص برمی گرداند. در غیر این صورت به وسیله تابع <code>map</code> موارد محاسبه‌شده را به رشته‌هایی مناسب خواندن تبدیل می‌کند و در آخر به وسیله <code>join</code> آن‌ها را به هم الحاق می نماید.</p>
+<p>برای اینکه بتوانیم درصد‌ها را محاسبه کنیم، ابتدا به تعداد همه‌ی کاراکتر‌هایی که به یک الفبا تعلق دارند نیاز داریم، که می‌توانیم این کار را با <code>reduce</code> انجام دهیم. اگر این کاراکتر‌ها پیدا نشدند، تابع، یک رشته‌ی مشخص برمی‌گرداند. در غیر این صورت به وسیله تابع <code>map</code> موارد محاسبه ‌شده را به رشته‌هایی مناسب خواندن تبدیل می‌کند و در آخر به وسیله <code>join</code> آن‌ها را به هم الحاق می‌نماید.</p>
 
 <h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p>یکی از جنبه‌های عمیقا کاربردی جاوااسکریپت، امکان ارسال مقدارهای تابع به دیگر توابع است. با این ویژگی می‌توان توابعی برای مدل‌سازی محاسباتی نوشت که دارای بخشی &quot;باز&quot; می‌باشند. کدی که این توابع را فراخوانی می‌کند، می‌تواند این فضای باز را به وسیله‌ی مقدار‌های تابع تکمیل کند.</p>
+<p>یکی از جنبه‌های عمیقا کاربردی جاوااسکریپت، امکان ارسال مقدار‌های تابع به دیگر توابع است. با این ویژگی می‌توان توابعی برای مدل‌سازی محاسباتی نوشت که دارای بخشی &quot;باز&quot; می‌باشند. کدی که این توابع را فراخوانی می‌کند، می‌تواند این فضای باز را به وسیله‌ی مقدار‌های تابع تکمیل کند.</p>
 
-<p>آرایه‌ها مجموعه‌ی مفیدی از توابع رده‌بالا را فراهم می سازند. می‌توانید از <code>forEach</code> برای پیمایش عناصر یک آرایه استفاده کنید. برای برگرداندن یک آرایه‌ی جدید با عناصری که شرایط خاصی دارند، متد <code>filter</code> مفید است. برای تغییر شکل عناصر یک آرایه به وسیله‌ی یک تابع، می‌توانید از <code>map</code> استفاده کنید. <code>reduce</code> برای ترکیب همه‌ی عناصر یک آرایه و ساخت یک مقدار واحد، کاربرد دارد. متد <code>some</code> بررسی می‌کند که آیا حداقل یک عنصر در آرایه با شرط تابع ورودی تطبیق می‌کند  و <code>findIndex</code> موقعیت اولین عنصری که با شرط ارسالی تطبیق دارد را بر می گرداند.</p>
+<p>آرایه‌ها مجموعه‌ی مفیدی از توابع رده‌بالا را فراهم می‌سازند. می‌توانید از <code>forEach</code> برای پیمایش عناصر یک آرایه استفاده کنید. برای برگرداندن یک آرایه‌ی جدید با عناصری که شرایط خاصی دارند، متد <code>filter</code> مفید است. برای تغییر شکل عناصر یک آرایه به وسیله‌ی یک تابع، می‌توانید از <code>map</code> استفاده کنید.  <code>reduce</code> برای ترکیب همه‌ی عناصر یک آرایه و ساخت یک مقدار واحد، کاربرد دارد. متد <code>some</code> بررسی می‌کند که آیا حداقل یک عنصر در آرایه با شرط تابع ورودی تطبیق می‌کند و <code>findIndex</code> موقعیت اولین عنصری که با شرط ارسالی تطبیق دارد را برمی‌گرداند.</p>
 
 <h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
 <h3><a class="i_ident" id="i_1XCp3Vm6bW" href="#i_1XCp3Vm6bW" tabindex="-1" role="presentation"></a>یک‌سطح کردن آرایه</h3>
 
-<p>با استفاده از متد <code>reduce</code> و ترکیب آن با <code>concat،</code> آرایه‌ای از آرایه‌ها را گرفته و آرایه‌ی تختی (مسطح) بسازید که شامل همه‌ی عناصر آرایه‌های اصلی باشد.</p>
+<p>با استفاده از متد <code>reduce</code> و ترکیب آن با <code>concat</code>، آرایه‌ای از آرایه‌ها را گرفته و آرایه‌ی تختی (مسطح) بسازید که شامل همه‌ی عناصر آرایه‌های اصلی باشد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I+o+qLGLXB" href="#c_I+o+qLGLXB" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">arrays</span> <span class="cm-operator">=</span> [[<span class="cm-number">1</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>], [<span class="cm-number">4</span>, <span class="cm-number">5</span>], [<span class="cm-number">6</span>]];
 <span class="cm-comment">// Your code here.</span>
@@ -450,7 +450,7 @@
 
 <h3><a class="i_ident" id="i_rU7fdIk3WU" href="#i_rU7fdIk3WU" tabindex="-1" role="presentation"></a>شبیه‌سازی حلقه</h3>
 
-<p><a class="p_ident" id="p_fLbvuYully" href="#p_fLbvuYully" tabindex="-1" role="presentation"></a>تابع رده‌بالایی به نام <code>loop</code> بنویسید که کاری مشابه یک حلقه‌ی <code>for</code> انجام دهد. این تابع به عنوان آرگومان، یک مقدار، تابع شرط، تابع به‌روز‌رسانی و بدنه‌ی یک تابع را دریافت می‌کند. در هر تکرار، ابتدا، تابع شرط را بر روی مقدار فعلی حلقه اجرا می‌کند و در صورتی که false را تولید کرد متوقف می‌شود. سپس بدنه تابع ارسالی را با دادن مقدار فعلی به آن، اجرا می نماید. در نهایت برای ایجاد یک مقدار جدید، تابع به‌روزرسانی را فراخوانی کرده و از ابتدا شروع می‌کند.</p>
+<p>تابع رده‌بالایی به نام <code>loop</code> بنویسید که کاری مشابه یک حلقه‌ی <code>for</code> انجام دهد. این تابع به عنوان آرگومان، یک مقدار، تابع شرط، تابع به‌روز‌رسانی و بدنه‌ی یک تابع را دریافت می‌کند. در هر تکرار، ابتدا، تابع شرط را بر روی مقدار فعلی حلقه اجرا می‌کند و در صورتی که <code>false</code> را تولید کرد متوقف می‌شود. سپس بدنه تابع ارسالی را با دادن مقدار فعلی به آن، اجرا می‌نماید. در نهایت برای ایجاد یک مقدار جدید، تابع به‌روزرسانی را فراخوانی کرده و از ابتدا شروع می‌کند.</p>
 
 <p>هنگام تعریف تابع، می‌توانید از یک حلقه‌ی معمولی برای پیاده‌سازی حلقه‌ی اصلی استفاده کنید.</p>
 
@@ -463,9 +463,9 @@
 
 <h3><a class="i_ident" id="i_9HYBCnRNia" href="#i_9HYBCnRNia" tabindex="-1" role="presentation"></a>همه‌چیز</h3>
 
-<p>مشابه متد <code>some،</code> آرایه‌ها متدی به نام <code>every</code> نیز دارند. این متد زمانی <code>true</code> برمی گرداند که تابع داده شد برای <em>همه‌ی</em> عناصر آرایه، مقدار <code>true</code> را تولید کند. به نوعی، <code>some</code> نسخه‌ای از عملگر <code>||</code> است که روی آرایه‌ها عمل می‌کند و <code>every</code> شبیه به عملگر <code>&amp;&amp;</code> کار می‌کند.</p>
+<p>مشابه متد <code>some،</code> آرایه‌ها متدی به نام <code>every</code> نیز دارند. این متد زمانی <code>true</code> برمی‌گرداند که تابع داده شد برای <em>همه‌ی</em> عناصر آرایه، مقدار <code>true</code> را تولید کند. به نوعی، <code>some</code> نسخه‌ای از عملگر <code>||</code> است که روی آرایه‌ها عمل می‌کند و <code>every</code> شبیه به عملگر <code>&amp;&amp;</code> کار می‌کند.</p>
 
-<p>متد <code>every</code> را به عنوان یک تابع پیاده سازی کنید که یک آرایه و یک تابع دریافت می‌کند. دو نسخه‌ از این تابع را بنویسید، یک نسخه با استفاده از حلقه و دیگری با استفاده از متد <code>some</code>.</p>
+<p>متد <code>every</code> را به عنوان یک تابع پیاده‌سازی کنید که یک آرایه و یک تابع دریافت می‌کند. دو نسخه از این تابع را بنویسید، یک نسخه با استفاده از حلقه و دیگری با استفاده از متد <code>some</code>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_NludaTWDls" href="#c_NludaTWDls" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">every</span>(<span class="cm-def">array</span>, <span class="cm-def">test</span>) {
   <span class="cm-comment">// Your code here.</span>
@@ -480,17 +480,17 @@
 
 <div class="solution"><div class="solution-text">
 
-<p><a class="p_ident" id="p_iYkMFxHxnk" href="#p_iYkMFxHxnk" tabindex="-1" role="presentation"></a>مانند عملگر <code>&amp;&amp;</code>، متد <code>every</code> به محض اینکه به موردی برخورد کند که با شرط تطبیق ندارد، ارزیابی دیگر عناصر را متوقف می‌کند. بنابراین در نسخه‌ی مبتنی بر حلقه، می‌توان با مشاهده‌ی خروجی false تابع روی یک عنصر، از حلقه به وسیله‌ی <code>break</code> یا <code>return</code> خارج شد. اگر حلقه بدون برخورد با چنین عنصری به انتهای خود برسد، می دانیم که همه‌ی عناصر مطابق تابع شرط بوده اند و می‌توانیم true را برگردانیم.</p>
+<p><a class="p_ident" id="p_iYkMFxHxnk" href="#p_iYkMFxHxnk" tabindex="-1" role="presentation"></a>مانند عملگر <code>&amp;&amp;</code>، متد <code>every</code> به محض اینکه به موردی برخورد کند که با شرط تطبیق ندارد، ارزیابی دیگر عناصر را متوقف می‌کند. بنابراین در نسخه‌ی مبتنی بر حلقه، می‌توان با مشاهده‌ی خروجی false تابع روی یک عنصر، از حلقه به وسیله‌ی <code>break</code> یا <code>return</code> خارج شد. اگر حلقه بدون برخورد با چنین عنصری به انتهای خود برسد، می‌دانیم که همه‌ی عناصر مطابق تابع شرط بوده‌اند و می‌توانیم true را برگردانیم.</p>
 
-<p>برای ساخت <code>every‍‍</code> با استفاده از <code>some</code>، می‌توانیم از قوانین <em>دمورگان</em> استفاده کنیم، که براساس آن‌، <bdo><code>a &amp;&amp; b</code></bdo> برابر است با <bdo><code>!(!a || !b)</code></bdo>. می‌توان آن را به آرایه‌ها تعمیم داد به این صورت که همه‌ی عناصر در آرایه با شرط تطبیق خواهند داشت اگر عنصری در آرایه نباشد که تطبیق نداشته باشد.</p>
+<p>برای ساخت <code>every</code> با استفاده از  <code>some</code>، می‌توانیم از قوانین <em>دمورگان</em> استفاده کنیم، که براساس آن‌، <bdo><code>a &amp;&amp; b</code></bdo> برابر است با <bdo><code>!(!a || !b)</code></bdo>. می‌توان آن را به آرایه‌ها تعمیم داد به این صورت که همه‌ی عناصر موجود در آرایه با شرط تطبیق خواهند داشت اگر عنصری در آرایه وجود نداشته باشد که با شرط تطبیق نداشته باشد.</p>
 
 </div></div>
 
 <h3><a class="i_ident" id="i_csMsyLJrpx" href="#i_csMsyLJrpx" tabindex="-1" role="presentation"></a>جهت نوشتن غالب</h3>
 
-<p>تابعی بنویسید که بتواند جهت نوشتن غالب یک متن را محاسبه کند. به یاد دارید که هر شیء الفبا خاصیتی به نام <code>direction</code> دارد که می‌تواند <code>“ltr”</code> (چپ به راست)، <code>“rtl”</code> (راست به چپ)، یا  <code>“ttb”</code> (بالا به پایین) باشد.</p>
+<p>تابعی بنویسید که بتواند جهت نوشتن غالب یک متن را محاسبه کند. به یاد دارید که هر شیء الفبا خاصیتی به نام <code>direction</code> دارد که می‌تواند <code>“ltr”</code> (چپ به راست)،  <code>“rtl”</code> (راست به چپ)، یا <code>“ttb”</code> (بالا به پایین) باشد.</p>
 
-<p>جهت نوشتاری غالب، جهتی است که بیشتر کاراکترهایی که الفبای مشخصی دارند، در آن جهت نوشته می‌شوند. احتمالا دو تابع <code>characterScript</code> و <code>countBy</code> که پیش تر نوشته شده اند، اینجا کاربرد خواهند داشت.</p>
+<p>جهت نوشتاری غالب، جهتی است که بیشتر کاراکتر‌هایی که الفبای مشخصی دارند، در آن جهت نوشته می‌شوند. احتمالا دو تابع <code>characterScript</code> و <code>countBy</code> که پیش‌تر نوشته شده‌اند، اینجا کاربرد خواهند داشت.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_CNawUvyti3" href="#c_CNawUvyti3" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">dominantDirection</span>(<span class="cm-def">text</span>) {
   <span class="cm-comment">// Your code here.</span>
@@ -503,7 +503,7 @@
 
 <div class="solution"><div class="solution-text">
 
-<p>پاسخ شما ممکن است شباهت زیادی به نیمه‌ی اول مثال <code>textScripts</code> داشته باشد. دوباره باید کاراکترها را با شرطی براساس <code>characterScript</code> بشمارید و سپس بخشی از نتیجه که الفبای مشخصی ندارند را فیلتر کنید.</p>
+<p>پاسخ شما ممکن است شباهت زیادی به نیمه‌ی اول مثال <code>textScripts</code> داشته باشد. دوباره باید کاراکتر‌ها را با شرطی براساس <code>characterScript</code> بشمارید و سپس بخشی از نتیجه که الفبای مشخصی ندارند را فیلتر کنید.</p>
 
 <p>پیدا کردن جهت نوشته بر اساس شمارش بیشترین کاراکتر را می‌توان با متد <code>reduce</code> انجام داد. اگر راه حل به ذهن‌تان نرسید، به مثالی که پیش‌تر در این فصل در مورد استفاده از <code>reduce</code> برای پیدا کردن الفبایی با بیشترین حروف مراجعه کنید.</p>
 
