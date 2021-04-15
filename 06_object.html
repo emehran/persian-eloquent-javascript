@@ -9,7 +9,7 @@
   <script src="js/sandbox.js"></script>
   <script src="js/ejs.js"></script><script>var chapNum = 6;var sandboxLoadFiles = ["code/chapter/06_object.js"];</script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101171577);</script>
   <script async src="//static.getclicky.com/js"></script>
-
+  <script id='pixel-script-poptin' src='https://cdn.popt.in/pixel.js?id=ea6051b792008' async='true'></script>
 </head>
 
 <article>
@@ -19,15 +19,15 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>یک نوع داده‌ی انتزاعی را می‌توان با نوشتن یک برنامه‌ی بخصوص فهمید […] که این نوع را بر اساس کارهایی که روی آن می‌توان انجام داد تعریف می‌کند.</p>
+<p><a class="p_ident" id="p_2jmj7l5rSw" href="#p_2jmj7l5rSw" tabindex="-1" role="presentation"></a>یک نوع داده‌ی انتزاعی را می‌توان با نوشتن یک برنامه‌ی بخصوص فهمید […] برنامه‌ای که این نوع را بر اساس کار‌هایی تعریف می‌کند که روی آن می‌توان انجام داد.</p>
 
 <footer>باربارا لیسکوف, <cite>برنامه‌نویسی با انواع داده‌ی انتزاعی</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_6.jpg" alt="Picture of a rabbit with its proto-rabbit"></figure>
 
-<p>در <a href="04_data.html">فصل 4</a> به معرفی اشیاء در جاوااسکریپت پرداختیم. در فرهنگ برنامه‌نویسی، مفهومی وجود دارد که به آن <em>برنامه‌نویسی شیء گرا</em> گفته می‌شود؛ مجموعه‌ای از تکنیک ها که در آن از اشیاء (و مفاهیم مرتبط با آن) به عنوان اصل مرکزی، برای سازماندهی برنامه استفاده می‌شود.</p>
+<p>در <a href="04_data.html">فصل 4</a> به معرفی اشیاء در جاوااسکریپت پرداختیم. در فرهنگ برنامه‌نویسی، مفهومی وجود دارد که به آن <em>برنامه‌نویسی شیء گرا</em> گفته می‌شود؛ مجموعه‌ای از تکنیک‌ها که در آن از اشیاء (و مفاهیم مرتبط با آن) به عنوان اصل مرکزی، برای سازماندهی برنامه استفاده می‌شود.</p>
 
-<p>با وجود اینکه هیچ کس روی تعریف دقیق آن توافق ندارد، برنامه‌نویسی شیء گرا، طراحی خیلی از زبان‌های برنامه‌نویسی را شکل داده است، مثل خود جاوااسکریپت. این فصل به توضیح چگونگی پیاده‌سازی این ایده در جاوااسکریپت می پردازد.</p>
+<p>با وجود اینکه هیچ کس روی تعریف دقیق آن توافق ندارد، برنامه‌نویسی شیء گرا، طراحی خیلی از زبان‌های برنامه‌نویسی را شکل داده است، مثل خود جاوااسکریپت. این فصل به توضیح چگونگی پیاده‌سازی این ایده در جاوااسکریپت می‌پردازد.</p>
 
 <h2><a class="h_ident" id="h_c1rmAfHOoY" href="#h_c1rmAfHOoY" tabindex="-1" role="presentation"></a>کپسوله‌سازی (Encapsulation)</h2>
 
@@ -35,19 +35,19 @@
 
 <p><a class="p_ident" id="p_k5u0agTDZA" href="#p_k5u0agTDZA" tabindex="-1" role="presentation"></a>در این روش، بعضی از اطلاعات مربوط به نحوه‌ی کارکرد یک قسمت از برنامه را می‌توان به صورت <em>محلی</em> (local) برای همان قسمت نگه داری کرد. کسی که روی قسمت‌های دیگر برنامه کار می‌کند نیازی نیست تا این اطلاعات را به خاطر داشته باشد یا حتی اصلا از وجودشان آگاه باشد. در صورت تغییر این جزئیات محلی، فقط لازم است کد‌هایی را به‌روز کنیم که مستقیما پیرامون آن قرار دارند.</p>
 
-<p id="interface"><a class="p_ident" id="p_XqLYGongzc" href="#p_XqLYGongzc" tabindex="-1" role="presentation"></a>بخش‌های مختلف این گونه برنامه‌ها، برای ارتباط با یکدیگر از <em>رابط‌ها</em> (interface) استفاده می کنند؛ مجموعه‌ای محدود از توابع یا متغیرها که قابلیت‌های مفیدی را در سطح بالاتری از انتزاع ایجاد می کنند و جزئیات دقیق پیاده سازی‌شان را از دید استفاده‌کننده مخفی می کنند.</p>
+<p id="interface"><a class="p_ident" id="p_XqLYGongzc" href="#p_XqLYGongzc" tabindex="-1" role="presentation"></a>بخش‌های مختلف این گونه برنامه‌ها، برای ارتباط با یکدیگر از <em>رابط‌ها</em> (interface) استفاده می‌کنند؛ مجموعه‌ای محدود از توابع یا متغیر‌ها که قابلیت‌های مفیدی را در سطح بالاتری از انتزاع ایجاد می‌کنند و جزئیات دقیق پیاده‌سازی‌شان را از دید استفاده‌کننده مخفی می‌سازند.</p>
 
-<p><a class="p_ident" id="p_9Y1jkLJard" href="#p_9Y1jkLJard" tabindex="-1" role="presentation"></a>قسمت‌های این‌گونه برنامه‌ها را به وسیله‌ی اشیاء مدل‌سازی می کنند. رابط آن‌ها شامل مجموعه‌ای مشخص از متدها و خاصیت‌ها می باشد. به آن گروه از خاصیت‌ها که بخشی از رابط محسوب می‌شوند، <em>عمومی</em> (public) و آن‌هایی را که کدهای بیرونی نباید به آن‌ها دسترسی داشته باشند، خاصیت‌های <em>خصوصی</em> (private) می گویند.</p>
+<p><a class="p_ident" id="p_9Y1jkLJard" href="#p_9Y1jkLJard" tabindex="-1" role="presentation"></a>قسمت‌های این‌گونه برنامه‌ها را به وسیله‌ی اشیاء مدل‌سازی می‌کنند. رابط آن‌ها شامل مجموعه‌ای مشخص از متد‌ها و خاصیت‌ها می‌باشد. به آن گروه از خاصیت‌ها که بخشی از رابط محسوب می‌شوند، <em>عمومی</em> (public) و آن‌هایی را که کد‌های بیرونی نباید به آن‌ها دسترسی داشته باشند، خاصیت‌های <em>خصوصی</em> (private) می‌گویند.</p>
 
-<p>بسیاری از زبان‌های برنامه‌نویسی راهی برای تمایز خاصیت‌های خصوصی و عمومی فراهم می سازند و از دسترسی کدهای بیرونی به خاصیت‌های خصوصی جلوگیری می کنند. جاوااسکریپت بار دیگر با انتخاب روش مینیمال، این گونه عمل نمی‌کند – حداقل تا الان. البته کارهایی برای افزودن این ویژگی به زبان در حال شکل گیری است.</p>
+<p>بسیاری از زبان‌های برنامه‌نویسی راهی برای تمایز خاصیت‌های خصوصی و عمومی فراهم می‌سازند و از دسترسی کد‌های بیرونی به خاصیت‌های خصوصی جلوگیری می‌کنند. جاوااسکریپت بار دیگر با انتخاب روش مینیمال، این گونه عمل نمی‌کند – حداقل تا الان. البته کار‌هایی برای افزودن این ویژگی به زبان در حال شکل‌گیری است.</p>
 
-<p>با وجود اینکه خود زبان به صورت درونی از این تمایز پشتیبانی نمی‌کند، برنامه‌نویسان جاوااسکریپت این مفهوم را به شکل موفقیت‌آمیزی به کار می برند. معمولا برای مشخص کردن رابط‌های در دسترس از توضیحات یا مستندات برنامه استفاده می کنند. همچنین یک روش رایج برای مشخص کردن خاصیت‌های خصوصی، استفاده از کاراکتر زیرخط (<code>_</code>) در شروع این خاصیت‌ها است.</p>
+<p>با وجود اینکه خود زبان به صورت درونی از این تمایز پشتیبانی نمی‌کند، برنامه‌نویسان جاوااسکریپت این مفهوم را به شکل موفقیت‌آمیزی به کار می‌برند. معمولا برای مشخص کردن رابط‌های در دسترس از توضیحات یا مستندات برنامه استفاده می‌کنند. همچنین یک روش رایج برای مشخص کردن خاصیت‌های خصوصی، استفاده از کاراکتر زیرخط (<code>_</code>) در شروع این خاصیت‌ها است.</p>
 
-<p>ایجاد رابط مجزا برای کار با اشیاء و جدا کردن آن از پیاده‌سازی، ایده‌ی بسیار خوبی است. این کار را معمولا <em>کپسوله‌سازی</em> یا مخفی‌سازی می نامند.</p>
+<p>ایجاد رابط مجزا برای کار با اشیاء و جدا کردن آن از پیاده‌سازی، ایده‌ی بسیار خوبی است. این کار را معمولا <em>کپسوله‌سازی</em> یا مخفی‌سازی می‌نامند.</p>
 
 <h2 id="obj_methods"><a class="h_ident" id="h_T5O250ROf4" href="#h_T5O250ROf4" tabindex="-1" role="presentation"></a>متد‌ها (Methods)</h2>
 
-<p>متدها خاصیت‌هایی هستند که مقدار‌های تابع را نگه‌داری می کنند؛ همین. این یک متد ساده است:</p>
+<p>متد‌ها خاصیت‌هایی هستند که مقدار‌های تابع را نگهداری می‌کنند؛ همین. این یک متد ساده است:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BYfVVcFY2P" href="#c_BYfVVcFY2P" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">rabbit</span> <span class="cm-operator">=</span> {};
 <span class="cm-variable">rabbit</span>.<span class="cm-property">speak</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">line</span>) {
@@ -57,7 +57,7 @@
 <span class="cm-variable">rabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;I'm alive.&quot;</span>);
 <span class="cm-comment">// → The rabbit says 'I'm alive.'</span></pre>
 
-<p>معمولا متد‌ها کاری را روی شیءای که بر روی آن فراخوانی شده‌اند انجام می‌دهند. زمانی که یک تابع به عنوان یک متد فراخوانی می‌شود – به عنوان یک خاصیت جستجو می‌شود و بلافاصله فراخوانی می‌شود مانند <bdo><code>object.method()</code></bdo> – متغیری که <code>this</code> نامیده می‌شود به طور خودکار به شیءای که روی آن فراخوانی شده است اشاره می‌کند.</p>
+<p>معمولا متد‌ها کاری را روی شیئی انجام می‌دهند که بر روی آن فراخوانی شده‌اند. زمانی که یک تابع به عنوان یک متد فراخوانی می‌شود – به عنوان یک خاصیت جستجو می‌شود و بلافاصله فراخوانی می‌شود؛ مانند <bdo><code>object.method()</code></bdo> - متغیری که <code>this</code> نامیده می‌شود به طور خودکار به شیئی اشاره می‌کند که روی آن فراخوانی شده است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_cXuIwPt+3C" href="#c_cXuIwPt+3C" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">speak</span>(<span class="cm-def">line</span>) {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string-2">`The ${</span><span class="cm-keyword">this</span>.<span class="cm-property">type</span><span class="cm-string-2">}</span> <span class="cm-string-2">rabbit says '${</span><span class="cm-variable-2">line</span><span class="cm-string-2">}</span><span class="cm-string-2">'`</span>);
@@ -72,14 +72,14 @@
 <span class="cm-variable">hungryRabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;I could use a carrot right now.&quot;</span>);
 <span class="cm-comment">// → The hungry rabbit says 'I could use a carrot right now.'</span></pre>
 
-<p id="call_method">می‌توانید <code>this</code> را یک پارامتر اضافه در نظر بگیرید که به شکلی دیگر ارسال شده است. اگر بخواهید آن‌ را آشکارا ارسال نمایید، می‌توانید از متد <code>call</code> توابع استفاده کنید. این متد مقدار <code>this</code> را به عنوان آرگومان اول می‌گیرد و دیگر آرگومان ها را به عنوان پارامترهای معمولی تفسیر می‌کند.</p>
+<p id="call_method">می‌توانید <code>this</code> را یک پارامتر اضافه در نظر بگیرید که به شکلی دیگر ارسال شده است. اگر بخواهید آن را آشکارا ارسال نمایید، می‌توانید از متد <code>call</code> توابع استفاده کنید. این متد مقدار <code>this</code> را به عنوان آرگومان اول می‌گیرد و دیگر آرگومان‌ها را به عنوان پارامتر‌های معمولی تفسیر می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_9lDr0S2nEw" href="#c_9lDr0S2nEw" tabindex="-1" role="presentation"></a><span class="cm-variable">speak</span>.<span class="cm-property">call</span>(<span class="cm-variable">hungryRabbit</span>, <span class="cm-string">&quot;Burp!&quot;</span>);
 <span class="cm-comment">// → The hungry rabbit says 'Burp!'</span></pre>
 
-<p>به دلیل اینکه هر تابع متغیر <code>this</code> مربوط به خود را دارد، که مقدارش بستگی به نحوه‌ی فراخوانی آن تابع دارد، نمی‌توان به <code>this</code> محصور در قلمروی تعریف یک تابع معمولی (که با کلیدواژه‌ی <code>function</code> تعریف شده است) دسترسی داشت.</p>
+<p>به دلیل اینکه هر تابع متغیر <code>this</code> مربوط به خود را دارد، که مقدارش بستگی به نحوه‌ی فراخوانی آن تابع دارد، نمی‌توان به <code>this</code> محصور شده در قلمروی تعریف یک تابع معمولی (که با کلیدواژه‌ی <code>function</code> تعریف شده است) دسترسی داشت.</p>
 
-<p><a class="p_ident" id="p_e1B1QHaHbK" href="#p_e1B1QHaHbK" tabindex="-1" role="presentation"></a>توابع پیکانی (arrow functions) متفاوت عمل می کنند - این توابع <code>this</code> را به جایی مقید نمی کنند اما می‌توانند متغیر <code>this</code> موجود در قلمروی پیرامونشان را ببینند. بنابراین، به وسیله‌ی کدی مانند مثال زیر، می‌توان به <code>this</code> از درون یک تابع محلی اشاره کرد:</p>
+<p><a class="p_ident" id="p_e1B1QHaHbK" href="#p_e1B1QHaHbK" tabindex="-1" role="presentation"></a>توابع پیکانی (arrow functions) متفاوت عمل می‌کنند - این توابع <code>this</code> را به جایی مقید نمی‌کنند اما می‌توانند متغیر <code>this</code> موجود در قلمروی پیرامونشان را ببینند. بنابراین، به وسیله‌ی کدی مانند مثال زیر، می‌توان به <code>this</code> از درون یک تابع محلی اشاره کرد:</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_wg++tcauWw" href="#c_wg++tcauWw" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">normalize</span>() {
   <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-keyword">this</span>.<span class="cm-property">coords</span>.<span class="cm-property">map</span>(<span class="cm-def">n</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">n</span> <span class="cm-operator">/</span> <span class="cm-keyword">this</span>.<span class="cm-property">length</span>));
@@ -87,9 +87,9 @@
 <span class="cm-variable">normalize</span>.<span class="cm-property">call</span>({<span class="cm-property">coords</span>: [<span class="cm-number">0</span>, <span class="cm-number">2</span>, <span class="cm-number">3</span>], <span class="cm-property">length</span>: <span class="cm-number">5</span>});
 <span class="cm-comment">// → [0, 0.4, 0.6]</span></pre>
 
-<p>اگر آرگومان ارسالی به تابع <code>map</code> را به وسیله کلیدواژه‌ی <code>function</code> نوشته‌ بودم، کد بالا کار نمی کرد.</p>
+<p>اگر آرگومان ارسالی به تابع <code>map</code> را به وسیله کلیدواژه‌ی <code>function</code> نوشته بودیم، کد بالا کار نمی‌کرد.</p>
 
-<h2 id="prototypes"><a class="h_ident" id="h_Wcq6F6Ot1d" href="#h_Wcq6F6Ot1d" tabindex="-1" role="presentation"></a>Prototype ها</h2>
+<h2 id="prototypes"><a class="h_ident" id="h_B6kB6hWyiF" href="#h_B6kB6hWyiF" tabindex="-1" role="presentation"></a>پروتوتایپ‌ها (Prototypes)</h2>
 
 <p>با دقت به کد زیر نگاه کنید.</p>
 
@@ -99,9 +99,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">empty</span>.<span class="cm-property">toString</span>());
 <span class="cm-comment">// → [object Object]</span></pre>
 
-<p>خاصیتی را از یک شیء تهی بیرون کشیده‌ام. جادوگری!</p>
+<p>خاصیتی را از یک شیء تهی بیرون کشیده‌ام. جادو!</p>
 
-<p><a class="p_ident" id="p_PCcoysQ0VE" href="#p_PCcoysQ0VE" tabindex="-1" role="presentation"></a>البته واقعا این‌طور نیست. نکته اینجاست که هنوز بخشی از اطلاعات مربوط به شیوه‌ی کارکرد اشیاء در جاوااسکریپت را توضیح نداده ام. بیشتر اشیاء علاوه بر خاصیت‌های خودشان، خاصیتی به نام <em>prototype</em> نیز دارند. یک prototype (نمونه‌ی اولیه) خود یک شیء دیگر است که به عنوان یک منبع جایگزین برای خاصیت‌ها استفاده می‌شود. زمانی که یک شیء، درخواستی برای یک خاصیت دریافت می‌کند و آن خاصیت را ندارد، جستجو در prototype اش صورت می‌گیرد، سپس prototype متعلق به prototype آن جستجو می‌شود و این روند ادامه دارد.</p>
+<p><a class="p_ident" id="p_PCcoysQ0VE" href="#p_PCcoysQ0VE" tabindex="-1" role="presentation"></a>البته واقعا این‌طور نیست. نکته اینجاست که هنوز بخشی از اطلاعات مربوط به شیوه‌ی کارکرد اشیاء در جاوااسکریپت را توضیح نداده‌ام. بیشتر اشیاء علاوه بر خاصیت‌های خودشان، خاصیتی به نام <em>prototype</em> نیز دارند. یک prototype (نمونه‌ی اولیه) خود یک شیء دیگر است که به عنوان یک منبع جایگزین برای خاصیت‌ها استفاده می‌شود. زمانی که یک شیء، درخواستی برای یک خاصیت دریافت می‌کند و آن خاصیت را ندارد، جستجو در prototype‌ آن صورت می‌گیرد، سپس prototype متعلق به prototype آن جستجو می‌شود و این روند ادامه دارد.</p>
 
 <p><a class="p_ident" id="p_CG38WHlXpK" href="#p_CG38WHlXpK" tabindex="-1" role="presentation"></a>بنابراین نمونه‌ی اولیه‌ی (prototype) آن شیء تهی کدام است؟ بله آن prototype جد بزرگ شیء است که تقریبا پشت همه‌ی اشیاء قرار دارد: <bdo><code>Object.prototype</code></bdo>.</p>
 
@@ -111,11 +111,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>));
 <span class="cm-comment">// → null</span></pre>
 
-<p><a class="p_ident" id="p_fCV8aozVN0" href="#p_fCV8aozVN0" tabindex="-1" role="presentation"></a>همانطور که حدس می زنید، <bdo><code>object.<wbr>getPrototypeOf</code></bdo>، برای به دست آوردن prototype یک شیء استفاده می‌شود.</p>
+<p><a class="p_ident" id="p_fCV8aozVN0" href="#p_fCV8aozVN0" tabindex="-1" role="presentation"></a>همانطور که حدس می‌زنید، <bdo><code>object.<wbr>getPrototypeOf</code></bdo>، برای بدست آوردن prototype یک شیء استفاده می‌شود.</p>
 
-<p>روابط بین prototype ها در اشیاء جاوااسکریپت، یک ساختار درختی را شکل می‌دهند که در ریشه‌ی این ساختار، <bdo><code>Object.prototype</code></bdo> قرار می‌گیرد. درون این شیء چند متد وجود دارد که در تمامی اشیاء حضور دارند، مانند <code>toString</code>، که عمل تبدیل یک شیء به رشته‌ را انجام می دهد.</p>
+<p>روابط بین prototype‌ها در اشیاء جاوااسکریپت، یک ساختار درختی را شکل می‌دهند که در ریشه‌ی این ساختار، <bdo><code>Object.prototype</code></bdo> قرار می‌گیرد. درون این شیء چند متد وجود دارد که در تمامی اشیاء حضور دارند، مانند <code>toString</code>، که عمل تبدیل یک شیء به رشته را انجام می‌دهد.</p>
 
-<p>بسیاری از اشیاء به طور مستقیم دارای <bdo><code>Object.prototype</code></bdo> به عنوان prototype خودشان نیستند، اما در عوض شیء دیگری دارند که مجموعه‌ی متفاوتی از خاصیت‌های پیش‌فرض را فراهم می سازد. توابع از <bdo><code>Function.<wbr>prototype</code></bdo> و آرایه ها از <bdo><code>Array.prototype</code></bdo> مشتق شده اند.</p>
+<p>بسیاری از اشیاء به طور مستقیم دارای <bdo><code>Object.prototype</code></bdo> به عنوان prototype خودشان نیستند، اما در عوض شیء دیگری دارند که مجموعه‌ی متفاوتی از خاصیت‌های پیش‌فرض را فراهم می‌سازد. توابع از <bdo><code>Function.<wbr>prototype</code></bdo> و آرایه‌ها از <bdo><code>Array.prototype</code></bdo> مشتق شده‌اند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_NgntUaXZ1S" href="#c_NgntUaXZ1S" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Math</span>.<span class="cm-property">max</span>) <span class="cm-operator">==</span>
             <span class="cm-variable">Function</span>.<span class="cm-property">prototype</span>);
@@ -124,7 +124,7 @@
             <span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p>این گونه prototype ها خود نیز دارای یک prototype می‌باشند که اغلب همان <bdo><code>Object.prototype</code></bdo> است. پس به طور غیر مستقیم متدهایی شبیه <code>toString</code> را فراهم می کنند.</p>
+<p>این گونه prototype ‌ها خود نیز دارای یک prototype می‌باشند که اغلب همان <bdo><code>Object.prototype</code></bdo> است. پس به طور غیر مستقیم متد‌هایی شبیه <code>toString</code> را فراهم می‌کنند.</p>
 
 <p>می‌توانید از متد <bdo><code>Object.create</code></bdo> برای ساختن یک شیء با یک prototype خاص استفاده کنید.</p>
 
@@ -138,17 +138,17 @@
 <span class="cm-variable">killerRabbit</span>.<span class="cm-property">speak</span>(<span class="cm-string">&quot;SKREEEE!&quot;</span>);
 <span class="cm-comment">// → The killer rabbit says 'SKREEEE!'</span></pre>
 
-<p>خاصیتی شبیه به <bdo><code>speak(line)</code></bdo> در یک تعریف شیء، شکل کوتاه تعریف یک متد است. این کار خاصیتی به نام <code>speak</code> را تعریف کرده و یک تابع را به عنوان مقدار به آن می دهد.</p>
+<p>خاصیتی شبیه به <bdo><code>speak(line)</code></bdo> در یک تعریف شیء، شکل کوتاه تعریف یک متد است. این کار خاصیتی به نام <code>speak</code> را تعریف کرده و یک تابع را به عنوان مقدار به آن می‌دهد.</p>
 
-<p><a class="p_ident" id="p_6cBzJNEFIL" href="#p_6cBzJNEFIL" tabindex="-1" role="presentation"></a>“protoRabbit” به عنوان یک ظرف برای خاصیت‌های مشترک همه‌ی خرگوش‌ها استفاده می‌شود. یک شی مجزای rabbit (خرگوش) مثل killerRabbit، دارای خاصیت‌های اختصاصی است که فقط متعلق به خودش – و در این مثال متعلق به نوع خودش – است و نیز خاصیت‌های مشترکی دارد که آن‌ها را از نمونه‌ی اولیه‌اش می‌گیرد.</p>
+<p><a class="p_ident" id="p_UN4S2A1KS/" href="#p_UN4S2A1KS/" tabindex="-1" role="presentation"></a>“protoRabbit” به عنوان یک ظرف برای خاصیت‌های مشترک همه‌ی خرگوش‌ها استفاده می‌شود. یک شیء مجزای خرگوش مثل killerRabbit، دارای خاصیت‌های اختصاصی است که فقط متعلق به خودش – در این مثال خاصیت type – است و نیز خاصیت‌های مشترکی دارد که آن‌ها را از نمونه‌ی اولیه‌اش می‌گیرد.</p>
 
 <h2 id="classes"><a class="h_ident" id="h_6BrIXCOtjZ" href="#h_6BrIXCOtjZ" tabindex="-1" role="presentation"></a>کلاس‌ها</h2>
 
-<p><a class="p_ident" id="p_Lk/cz7nTu1" href="#p_Lk/cz7nTu1" tabindex="-1" role="presentation"></a>سیستم prototype جاوااسکریپت را می‌توان به عنوان برداشتی نسبتا غیر رسمی از مفهوم <em>کلاس‌ها</em> در برنامه‌نویسی شیء گرا تفسیر کرد. یک کلاس، سرشت نوعی از شیء را تعریف می‌کند – دارای تعدادی متد و خاصیت می‌باشد. به اشیائی که از کلاس ها ایجاد می‌شوند، <em>نمونه‌های</em> (instance) یک کلاس می گویند.</p>
+<p><a class="p_ident" id="p_Lk/cz7nTu1" href="#p_Lk/cz7nTu1" tabindex="-1" role="presentation"></a>سیستم prototype جاوااسکریپت را می‌توان به عنوان برداشتی نسبتا غیر رسمی از مفهوم <em>کلاس‌ها</em> در برنامه‌نویسی شیءگرا تفسیر کرد. یک کلاس، سرشت نوعی از شیء را تعریف می‌کند – دارای تعدادی متد و خاصیت می‌باشد. به اشیائی که از کلاس‌ها ایجاد می‌شوند، <em>نمونه‌های</em> (instance) یک کلاس می‌گویند.</p>
 
-<p>prototype ها برای تعریف خاصیت‌هایی مفید می‌باشند که مقدار مشابهی را در طول همه‌ی نمونه‌های یک کلاس به اشتراک می گذارند، مانند متدها. خاصیت‌هایی که برای هر نمونه متفاوت هستند، مانند خاصیت <code>type</code> در مثال خرگوش باید به طور مستقیم در خود اشیاء ذخیره بشوند.</p>
+<p>prototype ‌ها برای تعریف خاصیت‌هایی مفید می‌باشند که مقدار مشابهی را در طول همه‌ی نمونه‌های یک کلاس به اشتراک می‌گذارند، مانند متد‌ها. خاصیت‌هایی که برای هر نمونه متفاوت هستند مثل خاصیت <code>type</code> در مثال خرگوش، بایستی به طور مستقیم در خود اشیاء ذخیره بشوند.</p>
 
-<p id="constructors"><a class="p_ident" id="p_FvDgW5zaja" href="#p_FvDgW5zaja" tabindex="-1" role="presentation"></a>بنابراین برای اینکه بتوان نمونه‌ای از یک کلاس داده شده را ساخت، باید شیءای را ایجاد کنید که از یک prototype درست گرفته شده است، <em>همچنین</em> باید مطمئن شوید که این شیء، خاصیت‌هایی که نمونه‌های کلاس قرار است از پیش داشته باشند را دارد. این کاری است که یک تابع <em>سازنده</em> (constructor) انجام می دهد.</p>
+<p id="constructors"><a class="p_ident" id="p_FvDgW5zaja" href="#p_FvDgW5zaja" tabindex="-1" role="presentation"></a>بنابراین برای اینکه بتوان نمونه‌ای از یک کلاس داده شده را ساخت، باید شیئی را ایجاد کنید که از یک prototype درست گرفته شده است،  <em>همچنین</em> باید مطمئن شوید که این شیء، خاصیت‌هایی که نمونه‌های کلاس قرار است از پیش داشته باشند را دارد. این کاری است که یک تابع <em>سازنده</em> (constructor) انجام می‌دهد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_oOKUeIzSVa" href="#c_oOKUeIzSVa" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">makeRabbit</span>(<span class="cm-def">type</span>) {
   <span class="cm-keyword">let</span> <span class="cm-def">rabbit</span> <span class="cm-operator">=</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-variable">protoRabbit</span>);
@@ -156,9 +156,9 @@
   <span class="cm-keyword">return</span> <span class="cm-variable-2">rabbit</span>;
 }</pre>
 
-<p>جاوااسکریپت روشی را فراهم ساخته است که بتوان این گونه توابع را آسان تر تعریف کرد. اگر در ابتدای فراخوانی یک تابع کلیدواژه‌ی <code>new</code> را قرار دهید ، آن تابع به عنوان تابع سازنده عمل خواهد کرد. این بدان معنا است که یک شیء با prototype صحیح به طور خودکار ساخته شده ، به <code>this</code> درون تابع مقید می‌شود و در انتهای تابع برگردانده می‌شود.</p>
+<p>جاوااسکریپت روشی را فراهم ساخته است که بتوان این گونه توابع را آسان‌تر تعریف کرد. اگر در ابتدای فراخوانی یک تابع کلیدواژه‌ی <code>new</code> را قرار دهید، آن تابع به عنوان تابع سازنده عمل خواهد کرد. این بدان معنا است که یک شیء با prototype صحیح به طور خودکار ساخته شده، به <code>this</code> درون تابع مقید می‌شود و در انتهای تابع برگردانده می‌شود.</p>
 
-<p>برای دستیابی به نمونه‌ی اولیه‌ای که شیء جدید از روی آن ساخته می‌شود، می‌توانید به خاصیت <code>prototype</code> تابع سازنده‌ رجوع کنید.</p>
+<p>برای دستیابی به نمونه‌ی اولیه‌ای که شیء جدید از روی آن ساخته می‌شود، می‌توانید به خاصیت <code>prototype</code> تابع سازنده رجوع کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_p+u3OtMv8K" href="#c_p+u3OtMv8K" tabindex="-1" role="presentation"></a><span class="cm-keyword">function</span> <span class="cm-def">Rabbit</span>(<span class="cm-def">type</span>) {
   <span class="cm-keyword">this</span>.<span class="cm-property">type</span> <span class="cm-operator">=</span> <span class="cm-variable-2">type</span>;
@@ -169,11 +169,11 @@
 
 <span class="cm-keyword">let</span> <span class="cm-def">weirdRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;weird&quot;</span>);</pre>
 
-<p>سازنده‌ها (در حقیقت همه توابع) به طور خودکار خاصیتی به نام <code>prototype</code> را می گیرند، که این خاصیت به صورت پیش فرض، یک شیء خالی را که خود از <bdo><code>Object.prototype</code></bdo> گرفته شده است، نگه داری می‌کند. اگر بخواهید می‌توانید این خاصیت را تغییر دهید و با شیءای دیگر عوض کنید. یا می‌توانید به شیء خالی فعلی خاصیت‌هایی را اضافه کنید همانطور که در مثال این کار انجام شد.</p>
+<p>سازنده‌ها (در حقیقت همه توابع) به طور خودکار خاصیتی به نام <code>prototype</code> را می‌گیرند، که این خاصیت به صورت پیش فرض، یک شیء خالی را که خود از <bdo><code>Object.prototype</code></bdo> گرفته شده است، نگه داری می‌کند. اگر بخواهید می‌توانید این خاصیت را تغییر دهید و با شیئی دیگر عوض کنید. یا می‌توانید به شیء خالی فعلی خاصیت‌هایی را اضافه کنید همانطور که در مثال، این کار انجام شد.</p>
 
 <p>رسم است که نام سازنده‌ها با حروف بزرگ شروع شوند تا بتوان به سادگی بین آن‌ها و توابع معمولی تمایز قائل شد.</p>
 
-<p><a class="p_ident" id="p_KWyoDh1o3l" href="#p_KWyoDh1o3l" tabindex="-1" role="presentation"></a>درک تفاوت بین چگونگی ارتباط یک prototype با یک سازنده ( توسط خاصیت‌ <code>prototype</code>اش) و اینکه اشیاء چگونه می‌توانند prototype داشته باشند ( که می‌تواند به وسیله <bdo><code>Object.<wbr>getPrototypeOf</code></bdo> بدست آید) اهمیت دارد. prototype واقعی یک سازنده، در واقع <bdo><code>Function.<wbr>prototype</code></bdo> است، به این خاطر که سازنده‌ها از نوع تابع به شمار می آیند. <em>خاصیت</em> <code>prototype</code> یک سازنده، نمونه‌ی اولیه‌ای را نگه‌داری می‌کند که ساخت نمونه‌های اشیاء از روی آن صورت می‌گیرد.</p>
+<p><a class="p_ident" id="p_KWyoDh1o3l" href="#p_KWyoDh1o3l" tabindex="-1" role="presentation"></a>درک تفاوت بین چگونگی ارتباط یک prototype با یک سازنده (توسط خاصیت ‌ <code>prototype</code>آن) و اینکه اشیاء چگونه می‌توانند prototype داشته باشند (که می‌تواند به وسیله <bdo><code>Object.<wbr>getPrototypeOf</code></bdo> بدست آید) اهمیت دارد. prototype واقعی یک سازنده، در واقع <bdo><code>Function.<wbr>prototype</code></bdo> است، به این خاطر که سازنده‌ها از نوع تابع به شمار می‌آیند. <em>خاصیت</em> <code>prototype</code> یک سازنده، نمونه‌ی اولیه‌ای را نگهداری می‌کند که ساخت نمونه‌های اشیاء از روی آن صورت می‌گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_KDYP9dCWfS" href="#c_KDYP9dCWfS" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">getPrototypeOf</span>(<span class="cm-variable">Rabbit</span>) <span class="cm-operator">==</span>
             <span class="cm-variable">Function</span>.<span class="cm-property">prototype</span>);
@@ -184,7 +184,7 @@
 
 <h2><a class="h_ident" id="h_1dNudZYe/9" href="#h_1dNudZYe/9" tabindex="-1" role="presentation"></a>استفاده از نماد class</h2>
 
-<p><a class="p_ident" id="p_KLcviMLzbV" href="#p_KLcviMLzbV" tabindex="-1" role="presentation"></a>بنابراین مفهوم کلاس‌های جاوااسکریپت، همان توابع سازنده به همراه یک خاصیت prototype می‌باشند. به همین صورت نیز کار می کنند و تا پیش از سال 2015، این روش تنها راه پیاده‌سازی بود. این روز‌ها، روش مناسب‌تری برای پیاده‌سازی کلاس‌ها در اختیار داریم.</p>
+<p><a class="p_ident" id="p_KLcviMLzbV" href="#p_KLcviMLzbV" tabindex="-1" role="presentation"></a>بنابراین مفهوم کلاس‌ها در جاوااسکریپت، در واقع همان توابع سازنده به همراه یک خاصیت prototype می‌باشد. به همین صورت نیز کار می‌کنند و تا پیش از سال 2015، این روش تنها راه پیاده‌سازی موجود بود. این روز‌ها، روش مناسب‌تری برای پیاده‌سازی کلاس‌ها در اختیار داریم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_kqKA+SZ6vS" href="#c_kqKA+SZ6vS" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Rabbit</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">type</span>) {
@@ -198,9 +198,9 @@
 <span class="cm-keyword">let</span> <span class="cm-def">killerRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;killer&quot;</span>);
 <span class="cm-keyword">let</span> <span class="cm-def">blackRabbit</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Rabbit</span>(<span class="cm-string">&quot;black&quot;</span>);</pre>
 
-<p>کلیدواژه‌ی <code>class</code> موجب شروع یک اعلان کلاس می‌شود که به ما این امکان را می دهد تا سازنده‌ و مجموعه‌ی متدها را یکجا تعریف کنیم. هر تعداد متدی که نیاز باشد را می‌توان درون کروشه‌های تعریف کلاس قرار داد. متدی که با نام <code>constructor</code> نوشته می‌شود، به صورت خاصی تفسیر می‌شود. این متد تابع سازنده‌ی واقعی را فراهم می سازد که به نام <code>Rabbit</code> قید خواهد خورد. دیگر متدها درون prototype سازنده بسته‌بندی می‌شوند. بنابراین، تعریف کلاس به شکل بالا، معادل تعریف سازنده در قسمت قبل است. فقط زیباتر به نظر می‌رسد.</p>
+<p>کلیدواژه‌ی <code>class</code> موجب شروع یک اعلان کلاس می‌شود که به ما این امکان را می‌دهد تا سازنده و مجموعه‌ی متد‌ها را یکجا تعریف کنیم. هر تعداد متدی که نیاز باشد را می‌توان درون کروشه‌های تعریف کلاس قرار داد. متدی که با نام <code>constructor</code> نوشته می‌شود، به صورت خاصی تفسیر می‌شود. این متد تابع سازنده‌ی واقعی را فراهم می‌سازد که به نام <code>Rabbit</code> قید خواهد خورد. دیگر متد‌ها درون prototype سازنده بسته‌بندی می‌شوند. بنابراین، تعریف کلاس به شکل بالا، معادل تعریف سازنده در قسمت قبل است. فقط زیباتر به نظر می‌رسد.</p>
 
-<p>در تعریف کلاس فقط می‌توان <em>متدها</em> – خاصیت‌هایی که توابع را نگه‌داری می کنند – را برای اضافه شدن به prototype تعریف کرد. این محدودیت، در مواقعی که قصد دارید مقداری از نوع غیر تابع را ذخیره کنید، ممکن است مشکل ایجاد کند. برای این گونه خاصیت‌ها، می‌توانید همچنان به صورت مستقیم prototype را بعد از تعریف کلاس تغییر دهید.</p>
+<p>در تعریف کلاس فقط می‌توان <em>متد‌ها</em> –خاصیت‌هایی که توابع را نگهداری می‌کنند – را برای اضافه شدن به prototype تعریف کرد. این محدودیت، در مواقعی که قصد دارید مقداری از نوع غیر تابع را ذخیره کنید، ممکن است مشکل ایجاد کند. برای این گونه خاصیت‌ها، می‌توانید همچنان به صورت مستقیم prototype را بعد از تعریف کلاس تغییر دهید.</p>
 
 <p><code>class</code> درست شبیه <code>function</code> می‌تواند به صورت عبارت و دستور استفاده شود. اگر به عنوان عبارت استفاده شود، متغیری تعریف نکرده و سازنده را به عنوان یک مقدار تولید می‌کند. می‌توانید نام کلاس را در این روش از تعریف حذف کنید.</p>
 
@@ -210,7 +210,7 @@
 
 <h2><a class="h_ident" id="h_FRJrzRLudm" href="#h_FRJrzRLudm" tabindex="-1" role="presentation"></a>بازنویسی و تغییر خاصیت‌های مشتق شده</h2>
 
-<p>هنگامی که خاصیتی را به یک شیء اضافه می‌کنید، فارغ از اینکه در prototype آن وجود داشته باشد یا خیر، خاصیت مورد نظر به <em>خود</em> شیء اضافه خواهد شد. در صورت وجود خاصیتی با همین نام در prototype، خاصیت موجود در prototype بی اثر خواهد بود و پشت خاصیت خود شیء پنهان می‌شود.</p>
+<p>هنگامی که خاصیتی را به یک شیء اضافه می‌کنید، فارغ از اینکه در prototype آن وجود داشته باشد یا خیر، خاصیت مورد نظر به <em>خود</em> شیء اضافه خواهد شد. در صورت وجود خاصیتی با همین نام در prototype، خاصیت موجود در prototype بی‌اثر خواهد بود و پشت خاصیت خود شیء پنهان می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_vja6JbO0si" href="#c_vja6JbO0si" tabindex="-1" role="presentation"></a><span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">teeth</span> <span class="cm-operator">=</span> <span class="cm-string">&quot;small&quot;</span>;
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">killerRabbit</span>.<span class="cm-property">teeth</span>);
@@ -223,11 +223,11 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">teeth</span>);
 <span class="cm-comment">// → small</span></pre>
 
-<p>نمودار زیر شرایطی را به تصویر می کشد که بعد از اجرای کد بالا رخ می دهد. prototypeهای <code>Rabbit</code> و <code>Object</code> پشت <code>killerRabbit</code> قرار می گیرند، مانند نوعی پس‌زمینه، که در صورت نبودن خاصیت‌ها در خود شیء، به آن‌ها رجوع می‌شود.</p><figure><img src="img/rabbits.svg" alt="Rabbit object prototype schema"></figure>
+<p>نمودار زیر شرایطی را به تصویر می‌کشد که بعد از اجرای کد بالا رخ می‌دهد. prototype‌های <code>Rabbit</code> و <code>Object</code> پشت <code>killerRabbit</code> قرار می‌گیرند، مانند نوعی پس‌زمینه، که در صورت نبودن خاصیت‌ها در خود شیء، به آن‌ها رجوع می‌شود.</p><figure><img src="img/rabbits.svg" alt="Rabbit object prototype schema"></figure>
 
-<p><a class="p_ident" id="p_+pWPtNntfQ" href="#p_+pWPtNntfQ" tabindex="-1" role="presentation"></a>تغییر و بازنویسی خاصیت‌هایی که در prototype وجود دارند می‌تواند کاربرد داشته باشد. همانطور که در مثال rabbit teeth (خاصیت teeth در شیء خرگوش) نشان داده شد، می‌توان از آن برای مشخص کردن خاصیت های استثناء در نمونه‌ اشیاء یک کلاس عمومی‌تر استفاده کرد و اجازه داد اشیاء معمول، مقدار استاندارد را از prototype خود دریافت کنند.</p>
+<p><a class="p_ident" id="p_+pWPtNntfQ" href="#p_+pWPtNntfQ" tabindex="-1" role="presentation"></a>تغییر و بازنویسی خاصیت‌هایی که در prototype وجود دارند می‌تواند کاربرد داشته باشد. همانطور که در مثال rabbit teeth (خاصیت teeth در شیء خرگوش) نشان داده شد، می‌توان از آن برای مشخص کردن خاصیت‌های استثناء در نمونه اشیاء یک کلاس عمومی‌تر استفاده کرد و اجازه داد اشیاء معمول، مقدار استاندارد را از prototype خود دریافت کنند.</p>
 
-<p><a class="p_ident" id="p_qoyMsFpC3P" href="#p_qoyMsFpC3P" tabindex="-1" role="presentation"></a>بازنویسی به این شکل (overridding)، همچنین برای تعریف نسخه‌ی متفاوتی از متد <code>toString</code> برای prototypeهای استاندارد تابع(function) و آرایه (array) استفاده می‌شود. متدی که با <code>toString</code> پیش‌فرض شیء پایه متفاوت است.</p>
+<p><a class="p_ident" id="p_lvur6eZdqb" href="#p_lvur6eZdqb" tabindex="-1" role="presentation"></a>بازنویسی به این شکل (overridding)، همچنین برای تعریف نسخه‌ی متفاوتی از متد <code>toString</code> برای prototype‌های استاندارد تابع  و آرایه نیز استفاده می‌شود. متدی که با <code>toString</code> پیش‌فرض شیء پایه متفاوت است.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_DrIRvUgeOD" href="#c_DrIRvUgeOD" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span> <span class="cm-operator">==</span>
             <span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span>);
@@ -235,16 +235,16 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>].<span class="cm-property">toString</span>());
 <span class="cm-comment">// → 1,2</span></pre>
 
-<p><a class="p_ident" id="p_FhUwfMRSPx" href="#p_FhUwfMRSPx" tabindex="-1" role="presentation"></a>فراخوانی <code>toString</code> بر روی یک آرایه نتیجه‌ای شبیه فراخوانی <bdo><code>.<wbr>join(&quot;,&quot;)</code></bdo> روی آن را خواهد داشت – که باعث می‌شود بین مقادیر آرایه ویرگول قرار گیرد. فراخوانی مستقیم <bdo><code>Object.<wbr>prototype.<wbr>toString</code></bdo> با یک آرایه، رشته‌ی متفاوتی را تولید می‌کند. این تابع چیزی در مورد آرایه ها نمی داند، پس خیلی ساده واژه‌ی <em>object</em> و نام نوع داده را بین یک جفت براکت چاپ می‌کند.</p>
+<p><a class="p_ident" id="p_FhUwfMRSPx" href="#p_FhUwfMRSPx" tabindex="-1" role="presentation"></a>فراخوانی <code>toString</code> بر روی یک آرایه نتیجه‌ای شبیه به فراخوانی <bdo><code>.<wbr>join(&quot;,&quot;)</code></bdo> روی آن را خواهد داشت – که باعث می‌شود بین مقادیر آرایه، ویرگول قرار گیرد. فراخوانی مستقیم  <bdo><code>Object.<wbr>prototype.<wbr>toString</code></bdo> با یک آرایه، رشته‌ی متفاوتی را تولید می‌کند. این تابع چیزی در مورد آرایه‌ها نمی‌داند، پس خیلی ساده واژه‌ی <em>object</em> و نام نوع داده را بین یک جفت براکت چاپ می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_XpqFUrDFJE" href="#c_XpqFUrDFJE" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">Object</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span>.<span class="cm-property">call</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>]));
 <span class="cm-comment">// → [object Array]</span></pre>
 
 <h2><a class="h_ident" id="h_VSVistMIX4" href="#h_VSVistMIX4" tabindex="-1" role="presentation"></a>ساختار داده‌ی Map</h2>
 
-<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>با واژه‌ی <em>map</em> در <a href="05_higher_order.html#map">فصل پیش</a> آشنا شدیم. از آن برای تغییر یک ساختار داده به وسیله‌ی اعمال یک تابع به عناصر آن استفاده شد. درست است که شاید کمی گیج‌کننده باشد اما در برنامه‌نویسی، همین واژه برای موضوع مرتبط و نسبتا متفاوتی نیز استفاده می‌شود.</p>
+<p><a class="p_ident" id="p_N3Re16DwBf" href="#p_N3Re16DwBf" tabindex="-1" role="presentation"></a>با واژه‌ی  <em>map</em> در <a href="05_higher_order.html#map">فصل پیش</a> آشنا شدیم. از آن برای تغییر یک ساختار داده به وسیله‌ی اعمال یک تابع به عناصر آن استفاده می‌شد. درست است که شاید کمی گیج‌کننده باشد اما در برنامه‌نویسی، همین واژه برای موضوع مرتبط و نسبتا متفاوتی نیز استفاده می‌شود.</p>
 
-<p><a class="p_ident" id="p_FSP76p0srO" href="#p_FSP76p0srO" tabindex="-1" role="presentation"></a>یک <em>map</em> یک ساختار داده است که مقدارهایی را (کلید‌ها) به مقدارهای دیگر مرتبط می سازد. به عنوان مثال، ممکن است بخواهید اسم‌ها را به سن‌ها نگاشت (map) کنید. می‌توان از یک شیء برای این کار استفاده کرد.</p>
+<p><a class="p_ident" id="p_FSP76p0srO" href="#p_FSP76p0srO" tabindex="-1" role="presentation"></a>یک  <em>map</em> یک ساختار داده است که مقدار‌هایی را (کلید‌ها) به مقدار‌های دیگر مرتبط می‌سازد. به عنوان مثال، ممکن است بخواهید اسم‌ها را به سن‌ها نگاشت (map) کنید. می‌توان از یک شیء برای این کار استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Wu6a8ObZI0" href="#c_Wu6a8ObZI0" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ages</span> <span class="cm-operator">=</span> {
   <span class="cm-property">Boris</span>: <span class="cm-number">39</span>,
@@ -259,16 +259,16 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;Is toString's age known?&quot;</span>, <span class="cm-string">&quot;toString&quot;</span> <span class="cm-keyword">in</span> <span class="cm-variable">ages</span>);
 <span class="cm-comment">// → Is toString's age known? true</span></pre>
 
-<p><a class="p_ident" id="p_p+3GCGqRwT" href="#p_p+3GCGqRwT" tabindex="-1" role="presentation"></a>در این مثال نام خاصیت های شیء، برابر با نام اشخاص و مقدار‌شان برابر با سن افراد تنظیم شده است. اما بی شک، در بین اسامی، کسی به نام toString نداشته‌ایم. بله به دلیل اینکه اشیاء ساده، از <bdo><code>Object.prototype</code></bdo> مشتق شده اند، به نظر می‌رسد که این خاصیت آنجا وجود دارد.</p>
+<p><a class="p_ident" id="p_p+3GCGqRwT" href="#p_p+3GCGqRwT" tabindex="-1" role="presentation"></a>در این مثال نام خاصیت‌های شیء، برابر با نام اشخاص و مقدار‌شان برابر با سن افراد تنظیم شده است. اما بی‌شک، در بین اسامی، کسی به نام toString نداشته‌ایم. بله به دلیل اینکه اشیاء ساده، از <bdo><code>Object.prototype</code></bdo> مشتق شده‌اند، به نظر می‌رسد که این خاصیت از آن‌جا آمده است.</p>
 
-<p><a class="p_ident" id="p_CweoCnt1GU" href="#p_CweoCnt1GU" tabindex="-1" role="presentation"></a>از این رو، استفاده از اشیاء ساده به جای map خطراتی دارد. راه های متفاوتی برای فرار از این مشکل وجود دارد. اول اینکه می‌توان شیءای را <em>بدون</em> prototype ایجاد کرد. اگر به متد <bdo><code>Object.create</code></bdo> مقدار <code>null</code> را بفرستید، شیء تولیدی دیگر از روی <bdo><code>Object.prototype</code></bdo> ساخته نمی‌شود و می‌توان با خیال راحت به عنوان یک نگاشت (map) از آن استفاده کرد.</p>
+<p><a class="p_ident" id="p_CweoCnt1GU" href="#p_CweoCnt1GU" tabindex="-1" role="presentation"></a>از این رو، استفاده از اشیاء ساده به جای map خطراتی دارد. راه‌های متفاوتی برای فرار از این مشکل وجود دارد. اول اینکه می‌توان شیئی را <em>بدون</em> prototype ایجاد کرد. اگر به متد <bdo><code>Object.create</code></bdo> مقدار <code>null</code> را بفرستید، شیء تولیدی دیگر از روی <bdo><code>Object.prototype</code></bdo> ساخته نمی‌شود و می‌توان با خیال راحت به عنوان یک نگاشت (map) از آن استفاده کرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_AkRQLQc4AG" href="#c_AkRQLQc4AG" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">&quot;toString&quot;</span> <span class="cm-keyword">in</span> <span class="cm-variable">Object</span>.<span class="cm-property">create</span>(<span class="cm-atom">null</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p>نام خاصیت یک شیء باید از نوع رشته‌ باشد. اگر به یک نگاشت نیاز داشته باشید که کلید‌های آن را نتوان به سادگی به رشته تبدیل کرد (مثل استفاده اشیاء به عنوان کلید)، نمی‌توانید برای پیاده‌سازی آن نگاشت از یک شیء استفاده کنید.</p>
+<p>نام خاصیت یک شیء باید از نوع رشته باشد. اگر به یک نگاشت نیاز داشته باشید که کلید‌های آن را نتوان به سادگی به رشته تبدیل کرد (مثل استفاده اشیاء به عنوان کلید)، نمی‌توانید برای پیاده‌سازی آن نگاشت از یک شیء استفاده کنید.</p>
 
-<p>خوشبختانه، جاوااسکریپت کلاسی به نام <code>Map</code> را فراهم ساخته است که دقیقا برای همین هدف نوشته شده است. این کلاس برای ذخیره‌ی نگاشت ها با هر نوع کلیدی استفاده می‌شود.</p>
+<p>خوشبختانه، جاوااسکریپت کلاسی به نام <code>Map</code> را فراهم ساخته است که دقیقا برای همین هدف نوشته شده است. این کلاس برای ذخیره‌ی نگاشت‌ها با هر نوع کلیدی استفاده می‌شود.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dd6KsGgAGP" href="#c_dd6KsGgAGP" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">ages</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Map</span>();
 <span class="cm-variable">ages</span>.<span class="cm-property">set</span>(<span class="cm-string">&quot;Boris&quot;</span>, <span class="cm-number">39</span>);
@@ -282,9 +282,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">ages</span>.<span class="cm-property">has</span>(<span class="cm-string">&quot;toString&quot;</span>));
 <span class="cm-comment">// → false</span></pre>
 
-<p>متدهای <code>get</code> و <code>set</code> و <code>has</code> بخش‌هایی از رابط شیء <code>Map</code> هستند. نوشتن ساختار داده‌ای که بتوان به وسیله‌ی آن مجموعه‌ی بزرگی از مقدارها را به سرعت به روز رسانی و جستجو کرد کار ساده ای نیست، اما نیازی نیست ما نگران آن باشیم. کسانی قبلا این کار را برای ما انجام داده اند و می‌توانیم به سراغ این رابط ساده برویم و از حاصل کار آن‌ها استفاده کنیم.</p>
+<p>متد‌های <code>get</code> و <code>set</code> و <code>has</code> بخش‌هایی از رابط شیء <code>Map</code> هستند. نوشتن ساختار داده‌ای که بتوان به وسیله‌ی آن مجموعه‌ی بزرگی از مقدار‌ها را به سرعت به روز‌رسانی و جستجو کرد کار ساده‌ای نیست، اما نیازی نیست ما نگران آن باشیم. کسانی قبلا این کار را برای ما انجام داده‌اند و می‌توانیم به سراغ این رابط ساده برویم و از حاصل کار آن‌ها استفاده کنیم.</p>
 
-<p><a class="p_ident" id="p_gk/U8Ic94r" href="#p_gk/U8Ic94r" tabindex="-1" role="presentation"></a>اگر شیء ساده‌ای دارید و بنا به دلایلی لازم است از آن به عنوان یک ساختار map استفاده کنید، لازم است بدانید که <code>Object.keys</code> فقط کلید‌های <em>خود</em> یک شیء را برمی گرداند نه آن‌هایی که در prototype آن قرار دارند. به عنوان یک جایگزین برای عملگر <code>in،</code> می‌توانید از متد <code>hasOwnProperty</code> استفاده کنید که prototype شیء را در نظر نمی‌گیرد.</p>
+<p><a class="p_ident" id="p_gk/U8Ic94r" href="#p_gk/U8Ic94r" tabindex="-1" role="presentation"></a>اگر شیء ساده‌ای دارید و بنا به دلایلی لازم است از آن به عنوان یک ساختار map استفاده کنید، لازم است بدانید که <code>Object.keys</code> فقط کلید‌های <em>خود</em> یک شیء را برمی گرداند نه آن‌هایی که در prototype آن قرار دارند. به عنوان یک جایگزین برای عملگر <code>in</code>، می‌توانید از متد <code>hasOwnProperty</code> استفاده کنید که prototype شیء را در نظر نمی‌گیرد.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_qBrd35Qiln" href="#c_qBrd35Qiln" tabindex="-1" role="presentation"></a><span class="cm-variable">console</span>.<span class="cm-property">log</span>({<span class="cm-property">x</span>: <span class="cm-number">1</span>}.<span class="cm-property">hasOwnProperty</span>(<span class="cm-string">&quot;x&quot;</span>));
 <span class="cm-comment">// → true</span>
@@ -293,7 +293,7 @@
 
 <h2><a class="h_ident" id="h_wSViT4F465" href="#h_wSViT4F465" tabindex="-1" role="presentation"></a>چندریختی (Polymorphism)</h2>
 
-<p>زمانی که تابع <code>String</code> ( که یک مقدار را به رشته تبدیل می‌کند) را روی یک شیء فراخوانی می‌کنید، متد <code>toString</code> آن شیء فراخوانی می‌شود و سعی می‌کند تا رشته‌ای معنادار از شیء مورد نظر تولید کند. پیش‌تر اشاره کردم که بعضی از prototypeهای استاندارد، نسخه‌ی <code>toString</code> اختصاصی خودشان را تعریف می کنند تا با این کار بتوانند اطلاعات مفیدتری نسبت به <bdo><code>&quot;[object Object]&quot;</code></bdo> تولید کنند. شما نیز می‌توانید این کار را انجام دهید.</p>
+<p>زمانی که تابع <code>String</code> (که یک مقدار را به رشته تبدیل می‌کند) را روی یک شیء فراخوانی می‌کنید، متد <code>toString</code> آن شیء فراخوانی می‌شود و سعی می‌کند تا رشته‌ای معنادار از شیء مورد نظر تولید کند. پیش‌تر اشاره کردم که بعضی از prototype‌های استاندارد، نسخه‌ی <code>toString</code> اختصاصی خودشان را تعریف می‌کنند تا با این کار بتوانند اطلاعات مفیدتری نسبت به <bdo><code>&quot;[object Object]&quot;</code></bdo> تولید کنند. شما نیز می‌توانید این کار را انجام دهید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_V+CBn0VJnW" href="#c_V+CBn0VJnW" tabindex="-1" role="presentation"></a><span class="cm-variable">Rabbit</span>.<span class="cm-property">prototype</span>.<span class="cm-property">toString</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-keyword">return</span> <span class="cm-string-2">`a ${</span><span class="cm-keyword">this</span>.<span class="cm-property">type</span><span class="cm-string-2">}</span> <span class="cm-string-2">rabbit`</span>;
@@ -302,17 +302,17 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">String</span>(<span class="cm-variable">blackRabbit</span>));
 <span class="cm-comment">// → a black rabbit</span></pre>
 
-<p>این نمونه‌ای ساده از یک ایده‌ی قدرتمند است. زمانی که کدی نوشته می‌شود تا با اشیائی کار کند که دارای یک رابط خاص هستند – در این مثال، یک متد <code>toString</code> – می‌توان با این کد، هر شیء دیگری را که از این رابط پشتیبانی می‌کند، شامل نمود و به درستی استفاده کرد.</p>
+<p>این نمونه‌ای ساده از یک ایده‌ی قدرتمند است. زمانی که کدی نوشته می‌شود تا با اشیائی کار کند که دارای یک رابط خاص هستند – در این مثال، یک متد <code>toString</code> - می‌توان با این کد، هر شیء دیگری را که از این رابط پشتیبانی می‌کند، شامل نمود و به درستی استفاده کرد.</p>
 
-<p>این تکنیک را چندریختی می گویند. یک کد <em>چندریخت</em> می‌تواند با مقدارهایی از شکل‌های مختلف کار کنند مادامیکه این شکل‌ها رابطی که کد انتظارش را دارد پشتیبانی کند.</p>
+<p>این تکنیک را چندریختی می‌گویند. یک کد <em>چندریخت</em> می‌تواند با مقدار‌هایی از شکل‌های مختلف کار کنند مادامیکه این شکل‌ها رابطی که کد انتظارش را دارد پشتیبانی کند.</p>
 
-<p><a class="p_ident" id="p_gQol12wx5J" href="#p_gQol12wx5J" tabindex="-1" role="presentation"></a>در <a href="04_data.html#for_of_loop">فصل 4</a> اشاره کردم که با استفاده از حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> می‌توان ساختارهای داده‌ی مختلف را پیمایش کرد. این یک مورد دیگر از چندریختی محسوب می‌شود – این گونه حلقه‌ها از ساختار داده انتظار دارند که رابط‌ خاصی را در دسترس حلقه قرار دهند، رابطی که آرایه‌ها و رشته ها فراهم می سازند. و شما نیز می‌توانید این رابط را به اشیاء خودتان اضافه کنید! اما قبل از اینکه بتوانیم این کار را بکنیم، لازم است بدانیم که سمبل (symbol) چیست.</p>
+<p><a class="p_ident" id="p_gQol12wx5J" href="#p_gQol12wx5J" tabindex="-1" role="presentation"></a>در <a href="04_data.html#for_of_loop">فصل 4</a> اشاره کردم که با استفاده از حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> می‌توان ساختار‌های داده‌ی مختلف را پیمایش کرد. این یک مورد دیگر از چندریختی محسوب می‌شود – این گونه حلقه‌ها از ساختار داده انتظار دارند که رابط خاصی را در دسترس حلقه قرار دهند، رابطی که آرایه‌ها و رشته‌ها فراهم می‌سازند. و شما نیز می‌توانید این رابط را به اشیاء خودتان اضافه کنید! اما قبل از اینکه بتوانیم این کار را بکنیم، لازم است بدانیم که سمبل (symbol) چیست.</p>
 
 <h2><a class="h_ident" id="h_Rif17qzupG" href="#h_Rif17qzupG" tabindex="-1" role="presentation"></a>سمبل‌ها (Symbols)</h2>
 
-<p>می‌توان برای چندین رابط مختلف از نام خاصیت یکسانی برای کارهای متفاوت استفاده کرد. به عنوان مثال، من می‌توانم رابطی تعریف کنم که در آن متد <code>toString</code> به صورت فرضی، یک شیء را به یک تکه ریسمان تبدیل کند. اما یک شیء نمی‌تواند هم از رابطی که تعریف کرده‌ایم و هم پیاده‌سازی استاندارد <code>toString</code> مطابقت کند.</p>
+<p>می‌توان برای چندین رابط مختلف از نام خاصیت یکسانی برای کار‌های متفاوت استفاده کرد. به عنوان مثال، من می‌توانم رابطی تعریف کنم که در آن متد <code>toString</code> به صورت فرضی، یک شیء را به یک تکه ریسمان تبدیل کند. اما یک شیء نمی‌تواند هم از رابطی که تعریف کرده‌ایم و هم پیاده‌سازی استاندارد <code>toString</code> مطابقت کند.</p>
 
-<p>این کار نه ایده‌ی خوبی است و نه مشکل رایجی محسوب می‌شود. بیشتر برنامه‌نویسان جاوااسکریپت به آن فکر هم نمی کنند. اما طراحان زبان، همان افرادی که <em>شغلشان</em> فکر کردن به همین موضوعات است، به هر حال راه حلی برای ما فراهم ساخته اند.</p>
+<p>این کار نه ایده‌ی خوبی است و نه مشکل رایجی محسوب می‌شود. بیشتر برنامه‌نویسان جاوااسکریپت به آن فکر هم نمی‌کنند. اما طراحان زبان، همان افرادی که <em>شغلشان</em> فکر کردن به همین موضوعات است، به هر حال راه حلی برای ما فراهم ساخته‌اند.</p>
 
 <p>پیش‌تر که ادعا کردم نام خاصیت‌ها از جنس رشته هستند، عبارت کاملا دقیقی استفاده نکرده بودم. بله معمولا از جنس رشته‌اند اما می‌توانند از نوع <em>symbol</em> نیز باشند. سمبل‌ها مقادیری هستند که با تابع <code>Symbol</code> ایجاد می‌شوند. برخلاف رشته‌ها، سمبل‌هایی که تازه ایجاد می‌شوند یکتا هستند – نمی‌توان یک سمبل یکسان را دوبار ایجاد کرد.</p>
 
@@ -323,9 +323,9 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">blackRabbit</span>[<span class="cm-variable">sym</span>]);
 <span class="cm-comment">// → 55</span></pre>
 
-<p>رشته‌ای که به تابع <code>Symbol</code> ارسال می‌کنید در هنگام تبدیل سمبل به رشته استفاده می‌شود و می‌تواند شناسایی آن را مثلا هنگام نشان دادن در کنسول ساده تر کند. فارغ از آن معنای دیگری ندارد - می‌توان چندین سمبل را با یک نام تعریف کرد.</p>
+<p>رشته‌ای که به تابع <code>Symbol</code> ارسال می‌کنید در هنگام تبدیل سمبل به رشته استفاده می‌شود و می‌تواند شناسایی آن را مثلا هنگام نشان دادن در کنسول ساده‌تر کند. فارغ از آن معنای دیگری ندارد – می‌توان چندین سمبل را با یک نام تعریف کرد.</p>
 
-<p>منحصر به فرد بودن و امکان استفاده به عنوان نام یک خاصیت، باعث می‌شود که استفاده از سمبل‌ها، گزینه‌ی مناسبی برای تعریف رابط‌هایی باشد که می‌توانند بی دردسر در کنار دیگر خاصیت‌ها بدون توجه به نام آن‌ها تعریف شوند.</p>
+<p>منحصر به فرد بودن و امکان استفاده به عنوان نام یک خاصیت، باعث می‌شود که استفاده از سمبل‌ها، گزینه‌ی مناسبی برای تعریف رابط‌هایی باشد که می‌توانند بی‌دردسر در کنار دیگر خاصیت‌ها بدون توجه به نام آن‌ها تعریف شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_I6uO/ojWit" href="#c_I6uO/ojWit" tabindex="-1" role="presentation"></a><span class="cm-keyword">const</span> <span class="cm-def">toStringSymbol</span> <span class="cm-operator">=</span> <span class="cm-variable">Symbol</span>(<span class="cm-string">&quot;toString&quot;</span>);
 <span class="cm-variable">Array</span>.<span class="cm-property">prototype</span>[<span class="cm-variable">toStringSymbol</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
@@ -337,7 +337,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>, <span class="cm-number">2</span>][<span class="cm-variable">toStringSymbol</span>]());
 <span class="cm-comment">// → 2 cm of blue yarn</span></pre>
 
-<p>می‌توان در تعریف شیء یا کلاس، خاصیت‌هایی که نامشان از جنس symbol است را با قراردادن براکت دور نامشان استفاده نمود. این کار باعث می‌شود که  مانند استفاده از براکت برای دسترسی به خاصیت‌ها،  نام خاصیت ارزیابی شود. با این کار به متغیری که یک سمبل را نگه‌داری می‌کند اشاره کرده ایم.</p>
+<p>می‌توان در تعریف شیء یا کلاس، خاصیت‌هایی که نامشان از جنس symbol است را با قراردادن براکت دور نامشان استفاده نمود. این کار باعث می‌شود که مانند استفاده از براکت برای دسترسی به خاصیت‌ها، نام خاصیت ارزیابی شود. با این کار به متغیری که یک سمبل را نگهداری می‌کند اشاره کرده‌ایم.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_aZAdJfdSRz" href="#c_aZAdJfdSRz" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">stringObject</span> <span class="cm-operator">=</span> {
   [<span class="cm-variable">toStringSymbol</span>]() { <span class="cm-keyword">return</span> <span class="cm-string">&quot;a jute rope&quot;</span>; }
@@ -347,11 +347,11 @@
 
 <h2><a class="h_ident" id="h_O9OLg3V1qG" href="#h_O9OLg3V1qG" tabindex="-1" role="presentation"></a>رابط تکرارکننده (Iterator Interface)</h2>
 
-<p>انتظار می رود شیءای که به حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> داده می‌شود <em>قابل تکرار</em> باشد. یعنی دارای متدی باشد که به وسیله‌ی <bdo><code>Symbol.iterator</code></bdo> نام گذاری شده است ( مقداری از نوع سمبل که توسط خود زبان تعریف شده است و به عنوان یک خاصیت از تابع <code>Symbol</code> ذخیره می‌شود).</p>
+<p>انتظار می‌رود شیئی که به حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> داده می‌شود <em>قابل تکرار</em> باشد. یعنی دارای متدی باشد که به وسیله‌ی <bdo><code>Symbol.iterator</code></bdo> نام‌گذاری شده است (مقداری از نوع سمبل که توسط خود زبان تعریف شده است و به عنوان یک خاصیت از تابع <code>Symbol</code> ذخیره می‌شود).</p>
 
-<p><a class="p_ident" id="p_k/l4Io+JM0" href="#p_k/l4Io+JM0" tabindex="-1" role="presentation"></a>وقتی این متد فراخوانی می‌شود، خروجی آن یک شیء خواهد بود که رابط دومی را فراهم می سازد، رابط <em>تکرارکننده</em>، رابطی که عمل تکرار را انجام می دهد. این تکرارکننده دارای متدی به نام <code>next</code> است که نتیجه‌ی بعدی را برمی گرداند. این نتیجه باید یک شیء با خاصیتی به نام <code>value</code> باشد که مقدار بعدی را در صورت وجود، در دسترس قرار می دهد و خاصیت دیگری به نام <code>done</code> دارد که در صورت نبود نتیجه‌ای دیگر، برابر با true خواهد بود و در غیر این صورت مقدار false را خواهد داشت.</p>
+<p><a class="p_ident" id="p_k/l4Io+JM0" href="#p_k/l4Io+JM0" tabindex="-1" role="presentation"></a>وقتی این متد فراخوانی می‌شود، خروجی آن یک شیء خواهد بود که رابط دومی را فراهم می‌سازد، رابط تکرارکننده، رابطی که عمل تکرار را انجام می‌دهد. این <em>تکرارکننده</em> دارای متدی به نام <code>next</code> است که نتیجه‌ی بعدی را برمی‌گرداند. این نتیجه باید یک شیء با خاصیتی به نام <code>value</code> باشد که مقدار بعدی را در صورت وجود، در دسترس قرار می‌دهد و خاصیت دیگری به نام <code>done</code> دارد که در صورت نبود نتیجه‌ای دیگر، برابر با true خواهد بود و در غیر این صورت مقدار false را خواهد داشت.</p>
 
-<p>توجه داشته باشید که نام خاصیت های <code>next،</code> <code>value</code> و <code>done</code> از نوع رشته‌ی ساده است نه از جنس سمبل. فقط <bdo><code>Symbol.iterator</code></bdo> است که در واقع از جنس سمبل است و احتمالا به اشیاء متفاوت <em>زیادی</em> اضافه خواهد شد.</p>
+<p>توجه داشته باشید که نام خاصیت‌های <code>next</code>،  <code>value</code> و <code>done</code> از نوع رشته‌ی ساده است نه از جنس سمبل. فقط <bdo><code>Symbol.iterator</code></bdo> است که در واقع از جنس سمبل است و احتمالا به اشیاء متفاوت <em>زیادی</em> اضافه خواهد شد.</p>
 
 <p>می‌توانیم مستقیما از این رابط استفاده کنیم.</p>
 
@@ -363,7 +363,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">okIterator</span>.<span class="cm-property">next</span>());
 <span class="cm-comment">// → {value: undefined, done: true}</span></pre>
 
-<p id="matrix">بیایید یک ساختار قابل تکرار را پیاده‌سازی کنیم. در مثال زیر یک کلاس <em>ماتریس</em> خواهیم ساخت که مانند یک آرایه‌ی دوبعدی عمل می‌کند</p>
+<p id="matrix">بیایید یک ساختار قابل تکرار را پیاده‌سازی کنیم. در مثال زیر یک کلاس <em>ماتریس</em> خواهیم ساخت که مانند یک آرایه‌ی دوبعدی عمل می‌کند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Q128qlROKi" href="#c_Q128qlROKi" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Matrix</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">width</span>, <span class="cm-def">height</span>, <span class="cm-def">element</span> <span class="cm-operator">=</span> (<span class="cm-def">x</span>, <span class="cm-def">y</span>) <span class="cm-operator">=&gt;</span> <span class="cm-atom">undefined</span>) {
@@ -386,9 +386,9 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p_D+T9ulEH28" href="#p_D+T9ulEH28" tabindex="-1" role="presentation"></a>کلاس بالا محتوای خود را در یک آرایه به تعداد عناصر <bdo><em>width</em> × <em>height</em></bdo> ذخیره می‌کند. عناصر به صورت ردیف به ردیف ذخیره می‌شوند، بنابراین به عنوان مثال عنصر سوم در ردیف پنجم در موقعیت <bdo>4 × <em>width</em> + 2</bdo> ذخیره می‌شود ( با در نظر داشتن اندیس گذاری از صفر).</p>
+<p><a class="p_ident" id="p_D+T9ulEH28" href="#p_D+T9ulEH28" tabindex="-1" role="presentation"></a>کلاس بالا محتوای خود را در یک آرایه به تعداد عناصر <bdo><em>width</em> × <em>height</em></bdo> ذخیره می‌کند. عناصر به صورت ردیف به ردیف ذخیره می‌شوند، بنابراین به عنوان مثال عنصر سوم در ردیف پنجم در موقعیت <bdo>4 × <em>width</em> + 2</bdo> ذخیره می‌شود (با در نظر داشتن اندیس‌گذاری از صفر).</p>
 
-<p>تابع سازنده، یک طول، یک عرض و تابعی اختیاری برای محتوا می‌گیرد که این تابع برای مقداردهی اولیه استفاده می‌شود. متدهای <code>get</code> و <code>set</code> برای به روز رسانی عناصر و دریافت آن‌ها در ماتریس تعریف شده اند.</p>
+<p>تابع سازنده، یک طول، یک عرض و تابعی اختیاری برای محتوا می‌گیرد که این تابع برای مقداردهی اولیه استفاده می‌شود. متد‌های <code>get</code> و <code>set</code> برای به روز‌رسانی عناصر و دریافت آن‌ها در ماتریس تعریف شده‌اند.</p>
 
 <p>در زمان پیمایش یک ماتریس، معمولا دانستن موقعیت عناصر به اندازه‌ی خود عناصر مهم هستند، بنابراین تکرارکننده‌ی ما، اشیائی با خاصیت‌های <code>x</code> و <code>y</code> و <code>value</code> تولید می‌کند.</p>
 
@@ -414,9 +414,9 @@
   }
 }</pre>
 
-<p>آمار پیش‌رفت تکرار در طول یک ماتریس توسط خاصیت‌های <code>x</code> و <code>y</code> ضبط و ثبت می‌شود. متد <code>next</code> با بررسی اینکه آیا به انتهای ماتریس رسیده ایم یا خیر شروع می‌شود. اگر به پایان نرسیده بود، <em>ابتدا</em> شیءای را ایجاد می‌کند که مقدار فعلی را نگه داری کند و <em>سپس</em> موقعیت آن را به روز رسانی می‌کند و در صورت نیاز به سراغ ردیف بعدی می رود.</p>
+<p>آمار پیشرفت تکرار در طول یک ماتریس توسط خاصیت‌های <code>x</code> و <code>y</code> ضبط و ثبت می‌شود. متد <code>next</code> با بررسی اینکه آیا به انتهای ماتریس رسیده‌ایم یا خیر شروع می‌شود. اگر به پایان نرسیده بود، <em>ابتدا</em> شیئی را ایجاد می‌کند که مقدار فعلی را نگه داری کند و <em>سپس</em> موقعیت آن را به روز‌رسانی می‌کند و در صورت نیاز به سراغ ردیف بعدی می‌رود.</p>
 
-<p>بیایید کلاس <code>Matrix</code> را قابل تکرار کنیم. در این کتاب، گاهی بعد از تعریف کلاس‌ها، prototype را دستکاری خواهم کرد تا متدهایی را به آن‌ها اضافه کنم، در نتیجه کدها مجزا و کوچک خواهند ماند و به دیگر قسمت‌ها وابسته نخواهند شد. در یک برنامه‌ی معمولی، جایی که نیازی نیست تا کدها را به قسمت‌های کوچکتر تقسیم کنیم، می‌توانید این متدها را مستقیما درون بدنه کلاس تعریف کنید.</p>
+<p>بیایید کلاس <code>Matrix</code> را قابل تکرار کنیم. در این کتاب، گاهی بعد از تعریف کلاس‌ها، prototype را دستکاری خواهم کرد تا متد‌هایی را به آن‌ها اضافه کنم، در نتیجه کد‌ها مجزا و کوچک خواهند ماند و به دیگر قسمت‌ها وابسته نخواهند شد. در یک برنامه‌ی معمولی، جایی که نیازی نیست تا کد‌ها را به قسمت‌های کوچکتر تقسیم کنیم، می‌توانید این متد‌ها را مستقیما درون بدنه کلاس تعریف کنید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_BmOLk4O5HN" href="#c_BmOLk4O5HN" tabindex="-1" role="presentation"></a><span class="cm-variable">Matrix</span>.<span class="cm-property">prototype</span>[<span class="cm-variable">Symbol</span>.<span class="cm-property">iterator</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span>() {
   <span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">MatrixIterator</span>(<span class="cm-keyword">this</span>);
@@ -435,9 +435,9 @@
 
 <h2><a class="h_ident" id="h_Kh2FF/4OC5" href="#h_Kh2FF/4OC5" tabindex="-1" role="presentation"></a>گیرنده‌ها(getters) ، گذارنده‌ها(setters) و متدهای ایستا (static)</h2>
 
-<p>رابط‌ها بیشتر از متد‌ها تشکیل شده اند، اما می‌توانند خاصیت‌هایی که مقادیر تابعی را نگه داری نمی کنند را نیز داشته باشند. به عنوان مثال، اشیاء <code>Map</code> دارای خاصیتی به نام <code>size</code> می‌باشند که تعداد کلید‌هایی که در آن‌ها ذخیره شده است را نگه داری می‌کند.</p>
+<p>رابط‌ها بیشتر از متد‌ها تشکیل شده‌اند، اما می‌توانند خاصیت‌هایی که مقادیر تابع را نگه داری نمی‌کنند را نیز داشته باشند. به عنوان مثال، اشیاء <code>Map</code> دارای خاصیتی به نام <code>size</code> می‌باشند که تعداد کلید‌هایی که در آن‌ها ذخیره شده است را نگه داری می‌کند.</p>
 
-<p><a class="p_ident" id="p_n5FiB3PTJz" href="#p_n5FiB3PTJz" tabindex="-1" role="presentation"></a>در این‌گونه اشیاء لزومی ندارد خاصیتی مثل <code>size</code> را مستقیما در خود نمونه شیء محاسبه و ذخیره نمود. حتی خاصیت‌هایی که به صورت مستقیم در دسترس هستند، ممکن است متدی را مخفیانه فراخوانی کنند. این گونه‌ی خاصیت‌ها را <em>getter</em> یا گیرنده‌ی می گویند که به وسیله‌ی نوشتن <code>get</code> در ابتدای نام یک متد، در یک عبارت تعریف شیء یا کلاس، تعریف می‌شوند.</p>
+<p><a class="p_ident" id="p_n5FiB3PTJz" href="#p_n5FiB3PTJz" tabindex="-1" role="presentation"></a>در این‌گونه اشیاء لزومی ندارد خاصیتی مثل <code>size</code> را مستقیما در خود نمونه شیء محاسبه و ذخیره نمود. حتی خاصیت‌هایی که به صورت مستقیم در دسترس هستند، ممکن است متدی را مخفیانه فراخوانی کنند. این گونه‌ی خاصیت‌ها را <em>getter</em> یا گیرنده می‌گویند که به وسیله‌ی نوشتن <code>get</code> در ابتدای نام یک متد، در یک عبارت تعریف شیء یا کلاس، تعریف می‌شوند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_Np05mJ4GVO" href="#c_Np05mJ4GVO" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">varyingSize</span> <span class="cm-operator">=</span> {
   <span class="cm-property">get</span> <span class="cm-property">size</span>() {
@@ -450,7 +450,7 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">varyingSize</span>.<span class="cm-property">size</span>);
 <span class="cm-comment">// → 49</span></pre>
 
-<p><a class="p_ident" id="p_AqxkiQamgo" href="#p_AqxkiQamgo" tabindex="-1" role="presentation"></a>زمانی که کسی مقدار خاصیت‌ <code>size</code> را درخواست می‌کند، متدی که به آن پیوند خورده است فراخوانی می‌شود. می‌توانید کار مشابهی را برای مقدار دهی به یک خاصیت هم انجام دهید که به آن <em>setter</em> یا گذارنده می گویند.</p>
+<p><a class="p_ident" id="p_AqxkiQamgo" href="#p_AqxkiQamgo" tabindex="-1" role="presentation"></a>زمانی که کسی مقدار خاصیت <code>‌size</code> را درخواست می‌کند، متدی که به آن پیوند خورده است فراخوانی می‌شود. می‌توانید کار مشابهی را برای مقدار دهی به یک خاصیت هم انجام دهید که به آن <em>setter</em> یا گذارنده می‌گویند.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_7LQG88c1BA" href="#c_7LQG88c1BA" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Temperature</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">celsius</span>) {
@@ -475,21 +475,21 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">temp</span>.<span class="cm-property">celsius</span>);
 <span class="cm-comment">// → 30</span></pre>
 
-<p><a class="p_ident" id="p_K4Ul+pMqBX" href="#p_K4Ul+pMqBX" tabindex="-1" role="presentation"></a>کلاس <code>Temperature</code> در مثال بالا این امکان را فراهم می‌کند تا میزان دما را به صورت سلسیوس یا فارنهایت بنویسید، اما در درون کلاس، این مقدار فقط به سلسیوس ذخیره می‌شود و به طور خودکار توسط متدهای گیرنده و گذارنده (setter, getter) به ‍<code>fahrenheit</code> تبدیل می‌شود.</p>
+<p><a class="p_ident" id="p_K4Ul+pMqBX" href="#p_K4Ul+pMqBX" tabindex="-1" role="presentation"></a>کلاس <code>Temperature</code> در مثال بالا این امکان را فراهم می‌کند تا میزان دما را به صورت سلسیوس یا فارنهایت بنویسید، اما در درون کلاس، این مقدار فقط به سلسیوس ذخیره می‌شود و به طور خودکار توسط متد‌های گیرنده و گذارنده (setter، getter) به فارنهایت تبدیل می‌شود.</p>
 
-<p>گاهی اوقات می خواهید تا بعضی خاصیت‌ها را به جای prototype، به طور مستقیم در تابع سازنده داشته باشید. این گونه متدها به نمونه‌ی کلاس دسترسی نخواهند داشت اما می‌توان از آن‌ها به عنوان روش‌های دیگر ایجاد نمونه‌ها استفاده کرد.</p>
+<p>گاهی اوقات می‌خواهید تا بعضی خاصیت‌ها را به جای prototype، به طور مستقیم در تابع سازنده داشته باشید. این گونه متد‌ها به نمونه‌ی کلاس دسترسی نخواهند داشت اما می‌توان از آن‌ها به عنوان روش‌های دیگر ایجاد نمونه‌ها استفاده کرد.</p>
 
-<p>درون تعریف یک کلاس، متدهایی که کلیدواژه‌ی <code>static</code> در ابتدای آن‌ها نوشته می‌شود، روی تابع سازنده ذخیره می‌شوند. بنابراین در کلاس <code>Temperature</code> می‌توانید برای تولید دما به وسیله‌ی درجه‌ی فارنهایت از<bdo><code>Temperature.<wbr>fromFahrenheit(100)</code></bdo> استفاده کنید.</p>
+<p>درون تعریف یک کلاس، متد‌هایی که کلیدواژه‌ی <code>static</code> در ابتدای آن‌ها نوشته می‌شود، روی تابع سازنده ذخیره می‌شوند. بنابراین در کلاس <code>Temperature</code> می‌توانید برای تولید دما به وسیله‌ی درجه‌ی فارنهایت از <bdo><code>Temperature.<wbr>fromFahrenheit(100)</code></bdo> استفاده کنید.</p>
 
 <h2><a class="h_ident" id="h_vbppOM3Lzs" href="#h_vbppOM3Lzs" tabindex="-1" role="presentation"></a>ارث‌بری (inheritance)</h2>
 
-<p><a class="p_ident" id="p_NLw6nfy+Lw" href="#p_NLw6nfy+Lw" tabindex="-1" role="presentation"></a>بعضی از ماتریس‌ها را به عنوان ماتریس‌های <em>متقارن</em> می شناسند. اگر یک ماتریس متقارن را حول قطر بالا-چپ-به-پایین-راست بازتاب کنید، تفاوتی در شکل آن ایجاد نمی‌شود. به بیان دیگر، مقدار موجود در <em>x</em>,<em>y</em> همیشه مشابه مقدار <em>‌y</em>,<em>x</em> است.</p>
+<p><a class="p_ident" id="p_NLw6nfy+Lw" href="#p_NLw6nfy+Lw" tabindex="-1" role="presentation"></a>بعضی از ماتریس‌ها را به عنوان ماتریس‌های <em>متقارن</em> می‌شناسند. اگر یک ماتریس متقارن را حول قطر بالا-چپ-به-پایین-راست بازتاب کنید، تفاوتی در شکل آن ایجاد نمی‌شود. به بیان دیگر، مقدار موجود در <em>x</em>,<em>y</em> همیشه مشابه مقدار <em>y</em>,<em>x</em> است.</p>
 
-<p>تصور کنید که به یک ساختار داده مانند <code>Matrix</code> نیاز داریم با این شرط که متقارن بودن و ماندن ماتریس را ضمانت کند. می‌توانیم چنین ساختار داده‌ای را از صفر بنوسیم، اما این کار باعث می‌شود که کدهایی را تکرار کنیم که قبلا شبیه‌شان را نوشته ایم.</p>
+<p>تصور کنید که به یک ساختار داده مانند <code>Matrix</code> نیاز داریم با این شرط که متقارن بودن و ماندن ماتریس را ضمانت کند. می‌توانیم چنین ساختار داده‌ای را از صفر بنوسیم، اما این کار باعث می‌شود که کد‌هایی را تکرار کنیم که قبلا شبیه‌شان را نوشته‌ایم.</p>
 
-<p>سیستم prototype در جاوااسکریپت این امکان را فراهم کرده است که یک کلاس جدید را بر اساس یک کلاس دیگر اما با بازتعریف بعضی از خاصیت‌های آن ایجاد کنیم. prototype کلاس جدید از prototype کلاس قبلی مشتق می‌شود اما تعریف جدیدی را برای متد <code>set</code> آن به عنوان مثال در نظر می‌گیرد.</p>
+<p>سیستم prototype در جاوااسکریپت این امکان را فراهم کرده است که یک کلاس جدید را بر اساس یک کلاس دیگر اما با بازتعریف بعضی از خاصیت‌های آن ایجاد کنیم. prototype کلاس جدید از prototype کلاس قبلی مشتق می‌شود اما به عنوان مثال، تعریف جدیدی را برای متد <code>set</code> آن در نظر می‌گیرد.</p>
 
-<p>در اصطلاح برنامه‌نویسی شیء گرا به این کار ارث بری می گویند. کلاس جدید خاصیت‌ها و رفتار را از کلاسی دیگر به <em>ارث می برد</em>.</p>
+<p>در اصطلاح برنامه‌نویسی شیءگرا به این کار ارث بری می‌گویند. کلاس جدید خاصیت‌ها و رفتار را از کلاسی دیگر به <em>ارث می‌برد</em>.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_uuBcsDdS7D" href="#c_uuBcsDdS7D" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">SymmetricMatrix</span> <span class="cm-keyword">extends</span> <span class="cm-variable">Matrix</span> {
   <span class="cm-property">constructor</span>(<span class="cm-def">size</span>, <span class="cm-def">element</span> <span class="cm-operator">=</span> (<span class="cm-def">x</span>, <span class="cm-def">y</span>) <span class="cm-operator">=&gt;</span> <span class="cm-atom">undefined</span>) {
@@ -511,15 +511,15 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">matrix</span>.<span class="cm-property">get</span>(<span class="cm-number">2</span>, <span class="cm-number">3</span>));
 <span class="cm-comment">// → 3,2</span></pre>
 
-<p><a class="p_ident" id="p_syFMyCMuk4" href="#p_syFMyCMuk4" tabindex="-1" role="presentation"></a>استفاده از واژه‌ی <code>extends</code> به این معنا است که این کلاس نباید بر اساس prototype پیش‌فرض <code>Object</code> ساخته شود بلکه بر اساس کلاس دیگری خواهد بود. این کلاس را <em>superclass</em> (کلاس والد) می نامند. کلاسی که از آن گرفته می‌شود را <em>subclass</em> (زیرکلاس) می گویند.</p>
+<p><a class="p_ident" id="p_syFMyCMuk4" href="#p_syFMyCMuk4" tabindex="-1" role="presentation"></a>استفاده از واژه‌ی <code>extends</code> به این معنا است که این کلاس نباید بر اساس prototype پیش‌فرض <code>Object</code> ساخته شود بلکه بر اساس کلاس دیگری خواهد بود. این کلاس را <em>superclass</em> (کلاس والد) می‌نامند. کلاسی که از آن گرفته می‌شود را  <em>subclass</em> (زیرکلاس) می‌گویند.</p>
 
-<p><a class="p_ident" id="p_OKu40Dv+i/" href="#p_OKu40Dv+i/" tabindex="-1" role="presentation"></a>برای مقداردهی اولیه یک نمونه از <code>SymmetricMatrix،</code> سازنده، تابع سازنده‌ی کلاس والدش (superclass) را به وسیله‌ کلیدواژه‌ی <code>super</code> فراخوانی می‌کند. این کار لازم است به این دلیل که اگر این شیء جدید قرار است شبیه <code>Matrix</code> (به‌طورکلی) رفتار کند، به خاصیت‌هایی که ماتریس‌ها دارند نیاز پیدا خواهد کرد. برای اطمینان از متقارن بودن ماتریس، تابع سازنده، متد <code>element</code> را در بر می‌گیرد تا مختصات را برای مقادیر پایین قطر اصلی جابجا کند.</p>
+<p>برای مقداردهی اولیه یک نمونه از <code>SymmetricMatrix</code>، سازنده، تابع سازنده‌ی کلاس والدش را به وسیله‌ی کلیدواژه‌ی <code>super</code> فراخوانی می‌کند. این کار لازم است به این دلیل که اگر این شیء جدید قرار است شبیه <code>Matrix</code> (به‌طورکلی) رفتار کند، به خاصیت‌هایی که ماتریس‌ها دارند نیاز پیدا خواهد کرد. برای اطمینان از متقارن بودن ماتریس، تابع سازنده، متد <code>element</code> را در بر می‌گیرد تا مختصات را برای مقادیر پایین قطر اصلی جابجا کند.</p>
 
-<p>متد <code>set</code> دوباره از <code>super</code> استفاده می‌کند، اما این بار هدف، فراخوانی سازنده‌اش نیست. بلکه برای فراخوانی یک متد خاص از متدهای کلاس والد (superclass) می‌باشد. متد <code>set</code> را بازنویسی می کنیم اما می خواهیم از رفتار اصلی آن استفاده کنیم. به دلیل اینکه <code>this.set</code> به متد <code>set</code> <em>جدید</em> اشاره می‌کند، نمی‌توان از آن استفاده کرد. درون متد‌های کلاس، کلیدواژه‌ی <code>super</code> راهی فراهم می سازد تا متد‌هایی که در کلاس والد تعریف شده اند را بتوان فراخوانی کرد.</p>
+<p><a class="p_ident" id="p_OKu40Dv+i/" href="#p_OKu40Dv+i/" tabindex="-1" role="presentation"></a>متد <code>set</code> دوباره از <code>super</code> استفاده می‌کند، اما این بار هدف، فراخوانی سازنده‌اش نیست. بلکه برای فراخوانی یک متد خاص از متدهای کلاس والد (superclass) می‌باشد. متد <code>set</code> را بازنویسی می کنیم اما می خواهیم از رفتار اصلی آن استفاده کنیم. به دلیل اینکه <code>this.set</code> به متد <code>set</code> <em>جدید</em> اشاره می‌کند، نمی‌توان از آن استفاده کرد. درون متد‌های کلاس، کلیدواژه‌ی <code>super</code> راهی فراهم می سازد تا متد‌هایی که در کلاس والد تعریف شده اند را بتوان فراخوانی کرد.</p>
 
-<p>با کمک ارث‌بری می‌توانیم با کار نسبتا کمتری، نوع‌ داده‌های متفاوتی از انواع داده‌ی موجود بسازیم. درکنار کپسوله‌سازی و چندریختی، ارث‌بری یکی از مفاهیم اساسی برنامه‌نویسی شیء گرا می‌باشد. البته دو ویژگی اول را عموما به عنوان ایده‌هایی فوق‌العاده می شناسند اما درباره‌ی ارث‌بری اختلاف‌ نظرهایی وجود دارد.</p>
+<p>با کمک ارث‌بری می‌توانیم با کار نسبتا کمتری، نوع داده‌های متفاوتی از انواع داده‌ی موجود بسازیم. درکنار کپسوله‌سازی و چندریختی، ارث‌بری یکی از مفاهیم اساسی برنامه‌نویسی شیءگرا می‌باشد. البته دو ویژگی اول را عموما به عنوان ایده‌هایی فوق‌العاده می‌شناسند اما درباره‌ی ارث‌بری اختلاف نظر‌هایی وجود دارد.</p>
 
-<p>در حالیکه کپسوله‌سازی و چندریختی را می‌توان برای <em>جداسازی</em> کدها و کاهش نابسامانی کل برنامه استفاده کرد، ارث‌بری اساسا کلاس‌ها را به هم وابسته می‌کند و به شکلی باعث ایجاد درهم‌ریختگی <em>بیشتر</em> می‌شود. زمانی که از کلاسی ارث‌ می برید، نسبت به حالتی که فقط قصد استفاده از آن را دارید، باید اطلاعات بیشتری از نحوه‌ی کارکرد آن کلاس داشته باشید. ارث‌بری می‌تواند ابزار مفیدی باشد و من گاهی از آن در برنامه‌هایم استفاده می کنم، اما نباید اولین گزینه‌ای باشد که به سراغش می روید. و احتمالا خوب نیست به دنبال فرصت‌هایی باشید که در آن‌ها سلسله مراتبی از کلاس‌ها را ایجاد کنید (مثل شجره‌نامه‌ای از کلاس‌ها).</p>
+<p>در حالیکه کپسوله‌سازی و چندریختی را می‌توان برای <em>جداسازی</em> کد‌ها و کاهش نابسامانی کل برنامه استفاده کرد، ارث‌بری اساسا کلاس‌ها را به هم وابسته می‌کند و به شکلی باعث ایجاد درهم‌ریختگی <em>بیشتر</em> می‌شود. زمانی که از کلاسی ارث می‌برید، نسبت به حالتی که فقط قصد استفاده از آن را دارید، باید اطلاعات بیشتری از نحوه‌ی کارکرد آن کلاس داشته باشید. ارث‌بری می‌تواند ابزار مفیدی باشد و من گاهی از آن در برنامه‌هایم استفاده می‌کنم، اما نباید اولین گزینه‌ای باشد که به سراغش می‌روید. و احتمالا ایده‌ی خوبی نیست که به دنبال فرصت‌هایی باشید که در آن‌ها سلسله مراتبی از کلاس‌ها را ایجاد کنید (مثل شجره‌نامه‌ای از کلاس‌ها).</p>
 
 <h2><a class="h_ident" id="h_hzaDsepLmL" href="#h_hzaDsepLmL" tabindex="-1" role="presentation"></a>عملگر instanceof</h2>
 
@@ -535,23 +535,23 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>([<span class="cm-number">1</span>] <span class="cm-keyword">instanceof</span> <span class="cm-variable">Array</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p>این عملگر انواع وارث را مورد کنکاش قرار می دهد، مثلا <code>SymmetricMatrix</code> نمونه‌ای از <code>Matrix</code> است. این عملگر را همچنین می‌توان برای سازنده‌های استاندارد مثل <code>Array</code> نیز استفاده کرد. تقریبا همه‌ی اشیاء نمونه‌ای از <code>Object</code> هستند.</p>
+<p>این عملگر انواع وارث را مورد کنکاش قرار می‌دهد، مثلا <code>SymmetricMatrix</code> نمونه‌ای از <code>Matrix</code> است. این عملگر را همچنین می‌توان برای سازنده‌های استاندارد مثل <code>Array</code> نیز استفاده کرد. تقریبا همه‌ی اشیاء نمونه‌ای از <code>Object</code> هستند.</p>
 
 <h2><a class="h_ident" id="h_EzvDUHyjs2" href="#h_EzvDUHyjs2" tabindex="-1" role="presentation"></a>خلاصه</h2>
 
-<p>بنابراین اشیاء کاری بیش از نگه‌داری خاصیت‌های خود انجام می‌دهند. اشیاء prototype دارند که خود نیز اشیاء دیگری می‌باشند. تا زمانی که prototype یک شیء خاصیتی را داشته باشد، آن شیء نیز دارای آن خاصیت خواهد بود با وجود اینکه در ظاهر فاقد آن است. prototype اشیاء معمولی، <bdo><code>Object.prototype</code></bdo> می‌باشد.</p>
+<p>بنابراین اشیاء کاری بیش از نگهداری خاصیت‌های خود انجام می‌دهند. اشیاء prototype دارند که خود نیز اشیاء دیگری می‌باشند. تا زمانی که prototype یک شیء خاصیتی را داشته باشد، آن شیء نیز دارای آن خاصیت خواهد بود با وجود اینکه در ظاهر فاقد آن است. prototype اشیاء معمولی،  <bdo><code>Object.prototype</code></bdo> می‌باشد.</p>
 
-<p>می‌توان از توابع سازنده که معمولا نامشان با حروف بزرگ شروع می‌شود، با استفاده از کلیدواژه‌ی <code>new</code>، برای ایجاد اشیاء جدید استفاده کرد. prototype شیء ایجاد شده، شیءای است که در خاصیت‌ <code>prototype</code> سازنده پیدا می‌شود. می‌توان از این ویژگی برای قرار دادن همه‌ی خاصیت‌های مشترک یک نوع خاص در prototype آن بهره برد. روش دیگری برای تعریف یک سازنده و prototype آن وجود دارد که از کلیدواژه‌ی <code>class</code> استفاده می‌کند.</p>
+<p>می‌توان از توابع سازنده که معمولا نامشان با حروف بزرگ شروع می‌شود، با استفاده از کلیدواژه‌ی <code>new</code>، برای ایجاد اشیاء جدید استفاده کرد. prototype شیء ایجاد شده، شیئی است که در خاصیت <code>‌prototype</code> سازنده پیدا می‌شود. می‌توان از این ویژگی برای قرار دادن همه‌ی خاصیت‌های مشترک یک نوع خاص در prototype آن بهره برد. روش دیگری برای تعریف یک سازنده و prototype آن وجود دارد که از کلیدواژه‌ی <code>class</code> استفاده می‌کند.</p>
 
-<p><a class="p_ident" id="p_ghkYTbCXCQ" href="#p_ghkYTbCXCQ" tabindex="-1" role="presentation"></a>می‌توانید با تعریف گذارنده‌ها (setters) و گیرنده‌ها (getters)، به طور مخفیانه متدهایی را ایجاد کنید که با هر بار دسترسی به یک خاصیت شیء، فراخوانی می‌شوند. متدهای ایستا (static) متدهایی هستند که در سازنده‌ی کلاس ذخیره می‌شوند نه در prototype آن.</p>
+<p><a class="p_ident" id="p_ghkYTbCXCQ" href="#p_ghkYTbCXCQ" tabindex="-1" role="presentation"></a>می‌توانید با تعریف گذارنده‌ها (setters) و گیرنده‌ها (getters)، به طور مخفیانه متد‌هایی را ایجاد کنید که با هر بار دسترسی به یک خاصیت شیء، فراخوانی می‌شوند. متد‌های ایستا (static) متد‌هایی هستند که در سازنده‌ی کلاس ذخیره می‌شوند نه در prototype آن.</p>
 
 <p>عملگر <code>instanceof</code> را اگر به یک شیء و یک سازنده اعمال کنید، به شما خواهد گفت که آن شیء نمونه‌ای از آن سازنده می‌باشد یا خیر.</p>
 
-<p>یکی از کارهای مفیدی که می‌توان با اشیاء انجام داد این است که یک رابط برای آن‌ها مشخص نمود که دیگران فقط بتوانند از طریق آن رابط با شیء ارتباط برقرار کنند. با این کار، دیگر جزئیات مربوط به ساختار شیء شما کپسوله شده و پشت رابط مخفی می مانند.</p>
+<p>یکی از کار‌های مفیدی که می‌توان با اشیاء انجام داد این است که یک رابط برای آن‌ها مشخص نمود که دیگران فقط بتوانند از طریق آن رابط با شیء ارتباط برقرار کنند. با این کار، دیگر جزئیات مربوط به ساختار شیء شما کپسوله شده و پشت رابط مخفی می‌مانند.</p>
 
-<p>اشیائی با انواع مختلف می‌توانند رابط یکسانی را پیاده‌سازی و استفاده کنند (توسط رابط یکسانی به کار گرفته شوند ). کدی که برای استفاده از یک رابط نوشته شده است به صورت خودکار می داند که چگونه با هر تعداد شیء متفاوت که آن رابط را دارند کار کند. این کار <em>چندریختی</em> نامیده می‌شود.</p>
+<p>اشیائی با انواع مختلف می‌توانند رابط یکسانی را پیاده‌سازی و استفاده کنند (توسط رابط یکسانی به کار گرفته شوند). کدی که برای استفاده از یک رابط نوشته شده است به صورت خودکار می‌داند که چگونه با هر تعداد شیء متفاوت که آن رابط را دارند کار کند. این کار <em>چندریختی</em> نامیده می‌شود.</p>
 
-<p>زمانی که چندین کلاس را پیاده سازی می کنیم که تنها در بعضی جزئیات با هم تفاوت دارند، می‌توانیم کلاس‌های جدید را به عنوان <em>زیرکلاس‌های</em> کلاس های موجود بنویسیم که بعضی از رفتارهای آن‌ها را به <em>ارث</em> ببرند.</p>
+<p>زمانی که چندین کلاس را پیاده‌سازی می‌کنیم که تنها در بعضی جزئیات با هم تفاوت دارند، می‌توانیم کلاس‌های جدید را به عنوان <em>زیرکلاس‌های</em> کلاس‌های موجود بنویسیم که بعضی از رفتار‌های آن‌ها را به <em>ارث</em> ببرند.</p>
 
 <h2><a class="h_ident" id="h_ggOFdVwDCk" href="#h_ggOFdVwDCk" tabindex="-1" role="presentation"></a>تمرین‌ها</h2>
 
@@ -559,7 +559,7 @@
 
 <p>کلاسی به نام <code>Vec</code> تعریف کنید که نشان‌دهنده‌ی یک بردار در فضای دوبعدی باشد. این کلاس دو عدد <code>x</code> و <code>y</code> را به عنوان پارامتر (عددی) دریافت می‌کند، که با همین نام‌ها به عنوان خاصیت ذخیره می‌شوند.</p>
 
-<p><a class="p_ident" id="p_c97Fk0rcGV" href="#p_c97Fk0rcGV" tabindex="-1" role="presentation"></a>به پروتوتایپ <code>Vec</code> دو متد <code>plus</code> و <code>minus</code> را اضافه کنید که بردار دیگری را به عنوان یک پارامتر گرفته و بردار جدیدی را برمی‌گرداند، برداری که تفاوت یا مجموع مقدارهای <em>x</em> و <em>y</em> دو بردار (<code>this</code> و پارامترها) را باز می گرداند.</p>
+<p><a class="p_ident" id="p_c2AxV5MxcL" href="#p_c2AxV5MxcL" tabindex="-1" role="presentation"></a>به پروتوتایپ <code>Vec</code> دو متد <code>plus</code> و <code>minus</code> را اضافه کنید که بردار دیگری را به عنوان یک پارامتر گرفته و بردار جدیدی را برمی‌گرداند، ‌برداری که تفاوت (minus) یا مجموع (plus) مقدارهای <em>x</em> و <em>y</em> دو بردار (<code>this</code> و پارامتر‌ها) را باز می‌گرداند.</p>
 
 <p><a class="p_ident" id="p_U2Ya8UXdSM" href="#p_U2Ya8UXdSM" tabindex="-1" role="presentation"></a>خاصیت گیرنده‌ای (getter) به نام <code>length</code> به prototype اضافه کنید که طول بردار را محاسبه می‌کند – فاصله‌ی بین نقطه‌ی (<em>x</em>,<em>y</em>) از مبدا (0,0).</p>
 
@@ -576,19 +576,19 @@
 
 <p>اگر تعریف کلاس را فراموش کرده اید، به مثال کلاس <code>Rabbit</code> مراجعه کنید.</p>
 
-<p><a class="p_ident" id="p_sAFdtyQS4M" href="#p_sAFdtyQS4M" tabindex="-1" role="presentation"></a>افزودن یک خاصیت گیرنده به سازنده را می‌توان با قراردادن واژه‌ی <code>get</code> در ابتدای نام متد انجام داد. برای محاسبه‌ی فاصله‌ی بین نقاط (0,0) و <bdo>(x, y)</bdo>، می‌توانید از قضیه‌ی فیثاغورث استفاده کنید که در آن توان‌دوم فاصله‌‌ای که مورد نظر ما است (وتر) برابر است با مجموع توان‌های دوم اندازه مختصات x و y. بنابراین، <bdo>√(x<sup>2</sup> + y<sup>2</sup>)</bdo> عددی است که شما لازم دارید. متد <bdo><code>Math.sqrt</code></bdo>، برای محاسبه‌ی ریشه‌ی دوم یک عدد در جاوااسکریپت استفاده می‌شود.</p>
+<p><a class="p_ident" id="p_YSeXZKJxlJ" href="#p_YSeXZKJxlJ" tabindex="-1" role="presentation"></a>افزودن یک خاصیت گیرنده (getter) به سازنده (constructor) را می‌توان با قراردادن واژه‌ی <code>get</code> در ابتدای نام متد انجام داد. برای محاسبه‌ی فاصله‌ی بین نقاط (0,0) و <bdo>(x, y)</bdo>، می‌توانید از قضیه‌ی فیثاغورث استفاده کنید که در آن توان ‌دوم فاصله‌‌ای که مورد نظر ما است (وتر) برابر است با مجموع توان‌های دوم اندازه مختصات x و y. بنابراین، <bdo>√(x<sup>2</sup> +y<sup>2</sup>)</bdo> عددی است که شما لازم دارید. متد <bdo><code>Math.sqrt</code></bdo>، برای محاسبه‌ی ریشه‌ی دوم یک عدد در جاوااسکریپت استفاده می‌شود.</p>
 
 </div></div>
 
 <h3><a class="i_ident" id="i_58KeFIu/qv" href="#i_58KeFIu/qv" tabindex="-1" role="presentation"></a>گروه‌ها</h3>
 
-<p id="groups"><a class="p_ident" id="p_ZcENw1Sf4H" href="#p_ZcENw1Sf4H" tabindex="-1" role="presentation"></a>محیط استاندارد جاوااسکریپت ساختار داده‌ی دیگری به نام <code>Set</code> را فراهم می‌کند. مانند یک نمونه از<code>Map</code>، یک set (مجموعه) مجموعه‌ای از مقدارها را نگه داری می‌کند. برخلاف <code>Map</code>، این ساختار داده مقادیر را با هم مرتبط نمی‌کند – فقط مشخص می‌کند که کدام مقادیر در مجموعه وجود دارند. یک مقدار فقط می‌تواند یکبار به مجموعه اضافه شود – اگر دوباره یک مقدار را اضافه کنیم، اثری نخواهد داشت.</p>
+<p id="groups"><a class="p_ident" id="p_ZcENw1Sf4H" href="#p_ZcENw1Sf4H" tabindex="-1" role="presentation"></a>محیط استاندارد جاوااسکریپت ساختار داده‌ی دیگری به نام <code>Set</code> را فراهم می‌کند. مانند یک نمونه از <code>Map</code>، یک set (مجموعه) مجموعه‌ای از مقدار‌ها را نگه داری می‌کند. برخلاف <code>Map</code>، این ساختار داده مقادیر را با هم مرتبط نمی‌کند – فقط مشخص می‌کند که کدام مقادیر در مجموعه وجود دارند. یک مقدار فقط می‌تواند یکبار به مجموعه اضافه شود – اگر دوباره یک مقدار را اضافه کنیم، اثری نخواهد داشت.</p>
 
-<p><a class="p_ident" id="p_ZCkrHCsuE+" href="#p_ZCkrHCsuE+" tabindex="-1" role="presentation"></a>کلاسی به نام <code>Group</code> (زیرا <code>Set</code> قبلا رزرو شده است) تعریف کنید. شبیه <code>Set،</code> این کلاس متدهای <code>add،</code> <code>delete</code> و <code>has</code> را دارد. سازنده‌ی این کلاس یک گروه (group) خالی ایجاد می‌کند، متد <code>add،</code> یک مقدار را به گروه اضافه می‌کند (البته اگر قبلا عضو گروه نبود)، متد <code>delete</code> آرگومان ورودی‌اش را از گروه حذف می‌کند (البته اگر وجود داشت)، و متد <code>has،</code> یک مقدار بولی برمی‌گرداند که نشان می دهد آرگومانش در مجموعه وجود دارد یا خیر.</p>
+<p><a class="p_ident" id="p_ZCkrHCsuE+" href="#p_ZCkrHCsuE+" tabindex="-1" role="presentation"></a>کلاسی به نام <code>Group</code> (زیرا <code>Set</code> قبلا رزرو شده است) تعریف کنید. شبیه <code>Set</code>، این کلاس متد‌های <code>add</code>، <code>delete</code> و <code>has</code> را دارد. سازنده‌ی این کلاس یک گروه (group) خالی ایجاد می‌کند، متد <code>add</code>، یک مقدار را به گروه اضافه می‌کند (البته اگر قبلا عضو گروه نبود)، متد <code>delete</code> آرگومان ورودی‌اش را از گروه حذف می‌کند (البته اگر وجود داشت)، و متد <code>has</code>، یک مقدار بولی برمی‌گرداند که نشان می‌دهد آرگومانش در مجموعه وجود دارد یا خیر.</p>
 
-<p>برای محاسبه‌ی تشابه‌ دو مقدار ، از عملگر <code>===</code> یا چیزی مشابه مانند <code>indexOf،</code> استفاده کنید.</p>
+<p>برای محاسبه‌ی تشابه دو مقدار، از عملگر <code>===</code> یا چیزی مشابه مانند <code>indexOf</code>، استفاده کنید.</p>
 
-<p>به کلاس متد استاتیکی به نام <code>from</code> اضافه کنید که شیءای قابل شمارش را به عنوان آرگومان دریافت می‌کند و گروهی ایجاد می‌کند که دارای تمامی مقادیری است که با پیمایش شیء بدست می آید.</p>
+<p>به کلاس متد استاتیکی به نام <code>from</code> اضافه کنید که شیئی قابل شمارش را به عنوان آرگومان دریافت می‌کند و گروهی ایجاد می‌کند که دارای تمامی مقادیری است که با پیمایش شیء بدست می‌آید.</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_dNauaecKx+" href="#c_dNauaecKx+" tabindex="-1" role="presentation"></a><span class="cm-keyword">class</span> <span class="cm-def">Group</span> {
   <span class="cm-comment">// Your code here.</span>
@@ -606,13 +606,13 @@
 
 <div class="solution"><div class="solution-text">
 
-<p>آسان‌ترین روش انجام این تمرین این است که آرایه‌ای از اعضای گروه را در یک خاصیت ذخیره کنید. متدهای ‍<code>includes</code> یا <code>indexOf</code> را می‌توان برای بررسی وجود یک مقدار در آرایه استفاده کرد.</p>
+<p>آسان‌ترین روش انجام این تمرین این است که آرایه‌ای از اعضای گروه را در یک خاصیت ذخیره کنید. متد‌های <code>includes</code> یا <code>indexOf</code> را می‌توان برای بررسی وجود یک مقدار در آرایه استفاده کرد.</p>
 
 <p>سازنده‌ی کلاس شما می‌تواند مجموعه‌ی اعضا را درون یک آرایه قرار دهد. هنگام فراخوانی <code>add</code>، متد باید ابتدا وجود مقدار در آرایه را بررسی کند و بعد آن را اضافه کند. این کار را می‌شود با متد <code>push</code> انجام داد.</p>
 
-<p>حذف یک عنصر از یک آرایه به وسیله‌ی دستور <code>delete</code> نیاز به ملاحظات بیشتری دارد. به جای آن می‌توانید از متد <code>filter</code> برای ایجاد آرایه‌ای جدید استفاده کنید که عنصر مورد نظر را ندارد. فراموش نکنید که خاصیتی که اعضای گروه را نگه‌داری می‌کند با آرایه‌ی جدید به‌روز شود.</p>
+<p>حذف یک عنصر از یک آرایه به وسیله‌ی دستور <code>delete</code> نیاز به ملاحظات بیشتری دارد. به جای آن می‌توانید از متد <code>filter</code> برای ایجاد آرایه‌ای جدید استفاده کنید که عنصر مورد نظر را ندارد. فراموش نکنید که خاصیتی که اعضای گروه را نگهداری می‌کند با آرایه‌ی جدید به‌روز شود.</p>
 
-<p>متد <code>from</code> می‌تواند از یک حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> برای گرفتن مقدارها از یک شیء قابل تکرار استفاده کند و با فراخوانی <code>add</code> آن‌ها را درون گروه تازه ایجاد شده قرار دهد.</p>
+<p>متد <code>from</code> می‌تواند از یک حلقه‌ی <bdo><code>for</code>/<code>of</code></bdo> برای گرفتن مقدار‌ها از یک شیء قابل تکرار استفاده کند و با فراخوانی <code>add</code> آن‌ها را درون گروه تازه ایجاد شده قرار دهد.</p>
 
 </div></div>
 
@@ -620,7 +620,7 @@
 
 <p id="group_iterator">کلاس <code>Group</code> را که در مثال قبل ایجاد کردید اکنون قابل تکرار کنید. اگر در مورد شکل و ساختار رابط سوال دارید، می‌توانید به بخشی که پیش‌تر در همین فصل درباره‌ی رابط تکرارکننده آمد مراجعه نمایید.</p>
 
-<p>اگر از یک آرایه برای نمایش اعضای گروه استفاده کرده اید، فقط به بازگرداندن تکرارکننده‌ای که با فراخوانی متد <bdo><code>Symbol.iterator</code></bdo> روی آرایه ایجاد شده است اکتفا نکنید. این روش کار خواهد کرد اما شما را از هدف این تمرین منحرف می‌کند.</p>
+<p>اگر از یک آرایه برای نمایش اعضای گروه استفاده کرده‌اید، فقط به بازگرداندن تکرارکننده‌ای که با فراخوانی متد <bdo><code>Symbol.iterator</code></bdo> روی آرایه ایجاد شده است اکتفا نکنید. این روش کار خواهد کرد اما شما را از هدف این تمرین منحرف می‌کند.</p>
 
 <p>اگر در هنگام انجام تکرار، گروه تغییر کند، ممکن است تکرارکننده‌ی شما رفتار عجیبی بروز دهد که نیازی نیست به آن توجه کنید.</p>
 
@@ -635,7 +635,7 @@
 
 <div class="solution"><div class="solution-text">
 
-<p>احتمالا ارزشش را دارد که کلاس جدیدی به نام <code>GroupIterator</code> تعریف شود. نمونه‌های تکرارکننده باید خاصیتی برای رصد موقعیت فعلی در گروه داشته باشند. هر بار که <code>next</code> فراخوانی می‌شود، این تابع رسیدن به پایان را بررسی می‌کند که در غیر این صورت، از مقدار فعلی عبور کرده و آن را بر می گرداند.</p>
+<p>احتمالا ارزشش را دارد که کلاس جدیدی به نام <code>GroupIterator</code> تعریف شود. نمونه‌های تکرارکننده باید خاصیتی برای رصد موقعیت فعلی در گروه داشته باشند. هر بار که <code>next</code> فراخوانی می‌شود، این تابع رسیدن به پایان را بررسی می‌کند که در غیر این صورت، از مقدار فعلی عبور کرده و آن را برمی‌گرداند.</p>
 
 <p>کلاس <code>Group</code> خودش متدی به نام <bdo><code>Symbol.iterator</code></bdo> می‌گیرد که در صورت فراخوانی، نمونه‌ای جدید از کلاس تکرارکننده را برای آن گروه برمی‌گرداند.</p>
 
@@ -643,9 +643,9 @@
 
 <h3><a class="i_ident" id="i_tgW72lVEOQ" href="#i_tgW72lVEOQ" tabindex="-1" role="presentation"></a>قرض گرفتن یک متد</h3>
 
-<p><a class="p_ident" id="p_OTblRvSIZD" href="#p_OTblRvSIZD" tabindex="-1" role="presentation"></a>پیش تر در این فصل گفته شد که متد <code>hasOwnProperty</code> را می‌توان به عنوان جایگزینی کاراتر نسبت به عملگر in استفاده کرد البته در شرایطی که قصد دارید تا خاصیت‌های prototype را درنظر نگیرید. اما اگر بخواهید در شیء نگاشت‌تان (map) کلید <code>&quot;hasOwnProperty&quot;</code> را داشته باشید چه؟ در این صورت دیگر نمی‌توانید آن متد را فراخوانی کنید چراکه خاصیت خود شیء باعث می‌شود که آن مخفی شود.</p>
+<p><a class="p_ident" id="p_ReYVHTK0E0" href="#p_ReYVHTK0E0" tabindex="-1" role="presentation"></a>پیش‌تر در این فصل گفته شد که متد <code>hasOwnProperty</code> را می‌توان به عنوان جایگزینی کاراتر نسبت به عملگر in استفاده کرد البته در شرایطی که قصد دارید تا خاصیت‌های prototype را درنظر نگیرید. اما اگر بخواهید در شیء‌تان کلید <code>&quot;hasOwnProperty&quot;</code> را داشته باشید چه؟ در این صورت دیگر نمی‌توانید آن متد را فراخوانی کنید چراکه خاصیت خود شیء باعث می‌شود که آن مخفی شود.</p>
 
-<p>آیا می‌توانید راهی پیدا کنید که بتوان <code>hasOwnProperty</code> را روی یک شی فراخونی کرد، شیءای که خاصیتی با همین نام دارد؟</p>
+<p>آیا می‌توانید راهی پیدا کنید که بتوان <code>hasOwnProperty</code> را روی یک شی فراخونی کرد، شیئی که خاصیتی با همین نام دارد؟</p>
 
 <pre class="snippet cm-s-default" data-language="javascript" ><a class="c_ident" id="c_LtMKqqkY0Q" href="#c_LtMKqqkY0Q" tabindex="-1" role="presentation"></a><span class="cm-keyword">let</span> <span class="cm-def">map</span> <span class="cm-operator">=</span> {<span class="cm-property">one</span>: <span class="cm-atom">true</span>, <span class="cm-property">two</span>: <span class="cm-atom">true</span>, <span class="cm-property">hasOwnProperty</span>: <span class="cm-atom">true</span>};
 
@@ -655,9 +655,7 @@
 
 <div class="solution"><div class="solution-text">
 
-<p>به یاد داشته باشید که متدهایی که در یک شیء معمولی وجود دارند از <bdo><code>Object.prototype</code></bdo> می آیند.</p>
-
-<p>همچنین در نظر داشته باشید که می‌توانید یک تابع را با یک <code>this</code> خاص به وسیله‌ی متد <code>call</code> توابع، فراخوانی کنید.</p>
+<p>به یاد داشته باشید که متد‌هایی که در یک شیء معمولی وجود دارند از <bdo><code>Object.prototype</code></bdo> می‌آیند. همچنین در نظر داشته باشید که می‌توانید یک تابع را با یک <code>this</code> خاص به وسیله‌ی متد <code>call</code> توابع، فراخوانی کنید.</p>
 
 </div></div><nav><a href="05_higher_order.html" title="previous chapter">◀</a> <a href="index.html" title="cover">◆</a> <a href="07_robot.html" title="next chapter">▶</a></nav>
 </article>
