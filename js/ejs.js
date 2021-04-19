@@ -1,4 +1,39 @@
+// current theme
+let currenTheme = localStorage.getItem('theme') || 'light';
+
+// set the initial theme
+if(currenTheme === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
 window.addEventListener("load", () => {
+
+  // create the button
+  const switchButton = document.createElement('button');
+  switchButton.classList.add('theme-switch');
+
+  // add click listener
+  switchButton.addEventListener('click', toggleDarkMode);
+
+  // insert it
+  document.body.insertBefore(switchButton, document.body.firstChild);
+
+  function toggleDarkMode() {
+    if(currenTheme === 'dark' ){
+      document.documentElement.removeAttribute('data-theme');
+      currenTheme = 'light';
+      window.localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      currenTheme = 'dark';
+      window.localStorage.setItem('theme', 'dark');
+    }
+  }
+
+});
+
+
+window.addEventListener("load", () => {
+
   // If there's no ecmascript 5 support, don't try to initialize
   if (!Object.create || !window.JSON) return
 

@@ -1,3 +1,20 @@
+:root {
+   color-scheme: light;
+  --primary-text: #000000;
+  --primary-background: #ffffff;
+  --text-color-1: #333;
+  --links-color: #467;
+}
+
+[data-theme="dark"] {
+  --primary-text: #b9c3ca;
+  --primary-background: #222;
+  --text-color-1: #b9c3ca;
+  color-scheme: dark;
+  --links-color: rgb(176, 218, 239);
+
+}
+
 @font-face {
   font-family: 'Cinzel';
   font-style: normal;
@@ -44,13 +61,54 @@ html, body {
   margin: 0;
 
 }
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4{
+  color: #f2f2f2;
+}
 
+[data-theme="dark"] figure:not(.chapter) {
+    background: #8c8c8c;
+    text-align: center;
+    padding: 20px;
+}
+
+.theme-switch {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  border-radius: 61%;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  background-color: #eaf4ff;
+  outline: none;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+@media screen and (max-width: 500px){
+  .theme-switch {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.theme-switch::after {
+  content: '🌞';
+}
+
+[data-theme='dark'] .theme-switch::after {
+  content: '🌛';
+
+}
 body {
   font-family: Shabnam, 'Nimbus Roman No9 L', 'Century Schoolbook L', serif;
   font-size: 19px;
   line-height: 1.65;
-  color: black;
-  background: white;
+  color: var(--primary-text);
+  background: var(--primary-background);
   font-weight: 300;
 }
 
@@ -76,7 +134,7 @@ nav a {
 }
 
 a.subtlelink {
-  color: black !important;
+  color: var(--primary-text) !important;
   text-decoration: none !important;
 }
 
@@ -156,7 +214,7 @@ pre.cm-s-default, p, h2, h3 {
 
 a, a:visited, a:active {
   text-decoration: none;
-  color: #467;
+  color: var(--links-color);
 }
 
 a:hover {
@@ -205,7 +263,7 @@ blockquote {
 }
 
 blockquote p {
-  color: #333;
+  color: var(--text-color-1);
 }
 
 blockquote:before {
@@ -357,6 +415,47 @@ blockquote footer:before {
 .cm-s-default .cm-string-2 {color: #740;}
 .cm-s-default .cm-tag, .sandbox-output-symbol {color: #170;}
 
+[data-theme="dark"] .cm-s-default .cm-header { color: blue; }
+[data-theme="dark"] .cm-s-default .cm-quote { color: #24C2C7; }
+
+[data-theme="dark"] .cm-s-default .cm-keyword { color: #cda869; }
+[data-theme="dark"] .cm-s-default .cm-atom { color: #CF7EA9; }
+[data-theme="dark"] .cm-s-default .cm-number { color: #78CF8A; }
+[data-theme="dark"] .cm-s-default .cm-def { color: #aac6e3; }
+[data-theme="dark"] .cm-s-default .cm-variable { color: #ffb795; }
+[data-theme="dark"] .cm-s-default .cm-variable-2 { color: #eed1b3; }
+[data-theme="dark"] .cm-s-default .cm-variable-3, [data-theme="dark"] .cm-s-default .cm-type { color: #faded3; }
+[data-theme="dark"] .cm-s-default .cm-property { color: #eed1b3; }
+[data-theme="dark"] .cm-s-default .cm-operator { color: #fa8d6a; }
+[data-theme="dark"] .cm-s-default .cm-comment { color: #999; font-style:italic; }
+[data-theme="dark"] .cm-s-default .cm-string { color: #8f9d6a; }
+[data-theme="dark"] .cm-s-default .cm-string-2 { color: #9d937c; }
+[data-theme="dark"] .cm-s-default .cm-meta { color: #D2A8A1; }
+[data-theme="dark"] .cm-s-default .cm-qualifier { color: yellow; }
+[data-theme="dark"] .cm-s-default .cm-builtin { color: #9999cc; }
+[data-theme="dark"] .cm-s-default .cm-bracket { color: #24C2C7; }
+[data-theme="dark"] .cm-s-default .cm-tag { color: #fee4ff; }
+[data-theme="dark"] .cm-s-default .cm-attribute { color: #9B859D; }
+[data-theme="dark"] .cm-s-default .cm-hr { color: pink; }
+[data-theme="dark"] .cm-s-default .cm-link { color: #F4C20B; }
+[data-theme="dark"] .cm-s-default .cm-special { color: #FF9D00; }
+[data-theme="dark"] .cm-s-default .cm-error { color: #AF2018; }
+
+[data-theme="dark"] .cm-s-default .CodeMirror-matchingbracket { color: #0f0; }
+[data-theme="dark"] .cm-s-default .CodeMirror-nonmatchingbracket { color: #f22; }
+
+[data-theme="dark"] .CodeMirror {
+  background-color: #333;
+  color: #f8f8f8;
+
+}
+
+
+[data-theme="dark"] .CodeMirror-cursor {
+  border-left: 1px solid #f6f6f6 !important;
+
+}
+
 .CodeMirror {
   height: auto;
   line-height: 1.35;
@@ -452,6 +551,9 @@ div.solution:before {
 div.solution {
   color: #156;
   cursor: pointer;
+}
+[data-theme="dark"] div.solution {
+  color: #fff;
 }
 
 div.solution-text {
