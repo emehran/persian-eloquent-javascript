@@ -75,7 +75,7 @@ html, body {
 }
 
 .theme-switch {
-  position: fixed;
+  position: absolute;
   top: 10px;
   left: 10px;
   border-radius: 61%;
