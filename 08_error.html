@@ -472,8 +472,6 @@
 <span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-variable">box</span>.<span class="cm-property">locked</span>);
 <span class="cm-comment">// → true</span></pre>
 
-<p>برای برداشتن گامی بیشتر، مطمئن شوید که اگر تابع <code>withBoxUnlocked</code> را در هنگام باز بودن جعبه فراخوانی می کنید، جعبه باز باقی بماند.</p>
-
 <div class="solution"><div class="solution-text">
 
 <p>این تابع به یک بلاک <code>finally</code> نیاز دارد. تابع شما ابتدا باید جعبه را باز کند سپس تابع موجود در آرگومان را از درون یک بلاک <code>try</code> فراخوانی کند. بلاک <code>finally</code> بعد از آن باید جعبه را دوباره قفل کند.</p>
